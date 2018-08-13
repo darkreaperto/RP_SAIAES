@@ -30,49 +30,57 @@ public class frmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
-        jToolBar1 = new javax.swing.JToolBar();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        dpn_principal = new javax.swing.JDesktopPane();
+        tlb_modulos = new javax.swing.JToolBar();
+        btn_facturacion = new javax.swing.JButton();
+        mnb_principal = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAI-AES");
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout dpn_principalLayout = new javax.swing.GroupLayout(dpn_principal);
+        dpn_principal.setLayout(dpn_principalLayout);
+        dpn_principalLayout.setHorizontalGroup(
+            dpn_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1270, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        dpn_principalLayout.setVerticalGroup(
+            dpn_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 506, Short.MAX_VALUE)
         );
 
-        jToolBar1.setRollover(true);
+        tlb_modulos.setRollover(true);
+
+        btn_facturacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_facturacion.png"))); // NOI18N
+        btn_facturacion.setText("Facturación");
+        btn_facturacion.setFocusable(false);
+        btn_facturacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_facturacion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlb_modulos.add(btn_facturacion);
 
         jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        mnb_principal.add(jMenu1);
 
         jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        mnb_principal.add(jMenu2);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(mnb_principal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tlb_modulos, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDesktopPane1))
+                .addComponent(dpn_principal))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(dpn_principal)
+            .addComponent(tlb_modulos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -116,10 +124,11 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JButton btn_facturacion;
+    private javax.swing.JDesktopPane dpn_principal;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JMenuBar mnb_principal;
+    private javax.swing.JToolBar tlb_modulos;
     // End of variables declaration//GEN-END:variables
 }
