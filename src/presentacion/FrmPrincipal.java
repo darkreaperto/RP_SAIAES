@@ -60,7 +60,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         dpn_principal.setLayout(dpn_principalLayout);
         dpn_principalLayout.setHorizontalGroup(
             dpn_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1244, Short.MAX_VALUE)
+            .addGap(0, 1250, Short.MAX_VALUE)
         );
         dpn_principalLayout.setVerticalGroup(
             dpn_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,7 +76,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         tlb_modulos.add(jSeparator1);
 
         btn_facturacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_facturacion.png"))); // NOI18N
-        btn_facturacion.setText(" Facturación ");
+        btn_facturacion.setText(" Facturación");
         btn_facturacion.setFocusable(false);
         btn_facturacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_facturacion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -91,7 +91,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         tlb_modulos.add(jSeparator2);
 
         btn_inventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_inventario.png"))); // NOI18N
-        btn_inventario.setText("   Inventario  ");
+        btn_inventario.setText("  Inventario  ");
         btn_inventario.setFocusable(false);
         btn_inventario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_inventario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -106,7 +106,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         tlb_modulos.add(jSeparator3);
 
         btn_consultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_consulta.png"))); // NOI18N
-        btn_consultas.setText("   Consultas  ");
+        btn_consultas.setText("  Consultas  ");
         btn_consultas.setFocusable(false);
         btn_consultas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_consultas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -121,7 +121,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         tlb_modulos.add(jSeparator4);
 
         btn_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_cliente.png"))); // NOI18N
-        btn_clientes.setText("    Clientes    ");
+        btn_clientes.setText("   Clientes    ");
         btn_clientes.setFocusable(false);
         btn_clientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_clientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -199,9 +199,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(tlb_modulos, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dpn_principal)
+                .addComponent(tlb_modulos, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(dpn_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
