@@ -240,7 +240,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_maquinariaActionPerformed
 
     private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
-        ItnFrmUsuario moduloUsuario = new ItnFrmUsuario();
+        ItnFrmUsuario moduloUsuario = ItnFrmUsuario.getInstancia();
         moduloUsuario.setVisible(true);
         dpn_principal.add(moduloUsuario);
     }//GEN-LAST:event_btn_usuariosActionPerformed

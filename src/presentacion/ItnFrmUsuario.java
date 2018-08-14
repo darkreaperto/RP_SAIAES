@@ -10,12 +10,20 @@ package presentacion;
  * @author ahoihanabi
  */
 public class ItnFrmUsuario extends javax.swing.JInternalFrame {
-
+    
+    private static ItnFrmUsuario instancia = null;
     /**
      * Creates new form intfrmUsuario
      */
-    public ItnFrmUsuario() {
+    protected ItnFrmUsuario() {
         initComponents();
+    }
+    
+    public static ItnFrmUsuario getInstancia() {
+        if (instancia == null) {
+            instancia = new ItnFrmUsuario();
+        }
+        return instancia;
     }
 
     /**
