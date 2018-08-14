@@ -12,7 +12,7 @@ import javax.swing.JFrame;
  * @author ahoihanabi
  */
 public class FrmPrincipal extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form frmPrincipal
      */
@@ -242,7 +242,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
         ItnFrmUsuario moduloUsuario = ItnFrmUsuario.getInstancia();
         moduloUsuario.setVisible(true);
-        dpn_principal.add(moduloUsuario);
+        ItnFrmUsuario.getInstancia().setVisible(true);
+        try { dpn_principal.add(ItnFrmUsuario.getInstancia()); } catch (Exception e) {}
     }//GEN-LAST:event_btn_usuariosActionPerformed
 
     /**
