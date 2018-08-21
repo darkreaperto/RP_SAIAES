@@ -159,7 +159,7 @@
                                               <Component id="pw_crear_contra" alignment="0" min="-2" pref="294" max="-2" attributes="0"/>
                                               <Component id="lbl_crear_nombreUsuario2" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="75" max="32767" attributes="0"/>
+                                          <EmptySpace pref="78" max="32767" attributes="0"/>
                                           <Component id="btn_crearUsuario" min="-2" pref="159" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
@@ -229,19 +229,16 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JPasswordField" name="pw_crear_contra">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JPasswordField" name="pw_crear_confContra">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btn_crearUsuario">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Crear Usuario"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_crearUsuarioActionPerformed"/>
+                  </Events>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="scpnl_tbl_usuarioCreado">
 
@@ -299,6 +296,7 @@
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="bg_crear_rol"/>
                         </Property>
+                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="Est&#xe1;ndar"/>
                       </Properties>
                     </Component>

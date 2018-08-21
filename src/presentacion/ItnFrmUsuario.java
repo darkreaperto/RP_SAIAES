@@ -5,6 +5,17 @@
  */
 package presentacion;
 
+import bd.Conexion;
+import bd.AESEncrypt;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import logica.Usuario;
+import util.MessageHelper;
+import util.MessageType;
+import util.Rol;
+
 /**
  *
  * @author ahoihanabi
@@ -12,11 +23,25 @@ package presentacion;
 public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     
     private static ItnFrmUsuario instancia = null;
+    private static Conexion conexion;
+    private static AESEncrypt crypter;
+    private static Mensaje mensaje;
+    
+    private static ArrayList<Usuario> usuarios;
+    
     /**
      * Creates new form intfrmUsuario
      */
     protected ItnFrmUsuario() {
         initComponents();
+        
+        //Inicializar variables
+        conexion = Conexion.getInstancia();
+        crypter = new AESEncrypt();
+        crypter.addKey("SAI");
+        mensaje = new Mensaje();
+        
+        obtenerUsuarios();
     }
     
     public static ItnFrmUsuario getInstancia() {
@@ -24,6 +49,86 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             instancia = new ItnFrmUsuario();
         }
         return instancia;
+    }
+    
+    public void obtenerUsuarios() {
+        try {
+            String consulta = "SELECT cod_Usuarios, nombre_Usuarios, clave_Usuarios, cod_RolUsuar"
+                       + " FROM Usuarios";
+            
+            conexion.abrirConexion();
+            ResultSet result = conexion.ejecutarConsulta(consulta);
+
+            String codUsuario = "";
+            String nombreUsuario = "";
+            String claveUsuario = "";
+            String codRolUsuario = "";
+
+            while (result.next()) {
+                codUsuario = result.getString("cod_Usuarios");
+                nombreUsuario = result.getString("nombre_Usuarios");
+                claveUsuario = result.getString("clave_Usuarios");
+                codRolUsuario = result.getString("cod_RolUsuar");
+                
+                System.out.println("Codigo: " + codUsuario + 
+                                    "\nNombre: " + nombreUsuario + 
+                                    "\nClave: " + claveUsuario + 
+                                    "\nRol: " + codRolUsuario);
+                
+                Usuario usuario = new Usuario(nombreUsuario, claveUsuario);
+                usuarios.add(usuario);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        finally {
+            conexion.cerrarConexion();
+        }
+    }
+    
+    public void crearUsuario(String nombre, String contra, Rol rol) {
+        
+        //Código de rol de usuario. 1: Administrador, 2: Estándar
+        int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
+        contra = crypter.encriptar(contra);
+        
+        try {
+            String consulta = "INSERT INTO `Usuarios`(`cod_Usuarios`, "
+                    + "`nombre_Usuarios`, `clave_Usuarios`, `cod_RolUsuar`) "
+                    + "VALUES (NULL, '" + nombre + "', '" + contra + "', " + codRol + ")";
+            
+            conexion.abrirConexion();
+            conexion.ejecutarActualizar(consulta);
+
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        finally {
+            conexion.cerrarConexion();
+        }
+    }
+    
+    private void mostrarMensaje(MessageType tipo, MessageHelper msg) {
+        
+        int pan;
+        
+        switch (tipo) {
+            case INFORMATION:
+                pan = JOptionPane.INFORMATION_MESSAGE;
+                break;
+            case WARNING:
+                pan = JOptionPane.WARNING_MESSAGE;
+                break;
+            case ERROR:
+                pan = JOptionPane.ERROR_MESSAGE;
+                break;
+            default:
+                pan = JOptionPane.INFORMATION_MESSAGE;
+                break;
+        }
+        
+        JOptionPane.showMessageDialog(null, mensaje.obtenerMensaje(msg), tipo.toString(), pan);
     }
 
     /**
@@ -108,11 +213,12 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
         lbl_crear_nombreUsuario2.setText("Confirmar Contraseña:");
 
-        pw_crear_contra.setText("jPasswordField1");
-
-        pw_crear_confContra.setText("jPasswordField1");
-
         btn_crearUsuario.setText("Crear Usuario");
+        btn_crearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_crearUsuarioActionPerformed(evt);
+            }
+        });
 
         tbl_usuarioCreado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -130,6 +236,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Rol de Usuarios:"));
 
         bg_crear_rol.add(rb_crear_rolEstandar);
+        rb_crear_rolEstandar.setSelected(true);
         rb_crear_rolEstandar.setText("Estándar");
 
         bg_crear_rol.add(rb_crear_rolAdmin);
@@ -174,7 +281,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                                     .addComponent(pw_crear_confContra, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(pw_crear_contra, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbl_crear_nombreUsuario2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                                 .addComponent(btn_crearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnl_crearLayout.createSequentialGroup()
                                 .addComponent(lbl_crear_nombreUsuario1)
@@ -267,6 +374,27 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearUsuarioActionPerformed
+        String nombre =  txt_crear_nombreUsuario.getText();
+        String contra =  new String(pw_crear_contra.getPassword());
+        String contraConf =  new String(pw_crear_confContra.getPassword());
+        Rol rol = rb_crear_rolEstandar.isSelected() ? Rol.Estándar : Rol.Administrador;
+        
+        if (!nombre.isEmpty()) {
+            if (!contra.isEmpty()) {
+                if (contra.equals(contraConf)) {
+                    crearUsuario(nombre, contra, rol);
+                } else {
+                    mostrarMensaje(MessageType.INFORMATION, MessageHelper.MISMATCHING_PASSWORD_FIELDS);
+                }
+            } else {
+                mostrarMensaje(MessageType.INFORMATION, MessageHelper.EMPTY_PASSWORD_FIELD);
+            }
+        } else {
+            mostrarMensaje(MessageType.INFORMATION, MessageHelper.EMPTY_USERNAME_FIELD);
+        }
+    }//GEN-LAST:event_btn_crearUsuarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
