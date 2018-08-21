@@ -31,6 +31,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         dpn_principal = new javax.swing.JDesktopPane();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
         tlb_modulos = new javax.swing.JToolBar();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btn_facturacion = new javax.swing.JButton();
@@ -50,21 +52,33 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnbtn_archivo = new javax.swing.JMenu();
         mnbtn_editar = new javax.swing.JMenu();
         mnbtn_ver = new javax.swing.JMenu();
-        mnbtn_ayuda = new javax.swing.JMenu();
         mnbtn_salir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAI-AES");
 
+        dpn_principal.setLayer(jTextField1, javax.swing.JLayeredPane.MODAL_LAYER);
+        dpn_principal.setLayer(jTextField2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout dpn_principalLayout = new javax.swing.GroupLayout(dpn_principal);
         dpn_principal.setLayout(dpn_principalLayout);
         dpn_principalLayout.setHorizontalGroup(
             dpn_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1250, Short.MAX_VALUE)
+            .addGroup(dpn_principalLayout.createSequentialGroup()
+                .addGap(147, 147, 147)
+                .addGroup(dpn_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField1)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+                .addContainerGap(852, Short.MAX_VALUE))
         );
         dpn_principalLayout.setVerticalGroup(
             dpn_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(dpn_principalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tlb_modulos.setFloatable(false);
@@ -186,9 +200,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnbtn_ver.setText("Ver");
         mnb_principal.add(mnbtn_ver);
 
-        mnbtn_ayuda.setText("Ayuda");
-        mnb_principal.add(mnbtn_ayuda);
-
         mnbtn_salir.setText("Salir");
         mnb_principal.add(mnbtn_salir);
 
@@ -200,16 +211,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(tlb_modulos, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(dpn_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dpn_principal)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlb_modulos, javax.swing.GroupLayout.PREFERRED_SIZE, 721, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dpn_principal)
+                .addContainerGap())
         );
 
         pack();
@@ -256,12 +270,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            /*for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Linux".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
-            }
+            }*/
+            javax.swing.UIManager.setLookAndFeel(
+            javax.swing.UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -300,9 +316,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JToolBar.Separator jSeparator6;
     private javax.swing.JToolBar.Separator jSeparator7;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JMenuBar mnb_principal;
     private javax.swing.JMenu mnbtn_archivo;
-    private javax.swing.JMenu mnbtn_ayuda;
     private javax.swing.JMenu mnbtn_editar;
     private javax.swing.JMenu mnbtn_salir;
     private javax.swing.JMenu mnbtn_ver;
