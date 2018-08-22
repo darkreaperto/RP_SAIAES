@@ -143,9 +143,9 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         bg_crear_rol = new javax.swing.ButtonGroup();
-        entityManager0 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("sai_aes?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
-        usuariosQuery = java.beans.Beans.isDesignTime() ? null : entityManager0.createQuery("SELECT u FROM Usuarios u");
-        usuariosList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : usuariosQuery.getResultList();
+        entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("sai_aes?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
+        usuarios_1Query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT u FROM Usuarios_1 u");
+        usuarios_1List = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : usuarios_1Query.getResultList();
         pnl_modUsuario = new javax.swing.JPanel();
         tb_modUsuario_permisos = new javax.swing.JTabbedPane();
         pnl_listado = new javax.swing.JPanel();
@@ -169,11 +169,9 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
 
-        entityManager0.setFlushMode(javax.persistence.FlushModeType.AUTO);
-
         jLabel1.setText("Buscar usuario: ");
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, usuariosList, jTable1);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, usuarios_1List, jTable1);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codUsuarios}"));
         columnBinding.setColumnName("Cod Usuarios");
         columnBinding.setColumnClass(Long.class);
@@ -414,7 +412,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crear_rol;
     private javax.swing.JButton btn_crearUsuario;
-    private javax.persistence.EntityManager entityManager0;
+    private javax.persistence.EntityManager entityManager;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
@@ -436,8 +434,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbl_usuarioCreado;
     private javax.swing.JTextField txt_crear_nombreUsuario;
     private javax.swing.JTextField txt_listado_buscar;
-    private java.util.List<presentacion.Usuarios> usuariosList;
-    private javax.persistence.Query usuariosQuery;
+    private java.util.List<presentacion.Usuarios_1> usuarios_1List;
+    private javax.persistence.Query usuarios_1Query;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
