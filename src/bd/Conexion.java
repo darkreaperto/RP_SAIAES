@@ -71,12 +71,12 @@ public final class Conexion {
     }
     
     public int ejecutarActualizar(String consulta) throws SQLException {
-        int res = 0;
+        int res = -1;
         try {
             //abrirConexion();
             //sentencia.executeQuery(consulta);
             sentencia = conexion.createStatement();
-            sentencia.executeUpdate(consulta);
+            res = sentencia.executeUpdate(consulta);
         }
         catch (SQLException ex) {
             System.err.println(ex);

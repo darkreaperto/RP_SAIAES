@@ -53,6 +53,9 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     
     public void obtenerUsuarios() {
         try {
+            //Para no instanciar los usuarios sin necesidad
+            usuarios = usuarios == null ? new ArrayList<>() : usuarios;
+            
             String consulta = "SELECT cod_Usuarios, nombre_Usuarios, "
                             + "clave_Usuarios, cod_RolUsuar"
                             + " FROM Usuarios";
@@ -60,10 +63,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             conexion.abrirConexion();
             ResultSet result = conexion.ejecutarConsulta(consulta);
 
-            String codUsuario = "";
-            String nombreUsuario = "";
-            String claveUsuario = "";
-            String codRolUsuario = "";
+            String codUsuario = "", nombreUsuario = "", claveUsuario = "", 
+                    codRolUsuario = "";
 
             while (result.next()) {
                 codUsuario = result.getString("cod_Usuarios");
@@ -77,7 +78,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                                     "\nRol: " + codRolUsuario);
                 
                 Usuario usuario = new Usuario(nombreUsuario, claveUsuario);
-                //usuarios.add(usuario);
+                usuarios.add(usuario);
             }
 
         } catch (SQLException ex) {
@@ -88,19 +89,20 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         }
     }
     
-    public void crearUsuario(String nombre, String contra, Rol rol) {
+    public boolean crearUsuario(String nombre, String contra, Rol rol) {
         
         //Código de rol de usuario. 1: Administrador, 2: Estándar
         int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
         contra = crypter.encriptar(contra);
         
+        boolean res = false;
         try {
             String consulta = "INSERT INTO `Usuarios`(`cod_Usuarios`, "
                     + "`nombre_Usuarios`, `clave_Usuarios`, `cod_RolUsuar`) "
                     + "VALUES (NULL, '" + nombre + "', '" + contra + "', " + codRol + ")";
             
             conexion.abrirConexion();
-            conexion.ejecutarActualizar(consulta);
+            res = conexion.ejecutarActualizar(consulta) != -1;
 
         } catch (SQLException ex) {
             System.err.println(ex);
@@ -108,6 +110,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         finally {
             conexion.cerrarConexion();
         }
+        return res;
     }
     
     private void mostrarMensaje(MessageType tipo, MessageHelper msg) {
@@ -388,23 +391,29 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearUsuarioActionPerformed
+        
         String nombre =  txt_crear_nombreUsuario.getText();
         String contra =  new String(pw_crear_contra.getPassword());
         String contraConf =  new String(pw_crear_confContra.getPassword());
+        //Si el radio button rol Estándar está seleccionado
         Rol rol = rb_crear_rolEstandar.isSelected() ? Rol.Estándar : Rol.Administrador;
         
         if (!nombre.isEmpty()) {
             if (!contra.isEmpty()) {
                 if (contra.equals(contraConf)) {
-                    crearUsuario(nombre, contra, rol);
+                    if (crearUsuario(nombre, contra, rol)) {
+                        mostrarMensaje(MessageType.INFORMATION, MessageHelper.USER_INSERTION_SUCCESS);
+                    } else {
+                        mostrarMensaje(MessageType.ERROR, MessageHelper.USER_INSERTION_FAILURE);
+                    }
                 } else {
-                    mostrarMensaje(MessageType.INFORMATION, MessageHelper.MISMATCHING_PASSWORD_FIELDS);
+                    mostrarMensaje(MessageType.WARNING, MessageHelper.MISMATCHING_PASSWORD_FIELDS);
                 }
             } else {
-                mostrarMensaje(MessageType.INFORMATION, MessageHelper.EMPTY_PASSWORD_FIELD);
+                mostrarMensaje(MessageType.WARNING, MessageHelper.EMPTY_PASSWORD_FIELD);
             }
         } else {
-            mostrarMensaje(MessageType.INFORMATION, MessageHelper.EMPTY_USERNAME_FIELD);
+            mostrarMensaje(MessageType.WARNING, MessageHelper.EMPTY_USERNAME_FIELD);
         }
     }//GEN-LAST:event_btn_crearUsuarioActionPerformed
 
