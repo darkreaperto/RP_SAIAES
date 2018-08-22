@@ -27,6 +27,12 @@ public class Mensaje {
             case MISMATCHING_PASSWORD_FIELDS:
                 msg = "Las contraseñas no coinciden";
                 break;
+            case USER_INSERTION_SUCCESS:
+                msg = "La creación del usuario ha sido éxitosa";
+                break;
+            case USER_INSERTION_FAILURE:
+                msg = "Ha ocurrido un error en la creación del usuario";
+                break;
             default:
                 msg = "¡Ups! ¡Algo no ha salido bien!";
                 break;
