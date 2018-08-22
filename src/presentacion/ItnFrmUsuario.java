@@ -143,8 +143,12 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         bg_crear_rol = new javax.swing.ButtonGroup();
+        entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("sai_aes?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
+        usuarios_1Query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT u FROM Usuarios_1 u");
+        usuarios_1List = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : usuarios_1Query.getResultList();
         pnl_modUsuario = new javax.swing.JPanel();
         tb_modUsuario_permisos = new javax.swing.JTabbedPane();
         pnl_listado = new javax.swing.JPanel();
@@ -169,6 +173,22 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
 
         jLabel1.setText("Buscar usuario: ");
+
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, usuarios_1List, jTable1);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codUsuarios}"));
+        columnBinding.setColumnName("Cod Usuarios");
+        columnBinding.setColumnClass(Long.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreUsuarios}"));
+        columnBinding.setColumnName("Nombre Usuarios");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${claveUsuarios}"));
+        columnBinding.setColumnName("Clave Usuarios");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codRolUsuar}"));
+        columnBinding.setColumnName("Cod Rol Usuar");
+        columnBinding.setColumnClass(Long.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
 
         jScrollPane1.setViewportView(jTable1);
 
@@ -365,6 +385,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             .addComponent(pnl_modUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -399,6 +421,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crear_rol;
     private javax.swing.JButton btn_crearUsuario;
+    private javax.persistence.EntityManager entityManager;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
@@ -420,5 +443,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbl_usuarioCreado;
     private javax.swing.JTextField txt_crear_nombreUsuario;
     private javax.swing.JTextField txt_listado_buscar;
+    private java.util.List<presentacion.Usuarios_1> usuarios_1List;
+    private javax.persistence.Query usuarios_1Query;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
