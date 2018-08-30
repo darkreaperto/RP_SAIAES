@@ -243,6 +243,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         moduloUsuario.setVisible(true);
         ItnFrmUsuario.getInstancia().setVisible(true);
         try { dpn_principal.add(ItnFrmUsuario.getInstancia()); } catch (Exception e) {}
+        
     }//GEN-LAST:event_btn_usuariosActionPerformed
 
     /**

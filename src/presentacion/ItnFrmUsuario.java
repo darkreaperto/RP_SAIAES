@@ -15,6 +15,8 @@ import logica.Usuario;
 import util.MessageHelper;
 import util.MessageType;
 import util.Rol;
+import controladores.Ctr_Recover;
+import controladores.Ctr_Mail;
 
 /**
  *
@@ -26,6 +28,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private static Conexion conexion;
     private static AESEncrypt crypter;
     private static Mensaje mensaje;
+    private static Ctr_Recover recover;
+    private static Ctr_Mail mail;
     
     private static ArrayList<Usuario> usuarios;
     
@@ -57,27 +61,29 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             usuarios = usuarios == null ? new ArrayList<>() : usuarios;
             
             String consulta = "SELECT cod_Usuarios, nombre_Usuarios, "
-                            + "clave_Usuarios, cod_RolUsuar"
-                            + " FROM Usuarios";
+                            + "clave_Usuarios, correo_Usuarios, desc_RolUsuar"
+                            + " FROM Usuarios u, RolUsuarios r"
+                            + " WHERE r.cod_RolUsuar = u.cod_RolUsuar";
             
             conexion.abrirConexion();
             ResultSet result = conexion.ejecutarConsulta(consulta);
 
             String codUsuario = "", nombreUsuario = "", claveUsuario = "", 
-                    codRolUsuario = "";
+                    correoUsuario = "", codRolUsuario = "";
 
             while (result.next()) {
                 codUsuario = result.getString("cod_Usuarios");
                 nombreUsuario = result.getString("nombre_Usuarios");
                 claveUsuario = result.getString("clave_Usuarios");
-                codRolUsuario = result.getString("cod_RolUsuar");
+                correoUsuario = result.getString("correo_Usuarios");
+                codRolUsuario = result.getString("desc_RolUsuar");
                 
                 System.out.println("Codigo: " + codUsuario + 
                                     "\nNombre: " + nombreUsuario + 
                                     "\nClave: " + claveUsuario + 
                                     "\nRol: " + codRolUsuario);
                 
-                Usuario usuario = new Usuario(nombreUsuario, claveUsuario);
+                Usuario usuario = new Usuario(nombreUsuario, claveUsuario, correoUsuario);
                 usuarios.add(usuario);
             }
 
@@ -113,6 +119,19 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         return res;
     }
     
+    private int obtenerCorreo(String usuario) {
+        int correoIndice = -1;
+        
+        for (Usuario u : usuarios) {
+            if (u.getNombre().equals(usuario)) {
+                correoIndice = usuarios.indexOf(u);
+                break;
+            }
+        }
+        
+        return correoIndice;
+    }
+    
     private void mostrarMensaje(MessageType tipo, MessageHelper msg) {
         
         int pan;
@@ -146,9 +165,19 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         bg_crear_rol = new javax.swing.ButtonGroup();
-        entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("sai_aes?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
-        usuarios_1Query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT u FROM Usuarios_1 u");
+        entityManager0 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("sai_aes?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
+        usuarios_1Query = java.beans.Beans.isDesignTime() ? null : entityManager0.createQuery("SELECT u FROM Usuarios_1 u");
         usuarios_1List = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : usuarios_1Query.getResultList();
+        pnl_recuperar_clave = new javax.swing.JPanel();
+        txt_correo_recClv = new javax.swing.JTextField();
+        txt_usuario_recClv = new javax.swing.JTextField();
+        btn_confUsuario_recClv = new javax.swing.JButton();
+        txt_codigoConf_recClv = new javax.swing.JTextField();
+        btn_enviarConf_recClv = new javax.swing.JButton();
+        btn_codigoConf_recClv = new javax.swing.JButton();
+        txt_nuevaClave_recClv = new javax.swing.JTextField();
+        txt_nuevaClaveConf_recClv = new javax.swing.JTextField();
+        btn_nuevaClave_recClv = new javax.swing.JButton();
         pnl_modUsuario = new javax.swing.JPanel();
         tb_modUsuario_permisos = new javax.swing.JTabbedPane();
         pnl_listado = new javax.swing.JPanel();
@@ -156,6 +185,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         txt_listado_buscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         pnl_crear = new javax.swing.JPanel();
         txt_crear_nombreUsuario = new javax.swing.JTextField();
         lbl_crear_nombreUsuario = new javax.swing.JLabel();
@@ -172,25 +202,127 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
 
+        pnl_recuperar_clave.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnl_recuperar_clave.setPreferredSize(new java.awt.Dimension(590, 280));
+
+        txt_correo_recClv.setDisabledTextColor(new java.awt.Color(51, 51, 51));
+        txt_correo_recClv.setEnabled(false);
+
+        btn_confUsuario_recClv.setText("Confirmar usuario");
+        btn_confUsuario_recClv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_confUsuario_recClvActionPerformed(evt);
+            }
+        });
+
+        txt_codigoConf_recClv.setDisabledTextColor(new java.awt.Color(51, 51, 51));
+        txt_codigoConf_recClv.setEnabled(false);
+
+        btn_enviarConf_recClv.setText("Enviar correo recuperación");
+        btn_enviarConf_recClv.setEnabled(false);
+        btn_enviarConf_recClv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_enviarConf_recClvActionPerformed(evt);
+            }
+        });
+
+        btn_codigoConf_recClv.setText("Confirmar código");
+        btn_codigoConf_recClv.setEnabled(false);
+        btn_codigoConf_recClv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_codigoConf_recClvActionPerformed(evt);
+            }
+        });
+
+        txt_nuevaClave_recClv.setDisabledTextColor(new java.awt.Color(51, 51, 51));
+        txt_nuevaClave_recClv.setEnabled(false);
+
+        txt_nuevaClaveConf_recClv.setDisabledTextColor(new java.awt.Color(51, 51, 51));
+        txt_nuevaClaveConf_recClv.setEnabled(false);
+
+        btn_nuevaClave_recClv.setText("Restablecer contraseña");
+        btn_nuevaClave_recClv.setEnabled(false);
+        btn_nuevaClave_recClv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_nuevaClave_recClvActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnl_recuperar_claveLayout = new javax.swing.GroupLayout(pnl_recuperar_clave);
+        pnl_recuperar_clave.setLayout(pnl_recuperar_claveLayout);
+        pnl_recuperar_claveLayout.setHorizontalGroup(
+            pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_recuperar_claveLayout.createSequentialGroup()
+                .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_recuperar_claveLayout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txt_correo_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_usuario_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnl_recuperar_claveLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_nuevaClaveConf_recClv, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(txt_nuevaClave_recClv)
+                            .addComponent(txt_codigoConf_recClv))))
+                .addGap(18, 18, 18)
+                .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_confUsuario_recClv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_enviarConf_recClv, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(btn_codigoConf_recClv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_nuevaClave_recClv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
+        );
+        pnl_recuperar_claveLayout.setVerticalGroup(
+            pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_recuperar_claveLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_usuario_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_confUsuario_recClv))
+                .addGap(18, 18, 18)
+                .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_correo_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_enviarConf_recClv))
+                .addGap(44, 44, 44)
+                .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_codigoConf_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_codigoConf_recClv))
+                .addGap(18, 18, 18)
+                .addComponent(txt_nuevaClave_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_nuevaClaveConf_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_nuevaClave_recClv))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
         jLabel1.setText("Buscar usuario: ");
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, usuarios_1List, jTable1);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codUsuarios}"));
-        columnBinding.setColumnName("Cod Usuarios");
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codRolUsuar}"));
+        columnBinding.setColumnName("Cod Rol Usuar");
         columnBinding.setColumnClass(Long.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreUsuarios}"));
-        columnBinding.setColumnName("Nombre Usuarios");
-        columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${claveUsuarios}"));
         columnBinding.setColumnName("Clave Usuarios");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codRolUsuar}"));
-        columnBinding.setColumnName("Cod Rol Usuar");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreUsuarios}"));
+        columnBinding.setColumnName("Nombre Usuarios");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codUsuarios}"));
+        columnBinding.setColumnName("Cod Usuarios");
         columnBinding.setColumnClass(Long.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
 
         jScrollPane1.setViewportView(jTable1);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_listadoLayout = new javax.swing.GroupLayout(pnl_listado);
         pnl_listado.setLayout(pnl_listadoLayout);
@@ -198,13 +330,15 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_listadoLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addGroup(pnl_listadoLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_listado_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGroup(pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addGroup(pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1)
+                        .addGroup(pnl_listadoLayout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txt_listado_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         pnl_listadoLayout.setVerticalGroup(
             pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,7 +347,9 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 .addGroup(pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txt_listado_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -233,17 +369,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        tbl_usuarioCreado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
         scpnl_tbl_usuarioCreado.setViewportView(tbl_usuarioCreado);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Rol de Usuarios:"));
@@ -417,11 +542,86 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btn_crearUsuarioActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        pnl_recuperar_clave.setVisible(true);
+        pnl_recuperar_clave.setBounds(0, 0, 590, 280);
+        pnl_modUsuario.setVisible(false);
+        this.add(pnl_recuperar_clave);
+        //this.pack();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btn_confUsuario_recClvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confUsuario_recClvActionPerformed
+        String usuario = txt_usuario_recClv.getText();
+        
+        if (!usuario.isEmpty()) {
+            int correoIndice = obtenerCorreo(usuario);
+            
+            if (correoIndice > 0) {
+                txt_correo_recClv.setText(usuarios.get(correoIndice).getCorreo());
+                //Se habilita el boton de enviar correo
+                btn_enviarConf_recClv.setEnabled(true);
+                
+            } else {
+                
+            }
+        } else {
+            mostrarMensaje(MessageType.WARNING, MessageHelper.EMPTY_USERNAME_FIELD);
+        }
+    }//GEN-LAST:event_btn_confUsuario_recClvActionPerformed
+
+    private void btn_enviarConf_recClvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviarConf_recClvActionPerformed
+        String correo = txt_correo_recClv.getText();
+        
+        if (!correo.isEmpty()) {
+            recover = new Ctr_Recover(correo);
+            mail = new Ctr_Mail();
+            
+            boolean enviarCorreo = mail.enviarCorreoRecuperacion(correo, recover.getCodigo());
+            
+            if (enviarCorreo) {
+                //Habilitar campo para ingresar codigo de recuperacion
+                txt_codigoConf_recClv.setEnabled(true);
+                //Habilitar boton para confirmar codigo de recuperacion
+                btn_codigoConf_recClv.setEnabled(true);
+            } else {
+                
+            }
+        } else {
+            
+        }
+    }//GEN-LAST:event_btn_enviarConf_recClvActionPerformed
+
+    private void btn_codigoConf_recClvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_codigoConf_recClvActionPerformed
+        String correo = txt_correo_recClv.getText();
+        String codigo = txt_codigoConf_recClv.getText();
+        
+        if (!codigo.isEmpty()) {
+            if (recover.confirmarCodigo(correo, codigo)) {
+                txt_nuevaClave_recClv.setEnabled(true);
+                txt_nuevaClaveConf_recClv.setEnabled(true);
+                btn_nuevaClave_recClv.setEnabled(true);
+            } else {
+                
+            }
+        } else {
+            
+        }
+    }//GEN-LAST:event_btn_codigoConf_recClvActionPerformed
+
+    private void btn_nuevaClave_recClvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevaClave_recClvActionPerformed
+        
+    }//GEN-LAST:event_btn_nuevaClave_recClvActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crear_rol;
+    private javax.swing.JButton btn_codigoConf_recClv;
+    private javax.swing.JButton btn_confUsuario_recClv;
     private javax.swing.JButton btn_crearUsuario;
-    private javax.persistence.EntityManager entityManager;
+    private javax.swing.JButton btn_enviarConf_recClv;
+    private javax.swing.JButton btn_nuevaClave_recClv;
+    private javax.persistence.EntityManager entityManager0;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
@@ -434,6 +634,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnl_crear;
     private javax.swing.JPanel pnl_listado;
     private javax.swing.JPanel pnl_modUsuario;
+    private javax.swing.JPanel pnl_recuperar_clave;
     private javax.swing.JPasswordField pw_crear_confContra;
     private javax.swing.JPasswordField pw_crear_contra;
     private javax.swing.JRadioButton rb_crear_rolAdmin;
@@ -441,8 +642,13 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane scpnl_tbl_usuarioCreado;
     private javax.swing.JTabbedPane tb_modUsuario_permisos;
     private javax.swing.JTable tbl_usuarioCreado;
+    private javax.swing.JTextField txt_codigoConf_recClv;
+    private javax.swing.JTextField txt_correo_recClv;
     private javax.swing.JTextField txt_crear_nombreUsuario;
     private javax.swing.JTextField txt_listado_buscar;
+    private javax.swing.JTextField txt_nuevaClaveConf_recClv;
+    private javax.swing.JTextField txt_nuevaClave_recClv;
+    private javax.swing.JTextField txt_usuario_recClv;
     private java.util.List<presentacion.Usuarios_1> usuarios_1List;
     private javax.persistence.Query usuarios_1Query;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;

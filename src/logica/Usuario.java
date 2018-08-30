@@ -13,14 +13,16 @@ public class Usuario {
     
     private String nombre;
     private String contrasenna;
+    private String correo;
     
     public Usuario(String nombre) {
         setNombre(nombre);
     }
     
-    public Usuario(String nombre, String contrasenna) {
+    public Usuario(String nombre, String contrasenna, String correo) {
         setNombre(nombre);
         setContrasenna(contrasenna);
+        setCorreo(correo);
     }
 
     /**
@@ -51,5 +53,12 @@ public class Usuario {
         this.contrasenna = contrasenna;
     }
     
+    public String getCorreo() {
+        return correo;
+    }
+    
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
     
 }
