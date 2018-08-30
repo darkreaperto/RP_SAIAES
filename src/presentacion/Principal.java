@@ -17,5 +17,6 @@ public class Principal {
       FrmPrincipal ventana = new FrmPrincipal();
       ventana.setVisible(true);
       ventana.setLocationRelativeTo(null);
+      //ItnFrmAccesoUsuario acceso = new ItnFrmAccesoUsuario();
     }
 }
