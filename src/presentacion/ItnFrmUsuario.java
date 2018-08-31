@@ -22,19 +22,20 @@ import util.Rol;
  * @author ahoihanabi
  */
 public class ItnFrmUsuario extends javax.swing.JInternalFrame {
-    
+
     private static ItnFrmUsuario instancia = null;
     private static Conexion conexion;
     private static AESEncrypt crypter;
     private static Mensaje mensaje;    
     private static CtrUsuario controlador;    
     private static ArrayList<Usuario> lista;
-    private DefaultTableModel model; 
+    private DefaultTableModel model;
+
     /**
      * Creates new form intfrmUsuario
      */
     protected ItnFrmUsuario() {
-        initComponents();        
+        initComponents();
         //Inicializar variables
         conexion = Conexion.getInstancia();
         controlador = CtrUsuario.getInstancia();
@@ -45,7 +46,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         updateTables();
         
     }
-    
+
     public static ItnFrmUsuario getInstancia() {
         if (instancia == null) {
             instancia = new ItnFrmUsuario();
@@ -171,7 +172,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             }
         }
     }
-    
+
     public void updateTables() {
         lista.clear();
         lista = controlador.obtenerUsuarios();
@@ -181,6 +182,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         mostrarUsuariosJTable(tbl_habilitar, false);
         mostrarUsuariosJTable(tbl_actPermisos, true);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -198,6 +200,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         txt_listado_buscar = new javax.swing.JTextField();
         scpnl_tbl_usuarioListado = new javax.swing.JScrollPane();
         tbl_usuarioListado = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         pnl_crear = new javax.swing.JPanel();
         lbl_crear_nombreUsuario = new javax.swing.JLabel();
         txt_crear_nombreUsuario = new javax.swing.JTextField();
@@ -276,6 +279,13 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             }
         });
         scpnl_tbl_usuarioListado.setViewportView(tbl_usuarioListado);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_listadoLayout = new javax.swing.GroupLayout(pnl_listado);
         pnl_listado.setLayout(pnl_listadoLayout);
@@ -748,7 +758,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             pnl_modUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_modUsuarioLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(tb_modUsuario_permisos)
+                .addComponent(tb_modUsuario_permisos, javax.swing.GroupLayout.DEFAULT_SIZE, 1136, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnl_modUsuarioLayout.setVerticalGroup(
@@ -779,16 +789,16 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
     private void btn_crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearUsuarioActionPerformed
         Mensaje msg = new Mensaje();
-        
-        String nombre =  txt_crear_nombreUsuario.getText();
-        String contra =  new String(pw_crear_contra.getPassword());
-        String contraConf =  new String(pw_crear_confContra.getPassword());
-        String correo =  txt_crear_correo.getText();
+
+        String nombre = txt_crear_nombreUsuario.getText();
+        String contra = new String(pw_crear_contra.getPassword());
+        String contraConf = new String(pw_crear_confContra.getPassword());
+        String correo = txt_crear_correo.getText();
         //Si el radio button rol Estándar está seleccionado
         Rol rol = rb_crear_rolEstandar.isSelected() ? Rol.Estándar : Rol.Administrador;
-        
+
         if (!nombre.isEmpty()) {
-            if(!correo.isEmpty()) {
+            if (!correo.isEmpty()) {
                 if (!contra.isEmpty()) {
                     if (contra.equals(contraConf)) {                    
                         if (controlador.crearUsuario(nombre, contra, correo, rol)) {
@@ -805,18 +815,38 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 }
             } else {
                 msg.mostrarMensaje(MessageType.WARNING, MessageHelper.EMPTY_EMAIL_FIELD);
-            }            
+            }
         } else {
             msg.mostrarMensaje(MessageType.WARNING, MessageHelper.EMPTY_USERNAME_FIELD);
         }
     }//GEN-LAST:event_btn_crearUsuarioActionPerformed
-        
+
     private void btn_actualiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualiUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_actualiUsuarioActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btn_confUsuario_recClvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confUsuario_recClvActionPerformed
+
+    }//GEN-LAST:event_btn_confUsuario_recClvActionPerformed
+
+    private void btn_enviarConf_recClvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviarConf_recClvActionPerformed
+
+    }//GEN-LAST:event_btn_enviarConf_recClvActionPerformed
+
+    private void btn_codigoConf_recClvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_codigoConf_recClvActionPerformed
+
+    }//GEN-LAST:event_btn_codigoConf_recClvActionPerformed
+
+    private void btn_nuevaClave_recClvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevaClave_recClvActionPerformed
+
+    }//GEN-LAST:event_btn_nuevaClave_recClvActionPerformed
+
     private void tbl_usuarioListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_usuarioListadoMouseClicked
-        model = (DefaultTableModel)tbl_usuarioListado.getModel();
+        model = (DefaultTableModel) tbl_usuarioListado.getModel();
         int selectedRowIndex = tbl_usuarioListado.getSelectedRow();
         String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
         
@@ -828,8 +858,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbl_usuarioListadoMouseClicked
 
     private void tbl_deshabilitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_deshabilitarMouseClicked
-        try {             
-            model = (DefaultTableModel)tbl_deshabilitar.getModel();
+        try {
+            model = (DefaultTableModel) tbl_deshabilitar.getModel();
             int selectedRowIndex = tbl_deshabilitar.getSelectedRow();
             String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
             
@@ -864,8 +894,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 }
             }
         } catch (Exception ex) {
-            
-        }        
+
+        }
     }//GEN-LAST:event_tbl_actPermisosMouseClicked
 
     private void btn_actPermiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actPermiActionPerformed
@@ -888,8 +918,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
     private void tbl_usuarioListadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_usuarioListadoKeyReleased
         try {
-            if(evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
-                model = (DefaultTableModel)tbl_usuarioListado.getModel();
+            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+                model = (DefaultTableModel) tbl_usuarioListado.getModel();
                 int selectedRowIndex = tbl_usuarioListado.getSelectedRow();
                 String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
                 
@@ -922,10 +952,18 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         }        
     }//GEN-LAST:event_btn_deshabilitarActionPerformed
 
+    private void tbl_actualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_actualizarMouseClicked
+        
+    }//GEN-LAST:event_tbl_actualizarMouseClicked
+
+    private void tbl_actualizarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_actualizarKeyReleased
+        
+    }//GEN-LAST:event_tbl_actualizarKeyReleased
+
     private void tbl_actPermisosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_actPermisosKeyReleased
-        try { 
-            if(evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
-                model = (DefaultTableModel)tbl_actPermisos.getModel();
+        try {
+            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+                model = (DefaultTableModel) tbl_actPermisos.getModel();
                 int selectedRowIndex = tbl_actPermisos.getSelectedRow();
                 String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
                 
@@ -939,16 +977,16 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                         }                        
                     }
                 }
-            }            
+            }
         } catch (Exception ex) {
-            
-        }  
+
+        }
     }//GEN-LAST:event_tbl_actPermisosKeyReleased
 
     private void tbl_deshabilitarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_deshabilitarKeyReleased
-        try { 
-            if(evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
-                model = (DefaultTableModel)tbl_deshabilitar.getModel();
+        try {
+            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+                model = (DefaultTableModel) tbl_deshabilitar.getModel();
                 int selectedRowIndex = tbl_deshabilitar.getSelectedRow();
                 String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
                 
@@ -961,10 +999,10 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                         }                        
                     }
                 }
-            }            
+            }
         } catch (Exception ex) {
-            
-        } 
+
+        }
     }//GEN-LAST:event_tbl_deshabilitarKeyReleased
 
     private void tbl_habilitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_habilitarMouseClicked
@@ -1016,6 +1054,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_actualiUsuario;
     private javax.swing.JButton btn_crearUsuario;
     private javax.swing.JButton btn_deshabilitar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lbl_actPermi_selectUsuario;
     private javax.swing.JLabel lbl_actuali_nombreUsuario;
     private javax.swing.JLabel lbl_actuali_nombreUsuario1;

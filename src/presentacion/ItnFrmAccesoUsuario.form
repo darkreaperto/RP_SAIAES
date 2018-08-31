@@ -1,6 +1,108 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+  <NonVisualComponents>
+    <Container class="javax.swing.JPanel" name="pnl_recuperar_clave">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="txt_usuario_recClv" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txt_correo_recClv" alignment="0" pref="290" max="32767" attributes="0"/>
+                      <Component id="txt_codigoConf_recClv" alignment="0" pref="290" max="32767" attributes="0"/>
+                      <Component id="txt_nuevaClave_recClv" alignment="0" pref="290" max="32767" attributes="0"/>
+                      <Component id="txt_nuevaClaveConf_recClv" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="btn_confUsuario_recClv" alignment="0" pref="270" max="32767" attributes="0"/>
+                      <Component id="btn_nuevaClave_recClv" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btn_enviarConf_recClv" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btn_codigoConf_recClv" alignment="1" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txt_usuario_recClv" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_confUsuario_recClv" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txt_correo_recClv" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_enviarConf_recClv" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txt_codigoConf_recClv" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_codigoConf_recClv" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txt_nuevaClave_recClv" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_nuevaClave_recClv" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="txt_nuevaClaveConf_recClv" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="71" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JTextField" name="txt_usuario_recClv">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txt_codigoConf_recClv">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txt_correo_recClv">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txt_nuevaClave_recClv">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txt_nuevaClaveConf_recClv">
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_nuevaClave_recClv">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jButton2"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_nuevaClave_recClvActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_confUsuario_recClv">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jButton2"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_confUsuario_recClvActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_enviarConf_recClv">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jButton2"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_enviarConf_recClvActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_codigoConf_recClv">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jButton2"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_codigoConf_recClvActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+  </NonVisualComponents>
   <Properties>
     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
       <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
