@@ -18,9 +18,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     public FrmPrincipal() {
         initComponents();
+        acceso();
+    }
+    public void accessLocation() {
         
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,7 +61,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         dpn_principal.setLayout(dpn_principalLayout);
         dpn_principalLayout.setHorizontalGroup(
             dpn_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1194, Short.MAX_VALUE)
+            .addGap(0, 1239, Short.MAX_VALUE)
         );
         dpn_principalLayout.setVerticalGroup(
             dpn_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,7 +200,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addComponent(tlb_modulos, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(dpn_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,8 +245,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
         moduloUsuario.setVisible(true);
         ItnFrmUsuario.getInstancia().setVisible(true);
         try { dpn_principal.add(ItnFrmUsuario.getInstancia()); } catch (Exception e) {}
+        
     }//GEN-LAST:event_btn_usuariosActionPerformed
-
+    public void acceso()   {
+        btn_usuarios.setEnabled(false);
+        btn_consultas.setEnabled(false);
+        btn_facturacion.setEnabled(false);
+        btn_inventario.setEnabled(false);
+        btn_maquinaria.setEnabled(false);
+        btn_proveedor.setEnabled(false);
+        btn_clientes.setEnabled(false);
+        
+        //JDesktopPane dpn_principal1 = new JDesktopPane();
+        ItnFrmAccesoUsuario moduloUsuarioAcceso = ItnFrmAccesoUsuario.getInstancia();
+        moduloUsuarioAcceso.setVisible(true);
+        ItnFrmAccesoUsuario.getInstancia().setVisible(true);        
+        try { dpn_principal.add(ItnFrmAccesoUsuario.getInstancia()); } catch (Exception e) {}
+        moduloUsuarioAcceso.setLocation(300, 200);               
+    }
     /**
      * @param args the command line arguments
      */
@@ -280,7 +298,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                frame.setVisible(true);
+                frame.setVisible(true);       
             }
         });
     }
