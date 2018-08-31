@@ -14,9 +14,9 @@ public class Principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-      FrmPrincipal ventana = new FrmPrincipal();
-      ventana.setVisible(true);
-      ventana.setLocationRelativeTo(null);
-      //ItnFrmAccesoUsuario acceso = new ItnFrmAccesoUsuario();
+        FrmPrincipal ventana = new FrmPrincipal();
+        ventana.setVisible(true);
+        ventana.setLocationRelativeTo(null);
+        //ItnFrmAccesoUsuario acceso = new ItnFrmAccesoUsuario();
     }
 }

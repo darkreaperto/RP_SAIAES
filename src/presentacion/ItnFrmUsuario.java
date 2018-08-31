@@ -8,15 +8,11 @@ package presentacion;
 import util.Estado;
 import bd.Conexion;
 import bd.AESEncrypt;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import controladores.CtrUsuario;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import logica.Usuario;
-import org.jdesktop.swingbinding.JTableBinding;
 import util.MessageHelper;
 import util.MessageType;
 import util.Rol;
@@ -31,7 +27,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private static Conexion conexion;
     private static AESEncrypt crypter;
     private static Mensaje mensaje;    
-    private static ArrayList<Usuario> usuarios;
+    private static CtrUsuario controlador;    
+    //private static ArrayList<Usuario> usuarios;
     private static ArrayList<Usuario> lista;
     private DefaultTableModel model; 
     /**
@@ -41,11 +38,13 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         initComponents();        
         //Inicializar variables
         conexion = Conexion.getInstancia();
+        controlador = CtrUsuario.getInstancia();
         crypter = new AESEncrypt();
         crypter.addKey("SAI");
         mensaje = new Mensaje();
-        lista = obtenerUsuarios();
+        lista = controlador.obtenerUsuarios();
         updateTables();
+        
     }
     
     public static ItnFrmUsuario getInstancia() {
@@ -55,121 +54,133 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         return instancia;
     }
     
-    public ArrayList<Usuario> obtenerUsuarios() {
-        try {
-            //Para no instanciar los usuarios sin necesidad
-            usuarios = usuarios == null ? new ArrayList<>() : usuarios;
-            
-            String consulta = "SELECT cod_Usuarios, nombre_Usuarios, "
-                            + "clave_Usuarios, correo_Usuarios, cod_RolUsuar, estado_Usuarios"
-                            + " FROM Usuarios";            
-            conexion.abrirConexion();
-            ResultSet result = conexion.ejecutarConsulta(consulta);
-
-            String codUsuario = "", nombreUsuario = "", claveUsuario = "", 
-                   correoUsuario = "", codRolUsuario = "", estadoUsuario = "";
-
-            while (result.next()) {
-                codUsuario = result.getString("cod_Usuarios");
-                nombreUsuario = result.getString("nombre_Usuarios");
-                claveUsuario = result.getString("clave_Usuarios");
-                correoUsuario = result.getString("correo_Usuarios");
-                codRolUsuario = result.getString("cod_RolUsuar"); 
-                estadoUsuario = result.getString("estado_Usuarios");
-//                System.out.println("**Codigo: " + codUsuario + 
-//                                    "\nNombre: " + nombreUsuario + 
-//                                    "\nClave: " + claveUsuario + 
-//                                    "\nRol: " + codRolUsuario);
-                Usuario usuario = new Usuario(codUsuario, nombreUsuario, claveUsuario, 
-                                        correoUsuario, codRolUsuario, estadoUsuario);
-                if (!usuarios.contains(usuario))
-                    usuarios.add(usuario);                
-            }
-
-        } catch (SQLException ex) {
-            System.err.println(ex);
-        }
-        finally {
-            conexion.cerrarConexion();
-        }
-        return usuarios;
+//    public ArrayList<Usuario> obtenerUsuarios() {
+//        try {
+//            //Para no instanciar los usuarios sin necesidad
+//            usuarios = usuarios == null ? new ArrayList<>() : usuarios;
+//            
+//            String consulta = "SELECT cod_Usuarios, nombre_Usuarios, "
+//                            + "clave_Usuarios, correo_Usuarios, cod_RolUsuar, estado_Usuarios"
+//                            + " FROM Usuarios";            
+//            conexion.abrirConexion();
+//            ResultSet result = conexion.ejecutarConsulta(consulta);
+//
+//            String codUsuario = "", nombreUsuario = "", claveUsuario = "", 
+//                   correoUsuario = "", codRolUsuario = "", estadoUsuario = "";
+//
+//            while (result.next()) {
+//                codUsuario = result.getString("cod_Usuarios");
+//                nombreUsuario = result.getString("nombre_Usuarios");
+//                claveUsuario = result.getString("clave_Usuarios");
+//                correoUsuario = result.getString("correo_Usuarios");
+//                codRolUsuario = result.getString("cod_RolUsuar"); 
+//                estadoUsuario = result.getString("estado_Usuarios");
+////                System.out.println("**Codigo: " + codUsuario + 
+////                                    "\nNombre: " + nombreUsuario + 
+////                                    "\nClave: " + claveUsuario + 
+////                                    "\nRol: " + codRolUsuario);
+//                Usuario usuario = new Usuario(codUsuario, nombreUsuario, claveUsuario, 
+//                                        correoUsuario, codRolUsuario, estadoUsuario);
+//                if (!usuarios.contains(usuario))
+//                    usuarios.add(usuario);                
+//            }
+//
+//        } catch (SQLException ex) {
+//            System.err.println(ex);
+//        }
+//        finally {
+//            conexion.cerrarConexion();
+//        }
+//        return usuarios;
+//    }
+    public void getActualUser() {
+        //txt_actuali_nombreUsuario.setText(lista.get(i).getNombre());  FALTA TENER USUARIO EN SESIÓN
     }
+//    public boolean crearUsuario(String nombre, String contra, String correo, Rol rol) {
+//        
+//        //Código de rol de usuario. 1: Administrador, 2: Estándar
+//        int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
+//        contra = crypter.encriptar(contra);
+//        
+//        boolean res = false;
+//        try {
+//            String consulta = "INSERT INTO `Usuarios`(`cod_Usuarios`, "
+//                    + "`nombre_Usuarios`, `clave_Usuarios`, `correo_Usuarios`,"
+//                    + " `cod_RolUsuar`, `estado_Usuarios`) "
+//                    + "VALUES (NULL, '" + nombre + "', '" + contra + "', '" 
+//                                + correo + "', " + codRol + ", 'A' )";
+//            
+//            conexion.abrirConexion();
+//            res = conexion.ejecutarActualizar(consulta) != -1;
+//
+//        } catch (SQLException ex) {
+//            System.err.println(ex);
+//        }
+//        finally {
+//            conexion.cerrarConexion();
+//        }
+//        return res;
+//    }
     
-    public boolean crearUsuario(String nombre, String contra, String correo, Rol rol) {
-        
-        //Código de rol de usuario. 1: Administrador, 2: Estándar
-        int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
-        contra = crypter.encriptar(contra);
-        
-        boolean res = false;
-        try {
-            String consulta = "INSERT INTO `Usuarios`(`cod_Usuarios`, "
-                    + "`nombre_Usuarios`, `clave_Usuarios`, `correo_Usuarios`,"
-                    + " `cod_RolUsuar`, `estado_Usuarios`) "
-                    + "VALUES (NULL, '" + nombre + "', '" + contra + "', '" 
-                                + correo + "', " + codRol + ", 'A' )";
-            
-            conexion.abrirConexion();
-            res = conexion.ejecutarActualizar(consulta) != -1;
-
-        } catch (SQLException ex) {
-            System.err.println(ex);
-        }
-        finally {
-            conexion.cerrarConexion();
-        }
-        return res;
-    }
+//    public boolean updateUsuario( String nombre, String contra, String correo, Rol rol, Estado estado, int codigo) {
+//        //Código de rol de usuario. 1: Administrador, 2: Estándar
+//        int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
+//        //contra = crypter.encriptar(contra);
+//        String state = estado.equals(Estado.Activo) ? "A" : "I";
+//        boolean res = false;
+//        try {
+//            String consulta =  "UPDATE Usuarios"+ 
+//                               " SET nombre_Usuarios = '"+nombre+"', "+ 
+//                               " clave_Usuarios = '"+contra+"' , correo_Usuarios = '"+correo+"', "+
+//                               " cod_RolUsuar = "+codRol+", estado_Usuarios = '"+state+"' "+
+//                               " WHERE cod_Usuarios = "+codigo+";";
+//            conexion.abrirConexion();
+//            res = conexion.ejecutarActualizar(consulta) != -1;
+//
+//        } catch (SQLException ex) {
+//            System.err.println(ex);
+//        }
+//        finally {
+//            conexion.cerrarConexion();
+//        }
+//        return res;
+//    }
     
-    public boolean updateUsuario( String nombre, String contra, String correo, Rol rol, Estado estado, int codigo) {
-        //Código de rol de usuario. 1: Administrador, 2: Estándar
-        int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
-        //contra = crypter.encriptar(contra);
-        String state = estado.equals(Estado.Activo) ? "A" : "I";
-        boolean res = false;
-        try {
-            String consulta =  "UPDATE Usuarios"+ 
-                               " SET nombre_Usuarios = '"+nombre+"', "+ 
-                               " clave_Usuarios = '"+contra+"' , correo_Usuarios = '"+correo+"', "+
-                               " cod_RolUsuar = "+codRol+", estado_Usuarios = '"+state+"' "+
-                               " WHERE cod_Usuarios = "+codigo+";";
-            conexion.abrirConexion();
-            res = conexion.ejecutarActualizar(consulta) != -1;
-
-        } catch (SQLException ex) {
-            System.err.println(ex);
-        }
-        finally {
-            conexion.cerrarConexion();
-        }
-        return res;
-    }
-    
-    public void mostrarUsuariosJTable(JTable tabla) {
-        Object[] row = new Object[6];        
+    public void mostrarUsuariosJTable(JTable tabla, boolean estado) {
+        Object[] row = new Object[5];        
         model = (DefaultTableModel)tabla.getModel();         
         model.setRowCount(0);
-
         for(int i = 0; i < lista.size(); i++) {
-            row[0] = lista.get(i).getCodigo();
-            row[1] = lista.get(i).getNombre();
-            row[2] = lista.get(i).getContrasenna();
-            row[3] = lista.get(i).getCorreo();
-            row[4] = lista.get(i).getRol();
-            row[5] = lista.get(i).getEstado();
-            
-            model.addRow(row);
+                                                   
+            if(lista.get(i).getEstado().equals("A") && estado) {
+                row[0] = lista.get(i).getCodigo();
+                row[1] = lista.get(i).getNombre();
+                row[2] = lista.get(i).getContrasenna();
+                row[3] = lista.get(i).getCorreo();
+                row[4] = lista.get(i).getRol();
+                //row[5] = lista.get(i).getEstado();
+                model.addRow(row);
+            }
+            if(lista.get(i).getEstado().equals("I") && !estado) {
+                row[0] = lista.get(i).getCodigo();
+                row[1] = lista.get(i).getNombre();
+                row[2] = lista.get(i).getContrasenna();
+                row[3] = lista.get(i).getCorreo();
+                row[4] = lista.get(i).getRol();
+                //row[5] = lista.get(i).getEstado();
+                model.addRow(row);
+            }
         }
     }
     
     public void updateTables() {
         lista.clear();
-        lista = obtenerUsuarios();
-        mostrarUsuariosJTable(tbl_usuarioListado);
-        mostrarUsuariosJTable(tbl_usuarioCreado);        
-        mostrarUsuariosJTable(tbl_actualizar);
-        mostrarUsuariosJTable(tbl_deshabilitar);
-        mostrarUsuariosJTable(tbl_actPermisos);
+        lista = controlador.obtenerUsuarios();
+        mostrarUsuariosJTable(tbl_usuarioListado, true);
+        mostrarUsuariosJTable(tbl_usuarioCreado, true);
+        mostrarUsuariosJTable(tbl_deshabilitar, true);
+        mostrarUsuariosJTable(tbl_habilitar, false);
+        mostrarUsuariosJTable(tbl_actPermisos, true);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -203,6 +214,25 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         btn_crearUsuario = new javax.swing.JButton();
         scpnl_tbl_usuarioCreado = new javax.swing.JScrollPane();
         tbl_usuarioCreado = new javax.swing.JTable();
+        pnl_deshabilitar = new javax.swing.JPanel();
+        lbl_deshab_selectUsuario = new javax.swing.JLabel();
+        pnl_deshab_deshabContainer = new javax.swing.JPanel();
+        rb_deshab_deshabilitar = new javax.swing.JRadioButton();
+        rb_deshab_habilitar = new javax.swing.JRadioButton();
+        btn_deshabilitar = new javax.swing.JButton();
+        tb_deshab = new javax.swing.JTabbedPane();
+        scpnl_tbl_usuarioDeshab = new javax.swing.JScrollPane();
+        tbl_deshabilitar = new javax.swing.JTable();
+        scpnl_tbl_usuarioHabilitar = new javax.swing.JScrollPane();
+        tbl_habilitar = new javax.swing.JTable();
+        pnl_actualizarPermisos = new javax.swing.JPanel();
+        lbl_actPermi_selectUsuario = new javax.swing.JLabel();
+        pnl_actPermi_rolContainer = new javax.swing.JPanel();
+        rb_actPermi_estandar = new javax.swing.JRadioButton();
+        rb_actPermi_Admin = new javax.swing.JRadioButton();
+        btn_actPermi = new javax.swing.JButton();
+        scpnl_tbl_usuarioActPermiso = new javax.swing.JScrollPane();
+        tbl_actPermisos = new javax.swing.JTable();
         pnl_actualizar = new javax.swing.JPanel();
         lbl_actuali_nombreUsuario = new javax.swing.JLabel();
         txt_actuali_nombreUsuario = new javax.swing.JTextField();
@@ -213,24 +243,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         pw_actuali_confNewPass = new javax.swing.JPasswordField();
         lbl_actuali_nombreUsuario1 = new javax.swing.JLabel();
         txt_actuali_correo = new javax.swing.JTextField();
-        scpnl_tbl_usuarioCreado1 = new javax.swing.JScrollPane();
-        tbl_actualizar = new javax.swing.JTable();
-        pnl_deshabilitar = new javax.swing.JPanel();
-        scpnl_tbl_usuarioDeshab = new javax.swing.JScrollPane();
-        tbl_deshabilitar = new javax.swing.JTable();
-        lbl_deshab_selectUsuario = new javax.swing.JLabel();
-        pnl_deshab_deshabContainer = new javax.swing.JPanel();
-        rb_deshab_deshabilitar = new javax.swing.JRadioButton();
-        rb_deshab_habilitar = new javax.swing.JRadioButton();
-        btn_deshabilitar = new javax.swing.JButton();
-        pnl_actualizarPermisos = new javax.swing.JPanel();
-        lbl_actPermi_selectUsuario = new javax.swing.JLabel();
-        pnl_actPermi_rolContainer = new javax.swing.JPanel();
-        rb_actPermi_estandar = new javax.swing.JRadioButton();
-        rb_actPermi_Admin = new javax.swing.JRadioButton();
-        btn_actPermi = new javax.swing.JButton();
-        scpnl_tbl_usuarioActPermiso = new javax.swing.JScrollPane();
-        tbl_actPermisos = new javax.swing.JTable();
+        pw_actuali_lastpass = new javax.swing.JPasswordField();
+        lbl_actuali_nombreUsuario2 = new javax.swing.JLabel();
 
         pnl_modUsuario.setPreferredSize(new java.awt.Dimension(1239, 680));
 
@@ -241,11 +255,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol", "Estado"
+                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -349,11 +363,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol", "Estado"
+                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -423,139 +437,12 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
         tb_modUsuario_permisos.addTab("Crear", pnl_crear);
 
-        lbl_actuali_nombreUsuario.setText("Nombre de Usuario:");
-
-        txt_actuali_nombreUsuario.setNextFocusableComponent(txt_actuali_correo);
-
-        lbl_actuali_passActual.setText("Nueva Contraseña:");
-
-        btn_actualiUsuario.setText("Actualizar Usuario");
-        btn_actualiUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_actualiUsuarioActionPerformed(evt);
-            }
-        });
-
-        lbl_actuali_passNew.setText("Confirmar Contraseña:");
-
-        lbl_actuali_nombreUsuario1.setText("Correo Electrónico:");
-
-        txt_actuali_correo.setNextFocusableComponent(btn_actualiUsuario);
-
-        tbl_actualizar.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol", "Estado"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tbl_actualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tbl_actualizar.setUpdateSelectionOnSort(false);
-        tbl_actualizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbl_actualizarMouseClicked(evt);
-            }
-        });
-        tbl_actualizar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tbl_actualizarKeyReleased(evt);
-            }
-        });
-        scpnl_tbl_usuarioCreado1.setViewportView(tbl_actualizar);
-
-        javax.swing.GroupLayout pnl_actualizarLayout = new javax.swing.GroupLayout(pnl_actualizar);
-        pnl_actualizar.setLayout(pnl_actualizarLayout);
-        pnl_actualizarLayout.setHorizontalGroup(
-            pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbl_actuali_nombreUsuario)
-                            .addComponent(lbl_actuali_nombreUsuario1)
-                            .addComponent(txt_actuali_nombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
-                            .addComponent(txt_actuali_correo))
-                        .addGap(75, 75, 75)
-                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbl_actuali_passActual)
-                            .addComponent(lbl_actuali_passNew)
-                            .addComponent(pw_actuali_confNewPass, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
-                            .addComponent(pw_actuali_newPass))
-                        .addGap(190, 190, 190)
-                        .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(scpnl_tbl_usuarioCreado1, javax.swing.GroupLayout.PREFERRED_SIZE, 1029, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(72, Short.MAX_VALUE))
-        );
-        pnl_actualizarLayout.setVerticalGroup(
-            pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_actuali_nombreUsuario)
-                    .addComponent(lbl_actuali_passActual))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_actuali_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pw_actuali_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_actuali_nombreUsuario1)
-                    .addComponent(lbl_actuali_passNew))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_actuali_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pw_actuali_confNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addComponent(scpnl_tbl_usuarioCreado1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
-        );
-
-        tb_modUsuario_permisos.addTab("Actualizar", pnl_actualizar);
-
-        tbl_deshabilitar.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol", "Estado"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tbl_deshabilitar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbl_deshabilitarMouseClicked(evt);
-            }
-        });
-        tbl_deshabilitar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tbl_deshabilitarKeyReleased(evt);
-            }
-        });
-        scpnl_tbl_usuarioDeshab.setViewportView(tbl_deshabilitar);
-
         lbl_deshab_selectUsuario.setText("Seleccionar Usuario:");
 
         pnl_deshab_deshabContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Activo:"));
 
         bg_crear_rol.add(rb_deshab_deshabilitar);
+        rb_deshab_deshabilitar.setSelected(true);
         rb_deshab_deshabilitar.setText("Deshabilitar");
         rb_deshab_deshabilitar.setNextFocusableComponent(btn_deshabilitar);
 
@@ -589,19 +476,79 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        tbl_deshabilitar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl_deshabilitar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_deshabilitarMouseClicked(evt);
+            }
+        });
+        tbl_deshabilitar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tbl_deshabilitarKeyReleased(evt);
+            }
+        });
+        scpnl_tbl_usuarioDeshab.setViewportView(tbl_deshabilitar);
+
+        tb_deshab.addTab("Deshabilitar", scpnl_tbl_usuarioDeshab);
+
+        tbl_habilitar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl_habilitar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_habilitarMouseClicked(evt);
+            }
+        });
+        tbl_habilitar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tbl_habilitarKeyReleased(evt);
+            }
+        });
+        scpnl_tbl_usuarioHabilitar.setViewportView(tbl_habilitar);
+
+        tb_deshab.addTab("Habilitar", scpnl_tbl_usuarioHabilitar);
+
         javax.swing.GroupLayout pnl_deshabilitarLayout = new javax.swing.GroupLayout(pnl_deshabilitar);
         pnl_deshabilitar.setLayout(pnl_deshabilitarLayout);
         pnl_deshabilitarLayout.setHorizontalGroup(
             pnl_deshabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_deshabilitarLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(pnl_deshabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnl_deshabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lbl_deshab_selectUsuario)
-                    .addComponent(scpnl_tbl_usuarioDeshab, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnl_deshabilitarLayout.createSequentialGroup()
                         .addComponent(pnl_deshab_deshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(576, 576, 576)
-                        .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tb_deshab))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
         pnl_deshabilitarLayout.setVerticalGroup(
@@ -609,23 +556,22 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             .addGroup(pnl_deshabilitarLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(lbl_deshab_selectUsuario)
-                .addGap(35, 35, 35)
-                .addComponent(scpnl_tbl_usuarioDeshab, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(tb_deshab, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addGroup(pnl_deshabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(pnl_deshab_deshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        tb_modUsuario_permisos.addTab("Deshabilitar", pnl_deshabilitar);
+        tb_modUsuario_permisos.addTab("Eliminar", pnl_deshabilitar);
 
         lbl_actPermi_selectUsuario.setText("Seleccionar Usuario:");
 
         pnl_actPermi_rolContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Rol Usuario:"));
 
         bg_crear_rol.add(rb_actPermi_estandar);
-        rb_actPermi_estandar.setSelected(true);
         rb_actPermi_estandar.setText("Estándar");
         rb_actPermi_estandar.setNextFocusableComponent(btn_actPermi);
 
@@ -664,11 +610,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol", "Estado"
+                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -719,6 +665,84 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
         tb_modUsuario_permisos.addTab("Actualizar permisos", pnl_actualizarPermisos);
 
+        lbl_actuali_nombreUsuario.setText("Nombre de Usuario:");
+
+        txt_actuali_nombreUsuario.setNextFocusableComponent(txt_actuali_correo);
+
+        lbl_actuali_passActual.setText("Nueva Contraseña:");
+
+        btn_actualiUsuario.setText("Actualizar Usuario");
+        btn_actualiUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualiUsuarioActionPerformed(evt);
+            }
+        });
+
+        lbl_actuali_passNew.setText("Confirmar Contraseña:");
+
+        lbl_actuali_nombreUsuario1.setText("Correo Electrónico:");
+
+        txt_actuali_correo.setNextFocusableComponent(btn_actualiUsuario);
+
+        lbl_actuali_nombreUsuario2.setText("Correo Electrónico:");
+
+        javax.swing.GroupLayout pnl_actualizarLayout = new javax.swing.GroupLayout(pnl_actualizar);
+        pnl_actualizar.setLayout(pnl_actualizarLayout);
+        pnl_actualizarLayout.setHorizontalGroup(
+            pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_actuali_nombreUsuario2)
+                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(pw_actuali_lastpass, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_actuali_nombreUsuario, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_actuali_nombreUsuario1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_actuali_nombreUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                            .addComponent(txt_actuali_correo, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(129, 129, 129)
+                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbl_actuali_passActual)
+                            .addComponent(lbl_actuali_passNew)
+                            .addComponent(pw_actuali_confNewPass)
+                            .addComponent(pw_actuali_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(384, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(71, 71, 71))
+        );
+        pnl_actualizarLayout.setVerticalGroup(
+            pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_actuali_nombreUsuario)
+                    .addComponent(lbl_actuali_passActual))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_actuali_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pw_actuali_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_actuali_nombreUsuario1)
+                    .addComponent(lbl_actuali_passNew))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_actuali_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pw_actuali_confNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(lbl_actuali_nombreUsuario2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pw_actuali_lastpass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 286, Short.MAX_VALUE)
+                .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
+        );
+
+        tb_modUsuario_permisos.addTab("Actualizar", pnl_actualizar);
+
         javax.swing.GroupLayout pnl_modUsuarioLayout = new javax.swing.GroupLayout(pnl_modUsuario);
         pnl_modUsuario.setLayout(pnl_modUsuarioLayout);
         pnl_modUsuarioLayout.setHorizontalGroup(
@@ -755,7 +779,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearUsuarioActionPerformed
-        
         Mensaje msg = new Mensaje();
         
         String nombre =  txt_crear_nombreUsuario.getText();
@@ -769,8 +792,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             if(!correo.isEmpty()) {
                 if (!contra.isEmpty()) {
                     if (contra.equals(contraConf)) {                    
-                        if (crearUsuario(nombre, contra, correo, rol)) {
-                            System.out.println("-------------------------------------------------------");
+                        if (controlador.crearUsuario(nombre, contra, correo, rol)) {
                             updateTables();
                             msg.mostrarMensaje(MessageType.INFORMATION, MessageHelper.USER_INSERTION_SUCCESS);
                         } else {
@@ -797,36 +819,50 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private void tbl_usuarioListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_usuarioListadoMouseClicked
         model = (DefaultTableModel)tbl_usuarioListado.getModel();
         int selectedRowIndex = tbl_usuarioListado.getSelectedRow();
-        txt_listado_buscar.setText(model.getValueAt(selectedRowIndex,1).toString()); 
+        String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+        
+        for(int i = 0; i<lista.size(); i++) {
+            if(lista.get(i).getCodigo().equals(codigo)) { //Si el codigo coincide
+                txt_listado_buscar.setText(lista.get(i).getNombre());                                    
+            }
+        }
     }//GEN-LAST:event_tbl_usuarioListadoMouseClicked
 
     private void tbl_deshabilitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_deshabilitarMouseClicked
         try {             
             model = (DefaultTableModel)tbl_deshabilitar.getModel();
             int selectedRowIndex = tbl_deshabilitar.getSelectedRow();
+            String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
             
-            if(model.getValueAt(selectedRowIndex, 5).toString().equals("A")) {
-                rb_deshab_habilitar.setSelected(true);
-            } else if(model.getValueAt(selectedRowIndex, 5).toString().equals("I")) {
-                rb_deshab_deshabilitar.setSelected(true);
-            }
-                  
+            for(int i = 0; i<lista.size(); i++) {
+                if(lista.get(i).getCodigo().equals(codigo)) { //Si el codigo coincide                    
+                    if(lista.get(i).getEstado().equals("A")) { //Verifica el tipo de estado
+                        rb_deshab_deshabilitar.setSelected(true);
+                    } else {
+                        rb_deshab_deshabilitar.setSelected(true);
+                    }                        
+                }
+            }            
         } catch (Exception ex) {
             
-        }
-        
+        }        
     }//GEN-LAST:event_tbl_deshabilitarMouseClicked
     //SELECCIONAR Y MOSTRAR INFO EN PANTALLA.
     private void tbl_actPermisosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_actPermisosMouseClicked
+
         try { 
             model = (DefaultTableModel)tbl_actPermisos.getModel();
             int selectedRowIndex = tbl_actPermisos.getSelectedRow();
-            //System.out.print("VALUE "+model.getValueAt(selectedRowIndex, 3).toString());
-
-            if(model.getValueAt(selectedRowIndex, 4).toString().equals("1")) {
-                rb_actPermi_Admin.setSelected(true);
-            } else if(model.getValueAt(selectedRowIndex, 4).toString().equals("2")) {
-                rb_actPermi_estandar.setSelected(true);
+            String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+            
+            for(int i = 0; i<lista.size(); i++) {
+                if(lista.get(i).getCodigo().equals(codigo)) { //Si el codigo coincide
+                    if(lista.get(i).getRol().equals("1")) { //Verifica el tipo de permiso
+                        rb_actPermi_Admin.setSelected(true);
+                    } else {
+                        rb_actPermi_estandar.setSelected(true);
+                    }                        
+                }
             }
         } catch (Exception ex) {
             
@@ -834,7 +870,21 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbl_actPermisosMouseClicked
 
     private void btn_actPermiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actPermiActionPerformed
-        // ACTUALIZAR BD CON NUEVOS PERMISOS
+        try {
+            //--------------------------------------------------------------------COMO MANTENER INFO DE ROL SI NO SE PUEDE PASAR A STRING
+            model = (DefaultTableModel)tbl_actPermisos.getModel();
+            int selectedRowIndex = tbl_actPermisos.getSelectedRow();
+            int codigo = Integer.parseInt(String.valueOf(model.getValueAt(selectedRowIndex, 0)));
+            Rol rol = rb_actPermi_Admin.isSelected() ? Rol.Administrador : Rol.Estándar;
+            
+            controlador.updateUsuario(String.valueOf(model.getValueAt(selectedRowIndex, 1)),
+                    String.valueOf(model.getValueAt(selectedRowIndex, 2)), 
+                    String.valueOf(model.getValueAt(selectedRowIndex, 3)), 
+                    rol, Estado.Activo, codigo);
+            updateTables();
+        } catch (Exception e) {
+            mensaje.mostrarMensaje(MessageType.INFORMATION, MessageHelper.ANY_ROW_SELECTED);
+        }
     }//GEN-LAST:event_btn_actPermiActionPerformed
 
     private void tbl_usuarioListadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_usuarioListadoKeyReleased
@@ -842,65 +892,53 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             if(evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
                 model = (DefaultTableModel)tbl_usuarioListado.getModel();
                 int selectedRowIndex = tbl_usuarioListado.getSelectedRow();
-
-                txt_listado_buscar.setText(model.getValueAt(selectedRowIndex,1).toString());
+                String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+                
+                for(int i = 0; i<lista.size(); i++) {
+                    if(lista.get(i).getCodigo().equals(codigo)) { //Si el codigo coincide
+                        txt_listado_buscar.setText(lista.get(i).getNombre());                                    
+                    }
+                }              
             }
         } catch (Exception ex) {
             
-        }
-        
+        }        
     }//GEN-LAST:event_tbl_usuarioListadoKeyReleased
 
     private void btn_deshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deshabilitarActionPerformed
         try {
+            //--------------------------------------------------------------------COMO MANTENER INFO DE ROL SI NO SE PUEDE PASAR A STRING
             model = (DefaultTableModel)tbl_deshabilitar.getModel();
             int selectedRowIndex = tbl_deshabilitar.getSelectedRow();
             int codigo = Integer.parseInt(String.valueOf(model.getValueAt(selectedRowIndex, 0)));
             Estado estado = rb_deshab_habilitar.isSelected() ? Estado.Activo : Estado.Deshabilitado;
             
-            updateUsuario(String.valueOf(model.getValueAt(selectedRowIndex, 1)),
+            controlador.updateUsuario(String.valueOf(model.getValueAt(selectedRowIndex, 1)),
                     String.valueOf(model.getValueAt(selectedRowIndex, 2)), 
                     String.valueOf(model.getValueAt(selectedRowIndex, 3)), 
                     Rol.Administrador, estado, codigo);
             updateTables();
         } catch (Exception e) {
             mensaje.mostrarMensaje(MessageType.INFORMATION, MessageHelper.ANY_ROW_SELECTED);
-        }
-        
+        }        
     }//GEN-LAST:event_btn_deshabilitarActionPerformed
-
-    private void tbl_actualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_actualizarMouseClicked
-        model = (DefaultTableModel)tbl_actualizar.getModel();
-        int selectedRowIndex = tbl_actualizar.getSelectedRow();
-        txt_actuali_nombreUsuario.setText(model.getValueAt(selectedRowIndex,1).toString()); 
-        txt_actuali_correo.setText(model.getValueAt(selectedRowIndex,3).toString());
-    }//GEN-LAST:event_tbl_actualizarMouseClicked
-
-    private void tbl_actualizarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_actualizarKeyReleased
-        try {
-            if(evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
-                model = (DefaultTableModel)tbl_actualizar.getModel();
-                int selectedRowIndex = tbl_actualizar.getSelectedRow();
-
-                txt_actuali_nombreUsuario.setText(model.getValueAt(selectedRowIndex,1).toString()); 
-                txt_actuali_correo.setText(model.getValueAt(selectedRowIndex,3).toString());
-            }
-        } catch (Exception ex) {
-            
-        }
-    }//GEN-LAST:event_tbl_actualizarKeyReleased
 
     private void tbl_actPermisosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_actPermisosKeyReleased
         try { 
             if(evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
                 model = (DefaultTableModel)tbl_actPermisos.getModel();
                 int selectedRowIndex = tbl_actPermisos.getSelectedRow();
-                //System.out.print("VALUE "+model.getValueAt(selectedRowIndex, 3).toString());
-
-                if(model.getValueAt(selectedRowIndex, 4).toString().equals("1")) {
-                    rb_actPermi_Admin.setSelected(true);
-                } else if(model.getValueAt(selectedRowIndex, 4).toString().equals("2")) {
-                    rb_actPermi_estandar.setSelected(true);
+                String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+                
+                for(int i = 0; i<lista.size(); i++) {
+                    if(lista.get(i).getCodigo().equals(codigo)) { //Si el codigo coincide
+                        if(lista.get(i).getRol().equals("1")) { //Verifica el tipo de permiso
+                            System.out.println(lista.get(i).getNombre());
+                            rb_actPermi_Admin.setSelected(true);
+                        } else {
+                            rb_actPermi_estandar.setSelected(true);
+                        }                        
+                    }
                 }
             }            
         } catch (Exception ex) {
@@ -913,18 +951,65 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             if(evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
                 model = (DefaultTableModel)tbl_deshabilitar.getModel();
                 int selectedRowIndex = tbl_deshabilitar.getSelectedRow();
-                //System.out.print("VALUE "+model.getValueAt(selectedRowIndex, 3).toString());
-
-                if(model.getValueAt(selectedRowIndex, 5).toString().equals("A")) {
-                    rb_deshab_habilitar.setSelected(true);
-                } else if(model.getValueAt(selectedRowIndex, 5).toString().equals("I")) {
-                    rb_deshab_deshabilitar.setSelected(true);
+                String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+                
+                for(int i = 0; i<lista.size(); i++) {
+                    if(lista.get(i).getCodigo().equals(codigo)) { //Si el codigo coincide                                                
+                        if(lista.get(i).getEstado().equals("A")) { //Verifica el tipo de estado
+                            rb_deshab_deshabilitar.setSelected(true);                            
+                        } else {
+                            rb_deshab_deshabilitar.setSelected(true);
+                        }                        
+                    }
                 }
             }            
         } catch (Exception ex) {
             
         } 
     }//GEN-LAST:event_tbl_deshabilitarKeyReleased
+
+    private void tbl_habilitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_habilitarMouseClicked
+        try {             
+            model = (DefaultTableModel)tbl_habilitar.getModel();
+            int selectedRowIndex = tbl_habilitar.getSelectedRow();
+            String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+                
+            for(int i = 0; i<lista.size(); i++) {
+                if(lista.get(i).getCodigo().equals(codigo)) { //Si el codigo coincide
+                    if(lista.get(i).getEstado().equals("A")) { //Verifica el tipo de estado
+                        
+                        rb_deshab_habilitar.setSelected(true);
+                    } else {
+                        rb_deshab_habilitar.setSelected(true);
+                    }                        
+                }
+            }      
+        } catch (Exception ex) {
+            
+        }
+    }//GEN-LAST:event_tbl_habilitarMouseClicked
+
+    private void tbl_habilitarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_habilitarKeyReleased
+        try { 
+            if(evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+                model = (DefaultTableModel)tbl_habilitar.getModel();
+                int selectedRowIndex = tbl_habilitar.getSelectedRow();
+                String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+                
+                for(int i = 0; i<lista.size(); i++) {
+                    if(lista.get(i).getCodigo().equals(codigo)) { //Si el codigo coincide
+                        if(lista.get(i).getEstado().equals("A")) { //Verifica el tipo de estado                            
+                            rb_deshab_habilitar.setSelected(true);
+                        } else {
+                            rb_deshab_habilitar.setSelected(true);
+                        }                        
+                    }
+                }
+            }            
+        } catch (Exception ex) {
+            
+        } 
+    }//GEN-LAST:event_tbl_habilitarKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crear_rol;
@@ -935,6 +1020,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbl_actPermi_selectUsuario;
     private javax.swing.JLabel lbl_actuali_nombreUsuario;
     private javax.swing.JLabel lbl_actuali_nombreUsuario1;
+    private javax.swing.JLabel lbl_actuali_nombreUsuario2;
     private javax.swing.JLabel lbl_actuali_passActual;
     private javax.swing.JLabel lbl_actuali_passNew;
     private javax.swing.JLabel lbl_crear_confirmPassw;
@@ -953,6 +1039,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnl_listado;
     private javax.swing.JPanel pnl_modUsuario;
     private javax.swing.JPasswordField pw_actuali_confNewPass;
+    private javax.swing.JPasswordField pw_actuali_lastpass;
     private javax.swing.JPasswordField pw_actuali_newPass;
     private javax.swing.JPasswordField pw_crear_confContra;
     private javax.swing.JPasswordField pw_crear_contra;
@@ -964,13 +1051,14 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton rb_deshab_habilitar;
     private javax.swing.JScrollPane scpnl_tbl_usuarioActPermiso;
     private javax.swing.JScrollPane scpnl_tbl_usuarioCreado;
-    private javax.swing.JScrollPane scpnl_tbl_usuarioCreado1;
     private javax.swing.JScrollPane scpnl_tbl_usuarioDeshab;
+    private javax.swing.JScrollPane scpnl_tbl_usuarioHabilitar;
     private javax.swing.JScrollPane scpnl_tbl_usuarioListado;
+    private javax.swing.JTabbedPane tb_deshab;
     private javax.swing.JTabbedPane tb_modUsuario_permisos;
     private javax.swing.JTable tbl_actPermisos;
-    private javax.swing.JTable tbl_actualizar;
     private javax.swing.JTable tbl_deshabilitar;
+    private javax.swing.JTable tbl_habilitar;
     private javax.swing.JTable tbl_usuarioCreado;
     private javax.swing.JTable tbl_usuarioListado;
     private javax.swing.JTextField txt_actuali_correo;

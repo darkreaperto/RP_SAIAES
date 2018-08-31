@@ -12,54 +12,59 @@ import java.sql.ResultSet;
  * @author ahoihanabi
  */
 public class Acceso {
-    private String username;
-    private static Conexion conexion = new Conexion();
-    private AESEncrypt crypter = new AESEncrypt();
+    
+    private String usuario;
+//    private static Conexion conexion = new Conexion();
+//    private AESEncrypt crypter = new AESEncrypt();
     
     public Acceso() {
-        crypter.addKey("SAI");        
+        //crypter.addKey("SAI");        
     }
     
-    public void setUsername(String user) {
-        username = user;
+    public void setUsuario(String user) {
+        usuario = user;
     }
     
-    public boolean comparacion(String user, String pass) {
-        boolean go = false;
-        try {
-            conexion.abrirConexion();
-            
-            String sql = "SELECT nombre_Usuarios, clave_Usuarios FROM Usuarios "
-                    + "WHERE nombre_Usuarios = '" + user + "'";
-            
-            ResultSet rs = conexion.ejecutarConsulta(sql);
-            
-            String usernameBD = "";
-            String conBD = "";
-            
-            while (rs.next()) {
-                usernameBD = rs.getString("nombre_Usuarios");
-                conBD = rs.getString("clave_Usuarios");
-                //System.out.println("con " + conBD);
-            }
-            
-            pass = crypter.encriptar(pass);
-            if (user.equals(usernameBD)) {
-                System.out.println("USER " + user + " USERBD " + usernameBD);
-                System.out.println("CON " + pass + " CONBD " + conBD);
-                if (conBD.equals(pass)){
-                    go = true;
-                } else {
-                    go = false;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            conexion.cerrarConexion();
-        }
-        return go;
+    public String getUsuario() {
+        return usuario;
     }
+    
+//    public boolean comparacion(String user, String pass) {
+//        boolean go = false;
+//        try {
+//            conexion.abrirConexion();
+//            
+//            String sql = "SELECT nombre_Usuarios, clave_Usuarios FROM Usuarios "
+//                    + "WHERE nombre_Usuarios = '" + user + "'";
+//            
+//            ResultSet rs = conexion.ejecutarConsulta(sql);
+//            
+//            String usernameBD = "";
+//            String conBD = "";
+//            
+//            while (rs.next()) {
+//                usernameBD = rs.getString("nombre_Usuarios");
+//                conBD = rs.getString("clave_Usuarios");
+//                //System.out.println("con " + conBD);
+//            }
+//            
+//            pass = crypter.encriptar(pass);
+//            if (user.equals(usernameBD)) {
+//                System.out.println("USER " + user + " USERBD " + usernameBD);
+//                System.out.println("CON " + pass + " CONBD " + conBD);
+//                if (conBD.equals(pass)){
+//                    go = true;
+//                } else {
+//                    go = false;
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            conexion.cerrarConexion();
+//        }
+//        return go;
+//    }
 //    private boolean cambiarContrasenna(String pass, String newPass) {
 //
 //        boolean go = false;
@@ -83,6 +88,5 @@ public class Acceso {
 //            e.printStackTrace();
 //        }
 //        return go;
-//    }
-    
+//    }    
 }

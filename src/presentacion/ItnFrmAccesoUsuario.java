@@ -5,6 +5,8 @@
  */
 package presentacion;
 import bd.AESEncrypt;
+import controladores.CtrAcceso;
+import controladores.CtrUsuario;
 import java.awt.Component;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
@@ -21,6 +23,7 @@ import util.MessageType;
 public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     
     private static ItnFrmAccesoUsuario instancia = null;
+    private static CtrAcceso controlador;
     private AESEncrypt crypter = new AESEncrypt();
     Mensaje msg = new Mensaje();
     /**
@@ -28,6 +31,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
      */
     public ItnFrmAccesoUsuario() {
         initComponents();
+        controlador = CtrAcceso.getInstancia();
         crypter.addKey("SAI");
         
         //No mover el internalFrame de acceso
@@ -64,10 +68,10 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     }
     
     public void iniciarSesion() {
-        Acceso a = new Acceso();
+        
         if (!txt_NombreUsuario.getText().isEmpty() && pw_acc_password.getPassword().length > 0) {
             //comprobar contraseña y nombre de usuario
-            if (a.comparacion(txt_NombreUsuario.getText(), new String(pw_acc_password.getPassword()))) {                
+            if (controlador.comparacion(txt_NombreUsuario.getText(), new String(pw_acc_password.getPassword()))) {                
                 entrada();
                 msg.mostrarMensaje(MessageType.INFORMATION, MessageHelper.USER_ACCESS_SUCCESS);
             } else {
