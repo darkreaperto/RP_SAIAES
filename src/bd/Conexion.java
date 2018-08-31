@@ -5,6 +5,7 @@
  */
 package bd;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -12,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
+ * 
  * @author dark-reaper
  */
 public final class Conexion {
@@ -21,29 +22,13 @@ public final class Conexion {
     private Connection conexion;
     private Statement sentencia;
     private ResultSet resultado;
+    private CallableStatement procedimiento;
     
+    /**
+     * 
+     */
     public Conexion() {
         
-    }
-    
-    public void abrirConexion() {
-        try {
-            //?useSSL=false
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost/" + 
-                                                   "sai_aes?useSSL=false", 
-                                                   "usuario", "usuario2018");
-            
-        } catch (SQLException ex) {
-            System.err.println(ex);
-        }
-    }
-    
-    public void cerrarConexion() {
-        try {
-            conexion.close();
-        } catch (SQLException ex) {
-            System.err.println(ex);
-        }
     }
     
     public static Conexion getInstancia() {
@@ -53,37 +38,69 @@ public final class Conexion {
         return instancia;
     }
     
+    public boolean abrirConexion() {
+        boolean conexionExitosa = false;
+        try {
+            //?useSSL=false
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/" + 
+                                                   "sai_aes?useSSL=false", 
+                                                   "usuario", "usuario2018");
+            conexionExitosa = true;
+        } catch (SQLException ex) {
+            conexionExitosa = false;
+            System.err.println(ex);
+        } finally {
+            return conexionExitosa;
+        }
+    }
+    
+    public boolean cerrarConexion() {
+        boolean desconexionExitosa = false;
+        try {
+            conexion.close();
+            desconexionExitosa = true;
+        } catch (SQLException ex) {
+            desconexionExitosa = false;
+            System.err.println(ex);
+        } finally {
+            return desconexionExitosa;
+        }
+    }
+    
     public ResultSet ejecutarConsulta(String consulta) throws SQLException {
         try {
-            //abrirConexion();
-            //sentencia.executeQuery(consulta);
             sentencia = conexion.createStatement();
             resultado = sentencia.executeQuery(consulta);
             
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println(ex);
+        } finally {
+            return resultado;
         }
-        finally {
-            //cerrarConexion();
-        }
-        return resultado;
     }
     
-    public int ejecutarActualizar(String consulta) throws SQLException {
-        int res = -1;
+    public boolean ejecutarActualizar(String consulta) throws SQLException {
+        
+        boolean actualizacionExitosa = false;
+        
         try {
-            //abrirConexion();
-            //sentencia.executeQuery(consulta);
-            sentencia = conexion.createStatement();
-            res = sentencia.executeUpdate(consulta);
-        }
-        catch (SQLException ex) {
+            actualizacionExitosa = sentencia.executeUpdate(consulta) >= 0;
+        } catch (SQLException ex) {
+            actualizacionExitosa = false;
             System.err.println(ex);
+        } finally {
+            return actualizacionExitosa;
         }
-        finally {
-            //cerrarConexion();
+    }
+    
+    public ResultSet ejecutarProcedimiento(String procedure) {
+        try {
+            procedimiento = conexion.prepareCall("CALL " + procedure + "");
+            resultado = procedimiento.executeQuery();//("CALL " + procedure + "");
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        } finally {
+            return resultado;
         }
-        return res;
     }
 }

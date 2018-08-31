@@ -83,7 +83,7 @@ public class MdlUsuario {
                                 + correo + "', " + codRol + ", 'A' )";
             
             conexion.abrirConexion();
-            res = conexion.ejecutarActualizar(consulta) != -1;
+            res = conexion.ejecutarActualizar(consulta);
 
         } catch (SQLException ex) {
             System.err.println(ex);
@@ -108,7 +108,7 @@ public class MdlUsuario {
                                " cod_RolUsuar = "+codRol+", estado_Usuarios = '"+state+"' "+
                                " WHERE cod_Usuarios = "+codigo+";";
             conexion.abrirConexion();
-            res = conexion.ejecutarActualizar(consulta) != -1;
+            res = conexion.ejecutarActualizar(consulta);
 
         } catch (SQLException ex) {
             System.err.println(ex);
