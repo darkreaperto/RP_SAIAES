@@ -11,11 +11,11 @@ import bd.Mail;
  *
  * @author dark-reaper
  */
-public class Ctr_Mail {
+public class CtrMail {
     
     private static Mail mail;
     
-    public Ctr_Mail() {
+    public CtrMail() {
         mail = new Mail();
     }
     

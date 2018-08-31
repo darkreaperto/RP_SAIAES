@@ -11,11 +11,11 @@ import bd.Recover;
  *
  * @author dark-reaper
  */
-public class Ctr_Recover {
+public class CtrRecover {
     
     private static Recover recover;
     
-    public Ctr_Recover(String correo) {
+    public CtrRecover(String correo) {
         recover = new Recover(correo);
     }
     
