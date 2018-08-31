@@ -28,7 +28,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private static AESEncrypt crypter;
     private static Mensaje mensaje;    
     private static CtrUsuario controlador;    
-    //private static ArrayList<Usuario> usuarios;
     private static ArrayList<Usuario> lista;
     private DefaultTableModel model; 
     /**

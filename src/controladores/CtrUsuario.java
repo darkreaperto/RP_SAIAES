@@ -92,11 +92,13 @@ public class CtrUsuario {
         return mdlUsuario.obtenerUsuarios();
     }
     
-    public boolean crearUsuario(String nombre, String contra, String correo, Rol rol) {
+    public boolean crearUsuario(String nombre, String contra, String correo, 
+            Rol rol) {
         return mdlUsuario.crearUsuario(nombre, contra, correo, rol);
     }
     
-    public boolean updateUsuario( String nombre, String contra, String correo, Rol rol, Estado estado, int codigo) {
+    public boolean updateUsuario( String nombre, String contra, String correo, 
+            Rol rol, Estado estado, int codigo) {
         return mdlUsuario.updateUsuario(nombre, contra, correo, rol, estado, codigo);
     }
 }

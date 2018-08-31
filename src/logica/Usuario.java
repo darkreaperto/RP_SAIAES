@@ -21,7 +21,8 @@ public class Usuario {
         setNombre(nombre);        
     }
     
-    public Usuario(String codigo, String nombre, String contrasenna, String correo, String rol, String estado) {
+    public Usuario(String codigo, String nombre, String contrasenna, 
+            String correo, String rol, String estado) {
         setCodigo(codigo);
         setNombre(nombre);
         setContrasenna(contrasenna);

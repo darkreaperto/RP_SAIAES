@@ -14,6 +14,7 @@ import java.sql.ResultSet;
  * @author ahoihanabi
  */
 public class MdlAcceso {
+    
     Conexion conexion; 
     private static AESEncrypt crypter;
 
@@ -24,6 +25,7 @@ public class MdlAcceso {
     }
     
     public boolean comparacion(String user, String pass) {
+        
         boolean go = false;
         try {
             conexion.abrirConexion();

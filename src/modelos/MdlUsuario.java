@@ -33,7 +33,8 @@ public class MdlUsuario {
         try {
             
             String consulta = "SELECT cod_Usuarios, nombre_Usuarios, "
-                            + "clave_Usuarios, correo_Usuarios, cod_RolUsuar, estado_Usuarios"
+                            + "clave_Usuarios, correo_Usuarios, cod_RolUsuar, "
+                            + "estado_Usuarios"
                             + " FROM Usuarios";            
             conexion.abrirConexion();
             ResultSet result = conexion.ejecutarConsulta(consulta);
@@ -52,8 +53,8 @@ public class MdlUsuario {
 //                                    "\nNombre: " + nombreUsuario + 
 //                                    "\nClave: " + claveUsuario + 
 //                                    "\nRol: " + codRolUsuario);
-                Usuario usuario = new Usuario(codUsuario, nombreUsuario, claveUsuario, 
-                                        correoUsuario, codRolUsuario, estadoUsuario);
+                Usuario usuario = new Usuario(codUsuario, nombreUsuario, 
+                        claveUsuario, correoUsuario, codRolUsuario, estadoUsuario);
                 if (!usuarios.contains(usuario))
                     usuarios.add(usuario);                
             }
@@ -104,8 +105,10 @@ public class MdlUsuario {
         try {
             String consulta =  "UPDATE Usuarios"+ 
                                " SET nombre_Usuarios = '"+nombre+"', "+ 
-                               " clave_Usuarios = '"+contra+"' , correo_Usuarios = '"+correo+"', "+
-                               " cod_RolUsuar = "+codRol+", estado_Usuarios = '"+state+"' "+
+                               " clave_Usuarios = '"+contra+"' , "+
+                               " correo_Usuarios = '"+correo+"', "+
+                               " cod_RolUsuar = "+codRol+", "+
+                               " estado_Usuarios = '"+state+"' "+
                                " WHERE cod_Usuarios = "+codigo+";";
             conexion.abrirConexion();
             res = conexion.ejecutarActualizar(consulta) != -1;
