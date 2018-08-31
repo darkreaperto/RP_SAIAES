@@ -8,6 +8,8 @@ package presentacion;
 import bd.AESEncrypt;
 import controladores.CtrMail;
 import controladores.CtrRecover;
+import controladores.CtrAcceso;
+import controladores.CtrUsuario;
 import java.awt.Component;
 import java.awt.event.MouseListener;
 import java.sql.ResultSet;
@@ -27,6 +29,7 @@ import util.MessageType;
 public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     
     private static ItnFrmAccesoUsuario instancia = null;
+    private static CtrAcceso controlador;
     private AESEncrypt crypter = new AESEncrypt();
     Mensaje msg = new Mensaje();
     
@@ -38,6 +41,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
      */
     public ItnFrmAccesoUsuario() {
         initComponents();
+        controlador = CtrAcceso.getInstancia();
         crypter.addKey("SAI");
         
         //No mover el internalFrame de acceso
@@ -74,10 +78,10 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     }
     
     public void iniciarSesion() {
-        Acceso a = new Acceso();
+        
         if (!txt_NombreUsuario.getText().isEmpty() && pw_acc_password.getPassword().length > 0) {
             //comprobar contraseña y nombre de usuario
-            if (a.comparacion(txt_NombreUsuario.getText(), new String(pw_acc_password.getPassword()))) {                
+            if (controlador.comparacion(txt_NombreUsuario.getText(), new String(pw_acc_password.getPassword()))) {                
                 entrada();
                 msg.mostrarMensaje(MessageType.INFORMATION, MessageHelper.USER_ACCESS_SUCCESS);
             } else {
@@ -88,7 +92,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         }
     }
     
-    public ArrayList<Usuario> obtenerUsuarios() {
+    /*public ArrayList<Usuario> obtenerUsuarios() {
         try {
             //Para no instanciar los usuarios sin necesidad
             usuarios = usuarios == null ? new ArrayList<>() : usuarios;
@@ -139,7 +143,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         }
         
         return correoIndice;
-    }
+    }*/
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -360,7 +364,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     private void btn_confUsuario_recClvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confUsuario_recClvActionPerformed
         String usuario = txt_usuario_recClv.getText();
         
-        if (!usuario.isEmpty()) {
+        /*if (!usuario.isEmpty()) {
             int correoIndice = obtenerCorreo(usuario);
             
             if (correoIndice > 0) {
@@ -373,7 +377,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
             }
         } else {
             mostrarMensaje(MessageType.WARNING, MessageHelper.EMPTY_USERNAME_FIELD);
-        }
+        }*/
     }//GEN-LAST:event_btn_confUsuario_recClvActionPerformed
 
     private void btn_enviarConf_recClvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviarConf_recClvActionPerformed

@@ -5,6 +5,7 @@
  */
 package bd;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -21,6 +22,7 @@ public final class Conexion {
     private Connection conexion;
     private Statement sentencia;
     private ResultSet resultado;
+    private CallableStatement procedimiento;
     
     /**
      * 
@@ -88,6 +90,17 @@ public final class Conexion {
             System.err.println(ex);
         } finally {
             return actualizacionExitosa;
+        }
+    }
+    
+    public ResultSet ejecutarProcedimiento(String procedure) {
+        try {
+            procedimiento = conexion.prepareCall("CALL " + procedure + "");
+            resultado = procedimiento.executeQuery();//("CALL " + procedure + "");
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        } finally {
+            return resultado;
         }
     }
 }
