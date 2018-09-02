@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.Usuario;
 import controladores.CtrConexion;
-import java.sql.CallableStatement;
 import util.Estado;
 import util.Rol;
 
