@@ -20,16 +20,17 @@ public class Principal {
      */
     public static void main(String[] args) throws SQLException {
         
-//        Conexion conn = Conexion.getInstancia();
-//        conn.abrirConexion();
-//        
-//        ResultSet res = conn.ejecutarProcedimiento("pc_obtener_usuarios()");
-//        
-//        while (res.next()) {
-//            System.out.println(res.getString("nombre_Usuarios"));
-//        }
-//        
-//        conn.cerrarConexion();
+        Conexion conn = Conexion.getInstancia();
+        conn.abrirConexion();
+        
+        ResultSet res = conn.ejecutarProcedimiento("pc_obtener_usuarios()");
+        
+        while (res.next()) {
+            System.out.println(res.getString("cod_Usuarios"));
+            System.out.println(res.getString("nombre_Usuarios"));
+        }
+        
+        conn.cerrarConexion();
         
         FrmPrincipal ventana = new FrmPrincipal();
         ventana.setVisible(true);

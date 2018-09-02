@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.Usuario;
-import bd.Conexion;
 import controladores.CtrConexion;
 import util.Estado;
 import util.Rol;
@@ -20,7 +19,8 @@ import util.Rol;
  * @author ahoihanabi
  */
 public class MdlUsuario {
-    private static CtrConexion conexion; 
+
+    private static CtrConexion conexion;
     private static AESEncrypt crypter;
     private static String procedimiento;
     private static ResultSet resultado;
@@ -28,10 +28,11 @@ public class MdlUsuario {
 
     public MdlUsuario() {
         conexion = new CtrConexion();
+
         crypter = new AESEncrypt();
         crypter.addKey("SAI");
     }
-    
+
     public ArrayList<Usuario> obtenerUsuarios() {
         usuarios =  new ArrayList<>();
         
@@ -100,8 +101,8 @@ public class MdlUsuario {
             return creacionExitosa;
         }
     }
-    
-    public boolean updateUsuario( String nombre, String contra, String correo, 
+
+    public boolean updateUsuario(String nombre, String contra, String correo,
             Rol rol, Estado estado, int codigo) {
         //Código de rol de usuario. 1: Administrador, 2: Estándar
         int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
@@ -121,8 +122,7 @@ public class MdlUsuario {
 
         } catch (SQLException ex) {
             System.err.println(ex);
-        }
-        finally {
+        } finally {
             conexion.cerrarConexion();
         }
         return res;

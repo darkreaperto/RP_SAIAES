@@ -317,11 +317,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         /* Create and display the form */
         FrmPrincipal frame = new FrmPrincipal();
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                frame.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            frame.setVisible(true);
         });
     }
 
