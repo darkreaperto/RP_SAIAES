@@ -27,16 +27,18 @@ public class CtrUsuario {
     }
         
     public CtrUsuario(String codigo, String nombre, String contrasenna, 
-            String correo, String rol, String estado) {
-        usuario = new Usuario(codigo, nombre, contrasenna, correo, rol, estado);
+            String correo, String codRol, String descRol, String estado) {
+        usuario = new Usuario(codigo, nombre, contrasenna, correo, codRol, 
+                descRol, estado);
     }
     
     public static CtrUsuario getInstancia() {
         return instancia == null ? new CtrUsuario() : instancia;
     }
     public void addUsers(String codigo, String nombre, String contrasenna, 
-            String correo, String rol, String estado) {
-        usuario =  new Usuario(codigo, nombre, contrasenna, correo, rol, estado);
+            String correo, String codRol, String descRol, String estado) {
+        usuario =  new Usuario(codigo, nombre, contrasenna, correo, codRol, 
+                descRol, estado);
         usuarios.add(usuario);
     }
     
@@ -72,12 +74,28 @@ public class CtrUsuario {
         usuario.setCorreo(correo);
     }
     
-    public String getRol() {
+    public Rol getRol() {
         return usuario.getRol();
     }
     
-    public void setRol(String rol) {
+    public void setRol(Rol rol) {
         usuario.setRol(rol);
+    }
+    
+    public String getCodRol() {
+        return usuario.getCodRol();
+    }
+    
+    public void setCodRol(String codRol) {
+        usuario.setCodRol(codRol);
+    }
+    
+    public String getDescRol() {
+        return usuario.getDescRol();
+    }
+    
+    public void setDescRol(String descRol) {
+        usuario.setDescRol(descRol);
     }
     
     public String getEstado() {

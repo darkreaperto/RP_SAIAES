@@ -5,6 +5,8 @@
  */
 package logica;
 
+import util.Rol;
+
 /**
  *
  * @author dark-reaper
@@ -14,7 +16,9 @@ public class Usuario {
     private String nombre;
     private String contrasenna;
     private String correo;
-    private String rol;
+    private Rol rol;
+    private String codRol;
+    private String descRol;
     private String estado;
     
     public Usuario(String nombre) {
@@ -22,13 +26,15 @@ public class Usuario {
     }
     
     public Usuario(String codigo, String nombre, String contrasenna, 
-            String correo, String rol, String estado) {
-        setCodigo(codigo);
-        setNombre(nombre);
-        setContrasenna(contrasenna);
-        setCorreo(correo);
-        setRol(rol);
-        setEstado(estado);
+            String correo, String codRol, String descRol, String estado) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.contrasenna = contrasenna;
+        this.correo = correo;
+        this.rol = codRol.equals("1") ? Rol.Administrador : Rol.Estándar;
+        this.codRol = codRol;
+        this.descRol = descRol;
+        this.estado = estado;
     }
     
     public String getCodigo() {
@@ -75,12 +81,28 @@ public class Usuario {
         this.correo = correo;
     }
     
-    public String getRol() {
+    public Rol getRol() {
         return rol;
     }
     
-    public void setRol(String rol) {
+    public void setRol(Rol rol) {
         this.rol = rol;
+    }
+    
+    public String getCodRol() {
+        return codRol;
+    }
+    
+    public void setCodRol(String codRol) {
+        this.codRol = codRol;
+    }
+    
+    public String getDescRol() {
+        return descRol;
+    }
+    
+    public void setDescRol(String descRol) {
+        this.descRol = descRol;
     }
     
     public String getEstado() {

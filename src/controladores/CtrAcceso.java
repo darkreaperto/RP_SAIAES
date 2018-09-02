@@ -5,6 +5,7 @@
  */
 package controladores;
 
+import logica.Usuario;
 import modelos.MdlAcceso;
 
 /**
@@ -14,7 +15,7 @@ import modelos.MdlAcceso;
 public class CtrAcceso {
     
     public static CtrAcceso instancia;
-    private String usuario;
+    private Usuario usuario;
     private MdlAcceso mdlAcceso;
 
     public CtrAcceso() {
@@ -25,15 +26,15 @@ public class CtrAcceso {
         return instancia == null ? new CtrAcceso() : instancia;
     }
     
-    public void setUsuario(String usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
     
-    public String getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
     
-    public boolean comparacion(String user, String pass) {
-        return mdlAcceso.comparacion(user, pass);
+    public boolean compararClave(String user, String pass) {
+        return mdlAcceso.compararClave(user, pass);
     }
 }

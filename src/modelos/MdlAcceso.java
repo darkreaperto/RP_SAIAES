@@ -24,7 +24,7 @@ public class MdlAcceso {
         crypter.addKey("SAI");
     }
     
-    public boolean comparacion(String user, String pass) {
+    public boolean compararClave(String user, String pass) {
         
         boolean go = false;
         try {

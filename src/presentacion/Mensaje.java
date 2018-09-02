@@ -29,8 +29,20 @@ public class Mensaje {
             case EMPTY_EMAIL_FIELD:
                 msg = "Debe proporcionar un correo electrónico";
                 break;
+            case EMAIL_SYNTAX_FAILURE:
+                msg = "El correo electrónico ingresado no es admitido";
+                break;
             case MISMATCHING_PASSWORD_FIELDS:
                 msg = "Las contraseñas no coinciden";
+                break;
+            case PASSWORD_SYNTAX_FAILURE:
+                msg = "La contraseña debe contener:"
+                        + "\n Al menos una letra minúcula."
+                        + "\n Al menos una letra mayúscula."
+                        + "\n Al menos un número."
+                        + "\n Mínimo 6 caracteres."
+                        + "\n Máximo 16 caracteres."
+                        + "\n Ningún espacio en blanco.";
                 break;
             case USER_INSERTION_SUCCESS:
                 msg = "La creación del usuario ha sido éxitosa";
@@ -42,7 +54,8 @@ public class Mensaje {
                 msg = "Acceso concedido. Bienvenido/a.";
                 break;
             case USER_ACCESS_FAILURE:
-                msg = "Ha ocurrido un error en el del usuario \n Verifique la información ingresada";
+                msg = "Ha ocurrido un error en el del usuario "
+                        + "\n Verifique la información ingresada";
                 break;
             case ANY_ROW_SELECTED:
                 msg = "Seleccione un elemento de la lista";
@@ -73,6 +86,7 @@ public class Mensaje {
                 break;
         }
         
-        JOptionPane.showMessageDialog(null, this.obtenerMensaje(msg), tipo.toString(), pan);
+        JOptionPane.showMessageDialog(null, this.obtenerMensaje(msg), 
+                tipo.toString(), pan);
     }
 }

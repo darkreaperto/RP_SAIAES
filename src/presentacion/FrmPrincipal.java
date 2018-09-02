@@ -5,24 +5,31 @@
  */
 package presentacion;
 
+import controladores.CtrAcceso;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import logica.Usuario;
 
 /**
  *
  * @author ahoihanabi
  */
 public class FrmPrincipal extends javax.swing.JFrame {
-    
+
+    private static CtrAcceso sesionAcc;
+    private static ArrayList<Usuario> usuarios;
+
     /**
      * Creates new form frmPrincipal
      */
     public FrmPrincipal() {
         initComponents();
+        sesionAcc = new CtrAcceso();
+        usuarios = new ArrayList<>();
         acceso();
     }
-    public void accessLocation() {
-        
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -217,7 +224,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_facturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturacionActionPerformed
-        
+
     }//GEN-LAST:event_btn_facturacionActionPerformed
 
     private void btn_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inventarioActionPerformed
@@ -238,16 +245,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void btn_maquinariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_maquinariaActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, sesionAcc.getUsuario());
     }//GEN-LAST:event_btn_maquinariaActionPerformed
 
     private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
-        ItnFrmUsuario moduloUsuario = ItnFrmUsuario.getInstancia();
+        ItnFrmUsuario moduloUsuario = ItnFrmUsuario.getInstancia(usuarios);
         moduloUsuario.setVisible(true);
-        ItnFrmUsuario.getInstancia().setVisible(true);
-        try { dpn_principal.add(ItnFrmUsuario.getInstancia()); } catch (Exception e) {}
-        
+        moduloUsuario.setVisible(true);
+        try {
+            dpn_principal.add(moduloUsuario);
+        } catch (Exception e) {
+            System.out.println("U");
+        }
+
     }//GEN-LAST:event_btn_usuariosActionPerformed
-    public void acceso()   {
+    public void acceso() {
         btn_usuarios.setEnabled(false);
         btn_consultas.setEnabled(false);
         btn_facturacion.setEnabled(false);
@@ -255,14 +267,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_maquinaria.setEnabled(false);
         btn_proveedor.setEnabled(false);
         btn_clientes.setEnabled(false);
-        
+
         //JDesktopPane dpn_principal1 = new JDesktopPane();
-        ItnFrmAccesoUsuario moduloUsuarioAcceso = ItnFrmAccesoUsuario.getInstancia();
+        //sesionAcc.setUsuario("Mi usuario");
+        ItnFrmAccesoUsuario moduloUsuarioAcceso = ItnFrmAccesoUsuario.getInstancia(sesionAcc, usuarios);
         moduloUsuarioAcceso.setVisible(true);
-        ItnFrmAccesoUsuario.getInstancia().setVisible(true);        
-        try { dpn_principal.add(ItnFrmAccesoUsuario.getInstancia()); } catch (Exception e) {}
-        moduloUsuarioAcceso.setLocation(300, 200);               
+        
+        try {
+            dpn_principal.add(moduloUsuarioAcceso);
+        } catch (Exception e) {
+            System.out.println("E");
+        }
+        moduloUsuarioAcceso.setLocation(300, 200);
     }
+    
+    public static void any(String t) {
+        System.out.println(t);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -280,7 +302,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 }
             }*/
             javax.swing.UIManager.setLookAndFeel(
-            javax.swing.UIManager.getCrossPlatformLookAndFeelClassName());
+                    javax.swing.UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -298,11 +320,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                frame.setVisible(true);       
+                frame.setVisible(true);
             }
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_clientes;
     private javax.swing.JButton btn_consultas;

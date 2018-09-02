@@ -11,6 +11,7 @@ import controladores.CtrRecover;
 import controladores.CtrAcceso;
 import controladores.CtrUsuario;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,20 +30,26 @@ import util.MessageType;
 public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     
     private static ItnFrmAccesoUsuario instancia = null;
-    private static CtrAcceso controlador;
+    private static CtrAcceso sesionAcc;
+    private static ArrayList<Usuario> usuarios;
     private AESEncrypt crypter = new AESEncrypt();
     Mensaje msg = new Mensaje();
     
     private static CtrRecover recover;
     private static CtrMail mail;
+    private static CtrUsuario ctrUsuario;
     
     /**
      * Creates new form ItnFrmAcesoUsuario
+     * @param sesionAcc
+     * @param usuarios
      */
-    public ItnFrmAccesoUsuario() {
+    public ItnFrmAccesoUsuario(CtrAcceso sesionAcc, ArrayList<Usuario> usuarios) {
         initComponents();
-        controlador = CtrAcceso.getInstancia();
+        this.sesionAcc = sesionAcc;
+        this.usuarios = usuarios;
         crypter.addKey("SAI");
+        ctrUsuario = CtrUsuario.getInstancia();
         
         //No mover el internalFrame de acceso
         BasicInternalFrameUI bif = ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI());
@@ -51,38 +58,58 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         }
     }
 
-    public static ItnFrmAccesoUsuario getInstancia() {
+    public static ItnFrmAccesoUsuario getInstancia(CtrAcceso sesionAcc, ArrayList<Usuario> usuarios) {
+        System.out.println("SESION " + sesionAcc.getUsuario());
         if(instancia == null) {
-            instancia = new ItnFrmAccesoUsuario();
+            instancia = new ItnFrmAccesoUsuario(sesionAcc, usuarios);
         }
         return instancia;
     }
     
-    public void entrada() {
-//        if() {
+    public void entrada(String usuarioNow) {
+
+//        ArrayList<Usuario> lista = ctrUsuario.obtenerUsuarios();
+//        String userType = "";
+        usuarios = ctrUsuario.obtenerUsuarios();
+        
+        for(int i = 0; i < usuarios.size(); i++) {
+            if(usuarios.get(i).getNombre().equals(usuarioNow)) {
+                sesionAcc.setUsuario(usuarios.get(i));
+                //userType = usuarios.get(i).getRol();
+            }
+        }
+//        if(userType.equals("1")) {
 //            //ES ADMIN O ESTÁNDAR?
+//        } else {
+//            
 //        }
+        //Frame Principal
+        Container frameParent = this.getParent().getParent();
         //Habilitar botones    
-        for (Component c : ItnFrmAccesoUsuario.getInstancia().getParent().getParent().getComponents()) {
+        for (Component c : frameParent.getComponents()) {
             //System.out.println(c);
             if (c instanceof JToolBar) {
                 for (Component b : ((JToolBar) c).getComponents()) {
                     //System.out.println(b);
                     if (b instanceof JButton) {
+                        
                         b.setEnabled(true);
                     }
+                    
                 }
             }
         }
-        instancia.dispose();
+        FrmPrincipal.any(usuarioNow);
+        
+        instancia.dispose();    
     }
     
     public void iniciarSesion() {
         
         if (!txt_NombreUsuario.getText().isEmpty() && pw_acc_password.getPassword().length > 0) {
             //comprobar contraseña y nombre de usuario
-            if (controlador.comparacion(txt_NombreUsuario.getText(), new String(pw_acc_password.getPassword()))) {                
-                entrada();
+            if (sesionAcc.compararClave(txt_NombreUsuario.getText(), new String(pw_acc_password.getPassword()))) {                
+                entrada(txt_NombreUsuario.getText());                
                 msg.mostrarMensaje(MessageType.INFORMATION, MessageHelper.USER_ACCESS_SUCCESS);
             } else {
                 msg.mostrarMensaje(MessageType.ERROR, MessageHelper.USER_ACCESS_FAILURE);                

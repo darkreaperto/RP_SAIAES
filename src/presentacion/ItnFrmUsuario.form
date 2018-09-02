@@ -51,7 +51,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                  <Component id="tb_modUsuario_permisos" pref="1136" max="32767" attributes="0"/>
+                  <Component id="tb_modUsuario_permisos" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -72,6 +72,11 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="pnl_listado">
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="pnl_listadoFocusGained"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnl_listadoMouseClicked"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnl_listadoMouseEntered"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Listado Usuarios">
@@ -119,6 +124,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txt_listado_buscar">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_listado_buscarActionPerformed"/>
+                  </Events>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="scpnl_tbl_usuarioListado">
 
@@ -559,8 +567,8 @@
                     <Container class="javax.swing.JScrollPane" name="scpnl_tbl_usuarioDeshab">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                          <JTabbedPaneConstraints tabName="Deshabilitar">
-                            <Property name="tabTitle" type="java.lang.String" value="Deshabilitar"/>
+                          <JTabbedPaneConstraints tabName="Activos">
+                            <Property name="tabTitle" type="java.lang.String" value="Activos"/>
                           </JTabbedPaneConstraints>
                         </Constraint>
                       </Constraints>
@@ -621,8 +629,8 @@
                     <Container class="javax.swing.JScrollPane" name="scpnl_tbl_usuarioHabilitar">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                          <JTabbedPaneConstraints tabName="Habilitar">
-                            <Property name="tabTitle" type="java.lang.String" value="Habilitar"/>
+                          <JTabbedPaneConstraints tabName="Inactivos">
+                            <Property name="tabTitle" type="java.lang.String" value="Inactivos"/>
                           </JTabbedPaneConstraints>
                         </Constraint>
                       </Constraints>

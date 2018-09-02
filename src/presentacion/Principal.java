@@ -8,14 +8,6 @@ package presentacion;
 import bd.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -28,16 +20,16 @@ public class Principal {
      */
     public static void main(String[] args) throws SQLException {
         
-        Conexion conn = Conexion.getInstancia();
-        conn.abrirConexion();
-        
-        ResultSet res = conn.ejecutarProcedimiento("pc_obtener_usuarios()");
-        
-        while (res.next()) {
-            System.out.println(res.getString("nombre_Usuarios"));
-        }
-        
-        conn.cerrarConexion();
+//        Conexion conn = Conexion.getInstancia();
+//        conn.abrirConexion();
+//        
+//        ResultSet res = conn.ejecutarProcedimiento("pc_obtener_usuarios()");
+//        
+//        while (res.next()) {
+//            System.out.println(res.getString("nombre_Usuarios"));
+//        }
+//        
+//        conn.cerrarConexion();
         
         FrmPrincipal ventana = new FrmPrincipal();
         ventana.setVisible(true);

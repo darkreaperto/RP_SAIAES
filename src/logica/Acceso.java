@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package logica;
+
+import controladores.CtrAcceso;
+import controladores.CtrUsuario;
+
 /**
  *
  * @author ahoihanabi
@@ -11,16 +15,26 @@ package logica;
 public class Acceso {
     
     private String usuario;
+    private Usuario usuario1;
     
-    public Acceso() {      
+    
+    public Acceso() {       
     }
     
     public void setUsuario(String user) {
         usuario = user;
     }
     
-    public String getUsuario() {
-        return usuario;
+//    public String getUsuario() {
+//        return usuario;
+//    }
+    
+    public void setUsuario(Usuario user) {
+        usuario1 = user;
+    }
+    
+    public Usuario getUsuario() {
+        return usuario1;
     }
     
 //    private boolean cambiarContrasenna(String pass, String newPass) {
