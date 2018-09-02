@@ -13,13 +13,10 @@ import controladores.CtrUsuario;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.MouseListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import logica.Acceso;
 import logica.Usuario;
 import util.MessageHelper;
 import util.MessageType;
@@ -68,34 +65,27 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     
     public void entrada(String usuarioNow) {
 
-//        ArrayList<Usuario> lista = ctrUsuario.obtenerUsuarios();
-//        String userType = "";
+        //CARGAR LISTA DE USUARIOS. OBTENER USUARIO EN SESION
         usuarios = ctrUsuario.obtenerUsuarios();
         
         for(int i = 0; i < usuarios.size(); i++) {
             if(usuarios.get(i).getNombre().equals(usuarioNow)) {
-                sesionAcc.setUsuario(usuarios.get(i));
-                //userType = usuarios.get(i).getRol();
+                sesionAcc.setUsuario(usuarios.get(i));                
             }
         }
-//        if(userType.equals("1")) {
-//            //ES ADMIN O ESTÁNDAR?
-//        } else {
-//            
-//        }
+
         //Frame Principal
         Container frameParent = this.getParent().getParent();
-        //Habilitar botones    
+        
+        //Habilitar botones   
         for (Component c : frameParent.getComponents()) {
-            //System.out.println(c);
+            System.out.println("C "+c);
             if (c instanceof JToolBar) {
                 for (Component b : ((JToolBar) c).getComponents()) {
-                    //System.out.println(b);
-                    if (b instanceof JButton) {
-                        
+                    System.out.println("B "+b);
+                    if (b instanceof JButton) {                        
                         b.setEnabled(true);
                     }
-                    
                 }
             }
         }
@@ -119,58 +109,17 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         }
     }
     
-    /*public ArrayList<Usuario> obtenerUsuarios() {
-        try {
-            //Para no instanciar los usuarios sin necesidad
-            usuarios = usuarios == null ? new ArrayList<>() : usuarios;
-            
-            String consulta = "SELECT cod_Usuarios, nombre_Usuarios, "
-                            + "clave_Usuarios, correo_Usuarios, cod_RolUsuar, estado_Usuarios"
-                            + " FROM Usuarios";            
-            conexion.abrirConexion();
-            ResultSet result = conexion.ejecutarConsulta(consulta);
-
-            String codUsuario = "", nombreUsuario = "", claveUsuario = "", 
-                   correoUsuario = "", codRolUsuario = "", estadoUsuario = "";
-
-            while (result.next()) {
-                codUsuario = result.getString("cod_Usuarios");
-                nombreUsuario = result.getString("nombre_Usuarios");
-                claveUsuario = result.getString("clave_Usuarios");
-                correoUsuario = result.getString("correo_Usuarios");
-                codRolUsuario = result.getString("cod_RolUsuar"); 
-                estadoUsuario = result.getString("estado_Usuarios");
-//                System.out.println("**Codigo: " + codUsuario + 
-//                                    "\nNombre: " + nombreUsuario + 
-//                                    "\nClave: " + claveUsuario + 
-//                                    "\nRol: " + codRolUsuario);
-                Usuario usuario = new Usuario(codUsuario, nombreUsuario, claveUsuario, 
-                                        correoUsuario, codRolUsuario, estadoUsuario);
-                if (!usuarios.contains(usuario))
-                    usuarios.add(usuario);                
-            }
-
-        } catch (SQLException ex) {
-            System.err.println(ex);
-        }
-        finally {
-            conexion.cerrarConexion();
-        }
-        return usuarios;
-    }
-    
-    private int obtenerCorreo(String usuario) {
-        int correoIndice = -1;
-        
-        for (Usuario u : usuarios) {
-            if (u.getNombre().equals(usuario)) {
-                correoIndice = usuarios.indexOf(u);
-                break;
-            }
-        }
-        
-        return correoIndice;
-    }*/
+//    private int obtenerCorreo(String usuario) {
+//        int correoIndice = -1;
+//        
+//        for (Usuario u : usuarios) {
+//            if (u.getNombre().equals(usuario)) {
+//                correoIndice = usuarios.indexOf(u);
+//                break;
+//            }
+//        }
+//        return correoIndice;
+//    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

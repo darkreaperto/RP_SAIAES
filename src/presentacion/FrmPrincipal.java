@@ -249,7 +249,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_maquinariaActionPerformed
 
     private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
-        ItnFrmUsuario moduloUsuario = ItnFrmUsuario.getInstancia(usuarios);
+        ItnFrmUsuario moduloUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
         moduloUsuario.setVisible(true);
         moduloUsuario.setVisible(true);
         try {

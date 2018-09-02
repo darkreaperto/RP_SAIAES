@@ -57,6 +57,12 @@ public class Mensaje {
                 msg = "Ha ocurrido un error en el del usuario "
                         + "\n Verifique la información ingresada";
                 break;
+            case USER_UPDATE_SUCCESS:
+                msg = "La actualización del usuario ha sido éxitosa";
+                break;
+            case USER_UPDATE_FAILURE:
+                msg = "Ha ocurrido un error en la actualización del usuario";
+                break;
             case ANY_ROW_SELECTED:
                 msg = "Seleccione un elemento de la lista";
                 break;
