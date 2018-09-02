@@ -60,6 +60,15 @@ public class Mensaje {
             case ANY_ROW_SELECTED:
                 msg = "Seleccione un elemento de la lista";
                 break;
+            case SEND_CONFIRMATION_EMAIL_FAILURE:
+                msg = "Ha ocurrido un error. No se ha podido enviar el "
+                        + "correo de recuperación";
+                break;
+            case SEND_CONFIRMATION_EMAIL_SUCCESS:
+                msg = "El correo de recuperación se ha enviado con éxito. "
+                        + "\nRevise el correo asociado al nombre de usuario "
+                        + "\ningresado para obtener el código de recuperación";
+                break;
             default:
                 msg = "¡Ups! ¡Algo no ha salido bien!";
                 break;

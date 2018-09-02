@@ -34,6 +34,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form intfrmUsuario
+     *
      * @param usuarios
      */
     protected ItnFrmUsuario(ArrayList<Usuario> usuarios) {
@@ -59,7 +60,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     public void getActualUser() {
         //txt_actuali_nombreUsuario.setText(lista.get(i).getNombre());  FALTA TENER USUARIO EN SESIÓN
     }
-    
+
     public void mostrarUsuariosJTable(JTable tabla, boolean estado) {
         Object[] row = new Object[5];
         model = (DefaultTableModel) tabla.getModel();
@@ -98,7 +99,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     }
 
     public void limpiarTexto(String boton) {
-        
+
         if (boton.equals("Crear")) {
             txt_crear_nombreUsuario.setText("");
             txt_crear_correo.setText("");
@@ -106,11 +107,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             pw_crear_confContra.setText("");
             rb_crear_rolEstandar.setSelected(true);
         } else if (boton.equals("Actualizar")) {
-           txt_actuali_nombreUsuario.setText("");
-           txt_actuali_correo.setText("");
-           pw_actuali_lastpass.setText("");
-           pw_actuali_newPass.setText("");
-           pw_actuali_confNewPass.setText("");
+            txt_actuali_nombreUsuario.setText("");
+            txt_actuali_correo.setText("");
+            pw_actuali_lastpass.setText("");
+            pw_actuali_newPass.setText("");
+            pw_actuali_confNewPass.setText("");
         }
     }
 
@@ -748,7 +749,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         String correo = txt_crear_correo.getText();
         //Si el radio button rol Estándar está seleccionado
         Rol rol = rb_crear_rolEstandar.isSelected() ? Rol.Estándar : Rol.Administrador;
-        
+
         if (!nombre.isEmpty()) {
             if (!correo.isEmpty()) {
                 if (v.validateEmail(correo)) {
@@ -794,7 +795,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private void btn_actualiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualiUsuarioActionPerformed
         txt_actuali_nombreUsuario.requestFocusInWindow();
         txt_actuali_nombreUsuario.selectAll();
-        
+
     }//GEN-LAST:event_btn_actualiUsuarioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -17,6 +17,10 @@ import logica.Usuario;
  */
 public class FrmPrincipal extends javax.swing.JFrame {
 
+    //Internal frames de los modulos
+    private static ItnFrmAccesoUsuario modUsuarioAcceso;
+    private static ItnFrmUsuario modUsuario;
+    //
     private static CtrAcceso sesionAcc;
     private static ArrayList<Usuario> usuarios;
 
@@ -25,6 +29,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     public FrmPrincipal() {
         initComponents();
+
         sesionAcc = new CtrAcceso();
         usuarios = new ArrayList<>();
         acceso();
@@ -249,11 +254,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_maquinariaActionPerformed
 
     private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
-        ItnFrmUsuario moduloUsuario = ItnFrmUsuario.getInstancia(usuarios);
-        moduloUsuario.setVisible(true);
-        moduloUsuario.setVisible(true);
+        modUsuario = ItnFrmUsuario.getInstancia(usuarios);
+        modUsuario.setVisible(true);
+        modUsuario.setVisible(true);
         try {
-            dpn_principal.add(moduloUsuario);
+            dpn_principal.add(modUsuario);
         } catch (Exception e) {
             System.out.println("U");
         }
@@ -268,19 +273,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_proveedor.setEnabled(false);
         btn_clientes.setEnabled(false);
 
-        //JDesktopPane dpn_principal1 = new JDesktopPane();
-        //sesionAcc.setUsuario("Mi usuario");
-        ItnFrmAccesoUsuario moduloUsuarioAcceso = ItnFrmAccesoUsuario.getInstancia(sesionAcc, usuarios);
-        moduloUsuarioAcceso.setVisible(true);
-        
+        modUsuarioAcceso = ItnFrmAccesoUsuario.getInstancia(sesionAcc, usuarios);
+        modUsuarioAcceso.setVisible(true);
+
         try {
-            dpn_principal.add(moduloUsuarioAcceso);
-        } catch (Exception e) {
-            System.out.println("E");
+            dpn_principal.add(modUsuarioAcceso);
+        } catch (Exception ex) {
+            System.err.println(ex);
         }
-        moduloUsuarioAcceso.setLocation(300, 200);
+        modUsuarioAcceso.setLocation(250, 150);
+        
+        
     }
-    
+
     public static void any(String t) {
         System.out.println(t);
     }

@@ -115,8 +115,12 @@ public class CtrUsuario {
         return mdlUsuario.crearUsuario(nombre, contra, correo, rol);
     }
     
-    public boolean updateUsuario( String nombre, String contra, String correo, 
+    public boolean updateUsuario(String nombre, String contra, String correo, 
             Rol rol, Estado estado, int codigo) {
         return mdlUsuario.updateUsuario(nombre, contra, correo, rol, estado, codigo);
+    }
+    
+    public boolean restablecerClave(String nombre, String contra) {
+        return mdlUsuario.restablecerClave(nombre, contra);
     }
 }
