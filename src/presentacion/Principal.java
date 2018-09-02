@@ -8,14 +8,6 @@ package presentacion;
 import bd.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -34,6 +26,7 @@ public class Principal {
         ResultSet res = conn.ejecutarProcedimiento("pc_obtener_usuarios()");
         
         while (res.next()) {
+            System.out.println(res.getString("cod_Usuarios"));
             System.out.println(res.getString("nombre_Usuarios"));
         }
         

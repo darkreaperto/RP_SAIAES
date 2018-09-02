@@ -11,7 +11,7 @@ import javax.swing.JFrame;
  *
  * @author ahoihanabi
  */
-public class FrmPrincipal extends javax.swing.JFrame {
+public class FrmPrincipal extends JFrame {
     
     /**
      * Creates new form frmPrincipal
@@ -261,7 +261,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         moduloUsuarioAcceso.setVisible(true);
         ItnFrmAccesoUsuario.getInstancia().setVisible(true);        
         try { dpn_principal.add(ItnFrmAccesoUsuario.getInstancia()); } catch (Exception e) {}
-        moduloUsuarioAcceso.setLocation(300, 200);               
+        moduloUsuarioAcceso.setLocation(300, 200);
     }
     /**
      * @param args the command line arguments
@@ -295,11 +295,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         /* Create and display the form */
         FrmPrincipal frame = new FrmPrincipal();
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                frame.setVisible(true);       
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            frame.setVisible(true);
         });
     }
     

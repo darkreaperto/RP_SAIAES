@@ -10,7 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.Usuario;
-import bd.Conexion;
+import controladores.CtrConexion;
+import java.sql.CallableStatement;
 import util.Estado;
 import util.Rol;
 
@@ -19,82 +20,88 @@ import util.Rol;
  * @author ahoihanabi
  */
 public class MdlUsuario {
-    Conexion conexion; 
+
+    private static CtrConexion conexion;
     private static AESEncrypt crypter;
+    private static String procedimiento;
+    private static ResultSet resultado;
+    private static ArrayList<Usuario> usuarios;
 
     public MdlUsuario() {
-        conexion = Conexion.getInstancia();
+        conexion = new CtrConexion();
+
         crypter = new AESEncrypt();
         crypter.addKey("SAI");
     }
-    
+
     public ArrayList<Usuario> obtenerUsuarios() {
-        ArrayList<Usuario> usuarios = new ArrayList<>();
+        usuarios =  new ArrayList<>();
+        
         try {
-            
-            String consulta = "SELECT cod_Usuarios, nombre_Usuarios, "
-                            + "clave_Usuarios, correo_Usuarios, cod_RolUsuar, estado_Usuarios"
-                            + " FROM Usuarios";            
+            procedimiento = "pc_obtener_usuarios()";
             conexion.abrirConexion();
-            ResultSet result = conexion.ejecutarConsulta(consulta);
+            resultado = conexion.ejecutarProcedimiento(procedimiento);
 
-            String codUsuario = "", nombreUsuario = "", claveUsuario = "", 
-                   correoUsuario = "", codRolUsuario = "", estadoUsuario = "";
+            String codUsuario;
+            String nombreUsuario;
+            String claveUsuario;
+            String correoUsuario;
+            String codRolUsuario;
+            String estadoUsuario;
 
-            while (result.next()) {
-                codUsuario = result.getString("cod_Usuarios");
-                nombreUsuario = result.getString("nombre_Usuarios");
-                claveUsuario = result.getString("clave_Usuarios");
-                correoUsuario = result.getString("correo_Usuarios");
-                codRolUsuario = result.getString("cod_RolUsuar"); 
-                estadoUsuario = result.getString("estado_Usuarios");
-//                System.out.println("**Codigo: " + codUsuario + 
-//                                    "\nNombre: " + nombreUsuario + 
-//                                    "\nClave: " + claveUsuario + 
-//                                    "\nRol: " + codRolUsuario);
-                Usuario usuario = new Usuario(codUsuario, nombreUsuario, claveUsuario, 
-                                        correoUsuario, codRolUsuario, estadoUsuario);
-                if (!usuarios.contains(usuario))
-                    usuarios.add(usuario);                
+            while (resultado.next()) {
+                codUsuario = resultado.getString("cod_Usuarios");
+                nombreUsuario = resultado.getString("nombre_Usuarios");
+                claveUsuario = resultado.getString("clave_Usuarios");
+                correoUsuario = resultado.getString("correo_Usuarios");
+                codRolUsuario = resultado.getString("cod_RolUsuar");
+                estadoUsuario = resultado.getString("estado_Usuarios");
+
+                Usuario usuario = 
+                        new Usuario(codUsuario, nombreUsuario, claveUsuario, 
+                                correoUsuario, codRolUsuario, estadoUsuario);
+                
+                if (!usuarios.contains(usuario)) {
+                    usuarios.add(usuario);
+                }
             }
-
         } catch (SQLException ex) {
             System.err.println(ex);
-        }
-        finally {
+        } finally {
             conexion.cerrarConexion();
+            return usuarios;
         }
-        return usuarios;
     }
-    
+
     public boolean crearUsuario(String nombre, String contra, String correo, 
             Rol rol) {
-        
+
         //Código de rol de usuario. 1: Administrador, 2: Estándar
         int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
-        contra = crypter.encriptar(contra);
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(nombre);
+        params.add(contra);
+        params.add(correo);
+        params.add(codRol);
         
-        boolean res = false;
+        boolean creacionExitosa = false;
         try {
-            String consulta = "INSERT INTO `Usuarios`(`cod_Usuarios`, "
-                    + "`nombre_Usuarios`, `clave_Usuarios`, `correo_Usuarios`,"
-                    + " `cod_RolUsuar`, `estado_Usuarios`) "
-                    + "VALUES (NULL, '" + nombre + "', '" + contra + "', '" 
-                                + correo + "', " + codRol + ", 'A' )";
-            
+            procedimiento = "pc_crear_usuario(?, ?, ?, ?)";
+
             conexion.abrirConexion();
-            res = conexion.ejecutarActualizar(consulta);
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            creacionExitosa = true;
 
         } catch (SQLException ex) {
+            creacionExitosa = false;
             System.err.println(ex);
-        }
-        finally {
+        } finally {
             conexion.cerrarConexion();
+            return creacionExitosa;
         }
-        return res;
     }
-    
-    public boolean updateUsuario( String nombre, String contra, String correo, 
+
+    public boolean updateUsuario(String nombre, String contra, String correo,
             Rol rol, Estado estado, int codigo) {
         //Código de rol de usuario. 1: Administrador, 2: Estándar
         int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
@@ -102,18 +109,17 @@ public class MdlUsuario {
         String state = estado.equals(Estado.Activo) ? "A" : "I";
         boolean res = false;
         try {
-            String consulta =  "UPDATE Usuarios"+ 
-                               " SET nombre_Usuarios = '"+nombre+"', "+ 
-                               " clave_Usuarios = '"+contra+"' , correo_Usuarios = '"+correo+"', "+
-                               " cod_RolUsuar = "+codRol+", estado_Usuarios = '"+state+"' "+
-                               " WHERE cod_Usuarios = "+codigo+";";
+            String consulta = "UPDATE Usuarios"
+                    + " SET nombre_Usuarios = '" + nombre + "', "
+                    + " clave_Usuarios = '" + contra + "' , correo_Usuarios = '" + correo + "', "
+                    + " cod_RolUsuar = " + codRol + ", estado_Usuarios = '" + state + "' "
+                    + " WHERE cod_Usuarios = " + codigo + ";";
             conexion.abrirConexion();
             res = conexion.ejecutarActualizar(consulta);
 
         } catch (SQLException ex) {
             System.err.println(ex);
-        }
-        finally {
+        } finally {
             conexion.cerrarConexion();
         }
         return res;

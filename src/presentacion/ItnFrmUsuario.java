@@ -54,98 +54,10 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         }
         return instancia;
     }
-    
-//    public ArrayList<Usuario> obtenerUsuarios() {
-//        try {
-//            //Para no instanciar los usuarios sin necesidad
-//            usuarios = usuarios == null ? new ArrayList<>() : usuarios;
-//            
-//            String consulta = "SELECT cod_Usuarios, nombre_Usuarios, "
-//                            + "clave_Usuarios, correo_Usuarios, cod_RolUsuar, estado_Usuarios"
-//                            + " FROM Usuarios";            
-//            conexion.abrirConexion();
-//            ResultSet result = conexion.ejecutarConsulta(consulta);
-//
-//            String codUsuario = "", nombreUsuario = "", claveUsuario = "", 
-//                   correoUsuario = "", codRolUsuario = "", estadoUsuario = "";
-//
-//            while (result.next()) {
-//                codUsuario = result.getString("cod_Usuarios");
-//                nombreUsuario = result.getString("nombre_Usuarios");
-//                claveUsuario = result.getString("clave_Usuarios");
-//                correoUsuario = result.getString("correo_Usuarios");
-//                codRolUsuario = result.getString("cod_RolUsuar"); 
-//                estadoUsuario = result.getString("estado_Usuarios");
-////                System.out.println("**Codigo: " + codUsuario + 
-////                                    "\nNombre: " + nombreUsuario + 
-////                                    "\nClave: " + claveUsuario + 
-////                                    "\nRol: " + codRolUsuario);
-//                Usuario usuario = new Usuario(codUsuario, nombreUsuario, claveUsuario, 
-//                                        correoUsuario, codRolUsuario, estadoUsuario);
-//                if (!usuarios.contains(usuario))
-//                    usuarios.add(usuario);                
-//            }
-//
-//        } catch (SQLException ex) {
-//            System.err.println(ex);
-//        }
-//        finally {
-//            conexion.cerrarConexion();
-//        }
-//        return usuarios;
-//    }
+
     public void getActualUser() {
         //txt_actuali_nombreUsuario.setText(lista.get(i).getNombre());  FALTA TENER USUARIO EN SESIÓN
     }
-//    public boolean crearUsuario(String nombre, String contra, String correo, Rol rol) {
-//        
-//        //Código de rol de usuario. 1: Administrador, 2: Estándar
-//        int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
-//        contra = crypter.encriptar(contra);
-//        
-//        boolean res = false;
-//        try {
-//            String consulta = "INSERT INTO `Usuarios`(`cod_Usuarios`, "
-//                    + "`nombre_Usuarios`, `clave_Usuarios`, `correo_Usuarios`,"
-//                    + " `cod_RolUsuar`, `estado_Usuarios`) "
-//                    + "VALUES (NULL, '" + nombre + "', '" + contra + "', '" 
-//                                + correo + "', " + codRol + ", 'A' )";
-//            
-//            conexion.abrirConexion();
-//            res = conexion.ejecutarActualizar(consulta) != -1;
-//
-//        } catch (SQLException ex) {
-//            System.err.println(ex);
-//        }
-//        finally {
-//            conexion.cerrarConexion();
-//        }
-//        return res;
-//    }
-    
-//    public boolean updateUsuario( String nombre, String contra, String correo, Rol rol, Estado estado, int codigo) {
-//        //Código de rol de usuario. 1: Administrador, 2: Estándar
-//        int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
-//        //contra = crypter.encriptar(contra);
-//        String state = estado.equals(Estado.Activo) ? "A" : "I";
-//        boolean res = false;
-//        try {
-//            String consulta =  "UPDATE Usuarios"+ 
-//                               " SET nombre_Usuarios = '"+nombre+"', "+ 
-//                               " clave_Usuarios = '"+contra+"' , correo_Usuarios = '"+correo+"', "+
-//                               " cod_RolUsuar = "+codRol+", estado_Usuarios = '"+state+"' "+
-//                               " WHERE cod_Usuarios = "+codigo+";";
-//            conexion.abrirConexion();
-//            res = conexion.ejecutarActualizar(consulta) != -1;
-//
-//        } catch (SQLException ex) {
-//            System.err.println(ex);
-//        }
-//        finally {
-//            conexion.cerrarConexion();
-//        }
-//        return res;
-//    }
     
     public void mostrarUsuariosJTable(JTable tabla, boolean estado) {
         Object[] row = new Object[5];        
@@ -801,7 +713,9 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         if (!nombre.isEmpty()) {
             if (!correo.isEmpty()) {
                 if (!contra.isEmpty()) {
-                    if (contra.equals(contraConf)) {                    
+                    if (contra.equals(contraConf)) {
+                        //Se encripta la contraseña antes de crear el usuario
+                        contra = crypter.encriptar(contra);
                         if (controlador.crearUsuario(nombre, contra, correo, rol)) {
                             updateTables();
                             msg.mostrarMensaje(MessageType.INFORMATION, MessageHelper.USER_INSERTION_SUCCESS);
