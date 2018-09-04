@@ -72,6 +72,9 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="pnl_listado">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="ListadoUsuarios" noResource="true"/>
+              </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="pnl_listadoFocusGained"/>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnl_listadoMouseClicked"/>
@@ -194,6 +197,9 @@
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="pnl_crear">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="CrearUsuarios" noResource="true"/>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Crear">
@@ -445,6 +451,9 @@
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="pnl_deshabilitar">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="DeshabilitarUsuarios" noResource="true"/>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Eliminar">
@@ -693,6 +702,9 @@
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="pnl_actualizarPermisos">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="PermisosUsuarios" noResource="true"/>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Actualizar permisos">
@@ -867,6 +879,12 @@
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="pnl_actualizar">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="ActualizarUsuarios" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="componentHidden" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="pnl_actualizarComponentHidden"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Actualizar">

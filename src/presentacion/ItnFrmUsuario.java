@@ -10,8 +10,12 @@ import bd.Conexion;
 import bd.AESEncrypt;
 import controladores.CtrAcceso;
 import controladores.CtrUsuario;
+import java.awt.Component;
+import java.awt.Container;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JTable;
+import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
 import logica.Usuario;
 import logica.Verificacion;
@@ -33,6 +37,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private static ArrayList<Usuario> usuarios;
     private static CtrAcceso sesion;
     private DefaultTableModel model;
+    Verificacion v = new Verificacion();
 
     /**
      * Creates new form intfrmUsuario
@@ -51,6 +56,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         this.sesion = sesionAcc;
         cargarInfo();
         jPanel1.setVisible(false);
+        filtrarPermisos();
 
     }
 
@@ -69,28 +75,46 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 if(!clave.isEmpty() && !nuevaClave.isEmpty() && 
                         !nuevaClaveConf.isEmpty()) {
                     if(sesion.compararClave(sesion.getUsuario().getNombre(), clave)) {
-                        nuevaClave = crypter.encriptar(nuevaClave);
-                        controlador.actualizarUsuario(nombreUsuario, nuevaClave, 
-                                correo, sesion.getUsuario().getRol(), 
-                                sesion.getUsuario().getEstado(), sesion.getUsuario().getCodigo());
-                        msg.mostrarMensaje(MessageType.INFORMATION, MessageHelper.USER_UPDATE_SUCCESS);
+                        if(v.validateEmail(correo)) {
+                            if(v.validatePassword(nuevaClave)) {
+                                if(nuevaClave.equals(nuevaClaveConf)) {
+                                    nuevaClave = crypter.encriptar(nuevaClave);
+                                    controlador.actualizarUsuario(nombreUsuario,
+                                            nuevaClave, correo, 
+                                            sesion.getUsuario().getRol(), 
+                                            sesion.getUsuario().getEstado(), 
+                                            sesion.getUsuario().getCodigo());
+                                    msg.mostrarMensaje(MessageType.INFORMATION, MessageHelper.USER_UPDATE_SUCCESS);
+                                } else {
+                                    msg.mostrarMensaje(MessageType.ERROR, MessageHelper.MISMATCHING_PASSWORD_FIELDS);
+                                }                                
+                            } else {
+                                msg.mostrarMensaje(MessageType.ERROR, MessageHelper.PASSWORD_SYNTAX_FAILURE);
+                            }                            
+                        } else {
+                            msg.mostrarMensaje(MessageType.ERROR, MessageHelper.EMAIL_SYNTAX_FAILURE);
+                        }                        
                     } else {
                         msg.mostrarMensaje(MessageType.ERROR, MessageHelper.USER_UPDATE_FAILURE);                
                     }
                 } //comprobar contraseña y nombre de usuario
                 
             } else {
-                controlador.actualizarUsuario(nombreUsuario, clave, 
-                                correo, sesion.getUsuario().getRol(), 
-                                sesion.getUsuario().getEstado(), sesion.getUsuario().getCodigo());
-                msg.mostrarMensaje(MessageType.INFORMATION, MessageHelper.USER_UPDATE_SUCCESS);
+                if(v.validateEmail(correo)) {
+                    controlador.actualizarUsuario(nombreUsuario, sesion.getUsuario().getContrasenna(), 
+                                    correo, sesion.getUsuario().getRol(), 
+                                    sesion.getUsuario().getEstado(), sesion.getUsuario().getCodigo());
+                    msg.mostrarMensaje(MessageType.INFORMATION, MessageHelper.USER_UPDATE_SUCCESS);
+                } else {
+                    msg.mostrarMensaje(MessageType.ERROR, MessageHelper.EMAIL_SYNTAX_FAILURE);
+                }                
             }            
         } else {
             msg.mostrarMensaje(MessageType.ERROR, MessageHelper.USER_ACCESS_FAILURE);
         }
         
         
-    }
+    }    
     
     public void mostrarUsuariosJTable(JTable tabla, boolean estado) {
         Object[] row = new Object[5];
@@ -153,7 +177,17 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
            pw_actuali_confNewPass.setText("");
         }
     }
-
+    
+    public void filtrarPermisos() {
+        
+        if(sesion.getUsuario().getRol().equals(Rol.Estándar)) {
+            System.out.println(sesion.getUsuario().getRol()+" "+ Rol.Estándar);
+            tb_modUsuario_permisos.remove(pnl_listado);
+            tb_modUsuario_permisos.remove(pnl_crear);
+            tb_modUsuario_permisos.remove(pnl_actualizarPermisos);
+            tb_modUsuario_permisos.remove(pnl_deshabilitar);
+        }        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -225,6 +259,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
         pnl_modUsuario.setPreferredSize(new java.awt.Dimension(1239, 680));
 
+        pnl_listado.setName("ListadoUsuarios"); // NOI18N
         pnl_listado.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 pnl_listadoFocusGained(evt);
@@ -309,6 +344,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         );
 
         tb_modUsuario_permisos.addTab("Listado Usuarios", pnl_listado);
+
+        pnl_crear.setName("CrearUsuarios"); // NOI18N
 
         lbl_crear_nombreUsuario.setText("Nombre de Usuario:");
 
@@ -441,6 +478,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
         tb_modUsuario_permisos.addTab("Crear", pnl_crear);
 
+        pnl_deshabilitar.setName("DeshabilitarUsuarios"); // NOI18N
+
         lbl_deshab_selectUsuario.setText("Seleccionar Usuario:");
 
         pnl_deshab_deshabContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Activo:"));
@@ -571,6 +610,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
         tb_modUsuario_permisos.addTab("Eliminar", pnl_deshabilitar);
 
+        pnl_actualizarPermisos.setName("PermisosUsuarios"); // NOI18N
+
         lbl_actPermi_selectUsuario.setText("Seleccionar Usuario:");
 
         pnl_actPermi_rolContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Rol Usuario:"));
@@ -668,6 +709,13 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         );
 
         tb_modUsuario_permisos.addTab("Actualizar permisos", pnl_actualizarPermisos);
+
+        pnl_actualizar.setName("ActualizarUsuarios"); // NOI18N
+        pnl_actualizar.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                pnl_actualizarComponentHidden(evt);
+            }
+        });
 
         lbl_actuali_nombreUsuario.setText("Nombre de Usuario:");
 
@@ -845,8 +893,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
     private void btn_crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearUsuarioActionPerformed
 
-        Verificacion v = new Verificacion();
-
         String nombre = txt_crear_nombreUsuario.getText();
         String contra = new String(pw_crear_contra.getPassword());
         String contraConf = new String(pw_crear_confContra.getPassword());
@@ -904,6 +950,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 new String(pw_actuali_confNewPass.getPassword()));
         txt_actuali_nombreUsuario.requestFocus();
         txt_actuali_nombreUsuario.selectAll();
+        cargarInfo();
         
     }//GEN-LAST:event_btn_actualiUsuarioActionPerformed
 
@@ -1074,7 +1121,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
                 for (int i = 0; i < usuarios.size(); i++) {
                     if (usuarios.get(i).getCodigo().equals(codigo)) { //Si el codigo coincide                                                
-                        if (usuarios.get(i).getEstado().equals("A")) { //Verifica el tipo de estado
+                        if (usuarios.get(i).getEstado().equals(Estado.Activo)) { //Verifica el tipo de estado
                             rb_deshab_deshabilitar.setSelected(true);
                         } else {
                             rb_deshab_deshabilitar.setSelected(true);
@@ -1095,7 +1142,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
             for (int i = 0; i < usuarios.size(); i++) {
                 if (usuarios.get(i).getCodigo().equals(codigo)) { //Si el codigo coincide
-                    if (usuarios.get(i).getEstado().equals("A")) { //Verifica el tipo de estado
+                    if (usuarios.get(i).getEstado().equals(Estado.Activo)) { //Verifica el tipo de estado
 
                         rb_deshab_habilitar.setSelected(true);
                     } else {
@@ -1117,7 +1164,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
                 for (int i = 0; i < usuarios.size(); i++) {
                     if (usuarios.get(i).getCodigo().equals(codigo)) { //Si el codigo coincide
-                        if (usuarios.get(i).getEstado().equals("A")) { //Verifica el tipo de estado                            
+                        if (usuarios.get(i).getEstado().equals(Estado.Activo)) { //Verifica el tipo de estado                            
                             rb_deshab_habilitar.setSelected(true);
                         } else {
                             rb_deshab_habilitar.setSelected(true);
@@ -1156,6 +1203,10 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private void pw_actuali_lastpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pw_actuali_lastpassActionPerformed
         
     }//GEN-LAST:event_pw_actuali_lastpassActionPerformed
+
+    private void pnl_actualizarComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_pnl_actualizarComponentHidden
+        
+    }//GEN-LAST:event_pnl_actualizarComponentHidden
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crear_rol;
