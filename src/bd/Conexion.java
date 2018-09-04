@@ -95,9 +95,9 @@ public final class Conexion {
     }
 
     /**
-     * 
+     *
      * @param procedure
-     * @return 
+     * @return
      */
     public ResultSet ejecutarProcedimiento(String procedure) {
         try {
@@ -111,10 +111,10 @@ public final class Conexion {
     }
 
     /**
-     * 
+     *
      * @param procedure
      * @param params
-     * @return 
+     * @return
      */
     public ResultSet ejecutarProcedimiento(String procedure,
             ArrayList<Object> params) {

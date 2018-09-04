@@ -6,22 +6,16 @@
 package presentacion;
 
 import util.Estado;
-import bd.Conexion;
 import bd.AESEncrypt;
 import controladores.CtrAcceso;
 import controladores.CtrUsuario;
-import java.awt.Component;
-import java.awt.Container;
 import java.util.ArrayList;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
 import logica.Usuario;
 import logica.Verificacion;
 import util.MessageHelper;
-import util.MessageType;
 import util.Rol;
 
 /**
@@ -31,7 +25,6 @@ import util.Rol;
 public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
     private static ItnFrmUsuario instancia = null;
-    private static Conexion conexion;
     private static AESEncrypt crypter;
     private static Mensaje msg;
     private static CtrUsuario controlador;
@@ -48,7 +41,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     protected ItnFrmUsuario(CtrAcceso sesionAcc, ArrayList<Usuario> usuarios) {
         initComponents();
         //Inicializar variables
-        conexion = Conexion.getInstancia();
         controlador = CtrUsuario.getInstancia();
         crypter = new AESEncrypt();
         crypter.addKey("SAI");
@@ -75,7 +67,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             if(jPanel1.isVisible()) {
                 if(!clave.isEmpty() && !nuevaClave.isEmpty() && 
                         !nuevaClaveConf.isEmpty()) {
-                    if(sesion.compararClave(sesion.getUsuario().getNombre(), clave)) {
+                    if(sesion.compararClave(sesion.getUsuario().getNombre(), 
+                            clave)) {
                         if(v.validateEmail(correo)) {
                             if(v.validatePassword(nuevaClave)) {
                                 if(nuevaClave.equals(nuevaClaveConf)) {
@@ -85,12 +78,17 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                                             sesion.getUsuario().getRol(), 
                                             sesion.getUsuario().getEstado(), 
                                             sesion.getUsuario().getCodigo());
-                                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageHelper.USER_UPDATE_SUCCESS);
+                                    msg.mostrarMensaje(
+                                            JOptionPane.INFORMATION_MESSAGE, 
+                                            MessageHelper.USER_UPDATE_SUCCESS);
                                 } else {
-                                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, MessageHelper.MISMATCHING_PASSWORD_FIELDS);
+                                    msg.mostrarMensaje(
+                                            JOptionPane.ERROR_MESSAGE, 
+                                            MessageHelper.MISMATCHING_PASSWORD_FIELDS);
                                 }                                
                             } else {
-                                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, MessageHelper.PASSWORD_SYNTAX_FAILURE);
+                                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                                        MessageHelper.PASSWORD_SYNTAX_FAILURE);
                             }                            
                         } else {
                             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, MessageHelper.EMAIL_SYNTAX_FAILURE);
@@ -128,7 +126,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             if (usuarios.get(i).getEstado().equals(Estado.Activo) && estado) {
                 row[0] = usuarios.get(i).getCodigo();
                 row[1] = usuarios.get(i).getNombre();
-                row[2] = usuarios.get(i).getContrasenna();
+                //row[2] = usuarios.get(i).getContrasenna();
                 row[3] = usuarios.get(i).getCorreo();
                 row[4] = usuarios.get(i).getDescRol();
                 //row[5] = lista.get(i).getEstado();
@@ -137,7 +135,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             if (usuarios.get(i).getEstado().equals(Estado.Deshabilitado) && !estado) {
                 row[0] = usuarios.get(i).getCodigo();
                 row[1] = usuarios.get(i).getNombre();
-                row[2] = usuarios.get(i).getContrasenna();
+                //row[2] = usuarios.get(i).getContrasenna();
                 row[3] = usuarios.get(i).getCorreo();
                 row[4] = usuarios.get(i).getDescRol();
                 //row[5] = lista.get(i).getEstado();
@@ -279,9 +277,9 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
         lbl_listado_buscarUsuario.setText("Buscar usuario: ");
 
-        txt_listado_buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_listado_buscarActionPerformed(evt);
+        txt_listado_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_listado_buscarKeyReleased(evt);
             }
         });
 
@@ -714,11 +712,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         tb_modUsuario_permisos.addTab("Actualizar permisos", pnl_actualizarPermisos);
 
         pnl_actualizar.setName("ActualizarUsuarios"); // NOI18N
-        pnl_actualizar.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentHidden(java.awt.event.ComponentEvent evt) {
-                pnl_actualizarComponentHidden(evt);
-            }
-        });
 
         lbl_actuali_nombreUsuario.setText("Nombre de Usuario:");
 
@@ -865,7 +858,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             pnl_modUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_modUsuarioLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(tb_modUsuario_permisos)
+                .addComponent(tb_modUsuario_permisos, javax.swing.GroupLayout.DEFAULT_SIZE, 1136, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnl_modUsuarioLayout.setVerticalGroup(
@@ -1180,10 +1173,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tbl_habilitarKeyReleased
 
-    private void txt_listado_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_listado_buscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_listado_buscarActionPerformed
-
     private void pnl_listadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pnl_listadoFocusGained
 
     }//GEN-LAST:event_pnl_listadoFocusGained
@@ -1207,9 +1196,10 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_pw_actuali_lastpassActionPerformed
 
-    private void pnl_actualizarComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_pnl_actualizarComponentHidden
-        
-    }//GEN-LAST:event_pnl_actualizarComponentHidden
+    private void txt_listado_buscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_listado_buscarKeyReleased
+        usuarios = controlador.consultarUsuarios(txt_listado_buscar.getText().trim());
+        mostrarUsuariosJTable(tbl_usuarioListado, true);
+    }//GEN-LAST:event_txt_listado_buscarKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crear_rol;

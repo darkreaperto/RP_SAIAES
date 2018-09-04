@@ -16,7 +16,7 @@ public class Mensaje {
     
     public String obtenerMensaje(MessageHelper mensaje) {
         
-        String msg = "";
+        String msg;
         
         switch (mensaje) {
             case EMPTY_USERNAME_FIELD:

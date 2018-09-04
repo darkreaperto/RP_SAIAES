@@ -150,4 +150,48 @@ public class MdlUsuario {
         }
         return res;
     }
+    
+    public ArrayList consultarUsuarios(String param) {
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(param);
+
+        usuarios = new ArrayList<>();
+
+        try {
+            procedimiento = "pc_consultar_usuarios(?)";
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+
+            String codUsuario;
+            String nombreUsuario;
+            String claveUsuario;
+            String correoUsuario;
+            String codRolUsuario;
+            String descRolUsuario;
+            String estadoUsuario;
+
+            while (resultado.next()) {
+                codUsuario = resultado.getString("cod_Usuarios");
+                nombreUsuario = resultado.getString("nombre_Usuarios");
+                claveUsuario = resultado.getString("clave_Usuarios");
+                correoUsuario = resultado.getString("correo_Usuarios");
+                codRolUsuario = resultado.getString("cod_RolUsuar");
+                descRolUsuario = resultado.getString("desc_RolUsuar");
+                estadoUsuario = resultado.getString("estado_Usuarios");
+
+                Usuario usuario
+                        = new Usuario(codUsuario, nombreUsuario, claveUsuario,
+                                correoUsuario, codRolUsuario, descRolUsuario, estadoUsuario);
+
+                if (!usuarios.contains(usuario)) {
+                    usuarios.add(usuario);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return usuarios;
+        }
+    }
 }

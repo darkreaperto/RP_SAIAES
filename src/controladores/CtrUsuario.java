@@ -123,4 +123,8 @@ public class CtrUsuario {
     public boolean restablecerClave(String nombre, String contra) {
         return mdlUsuario.restablecerClave(nombre, contra);
     }
+    
+    public ArrayList consultarUsuarios(String param) {
+        return mdlUsuario.consultarUsuarios(param);
+    }
 }
