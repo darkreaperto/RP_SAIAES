@@ -71,7 +71,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
 
     public void entrada(String usuarioNow) {
 
-        //CARGAR LISTA DE USUARIOS. OBTENER USUARIO EN SESION
+        //CARGAR LISTA DE USUARIOS. DE ALLÍ OBTENER USUARIO EN SESION
         usuarios = ctrUsuario.obtenerUsuarios();
 
         for (int i = 0; i < usuarios.size(); i++) {
@@ -85,11 +85,11 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
 
         //Habilitar botones   
         for (Component c : frameParent.getComponents()) {
-            System.out.println("C " + c);
+            //System.out.println("C "+c);
             if (c instanceof JToolBar) {
                 for (Component b : ((JToolBar) c).getComponents()) {
-                    System.out.println("B " + b);
-                    if (b instanceof JButton) {
+                    //System.out.println("B "+b);
+                    if (b instanceof JButton) {                        
                         b.setEnabled(true);
                     }
                 }
