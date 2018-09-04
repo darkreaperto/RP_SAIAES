@@ -21,15 +21,38 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private static ArrayList<Usuario> usuarios;
 
     /**
-     * Creates new form frmPrincipal
+     * Crea el form principal, instancia variables para almacenar el usuario 
+     * en sesión y la lista de todos los usuarios.
      */
     public FrmPrincipal() {
         initComponents();
         sesionAcc = new CtrAcceso();
         usuarios = new ArrayList<>();
-        acceso();
+        habilitarBotones();
     }
+    /**
+     * Este método habilita los botones de la ventana principal si se le concede
+     * acceso al usuario.
+     */
+    public void habilitarBotones() {
+        btn_usuarios.setEnabled(false);
+        btn_consultas.setEnabled(false);
+        btn_facturacion.setEnabled(false);
+        btn_inventario.setEnabled(false);
+        btn_maquinaria.setEnabled(false);
+        btn_proveedor.setEnabled(false);
+        btn_clientes.setEnabled(false);
 
+        ItnFrmAccesoUsuario moduloUsuarioAcceso = ItnFrmAccesoUsuario.getInstancia(sesionAcc, usuarios);
+        moduloUsuarioAcceso.setVisible(true);
+        
+        try {
+            dpn_principal.add(moduloUsuarioAcceso);
+        } catch (Exception e) {
+            System.out.println("E");
+        }
+        moduloUsuarioAcceso.setLocation(300, 200);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -224,7 +247,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_facturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturacionActionPerformed
-
+        // 
     }//GEN-LAST:event_btn_facturacionActionPerformed
 
     private void btn_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inventarioActionPerformed
@@ -245,9 +268,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void btn_maquinariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_maquinariaActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, sesionAcc.getUsuario());
     }//GEN-LAST:event_btn_maquinariaActionPerformed
-
+    /**
+     * 
+     * @param evt 
+     */
     private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
         ItnFrmUsuario moduloUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
         moduloUsuario.setVisible(true);
@@ -259,32 +284,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btn_usuariosActionPerformed
-    public void acceso() {
-        btn_usuarios.setEnabled(false);
-        btn_consultas.setEnabled(false);
-        btn_facturacion.setEnabled(false);
-        btn_inventario.setEnabled(false);
-        btn_maquinaria.setEnabled(false);
-        btn_proveedor.setEnabled(false);
-        btn_clientes.setEnabled(false);
-
-        //JDesktopPane dpn_principal1 = new JDesktopPane();
-        //sesionAcc.setUsuario("Mi usuario");
-        ItnFrmAccesoUsuario moduloUsuarioAcceso = ItnFrmAccesoUsuario.getInstancia(sesionAcc, usuarios);
-        moduloUsuarioAcceso.setVisible(true);
-        
-        try {
-            dpn_principal.add(moduloUsuarioAcceso);
-        } catch (Exception e) {
-            System.out.println("E");
-        }
-        moduloUsuarioAcceso.setLocation(300, 200);
-    }
     
-    public static void any(String t) {
-        System.out.println(t);
-    }
-
     /**
      * @param args the command line arguments
      */
