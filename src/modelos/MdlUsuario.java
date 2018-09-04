@@ -125,8 +125,8 @@ public class MdlUsuario {
         }
     }
 
-    public boolean updateUsuario(String nombre, String contra, String correo,
-            Rol rol, Estado estado, int codigo) {
+    public boolean actualizarUsuario(String nombre, String contra, String correo,
+            Rol rol, Estado estado, String codigo) {
         //Código de rol de usuario. 1: Administrador, 2: Estándar
         int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
         //contra = crypter.encriptar(contra);

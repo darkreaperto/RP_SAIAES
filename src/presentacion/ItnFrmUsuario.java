@@ -8,8 +8,10 @@ package presentacion;
 import util.Estado;
 import bd.Conexion;
 import bd.AESEncrypt;
+import controladores.CtrAcceso;
 import controladores.CtrUsuario;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import logica.Usuario;
@@ -27,38 +29,73 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private static ItnFrmUsuario instancia = null;
     private static Conexion conexion;
     private static AESEncrypt crypter;
-    private static Mensaje mensaje;
+    private static Mensaje msg;
     private static CtrUsuario controlador;
     private static ArrayList<Usuario> usuarios;
+    private static CtrAcceso sesion;
     private DefaultTableModel model;
 
     /**
      * Creates new form intfrmUsuario
-     *
+     * @param sesionAcc
      * @param usuarios
      */
-    protected ItnFrmUsuario(ArrayList<Usuario> usuarios) {
+    protected ItnFrmUsuario(CtrAcceso sesionAcc, ArrayList<Usuario> usuarios) {
         initComponents();
         //Inicializar variables
         conexion = Conexion.getInstancia();
         controlador = CtrUsuario.getInstancia();
         crypter = new AESEncrypt();
         crypter.addKey("SAI");
-        mensaje = new Mensaje();
+        msg = new Mensaje();
         this.usuarios = usuarios;
-        updateTables();
+        this.sesion = sesionAcc;
+        cargarInfo();
+        jPanel1.setVisible(false);
 
     }
 
-    public static ItnFrmUsuario getInstancia(ArrayList<Usuario> usuarios) {
+    public static ItnFrmUsuario getInstancia(CtrAcceso sesionAcc, ArrayList<Usuario> usuarios) {
         if (instancia == null) {
-            instancia = new ItnFrmUsuario(usuarios);
+            instancia = new ItnFrmUsuario(sesionAcc, usuarios);
         }
         return instancia;
     }
-
-    public void getActualUser() {
-        //txt_actuali_nombreUsuario.setText(lista.get(i).getNombre());  FALTA TENER USUARIO EN SESIÓN
+    
+    public void actualiUsuario(String nombreUsuario, String correo, 
+        String clave, String nuevaClave, String nuevaClaveConf) {
+        
+        if (!nombreUsuario.isEmpty() && !correo.isEmpty()) {
+            if(jPanel1.isVisible()) {
+                if(!clave.isEmpty() && !nuevaClave.isEmpty() && 
+                        !nuevaClaveConf.isEmpty()) {
+                    if(sesion.compararClave(sesion.getUsuario().getNombre(), clave)) {
+                        nuevaClave = crypter.encriptar(nuevaClave);
+                        controlador.actualizarUsuario(nombreUsuario, nuevaClave, 
+                                correo, sesion.getUsuario().getRol(), 
+                                sesion.getUsuario().getEstado(), sesion.getUsuario().getCodigo());
+                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                                MessageHelper.USER_UPDATE_SUCCESS);
+                    } else {
+                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                                MessageHelper.USER_UPDATE_FAILURE);                
+                    }
+                } //comprobar contraseña y nombre de usuario
+                
+            } else {
+                controlador.actualizarUsuario(nombreUsuario, clave, 
+                                correo, sesion.getUsuario().getRol(), 
+                                sesion.getUsuario().getEstado(), 
+                                sesion.getUsuario().getCodigo());
+                msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                        MessageHelper.USER_UPDATE_SUCCESS);
+            }            
+        } else {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    MessageHelper.USER_ACCESS_FAILURE);
+        }
+        
+        
     }
 
     public void mostrarUsuariosJTable(JTable tabla, boolean estado) {
@@ -67,7 +104,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         model.setRowCount(0);
         for (int i = 0; i < usuarios.size(); i++) {
 
-            if (usuarios.get(i).getEstado().equals("A") && estado) {
+            if (usuarios.get(i).getEstado().equals(Estado.Activo) && estado) {
                 row[0] = usuarios.get(i).getCodigo();
                 row[1] = usuarios.get(i).getNombre();
                 row[2] = usuarios.get(i).getContrasenna();
@@ -76,7 +113,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 //row[5] = lista.get(i).getEstado();
                 model.addRow(row);
             }
-            if (usuarios.get(i).getEstado().equals("I") && !estado) {
+            if (usuarios.get(i).getEstado().equals(Estado.Deshabilitado) && !estado) {
                 row[0] = usuarios.get(i).getCodigo();
                 row[1] = usuarios.get(i).getNombre();
                 row[2] = usuarios.get(i).getContrasenna();
@@ -88,14 +125,22 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         }
     }
 
-    public void updateTables() {
-        usuarios.clear();
+    public void cargarInfo() {
+        //usuarios.clear();
         usuarios = controlador.obtenerUsuarios();
         mostrarUsuariosJTable(tbl_usuarioListado, true);
         mostrarUsuariosJTable(tbl_usuarioCreado, true);
         mostrarUsuariosJTable(tbl_deshabilitar, true);
         mostrarUsuariosJTable(tbl_habilitar, false);
         mostrarUsuariosJTable(tbl_actPermisos, true);
+        
+        for(int i = 0; i < usuarios.size(); i++) {
+            if(sesion.getUsuario().getNombre()
+                    .equals(usuarios.get(i).getNombre())) {
+                txt_actuali_nombreUsuario.setText(usuarios.get(i).getNombre());
+                txt_actuali_correo.setText(usuarios.get(i).getCorreo());                
+            }
+        }
     }
 
     public void limpiarTexto(String boton) {
@@ -170,15 +215,19 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         pnl_actualizar = new javax.swing.JPanel();
         lbl_actuali_nombreUsuario = new javax.swing.JLabel();
         txt_actuali_nombreUsuario = new javax.swing.JTextField();
-        lbl_actuali_passActual = new javax.swing.JLabel();
         btn_actualiUsuario = new javax.swing.JButton();
-        lbl_actuali_passNew = new javax.swing.JLabel();
-        pw_actuali_newPass = new javax.swing.JPasswordField();
-        pw_actuali_confNewPass = new javax.swing.JPasswordField();
         lbl_actuali_nombreUsuario1 = new javax.swing.JLabel();
         txt_actuali_correo = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
         pw_actuali_lastpass = new javax.swing.JPasswordField();
-        lbl_actuali_nombreUsuario2 = new javax.swing.JLabel();
+        lbl_actuali_passActual = new javax.swing.JLabel();
+        pw_actuali_newPass = new javax.swing.JPasswordField();
+        lbl_actuali_passNew = new javax.swing.JLabel();
+        pw_actuali_confNewPass = new javax.swing.JPasswordField();
+        lbl_actuali_confpassNew = new javax.swing.JLabel();
+        btnActualiContrasenna = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 35), new java.awt.Dimension(0, 35), new java.awt.Dimension(32767, 35));
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 200), new java.awt.Dimension(0, 200), new java.awt.Dimension(32767, 200));
 
         pnl_modUsuario.setPreferredSize(new java.awt.Dimension(1239, 680));
 
@@ -630,8 +679,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
         txt_actuali_nombreUsuario.setNextFocusableComponent(txt_actuali_correo);
 
-        lbl_actuali_passActual.setText("Nueva Contraseña:");
-
         btn_actualiUsuario.setText("Actualizar Usuario");
         btn_actualiUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -639,13 +686,68 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        lbl_actuali_passNew.setText("Confirmar Contraseña:");
-
         lbl_actuali_nombreUsuario1.setText("Correo Electrónico:");
 
         txt_actuali_correo.setNextFocusableComponent(btn_actualiUsuario);
 
-        lbl_actuali_nombreUsuario2.setText("Correo Electrónico:");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Actualización de contraseña"));
+
+        pw_actuali_lastpass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pw_actuali_lastpassActionPerformed(evt);
+            }
+        });
+
+        lbl_actuali_passActual.setText("Contraseña actual:");
+
+        lbl_actuali_passNew.setText("Nueva contraseña:");
+
+        lbl_actuali_confpassNew.setText("Confirmar contraseña:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pw_actuali_lastpass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_actuali_passActual))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pw_actuali_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_actuali_passNew)
+                    .addComponent(lbl_actuali_confpassNew)
+                    .addComponent(pw_actuali_confNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(67, 67, 67))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_actuali_passActual, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pw_actuali_lastpass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_actuali_passNew)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pw_actuali_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addComponent(lbl_actuali_confpassNew)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pw_actuali_confNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65))
+        );
+
+        btnActualiContrasenna.setText("Actualizar Contraseña");
+        btnActualiContrasenna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualiContrasennaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_actualizarLayout = new javax.swing.GroupLayout(pnl_actualizar);
         pnl_actualizar.setLayout(pnl_actualizarLayout);
@@ -654,52 +756,60 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             .addGroup(pnl_actualizarLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_actuali_nombreUsuario2)
                     .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(pw_actuali_lastpass, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_actuali_nombreUsuario, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_actuali_nombreUsuario1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_actuali_nombreUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
-                            .addComponent(txt_actuali_correo, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(129, 129, 129)
-                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbl_actuali_passActual)
-                            .addComponent(lbl_actuali_passNew)
-                            .addComponent(pw_actuali_confNewPass)
-                            .addComponent(pw_actuali_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(384, Short.MAX_VALUE))
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnActualiContrasenna, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                                    .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                                            .addComponent(lbl_actuali_nombreUsuario)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
+                                            .addComponent(txt_actuali_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(169, 169, 169)))
+                                    .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lbl_actuali_nombreUsuario1)
+                                        .addComponent(txt_actuali_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(338, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71))
+                .addGap(46, 46, 46))
         );
         pnl_actualizarLayout.setVerticalGroup(
             pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_actuali_nombreUsuario)
-                    .addComponent(lbl_actuali_passActual))
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_actuali_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pw_actuali_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
+                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                                .addComponent(lbl_actuali_nombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(6, 6, 6))
+                            .addComponent(lbl_actuali_nombreUsuario1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addComponent(txt_actuali_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txt_actuali_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_actuali_nombreUsuario1)
-                    .addComponent(lbl_actuali_passNew))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_actuali_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pw_actuali_confNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(lbl_actuali_nombreUsuario2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pw_actuali_lastpass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 286, Short.MAX_VALUE)
+                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                        .addComponent(btnActualiContrasenna)
+                        .addGap(30, 30, 30)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
                 .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGap(61, 61, 61))
         );
 
         tb_modUsuario_permisos.addTab("Actualizar", pnl_actualizar);
@@ -740,7 +850,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearUsuarioActionPerformed
-        Mensaje msg = new Mensaje();
+
         Verificacion v = new Verificacion();
 
         String nombre = txt_crear_nombreUsuario.getText();
@@ -757,43 +867,48 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                         if (v.validatePassword(contra)) {
                             if (contra.equals(contraConf)) {
                                 if (controlador.crearUsuario(nombre, contra, correo, rol)) {
-                                    updateTables();
-                                    msg.mostrarMensaje(MessageType.INFORMATION, MessageHelper.USER_INSERTION_SUCCESS);
+                                    cargarInfo();
+                                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageHelper.USER_INSERTION_SUCCESS);
                                 } else {
-                                    msg.mostrarMensaje(MessageType.ERROR, MessageHelper.USER_INSERTION_FAILURE);
+                                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, MessageHelper.USER_INSERTION_FAILURE);
                                     limpiarTexto("Crear");
                                 }
                             } else {
-                                msg.mostrarMensaje(MessageType.WARNING, MessageHelper.MISMATCHING_PASSWORD_FIELDS);
+                                msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE, MessageHelper.MISMATCHING_PASSWORD_FIELDS);
                                 pw_crear_confContra.requestFocus();
                                 pw_crear_confContra.selectAll();
                             }
                         } else {
-                            msg.mostrarMensaje(MessageType.INFORMATION, MessageHelper.PASSWORD_SYNTAX_FAILURE);
+                            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageHelper.PASSWORD_SYNTAX_FAILURE);
                             pw_crear_contra.requestFocus();
                             pw_crear_contra.selectAll();
                         }
                     } else {
-                        msg.mostrarMensaje(MessageType.WARNING, MessageHelper.EMPTY_PASSWORD_FIELD);
+                        msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE, MessageHelper.EMPTY_PASSWORD_FIELD);
                         pw_crear_contra.requestFocus();
                     }
                 } else {
-                    msg.mostrarMensaje(MessageType.INFORMATION, MessageHelper.EMAIL_SYNTAX_FAILURE);
+                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageHelper.EMAIL_SYNTAX_FAILURE);
                     txt_actuali_correo.requestFocus();
                     txt_actuali_correo.selectAll();
                 }
             } else {
-                msg.mostrarMensaje(MessageType.WARNING, MessageHelper.EMPTY_EMAIL_FIELD);
+                msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE, MessageHelper.EMPTY_EMAIL_FIELD);
                 txt_crear_correo.requestFocus();
             }
         } else {
-            msg.mostrarMensaje(MessageType.WARNING, MessageHelper.EMPTY_USERNAME_FIELD);
+            msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE, MessageHelper.EMPTY_USERNAME_FIELD);
             txt_crear_nombreUsuario.requestFocus();
         }
     }//GEN-LAST:event_btn_crearUsuarioActionPerformed
-
+    
     private void btn_actualiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualiUsuarioActionPerformed
-        txt_actuali_nombreUsuario.requestFocusInWindow();
+        actualiUsuario(txt_actuali_nombreUsuario.getText(), 
+                txt_actuali_correo.getText(), 
+                new String(pw_actuali_lastpass.getPassword()), 
+                new String(pw_actuali_newPass.getPassword()), 
+                new String(pw_actuali_confNewPass.getPassword()));
+        txt_actuali_nombreUsuario.requestFocus();
         txt_actuali_nombreUsuario.selectAll();
 
     }//GEN-LAST:event_btn_actualiUsuarioActionPerformed
@@ -876,16 +991,16 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             //--------------------------------------------------------------------COMO MANTENER INFO DE ROL SI NO SE PUEDE PASAR A STRING
             model = (DefaultTableModel) tbl_actPermisos.getModel();
             int selectedRowIndex = tbl_actPermisos.getSelectedRow();
-            int codigo = Integer.parseInt(String.valueOf(model.getValueAt(selectedRowIndex, 0)));
+            String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0));
             Rol rol = rb_actPermi_Admin.isSelected() ? Rol.Administrador : Rol.Estándar;
 
-            controlador.updateUsuario(String.valueOf(model.getValueAt(selectedRowIndex, 1)),
+            controlador.actualizarUsuario(String.valueOf(model.getValueAt(selectedRowIndex, 1)),
                     String.valueOf(model.getValueAt(selectedRowIndex, 2)),
                     String.valueOf(model.getValueAt(selectedRowIndex, 3)),
                     rol, Estado.Activo, codigo);
-            updateTables();
+            cargarInfo();
         } catch (Exception e) {
-            mensaje.mostrarMensaje(MessageType.INFORMATION, MessageHelper.ANY_ROW_SELECTED);
+            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageHelper.ANY_ROW_SELECTED);
         }
     }//GEN-LAST:event_btn_actPermiActionPerformed
 
@@ -912,16 +1027,16 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             //--------------------------------------------------------------------COMO MANTENER INFO DE ROL SI NO SE PUEDE PASAR A STRING
             model = (DefaultTableModel) tbl_deshabilitar.getModel();
             int selectedRowIndex = tbl_deshabilitar.getSelectedRow();
-            int codigo = Integer.parseInt(String.valueOf(model.getValueAt(selectedRowIndex, 0)));
+            String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0));
             Estado estado = rb_deshab_habilitar.isSelected() ? Estado.Activo : Estado.Deshabilitado;
 
-            controlador.updateUsuario(String.valueOf(model.getValueAt(selectedRowIndex, 1)),
+            controlador.actualizarUsuario(String.valueOf(model.getValueAt(selectedRowIndex, 1)),
                     String.valueOf(model.getValueAt(selectedRowIndex, 2)),
                     String.valueOf(model.getValueAt(selectedRowIndex, 3)),
                     Rol.Administrador, estado, codigo);
-            updateTables();
+            cargarInfo();
         } catch (Exception e) {
-            mensaje.mostrarMensaje(MessageType.INFORMATION, MessageHelper.ANY_ROW_SELECTED);
+            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageHelper.ANY_ROW_SELECTED);
         }
     }//GEN-LAST:event_btn_deshabilitarActionPerformed
 
@@ -1037,17 +1152,32 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_pnl_listadoMouseClicked
 
+    private void btnActualiContrasennaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualiContrasennaActionPerformed
+        btnActualiContrasenna.setVisible(false);
+        jPanel1.setVisible(true);
+        pw_actuali_lastpass.requestFocus();
+        pw_actuali_lastpass.selectAll();
+    }//GEN-LAST:event_btnActualiContrasennaActionPerformed
+
+    private void pw_actuali_lastpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pw_actuali_lastpassActionPerformed
+        
+    }//GEN-LAST:event_pw_actuali_lastpassActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crear_rol;
+    private javax.swing.JButton btnActualiContrasenna;
     private javax.swing.JButton btn_actPermi;
     private javax.swing.JButton btn_actualiUsuario;
     private javax.swing.JButton btn_crearUsuario;
     private javax.swing.JButton btn_deshabilitar;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler3;
     private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_actPermi_selectUsuario;
+    private javax.swing.JLabel lbl_actuali_confpassNew;
     private javax.swing.JLabel lbl_actuali_nombreUsuario;
     private javax.swing.JLabel lbl_actuali_nombreUsuario1;
-    private javax.swing.JLabel lbl_actuali_nombreUsuario2;
     private javax.swing.JLabel lbl_actuali_passActual;
     private javax.swing.JLabel lbl_actuali_passNew;
     private javax.swing.JLabel lbl_crear_confirmPassw;

@@ -98,11 +98,11 @@ public class CtrUsuario {
         usuario.setDescRol(descRol);
     }
     
-    public String getEstado() {
+    public Estado getEstado() {
         return usuario.getEstado();
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         usuario.setEstado(estado);
     }
     
@@ -115,9 +115,9 @@ public class CtrUsuario {
         return mdlUsuario.crearUsuario(nombre, contra, correo, rol);
     }
     
-    public boolean updateUsuario(String nombre, String contra, String correo, 
-            Rol rol, Estado estado, int codigo) {
-        return mdlUsuario.updateUsuario(nombre, contra, correo, rol, estado, codigo);
+    public boolean actualizarUsuario( String nombre, String contra, String correo, 
+            Rol rol, Estado estado, String codigo) {
+        return mdlUsuario.actualizarUsuario(nombre, contra, correo, rol, estado, codigo);
     }
     
     public boolean restablecerClave(String nombre, String contra) {

@@ -5,6 +5,7 @@
  */
 package logica;
 
+import util.Estado;
 import util.Rol;
 
 /**
@@ -19,10 +20,10 @@ public class Usuario {
     private Rol rol;
     private String codRol;
     private String descRol;
-    private String estado;
+    private Estado estado;
     
     public Usuario(String nombre) {
-        setNombre(nombre);        
+        this.nombre = nombre;
     }
     
     public Usuario(String codigo, String nombre, String contrasenna, 
@@ -34,7 +35,7 @@ public class Usuario {
         this.rol = codRol.equals("1") ? Rol.Administrador : Rol.Estándar;
         this.codRol = codRol;
         this.descRol = descRol;
-        this.estado = estado;
+        this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
     }
     
     public String getCodigo() {
@@ -105,11 +106,11 @@ public class Usuario {
         this.descRol = descRol;
     }
     
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
     
