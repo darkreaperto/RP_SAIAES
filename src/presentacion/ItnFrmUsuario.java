@@ -77,7 +77,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                                             nuevaClave, correo,     
                                             sesion.getUsuario().getRol(), 
                                             sesion.getUsuario().getEstado(), 
-                                            sesion.getUsuario().getCodigo());                                    
+                                            sesion.getUsuario().getCodigo());
+                                    
                                     msg.mostrarMensaje(
                                             JOptionPane.INFORMATION_MESSAGE, 
                                             MessageHelper.USER_UPDATE_SUCCESS);
@@ -953,7 +954,9 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 new String(pw_actuali_confNewPass.getPassword()));
         txt_actuali_nombreUsuario.requestFocus();
         txt_actuali_nombreUsuario.selectAll();
+        usuarios.clear();
         cargarInfo();
+        System.out.println("USUARIO SESION " + sesion.getUsuario().getNombre());
         
     }//GEN-LAST:event_btn_actualiUsuarioActionPerformed
 

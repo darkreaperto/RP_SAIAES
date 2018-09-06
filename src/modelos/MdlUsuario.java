@@ -129,26 +129,31 @@ public class MdlUsuario {
             Rol rol, Estado estado, String codigo) {
         //Código de rol de usuario. 1: Administrador, 2: Estándar
         int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
-        //contra = crypter.encriptar(contra);
-        String state = estado.equals(Estado.Activo) ? "A" : "I";
-        boolean res = false;
+        String varEstado = estado.equals(Estado.Activo) ? "A" : "I";
+                
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(nombre);
+        params.add(contra);
+        params.add(correo);
+        params.add(codRol);
+        params.add(varEstado);
+        params.add(codigo);
+
+        boolean creacionExitosa = false;
         try {
-            String consulta = "UPDATE Usuarios"
-                    + " SET nombre_Usuarios = '" + nombre + "', "
-                    + " clave_Usuarios = '" + contra + "' , "
-                    + " correo_Usuarios = '" + correo + "', "
-                    + " cod_RolUsuar = " + codRol + ", "
-                    + " estado_Usuarios = '" + state + "' "
-                    + " WHERE cod_Usuarios = " + codigo + ";";
+            procedimiento = "pc_actualizar_usuario(?, ?, ?, ?, ?, ?)";
+
             conexion.abrirConexion();
-            res = conexion.ejecutarActualizar(consulta);
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            creacionExitosa = true;
 
         } catch (SQLException ex) {
+            creacionExitosa = false;
             System.err.println(ex);
         } finally {
             conexion.cerrarConexion();
+            return creacionExitosa;
         }
-        return res;
     }
     
     public ArrayList consultarUsuarios(String param) {

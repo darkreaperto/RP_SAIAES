@@ -54,6 +54,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         ctrUsuario = CtrUsuario.getInstancia();
         ctrVerificacion = new CtrVerificacion();
         msg = new Mensaje();
+        
         //No mover el internalFrame de acceso
         BasicInternalFrameUI bif = ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI());
         for (MouseListener listener : bif.getNorthPane().getMouseListeners()) {
@@ -71,7 +72,8 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
 
     public void entrada(String usuarioNow) {
 
-        //CARGAR LISTA DE USUARIOS. DE ALLÍ OBTENER USUARIO EN SESION
+        //CARGAR LISTA DE USUARIOS CUANDO SE HA DADO ACCESO. 
+        //DE ALLÍ OBTENER USUARIO EN SESION
         usuarios = ctrUsuario.obtenerUsuarios();
 
         for (int i = 0; i < usuarios.size(); i++) {
@@ -168,11 +170,6 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         txt_codigoConf_recClv.setDisabledTextColor(new java.awt.Color(51, 51, 51));
         txt_codigoConf_recClv.setEnabled(false);
         txt_codigoConf_recClv.setNextFocusableComponent(btn_codigoConf_recClv);
-        txt_codigoConf_recClv.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_codigoConf_recClvActionPerformed(evt);
-            }
-        });
 
         txt_correo_recClv.setDisabledTextColor(new java.awt.Color(51, 51, 51));
         txt_correo_recClv.setEnabled(false);
@@ -549,10 +546,6 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                     MessageHelper.MISMATCHING_PASSWORD_FIELDS);
         }
     }//GEN-LAST:event_btn_nuevaClave_recClvActionPerformed
-
-    private void txt_codigoConf_recClvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigoConf_recClvActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_codigoConf_recClvActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_acc_entrar;
