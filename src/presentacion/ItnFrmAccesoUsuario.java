@@ -95,7 +95,6 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                 }
             }
         }
-        FrmPrincipal.any(usuarioNow);
 
         instancia.dispose();
     }

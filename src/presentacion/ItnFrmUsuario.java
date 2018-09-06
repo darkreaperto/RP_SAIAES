@@ -288,11 +288,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol"
+                "Codigo", "Nombre de Usuario", "Correo", "Rol"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

@@ -281,13 +281,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.err.println(ex);
         }
-        modUsuarioAcceso.setLocation(250, 150);
-        
-        
-    }
-
-    public static void any(String t) {
-        System.out.println(t);
+        modUsuarioAcceso.setLocation(250, 150);   
     }
 
     /**
