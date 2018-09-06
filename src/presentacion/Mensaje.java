@@ -7,7 +7,6 @@ package presentacion;
 
 import javax.swing.JOptionPane;
 import util.MessageHelper;
-import util.MessageType;
 
 /**
  *
@@ -17,7 +16,7 @@ public class Mensaje {
     
     public String obtenerMensaje(MessageHelper mensaje) {
         
-        String msg = "";
+        String msg;
         
         switch (mensaje) {
             case EMPTY_USERNAME_FIELD:
@@ -66,6 +65,40 @@ public class Mensaje {
             case ANY_ROW_SELECTED:
                 msg = "Seleccione un elemento de la lista";
                 break;
+            case SEND_CONFIRMATION_EMAIL_FAILURE:
+                msg = "Ha ocurrido un error. No se ha podido enviar \nel "
+                        + "correo de recuperación. ¿Desea reintentarlo?";
+                break;
+            case SEND_CONFIRMATION_EMAIL_SUCCESS:
+                msg = "El correo de recuperación se ha enviado con éxito. "
+                        + "\nRevise el correo asociado al nombre de usuario "
+                        + "\ningresado para obtener el código de recuperación";
+                break;
+            case CONFIRMATION_EMAIL_NOT_FOUND:
+                msg = "No se ha podido encontrar un correo asociado \nal "
+                        + "nombre de usuario especificado";
+                break;
+            case CONFIRM_RESET_PASSWORD_CANCEL:
+                msg = "¿Está seguro que desea salir de la recuperación de "
+                        + "contraseña?";
+                break;
+            case USERNAME_SYNTAX_FAILURE:
+                msg = "USERNAME_SYNTAX_FAILURE";
+                break;
+            case RESET_PASSWORD_SUCCESS:
+                msg = "La contraseña para el usuario especificado "
+                        + "\nha sido restablecida con éxito";
+                break;
+            case RESET_PASSWORD_FAILURE:
+                msg = "No se ha podido restablecer la "
+                        + "\ncontraseña para el usuario especificado";
+                break;
+            case EMPTY_CONFIRMATION_CODE_FIELD:
+                msg = "Debe proporcionar un código de recuperación";
+                break;
+            case WRONG_CONFIRMATION_CODE:
+                msg = "El código de recuperación es incorrecto";
+                break;
             default:
                 msg = "¡Ups! ¡Algo no ha salido bien!";
                 break;
@@ -73,26 +106,16 @@ public class Mensaje {
         
         return msg;
     }
-    public void mostrarMensaje(MessageType tipo, MessageHelper msg) {
+    public void mostrarMensaje(int tipo, MessageHelper msg) {
         
-        int pan;
+        JOptionPane.showMessageDialog(null, obtenerMensaje(msg), 
+                "ADVERTENCIA", tipo);
+    }
+    
+    public int mostrarDialogo(int opcion, int tipo, MessageHelper mensaje) {
         
-        switch (tipo) {
-            case INFORMATION:
-                pan = JOptionPane.INFORMATION_MESSAGE;
-                break;
-            case WARNING:
-                pan = JOptionPane.WARNING_MESSAGE;
-                break;
-            case ERROR:
-                pan = JOptionPane.ERROR_MESSAGE;
-                break;
-            default:
-                pan = JOptionPane.INFORMATION_MESSAGE;
-                break;
-        }
-        
-        JOptionPane.showMessageDialog(null, this.obtenerMensaje(msg), 
-                tipo.toString(), pan);
+        int dialogResult = JOptionPane.showConfirmDialog(null, 
+                obtenerMensaje(mensaje), "ADVERTENCIA", opcion, tipo);
+        return dialogResult;
     }
 }

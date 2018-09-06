@@ -6,9 +6,12 @@
 package presentacion;
 
 import controladores.CtrAcceso;
+import java.awt.Component;
+import java.awt.Container;
 import java.util.ArrayList;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JInternalFrame;
 import logica.Usuario;
 
 /**
@@ -17,6 +20,9 @@ import logica.Usuario;
  */
 public class FrmPrincipal extends javax.swing.JFrame {
 
+    //Internal frames de los modulos
+    private static ItnFrmAccesoUsuario modUsuarioAcceso;
+    private static ItnFrmUsuario modUsuario;
     private static CtrAcceso sesionAcc;
     private static ArrayList<Usuario> usuarios;
 
@@ -26,6 +32,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     public FrmPrincipal() {
         initComponents();
+
         sesionAcc = new CtrAcceso();
         usuarios = new ArrayList<>();
         habilitarBotones();
@@ -43,15 +50,53 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_proveedor.setEnabled(false);
         btn_clientes.setEnabled(false);
 
-        ItnFrmAccesoUsuario moduloUsuarioAcceso = ItnFrmAccesoUsuario.getInstancia(sesionAcc, usuarios);
-        moduloUsuarioAcceso.setVisible(true);
+        ventanaAcceso();
+    }
+    public void cerrarSesion() {
+        bloquearBotones();
+    }
+    public void ventanaAcceso() {
+        modUsuarioAcceso = ItnFrmAccesoUsuario.getInstancia(sesionAcc, usuarios);
+        modUsuarioAcceso.setVisible(true);
         
         try {
-            dpn_principal.add(moduloUsuarioAcceso);
+            dpn_principal.add(modUsuarioAcceso);            
         } catch (Exception e) {
-            System.out.println("E");
+            System.out.println(e);
         }
-        moduloUsuarioAcceso.setLocation(300, 200);
+        modUsuarioAcceso.setLocation(300, 200);
+    }
+    public void bloquearBotones() {
+        
+        Container frameParent = this.getRootPane().getContentPane();
+        System.out.println("fp "+ frameParent);
+        
+        //Frame principal, tiene Jtoolbar DesktopPane..
+        for (Component c : frameParent.getComponents()) {
+//            if (c instanceof Container) {
+//                for (Component b : ((Container) c).getComponents()) {
+//                    //System.out.println("B "+b);
+//                    if (b instanceof JButton) {                        
+//                        b.setEnabled(false);
+//                    }
+//                }
+//            }
+            if(c instanceof JDesktopPane) {
+                for(Component i : ((JDesktopPane) c).getComponents()) {
+                    System.out.println("I" + i);
+                    if(i instanceof JInternalFrame) {
+                        System.out.println("Internal: " + i);
+                        ((JInternalFrame) i).dispose();
+                        
+                    }
+                }     
+            }
+        }
+        sesionAcc.setUsuario(null);
+        usuarios.clear();
+        habilitarBotones();
+        dpn_principal.remove(0);
+        ventanaAcceso();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,6 +128,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnbtn_editar = new javax.swing.JMenu();
         mnbtn_ver = new javax.swing.JMenu();
         mnbtn_salir = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAI-AES");
@@ -218,6 +264,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnb_principal.add(mnbtn_ver);
 
         mnbtn_salir.setText("Salir");
+
+        jMenuItem1.setText("Cerrar Sesión");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mnbtn_salir.add(jMenuItem1);
+
         mnb_principal.add(mnbtn_salir);
 
         setJMenuBar(mnb_principal);
@@ -274,16 +329,20 @@ public class FrmPrincipal extends javax.swing.JFrame {
      * @param evt 
      */
     private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
-        ItnFrmUsuario moduloUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
-        moduloUsuario.setVisible(true);
-        moduloUsuario.setVisible(true);
+        modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
+        modUsuario.setVisible(true);
+        modUsuario.setVisible(true);
         try {
-            dpn_principal.add(moduloUsuario);
+            dpn_principal.add(modUsuario);
         } catch (Exception e) {
             System.out.println("U");
         }
 
     }//GEN-LAST:event_btn_usuariosActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        cerrarSesion();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -332,6 +391,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_proveedor;
     private javax.swing.JButton btn_usuarios;
     private javax.swing.JDesktopPane dpn_principal;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;

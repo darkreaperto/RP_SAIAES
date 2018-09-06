@@ -14,6 +14,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.Authenticator;
+import javax.mail.NoSuchProviderException;
 
 /**
  *
@@ -52,7 +53,7 @@ public class Mail {
      * @param codigo
      * @return exito
      */
-    public boolean enviaCorreoRecuperacion(String correoPara, String codigo){
+    public boolean enviaCorreoRecuperacion(String correoPara, String codigo)throws MessagingException {
         
         boolean exito = false;
         String asunto = "SAI-AES: Recuperacion de contraseña";
@@ -65,6 +66,8 @@ public class Mail {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.timeout", "2000");    
+        props.put("mail.smtp.connectiontimeout", "2000");
         
         System.out.println("Props-end");
 
@@ -77,7 +80,7 @@ public class Mail {
           });
         
         System.out.println("Session-end");
-
+            
         try {
 
             Message message = new MimeMessage(session);
@@ -95,9 +98,9 @@ public class Mail {
             
             exito = true;
             
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        } finally {
+        } catch (MessagingException ex) {
+            System.err.println(ex);
+        }finally {
             return exito;
         }
     }

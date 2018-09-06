@@ -19,19 +19,7 @@ public class Principal {
      * Hace visible la ventana principal
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws SQLException {
-        
-        Conexion conn = Conexion.getInstancia();
-        conn.abrirConexion();
-        
-        ResultSet res = conn.ejecutarProcedimiento("pc_obtener_usuarios()");
-        
-        while (res.next()) {
-            System.out.println(res.getString("cod_Usuarios"));
-            System.out.println(res.getString("nombre_Usuarios"));
-        }
-        
-        conn.cerrarConexion();
+    public static void main(String[] args) {
         
         FrmPrincipal ventana = new FrmPrincipal();
         ventana.setVisible(true);

@@ -119,4 +119,12 @@ public class CtrUsuario {
             Rol rol, Estado estado, String codigo) {
         return mdlUsuario.actualizarUsuario(nombre, contra, correo, rol, estado, codigo);
     }
+    
+    public boolean restablecerClave(String nombre, String contra) {
+        return mdlUsuario.restablecerClave(nombre, contra);
+    }
+    
+    public ArrayList consultarUsuarios(String param) {
+        return mdlUsuario.consultarUsuarios(param);
+    }
 }
