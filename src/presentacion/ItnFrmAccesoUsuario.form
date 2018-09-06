@@ -115,9 +115,6 @@
               <ComponentRef name="btn_codigoConf_recClv"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_codigoConf_recClvActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_correo_recClv">
           <Properties>
