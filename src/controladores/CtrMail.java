@@ -6,9 +6,10 @@
 package controladores;
 
 import bd.Mail;
+import javax.mail.MessagingException;
 
 /**
- *
+ * Controlador de la clase Mail
  * @author dark-reaper
  */
 public class CtrMail {
@@ -23,7 +24,8 @@ public class CtrMail {
         return mail;
     }
     
-    public boolean enviarCorreoRecuperacion(String correoPara, String codigo) {
+    public boolean enviarCorreoRecuperacion(String correoPara, String codigo) 
+            throws MessagingException {
         return mail.enviaCorreoRecuperacion(correoPara, codigo);
     }
 }

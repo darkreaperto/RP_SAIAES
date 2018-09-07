@@ -11,7 +11,7 @@ import modelos.MdlUsuario;
 import util.Estado;
 import util.Rol;
 /**
- *
+ * Controlador de la clase Usuario.
  * @author ahoihanabi
  */
 public class CtrUsuario {

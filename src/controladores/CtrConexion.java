@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- *
+ * Controlador de la clase Conexion
  * @author dark-reaper
  */
 public class CtrConexion {

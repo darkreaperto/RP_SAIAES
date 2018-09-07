@@ -9,11 +9,9 @@ import controladores.CtrAcceso;
 import java.awt.Component;
 import java.awt.Container;
 import java.util.ArrayList;
-import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import javax.swing.JToolBar;
 import logica.Usuario;
 
 /**
@@ -40,11 +38,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
         ventanaAcceso();
     }
 
+    /**
+     * Inhablita el acceso a la interfaz (bloquea botones).
+     */
     public void cerrarSesion() {
         cerrarInternalFrame();
         bloquearBotones();
     }
 
+    /**
+     * Mostrar formulario interno de acceso al sistema.
+     */
     public void ventanaAcceso() {
         modUsuarioAcceso = ItnFrmAccesoUsuario.getInstancia(sesionAcc, usuarios);
         modUsuarioAcceso.setVisible(true);
@@ -56,6 +60,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
         modUsuarioAcceso.setLocation(300, 200);
     }
+    
+    /**
+     * Deshabilita los botones de los modulos.
+     */
     public void bloquearBotones() {
         btn_usuarios.setEnabled(false);
         btn_clientes.setEnabled(false);
@@ -65,6 +73,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_maquinaria.setEnabled(false);
         btn_proveedor.setEnabled(false);
     }
+    
+    /**
+     * Cerrar formulario interno en el desktop panel principal.
+     */
     public void cerrarInternalFrame() {
 
         Container frameParent = this.getRootPane().getContentPane();
@@ -327,6 +339,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      * @param evt
      */
     private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
+        //Abrir formulario de usuarios.
         modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
         modUsuario.deshabilitarPaneles();
         modUsuario.setVisible(true);

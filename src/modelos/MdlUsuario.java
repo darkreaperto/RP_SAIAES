@@ -15,6 +15,7 @@ import util.Estado;
 import util.Rol;
 
 /**
+ * Modelo de usuario con los procedimientos y consultas de base de datos
  *
  * @author ahoihanabi
  */
@@ -28,11 +29,15 @@ public class MdlUsuario {
 
     public MdlUsuario() {
         conexion = new CtrConexion();
-
         crypter = new AESEncrypt();
         crypter.addKey("SAI");
     }
 
+    /**
+     * Llena una lista con todos los usuarios almacenados en la BD.
+     *
+     * @return lista de usuarios.
+     */
     public ArrayList<Usuario> obtenerUsuarios() {
         usuarios = new ArrayList<>();
 
@@ -74,6 +79,15 @@ public class MdlUsuario {
         }
     }
 
+    /**
+     * Inserta un nuevo usuario en la BD
+     *
+     * @param nombre
+     * @param contra
+     * @param correo
+     * @param rol
+     * @return true si lo inserta.
+     */
     public boolean crearUsuario(String nombre, String contra, String correo,
             Rol rol) {
 
@@ -101,7 +115,14 @@ public class MdlUsuario {
             return creacionExitosa;
         }
     }
-    
+
+    /**
+     * Actualiza únicamente la contraseña en la BD.
+     *
+     * @param nombre
+     * @param contra
+     * @return true si actualiza.
+     */
     public boolean restablecerClave(String nombre, String contra) {
 
         ArrayList<Object> params = new ArrayList<>();
@@ -125,12 +146,23 @@ public class MdlUsuario {
         }
     }
 
+    /**
+     * Actualiza toda la información del usuario en la BD.
+     *
+     * @param nombre
+     * @param contra
+     * @param correo
+     * @param rol
+     * @param estado
+     * @param codigo
+     * @return true si actualiza.
+     */
     public boolean actualizarUsuario(String nombre, String contra, String correo,
             Rol rol, Estado estado, String codigo) {
-        //Código de rol de usuario. 1: Administrador, 2: Estándar
+        
         int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
         String varEstado = estado.equals(Estado.Activo) ? "A" : "I";
-                
+
         ArrayList<Object> params = new ArrayList<>();
         params.add(nombre);
         params.add(contra);
@@ -155,7 +187,12 @@ public class MdlUsuario {
             return creacionExitosa;
         }
     }
-    
+
+    /**
+     * Buscar usuario enviando por parámetro el criterio de búsqueda.
+     * @param param
+     * @return lista de usuarios
+     */
     public ArrayList consultarUsuarios(String param) {
         ArrayList<Object> params = new ArrayList<>();
         params.add(param);

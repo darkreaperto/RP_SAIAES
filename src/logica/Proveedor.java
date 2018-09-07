@@ -6,7 +6,7 @@
 package logica;
 
 /**
- *
+ * Instancia los proveedores con sus atributos.
  * @author dark-reaper
  */
 public class Proveedor {

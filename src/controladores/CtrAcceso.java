@@ -9,7 +9,7 @@ import logica.Usuario;
 import modelos.MdlAcceso;
 
 /**
- *
+ * Controlador de la clase Acceso.
  * @author ahoihanabi
  */
 public class CtrAcceso {

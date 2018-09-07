@@ -6,7 +6,7 @@
 package logica;
 
 /**
- *
+ * Instancia la persona con sus atributos.
  * @author dark-reaper
  */
 public class Persona {

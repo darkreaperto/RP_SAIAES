@@ -25,13 +25,13 @@ public final class Conexion {
     private ResultSet resultado;
     private CallableStatement procedimiento;
 
-    /**
-     *
-     */
     public Conexion() {
 
     }
-
+    /**
+     * Retorna la única instancia de la clase conexión.
+     * @return instancia de la clase.
+     */
     public static Conexion getInstancia() {
         if (instancia == null) {
             instancia = new Conexion();
@@ -39,6 +39,10 @@ public final class Conexion {
         return instancia;
     }
 
+    /**
+     * Abre la conexión para manipular la base de datos.
+     * @return el estado de la conexión.
+     */
     public boolean abrirConexion() {
         boolean conexionExitosa = false;
         try {
@@ -53,7 +57,11 @@ public final class Conexion {
             return conexionExitosa;
         }
     }
-
+    
+    /**
+     * Cierra la conexión con la base de datos, no permite manipularla.
+     * @return el estado de la desconexión.
+     */
     public boolean cerrarConexion() {
         boolean desconexionExitosa = false;
         try {
@@ -66,7 +74,13 @@ public final class Conexion {
             return desconexionExitosa;
         }
     }
-
+    
+    /**
+     * Ejecuta en la base de datos la consulta SQL que recibe por parámetro.
+     * @param consulta
+     * @return resultado de la consulta SQL.
+     * @throws SQLException 
+     */
     public ResultSet ejecutarConsulta(String consulta) throws SQLException {
         try {
             sentencia = conexion.createStatement();
@@ -78,7 +92,13 @@ public final class Conexion {
             return resultado;
         }
     }
-
+    
+    /**
+     * Ejecuta una modificación en la base de datos (insert, update, delete)
+     * @param consulta
+     * @return resultado de la modificacion.
+     * @throws SQLException 
+     */
     public boolean ejecutarActualizar(String consulta) throws SQLException {
 
         boolean actualizacionExitosa = false;
@@ -95,9 +115,10 @@ public final class Conexion {
     }
 
     /**
-     *
+     * Ejecuta un procedimiento almacenado sin parámetros de entrada 
+     * en la base de datos.
      * @param procedure
-     * @return
+     * @return resultado del procedimiento.
      */
     public ResultSet ejecutarProcedimiento(String procedure) {
         try {
@@ -111,10 +132,11 @@ public final class Conexion {
     }
 
     /**
-     *
+     * Ejecuta un procedimiento almacenado con parámetros de entrada 
+     * en la base de datos.
      * @param procedure
      * @param params
-     * @return
+     * @return resultado del procedimiento.
      */
     public ResultSet ejecutarProcedimiento(String procedure,
             ArrayList<Object> params) {
