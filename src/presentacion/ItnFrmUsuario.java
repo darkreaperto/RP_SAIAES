@@ -15,7 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import logica.Usuario;
 import logica.Verificacion;
-import util.MessageHelper;
+import util.MessageType;
 import util.Rol;
 
 /**
@@ -53,7 +53,13 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         pnlActualizarClave.setVisible(false);
 
     }
-
+    
+    /**
+     * Retorna la única instancia de la clase.
+     * @param sesionAcc
+     * @param usuarios
+     * @return instancia.
+     */
     public static ItnFrmUsuario getInstancia(CtrAcceso sesionAcc, ArrayList<Usuario> usuarios) {
         if (instancia == null) {
             instancia = new ItnFrmUsuario(sesionAcc, usuarios);
@@ -61,7 +67,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         return instancia;
     }
 
-    public void actualiUsuario(String nombreUsuario, String correo,
+    
+    public void actualizarUsuario(String nombreUsuario, String correo,
             String clave, String nuevaClave, String nuevaClaveConf) {
 
         if (!nombreUsuario.isEmpty() && !correo.isEmpty()) {
@@ -82,38 +89,41 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
                                     msg.mostrarMensaje(
                                             JOptionPane.INFORMATION_MESSAGE,
-                                            MessageHelper.USER_UPDATE_SUCCESS);
+                                            MessageType.USER_UPDATE_SUCCESS);
                                 } else {
                                     msg.mostrarMensaje(
                                             JOptionPane.ERROR_MESSAGE,
-                                            MessageHelper.MISMATCHING_PASSWORD_FIELDS);
+                                            MessageType.MISMATCHING_PASSWORD_FIELDS);
                                 }
                             } else {
                                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                                        MessageHelper.PASSWORD_SYNTAX_FAILURE);
+                                        MessageType.PASSWORD_SYNTAX_FAILURE);
                             }
                         } else {
-                            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, MessageHelper.EMAIL_SYNTAX_FAILURE);
+                            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                                    MessageType.EMAIL_SYNTAX_FAILURE);
                         }
                     } else {
                         msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                                MessageHelper.USER_UPDATE_FAILURE);
+                                MessageType.USER_UPDATE_FAILURE);
                     }
                 } //comprobar contraseña y nombre de usuario
 
             } else {
                 if (verificacion.validateEmail(correo)) {
-                    controlador.actualizarUsuario(nombreUsuario, sesion.getUsuario().getContrasenna(),
+                    controlador.actualizarUsuario(nombreUsuario, 
+                            sesion.getUsuario().getContrasenna(),
                             correo, sesion.getUsuario().getRol(),
-                            sesion.getUsuario().getEstado(), sesion.getUsuario().getCodigo());
-                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageHelper.USER_UPDATE_SUCCESS);
+                            sesion.getUsuario().getEstado(), 
+                            sesion.getUsuario().getCodigo());
+                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageType.USER_UPDATE_SUCCESS);
                 } else {
-                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, MessageHelper.EMAIL_SYNTAX_FAILURE);
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, MessageType.EMAIL_SYNTAX_FAILURE);
                 }
             }
         } else {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                    MessageHelper.USER_ACCESS_FAILURE);
+                    MessageType.USER_ACCESS_FAILURE);
         }
 
     }
@@ -128,8 +138,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 row[0] = usuarios.get(i).getCodigo();
                 row[1] = usuarios.get(i).getNombre();
                 //row[2] = usuarios.get(i).getContrasenna();
-                row[3] = usuarios.get(i).getCorreo();
-                row[4] = usuarios.get(i).getDescRol();
+                row[2] = usuarios.get(i).getCorreo();
+                row[3] = usuarios.get(i).getDescRol();
                 //row[5] = lista.get(i).getEstado();
                 model.addRow(row);
             }
@@ -203,6 +213,57 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         }
         cargarTablas();
     }
+    
+    public void crearUsuario(String nombre, String contra, String contraConf, String correo, Rol rol) {
+        
+
+        if (!nombre.isEmpty()) {
+            if (verificacion.validateUserName(nombre)) {
+                if (!correo.isEmpty()) {
+                    if (verificacion.validateEmail(correo)) {
+                        if (!contra.isEmpty()) {
+                            if (verificacion.validatePassword(contra)) {
+                                if (contra.equals(contraConf)) {
+                                    if (controlador.crearUsuario(nombre, contra, correo, rol)) {
+                                        cargarTablas();
+                                        sesion.setUsuario(usuarios.get(usuarios.indexOf(sesion.getUsuario())));
+                                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageType.USER_INSERTION_SUCCESS);
+                                    } else {
+                                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, MessageType.USER_INSERTION_FAILURE);
+                                        limpiarTexto("Crear");
+                                    }
+                                } else {
+                                    msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE, MessageType.MISMATCHING_PASSWORD_FIELDS);
+                                    pw_crear_confContra.requestFocus();
+                                    pw_crear_confContra.selectAll();
+                                }
+                            } else {
+                                msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageType.PASSWORD_SYNTAX_FAILURE);
+                                pw_crear_contra.requestFocus();
+                                pw_crear_contra.selectAll();
+                            }
+                        } else {
+                            msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE, MessageType.EMPTY_PASSWORD_FIELD);
+                            pw_crear_contra.requestFocus();
+                        }
+                    } else {
+                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageType.EMAIL_SYNTAX_FAILURE);
+                        txt_actuali_correo.requestFocus();
+                        txt_actuali_correo.selectAll();
+                    }
+                } else {
+                    msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE, MessageType.EMPTY_EMAIL_FIELD);
+                    txt_crear_correo.requestFocus();
+                }
+                msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageType.ANY_ROW_SELECTED);
+            } else {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, MessageType.CONFIRMATION_EMAIL_NOT_FOUND);
+            }
+        } else {
+            msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE, MessageType.EMPTY_USERNAME_FIELD);
+            txt_crear_nombreUsuario.requestFocus();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -269,6 +330,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         lbl_actuali_passNew = new javax.swing.JLabel();
         pw_actuali_confNewPass = new javax.swing.JPasswordField();
         lbl_actuali_confpassNew = new javax.swing.JLabel();
+        btn_cancelarActualiUsuario = new javax.swing.JButton();
         btnActualiContrasenna = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 35), new java.awt.Dimension(0, 35), new java.awt.Dimension(32767, 35));
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 200), new java.awt.Dimension(0, 200), new java.awt.Dimension(32767, 200));
@@ -422,11 +484,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol"
+                "Codigo", "Nombre de Usuario", "Correo", "Rol"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -542,11 +604,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol"
+                "Codigo", "Nombre de Usuario", "Correo", "Rol"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -673,11 +735,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol"
+                "Codigo", "Nombre de Usuario", "Correo", "Rol"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -759,6 +821,13 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
         lbl_actuali_confpassNew.setText("Confirmar contraseña:");
 
+        btn_cancelarActualiUsuario.setText("Cancelar");
+        btn_cancelarActualiUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActualiUsuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlActualizarClaveLayout = new javax.swing.GroupLayout(pnlActualizarClave);
         pnlActualizarClave.setLayout(pnlActualizarClaveLayout);
         pnlActualizarClaveLayout.setHorizontalGroup(
@@ -775,6 +844,10 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                     .addComponent(lbl_actuali_confpassNew)
                     .addComponent(pw_actuali_confNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(67, 67, 67))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlActualizarClaveLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_cancelarActualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pnlActualizarClaveLayout.setVerticalGroup(
             pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -794,7 +867,9 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 .addComponent(lbl_actuali_confpassNew)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pw_actuali_confNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65))
+                .addGap(18, 18, 18)
+                .addComponent(btn_cancelarActualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         btnActualiContrasenna.setText("Actualizar Contraseña");
@@ -832,7 +907,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                                         .addComponent(txt_actuali_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(338, Short.MAX_VALUE))))
+                        .addContainerGap(335, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -864,7 +939,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                     .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+                .addGap(101, 101, 101))
         );
 
         tb_modUsuario_permisos.addTab("Actualizar información", pnl_actualizar);
@@ -907,63 +982,21 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
     private void btn_crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearUsuarioActionPerformed
 
-        String nombre = txt_crear_nombreUsuario.getText();
-        String contra = new String(pw_crear_contra.getPassword());
-        String contraConf = new String(pw_crear_confContra.getPassword());
-        String correo = txt_crear_correo.getText();
         //Si el radio button rol Estándar está seleccionado
         Rol rol = rb_crear_rolEstandar.isSelected() ? Rol.Estándar : Rol.Administrador;
-
-        if (!nombre.isEmpty()) {
-            if (verificacion.validateUserName(nombre)) {
-                if (!correo.isEmpty()) {
-                    if (verificacion.validateEmail(correo)) {
-                        if (!contra.isEmpty()) {
-                            if (verificacion.validatePassword(contra)) {
-                                if (contra.equals(contraConf)) {
-                                    if (controlador.crearUsuario(nombre, contra, correo, rol)) {
-                                        cargarTablas();
-                                        sesion.setUsuario(usuarios.get(usuarios.indexOf(sesion.getUsuario())));
-                                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageHelper.USER_INSERTION_SUCCESS);
-                                    } else {
-                                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, MessageHelper.USER_INSERTION_FAILURE);
-                                        limpiarTexto("Crear");
-                                    }
-                                } else {
-                                    msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE, MessageHelper.MISMATCHING_PASSWORD_FIELDS);
-                                    pw_crear_confContra.requestFocus();
-                                    pw_crear_confContra.selectAll();
-                                }
-                            } else {
-                                msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageHelper.PASSWORD_SYNTAX_FAILURE);
-                                pw_crear_contra.requestFocus();
-                                pw_crear_contra.selectAll();
-                            }
-                        } else {
-                            msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE, MessageHelper.EMPTY_PASSWORD_FIELD);
-                            pw_crear_contra.requestFocus();
-                        }
-                    } else {
-                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageHelper.EMAIL_SYNTAX_FAILURE);
-                        txt_actuali_correo.requestFocus();
-                        txt_actuali_correo.selectAll();
-                    }
-                } else {
-                    msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE, MessageHelper.EMPTY_EMAIL_FIELD);
-                    txt_crear_correo.requestFocus();
-                }
-                msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageHelper.ANY_ROW_SELECTED);
-            } else {
-                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, MessageHelper.CONFIRMATION_EMAIL_NOT_FOUND);
-            }
-        } else {
-            msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE, MessageHelper.EMPTY_USERNAME_FIELD);
-            txt_crear_nombreUsuario.requestFocus();
-        }
+        
+        crearUsuario(txt_crear_nombreUsuario.getText(), 
+                new String(pw_crear_contra.getPassword()), 
+                new String(pw_crear_confContra.getPassword()), 
+                txt_crear_correo.getText(), 
+                rol);
+        
+        txt_crear_nombreUsuario.requestFocus();
+        txt_crear_nombreUsuario.selectAll();
     }//GEN-LAST:event_btn_crearUsuarioActionPerformed
 
     private void btn_actualiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualiUsuarioActionPerformed
-        actualiUsuario(txt_actuali_nombreUsuario.getText(),
+        actualizarUsuario(txt_actuali_nombreUsuario.getText(),
                 txt_actuali_correo.getText(),
                 new String(pw_actuali_lastpass.getPassword()),
                 new String(pw_actuali_newPass.getPassword()),
@@ -1064,7 +1097,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                     rol, Estado.Activo, codigo);
             cargarTablas();
         } catch (Exception e) {
-            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageHelper.ANY_ROW_SELECTED);
+            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageType.ANY_ROW_SELECTED);
         }
     }//GEN-LAST:event_btn_actPermiActionPerformed
 
@@ -1100,7 +1133,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                     Rol.Administrador, estado, codigo);
             cargarTablas();
         } catch (Exception e) {
-            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageHelper.ANY_ROW_SELECTED);
+            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, MessageType.ANY_ROW_SELECTED);
         }
     }//GEN-LAST:event_btn_deshabilitarActionPerformed
 
@@ -1228,11 +1261,17 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         cargarUsuariosJTable(tbl_usuarioListado, true);
     }//GEN-LAST:event_txt_listado_buscarKeyReleased
 
+    private void btn_cancelarActualiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActualiUsuarioActionPerformed
+        pnlActualizarClave.setVisible(false);
+        btnActualiContrasenna.setVisible(true);
+    }//GEN-LAST:event_btn_cancelarActualiUsuarioActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crear_rol;
     private javax.swing.JButton btnActualiContrasenna;
     private javax.swing.JButton btn_actPermi;
     private javax.swing.JButton btn_actualiUsuario;
+    private javax.swing.JButton btn_cancelarActualiUsuario;
     private javax.swing.JButton btn_crearUsuario;
     private javax.swing.JButton btn_deshabilitar;
     private javax.swing.Box.Filler filler1;

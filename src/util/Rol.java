@@ -6,7 +6,7 @@
 package util;
 
 /**
- *
+ * Enumeración para los roles de usuario.
  * @author dark-reaper
  */
 public enum Rol {

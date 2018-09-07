@@ -6,7 +6,7 @@
 package bd;
 
 import presentacion.Mensaje;
-import util.MessageHelper;
+import util.MessageType;
 import javax.swing.JOptionPane;
 import controladores.CtrMail;
 import controladores.CtrRecover;
@@ -53,7 +53,7 @@ public class MailThread implements Runnable {
             if ((dialogo = 
                     msg.mostrarDialogo(JOptionPane.YES_NO_OPTION, 
                     JOptionPane.ERROR_MESSAGE, 
-                    MessageHelper.SEND_CONFIRMATION_EMAIL_FAILURE)) == 
+                    MessageType.SEND_CONFIRMATION_EMAIL_FAILURE)) == 
                     JOptionPane.YES_OPTION) {
                 
                 enviarCorreo = mail.enviarCorreoRecuperacion(correo, 
@@ -75,7 +75,7 @@ public class MailThread implements Runnable {
             btn_codigoConf_recClv.setEnabled(true);
             
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-            MessageHelper.SEND_CONFIRMATION_EMAIL_SUCCESS);
+            MessageType.SEND_CONFIRMATION_EMAIL_SUCCESS);
         }
         //Ocultar barra de tarea
         pb_enviarCorreo.setVisible(false);

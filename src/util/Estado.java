@@ -7,7 +7,7 @@ package util;
  */
 
 /**
- *
+ * Enumeración para el estado de usuario.
  * @author ahoihanabi
  */
 public enum Estado {

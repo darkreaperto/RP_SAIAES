@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import logica.Usuario;
-import util.MessageHelper;
+import util.MessageType;
 import bd.MailThread;
 
 /**
@@ -112,14 +112,14 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
             if (sesionAcc.compararClave(txt_NombreUsuario.getText(), new String(pw_acc_password.getPassword()))) {
                 entrada(txt_NombreUsuario.getText());
                 msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-                        MessageHelper.USER_ACCESS_SUCCESS);
+                        MessageType.USER_ACCESS_SUCCESS);
             } else {
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                        MessageHelper.USER_ACCESS_FAILURE);
+                        MessageType.USER_ACCESS_FAILURE);
             }
         } else {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                    MessageHelper.USER_ACCESS_FAILURE);
+                    MessageType.USER_ACCESS_FAILURE);
         }
     }
 
@@ -434,7 +434,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     private void btn_cancelar_recClvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelar_recClvActionPerformed
         int dialogResult = msg.mostrarDialogo(JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE,
-                MessageHelper.CONFIRM_RESET_PASSWORD_CANCEL);
+                MessageType.CONFIRM_RESET_PASSWORD_CANCEL);
         
         if (dialogResult == JOptionPane.YES_OPTION) {
             txt_usuario_recClv.setText("");
@@ -463,11 +463,11 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                 btn_nuevaClave_recClv.setEnabled(true);
             } else {
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                        MessageHelper.WRONG_CONFIRMATION_CODE);
+                        MessageType.WRONG_CONFIRMATION_CODE);
             }
         } else {
             msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE, 
-                        MessageHelper.EMPTY_CONFIRMATION_CODE_FIELD);
+                        MessageType.EMPTY_CONFIRMATION_CODE_FIELD);
         }
     }//GEN-LAST:event_btn_codigoConf_recClvActionPerformed
 
@@ -497,15 +497,15 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                     
                 } else {
                     msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                            MessageHelper.EMPTY_EMAIL_FIELD);
+                            MessageType.EMPTY_EMAIL_FIELD);
                 }
             } else {
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                        MessageHelper.CONFIRMATION_EMAIL_NOT_FOUND);
+                        MessageType.CONFIRMATION_EMAIL_NOT_FOUND);
             }
         } else {
             msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
-                    MessageHelper.EMPTY_USERNAME_FIELD);
+                    MessageType.EMPTY_USERNAME_FIELD);
         }
     }//GEN-LAST:event_btn_confUsuario_recClvActionPerformed
 
@@ -522,7 +522,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                 if (ctrUsuario.restablecerClave(usuario, clave)) {
                     //El restablecimiento se ha realizado con éxito
                     msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-                            MessageHelper.RESET_PASSWORD_SUCCESS);
+                            MessageType.RESET_PASSWORD_SUCCESS);
                 
                     //Limpiar los campos de texto y deshabilitar los botones
                     txt_usuario_recClv.setText("");
@@ -540,15 +540,15 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
             
                 } else {
                     msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                            MessageHelper.RESET_PASSWORD_FAILURE);
+                            MessageType.RESET_PASSWORD_FAILURE);
                 }
             } else {
                 msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                        MessageHelper.PASSWORD_SYNTAX_FAILURE);
+                        MessageType.PASSWORD_SYNTAX_FAILURE);
             }
         } else {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                    MessageHelper.MISMATCHING_PASSWORD_FIELDS);
+                    MessageType.MISMATCHING_PASSWORD_FIELDS);
         }
     }//GEN-LAST:event_btn_nuevaClave_recClvActionPerformed
 

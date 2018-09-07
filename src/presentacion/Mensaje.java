@@ -6,18 +6,26 @@
 package presentacion;
 
 import javax.swing.JOptionPane;
-import util.MessageHelper;
+import util.MessageType;
 
 /**
+ * Contiene los mensajes para informar al usuario el resultado de las
+ * transacciones en el programa.
  *
  * @author dark-reaper
  */
 public class Mensaje {
-    
-    public String obtenerMensaje(MessageHelper mensaje) {
-        
+
+    /**
+     * Descripción del mensaje a mostrar.
+     *
+     * @param mensaje
+     * @return el mensaje a mostrar.
+     */
+    public String obtenerMensaje(MessageType mensaje) {
+
         String msg;
-        
+
         switch (mensaje) {
             case EMPTY_USERNAME_FIELD:
                 msg = "Debe proporcionar un nombre de usuario";
@@ -103,18 +111,35 @@ public class Mensaje {
                 msg = "¡Ups! ¡Algo no ha salido bien!";
                 break;
         }
-        
+
         return msg;
     }
-    public void mostrarMensaje(int tipo, MessageHelper msg) {
-        
-        JOptionPane.showMessageDialog(null, obtenerMensaje(msg), 
+
+    /**
+     * Agrega la descripción indicada al JOptionPane y lo muestra en un dialogo
+     * informativo.
+     *
+     * @param tipo
+     * @param msg
+     */
+    public void mostrarMensaje(int tipo, MessageType msg) {
+
+        JOptionPane.showMessageDialog(null, obtenerMensaje(msg),
                 "ADVERTENCIA", tipo);
     }
-    
-    public int mostrarDialogo(int opcion, int tipo, MessageHelper mensaje) {
-        
-        int dialogResult = JOptionPane.showConfirmDialog(null, 
+
+    /**
+     * Muestra en pantalla un dialogo con todos sus elementos pasados por
+     * parámetro.
+     *
+     * @param opcion
+     * @param tipo
+     * @param mensaje
+     * @return mensaje emergente que permite al usuario escoger sí o no.
+     */
+    public int mostrarDialogo(int opcion, int tipo, MessageType mensaje) {
+
+        int dialogResult = JOptionPane.showConfirmDialog(null,
                 obtenerMensaje(mensaje), "ADVERTENCIA", opcion, tipo);
         return dialogResult;
     }

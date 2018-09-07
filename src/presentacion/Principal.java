@@ -5,12 +5,8 @@
  */
 package presentacion;
 
-import bd.Conexion;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 /**
- *
+ * Clase principal que hace visible el formulario de inicio.
  * @author ahoihanabi
  */
 public class Principal {
