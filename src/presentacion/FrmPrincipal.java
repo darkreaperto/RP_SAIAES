@@ -58,7 +58,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
-        modUsuarioAcceso.setLocation(300, 200);
+        modUsuarioAcceso.setLocation(300, 150);
     }
     
     /**

@@ -10,6 +10,9 @@ import util.MessageType;
 import javax.swing.JOptionPane;
 import controladores.CtrMail;
 import controladores.CtrRecover;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
@@ -46,38 +49,42 @@ public class MailThread implements Runnable {
     }
     @Override
     public void run() {
-        enviarCorreo = mail.enviarCorreoRecuperacion(correo, 
-                recover.getCodigo());
-        while (!enviarCorreo && retry) {
-            int dialogo;
-            if ((dialogo = 
-                    msg.mostrarDialogo(JOptionPane.YES_NO_OPTION, 
-                    JOptionPane.ERROR_MESSAGE, 
-                    MessageType.SEND_CONFIRMATION_EMAIL_FAILURE)) == 
-                    JOptionPane.YES_OPTION) {
+        try {
+            enviarCorreo = mail.enviarCorreoRecuperacion(correo,
+                    recover.getCodigo());
+            while (!enviarCorreo && retry) {
+                int dialogo;
+                if ((dialogo =
+                        msg.mostrarDialogo(JOptionPane.YES_NO_OPTION,
+                                JOptionPane.ERROR_MESSAGE,
+                                MessageType.SEND_CONFIRMATION_EMAIL_FAILURE)) ==
+                        JOptionPane.YES_OPTION) {
+                    
+                    enviarCorreo = mail.enviarCorreoRecuperacion(correo,
+                            recover.getCodigo());
+                }
+                retry = dialogo == JOptionPane.YES_OPTION;
                 
-                enviarCorreo = mail.enviarCorreoRecuperacion(correo, 
-                        recover.getCodigo());
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException ex) {
+                    System.err.println(ex);
+                }
             }
-            retry = dialogo == JOptionPane.YES_OPTION;
             
-            try {
-                Thread.sleep(250);
-            } catch (InterruptedException ex) {
-                System.err.println(ex);
+            if (enviarCorreo) {
+                //Habilitar campo para ingresar codigo de recuperacion
+                txt_codigoConf_recClv.setEnabled(true);
+                //Habilitar boton para confirmar codigo de recuperacion
+                btn_codigoConf_recClv.setEnabled(true);
+                
+                msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+                        MessageType.SEND_CONFIRMATION_EMAIL_SUCCESS);
             }
+            //Ocultar barra de tarea
+            pb_enviarCorreo.setVisible(false);
+        } catch (MessagingException ex) {
+            Logger.getLogger(MailThread.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if (enviarCorreo) {
-            //Habilitar campo para ingresar codigo de recuperacion
-            txt_codigoConf_recClv.setEnabled(true);
-            //Habilitar boton para confirmar codigo de recuperacion
-            btn_codigoConf_recClv.setEnabled(true);
-            
-            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-            MessageType.SEND_CONFIRMATION_EMAIL_SUCCESS);
-        }
-        //Ocultar barra de tarea
-        pb_enviarCorreo.setVisible(false);
     }
 }

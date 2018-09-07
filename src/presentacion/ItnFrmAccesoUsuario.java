@@ -357,9 +357,9 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        btn_acc_recup.setForeground(java.awt.SystemColor.inactiveCaption);
-        btn_acc_recup.setText("¿Olvidaste tu contraseña?");
-        btn_acc_recup.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
+        btn_acc_recup.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
+        btn_acc_recup.setText("Olvidé mi contraseña");
+        btn_acc_recup.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
         btn_acc_recup.setContentAreaFilled(false);
         btn_acc_recup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_acc_recup.addActionListener(new java.awt.event.ActionListener() {
