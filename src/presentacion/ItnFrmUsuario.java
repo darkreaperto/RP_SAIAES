@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import logica.Usuario;
-import logica.Verificacion;
+import logica.Regex;
 import util.MessageHelper;
 import util.Rol;
 
@@ -31,7 +31,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private static ArrayList<Usuario> usuarios;
     private static CtrAcceso sesion;
     private DefaultTableModel model;
-    private final Verificacion verificacion;
+    private final Regex verificacion;
 
     /**
      * Creates new form intfrmUsuario
@@ -46,7 +46,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         crypter = new AESEncrypt();
         crypter.addKey("SAI");
         msg = new Mensaje();
-        verificacion = new Verificacion();
+        verificacion = new Regex();
         ItnFrmUsuario.usuarios = usuarios;
         ItnFrmUsuario.sesion = sesionAcc;
         cargarTablas();
@@ -70,8 +70,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                         && !nuevaClaveConf.isEmpty()) {
                     if (sesion.compararClave(sesion.getUsuario().getNombre(),
                             clave)) {
-                        if (verificacion.validateEmail(correo)) {
-                            if (verificacion.validatePassword(nuevaClave)) {
+                        if (verificacion.validaEmail(correo)) {
+                            if (verificacion.validaClave(nuevaClave)) {
                                 if (nuevaClave.equals(nuevaClaveConf)) {
                                     nuevaClave = crypter.encriptar(nuevaClave);
                                     controlador.actualizarUsuario(nombreUsuario,
@@ -102,7 +102,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 } //comprobar contraseña y nombre de usuario
 
             } else {
-                if (verificacion.validateEmail(correo)) {
+                if (verificacion.validaEmail(correo)) {
                     controlador.actualizarUsuario(nombreUsuario, sesion.getUsuario().getContrasenna(),
                             correo, sesion.getUsuario().getRol(),
                             sesion.getUsuario().getEstado(), sesion.getUsuario().getCodigo());
@@ -915,11 +915,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         Rol rol = rb_crear_rolEstandar.isSelected() ? Rol.Estándar : Rol.Administrador;
 
         if (!nombre.isEmpty()) {
-            if (verificacion.validateUserName(nombre)) {
+            if (verificacion.validaNombreUsuario(nombre)) {
                 if (!correo.isEmpty()) {
-                    if (verificacion.validateEmail(correo)) {
+                    if (verificacion.validaEmail(correo)) {
                         if (!contra.isEmpty()) {
-                            if (verificacion.validatePassword(contra)) {
+                            if (verificacion.validaClave(contra)) {
                                 if (contra.equals(contraConf)) {
                                     if (controlador.crearUsuario(nombre, contra, correo, rol)) {
                                         cargarTablas();

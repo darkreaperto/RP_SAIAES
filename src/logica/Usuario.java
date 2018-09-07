@@ -9,10 +9,12 @@ import util.Estado;
 import util.Rol;
 
 /**
+ * Instancia los usuarios con sus atributos.
  *
  * @author dark-reaper
  */
 public class Usuario {
+
     private String codigo;
     private String nombre;
     private String contrasenna;
@@ -21,12 +23,12 @@ public class Usuario {
     private String codRol;
     private String descRol;
     private Estado estado;
-    
+
     public Usuario(String nombre) {
         this.nombre = nombre;
     }
-    
-    public Usuario(String codigo, String nombre, String contrasenna, 
+
+    public Usuario(String codigo, String nombre, String contrasenna,
             String correo, String codRol, String descRol, String estado) {
         this.codigo = codigo;
         this.nombre = nombre;
@@ -37,43 +39,31 @@ public class Usuario {
         this.descRol = descRol;
         this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
     }
-    
+
     public String getCodigo() {
         return codigo;
     }
-    
+
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
     
-    /**
-     * @return the nombre
-     */
     public String getNombre() {
         return nombre;
     }
 
-    /**
-     * @param nombre the nombre to set
-     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    /**
-     * @return the contrasenna
-     */
     public String getContrasenna() {
         return contrasenna;
     }
-
-    /**
-     * @param contrasenna the contrasenna to set
-     */
+    
     public void setContrasenna(String contrasenna) {
         this.contrasenna = contrasenna;
     }
-    
+
     public String getCorreo() {
         return correo;
     }
@@ -81,31 +71,31 @@ public class Usuario {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
+
     public Rol getRol() {
         return rol;
     }
-    
+
     public void setRol(Rol rol) {
         this.rol = rol;
     }
-    
+
     public String getCodRol() {
         return codRol;
     }
-    
+
     public void setCodRol(String codRol) {
         this.codRol = codRol;
     }
-    
+
     public String getDescRol() {
         return descRol;
     }
-    
+
     public void setDescRol(String descRol) {
         this.descRol = descRol;
     }
-    
+
     public Estado getEstado() {
         return estado;
     }
@@ -113,5 +103,5 @@ public class Usuario {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
-    
+
 }

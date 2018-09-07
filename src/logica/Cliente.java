@@ -6,7 +6,7 @@
 package logica;
 
 /**
- *
+ * Instancia los clientes con sus atributos.
  * @author dark-reaper
  */
 public class Cliente {

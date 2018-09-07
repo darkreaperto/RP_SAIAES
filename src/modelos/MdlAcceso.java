@@ -10,7 +10,8 @@ import bd.Conexion;
 import java.sql.ResultSet;
 
 /**
- *
+ * Modelo de acceso con los procedimientos y consultas de base de datos
+ * 
  * @author ahoihanabi
  */
 public class MdlAcceso {
@@ -23,14 +24,21 @@ public class MdlAcceso {
         crypter = new AESEncrypt();
         crypter.addKey("SAI");
     }
-    
+    /**
+     * Compara la clave ingresada con la clave almacenada en la base de datos.
+     * 
+     * @param user
+     * @param pass
+     * @return 
+     */
     public boolean compararClave(String user, String pass) {
         
         boolean go = false;
         try {
             conexion.abrirConexion();
             
-            String sql = "SELECT nombre_Usuarios, clave_Usuarios FROM Usuarios "
+            String sql = "SELECT nombre_Usuarios, clave_Usuarios "
+                    + "FROM Usuarios "
                     + "WHERE nombre_Usuarios = '" + user + "'";
             
             ResultSet rs = conexion.ejecutarConsulta(sql);

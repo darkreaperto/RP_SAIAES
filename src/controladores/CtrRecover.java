@@ -8,7 +8,7 @@ package controladores;
 import bd.Recover;
 
 /**
- *
+ * Controlador de la clase Recover.
  * @author dark-reaper
  */
 public class CtrRecover {

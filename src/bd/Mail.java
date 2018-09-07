@@ -36,7 +36,11 @@ public class Mail {
         this.clave = crypter.desencriptar("0DCsLyRjMyfzRF0sy5ATrA==");
         this.correoDe = "rodrigocedenocedeno@gmail.com";
     }
-    
+    /**
+     * Instancia un nuevo correo.
+     * @param usuario
+     * @param clave 
+     */
     public Mail (String usuario, String clave) {
         
         crypter = new AESEncrypt();
@@ -53,7 +57,7 @@ public class Mail {
      * @param codigo
      * @return exito
      */
-    public boolean enviaCorreoRecuperacion(String correoPara, String codigo)throws MessagingException {
+    public boolean enviaCorreoRecuperacion(String correoPara, String codigo) {
         
         boolean exito = false;
         String asunto = "SAI-AES: Recuperacion de contraseña";
@@ -78,7 +82,6 @@ public class Mail {
                 return new PasswordAuthentication(usuario, clave);
             }
           });
-        
         System.out.println("Session-end");
             
         try {

@@ -5,29 +5,29 @@
  */
 package controladores;
 
-import logica.Verificacion;
+import logica.Regex;
 
 /**
- *
+ * Controladorde la clase Verificacion.
  * @author dark-reaper
  */
 public class CtrVerificacion {
     
-    private static Verificacion verficacion;
+    private static Regex verficacion;
     
     public CtrVerificacion() {
-        verficacion = new Verificacion();
+        verficacion = new Regex();
     }
     
     public boolean validateEmail(String email) {
-        return verficacion.validateEmail(email);
+        return verficacion.validaEmail(email);
     }
 
     public boolean validatePassword(String password) {
-        return verficacion.validatePassword(password);
+        return verficacion.validaClave(password);
     }
     
-    public Verificacion getVerificacion() {
+    public Regex getVerificacion() {
         return verficacion;
     }
 }
