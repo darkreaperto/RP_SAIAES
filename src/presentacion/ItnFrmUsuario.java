@@ -133,8 +133,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                         if (!contra.isEmpty()) {
                             if (verificacion.validaClave(contra)) {
                                 if (contra.equals(contraConf)) {
-                                    if (controlador.crearUsuario(
-                                            nombre, contra, correo, rol)) {
+                                    boolean crear = 
+                                            controlador.crearUsuario(nombre, 
+                                                    contra, correo, rol);
+                                    System.out.println(crear);
+                                    if (crear) {
                                         cargarTablas();
                                         sesion.setUsuario(usuarios.get(
                                                 usuarios.indexOf(
@@ -627,7 +630,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         pnl_deshab_deshabContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Activo:"));
 
         bg_crear_rol.add(rb_deshab_deshabilitar);
-        rb_deshab_deshabilitar.setSelected(true);
         rb_deshab_deshabilitar.setText("Deshabilitar");
         rb_deshab_deshabilitar.setNextFocusableComponent(btn_deshabilitar);
 
@@ -759,6 +761,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         pnl_actPermi_rolContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Rol Usuario:"));
 
         bg_crear_rol.add(rb_actPermi_estandar);
+        rb_actPermi_estandar.setSelected(true);
         rb_actPermi_estandar.setText("Estándar");
         rb_actPermi_estandar.setNextFocusableComponent(btn_actPermi);
 
@@ -1044,7 +1047,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
     private void btn_crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearUsuarioActionPerformed
         //Si el radio button rol Estándar está seleccionado
-        Rol rol = rb_crear_rolEstandar.isSelected() ? Rol.Estándar : Rol.Administrador;
+        Rol rol = rb_crear_rolAdmin.isSelected() ? Rol.Administrador : Rol.Estándar;
 
         crearUsuario(txt_crear_nombreUsuario.getText(),
                 new String(pw_crear_contra.getPassword()),

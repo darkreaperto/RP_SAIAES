@@ -139,8 +139,8 @@ public final class Conexion {
      * @return resultado del procedimiento.
      */
     public ResultSet ejecutarProcedimiento(String procedure,
-            ArrayList<Object> params) {
-        try {
+            ArrayList<Object> params) throws SQLException {
+        //try {
             procedimiento = conexion.prepareCall("{ CALL "
                     + procedure + " }");
 
@@ -159,10 +159,10 @@ public final class Conexion {
             }
 
             resultado = procedimiento.executeQuery();
-        } catch (SQLException ex) {
-            System.err.println(ex);
-        } finally {
+        //} catch (SQLException ex) {
+            //throw ex;
+        //} finally {
             return resultado;
-        }
+        //}
     }
 }
