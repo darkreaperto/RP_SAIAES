@@ -99,17 +99,19 @@ public class MdlUsuario {
         params.add(correo);
         params.add(codRol);
 
-        boolean creacionExitosa = false;
+        boolean creacionExitosa = true;
         try {
             procedimiento = "pc_crear_usuario(?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
-            creacionExitosa = true;
+            //creacionExitosa = true;
+            System.out.println(resultado);
 
         } catch (SQLException ex) {
-            creacionExitosa = false;
             System.err.println(ex);
+            creacionExitosa = false;
+            throw ex;
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
