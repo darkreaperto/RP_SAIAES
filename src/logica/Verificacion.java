@@ -19,6 +19,7 @@ public class Verificacion {
 
     private static final String EMAIL_REGEX = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
     private static final String PASSWORD_REGEX = "(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z]).(?=\\S+$).{6,16}";
+    private static final String USER_REGEX = "^[A-Za-z0-9_.][^\\s]{6,16}$"; 
 
     public Verificacion() {
         
@@ -44,6 +45,12 @@ public class Verificacion {
     public boolean validatePassword(String password) {
         pattern = Pattern.compile(PASSWORD_REGEX);
         matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+    
+    public boolean validateUserName(String username) {
+        pattern = Pattern.compile(USER_REGEX);
+        matcher = pattern.matcher(username);
         return matcher.matches();
     }
 }

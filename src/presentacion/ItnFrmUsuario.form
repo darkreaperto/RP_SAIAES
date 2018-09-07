@@ -68,12 +68,15 @@
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JTabbedPane" name="tb_modUsuario_permisos">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="Listado Usuarios" noResource="true"/>
+          </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="pnl_listado">
               <Properties>
-                <Property name="name" type="java.lang.String" value="ListadoUsuarios" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="Listado de usuarios" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="pnl_listadoFocusGained"/>
@@ -82,8 +85,8 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Listado Usuarios">
-                    <Property name="tabTitle" type="java.lang.String" value="Listado Usuarios"/>
+                  <JTabbedPaneConstraints tabName="Listado de usuarios">
+                    <Property name="tabTitle" type="java.lang.String" value="Listado de usuarios"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -192,12 +195,12 @@
             </Container>
             <Container class="javax.swing.JPanel" name="pnl_crear">
               <Properties>
-                <Property name="name" type="java.lang.String" value="CrearUsuarios" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="Agregar usuario" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Crear">
-                    <Property name="tabTitle" type="java.lang.String" value="Crear"/>
+                  <JTabbedPaneConstraints tabName="Agregar usuario">
+                    <Property name="tabTitle" type="java.lang.String" value="Agregar usuario"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -446,12 +449,12 @@
             </Container>
             <Container class="javax.swing.JPanel" name="pnl_deshabilitar">
               <Properties>
-                <Property name="name" type="java.lang.String" value="DeshabilitarUsuarios" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="Habilitar usuarios" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Eliminar">
-                    <Property name="tabTitle" type="java.lang.String" value="Eliminar"/>
+                  <JTabbedPaneConstraints tabName="Habilitar usuarios">
+                    <Property name="tabTitle" type="java.lang.String" value="Habilitar usuarios"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -697,7 +700,7 @@
             </Container>
             <Container class="javax.swing.JPanel" name="pnl_actualizarPermisos">
               <Properties>
-                <Property name="name" type="java.lang.String" value="PermisosUsuarios" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="Actualizar permisos" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -874,12 +877,15 @@
             </Container>
             <Container class="javax.swing.JPanel" name="pnl_actualizar">
               <Properties>
-                <Property name="name" type="java.lang.String" value="ActualizarUsuarios" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="Actualizar informaci&#xf3;n" noResource="true"/>
               </Properties>
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
+              </AccessibilityProperties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Actualizar">
-                    <Property name="tabTitle" type="java.lang.String" value="Actualizar"/>
+                  <JTabbedPaneConstraints tabName="Actualizar informaci&#xf3;n">
+                    <Property name="tabTitle" type="java.lang.String" value="Actualizar informaci&#xf3;n"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -898,7 +904,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="btnActualiContrasenna" alignment="0" min="-2" pref="294" max="-2" attributes="0"/>
                                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="pnlActualizarClave" alignment="0" max="32767" attributes="0"/>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Group type="102" alignment="0" attributes="0">
@@ -957,7 +963,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="btnActualiContrasenna" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="pnlActualizarClave" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="filler3" min="-2" pref="355" max="-2" attributes="0"/>
                           </Group>
@@ -1001,7 +1007,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Container class="javax.swing.JPanel" name="jPanel1">
+                <Container class="javax.swing.JPanel" name="pnlActualizarClave">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">

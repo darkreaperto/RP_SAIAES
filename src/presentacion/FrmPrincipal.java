@@ -6,9 +6,14 @@
 package presentacion;
 
 import controladores.CtrAcceso;
+import java.awt.Component;
+import java.awt.Container;
 import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JInternalFrame;
+import javax.swing.JToolBar;
 import logica.Usuario;
 
 /**
@@ -20,19 +25,68 @@ public class FrmPrincipal extends javax.swing.JFrame {
     //Internal frames de los modulos
     private static ItnFrmAccesoUsuario modUsuarioAcceso;
     private static ItnFrmUsuario modUsuario;
-    //
     private static CtrAcceso sesionAcc;
     private static ArrayList<Usuario> usuarios;
 
     /**
-     * Creates new form frmPrincipal
+     * Crea el form principal, instancia variables para almacenar el usuario en
+     * sesión y la lista de todos los usuarios.
      */
     public FrmPrincipal() {
         initComponents();
 
         sesionAcc = new CtrAcceso();
         usuarios = new ArrayList<>();
-        acceso();
+        ventanaAcceso();
+    }
+
+    public void cerrarSesion() {
+        cerrarInternalFrame();
+        bloquearBotones();
+    }
+
+    public void ventanaAcceso() {
+        modUsuarioAcceso = ItnFrmAccesoUsuario.getInstancia(sesionAcc, usuarios);
+        modUsuarioAcceso.setVisible(true);
+
+        try {
+            dpn_principal.add(modUsuarioAcceso);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        modUsuarioAcceso.setLocation(300, 200);
+    }
+    public void bloquearBotones() {
+        btn_usuarios.setEnabled(false);
+        btn_clientes.setEnabled(false);
+        btn_facturacion.setEnabled(false);
+        btn_consultas.setEnabled(false);
+        btn_inventario.setEnabled(false);
+        btn_maquinaria.setEnabled(false);
+        btn_proveedor.setEnabled(false);
+    }
+    public void cerrarInternalFrame() {
+
+        Container frameParent = this.getRootPane().getContentPane();
+        System.out.println("fp " + frameParent);
+
+        //Frame principal, tiene Jtoolbar DesktopPane..
+        for (Component c : frameParent.getComponents()) {
+            if (c instanceof JDesktopPane) {
+                for (Component i : ((JDesktopPane) c).getComponents()) {
+                    System.out.println("I" + i);
+                    if (i instanceof JInternalFrame) {
+                        System.out.println("Internal: " + i);
+                        //((JInternalFrame) i).dispose();
+                        dpn_principal.remove(i);
+                    }
+                }
+                this.pack();
+            }
+        }
+        sesionAcc.setUsuario(null);
+        usuarios.clear();
+        ventanaAcceso();
     }
 
     /**
@@ -65,6 +119,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnbtn_editar = new javax.swing.JMenu();
         mnbtn_ver = new javax.swing.JMenu();
         mnbtn_salir = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAI-AES");
@@ -90,6 +145,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_facturacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_facturacion.png"))); // NOI18N
         btn_facturacion.setText(" Facturación");
+        btn_facturacion.setEnabled(false);
         btn_facturacion.setFocusable(false);
         btn_facturacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_facturacion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -105,6 +161,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_inventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_inventario.png"))); // NOI18N
         btn_inventario.setText("  Inventario  ");
+        btn_inventario.setEnabled(false);
         btn_inventario.setFocusable(false);
         btn_inventario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_inventario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -120,6 +177,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_consultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_consulta.png"))); // NOI18N
         btn_consultas.setText("  Consultas  ");
+        btn_consultas.setEnabled(false);
         btn_consultas.setFocusable(false);
         btn_consultas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_consultas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -135,6 +193,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_cliente.png"))); // NOI18N
         btn_clientes.setText("   Clientes    ");
+        btn_clientes.setEnabled(false);
         btn_clientes.setFocusable(false);
         btn_clientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_clientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -150,6 +209,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_proveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_proveedor.png"))); // NOI18N
         btn_proveedor.setText("Proveedores");
+        btn_proveedor.setEnabled(false);
         btn_proveedor.setFocusable(false);
         btn_proveedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_proveedor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -165,6 +225,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_maquinaria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_maquinaria.png"))); // NOI18N
         btn_maquinaria.setText(" Maquinaria ");
+        btn_maquinaria.setEnabled(false);
         btn_maquinaria.setFocusable(false);
         btn_maquinaria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_maquinaria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -180,6 +241,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_usuario.png"))); // NOI18N
         btn_usuarios.setText("   Usuarios   ");
+        btn_usuarios.setEnabled(false);
         btn_usuarios.setFocusable(false);
         btn_usuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_usuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -200,6 +262,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnb_principal.add(mnbtn_ver);
 
         mnbtn_salir.setText("Salir");
+
+        jMenuItem1.setText("Cerrar Sesión");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mnbtn_salir.add(jMenuItem1);
+
         mnb_principal.add(mnbtn_salir);
 
         setJMenuBar(mnb_principal);
@@ -229,7 +300,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_facturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturacionActionPerformed
-
+        // 
     }//GEN-LAST:event_btn_facturacionActionPerformed
 
     private void btn_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inventarioActionPerformed
@@ -250,12 +321,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void btn_maquinariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_maquinariaActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, sesionAcc.getUsuario());
     }//GEN-LAST:event_btn_maquinariaActionPerformed
-
+    /**
+     *
+     * @param evt
+     */
     private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
         modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
-        modUsuario.setVisible(true);
+        modUsuario.deshabilitarPaneles();
         modUsuario.setVisible(true);
         try {
             dpn_principal.add(modUsuario);
@@ -264,25 +337,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btn_usuariosActionPerformed
-    public void acceso() {
-        btn_usuarios.setEnabled(false);
-        btn_consultas.setEnabled(false);
-        btn_facturacion.setEnabled(false);
-        btn_inventario.setEnabled(false);
-        btn_maquinaria.setEnabled(false);
-        btn_proveedor.setEnabled(false);
-        btn_clientes.setEnabled(false);
 
-        modUsuarioAcceso = ItnFrmAccesoUsuario.getInstancia(sesionAcc, usuarios);
-        modUsuarioAcceso.setVisible(true);
-
-        try {
-            dpn_principal.add(modUsuarioAcceso);
-        } catch (Exception ex) {
-            System.err.println(ex);
-        }
-        modUsuarioAcceso.setLocation(250, 150);   
-    }
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        cerrarSesion();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -331,6 +389,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_proveedor;
     private javax.swing.JButton btn_usuarios;
     private javax.swing.JDesktopPane dpn_principal;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;

@@ -54,6 +54,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         ctrUsuario = CtrUsuario.getInstancia();
         ctrVerificacion = new CtrVerificacion();
         msg = new Mensaje();
+        
         //No mover el internalFrame de acceso
         BasicInternalFrameUI bif = ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI());
         for (MouseListener listener : bif.getNorthPane().getMouseListeners()) {
@@ -71,14 +72,17 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
 
     public void entrada(String usuarioNow) {
 
-        //CARGAR LISTA DE USUARIOS. DE ALLÍ OBTENER USUARIO EN SESION
+        //CARGAR LISTA DE USUARIOS CUANDO SE HA DADO ACCESO. 
+        //DE ALLÍ OBTENER USUARIO EN SESION
         usuarios = ctrUsuario.obtenerUsuarios();
 
         for (int i = 0; i < usuarios.size(); i++) {
             if (usuarios.get(i).getNombre().equals(usuarioNow)) {
                 sesionAcc.setUsuario(usuarios.get(i));
+                break;
             }
         }
+        System.out.println(sesionAcc.getUsuario().getNombre());
 
         //Frame Principal
         Container frameParent = this.getParent().getParent();
@@ -95,7 +99,9 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                 }
             }
         }
-
+        //Limpiar campos de texto, Nombre de usuario y contraseña
+        instancia.txt_NombreUsuario.setText("");
+        instancia.pw_acc_password.setText("");
         instancia.dispose();
     }
 
