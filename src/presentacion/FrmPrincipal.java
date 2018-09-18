@@ -12,10 +12,11 @@ import java.util.ArrayList;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import logica.Usuario;
 
 /**
- *
+ * Inicializa la ventana principal del sistema.
  * @author ahoihanabi
  */
 public class FrmPrincipal extends javax.swing.JFrame {
@@ -310,30 +311,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_facturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturacionActionPerformed
-        // 
-    }//GEN-LAST:event_btn_facturacionActionPerformed
-
-    private void btn_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inventarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_inventarioActionPerformed
-
-    private void btn_consultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_consultasActionPerformed
-
-    private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_clientesActionPerformed
-
-    private void btn_proveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_proveedorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_proveedorActionPerformed
-
-    private void btn_maquinariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_maquinariaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_maquinariaActionPerformed
     /**
      *
      * @param evt
@@ -354,6 +331,42 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         cerrarSesion();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void btn_facturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturacionActionPerformed
+        JOptionPane.showMessageDialog(null, "Hi! An amazing billing module will "
+                + "be developed here! \n Hold on a little more please. We are "
+                + "working hard!");
+    }//GEN-LAST:event_btn_facturacionActionPerformed
+
+    private void btn_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inventarioActionPerformed
+        JOptionPane.showMessageDialog(null, "Hi! An amazing stocktaking module "
+                + "will be developed here! \n Hold on a little more please. "
+                + "We are working hard!");
+    }//GEN-LAST:event_btn_inventarioActionPerformed
+
+    private void btn_consultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultasActionPerformed
+        JOptionPane.showMessageDialog(null, "Hi! An amazing query module "
+                + "will be developed here! \n Hold on a little more please. "
+                + "We are working hard!");
+    }//GEN-LAST:event_btn_consultasActionPerformed
+
+    private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
+        JOptionPane.showMessageDialog(null, "Hi! An amazing costumers module "
+                + "will be developed here! \n Hold on a little more please. "
+                + "We are working hard!");
+    }//GEN-LAST:event_btn_clientesActionPerformed
+
+    private void btn_proveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_proveedorActionPerformed
+        JOptionPane.showMessageDialog(null, "Hi! An amazing providers module "
+                + "will be developed here! \n Hold on a little more please. "
+                + "We are working hard!");
+    }//GEN-LAST:event_btn_proveedorActionPerformed
+
+    private void btn_maquinariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_maquinariaActionPerformed
+        JOptionPane.showMessageDialog(null, "Hi! An amazing enginery module "
+                + "will be developed here! \n Hold on a little more please. "
+                + "We are working hard!");
+    }//GEN-LAST:event_btn_maquinariaActionPerformed
 
     /**
      * @param args the command line arguments

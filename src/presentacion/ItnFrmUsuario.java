@@ -19,7 +19,7 @@ import logica.Regex;
 import util.Rol;
 
 /**
- *
+ * Inicializa la ventana que contiene la información de los usuarios.
  * @author ahoihanabi
  */
 public class ItnFrmUsuario extends javax.swing.JInternalFrame {
@@ -36,8 +36,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     /**
      * Instancia un nuevo formulario interno de usuario.
      *
-     * @param sesionAcc
-     * @param usuarios
+     * @param sesionAcc Usuario en sesión actual 
+     * @param usuarios Lista con los usuarios en la base de datos
      */
     protected ItnFrmUsuario(CtrAcceso sesionAcc, ArrayList<Usuario> usuarios) {
         initComponents();
@@ -57,8 +57,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     /**
      * Retorna la única instancia de la clase.
      *
-     * @param sesionAcc
-     * @param usuarios
+     * @param sesionAcc Usuario en sesión actual.
+     * @param usuarios Lista de usuarios en la base de datos.
      * @return instancia.
      */
     public static ItnFrmUsuario getInstancia(CtrAcceso sesionAcc,
@@ -117,11 +117,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     /**
      * Crea un nuevo usuario con la información enviada por parámetro.
      *
-     * @param nombre
-     * @param contra
-     * @param contraConf
-     * @param correo
-     * @param rol
+     * @param nombre Nombre del nuevo usuario
+     * @param contra Contraseña del nuevo usuario
+     * @param contraConf Confirmación de contraseña del nuevo usuario
+     * @param correo Correo del nuevo usuario
+     * @param rol Rol del nuevo usuario
      */
     public void crearUsuario(String nombre, String contra, String contraConf,
             String correo, Rol rol) {
@@ -198,11 +198,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     /**
      * Actualiza la información del usuario en sesión.
      *
-     * @param nombreUsuario
-     * @param correo
-     * @param clave
-     * @param nuevaClave
-     * @param nuevaClaveConf
+     * @param nombreUsuario nuevo nombre de usuario
+     * @param correo Nuevo correo del usuario
+     * @param clave Clave actual del usuario
+     * @param nuevaClave Nueva clave de usuario
+     * @param nuevaClaveConf Confirmación de nueva clave de usuario
      */
     public void actualizarUsuario(String nombreUsuario, String correo,
             String clave, String nuevaClave, String nuevaClaveConf) {
@@ -268,7 +268,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     /**
      * Actualiza la variable estática de sesión.
      *
-     * @param usuario
+     * @param usuario nuevo usuario en sesión
      */
     public void actualizarSesion(String usuario) {
         for (int i = 0; i < usuarios.size(); i++) {
@@ -281,8 +281,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     /**
      * Cargar la tabla (modelo) con los usuarios existentes.
      *
-     * @param tabla
-     * @param estado
+     * @param tabla Nombre de la tabla a llenar
+     * @param estado Estado del usuario a incresar
      */
     public void cargarUsuariosJTable(JTable tabla, boolean estado) {
         Object[] row = new Object[5];

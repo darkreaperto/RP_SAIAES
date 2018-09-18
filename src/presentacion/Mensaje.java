@@ -11,7 +11,6 @@ import util.MessageType;
 /**
  * Contiene los mensajes para informar al usuario el resultado de las
  * transacciones en el programa.
- *
  * @author dark-reaper
  */
 public class Mensaje {
@@ -19,7 +18,7 @@ public class Mensaje {
     /**
      * Descripción del mensaje a mostrar.
      *
-     * @param mensaje
+     * @param mensaje Enum identificador para escoger el detalle del mensaje
      * @return el mensaje a mostrar.
      */
     public String obtenerMensaje(MessageType mensaje) {
@@ -119,8 +118,8 @@ public class Mensaje {
      * Agrega la descripción indicada al JOptionPane y lo muestra en un dialogo
      * informativo.
      *
-     * @param tipo
-     * @param msg
+     * @param tipo Tipo de mensaje (informacion, error, etc)
+     * @param msg Enum del tipo de mensaje
      */
     public void mostrarMensaje(int tipo, MessageType msg) {
 
@@ -132,9 +131,9 @@ public class Mensaje {
      * Muestra en pantalla un dialogo con todos sus elementos pasados por
      * parámetro.
      *
-     * @param opcion
-     * @param tipo
-     * @param mensaje
+     * @param opcion Tipo de dialogo (yes, no.. ok etc)
+     * @param tipo Tipo de mensaje
+     * @param mensaje Detalle del mensaje dependiendo de su tipo.
      * @return mensaje emergente que permite al usuario escoger sí o no.
      */
     public int mostrarDialogo(int opcion, int tipo, MessageType mensaje) {

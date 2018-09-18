@@ -6,7 +6,7 @@
 package logica;
 
 /**
- * Almacena la variable de sesión.
+ * Clase de acceso, almacena la variable de sesión.
  * @author ahoihanabi
  */
 public class Acceso {
@@ -14,14 +14,25 @@ public class Acceso {
     private Usuario usuario;
     
     
+    /**
+     * Constructor de clase acceso
+     */
     public Acceso() {
         
     }
     
+    /**
+     * Establecer usuario.
+     * @param user Usuario.
+     */
     public void setUsuario(Usuario user) {
         usuario = user;
     }
     
+    /**
+     * Obtener usuario.
+     * @return Usuario.
+     */
     public Usuario getUsuario() {
         return usuario;
     }    

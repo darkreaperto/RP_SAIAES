@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 
 /**
  * Modelo de acceso con los procedimientos y consultas de base de datos
- * 
  * @author ahoihanabi
  */
 public class MdlAcceso {
@@ -19,6 +18,9 @@ public class MdlAcceso {
     Conexion conexion; 
     private static AESEncrypt crypter;
 
+    /**
+     * Constructor de clase modelo de acceso.
+     */
     public MdlAcceso() {
         conexion = Conexion.getInstancia();
         crypter = new AESEncrypt();
@@ -27,9 +29,9 @@ public class MdlAcceso {
     /**
      * Compara la clave ingresada con la clave almacenada en la base de datos.
      * 
-     * @param user
-     * @param pass
-     * @return 
+     * @param user nombre de usuario para el acceso.
+     * @param pass contraseña de acceso.
+     * @return verdadero o falso si las claves coinciden.
      */
     public boolean compararClave(String user, String pass) {
         
