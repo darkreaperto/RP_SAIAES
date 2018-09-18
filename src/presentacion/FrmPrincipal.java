@@ -138,6 +138,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAI-AES");
+        setLocation(new java.awt.Point(0, 0));
+        setUndecorated(true);
+        setResizable(false);
 
         javax.swing.GroupLayout dpn_principalLayout = new javax.swing.GroupLayout(dpn_principal);
         dpn_principal.setLayout(dpn_principalLayout);
@@ -326,12 +329,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
         modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
         modUsuario.deshabilitarPaneles();
         modUsuario.setVisible(true);
-        try {
+        if (dpn_principal.getComponentCount() == 0) {
             dpn_principal.add(modUsuario);
-        } catch (Exception e) {
-            System.out.println("U");
+        } else {
+            if (!(dpn_principal.getComponent(0) instanceof ItnFrmUsuario)) 
+                dpn_principal.add(modUsuario);
         }
-
     }//GEN-LAST:event_btn_usuariosActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
