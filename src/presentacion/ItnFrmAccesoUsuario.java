@@ -137,8 +137,8 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
      */
     public void iniciarSesion(String usuario, String clave) {
 
-        usuario = "usuario";
-        clave = "usuario2018";
+        usuario = "usua";
+        clave = "123";
         
         if (!usuario.isEmpty() && clave.length() > 0) {
             //comprobar contraseña y nombre de usuario
