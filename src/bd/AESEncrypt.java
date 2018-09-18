@@ -19,7 +19,7 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 /**
- * @web http://www.jc.mouse.net/
+ * Clase que implementa la encriptación o desencriptación de contraseñas.
  * @author Mouse
  */
 public class AESEncrypt {
@@ -32,7 +32,7 @@ public class AESEncrypt {
     /**
      * Crea la Llave para encriptar/desencriptar
      *
-     * @param String value
+     * @param value clave para encriptar
      */
     public void addKey(String value) {
         byte[] valuebytes = value.getBytes();
@@ -42,7 +42,7 @@ public class AESEncrypt {
     /**
      * Metodo para encriptar un texto
      *
-     * @param texto
+     * @param texto texto a encriptar
      * @return String texto encriptado
      */
     public String encriptar(String texto) {

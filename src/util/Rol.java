@@ -10,6 +10,13 @@ package util;
  * @author dark-reaper
  */
 public enum Rol {
+    /**
+     * Permiso de acceso a todo el sistema.
+     */
     Administrador,
+    
+    /**
+     * Permiso de acceso al sistema restringido.
+     */
     Estándar
 }

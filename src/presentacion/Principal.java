@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JRootPane;
 
 /**
- * Clase principal que hace visible el formulario de inicio.
+ * Clase principal que hace visible la ventana de inicio.
  * @author ahoihanabi
  */
 public class Principal {

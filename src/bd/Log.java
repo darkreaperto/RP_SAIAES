@@ -6,7 +6,7 @@
 package bd;
 
 /**
- *
+ * Almacena el log del usuario en el sistema.
  * @author dark-reaper
  */
 public class Log {

@@ -16,7 +16,6 @@ import util.Rol;
 
 /**
  * Modelo de usuario con los procedimientos y consultas de base de datos
- *
  * @author ahoihanabi
  */
 public class MdlUsuario {
@@ -27,6 +26,9 @@ public class MdlUsuario {
     private static ResultSet resultado;
     private static ArrayList<Usuario> usuarios;
 
+    /**
+     * Constructor de clase modelo de usuario.
+     */
     public MdlUsuario() {
         conexion = new CtrConexion();
         crypter = new AESEncrypt();
@@ -65,7 +67,8 @@ public class MdlUsuario {
 
                 Usuario usuario
                         = new Usuario(codUsuario, nombreUsuario, claveUsuario,
-                                correoUsuario, codRolUsuario, descRolUsuario, estadoUsuario);
+                                correoUsuario, codRolUsuario, descRolUsuario, 
+                                estadoUsuario);
 
                 if (!usuarios.contains(usuario)) {
                     usuarios.add(usuario);
@@ -82,11 +85,11 @@ public class MdlUsuario {
     /**
      * Inserta un nuevo usuario en la BD
      *
-     * @param nombre
-     * @param contra
-     * @param correo
-     * @param rol
-     * @return true si lo inserta.
+     * @param nombre nuevo nombre de usuario
+     * @param contra nueva contraseña del usuario
+     * @param correo nuevo correo del usuario
+     * @param rol nuevo rol del usuario
+     * @return true si inserta el usuario.
      */
     public boolean crearUsuario(String nombre, String contra, String correo,
             Rol rol) {
@@ -121,8 +124,8 @@ public class MdlUsuario {
     /**
      * Actualiza únicamente la contraseña en la BD.
      *
-     * @param nombre
-     * @param contra
+     * @param nombre Nombre de usuario
+     * @param contra nueva contraseña del usuario
      * @return true si actualiza.
      */
     public boolean restablecerClave(String nombre, String contra) {
@@ -150,13 +153,12 @@ public class MdlUsuario {
 
     /**
      * Actualiza toda la información del usuario en la BD.
-     *
-     * @param nombre
-     * @param contra
-     * @param correo
-     * @param rol
-     * @param estado
-     * @param codigo
+     * @param nombre Nombre de usuario
+     * @param contra Contraseña de usuario
+     * @param correo Correo brindado por el usuario
+     * @param rol Rol del usuario
+     * @param estado Estado del usuario
+     * @param codigo Codigo para identificar el usuario
      * @return true si actualiza.
      */
     public boolean actualizarUsuario(String nombre, String contra, String correo,
@@ -192,7 +194,7 @@ public class MdlUsuario {
 
     /**
      * Buscar usuario enviando por parámetro el criterio de búsqueda.
-     * @param param
+     * @param param Parametros para consultar usuario en la base de datos
      * @return lista de usuarios
      */
     public ArrayList consultarUsuarios(String param) {

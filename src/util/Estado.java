@@ -11,6 +11,12 @@ package util;
  * @author ahoihanabi
  */
 public enum Estado {
+    /**
+     * Usuario activo en el sistema.
+     */
     Activo,
+    /**
+     * Usuario inactivo en el sistema (No puede ingresar).
+     */
     Deshabilitado
 }

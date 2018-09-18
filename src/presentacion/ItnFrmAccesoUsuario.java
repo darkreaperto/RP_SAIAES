@@ -24,7 +24,7 @@ import util.MessageType;
 import bd.MailThread;
 
 /**
- *
+ * Inicializa la ventana de acceso para ingresar el usuario y contraseña.
  * @author ahoihanabi
  */
 public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
@@ -42,8 +42,8 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     /**
      * Instancia el formulario interno de acceso al sistema.
      *
-     * @param sesionAcc
-     * @param usuarios
+     * @param sesionAcc Usuario en sesión actual.
+     * @param usuarios Lista de usuario en la base de datos.
      */
     public ItnFrmAccesoUsuario(CtrAcceso sesionAcc, ArrayList<Usuario> usuarios) {
         initComponents();
@@ -65,9 +65,9 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
 
     /**
      * Retorna la única instancia de la clase.
-     * @param sesionAcc
-     * @param usuarios
-     * @return 
+     * @param sesionAcc Usuario en sesión actual.
+     * @param usuarios Lista de usuarios en la base de datos.
+     * @return instancia.
      */
     public static ItnFrmAccesoUsuario getInstancia(CtrAcceso sesionAcc, 
             ArrayList<Usuario> usuarios) {
@@ -80,7 +80,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
 
     /**
      * Carga la lista y variable de sesión.
-     * @param usuario
+     * @param usuario Nombre de usuario que ingresa.
      */
     public void ingresar(String usuario) {
 
@@ -119,6 +119,8 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
 
     /**
      * Validar información de inicio de sesión ingresada por el usuario.
+     * @param usuario
+     * @param clave 
      */
     public void iniciarSesion(String usuario, String clave) {
 
@@ -362,9 +364,9 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        btn_acc_recup.setForeground(java.awt.SystemColor.inactiveCaption);
-        btn_acc_recup.setText("¿Olvidaste tu contraseña?");
-        btn_acc_recup.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
+        btn_acc_recup.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
+        btn_acc_recup.setText("Olvidé mi contraseña");
+        btn_acc_recup.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
         btn_acc_recup.setContentAreaFilled(false);
         btn_acc_recup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_acc_recup.addActionListener(new java.awt.event.ActionListener() {

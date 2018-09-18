@@ -19,7 +19,7 @@ import logica.Regex;
 import util.Rol;
 
 /**
- *
+ * Inicializa la ventana que contiene la información de los usuarios.
  * @author ahoihanabi
  */
 public class ItnFrmUsuario extends javax.swing.JInternalFrame {
@@ -36,8 +36,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     /**
      * Instancia un nuevo formulario interno de usuario.
      *
-     * @param sesionAcc
-     * @param usuarios
+     * @param sesionAcc Usuario en sesión actual 
+     * @param usuarios Lista con los usuarios en la base de datos
      */
     protected ItnFrmUsuario(CtrAcceso sesionAcc, ArrayList<Usuario> usuarios) {
         initComponents();
@@ -57,8 +57,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     /**
      * Retorna la única instancia de la clase.
      *
-     * @param sesionAcc
-     * @param usuarios
+     * @param sesionAcc Usuario en sesión actual.
+     * @param usuarios Lista de usuarios en la base de datos.
      * @return instancia.
      */
     public static ItnFrmUsuario getInstancia(CtrAcceso sesionAcc,
@@ -117,11 +117,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     /**
      * Crea un nuevo usuario con la información enviada por parámetro.
      *
-     * @param nombre
-     * @param contra
-     * @param contraConf
-     * @param correo
-     * @param rol
+     * @param nombre Nombre del nuevo usuario
+     * @param contra Contraseña del nuevo usuario
+     * @param contraConf Confirmación de contraseña del nuevo usuario
+     * @param correo Correo del nuevo usuario
+     * @param rol Rol del nuevo usuario
      */
     public void crearUsuario(String nombre, String contra, String contraConf,
             String correo, Rol rol) {
@@ -198,11 +198,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     /**
      * Actualiza la información del usuario en sesión.
      *
-     * @param nombreUsuario
-     * @param correo
-     * @param clave
-     * @param nuevaClave
-     * @param nuevaClaveConf
+     * @param nombreUsuario nuevo nombre de usuario
+     * @param correo Nuevo correo del usuario
+     * @param clave Clave actual del usuario
+     * @param nuevaClave Nueva clave de usuario
+     * @param nuevaClaveConf Confirmación de nueva clave de usuario
      */
     public void actualizarUsuario(String nombreUsuario, String correo,
             String clave, String nuevaClave, String nuevaClaveConf) {
@@ -268,7 +268,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     /**
      * Actualiza la variable estática de sesión.
      *
-     * @param usuario
+     * @param usuario nuevo usuario en sesión
      */
     public void actualizarSesion(String usuario) {
         for (int i = 0; i < usuarios.size(); i++) {
@@ -281,8 +281,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     /**
      * Cargar la tabla (modelo) con los usuarios existentes.
      *
-     * @param tabla
-     * @param estado
+     * @param tabla Nombre de la tabla a llenar
+     * @param estado Estado del usuario a incresar
      */
     public void cargarUsuariosJTable(JTable tabla, boolean estado) {
         Object[] row = new Object[5];
@@ -508,9 +508,9 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 .addGroup(pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_listado_buscarUsuario)
                     .addComponent(txt_listado_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(35, 35, 35)
                 .addComponent(scpnl_tbl_usuarioListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         tb_modUsuario_permisos.addTab("Listado de usuarios", pnl_listado);
@@ -754,13 +754,13 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             pnl_deshabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_deshabilitarLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(pnl_deshabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnl_deshabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_deshab_selectUsuario)
                     .addGroup(pnl_deshabilitarLayout.createSequentialGroup()
                         .addComponent(pnl_deshab_deshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(576, 576, 576)
-                        .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tb_deshab))
+                        .addGap(586, 586, 586)
+                        .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tb_deshab, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
         pnl_deshabilitarLayout.setVerticalGroup(
@@ -768,7 +768,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             .addGroup(pnl_deshabilitarLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(lbl_deshab_selectUsuario)
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addComponent(tb_deshab, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addGroup(pnl_deshabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -860,7 +860,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_actualizarPermisosLayout.createSequentialGroup()
                             .addComponent(pnl_actPermi_rolContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_actPermi, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_actPermi, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(scpnl_tbl_usuarioActPermiso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
@@ -923,21 +923,22 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         pnlActualizarClaveLayout.setHorizontalGroup(
             pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlActualizarClaveLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pw_actuali_lastpass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_actuali_passActual))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pw_actuali_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_actuali_passNew)
-                    .addComponent(lbl_actuali_confpassNew)
-                    .addComponent(pw_actuali_confNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlActualizarClaveLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_cancelarActualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(37, 37, 37)
+                .addGroup(pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlActualizarClaveLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_cancelarActualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlActualizarClaveLayout.createSequentialGroup()
+                        .addGroup(pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pw_actuali_lastpass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_actuali_passActual))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pw_actuali_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_actuali_passNew)
+                            .addComponent(lbl_actuali_confpassNew)
+                            .addComponent(pw_actuali_confNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(42, 42, 42))
         );
         pnlActualizarClaveLayout.setVerticalGroup(
             pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -962,7 +963,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        btnActualiContrasenna.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
         btnActualiContrasenna.setText("Actualizar Contraseña");
+        btnActualiContrasenna.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
+        btnActualiContrasenna.setContentAreaFilled(false);
+        btnActualiContrasenna.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActualiContrasenna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualiContrasennaActionPerformed(evt);
@@ -997,10 +1002,10 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                                         .addComponent(txt_actuali_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(335, Short.MAX_VALUE))))
+                        .addContainerGap(338, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
         );
         pnl_actualizarLayout.setVerticalGroup(
@@ -1023,12 +1028,12 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                        .addComponent(btnActualiContrasenna)
-                        .addGap(30, 30, 30)
+                        .addComponent(btnActualiContrasenna, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(pnlActualizarClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
-                .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(101, 101, 101))
         );
 
@@ -1041,7 +1046,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             pnl_modUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_modUsuarioLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(tb_modUsuario_permisos, javax.swing.GroupLayout.DEFAULT_SIZE, 1136, Short.MAX_VALUE)
+                .addComponent(tb_modUsuario_permisos)
                 .addContainerGap())
         );
         pnl_modUsuarioLayout.setVerticalGroup(

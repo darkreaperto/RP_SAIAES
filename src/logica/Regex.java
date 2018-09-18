@@ -8,8 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Verifica algunas entradas del usuario por medio de expreciones regulares
- *
+ * Verifica algunas entradas del usuario por medio de expresiones regulares
  * @author ahoihanabi
  */
 public class Regex {
@@ -24,14 +23,16 @@ public class Regex {
     private static final String USER_REGEX
             = "^[A-Za-z0-9_.][^\\s]{6,16}$";
 
+    /**
+     * Constructor de clase regex
+     */
     public Regex() {
 
     }
 
     /**
      * Valida una dirección de correo de entrada con EMAIL_REGEX.
-     *
-     * @param email
+     * @param email Email a agregar.
      * @return true si el correo es válido
      */
     public boolean validaEmail(String email) {
@@ -42,9 +43,8 @@ public class Regex {
 
     /**
      * Valida una contraseña de entrada con PASSWORD_REGEX.
-     *
-     * @param clave
-     * @return true si la contraseña es válida
+     * @param clave Clave a agregar.
+     * @return True si la contraseña es válida.
      */
     public boolean validaClave(String clave) {
         patron = Pattern.compile(PASSWORD_REGEX);
@@ -55,8 +55,8 @@ public class Regex {
     /**
      * Valida un nombre de usuario con USER_REGEX.
      *
-     * @param nombreUsuario
-     * @return true si el nombre de usuario válido
+     * @param nombreUsuario Nombre de usuario a agregar.
+     * @return True si el nombre de usuario válido.
      */
     public boolean validaNombreUsuario(String nombreUsuario) {
         patron = Pattern.compile(USER_REGEX);
