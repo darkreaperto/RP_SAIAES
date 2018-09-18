@@ -14,7 +14,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- *
+ * Realiza la conexión con la base de datos y envía consultas y
+ * procedimientos a la misma.
  * @author dark-reaper
  */
 public final class Conexion {
@@ -24,7 +25,10 @@ public final class Conexion {
     private Statement sentencia;
     private ResultSet resultado;
     private CallableStatement procedimiento;
-
+    
+    /**
+     * Constructor de la clase conexión.
+     */
     public Conexion() {
 
     }
@@ -77,9 +81,9 @@ public final class Conexion {
     
     /**
      * Ejecuta en la base de datos la consulta SQL que recibe por parámetro.
-     * @param consulta
+     * @param consulta consulta SQL
      * @return resultado de la consulta SQL.
-     * @throws SQLException 
+     * @throws SQLException excepción SQL
      */
     public ResultSet ejecutarConsulta(String consulta) throws SQLException {
         try {
@@ -95,9 +99,9 @@ public final class Conexion {
     
     /**
      * Ejecuta una modificación en la base de datos (insert, update, delete)
-     * @param consulta
+     * @param consulta consulta SQL
      * @return resultado de la modificacion.
-     * @throws SQLException 
+     * @throws SQLException Excepción SQL
      */
     public boolean ejecutarActualizar(String consulta) throws SQLException {
 
@@ -117,7 +121,7 @@ public final class Conexion {
     /**
      * Ejecuta un procedimiento almacenado sin parámetros de entrada 
      * en la base de datos.
-     * @param procedure
+     * @param procedure procedimiento a ejecutar
      * @return resultado del procedimiento.
      */
     public ResultSet ejecutarProcedimiento(String procedure) {
@@ -134,9 +138,10 @@ public final class Conexion {
     /**
      * Ejecuta un procedimiento almacenado con parámetros de entrada 
      * en la base de datos.
-     * @param procedure
-     * @param params
+     * @param procedure Procedimiento a ejecutar
+     * @param params Parametros del procedimiento
      * @return resultado del procedimiento.
+     * @throws java.sql.SQLException Excepción SQL
      */
     public ResultSet ejecutarProcedimiento(String procedure,
             ArrayList<Object> params) throws SQLException {

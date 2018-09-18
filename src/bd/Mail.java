@@ -17,7 +17,7 @@ import javax.mail.Authenticator;
 import javax.mail.NoSuchProviderException;
 
 /**
- *
+ * Implementa el envío correos de recuperación desde el sistema.
  * @author dark-reaper
  */
 public class Mail {
@@ -27,6 +27,9 @@ public class Mail {
     private final String correoDe;
     private AESEncrypt crypter;
     
+    /**
+     * Constructor de la clse Mail, inicializa variables para enviar correo.
+     */
     public Mail () {
         
         crypter = new AESEncrypt();
@@ -38,8 +41,8 @@ public class Mail {
     }
     /**
      * Instancia un nuevo correo.
-     * @param usuario
-     * @param clave 
+     * @param usuario Nombre de usuario
+     * @param clave Clave de usuario
      */
     public Mail (String usuario, String clave) {
         
@@ -53,8 +56,8 @@ public class Mail {
     
     /**
      * Enviar un correo con el codigo de recuperacion
-     * @param correoPara
-     * @param codigo
+     * @param correoPara Correo destino
+     * @param codigo Codigo de recuperación para el destinatario
      * @return exito
      */
     public boolean enviaCorreoRecuperacion(String correoPara, String codigo) {
@@ -108,6 +111,13 @@ public class Mail {
         }
     }
     
+    /**
+     * Método que envía el correo a determinado destinatario.
+     * @param correoPara Correo de destino.
+     * @param asunto Asunto del correo
+     * @param mensaje Mensaje en el correo.
+     * @return Verdadero o falso si envía o no el correo.
+     */
     public boolean enviaCorreo(String correoPara, String asunto, String mensaje){
         
         boolean exito = false;

@@ -34,6 +34,16 @@ public class MailThread implements Runnable {
     private final JButton btn_codigoConf_recClv;
     private final JProgressBar pb_enviarCorreo;
     
+    /**
+     * Constructor de MailThread, inicializa variables.
+     * @param msg Mensaje para informar al usuario.
+     * @param correo Correo de destino.
+     * @param recover Contiene el código de recuperación.
+     * @param mail Clase para gestionar el envío del correo.
+     * @param txt_codigoConf_recClv Texto con el código de recuperación.
+     * @param btn_codigoConf_recClv Botón para confirmar coincidencia del código.
+     * @param pb_enviarCorreo Barra mostrando envío del correo.
+     */
     public MailThread(Mensaje msg, String correo, CtrRecover recover, 
             CtrMail mail, JTextField txt_codigoConf_recClv, 
             JButton btn_codigoConf_recClv, JProgressBar pb_enviarCorreo) {
