@@ -73,6 +73,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_inventario.setEnabled(false);
         btn_maquinaria.setEnabled(false);
         btn_proveedor.setEnabled(false);
+        mnb_principal.setEnabled(false);
+        mnbtn_archivo.setEnabled(false);
     }
     
     /**
@@ -266,15 +268,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
         tlb_modulos.add(btn_usuarios);
 
         mnbtn_archivo.setText("Archivo");
+        mnbtn_archivo.setEnabled(false);
         mnb_principal.add(mnbtn_archivo);
 
         mnbtn_editar.setText("Editar");
+        mnbtn_editar.setEnabled(false);
         mnb_principal.add(mnbtn_editar);
 
         mnbtn_ver.setText("Ver");
+        mnbtn_ver.setEnabled(false);
         mnb_principal.add(mnbtn_ver);
 
         mnbtn_salir.setText("Salir");
+        mnbtn_salir.setEnabled(false);
 
         jMenuItem1.setText("Cerrar Sesión");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {

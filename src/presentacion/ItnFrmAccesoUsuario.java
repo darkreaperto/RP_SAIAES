@@ -22,6 +22,8 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import logica.Usuario;
 import util.MessageType;
 import bd.MailThread;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 /**
  * Inicializa la ventana de acceso para ingresar el usuario y contraseña.
@@ -95,13 +97,24 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
             }
         }
         System.out.println(sesionAcc.getUsuario().getNombre());
-
+        
+        Container root = this.getParent();
+        for (Component c : root.getComponents()) {
+            System.out.println("C "+c);
+            if(c instanceof JMenuBar) {
+                for (Component m : ((JMenuBar) c).getComponents()) {
+                    if (m instanceof JMenuItem) {
+                        m.setEnabled(true);
+                    }
+                }
+            }            
+        }
         //Habilitar botones de los modulos
         Container frameParent = this.getParent().getParent();
-
         //Habilitar botones   
         for (Component c : frameParent.getComponents()) {
-            //System.out.println("C "+c);
+            System.out.println("C "+c);
+            
             if (c instanceof JToolBar) {
                 for (Component b : ((JToolBar) c).getComponents()) {
                     //System.out.println("B "+b);
