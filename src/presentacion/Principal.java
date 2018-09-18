@@ -5,6 +5,9 @@
  */
 package presentacion;
 
+import javax.swing.JFrame;
+import javax.swing.JRootPane;
+
 /**
  * Clase principal que hace visible el formulario de inicio.
  * @author ahoihanabi
@@ -18,8 +21,11 @@ public class Principal {
     public static void main(String[] args) {
         
         FrmPrincipal ventana = new FrmPrincipal();
+        //ventana.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        ventana.setLocation(0, 0);
+        //ventana.setUndecorated(true);
+        ventana.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
         ventana.setVisible(true);
-        ventana.setLocationRelativeTo(null);
         
     }
 }

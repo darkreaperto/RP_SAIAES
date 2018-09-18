@@ -120,14 +120,15 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     /**
      * Validar información de inicio de sesión ingresada por el usuario.
      */
-    public void iniciarSesion() {
+    public void iniciarSesion(String usuario, String clave) {
 
-        if (!txt_NombreUsuario.getText().isEmpty() && 
-                pw_acc_password.getPassword().length > 0) {
+        usuario = "usuario";
+        clave = "usuario2018";
+        
+        if (!usuario.isEmpty() && clave.length() > 0) {
             //comprobar contraseña y nombre de usuario
-            if (sesionAcc.compararClave(txt_NombreUsuario.getText(), 
-                    new String(pw_acc_password.getPassword()))) {
-                ingresar(txt_NombreUsuario.getText());
+            if (sesionAcc.compararClave(usuario, clave)) {
+                ingresar(usuario);
                 msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                         MessageType.USER_ACCESS_SUCCESS);
             } else {
@@ -166,7 +167,6 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         pnl_recuperar_clave = new javax.swing.JPanel();
         txt_usuario_recClv = new javax.swing.JTextField();
         txt_codigoConf_recClv = new javax.swing.JTextField();
-        txt_correo_recClv = new javax.swing.JTextField();
         btn_nuevaClave_recClv = new javax.swing.JButton();
         btn_confUsuario_recClv = new javax.swing.JButton();
         btn_codigoConf_recClv = new javax.swing.JButton();
@@ -179,6 +179,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         pw_nuevaClave_recClv = new javax.swing.JPasswordField();
         pw_nuevaClaveConf_recClv = new javax.swing.JPasswordField();
         pb_enviarCorreo = new javax.swing.JProgressBar();
+        lbl_correo_recClv = new javax.swing.JLabel();
         pnl_modAccesoUsuario = new javax.swing.JPanel();
         lbl_acc_NombreUsuario = new javax.swing.JLabel();
         lbl_acc_password = new javax.swing.JLabel();
@@ -198,9 +199,6 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         txt_codigoConf_recClv.setEnabled(false);
         txt_codigoConf_recClv.setNextFocusableComponent(btn_codigoConf_recClv);
 
-        txt_correo_recClv.setDisabledTextColor(new java.awt.Color(51, 51, 51));
-        txt_correo_recClv.setEnabled(false);
-
         btn_nuevaClave_recClv.setText("Recuperar contraseña");
         btn_nuevaClave_recClv.setEnabled(false);
         btn_nuevaClave_recClv.setNextFocusableComponent(txt_usuario_recClv);
@@ -211,7 +209,6 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         });
 
         btn_confUsuario_recClv.setText("Confirmar usuario");
-        btn_confUsuario_recClv.setNextFocusableComponent(txt_correo_recClv);
         btn_confUsuario_recClv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_confUsuario_recClvActionPerformed(evt);
@@ -253,6 +250,8 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         pb_enviarCorreo.setStringPainted(true);
         pb_enviarCorreo.setVisible(false);
 
+        lbl_correo_recClv.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout pnl_recuperar_claveLayout = new javax.swing.GroupLayout(pnl_recuperar_clave);
         pnl_recuperar_clave.setLayout(pnl_recuperar_claveLayout);
         pnl_recuperar_claveLayout.setHorizontalGroup(
@@ -281,11 +280,11 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_usuario_recClv)
-                            .addComponent(txt_correo_recClv)
                             .addComponent(txt_codigoConf_recClv)
                             .addComponent(pw_nuevaClave_recClv)
                             .addComponent(pw_nuevaClaveConf_recClv)
-                            .addComponent(pb_enviarCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(pb_enviarCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbl_correo_recClv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         pnl_recuperar_claveLayout.setVerticalGroup(
@@ -300,9 +299,9 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pb_enviarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
-                .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_correo_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblConfUsuario1))
+                .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblConfUsuario1)
+                    .addComponent(lbl_correo_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblConfUsuario2)
@@ -325,6 +324,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         );
 
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setIconifiable(true);
         setTitle("ACCESO A SISTEMA");
         setPreferredSize(new java.awt.Dimension(600, 420));
 
@@ -335,6 +335,11 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         lbl_acc_password.setText("Contraseña:");
 
         txt_NombreUsuario.setNextFocusableComponent(pw_acc_password);
+        txt_NombreUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_NombreUsuarioActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255)));
@@ -392,7 +397,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                         .addComponent(btn_acc_entrar)))
                 .addGap(26, 26, 26)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(lbl_acc_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -439,11 +444,13 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pw_acc_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pw_acc_passwordActionPerformed
-        // TODO add your handling code here:
+        iniciarSesion(txt_NombreUsuario.getText(), 
+                new String(pw_acc_password.getPassword()));
     }//GEN-LAST:event_pw_acc_passwordActionPerformed
 
     private void btn_acc_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_acc_entrarActionPerformed
-        iniciarSesion();
+        iniciarSesion(txt_NombreUsuario.getText(), 
+                new String(pw_acc_password.getPassword()));
     }//GEN-LAST:event_btn_acc_entrarActionPerformed
 
     private void btn_acc_recupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_acc_recupActionPerformed
@@ -465,7 +472,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         
         if (dialogResult == JOptionPane.YES_OPTION) {
             txt_usuario_recClv.setText("");
-            txt_correo_recClv.setText("");
+            lbl_correo_recClv.setText("");
             txt_codigoConf_recClv.setEnabled(false);
             pw_nuevaClave_recClv.setEnabled(false);
             pw_nuevaClaveConf_recClv.setEnabled(false);
@@ -480,7 +487,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_cancelar_recClvActionPerformed
 
     private void btn_codigoConf_recClvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_codigoConf_recClvActionPerformed
-        String correo = txt_correo_recClv.getText();
+        String correo = lbl_correo_recClv.getText();
         String codigo = txt_codigoConf_recClv.getText();
 
         if (!codigo.isEmpty()) {
@@ -506,11 +513,11 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
             int correoIndice = obtenerCorreo(usuario);
 
             if (correoIndice >= 0) {
-                txt_correo_recClv.setText(usuarios.get(correoIndice).getCorreo());
+                lbl_correo_recClv.setText(usuarios.get(correoIndice).getCorreo());
 
                 pb_enviarCorreo.setVisible(true);
 
-                correo = txt_correo_recClv.getText().trim();
+                correo = lbl_correo_recClv.getText().trim();
                 if (!correo.isEmpty()) {
                     recover = new CtrRecover(correo);
                     mail = new CtrMail();
@@ -553,7 +560,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                 
                     //Limpiar los campos de texto y deshabilitar los botones
                     txt_usuario_recClv.setText("");
-                    txt_correo_recClv.setText("");
+                    lbl_correo_recClv.setText("");
                     txt_codigoConf_recClv.setEnabled(false);
                     pw_nuevaClave_recClv.setEnabled(false);
                     pw_nuevaClaveConf_recClv.setEnabled(false);
@@ -579,6 +586,11 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btn_nuevaClave_recClvActionPerformed
 
+    private void txt_NombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_NombreUsuarioActionPerformed
+        iniciarSesion(txt_NombreUsuario.getText(), 
+                new String(pw_acc_password.getPassword()));
+    }//GEN-LAST:event_txt_NombreUsuarioActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_acc_entrar;
     private javax.swing.JButton btn_acc_recup;
@@ -595,6 +607,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbl_acc_NombreUsuario;
     private javax.swing.JLabel lbl_acc_logo;
     private javax.swing.JLabel lbl_acc_password;
+    private javax.swing.JLabel lbl_correo_recClv;
     private javax.swing.JProgressBar pb_enviarCorreo;
     private javax.swing.JPanel pnl_modAccesoUsuario;
     private javax.swing.JPanel pnl_recuperar_clave;
@@ -603,7 +616,6 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JPasswordField pw_nuevaClave_recClv;
     private javax.swing.JTextField txt_NombreUsuario;
     private javax.swing.JTextField txt_codigoConf_recClv;
-    private javax.swing.JTextField txt_correo_recClv;
     private javax.swing.JTextField txt_usuario_recClv;
     // End of variables declaration//GEN-END:variables
 }

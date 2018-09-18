@@ -400,9 +400,34 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 35), new java.awt.Dimension(0, 35), new java.awt.Dimension(32767, 35));
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 200), new java.awt.Dimension(0, 200), new java.awt.Dimension(32767, 200));
 
+        setClosable(true);
+        setIconifiable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
+
         pnl_modUsuario.setPreferredSize(new java.awt.Dimension(1239, 680));
 
         tb_modUsuario_permisos.setName("Listado Usuarios"); // NOI18N
+        tb_modUsuario_permisos.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tb_modUsuario_permisosStateChanged(evt);
+            }
+        });
 
         pnl_listado.setName("Listado de usuarios"); // NOI18N
         pnl_listado.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -1352,6 +1377,15 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         pnlActualizarClave.setVisible(false);
         btnActualiContrasenna.setVisible(true);
     }//GEN-LAST:event_btn_cancelarActualiUsuarioActionPerformed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        JOptionPane.showMessageDialog(null, "Haro─!");
+    }//GEN-LAST:event_formInternalFrameClosing
+
+    private void tb_modUsuario_permisosStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tb_modUsuario_permisosStateChanged
+        if (tb_modUsuario_permisos.isShowing())
+            System.out.println(evt);
+    }//GEN-LAST:event_tb_modUsuario_permisosStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crear_rol;
