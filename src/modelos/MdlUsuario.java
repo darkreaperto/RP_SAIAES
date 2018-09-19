@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.Usuario;
 import controladores.CtrConexion;
+import presentacion.Mensaje;
 import util.Estado;
 import util.Rol;
 
@@ -25,6 +26,7 @@ public class MdlUsuario {
     private static String procedimiento;
     private static ResultSet resultado;
     private static ArrayList<Usuario> usuarios;
+    private static Mensaje msgError;
 
     /**
      * Constructor de clase modelo de usuario.
@@ -112,9 +114,9 @@ public class MdlUsuario {
             System.out.println(resultado);
 
         } catch (SQLException ex) {
-            System.err.println(ex);
+            System.err.println(ex);            
             creacionExitosa = false;
-            throw ex;
+            msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
@@ -144,6 +146,7 @@ public class MdlUsuario {
 
         } catch (SQLException ex) {
             creacionExitosa = false;
+            //msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
             System.err.println(ex);
         } finally {
             conexion.cerrarConexion();

@@ -86,15 +86,10 @@ public final class Conexion {
      * @throws SQLException excepción SQL
      */
     public ResultSet ejecutarConsulta(String consulta) throws SQLException {
-        try {
-            sentencia = conexion.createStatement();
-            resultado = sentencia.executeQuery(consulta);
 
-        } catch (SQLException ex) {
-            System.err.println(ex);
-        } finally {
-            return resultado;
-        }
+        sentencia = conexion.createStatement();
+        resultado = sentencia.executeQuery(consulta);
+        return resultado;
     }
     
     /**
@@ -112,7 +107,7 @@ public final class Conexion {
             actualizacionExitosa = sentencia.executeUpdate(consulta) >= 0;
         } catch (SQLException ex) {
             actualizacionExitosa = false;
-            System.err.println(ex);
+            throw ex;
         } finally {
             return actualizacionExitosa;
         }
@@ -123,16 +118,16 @@ public final class Conexion {
      * en la base de datos.
      * @param procedure procedimiento a ejecutar
      * @return resultado del procedimiento.
+     * @throws java.sql.SQLException Excepción SQL
      */
-    public ResultSet ejecutarProcedimiento(String procedure) {
-        try {
-            procedimiento = conexion.prepareCall("{ CALL " + procedure + " }");
-            resultado = procedimiento.executeQuery();
-        } catch (SQLException ex) {
-            System.err.println(ex);
-        } finally {
-            return resultado;
-        }
+    public ResultSet ejecutarProcedimiento(String procedure) 
+            throws SQLException {
+        
+        procedimiento = conexion.prepareCall("{ CALL " + procedure + " }");
+        resultado = procedimiento.executeQuery();
+        
+        return resultado;
+        
     }
 
     /**
@@ -145,29 +140,25 @@ public final class Conexion {
      */
     public ResultSet ejecutarProcedimiento(String procedure,
             ArrayList<Object> params) throws SQLException {
-        //try {
-            procedimiento = conexion.prepareCall("{ CALL "
-                    + procedure + " }");
+        
+        procedimiento = conexion.prepareCall("{ CALL "
+                + procedure + " }");
 
-            //Recorrer la lista de parametros a recibir 
-            //por el procedimiento almacenado
-            for (int i = 0; i < params.size(); i++) {
-                //Si el parametro es un String
-                if (params.get(i) instanceof String) {
-                    String temp = (String) params.get(i);
-                    procedimiento.setString(i + 1, temp);
-                    //Si el parametro es entero
-                } else {
-                    int temp = (int) params.get(i);
-                    procedimiento.setInt(i + 1, temp);
-                }
+        //Recorrer la lista de parametros a recibir 
+        //por el procedimiento almacenado
+        for (int i = 0; i < params.size(); i++) {
+            //Si el parametro es un String
+            if (params.get(i) instanceof String) {
+                String temp = (String) params.get(i);
+                procedimiento.setString(i + 1, temp);
+                //Si el parametro es entero
+            } else {
+                int temp = (int) params.get(i);
+                procedimiento.setInt(i + 1, temp);
             }
+        }
 
-            resultado = procedimiento.executeQuery();
-        //} catch (SQLException ex) {
-            //throw ex;
-        //} finally {
-            return resultado;
-        //}
+        resultado = procedimiento.executeQuery();
+        return resultado;
     }
 }

@@ -5,6 +5,7 @@
  */
 package presentacion;
 
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import util.MessageType;
 
@@ -113,7 +114,27 @@ public class Mensaje {
 
         return msg;
     }
+    
+    /**
+     * Descripción de la excepción SQL capturada.
+     * @param error Codigo de excepción SQL
+     * @return Mensaje que detalla la excepción
+     */
+    public String obtenerErrorSQL(int error) {
 
+        String msg;
+
+        switch (error) {
+            case 1062:
+                msg = "El nombre de usuario indicado ya existe.";
+                break;
+            default:
+                msg = "¡Ups! ¡Algo no ha salido bien!";
+                break;
+        }
+
+        return msg;
+    }
     /**
      * Agrega la descripción indicada al JOptionPane y lo muestra en un dialogo
      * informativo.
@@ -141,5 +162,12 @@ public class Mensaje {
         int dialogResult = JOptionPane.showConfirmDialog(null,
                 obtenerMensaje(mensaje), "ADVERTENCIA", opcion, tipo);
         return dialogResult;
+    }
+    
+    //https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html
+    public void mostrarMensajeErrorSQL(int codError) {
+        
+        JOptionPane.showMessageDialog(null, obtenerErrorSQL(codError),
+                "ERROR", JOptionPane.ERROR_MESSAGE);
     }
 }

@@ -24,6 +24,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     //Internal frames de los modulos
     private static ItnFrmAccesoUsuario modUsuarioAcceso;
     private static ItnFrmUsuario modUsuario;
+    private static ItnFrmCliente modCliente;
     private static CtrAcceso sesionAcc;
     private static ArrayList<Usuario> usuarios;
 

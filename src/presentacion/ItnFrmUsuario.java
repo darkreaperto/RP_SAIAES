@@ -139,9 +139,9 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                                     System.out.println(crear);
                                     if (crear) {
                                         cargarTablas();
-                                        sesion.setUsuario(usuarios.get(
-                                                usuarios.indexOf(
-                                                        sesion.getUsuario())));
+//                                        sesion.setUsuario(usuarios.get(
+//                                                usuarios.indexOf(
+//                                                        sesion.getUsuario())));
                                         msg.mostrarMensaje(
                                                 JOptionPane.INFORMATION_MESSAGE,
                                                 MessageType.USER_INSERTION_SUCCESS);
