@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import logica.Usuario;
 
@@ -85,7 +87,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         Container frameParent = this.getRootPane().getContentPane();
         System.out.println("fp " + frameParent);
-
+        
+        for (Component m : mnb_principal.getComponents()) {
+            if (m instanceof JMenuItem) {
+                        m.setEnabled(false);
+            }
+        }
+        
         //Frame principal, tiene Jtoolbar DesktopPane..
         for (Component c : frameParent.getComponents()) {
             if (c instanceof JDesktopPane) {
@@ -286,6 +294,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnbtn_salir.setText("Salir");
         mnbtn_salir.setEnabled(false);
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Cerrar Sesión");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

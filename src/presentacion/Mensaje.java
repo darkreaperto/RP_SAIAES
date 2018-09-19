@@ -91,7 +91,8 @@ public class Mensaje {
                         + "contraseña?";
                 break;
             case USERNAME_SYNTAX_FAILURE:
-                msg = "USERNAME_SYNTAX_FAILURE";
+                msg = "El nombre de usuario debe ser de"
+                        + "\n al menos 4 caracteres de largo.";
                 break;
             case RESET_PASSWORD_SUCCESS:
                 msg = "La contraseña para el usuario especificado "
@@ -129,7 +130,8 @@ public class Mensaje {
                 msg = "El nombre de usuario indicado ya existe.";
                 break;
             default:
-                msg = "¡Ups! ¡Algo no ha salido bien!";
+                msg = "¡Ups! ¡Ha ocurrido un error de SQL! "
+                        + "\n Verifique la información ingresada.";
                 break;
         }
 
@@ -166,7 +168,7 @@ public class Mensaje {
     
     //https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html
     public void mostrarMensajeErrorSQL(int codError) {
-        
+        //codError = 2012;
         JOptionPane.showMessageDialog(null, obtenerErrorSQL(codError),
                 "ERROR", JOptionPane.ERROR_MESSAGE);
     }

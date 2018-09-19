@@ -33,8 +33,9 @@ public class MdlUsuario {
      */
     public MdlUsuario() {
         conexion = new CtrConexion();
-        crypter = new AESEncrypt();
+        crypter = new AESEncrypt();        
         crypter.addKey("SAI");
+        msgError = new Mensaje();
     }
 
     /**
@@ -116,6 +117,7 @@ public class MdlUsuario {
         } catch (SQLException ex) {
             System.err.println(ex);            
             creacionExitosa = false;
+            System.out.println("ERROR SQL " + ex.getErrorCode());
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
         } finally {
             conexion.cerrarConexion();

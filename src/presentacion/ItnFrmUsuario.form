@@ -58,7 +58,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                  <Component id="tb_modUsuario_permisos" max="32767" attributes="0"/>
+                  <Component id="tb_modUsuario_permisos" pref="1136" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -151,8 +151,7 @@
                     <Component class="javax.swing.JTable" name="tbl_usuarioListado">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="4" rowCount="0">
-                            <Column editable="false" title="Codigo" type="java.lang.Object"/>
+                          <Table columnCount="3" rowCount="0">
                             <Column editable="false" title="Nombre de Usuario" type="java.lang.Object"/>
                             <Column editable="false" title="Correo" type="java.lang.Object"/>
                             <Column editable="false" title="Rol" type="java.lang.Object"/>
@@ -175,21 +174,12 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
                           </TableColumnModel>
                         </Property>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
                       </Properties>
-                      <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_usuarioListadoMouseClicked"/>
-                        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tbl_usuarioListadoKeyReleased"/>
-                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -373,6 +363,7 @@
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="bg_crear_rol"/>
                         </Property>
+                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="Est&#xe1;ndar"/>
                         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
                           <ComponentRef name="btn_crearUsuario"/>
@@ -407,8 +398,7 @@
                     <Component class="javax.swing.JTable" name="tbl_usuarioCreado">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="4" rowCount="0">
-                            <Column editable="false" title="Codigo" type="java.lang.Object"/>
+                          <Table columnCount="3" rowCount="0">
                             <Column editable="false" title="Nombre de Usuario" type="java.lang.Object"/>
                             <Column editable="false" title="Correo" type="java.lang.Object"/>
                             <Column editable="false" title="Rol" type="java.lang.Object"/>
@@ -416,11 +406,6 @@
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -587,8 +572,7 @@
                         <Component class="javax.swing.JTable" name="tbl_deshabilitar">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="4" rowCount="0">
-                                <Column editable="false" title="Codigo" type="java.lang.Object"/>
+                              <Table columnCount="3" rowCount="0">
                                 <Column editable="false" title="Nombre de Usuario" type="java.lang.Object"/>
                                 <Column editable="false" title="Correo" type="java.lang.Object"/>
                                 <Column editable="false" title="Rol" type="java.lang.Object"/>
@@ -596,11 +580,6 @@
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
@@ -643,26 +622,14 @@
                         <Component class="javax.swing.JTable" name="tbl_habilitar">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="5" rowCount="0">
-                                <Column editable="false" title="Codigo" type="java.lang.Object"/>
+                              <Table columnCount="3" rowCount="0">
                                 <Column editable="false" title="Nombre de Usuario" type="java.lang.Object"/>
-                                <Column editable="false" title="Contrase&#xf1;a" type="java.lang.Object"/>
                                 <Column editable="false" title="Correo" type="java.lang.Object"/>
                                 <Column editable="false" title="Rol" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
@@ -788,7 +755,6 @@
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="bg_crear_rol"/>
                         </Property>
-                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="Est&#xe1;ndar"/>
                         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
                           <ComponentRef name="btn_actPermi"/>
@@ -823,8 +789,7 @@
                     <Component class="javax.swing.JTable" name="tbl_actPermisos">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="4" rowCount="0">
-                            <Column editable="false" title="Codigo" type="java.lang.Object"/>
+                          <Table columnCount="3" rowCount="0">
                             <Column editable="false" title="Nombre de Usuario" type="java.lang.Object"/>
                             <Column editable="false" title="Correo" type="java.lang.Object"/>
                             <Column editable="false" title="Rol" type="java.lang.Object"/>
@@ -832,11 +797,6 @@
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -917,7 +877,7 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="filler3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="338" max="32767" attributes="0"/>
+                                  <EmptySpace pref="335" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
