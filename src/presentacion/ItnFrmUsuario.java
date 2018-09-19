@@ -186,7 +186,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                         MessageType.ANY_ROW_SELECTED);
             } else {
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                        MessageType.CONFIRMATION_EMAIL_NOT_FOUND);
+                        MessageType.USERNAME_SYNTAX_FAILURE);
             }
         } else {
             msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
@@ -291,20 +291,20 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         for (int i = 0; i < usuarios.size(); i++) {
 
             if (usuarios.get(i).getEstado().equals(Estado.Activo) && estado) {
-                row[0] = usuarios.get(i).getCodigo();
-                row[1] = usuarios.get(i).getNombre();
+                //row[0] = usuarios.get(i).getCodigo();
+                row[0] = usuarios.get(i).getNombre();
                 //row[2] = usuarios.get(i).getContrasenna();
-                row[2] = usuarios.get(i).getCorreo();
-                row[3] = usuarios.get(i).getDescRol();
+                row[1] = usuarios.get(i).getCorreo();
+                row[2] = usuarios.get(i).getDescRol();
                 //row[5] = lista.get(i).getEstado();
                 model.addRow(row);
             }
             if (usuarios.get(i).getEstado().equals(Estado.Deshabilitado) && !estado) {
-                row[0] = usuarios.get(i).getCodigo();
-                row[1] = usuarios.get(i).getNombre();
+                //row[0] = usuarios.get(i).getCodigo();
+                row[0] = usuarios.get(i).getNombre();
                 //row[2] = usuarios.get(i).getContrasenna();
-                row[3] = usuarios.get(i).getCorreo();
-                row[4] = usuarios.get(i).getDescRol();
+                row[1] = usuarios.get(i).getCorreo();
+                row[2] = usuarios.get(i).getDescRol();
                 //row[5] = lista.get(i).getEstado();
                 model.addRow(row);
             }
@@ -321,8 +321,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         if (sesion.getUsuario().getRol().equals(Rol.Administrador)) {
             tb_modUsuario_permisos.add(pnl_listado);
             tb_modUsuario_permisos.add(pnl_crear);
-            tb_modUsuario_permisos.add(pnl_actualizarPermisos);
             tb_modUsuario_permisos.add(pnl_deshabilitar);
+            tb_modUsuario_permisos.add(pnl_actualizarPermisos);
             tb_modUsuario_permisos.add(pnl_actualizar);
         } else {
             tb_modUsuario_permisos.add(pnl_actualizar);
@@ -457,25 +457,15 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre de Usuario", "Correo", "Rol"
+                "Nombre de Usuario", "Correo", "Rol"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
-            }
-        });
-        tbl_usuarioListado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbl_usuarioListadoMouseClicked(evt);
-            }
-        });
-        tbl_usuarioListado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tbl_usuarioListadoKeyReleased(evt);
             }
         });
         scpnl_tbl_usuarioListado.setViewportView(tbl_usuarioListado);
@@ -536,6 +526,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         pnl_crear_rolContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Rol de Usuarios:"));
 
         bg_crear_rol.add(rb_crear_rolEstandar);
+        rb_crear_rolEstandar.setSelected(true);
         rb_crear_rolEstandar.setText("Estándar");
         rb_crear_rolEstandar.setNextFocusableComponent(btn_crearUsuario);
 
@@ -574,11 +565,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre de Usuario", "Correo", "Rol"
+                "Nombre de Usuario", "Correo", "Rol"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -693,11 +684,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre de Usuario", "Correo", "Rol"
+                "Nombre de Usuario", "Correo", "Rol"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -723,11 +714,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre de Usuario", "Contraseña", "Correo", "Rol"
+                "Nombre de Usuario", "Correo", "Rol"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -786,7 +777,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         pnl_actPermi_rolContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Rol Usuario:"));
 
         bg_crear_rol.add(rb_actPermi_estandar);
-        rb_actPermi_estandar.setSelected(true);
         rb_actPermi_estandar.setText("Estándar");
         rb_actPermi_estandar.setNextFocusableComponent(btn_actPermi);
 
@@ -825,11 +815,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre de Usuario", "Correo", "Rol"
+                "Nombre de Usuario", "Correo", "Rol"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1002,7 +992,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                                         .addComponent(txt_actuali_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(338, Short.MAX_VALUE))))
+                        .addContainerGap(335, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1046,7 +1036,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             pnl_modUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_modUsuarioLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(tb_modUsuario_permisos)
+                .addComponent(tb_modUsuario_permisos, javax.swing.GroupLayout.DEFAULT_SIZE, 1136, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnl_modUsuarioLayout.setVerticalGroup(
@@ -1122,35 +1112,21 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btn_nuevaClave_recClvActionPerformed
 
-    private void tbl_usuarioListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_usuarioListadoMouseClicked
-        model = (DefaultTableModel) tbl_usuarioListado.getModel();
-        int selectedRowIndex = tbl_usuarioListado.getSelectedRow();
-        String codigo
-                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-        for (int i = 0; i < usuarios.size(); i++) {
-            if (usuarios.get(i).getCodigo().equals(codigo)) {
-                //Si el codigo coincide
-                txt_listado_buscar.setText(usuarios.get(i).getNombre());
-            }
-        }
-    }//GEN-LAST:event_tbl_usuarioListadoMouseClicked
-
     private void tbl_deshabilitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_deshabilitarMouseClicked
         try {
             model = (DefaultTableModel) tbl_deshabilitar.getModel();
             int selectedRowIndex = tbl_deshabilitar.getSelectedRow();
-            String codigo
+            String nombre
                     = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
 
             for (int i = 0; i < usuarios.size(); i++) {
-                if (usuarios.get(i).getCodigo().equals(codigo)) {
+                if (usuarios.get(i).getNombre().equals(nombre)) {
                     //Si el codigo coincide                    
-                    if (usuarios.get(i).getEstado().equals("A")) {
+                    if (usuarios.get(i).getEstado().equals(Estado.Activo)) {
                         //Verifica el tipo de estado
                         rb_deshab_deshabilitar.setSelected(true);
                     } else {
-                        rb_deshab_deshabilitar.setSelected(true);
+                        rb_deshab_habilitar.setSelected(true);
                     }
                 }
             }
@@ -1164,10 +1140,10 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         try {
             model = (DefaultTableModel) tbl_actPermisos.getModel();
             int selectedRowIndex = tbl_actPermisos.getSelectedRow();
-            String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+            String nombre = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
 
             for (int i = 0; i < usuarios.size(); i++) {
-                if (usuarios.get(i).getCodigo().equals(codigo)) {
+                if (usuarios.get(i).getNombre().equals(nombre)) {
                     //Si el codigo coincide
                     if (usuarios.get(i).getCodRol().equals("1")) {
                         //Verifica el tipo de permiso
@@ -1204,26 +1180,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btn_actPermiActionPerformed
 
-    private void tbl_usuarioListadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_usuarioListadoKeyReleased
-        try {
-            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
-                model = (DefaultTableModel) tbl_usuarioListado.getModel();
-                int selectedRowIndex = tbl_usuarioListado.getSelectedRow();
-                String codigo
-                        = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-                for (int i = 0; i < usuarios.size(); i++) {
-                    if (usuarios.get(i).getCodigo().equals(codigo)) {
-                        //Si el codigo coincide
-                        txt_listado_buscar.setText(usuarios.get(i).getNombre());
-                    }
-                }
-            }
-        } catch (Exception ex) {
-
-        }
-    }//GEN-LAST:event_tbl_usuarioListadoKeyReleased
-
     private void btn_deshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deshabilitarActionPerformed
         try {
             model = (DefaultTableModel) tbl_deshabilitar.getModel();
@@ -1258,11 +1214,11 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
                 model = (DefaultTableModel) tbl_actPermisos.getModel();
                 int selectedRowIndex = tbl_actPermisos.getSelectedRow();
-                String codigo
+                String nombre
                         = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
 
                 for (int i = 0; i < usuarios.size(); i++) {
-                    if (usuarios.get(i).getCodigo().equals(codigo)) {
+                    if (usuarios.get(i).getNombre().equals(nombre)) {
                         //Si el codigo coincide
                         if (usuarios.get(i).getCodRol().equals("1")) {
                             //Verifica el tipo de permiso
@@ -1284,17 +1240,17 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
                 model = (DefaultTableModel) tbl_deshabilitar.getModel();
                 int selectedRowIndex = tbl_deshabilitar.getSelectedRow();
-                String codigo
+                String nombre
                         = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
 
                 for (int i = 0; i < usuarios.size(); i++) {
-                    if (usuarios.get(i).getCodigo().equals(codigo)) {
+                    if (usuarios.get(i).getNombre().equals(nombre)) {
                         //Si el codigo coincide                                                
                         if (usuarios.get(i).getEstado().equals(Estado.Activo)) {
                             //Verifica el tipo de estado
                             rb_deshab_deshabilitar.setSelected(true);
                         } else {
-                            rb_deshab_deshabilitar.setSelected(true);
+                            rb_deshab_habilitar.setSelected(true);
                         }
                     }
                 }
@@ -1308,17 +1264,17 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         try {
             model = (DefaultTableModel) tbl_habilitar.getModel();
             int selectedRowIndex = tbl_habilitar.getSelectedRow();
-            String codigo
+            String nombre
                     = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
 
             for (int i = 0; i < usuarios.size(); i++) {
-                if (usuarios.get(i).getCodigo().equals(codigo)) {
+                if (usuarios.get(i).getNombre().equals(nombre)) {
                     //Si el codigo coincide
-                    if (usuarios.get(i).getEstado().equals(Estado.Activo)) {
+                    if (usuarios.get(i).getEstado().equals(Estado.Deshabilitado)) {
                         //Verifica el tipo de estado
                         rb_deshab_habilitar.setSelected(true);
                     } else {
-                        rb_deshab_habilitar.setSelected(true);
+                        rb_deshab_deshabilitar.setSelected(true);
                     }
                 }
             }
@@ -1332,15 +1288,15 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
                 model = (DefaultTableModel) tbl_habilitar.getModel();
                 int selectedRowIndex = tbl_habilitar.getSelectedRow();
-                String codigo
+                String nombre
                         = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
 
                 for (int i = 0; i < usuarios.size(); i++) {
-                    if (usuarios.get(i).getCodigo().equals(codigo)) {
-                        if (usuarios.get(i).getEstado().equals(Estado.Activo)) {
+                    if (usuarios.get(i).getNombre().equals(nombre)) {
+                        if (usuarios.get(i).getEstado().equals(Estado.Deshabilitado)) {
                             rb_deshab_habilitar.setSelected(true);
                         } else {
-                            rb_deshab_habilitar.setSelected(true);
+                            rb_deshab_deshabilitar.setSelected(true);
                         }
                     }
                 }

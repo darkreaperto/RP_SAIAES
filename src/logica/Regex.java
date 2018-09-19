@@ -21,7 +21,7 @@ public class Regex {
     private static final String PASSWORD_REGEX
             = "(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z]).(?=\\S+$).{6,16}";
     private static final String USER_REGEX
-            = "^[A-Za-z0-9_.][^\\s]{6,16}$";
+            = "^[A-Za-z0-9_.][^\\s]{4,16}$";
 
     /**
      * Constructor de clase regex

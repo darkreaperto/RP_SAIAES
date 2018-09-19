@@ -98,7 +98,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         }
         System.out.println(sesionAcc.getUsuario().getNombre());
         
-        Container root = this.getParent();
+        Container root = this.getParent().getParent().getParent();
         for (Component c : root.getComponents()) {
             System.out.println("C "+c);
             if(c instanceof JMenuBar) {

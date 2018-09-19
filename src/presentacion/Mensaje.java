@@ -90,7 +90,8 @@ public class Mensaje {
                         + "contraseña?";
                 break;
             case USERNAME_SYNTAX_FAILURE:
-                msg = "USERNAME_SYNTAX_FAILURE";
+                msg = "El nombre de usuario debe ser de"
+                        + "\n al menos 4 caracteres de largo.";
                 break;
             case RESET_PASSWORD_SUCCESS:
                 msg = "La contraseña para el usuario especificado "
