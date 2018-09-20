@@ -5,8 +5,10 @@
  */
 package controladores;
 
+import logica.Acceso;
 import logica.Usuario;
 import modelos.MdlAcceso;
+import util.Modulo;
 
 /**
  * Controlador de la clase Acceso.
@@ -18,13 +20,14 @@ public class CtrAcceso {
      * Instancia única de clase de acceso.
      */
     public static CtrAcceso instancia;
-    private Usuario usuario;
+    private Acceso acceso;
     private MdlAcceso mdlAcceso;
 
     /**
      * Controlador de clase de acceso, inicializa varables.
      */
     public CtrAcceso() {
+        acceso = new Acceso();
         mdlAcceso = new MdlAcceso();
     }
     
@@ -37,19 +40,35 @@ public class CtrAcceso {
     }
     
     /**
-     * Establece el usuario en sesión.
-     * @param usuario nuevo usuario a establecer.
-     */
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-    
-    /**
      * Obtener usuario en sesión.
      * @return instancia del usuario en sesión.
      */
     public Usuario getUsuario() {
-        return usuario;
+        return acceso.getUsuario();
+    }
+    
+    /**
+     * Establece el usuario en sesión.
+     * @param usuario nuevo usuario a establecer.
+     */
+    public void setUsuario(Usuario usuario) {
+        acceso.setUsuario(usuario);
+    }
+    
+    /**
+     * Obtener módulo en uso.
+     * @return el módulo en uso.
+     */
+    public Modulo getModuloActual() {
+        return acceso.getModuloActual();
+    }
+
+    /**
+     * Establecer módulo en utilización.
+     * @param moduloActual el modulo a establecer.
+     */
+    public void setModuloActual(Modulo moduloActual) {
+        acceso.setModuloActual(moduloActual);
     }
     
     /**

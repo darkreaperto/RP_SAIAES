@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bd;
+package logica.servicios;
 
 /**
  * Clase para recuperación de la contraseña tras verificar coincidencia 

@@ -5,6 +5,8 @@
  */
 package logica;
 
+import util.Modulo;
+
 /**
  * Clase de acceso, almacena la variable de sesión.
  * @author ahoihanabi
@@ -12,21 +14,14 @@ package logica;
 public class Acceso {
     
     private Usuario usuario;
+    private Modulo moduloActual;
     
     
     /**
-     * Constructor de clase acceso
+     * Constructor de clase acceso.
      */
     public Acceso() {
-        
-    }
-    
-    /**
-     * Establecer usuario.
-     * @param user Usuario.
-     */
-    public void setUsuario(Usuario user) {
-        usuario = user;
+        moduloActual = Modulo.MODULO_ACCESO;
     }
     
     /**
@@ -35,5 +30,29 @@ public class Acceso {
      */
     public Usuario getUsuario() {
         return usuario;
+    }
+    
+    /**
+     * Establecer usuario.
+     * @param usuario Usuario.
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }    
+
+    /**
+     * Obtener módulo en uso.
+     * @return el módulo en uso.
+     */
+    public Modulo getModuloActual() {
+        return moduloActual;
+    }
+
+    /**
+     * Establecer módulo en utilización.
+     * @param moduloActual el modulo a establecer.
+     */
+    public void setModuloActual(Modulo moduloActual) {
+        this.moduloActual = moduloActual;
+    }
 }

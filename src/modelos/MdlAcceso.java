@@ -5,7 +5,7 @@
  */
 package modelos;
 
-import bd.AESEncrypt;
+import logica.servicios.AESEncrypt;
 import bd.Conexion;
 import java.sql.ResultSet;
 

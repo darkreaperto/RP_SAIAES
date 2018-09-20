@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bd;
+package util;
 
 /**
- * Almacena el log del usuario en el sistema.
+ *
  * @author dark-reaper
  */
-public class Log {
-    
-    private void crearNuevoLog() {
-        
-    }
+public enum EstadoTarea {
+    CREADA,
+    INICIADA,
+    TERMINADA,
 }

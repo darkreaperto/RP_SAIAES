@@ -12,10 +12,9 @@ import java.util.ArrayList;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import logica.Usuario;
+import logica.servicios.Autoguardado;
 
 /**
  * Inicializa la ventana principal del sistema.
@@ -29,6 +28,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private static ItnFrmCliente modCliente;
     private static CtrAcceso sesionAcc;
     private static ArrayList<Usuario> usuarios;
+    private static Autoguardado a;
 
     /**
      * Crea el form principal, instancia variables para almacenar el usuario en
@@ -37,6 +37,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {
         initComponents();
 
+        a =  Autoguardado.getInstancia("lol.txt");
         sesionAcc = new CtrAcceso();
         usuarios = new ArrayList<>();
         ventanaAcceso();
@@ -57,11 +58,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         modUsuarioAcceso = ItnFrmAccesoUsuario.getInstancia(sesionAcc, usuarios);
         modUsuarioAcceso.setVisible(true);
 
-        try {
+        if (dpn_principal.getComponentCount() == 0) {
             dpn_principal.add(modUsuarioAcceso);
-        } catch (Exception e) {
-            System.out.println(e);
+        } else {
+            if (!(dpn_principal.getComponent(0) instanceof ItnFrmAccesoUsuario)) 
+                dpn_principal.add(modUsuarioAcceso);
         }
+        
         modUsuarioAcceso.setLocation(300, 150);
     }
     
@@ -69,15 +72,36 @@ public class FrmPrincipal extends javax.swing.JFrame {
      * Deshabilita los botones de los modulos.
      */
     public void bloquearBotones() {
-        btn_usuarios.setEnabled(false);
-        btn_clientes.setEnabled(false);
-        btn_facturacion.setEnabled(false);
-        btn_consultas.setEnabled(false);
-        btn_inventario.setEnabled(false);
-        btn_maquinaria.setEnabled(false);
-        btn_proveedor.setEnabled(false);
+        
+        for (Component c: tlb_modulos.getComponents())
+            c.setEnabled(false);
+        
         mnb_principal.setEnabled(false);
-        mnbtn_archivo.setEnabled(false);
+        for (Component c: mnb_principal.getComponents())
+            c.setEnabled(false);
+    }
+    
+    public void mostrarInternalFrame() {
+        switch (sesionAcc.getModuloActual()) {
+            case MODULO_ACCESO:
+                break;
+            case MODULO_CLIENTES:
+                break;
+            case MODULO_CONSULTAS:
+                break;
+            case MODULO_FACTURACION:
+                break;
+            case MODULO_INVENTARIO:
+                break;
+            case MODULO_MAQUINARIA:
+                break;
+            case MODULO_PROVEEDORES:
+                break;
+            case MODULO_USUARIOS:
+                break;
+            default:
+                break;
+        }
     }
     
     /**
@@ -88,19 +112,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         Container frameParent = this.getRootPane().getContentPane();
         System.out.println("fp " + frameParent);
         
-        for (Component m : mnb_principal.getComponents()) {
-            if (m instanceof JMenuItem) {
-                        m.setEnabled(false);
-            }
-        }
-        
-        //Frame principal, tiene Jtoolbar DesktopPane..
+        //Frame principal, tiene JToolbar DesktopPane..
         for (Component c : frameParent.getComponents()) {
             if (c instanceof JDesktopPane) {
                 for (Component i : ((JDesktopPane) c).getComponents()) {
-                    System.out.println("I" + i);
+                    System.out.println("I " + i);
                     if (i instanceof JInternalFrame) {
-                        System.out.println("Internal: " + i);
+                        System.out.println("Internal: " + ((JInternalFrame) i).getName());
                         //((JInternalFrame) i).dispose();
                         dpn_principal.remove(i);
                     }
@@ -109,6 +127,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         }
         sesionAcc.setUsuario(null);
+        
         usuarios.clear();
         ventanaAcceso();
     }

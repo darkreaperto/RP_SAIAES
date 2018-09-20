@@ -6,7 +6,7 @@
 package presentacion;
 
 import util.Estado;
-import bd.AESEncrypt;
+import logica.servicios.AESEncrypt;
 import controladores.CtrAcceso;
 import controladores.CtrUsuario;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import logica.Usuario;
 import util.MessageType;
-import logica.Regex;
+import logica.servicios.Regex;
 import util.Rol;
 
 /**

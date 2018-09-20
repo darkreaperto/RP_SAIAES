@@ -5,7 +5,7 @@
  */
 package modelos;
 
-import bd.AESEncrypt;
+import logica.servicios.AESEncrypt;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -5,7 +5,7 @@
  */
 package controladores;
 
-import logica.Regex;
+import logica.servicios.Regex;
 
 /**
  * Controladorde la clase Verificacion.

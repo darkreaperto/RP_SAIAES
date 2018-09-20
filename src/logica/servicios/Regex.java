@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
+package logica.servicios;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +20,7 @@ public class Regex {
             = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
     private static final String PASSWORD_REGEX
             = "(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z]).(?=\\S+$).{6,16}";
-    private static final String USER_REGEX
+    private static final String USERNAME_REGEX
             = "^[A-Za-z0-9_.][^\\s]{4,16}$";
 
     /**
@@ -53,13 +53,13 @@ public class Regex {
     }
 
     /**
-     * Valida un nombre de usuario con USER_REGEX.
+     * Valida un nombre de usuario con USERNAME_REGEX.
      *
      * @param nombreUsuario Nombre de usuario a agregar.
      * @return True si el nombre de usuario válido.
      */
     public boolean validaNombreUsuario(String nombreUsuario) {
-        patron = Pattern.compile(USER_REGEX);
+        patron = Pattern.compile(USERNAME_REGEX);
         matcher = patron.matcher(nombreUsuario);
         return matcher.matches();
     }

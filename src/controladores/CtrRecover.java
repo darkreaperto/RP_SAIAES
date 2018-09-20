@@ -5,7 +5,7 @@
  */
 package controladores;
 
-import bd.Recover;
+import logica.servicios.Recover;
 
 /**
  * Controlador de la clase Recover.

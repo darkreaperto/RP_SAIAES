@@ -5,7 +5,7 @@
  */
 package controladores;
 
-import bd.Mail;
+import logica.servicios.Mail;
 import javax.mail.MessagingException;
 
 /**

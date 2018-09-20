@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bd;
+package logica.servicios;
 
+import logica.servicios.AESEncrypt;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;

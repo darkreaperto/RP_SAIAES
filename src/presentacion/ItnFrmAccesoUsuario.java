@@ -5,7 +5,7 @@
  */
 package presentacion;
 
-import bd.AESEncrypt;
+import logica.servicios.AESEncrypt;
 import controladores.CtrMail;
 import controladores.CtrRecover;
 import controladores.CtrAcceso;
@@ -21,9 +21,14 @@ import javax.swing.JToolBar;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import logica.Usuario;
 import util.MessageType;
-import bd.MailThread;
+import logica.servicios.MailThread;
+import javax.swing.JDesktopPane;
+import javax.swing.JLayeredPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JRootPane;
+import javax.swing.JTabbedPane;
 
 /**
  * Inicializa la ventana de acceso para ingresar el usuario y contraseña.
@@ -113,13 +118,56 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         Container frameParent = this.getParent().getParent();
         //Habilitar botones   
         for (Component c : frameParent.getComponents()) {
-            System.out.println("C "+c);
+            //System.out.println("C "+c);
             
             if (c instanceof JToolBar) {
                 for (Component b : ((JToolBar) c).getComponents()) {
                     //System.out.println("B "+b);
                     if (b instanceof JButton) {                        
                         b.setEnabled(true);
+                    }
+                }
+            }
+        
+            /**
+             * Prueba: mostrar formulario interno después de acceder
+             */
+            if (c instanceof JDesktopPane) {
+                ItnFrmUsuario modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
+                modUsuario.deshabilitarPaneles();
+                modUsuario.setVisible(true);
+                if (((JDesktopPane) c).getComponentCount() == 0) {
+                    ((JDesktopPane) c).add(modUsuario);
+
+                } else {
+                    if (!(((JDesktopPane) c).getComponent(0) instanceof ItnFrmUsuario)) {
+                        ((JDesktopPane) c).add(modUsuario);
+                    }
+                }
+                for (Component i: modUsuario.getComponents()) {
+                    System.out.println("MOD " + i);
+                    if (i instanceof JRootPane) {
+                        for (Component r: ((JRootPane) i).getComponents()) {
+                            System.out.println("ROOT " + r);
+                            if (r instanceof JLayeredPane) {
+                                for (Component l: ((JLayeredPane) r).getComponents()) {
+                                    System.out.println("LAY " + l);
+                                    if (l instanceof JPanel) {
+                                        for (Component p: ((JPanel) l).getComponents()) {
+                                            System.out.println("PAN " + p);
+                                            if (p instanceof JPanel) {
+                                                for (Component t: ((JPanel) p).getComponents()) {
+                                                    System.out.println("TAB " + t);
+                                                    if (t instanceof JTabbedPane) {
+                                                        ((JTabbedPane) t).setSelectedIndex(1);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -137,8 +185,8 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
      */
     public void iniciarSesion(String usuario, String clave) {
 
-        usuario = "usua";
-        clave = "123";
+        usuario = "usuario";
+        clave = "usuario2018";
         
         if (!usuario.isEmpty() && clave.length() > 0) {
             //comprobar contraseña y nombre de usuario
