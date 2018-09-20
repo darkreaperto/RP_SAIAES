@@ -3,64 +3,67 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
+package controladores;
 
 import java.util.ArrayList;
+import logica.Cliente;
+import logica.Contacto;
+import modelos.MdlCliente;
 import util.Estado;
 
 /**
- * Instancia la persona con sus atributos.
- * @author dark-reaper
+ * Controlador de la clase Cliente.
+ * @author ahoihanabi
  */
-public class Persona {
-    
-    private String codigo;
-    private String nombre;
-    private String apellido1;
-    private String apellido2;
-    private String cedula;
-    private float limiteCredito;
-    private boolean aprobarCredito;
-    private ArrayList<Contacto> contacto;
-    private Estado estado;
+public class CtrCliente {
+    private static CtrCliente instancia = null;
+    MdlCliente mdlCliente;
+    Cliente cliente;
+    ArrayList <Cliente> clientes;
     
     /**
-     * Constructor vacío de clase persona.
+     * Constructor del controlador de usuario, inicializa variables.
      */
-    public Persona() {
-        
+    public CtrCliente() {
+        clientes = new ArrayList<>();
+        mdlCliente = new MdlCliente();
     }
+    
     /**
-     * Constructor de clase persona, inicializa variables.
-     * @param codigo codigo persona.
-     * @param nombre nombre persona.
-     * @param apellido1 primer apellido persona.
-     * @param apellido2 segundo apellido persona.
-     * @param cedula cedula persona.
-     * @param limiteCredito limite credito persona.
-     * @param aprobarCredito aprobar credito persona.
-     * @param contacto contactos persona.
+     * Constructor del controlador de cliente, inicializa variables.
+     * @param codigo Código de persona.
+     * @param nombre Nombre de persona.
+     * @param apellido1 Apellido 1 de persona.
+     * @param apellido2 Apellido 2 de persona.
+     * @param cedula Cédula de persona.
+     * @param limiteCredito Limite credito de persona.
+     * @param aprobarCredito Si aprobar credito de persona.
+     * @param contacto Lista contactos de persona.
+     * @param codCliente Codigo de cliente.
      * @param estado Estado de persona.
      */
-    public Persona(String codigo, String nombre, String apellido1, 
+    public CtrCliente(String codigo, String nombre, String apellido1, 
             String apellido2, String cedula, float limiteCredito,
-            boolean aprobarCredito, ArrayList<Contacto> contacto, String estado) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.apellido1 = apellido1;
-        this.apellido2 = apellido2;
-        this.cedula = cedula;
-        this.limiteCredito = limiteCredito;
-        this.aprobarCredito = aprobarCredito;
-        this.contacto = contacto;
-        this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
+            boolean aprobarCredito, ArrayList<Contacto> contacto, 
+            String codCliente, String estado) {
+        cliente = new Cliente(codigo, nombre,apellido1, apellido2, cedula, 
+                limiteCredito, aprobarCredito, contacto, codCliente, estado);
     }
+    
+    /**
+     * Obtener instancia única del controlador de cliente.
+     * @return Instancia única de Cliente
+     */
+    public static CtrCliente getInstancia() {
+        return instancia == null ? new CtrCliente() : instancia;
+    }
+    
     /**
      * Obtener código de persona.
      * @return el codigo
      */
     public String getCodigo() {
-        return codigo;
+        return cliente.getCodigo();
     }
 
     /**
@@ -68,7 +71,7 @@ public class Persona {
      * @param codigo el codigo
      */
     public void setCodigo(String codigo) {
-        this.codigo = codigo;
+        cliente.setCodigo(codigo);
     }
 
     /**
@@ -76,7 +79,7 @@ public class Persona {
      * @return El nombre.
      */
     public String getNombre() {
-        return nombre;
+        return cliente.getNombre();
     }
 
     /**
@@ -84,7 +87,7 @@ public class Persona {
      * @param nombre the nombre to set
      */
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        cliente.setNombre(nombre);
     }
 
     /**
@@ -92,7 +95,7 @@ public class Persona {
      * @return El apellido1
      */
     public String getApellido1() {
-        return apellido1;
+        return cliente.getApellido1();
     }
 
     /**
@@ -100,7 +103,7 @@ public class Persona {
      * @param apellido1 el apellido1
      */
     public void setApellido1(String apellido1) {
-        this.apellido1 = apellido1;
+        cliente.setApellido1(apellido1);
     }
 
     /**
@@ -108,7 +111,7 @@ public class Persona {
      * @return El apellido2
      */
     public String getApellido2() {
-        return apellido2;
+        return cliente.getApellido2();
     }
 
     /**
@@ -116,7 +119,7 @@ public class Persona {
      * @param apellido2 the apellido2 to set
      */
     public void setApellido2(String apellido2) {
-        this.apellido2 = apellido2;
+        cliente.setApellido2(apellido2);
     }
 
     /**
@@ -124,7 +127,7 @@ public class Persona {
      * @return La cedula
      */
     public String getCedula() {
-        return cedula;
+        return cliente.getCedula();
     }
 
     /**
@@ -132,7 +135,7 @@ public class Persona {
      * @param cedula la cedula
      */
     public void setCedula(String cedula) {
-        this.cedula = cedula;
+        cliente.setCedula(cedula);
     }
 
     /**
@@ -140,7 +143,7 @@ public class Persona {
      * @return El limiteCredito
      */
     public float getLimiteCredito() {
-        return limiteCredito;
+        return cliente.getLimiteCredito();
     }
 
     /**
@@ -148,7 +151,7 @@ public class Persona {
      * @param limiteCredito the limiteCredito to set
      */
     public void setLimiteCredito(float limiteCredito) {
-        this.limiteCredito = limiteCredito;
+        cliente.setLimiteCredito(limiteCredito);
     }
 
     /**
@@ -156,7 +159,7 @@ public class Persona {
      * @return La aprobación de credito
      */
     public boolean isAprobarCredito() {
-        return aprobarCredito;
+        return cliente.isAprobarCredito();
     }
 
     /**
@@ -164,7 +167,7 @@ public class Persona {
      * @param aprobarCredito el aprobarCredito
      */
     public void setAprobarCredito(boolean aprobarCredito) {
-        this.aprobarCredito = aprobarCredito;
+        cliente.setAprobarCredito(aprobarCredito);
     }
 
     /**
@@ -172,7 +175,7 @@ public class Persona {
      * @return La lista de contacto.
      */
     public ArrayList<Contacto> getContacto() {
-        return contacto;
+        return cliente.getContacto();
     }
 
     /**
@@ -180,22 +183,37 @@ public class Persona {
      * @param contacto El contacto
      */
     public void setContacto(ArrayList<Contacto> contacto) {
-        this.contacto = contacto;
+        cliente.setContacto(contacto);
     }
     
     /**
-     * Obtener el estado.
+     * Obtener estado de persona.
      * @return El estado
      */
     public Estado getEstado() {
-        return estado;
+        return cliente.getEstado();
     }
 
     /**
      * Establecer estado de persona
-     * @param estado El estado.
+     * @param estado el estado
      */
     public void setEstado(Estado estado) {
-        this.estado = estado;
+        cliente.setEstado(estado);
+    }
+    /**
+     * Obtener codigo de cliente.
+     * @return el codigo de cliente. 
+    */
+    public String getCodCliente() {
+        return cliente.getCodCliente();
+    }
+
+    /**
+     * Establecer codigo de cliente.
+     * @param codCliente el codigo de cliente
+     */
+    public void setCodCliente(String codCliente) {
+        cliente.setCodCliente(codCliente);
     }
 }

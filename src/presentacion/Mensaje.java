@@ -7,7 +7,7 @@ package presentacion;
 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import util.MessageType;
+import util.TipoMensaje;
 
 /**
  * Contiene los mensajes para informar al usuario el resultado de las
@@ -22,7 +22,7 @@ public class Mensaje {
      * @param mensaje Enum identificador para escoger el detalle del mensaje
      * @return el mensaje a mostrar.
      */
-    public String obtenerMensaje(MessageType mensaje) {
+    public String obtenerMensaje(TipoMensaje mensaje) {
 
         String msg;
 
@@ -144,7 +144,7 @@ public class Mensaje {
      * @param tipo Tipo de mensaje (informacion, error, etc)
      * @param msg Enum del tipo de mensaje
      */
-    public void mostrarMensaje(int tipo, MessageType msg) {
+    public void mostrarMensaje(int tipo, TipoMensaje msg) {
 
         JOptionPane.showMessageDialog(null, obtenerMensaje(msg),
                 "ADVERTENCIA", tipo);
@@ -159,7 +159,7 @@ public class Mensaje {
      * @param mensaje Detalle del mensaje dependiendo de su tipo.
      * @return mensaje emergente que permite al usuario escoger sí o no.
      */
-    public int mostrarDialogo(int opcion, int tipo, MessageType mensaje) {
+    public int mostrarDialogo(int opcion, int tipo, TipoMensaje mensaje) {
 
         int dialogResult = JOptionPane.showConfirmDialog(null,
                 obtenerMensaje(mensaje), "ADVERTENCIA", opcion, tipo);

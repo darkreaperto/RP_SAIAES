@@ -9,7 +9,7 @@ package util;
  * Enumeración de los mensajes de interfaz para mostrar, por tipo.
  * @author dark-reaper
  */
-public enum MessageType {
+public enum TipoMensaje {
     /**
      * Identificador del mensaje: ninguna fila seleccionada.
      */

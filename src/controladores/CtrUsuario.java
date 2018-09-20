@@ -48,7 +48,7 @@ public class CtrUsuario {
     
     /**
      * Obtener instancia única del controlador de usuario
-     * @return 
+     * @return Instancia única de Usuario
      */
     public static CtrUsuario getInstancia() {
         return instancia == null ? new CtrUsuario() : instancia;

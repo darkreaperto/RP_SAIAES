@@ -9,6 +9,6 @@ package util;
  *
  * @author ahoihanabi
  */
-public enum ErrorType {
+public enum TipoError {
     SQL_USER_DUPLICITY
 }
