@@ -5,8 +5,8 @@
  */
 package controladores;
 
-import logica.Acceso;
-import logica.Usuario;
+import logica.negocio.Acceso;
+import logica.negocio.Usuario;
 import modelos.MdlAcceso;
 import util.Modulo;
 

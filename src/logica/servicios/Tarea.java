@@ -6,7 +6,7 @@
 package logica.servicios;
 
 import java.util.ArrayList;
-import logica.Usuario;
+import logica.negocio.Usuario;
 import util.EstadoTarea;
 import util.Modulo;
 import util.Panel;

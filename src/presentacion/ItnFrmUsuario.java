@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import logica.Usuario;
+import logica.negocio.Usuario;
 import util.TipoMensaje;
 import logica.servicios.Regex;
 import util.Rol;

@@ -6,8 +6,8 @@
 package controladores;
 
 import java.util.ArrayList;
-import logica.Cliente;
-import logica.Contacto;
+import logica.negocio.Cliente;
+import logica.negocio.Contacto;
 import modelos.MdlCliente;
 import util.Estado;
 

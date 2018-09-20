@@ -6,7 +6,7 @@
 package controladores;
 
 import java.util.ArrayList;
-import logica.Usuario;
+import logica.negocio.Usuario;
 import modelos.MdlUsuario;
 import util.Estado;
 import util.Rol;

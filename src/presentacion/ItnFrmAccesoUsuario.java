@@ -19,7 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import logica.Usuario;
+import logica.negocio.Usuario;
 import util.TipoMensaje;
 import logica.servicios.MailThread;
 import javax.swing.JDesktopPane;

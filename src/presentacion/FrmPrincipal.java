@@ -13,8 +13,8 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import logica.Cliente;
-import logica.Usuario;
+import logica.negocio.Cliente;
+import logica.negocio.Usuario;
 import logica.servicios.Autoguardado;
 
 /**

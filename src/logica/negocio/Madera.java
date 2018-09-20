@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
+package logica.negocio;
 
 /**
- * Instancia los proveedores con sus atributos.
+ * Instancia los clientes con sus atributos. 
  * @author dark-reaper
  */
-public class Proveedor {
+public class Madera {
     
 }
