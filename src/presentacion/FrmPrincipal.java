@@ -13,6 +13,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import logica.Cliente;
 import logica.Usuario;
 import logica.servicios.Autoguardado;
 
@@ -28,6 +29,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private static ItnFrmCliente modCliente;
     private static CtrAcceso sesionAcc;
     private static ArrayList<Usuario> usuarios;
+    private static ArrayList<Cliente> clientes;
     private static Autoguardado a;
 
     /**
@@ -392,6 +394,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Hi! An amazing costumers module "
                 + "will be developed here! \n Hold on a little more please. "
                 + "We are working hard!");
+        //Abrir formulario de usuarios.
+        modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
+        //modCliente.deshabilitarPaneles();
+        modCliente.setVisible(true);
+        if (dpn_principal.getComponentCount() == 0) {
+            dpn_principal.add(modCliente);
+        } else {
+            if (!(dpn_principal.getComponent(0) instanceof ItnFrmCliente)) 
+                dpn_principal.add(modCliente);
+        }
+        
     }//GEN-LAST:event_btn_clientesActionPerformed
 
     private void btn_proveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_proveedorActionPerformed
