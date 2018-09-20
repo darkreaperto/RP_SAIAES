@@ -6,6 +6,9 @@
 package logica.servicios;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  *
@@ -17,6 +20,7 @@ public class Autoguardado {
     private static String directorio;
     private String nombreArchivo;
     private final String separador;
+    private FileReader lector;
     private File archivo;
     
     
@@ -36,13 +40,21 @@ public class Autoguardado {
         return instancia;
     }
     
-//    public boolean abrirArchivo() {
-//        
-//    }
-//    
-//    public boolean cerrarArchivo() {
-//        
-//    }
+    public boolean abrirArchivo() throws FileNotFoundException, IOException {
+        
+        lector = new FileReader(archivo);
+        
+        return true;
+    }
+    
+    public boolean cerrarArchivo() throws FileNotFoundException, IOException {
+        
+        if (lector != null) {
+            lector.close();
+        }
+        
+        return true;
+    }
 
     /**
      * @return the directorio
