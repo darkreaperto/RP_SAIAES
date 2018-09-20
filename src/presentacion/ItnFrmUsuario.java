@@ -5,6 +5,7 @@
  */
 package presentacion;
 
+import logica.servicios.Mensaje;
 import util.Estado;
 import logica.servicios.AESEncrypt;
 import controladores.CtrAcceso;
@@ -133,6 +134,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                         if (!contra.isEmpty()) {
                             if (verificacion.validaClave(contra)) {
                                 if (contra.equals(contraConf)) {
+                                    contra = crypter.encriptar(contra);
                                     boolean crear = 
                                             controlador.crearUsuario(nombre, 
                                                     contra, correo, rol);

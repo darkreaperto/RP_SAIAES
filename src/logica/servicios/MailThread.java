@@ -5,7 +5,6 @@
  */
 package logica.servicios;
 
-import presentacion.Mensaje;
 import util.TipoMensaje;
 import javax.swing.JOptionPane;
 import controladores.CtrMail;

@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.negocio.Usuario;
 import controladores.CtrConexion;
-import presentacion.Mensaje;
+import logica.servicios.Mensaje;
 import util.Estado;
 import util.Rol;
 
