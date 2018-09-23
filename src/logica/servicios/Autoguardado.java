@@ -42,6 +42,10 @@ public class Autoguardado {
     
     public boolean abrirArchivo() throws FileNotFoundException, IOException {
         
+        if (!archivo.exists()) {
+            archivo.createNewFile();
+        }
+        
         lector = new FileReader(archivo);
         
         return true;
@@ -67,7 +71,7 @@ public class Autoguardado {
      * @param directorio the directorio to set
      */
     public void setDirectorio(String directorio) {
-        this.directorio = directorio;
+        Autoguardado.directorio = directorio;
     }
 
     /**

@@ -8,6 +8,7 @@ package presentacion;
 import controladores.CtrAcceso;
 import java.awt.Component;
 import java.awt.Container;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -40,6 +41,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         initComponents();
 
         a =  Autoguardado.getInstancia("lol.txt");
+        try {
+            a.abrirArchivo();
+            a.cerrarArchivo();
+        } catch (IOException ex) {
+            
+        }
+        
         sesionAcc = new CtrAcceso();
         usuarios = new ArrayList<>();
         ventanaAcceso();
