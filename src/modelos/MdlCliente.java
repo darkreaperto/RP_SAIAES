@@ -7,7 +7,7 @@ package modelos;
 
 import controladores.CtrConexion;
 import java.util.ArrayList;
-import logica.Cliente;
+import logica.negocio.Cliente;
 
 /**
  * Modelo de cliente con los procedimientos y consultas de base de datos

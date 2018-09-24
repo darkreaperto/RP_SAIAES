@@ -19,7 +19,7 @@ public class Regex {
     private static final String EMAIL_REGEX
             = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
     private static final String PASSWORD_REGEX
-            = "(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z]).(?=\\S+$).{6,16}";
+            = "(?=.*[a-z])(?=.*[0-9]).(?=\\S+$).{6,16}"; //(?=.*[A-Z])Mayuscula
     private static final String USERNAME_REGEX
             = "^[A-Za-z0-9_.][^\\s]{4,16}$";
 

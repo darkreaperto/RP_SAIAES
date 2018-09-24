@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package presentacion;
+package logica.servicios;
 
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import util.TipoMensaje;
 
@@ -45,7 +44,6 @@ public class Mensaje {
             case PASSWORD_SYNTAX_FAILURE:
                 msg = "La contraseña debe contener:"
                         + "\n Al menos una letra minúcula."
-                        + "\n Al menos una letra mayúscula."
                         + "\n Al menos un número."
                         + "\n Mínimo 6 caracteres."
                         + "\n Máximo 16 caracteres."

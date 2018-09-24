@@ -9,9 +9,9 @@ import logica.servicios.AESEncrypt;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import logica.Usuario;
+import logica.negocio.Usuario;
 import controladores.CtrConexion;
-import presentacion.Mensaje;
+import logica.servicios.Mensaje;
 import util.Estado;
 import util.Rol;
 

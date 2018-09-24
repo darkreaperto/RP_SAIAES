@@ -5,6 +5,7 @@
  */
 package presentacion;
 
+import logica.servicios.Mensaje;
 import logica.servicios.AESEncrypt;
 import controladores.CtrMail;
 import controladores.CtrRecover;
@@ -19,7 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import logica.Usuario;
+import logica.negocio.Usuario;
 import util.TipoMensaje;
 import logica.servicios.MailThread;
 import javax.swing.JDesktopPane;
@@ -180,13 +181,16 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
 
     /**
      * Validar información de inicio de sesión ingresada por el usuario.
-     * @param usuario
-     * @param clave 
+     * @param usuario nombre usuario que ingresa
+     * @param clave clave de usuario
      */
     public void iniciarSesion(String usuario, String clave) {
 
         usuario = "usuario";
         clave = "usuario2018";
+        
+        //usuario = "usuario";
+        //clave = "usuario2018";
         
         if (!usuario.isEmpty() && clave.length() > 0) {
             //comprobar contraseña y nombre de usuario

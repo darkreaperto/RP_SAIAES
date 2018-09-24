@@ -8,7 +8,7 @@ package presentacion;
 import controladores.CtrAcceso;
 import controladores.CtrCliente;
 import java.util.ArrayList;
-import logica.Cliente;
+import logica.negocio.Cliente;
 
 /**
  * Inicializa la ventana que contiene la información de los clientes.
