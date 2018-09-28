@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Cliente extends Persona {
     
+    /** Código del cliente */
     private String codCliente;
     
     /**
@@ -31,17 +32,17 @@ public class Cliente extends Persona {
      * @param cedula Cédula de persona.
      * @param limiteCredito Limite credito de persona.
      * @param aprobarCredito Si aprobar credito de persona.
-     * @param contacto Lista contactos de persona.
+     * @param contactos Lista contactos de persona.
      * @param codCliente Codigo de cliente.
      * @param estado Estado de persona.
      */
     public Cliente(String codigo, String nombre, String apellido1, 
             String apellido2, String cedula, float limiteCredito,
-            boolean aprobarCredito, ArrayList<Contacto> contacto, 
+            boolean aprobarCredito, ArrayList<Contacto> contactos, 
             String codCliente, String estado) {
         
         super(codigo, nombre, apellido1, apellido2, cedula, limiteCredito,
-                aprobarCredito, contacto, estado);
+                aprobarCredito, contactos, estado);
         this.codCliente = codCliente;
     }
 

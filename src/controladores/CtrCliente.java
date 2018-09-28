@@ -58,6 +58,8 @@ public class CtrCliente {
         return instancia == null ? new CtrCliente() : instancia;
     }
     
+    
+    
     /**
      * Obtener código de persona.
      * @return el codigo
@@ -174,16 +176,16 @@ public class CtrCliente {
      * Obtener lista de contactos de persona.
      * @return La lista de contacto.
      */
-    public ArrayList<Contacto> getContacto() {
-        return cliente.getContacto();
+    public ArrayList<Contacto> getContactos() {
+        return cliente.getContactos();
     }
 
     /**
      * Establecer lista de contactos
-     * @param contacto El contacto
+     * @param contactos El contacto
      */
-    public void setContacto(ArrayList<Contacto> contacto) {
-        cliente.setContacto(contacto);
+    public void setContactos(ArrayList<Contacto> contactos) {
+        cliente.setContactos(contactos);
     }
     
     /**

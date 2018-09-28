@@ -21,11 +21,17 @@ import util.Rol;
  */
 public class MdlUsuario {
 
+    /** Controlador de conexión. */
     private static CtrConexion conexion;
+    /** Variable para encriptar datos. */
     private static AESEncrypt crypter;
+    /** Procedimiento a ejecutar en la base. */
     private static String procedimiento;
+    /** Resultado de las consultas a la base. */
     private static ResultSet resultado;
+    /** Lista de usuarios en la base. */
     private static ArrayList<Usuario> usuarios;
+    /** Mensaje de error desde la base. */
     private static Mensaje msgError;
 
     /**

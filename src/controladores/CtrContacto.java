@@ -3,22 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica.negocio;
+package controladores;
 
+import java.util.ArrayList;
+import logica.negocio.Contacto;
+import modelos.MdlContacto;
 import util.Estado;
 import util.TipoContacto;
 
 /**
- * Instancia los contactos con sus atributos.
- * @author ahoihanabi
+ *
+ * @author dark-reaper
  */
-public class Contacto {
+public class CtrContacto {
     
-    private String codigo;
-    private String info;
-    private TipoContacto tipo;
-    private String codTipo;
-    private Estado estado;
+    private static CtrContacto instancia = null;
+    MdlContacto mdlContacto;
+    Contacto contacto;
+    ArrayList <Contacto> contactos;
+    
+    /**
+     * Constructor del controlador de usuario, inicializa variables.
+     */
+    public CtrContacto() {
+        contactos = new ArrayList<>();
+        mdlContacto = new MdlContacto();
+    }
     
     /**
      * Constructor de clase contacto, con parámetros.
@@ -27,13 +37,34 @@ public class Contacto {
      * @param codTipo Código tipo de contacto del cliente.
      * @param estado Estado de contacto.
      */
-    public Contacto(String codigo, String info, String codTipo, String estado) {
-        this.codigo = codigo;
-        this.info = info;
-        this.tipo = codTipo.equals("1") ? TipoContacto.TELEFONO : 
-                TipoContacto.CORREO_ELECTRONICO;
-        this.codTipo = codTipo;
-        this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
+    public CtrContacto(String codigo, String info, String codTipo, String estado) {
+        contacto = new Contacto(codigo, info, codTipo, estado);
+    }
+    
+    /**
+     * Obtener instancia única del controlador de usuario
+     * @return Instancia única de Usuario
+     */
+    public static CtrContacto getInstancia() {
+        return instancia == null ? new CtrContacto() : instancia;
+    }
+    
+    /**
+     * Llama el método que llena una lista con todos los usuarios almacenados 
+     * en la BD.
+     * @return 
+     */
+    public ArrayList<Contacto> obtenerUsuarios() {
+        return mdlContacto.obtenerContactos();
+    }
+    
+    /**
+     * Buscar contacto enviando por parámetro el criterio de búsqueda.
+     * @param param Parametros para consultar contacto en la base de datos
+     * @return lista de contactos
+     */
+    public ArrayList consultarContactos(String param) {
+        return mdlContacto.consultarContactos(param);
     }
     
     /**
@@ -41,7 +72,7 @@ public class Contacto {
      * @return Codigo de contacto
      */
     public String getCodigo() {
-        return codigo;
+        return contacto.getCodigo();
     }
 
     /**
@@ -49,7 +80,7 @@ public class Contacto {
      * @param codigo el código a establecer
      */
     public void setCodigo(String codigo) {
-        this.codigo = codigo;
+        contacto.setCodigo(codigo);
     }
 
     /**
@@ -57,7 +88,7 @@ public class Contacto {
      * @return La información
      */
     public String getInfo() {
-        return info;
+        return contacto.getInfo();
     }
 
     /**
@@ -65,7 +96,7 @@ public class Contacto {
      * @param info la inforamción
      */
     public void setInfo(String info) {
-        this.info = info;
+        contacto.setInfo(info);
     }
 
     /**
@@ -73,7 +104,7 @@ public class Contacto {
      * @return El tipo
      */
     public TipoContacto getTipo() {
-        return tipo;
+        return contacto.getTipo();
     }
 
     /**
@@ -81,14 +112,14 @@ public class Contacto {
      * @param tipo El tipo de contacto
      */
     public void setTipo(TipoContacto tipo) {
-        this.tipo = tipo;
+        contacto.setTipo(tipo);
     }
 
     /** Obtener codigo del tipo.
      * @return el codigo del tipo
      */
     public String getCodTipo() {
-        return codTipo;
+        return contacto.getCodTipo();
     }
 
     /**
@@ -96,7 +127,7 @@ public class Contacto {
      * @param codTipo El código del tipo
      */
     public void setCodTipo(String codTipo) {
-        this.codTipo = codTipo;
+        contacto.setCodTipo(codTipo);
     }
     
     /**
@@ -104,7 +135,7 @@ public class Contacto {
      * @return El estado
      */
     public Estado getEstado() {
-        return estado;
+        return contacto.getEstado();
     }
 
     /**
@@ -112,6 +143,6 @@ public class Contacto {
      * @param estado El estado del contacto.
      */
     public void setEstado(Estado estado) {
-        this.estado = estado;
+        contacto.setEstado(estado);
     }
 }

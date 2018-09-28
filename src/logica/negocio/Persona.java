@@ -21,7 +21,7 @@ public class Persona {
     private String cedula;
     private float limiteCredito;
     private boolean aprobarCredito;
-    private ArrayList<Contacto> contacto;
+    private ArrayList<Contacto> contactos;
     private Estado estado;
     
     /**
@@ -39,12 +39,12 @@ public class Persona {
      * @param cedula cedula persona.
      * @param limiteCredito limite credito persona.
      * @param aprobarCredito aprobar credito persona.
-     * @param contacto contactos persona.
+     * @param contactos contactos persona.
      * @param estado Estado de persona.
      */
     public Persona(String codigo, String nombre, String apellido1, 
             String apellido2, String cedula, float limiteCredito,
-            boolean aprobarCredito, ArrayList<Contacto> contacto, String estado) {
+            boolean aprobarCredito, ArrayList<Contacto> contactos, String estado) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -52,12 +52,12 @@ public class Persona {
         this.cedula = cedula;
         this.limiteCredito = limiteCredito;
         this.aprobarCredito = aprobarCredito;
-        this.contacto = contacto;
+        this.contactos = contactos;
         this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
     }
     /**
      * Obtener código de persona.
-     * @return el codigo
+     * @return el código
      */
     public String getCodigo() {
         return codigo;
@@ -65,7 +65,7 @@ public class Persona {
 
     /**
      * Establecer código de persona
-     * @param codigo el codigo
+     * @param codigo el código
      */
     public void setCodigo(String codigo) {
         this.codigo = codigo;
@@ -73,7 +73,7 @@ public class Persona {
 
     /**
      * Obtener nombre de persona.
-     * @return El nombre.
+     * @return el nombre
      */
     public String getNombre() {
         return nombre;
@@ -81,7 +81,7 @@ public class Persona {
 
     /**
      * Establecer nombre de persona
-     * @param nombre the nombre to set
+     * @param nombre el nombre a establecer
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -89,7 +89,7 @@ public class Persona {
 
     /**
      * Obtener apellido 1 de persona.
-     * @return El apellido1
+     * @return el apellido1
      */
     public String getApellido1() {
         return apellido1;
@@ -169,18 +169,18 @@ public class Persona {
 
     /**
      * Obtener lista de contactos de persona.
-     * @return La lista de contacto.
+     * @return La lista de contactos.
      */
-    public ArrayList<Contacto> getContacto() {
-        return contacto;
+    public ArrayList<Contacto> getContactos() {
+        return contactos;
     }
 
     /**
      * Establecer lista de contactos
-     * @param contacto El contacto
+     * @param contactos los contactos
      */
-    public void setContacto(ArrayList<Contacto> contacto) {
-        this.contacto = contacto;
+    public void setContactos(ArrayList<Contacto> contactos) {
+        this.contactos = contactos;
     }
     
     /**
