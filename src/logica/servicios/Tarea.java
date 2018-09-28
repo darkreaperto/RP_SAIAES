@@ -17,10 +17,15 @@ import util.Panel;
  */
 public class Tarea {
 
+    /** Usuario que inicia la tarea. */
     private Usuario usuario;
+    /** Estado de la tarea. */
     private EstadoTarea estado;
+    /** Módulo donde se inicia la tarea. */
     private Modulo modulo;
+    /** Panel donde se inicia la tarea. */
     private Panel panel;
+    /** Lista de objetos del panel donde se inicia la tarea. */
     private ArrayList<Object> objetos;
 
     /**
