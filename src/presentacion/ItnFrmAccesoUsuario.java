@@ -30,6 +30,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTabbedPane;
+import logica.negocio.Cliente;
 
 /**
  * Inicializa la ventana de acceso para ingresar el usuario y contraseña.
@@ -40,6 +41,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     private static ItnFrmAccesoUsuario instancia = null;
     private static CtrAcceso sesionAcc;
     private static ArrayList<Usuario> usuarios;
+    private static ArrayList<Cliente> clientes;
     private final AESEncrypt crypter;
     private final Mensaje msg;
     private static CtrRecover recover;
@@ -134,18 +136,18 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
              * Prueba: mostrar formulario interno después de acceder
              */
             if (c instanceof JDesktopPane) {
-                ItnFrmUsuario modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
-                modUsuario.deshabilitarPaneles();
-                modUsuario.setVisible(true);
+                ItnFrmCliente modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
+                //modUsuario.deshabilitarPaneles();
+                modCliente.setVisible(true);
                 if (((JDesktopPane) c).getComponentCount() == 0) {
-                    ((JDesktopPane) c).add(modUsuario);
+                    ((JDesktopPane) c).add(modCliente);
 
                 } else {
-                    if (!(((JDesktopPane) c).getComponent(0) instanceof ItnFrmUsuario)) {
-                        ((JDesktopPane) c).add(modUsuario);
+                    if (!(((JDesktopPane) c).getComponent(0) instanceof ItnFrmCliente)) {
+                        ((JDesktopPane) c).add(modCliente);
                     }
                 }
-                for (Component i: modUsuario.getComponents()) {
+                for (Component i: modCliente.getComponents()) {
                     System.out.println("MOD " + i);
                     if (i instanceof JRootPane) {
                         for (Component r: ((JRootPane) i).getComponents()) {

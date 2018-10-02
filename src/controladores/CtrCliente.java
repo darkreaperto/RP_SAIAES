@@ -58,7 +58,66 @@ public class CtrCliente {
         return instancia == null ? new CtrCliente() : instancia;
     }
     
-    
+    /**
+     * Llena una lista con todos los clientes almacenados en la BD.
+     *
+     * @return lista de clientes.
+     */
+    public ArrayList<Cliente> obtenerClientes() {
+        return mdlCliente.obtenerClientes();
+    }
+
+    /**
+     * Inserta un nuevo cliente en la BD.
+     * @param nombre
+     * @param apellido1
+     * @param apellido2
+     * @param cedula
+     * @param limiteCred
+     * @param aprobarCred
+     * @param contactos
+     * @return 
+     */
+    public boolean crearCliente(String nombre, String apellido1, 
+            String apellido2, String cedula, float limiteCred, 
+            boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
+
+        return mdlCliente.crearCliente(nombre, apellido1, apellido2, cedula, 
+                limiteCred, aprobarCred, contactos);
+    }
+
+    /**
+     * Actualiza toda la información del cliente en la BD.
+     * @param nombre
+     * @param apellido1
+     * @param apellido2
+     * @param cedula
+     * @param limiteCred
+     * @param aprobarCred
+     * @param contactos
+     * @param estado
+     * @param codPersona
+     * @param codigo
+     * @return 
+     */
+    public boolean actualizarCliente(String nombre, String apellido1, 
+            String apellido2, String cedula, float limiteCred, 
+            boolean aprobarCred, ArrayList<Contacto> contactos, Estado estado,
+            String codPersona, String codigo) {
+        
+        return mdlCliente.actualizarCliente(nombre, apellido1, apellido2, 
+                cedula, limiteCred, aprobarCred, contactos, estado, codPersona, 
+                codigo);
+    }
+
+    /**
+     * Buscar cliente enviando por parámetro el criterio de búsqueda.
+     * @param param Parametros para consultar cliente en la base de datos
+     * @return lista de clientes
+     */
+    public ArrayList consultarClientes(String param) {
+        return mdlCliente.consultarClientes(param);
+    }
     
     /**
      * Obtener código de persona.

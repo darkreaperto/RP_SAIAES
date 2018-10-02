@@ -133,27 +133,32 @@ public class MdlCliente {
 
         boolean creacionExitosa = true;
         try {
-            procedimiento = "? = pc_crear_cliente(?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_crear_cliente(?, ?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
-            System.out.println(resultado.getString("indice"));
             
-            int indice = resultado.getInt("indice");
+            int indice = 0;
+            //obtener el índice de la fila insertada
+            while (resultado.next()) {
+                indice = resultado.getInt("@indice");
+            }
+            
             for (int i = 0; i < contactos.size(); i++) {
-                String info = contactos.get(i).get(0).toString();
-                int tipo = contactos.get(i).get(1).equals(TipoContacto.CORREO_ELECTRONICO) ? 1 : 2;
-                params = new ArrayList<>();
+                int tipo = contactos.get(i).get(0).equals(TipoContacto.CORREO_ELECTRONICO) ? 1 : 2;
+                String info = contactos.get(i).get(1).toString();
+                
+                params.clear();
                 params.add(info);
                 params.add(indice);
                 params.add(tipo);
 
                 procedimiento = "pc_crear_contacto(?, ?, ?)";
+                resultado = conexion.ejecutarProcedimiento(procedimiento, params);
             }
             
             //creacionExitosa = true;
             System.out.println(resultado);
-
         } catch (SQLException ex) {
             System.err.println(ex);            
             creacionExitosa = false;
@@ -252,11 +257,13 @@ public class MdlCliente {
                 estadoCliente = resultado.getString("estado_Clientes");
 
                 ArrayList<Contacto> contactos = ctrContacto.consultarContactos(codPersona);
-                Cliente usuario
-                        = new Cliente(codPersona, nombre, apellido1, apellido2, cedula, limiteCred, aprobarCred, contactos, codCliente, estadoCliente);
+                Cliente cliente
+                        = new Cliente(codPersona, nombre, apellido1, apellido2, 
+                                cedula, limiteCred, aprobarCred, contactos, 
+                                codCliente, estadoCliente);
 
-                if (!clientes.contains(usuario)) {
-                    clientes.add(usuario);
+                if (!clientes.contains(cliente)) {
+                    clientes.add(cliente);
                 }
             }
         } catch (SQLException ex) {
@@ -265,5 +272,14 @@ public class MdlCliente {
             conexion.cerrarConexion();
             return clientes;
         }
+    }
+    
+    public void agregarCliente(String nombre, String apellido1, 
+            String apellido2, String cedula, float limiteCred, 
+            boolean aprobarCred, ArrayList<Contacto> contactos) {
+    }
+    
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
     }
 }
