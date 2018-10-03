@@ -30,9 +30,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     
     private int masTelefono = 0;
     private int masCorreo = 0;
-    
-    
-    
     /**
      * Instancia un nuevo formulario interno de usuario.
      * @param sesionAcc Usuario en sesión actual 
@@ -68,75 +65,53 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
         return instancia;
     }
-    int num = 0;
-    public void nuevoContacto(int cantidad, boolean correo) {
-        int pos; 
-        if(correo) {
-            JTextField textoCorreo = new JTextField("HOLA "+ num++);
-            //Eliminar panel a modificar
-            //scpnlClientesCrearCorreo.remove(pnlCrearCorreo);
-            pnlCrearCorreo.add(textoCorreo); //añadir al panel
-            
-            //Posición del último campo de texto 
-            pos = correos.get(correos.size()-1).getY() + 
-                    correos.get(correos.size()-1).getHeight() + 5;
-            textoCorreo.setBounds(5, pos, 220, 30);
-                
-            //Cambiar tamaño del panel con campos de texto
-            pnlCrearCorreo.setSize(pnlCrearCorreo.getWidth(), 
-                    pnlCrearCorreo.getHeight()+15);
-            pnlCrearCorreo.setPreferredSize(new Dimension (
-                    pnlCrearCorreo.getWidth(), 
-                    pnlCrearCorreo.getHeight()+textoCorreo.getHeight()));
-            
-            pnlCrearTelefono.setBounds(pnlCrearTelefono.getX(), pnlCrearCorreo.getHeight()+10, pnlCrearTelefono.getWidth(), pnlCrearTelefono.getHeight());
-            System.out.println("Altura panel: " + pnlCrearCorreo.getHeight());
-            //Añadir el panel modificado y cambiar tamaño de su panel padre
-            scpnlClientesCrearCorreo.add(pnlCrearCorreo);
-//            pnlCrearContacto.setSize(pnlCrearContacto.getWidth(), 
-//                    pnlCrearCorreo.getHeight()+1);
-//            pnlCrearContacto.setPreferredSize(new Dimension (
-//                    pnlCrearContacto.getWidth(), pnlCrearCorreo.getHeight()+1));
-//            pnlCrearContacto.setBounds(pnlCrearContacto.getX(), 
-//                    pnlCrearContacto.getY(), pnlCrearContacto.getWidth(), 
-//                    pnlCrearContacto.getHeight());
-            
-            correos.add(textoCorreo); //añadir a la lista
-            //System.out.println(correos.get(correos.size()-1).getText());
-            
-            //nuevoContacto(masCorreo++, true);
-            
-        } else {
-            JTextField textoTelefono;
-            int posi = 0;
-            //Eliminar panel a modificar
-            scpnlClientesCrearTelefono.remove(pnlCrearTelefono);
-            
-            //Crear nuevos campos de texto
-            textoTelefono = new JTextField();
-            pnlCrearTelefono.add(textoTelefono);
-            posi = telefonos.get(telefonos.size()-1).getY() + 
-                telefonos.get(telefonos.size()-1).getHeight() + 5;
-            textoTelefono.setBounds(5, posi, 220, 30);
-                
-            //Cambiar tamaño del panel con campos de texto
-            pnlCrearTelefono.setSize(pnlCrearTelefono.getWidth(), 
-                    pnlCrearTelefono.getHeight()+15);
-            pnlCrearTelefono.setPreferredSize(new Dimension (
-                    pnlCrearTelefono.getWidth(), 
-                    pnlCrearTelefono.getHeight()+textoTelefono.getHeight()));
-            //}
-            //Añadir el panel modificado y cambiar tamaño de su panel padre
-            scpnlClientesCrearTelefono.add(pnlCrearTelefono);
-//            scpnlClientesCrearTelefono.setSize(scpnlClientesCrearTelefono.getWidth(), 
-//                    pnlCrearTelefono.getHeight());
-//            pnlCrearContacto.setPreferredSize(new Dimension (
-//                    pnlCrearContacto.getWidth(), pnlCrearTelefono.getHeight()+pnlCrearCorreo.getHeight()));
-//            pnlCrearContacto.setBounds(pnlCrearContacto.getX(), 
-//                    pnlCrearContacto.getY(), pnlCrearContacto.getWidth(), 
-//                    pnlCrearContacto.getHeight());
-        }
-        //nuevoContacto(masTelefono++, false);
+    /**
+     * Crea nuevo campo de texto para ingresar otro correo electrónico al cliente
+     * @param cantidad Cantidad de campos de texto creados
+     */
+    public void nuevoCorreo(int cantidad) {
+        int pos;
+        JTextField textoCorreo = new JTextField();
+        pnlCrearCorreo.add(textoCorreo); //añadir al panel
+
+        //Posición del último campo de texto 
+        pos = correos.get(correos.size()-1).getY() + 
+                correos.get(correos.size()-1).getHeight() + 5;
+        textoCorreo.setBounds(14, pos, 209, 30);
+
+        //Cambiar tamaño del panel con campos de texto
+        pnlCrearCorreo.setSize(pnlCrearCorreo.getWidth(), 
+                pnlCrearCorreo.getHeight()+3);
+        pnlCrearCorreo.setPreferredSize(new Dimension (
+                pnlCrearCorreo.getWidth(), 
+                pnlCrearCorreo.getHeight()+textoCorreo.getHeight()));
+
+
+        correos.add(textoCorreo); //añadir a la lista
+        //pnlCrearCorreo.repaint();        
+    }
+    /**
+     * Crea nuevo campo de texto para ingresar otro teléfono al cliente
+     * @param cantidad Cantidad de campos de texto creados
+     */
+    public void nuevoTelefono(int cantidad) {
+        int pos;
+        JTextField textoTelefono = new JTextField();
+        pnlCrearTelefono.add(textoTelefono);
+
+        pos = telefonos.get(telefonos.size()-1).getY() + 
+            telefonos.get(telefonos.size()-1).getHeight() + 5;
+        textoTelefono.setBounds(14, pos, 209, 30);//.setBounds(5, posCorreo, 220, 30);
+
+        //Cambiar tamaño del panel con campos de texto
+        pnlCrearTelefono.setSize(pnlCrearTelefono.getWidth(), 
+                pnlCrearTelefono.getHeight()+3);
+        pnlCrearTelefono.setPreferredSize(new Dimension (
+                pnlCrearTelefono.getWidth(), 
+                pnlCrearTelefono.getHeight()+textoTelefono.getHeight()));
+        
+        telefonos.add(textoTelefono); //añadir a la lista
+        
     }
     public void limpiarCampos() {
         masCorreo = 0;
@@ -278,7 +253,9 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         pnl_crear_creditoCliente1.setAutoscrolls(true);
 
         tbClientesContactos.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
-        tbClientesContactos.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        tbClientesContactos.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
+
+        scpnlClientesCrearTelefono.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         pnlCrearTelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 153, 255)));
         pnlCrearTelefono.setRequestFocusEnabled(false);
@@ -287,6 +264,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         btnNuevoTelefono.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnNuevoTelefono.setText("+");
+        btnNuevoTelefono.setPreferredSize(new java.awt.Dimension(49, 30));
         btnNuevoTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoTelefonoActionPerformed(evt);
@@ -305,7 +283,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                         .addComponent(txt_crear_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNuevoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         pnlCrearTelefonoLayout.setVerticalGroup(
             pnlCrearTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,7 +291,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 .addComponent(lblCrearTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlCrearTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnNuevoTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNuevoTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                     .addComponent(txt_crear_telefono))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
@@ -321,6 +299,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         scpnlClientesCrearTelefono.setViewportView(pnlCrearTelefono);
 
         tbClientesContactos.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/telefono.png")), scpnlClientesCrearTelefono); // NOI18N
+
+        scpnlClientesCrearCorreo.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         pnlCrearCorreo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 204, 0)));
 
@@ -344,21 +324,19 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                     .addGroup(pnlCrearCorreoLayout.createSequentialGroup()
                         .addComponent(txt_crear_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNuevoCorreo)
-                        .addContainerGap(18, Short.MAX_VALUE))
-                    .addGroup(pnlCrearCorreoLayout.createSequentialGroup()
-                        .addComponent(lbl_crear_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(btnNuevoCorreo))
+                    .addComponent(lbl_crear_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         pnlCrearCorreoLayout.setVerticalGroup(
             pnlCrearCorreoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCrearCorreoLayout.createSequentialGroup()
                 .addComponent(lbl_crear_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlCrearCorreoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_crear_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNuevoCorreo))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGroup(pnlCrearCorreoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnNuevoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(txt_crear_correo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         scpnlClientesCrearCorreo.setViewportView(pnlCrearCorreo);
@@ -526,11 +504,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCrearClienteActionPerformed
 
     private void btnNuevoCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoCorreoActionPerformed
-        nuevoContacto(masCorreo++, true);        
+        nuevoCorreo(masCorreo++);        
     }//GEN-LAST:event_btnNuevoCorreoActionPerformed
 
     private void btnNuevoTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoTelefonoActionPerformed
-        nuevoContacto(masTelefono++, false);
+        nuevoTelefono(masTelefono++);
     }//GEN-LAST:event_btnNuevoTelefonoActionPerformed
 
 
