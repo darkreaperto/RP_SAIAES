@@ -7,7 +7,6 @@ package presentacion;
 
 import javax.swing.JFrame;
 import javax.swing.JRootPane;
-import javax.swing.UIManager;
 
 /**
  * Clase principal que hace visible la ventana de inicio.
@@ -21,13 +20,6 @@ public class Principal {
      */
     public static void main(String[] args) {
         
-        try { 
-            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel")
-            
-        } catch (Exception ex) { 
-            ex.printStackTrace(); 
-        }
         FrmPrincipal ventana = new FrmPrincipal();
         //ventana.setExtendedState(JFrame.MAXIMIZED_BOTH);
         ventana.setLocation(0, 0);

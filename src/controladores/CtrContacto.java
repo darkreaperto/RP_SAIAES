@@ -141,8 +141,9 @@ public class CtrContacto {
     public void setTipo(TipoContacto tipo) {
         contacto.setTipo(tipo);
     }
-
-    /** Obtener codigo del tipo.
+    
+    /**
+     * Obtener codigo del tipo.
      * @return el codigo del tipo
      */
     public String getCodTipo() {

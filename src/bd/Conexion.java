@@ -152,10 +152,6 @@ public final class Conexion {
                 String temp = (String) params.get(i);
                 procedimiento.setString(i + 1, temp);
                 //Si el parametro es entero
-            } else if (params.get(i) instanceof Float) {
-                System.out.println("float");
-                float temp = (float) params.get(i);
-                procedimiento.setFloat(i + 1, temp);
             } else {
                 int temp = (int) params.get(i);
                 procedimiento.setInt(i + 1, temp);

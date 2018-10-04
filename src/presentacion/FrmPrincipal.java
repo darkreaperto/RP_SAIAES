@@ -8,11 +8,8 @@ package presentacion;
 import controladores.CtrAcceso;
 import java.awt.Component;
 import java.awt.Container;
-import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -374,22 +371,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (dpn_principal.getComponentCount() == 0) {
             dpn_principal.add(modUsuario);
         } else {
-            boolean isComponente = false;
-            for (Component c: dpn_principal.getComponents()) {
-                if (c instanceof ItnFrmUsuario) {
-                    isComponente = true;
-                    break;
-                }    
-            }
-            if (!isComponente) {
-                dpn_principal.add(modUsuario, 0);
-            } else {
-                try {
-                    modUsuario.setSelected(true);
-                } catch (PropertyVetoException ex) {
-                    System.err.println(ex);
-                }
-            }
+            if (!(dpn_principal.getComponent(0) instanceof ItnFrmUsuario)) 
+                dpn_principal.add(modUsuario);
         }
     }//GEN-LAST:event_btn_usuariosActionPerformed
 
@@ -419,30 +402,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Hi! An amazing costumers module "
                 + "will be developed here! \n Hold on a little more please. "
                 + "We are working hard!");
-        //Abrir formulario de clientes.
+        //Abrir formulario de usuarios.
         modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
         //modCliente.deshabilitarPaneles();
         modCliente.setVisible(true);
         if (dpn_principal.getComponentCount() == 0) {
             dpn_principal.add(modCliente);
         } else {
-            boolean isComponente = false;
-            for (Component c: dpn_principal.getComponents()) {
-                if (c instanceof ItnFrmCliente) {
-                    isComponente = true;
-                    break;
-                }    
-            }
-            if (!isComponente) {
-                dpn_principal.add(modCliente, 0);
-            } else {
-                try {
-                    modCliente.setSelected(true);
-                } catch (PropertyVetoException ex) {
-                    System.err.println(ex);
-                }
-            }
+            if (!(dpn_principal.getComponent(0) instanceof ItnFrmCliente)) 
+                dpn_principal.add(modCliente);
         }
+        
     }//GEN-LAST:event_btn_clientesActionPerformed
 
     private void btn_proveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_proveedorActionPerformed

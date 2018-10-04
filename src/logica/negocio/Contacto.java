@@ -30,8 +30,8 @@ public class Contacto {
     public Contacto(String codigo, String info, String codTipo, String estado) {
         this.codigo = codigo;
         this.info = info;
-        this.tipo = codTipo.equals("1") ? TipoContacto.CORREO : 
-                TipoContacto.TELEFONO;
+        this.tipo = codTipo.equals("1") ? TipoContacto.TELEFONO : 
+                TipoContacto.CORREO;
         this.codTipo = codTipo;
         this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
     }
@@ -113,5 +113,5 @@ public class Contacto {
      */
     public void setEstado(Estado estado) {
         this.estado = estado;
-    }
+    }    
 }

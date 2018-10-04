@@ -57,7 +57,7 @@ public class Persona {
     }
     /**
      * Obtener código de persona.
-     * @return el código
+     * @return el codigo
      */
     public String getCodigo() {
         return codigo;
@@ -65,7 +65,7 @@ public class Persona {
 
     /**
      * Establecer código de persona
-     * @param codigo el código
+     * @param codigo el codigo
      */
     public void setCodigo(String codigo) {
         this.codigo = codigo;
@@ -73,7 +73,7 @@ public class Persona {
 
     /**
      * Obtener nombre de persona.
-     * @return el nombre
+     * @return El nombre.
      */
     public String getNombre() {
         return nombre;
@@ -81,7 +81,7 @@ public class Persona {
 
     /**
      * Establecer nombre de persona
-     * @param nombre el nombre a establecer
+     * @param nombre the nombre to set
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -89,7 +89,7 @@ public class Persona {
 
     /**
      * Obtener apellido 1 de persona.
-     * @return el apellido1
+     * @return El apellido1
      */
     public String getApellido1() {
         return apellido1;
@@ -169,7 +169,7 @@ public class Persona {
 
     /**
      * Obtener lista de contactos de persona.
-     * @return La lista de contactos.
+     * @return La lista de contacto.
      */
     public ArrayList<Contacto> getContactos() {
         return contactos;
@@ -177,7 +177,7 @@ public class Persona {
 
     /**
      * Establecer lista de contactos
-     * @param contactos los contactos
+     * @param contactos El contacto
      */
     public void setContactos(ArrayList<Contacto> contactos) {
         this.contactos = contactos;

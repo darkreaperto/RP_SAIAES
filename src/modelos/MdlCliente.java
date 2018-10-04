@@ -229,9 +229,9 @@ public class MdlCliente {
     public ArrayList consultarClientes(String param) {
         ArrayList<Object> params = new ArrayList<>();
         params.add(param);
-
+        
         clientes = new ArrayList<>();
-
+        
         try {
             procedimiento = "pc_consultar_clientes(?)";
             conexion.abrirConexion();
