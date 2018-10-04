@@ -149,14 +149,14 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 row[1] = clientes.get(i).getApellido1(); 
                 row[2] = clientes.get(i).getApellido2();
                 row[3] = clientes.get(i).getNombre();
-                row[4] = clientes.get(i).isAprobarCredito() ? "✔️" : "✘";
+                row[4] = clientes.get(i).isAprobarCredito() ? "✔" : "✘";
                 row[5] = "₡ " + clientes.get(i).getLimiteCredito();
                 
                 ArrayList<Contacto> contactos = clientes.get(i).getContactos();
                 
                 String texto = "<html><body>";
                 for (Contacto c: contactos) {
-                    String tipo = c.getTipo().equals(TipoContacto.CORREO) ? "✉️" : "✆";
+                    String tipo = c.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
                     texto += tipo + " " + c.getInfo() + "<br>";
                 }
                 texto += "</body></html>";
