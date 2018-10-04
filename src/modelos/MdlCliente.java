@@ -138,23 +138,25 @@ public class MdlCliente {
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
             
-            int indice = 0;
+            String indice = "0";
             //obtener el índice de la fila insertada
             while (resultado.next()) {
-                indice = resultado.getInt("@indice");
+                indice = String.valueOf(resultado.getInt("@indice"));
             }
             
             for (int i = 0; i < contactos.size(); i++) {
-                int tipo = contactos.get(i).get(0).equals(TipoContacto.CORREO) ? 1 : 2;
+                TipoContacto tipo = (TipoContacto) contactos.get(i).get(0);
                 String info = contactos.get(i).get(1).toString();
                 
                 params.clear();
                 params.add(info);
                 params.add(indice);
                 params.add(tipo);
+                
+                ctrContacto.crearContacto(info, indice, tipo);
 
-                procedimiento = "pc_crear_contacto(?, ?, ?)";
-                resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+                //procedimiento = "pc_crear_contacto(?, ?, ?)";
+                //resultado = conexion.ejecutarProcedimiento(procedimiento, params);
             }
             
             //creacionExitosa = true;

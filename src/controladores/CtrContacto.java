@@ -59,6 +59,33 @@ public class CtrContacto {
     }
     
     /**
+     * 
+     * @param info
+     * @param codPersona
+     * @param tipo
+     * @return 
+     */
+    public boolean crearContacto(String info, String codPersona, 
+            TipoContacto tipo) {
+        return mdlContacto.crearContacto(info, codPersona, tipo);
+    }
+    
+    /**
+     * 
+     * @param info
+     * @param codPersona
+     * @param tipo
+     * @param estado
+     * @param codigo
+     * @return 
+     */
+    public boolean actualizarContacto(String info, String codPersona, 
+            TipoContacto tipo, Estado estado, String codigo) {
+        return mdlContacto.actualizarContacto(info, codPersona, tipo, estado, 
+                codigo);
+    }
+    
+    /**
      * Buscar contacto enviando por parámetro el criterio de búsqueda.
      * @param param Parametros para consultar contacto en la base de datos
      * @return lista de contactos
