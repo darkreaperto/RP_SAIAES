@@ -7,12 +7,15 @@ package presentacion;
 
 import controladores.CtrAcceso;
 import controladores.CtrCliente;
-import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
+import logica.negocio.Contacto;
+import util.Estado;
+import util.TipoContacto;
 
 /**
  * Inicializa la ventana que contiene la información de los clientes.
@@ -27,6 +30,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private static CtrAcceso sesion;
     private static ArrayList<JTextField> telefonos;
     private static ArrayList<JTextField> correos;
+    private static DefaultTableModel model;
     
     private int masTelefono = 0;
     private int masCorreo = 0;
@@ -46,7 +50,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         telefonos = new ArrayList<>();
         correos.add(txt_crear_correo);
         telefonos.add(txt_crear_telefono);
-        //cargarTablas();
+        cargarTablas();
         //verificacion = new Regex();
         //msg = new Mensaje();
     }
@@ -113,6 +117,83 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         telefonos.add(textoTelefono); //añadir a la lista
         
     }
+    
+    public void cargarTablas() {
+        //usuarios.clear();
+        clientes = controlador.obtenerClientes();
+        //cargarClientesJTable(tbl_usuarioListado, true);
+        //cargarUsuariosJTable(tbl_usuarioCreado, true);
+        //cargarUsuariosJTable(tbl_deshabilitar, true);
+        //cargarUsuariosJTable(tbl_habilitar, false);
+        //cargarUsuariosJTable(tbl_actPermisos, true);
+
+//        for (int i = 0; i < usuarios.size(); i++) {
+//            if (sesion.getUsuario().getNombre()
+//                    .equals(usuarios.get(i).getNombre())) {
+//                txt_actuali_nombreUsuario.setText(usuarios.get(i).getNombre());
+//                txt_actuali_correo.setText(usuarios.get(i).getCorreo());
+//            }
+//        }
+        System.out.println(sesion.getUsuario().getNombre());
+    }
+    
+    public void cargarClientesJTable(JTable tabla, boolean estado) {
+        Object[] row = new Object[7];
+        model = (DefaultTableModel) tabla.getModel();
+        model.setRowCount(0);
+        for (int i = 0; i < clientes.size(); i++) {
+
+            if (clientes.get(i).getEstado().equals(Estado.Activo) && estado) {
+                
+                row[0] = clientes.get(i).getCedula();
+                row[1] = clientes.get(i).getApellido1(); 
+                row[2] = clientes.get(i).getApellido2();
+                row[3] = clientes.get(i).getNombre();
+                row[4] = clientes.get(i).isAprobarCredito() ? "✔️" : "✘";
+                row[5] = "₡ " + clientes.get(i).getLimiteCredito();
+                
+                ArrayList<Contacto> contactos = clientes.get(i).getContactos();
+                
+                String texto = "<html><body>";
+                for (Contacto c: contactos) {
+                    String tipo = c.getTipo().equals(TipoContacto.CORREO) ? "✉️" : "✆";
+                    texto += tipo + " " + c.getInfo() + "<br>";
+                }
+                texto += "</body></html>";
+                row[6] = texto;
+                    
+                model.addRow(row);
+                
+                tabla.setRowHeight(i, contactos.size() > 0 ? 
+                        contactos.size()*20 : tabla.getRowHeight(i));
+            }
+            if (clientes.get(i).getEstado().equals(Estado.Deshabilitado) && !estado) {
+                
+                row[0] = clientes.get(i).getCedula();
+                row[1] = clientes.get(i).getApellido1(); 
+                row[2] = clientes.get(i).getApellido2();
+                row[3] = clientes.get(i).getNombre();
+                row[4] = clientes.get(i).isAprobarCredito() ? "Crédito" : "Sin crédito";
+                row[5] = clientes.get(i).getLimiteCredito();
+                
+                ArrayList<Contacto> contactos = clientes.get(i).getContactos();
+                
+                String texto = "<html><body>";
+                for (Contacto c: contactos) {
+                    String tipo = c.getTipo().equals(TipoContacto.CORREO) ? "✉️" : "✆";
+                    texto += tipo + " " + c.getInfo() + "<br>";
+                }
+                texto += "</body></html>";
+                row[6] = texto;
+                    
+                model.addRow(row);
+                
+                tabla.setRowHeight(i, contactos.size() > 0 ? 
+                        contactos.size()*20 : tabla.getRowHeight(i));
+            }
+        }
+    }
+    
     public void limpiarCampos() {
         masCorreo = 0;
         masTelefono = 0;

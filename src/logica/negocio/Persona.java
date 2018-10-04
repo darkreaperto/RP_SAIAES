@@ -21,7 +21,7 @@ public class Persona {
     private String cedula;
     private float limiteCredito;
     private boolean aprobarCredito;
-    private ArrayList<Contacto> contacto;
+    private ArrayList<Contacto> contactos;
     private Estado estado;
     
     /**
@@ -39,12 +39,12 @@ public class Persona {
      * @param cedula cedula persona.
      * @param limiteCredito limite credito persona.
      * @param aprobarCredito aprobar credito persona.
-     * @param contacto contactos persona.
+     * @param contactos contactos persona.
      * @param estado Estado de persona.
      */
     public Persona(String codigo, String nombre, String apellido1, 
             String apellido2, String cedula, float limiteCredito,
-            boolean aprobarCredito, ArrayList<Contacto> contacto, String estado) {
+            boolean aprobarCredito, ArrayList<Contacto> contactos, String estado) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -52,7 +52,7 @@ public class Persona {
         this.cedula = cedula;
         this.limiteCredito = limiteCredito;
         this.aprobarCredito = aprobarCredito;
-        this.contacto = contacto;
+        this.contactos = contactos;
         this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
     }
     /**
@@ -171,16 +171,16 @@ public class Persona {
      * Obtener lista de contactos de persona.
      * @return La lista de contacto.
      */
-    public ArrayList<Contacto> getContacto() {
-        return contacto;
+    public ArrayList<Contacto> getContactos() {
+        return contactos;
     }
 
     /**
      * Establecer lista de contactos
-     * @param contacto El contacto
+     * @param contactos El contacto
      */
-    public void setContacto(ArrayList<Contacto> contacto) {
-        this.contacto = contacto;
+    public void setContactos(ArrayList<Contacto> contactos) {
+        this.contactos = contactos;
     }
     
     /**
