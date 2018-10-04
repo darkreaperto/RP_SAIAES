@@ -7,17 +7,11 @@ package presentacion;
 
 import controladores.CtrAcceso;
 import controladores.CtrCliente;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import logica.negocio.Cliente;
 import logica.negocio.Contacto;
 import util.Estado;
@@ -201,76 +195,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
     }
     
-    int num = 0;
-    public void nuevoContacto(int cantidad, boolean correo) {
-        int pos; 
-        if(correo) {
-            JTextField textoCorreo = new JTextField("HOLA "+ num++);
-            //Eliminar panel a modificar
-            //scpnlClientesCrearCorreo.remove(pnlCrearCorreo);
-            pnlCrearCorreo.add(textoCorreo); //añadir al panel
-            
-            //Posición del último campo de texto 
-            pos = correos.get(correos.size()-1).getY() + 
-                    correos.get(correos.size()-1).getHeight() + 5;
-            textoCorreo.setBounds(5, pos, 220, 30);
-                
-            //Cambiar tamaño del panel con campos de texto
-            pnlCrearCorreo.setSize(pnlCrearCorreo.getWidth(), 
-                    pnlCrearCorreo.getHeight()+15);
-            pnlCrearCorreo.setPreferredSize(new Dimension (
-                    pnlCrearCorreo.getWidth(), 
-                    pnlCrearCorreo.getHeight()+textoCorreo.getHeight()));
-            
-            pnlCrearTelefono.setBounds(pnlCrearTelefono.getX(), pnlCrearCorreo.getHeight()+10, pnlCrearTelefono.getWidth(), pnlCrearTelefono.getHeight());
-            System.out.println("Altura panel: " + pnlCrearCorreo.getHeight());
-            //Añadir el panel modificado y cambiar tamaño de su panel padre
-            scpnlClientesCrearCorreo.add(pnlCrearCorreo);
-//            pnlCrearContacto.setSize(pnlCrearContacto.getWidth(), 
-//                    pnlCrearCorreo.getHeight()+1);
-//            pnlCrearContacto.setPreferredSize(new Dimension (
-//                    pnlCrearContacto.getWidth(), pnlCrearCorreo.getHeight()+1));
-//            pnlCrearContacto.setBounds(pnlCrearContacto.getX(), 
-//                    pnlCrearContacto.getY(), pnlCrearContacto.getWidth(), 
-//                    pnlCrearContacto.getHeight());
-            
-            correos.add(textoCorreo); //añadir a la lista
-            //System.out.println(correos.get(correos.size()-1).getText());
-            
-            //nuevoContacto(masCorreo++, true);
-            
-        } else {
-            JTextField textoTelefono;
-            int posi = 0;
-            //Eliminar panel a modificar
-            scpnlClientesCrearTelefono.remove(pnlCrearTelefono);
-            
-            //Crear nuevos campos de texto
-            textoTelefono = new JTextField();
-            pnlCrearTelefono.add(textoTelefono);
-            posi = telefonos.get(telefonos.size()-1).getY() + 
-                telefonos.get(telefonos.size()-1).getHeight() + 5;
-            textoTelefono.setBounds(5, posi, 220, 30);
-                
-            //Cambiar tamaño del panel con campos de texto
-            pnlCrearTelefono.setSize(pnlCrearTelefono.getWidth(), 
-                    pnlCrearTelefono.getHeight()+15);
-            pnlCrearTelefono.setPreferredSize(new Dimension (
-                    pnlCrearTelefono.getWidth(), 
-                    pnlCrearTelefono.getHeight()+textoTelefono.getHeight()));
-            //}
-            //Añadir el panel modificado y cambiar tamaño de su panel padre
-            scpnlClientesCrearTelefono.add(pnlCrearTelefono);
-//            scpnlClientesCrearTelefono.setSize(scpnlClientesCrearTelefono.getWidth(), 
-//                    pnlCrearTelefono.getHeight());
-//            pnlCrearContacto.setPreferredSize(new Dimension (
-//                    pnlCrearContacto.getWidth(), pnlCrearTelefono.getHeight()+pnlCrearCorreo.getHeight()));
-//            pnlCrearContacto.setBounds(pnlCrearContacto.getX(), 
-//                    pnlCrearContacto.getY(), pnlCrearContacto.getWidth(), 
-//                    pnlCrearContacto.getHeight());
-        }
-        //nuevoContacto(masTelefono++, false);
-    }
     public void limpiarCampos() {
         masCorreo = 0;
         masTelefono = 0;
