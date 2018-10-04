@@ -340,7 +340,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         txt_listado_buscar = new javax.swing.JTextField();
         scpnl_tbl_usuarioListado = new javax.swing.JScrollPane();
         tbl_usuarioListado = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         pnl_crear = new javax.swing.JPanel();
         lbl_crear_nombreUsuario = new javax.swing.JLabel();
         txt_crear_nombreUsuario = new javax.swing.JTextField();
@@ -462,13 +461,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             }
         });
         scpnl_tbl_usuarioListado.setViewportView(tbl_usuarioListado);
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnl_listadoLayout = new javax.swing.GroupLayout(pnl_listado);
         pnl_listado.setLayout(pnl_listadoLayout);
@@ -1074,10 +1066,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btn_actualiUsuarioActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void btn_confUsuario_recClvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confUsuario_recClvActionPerformed
 
     }//GEN-LAST:event_btn_confUsuario_recClvActionPerformed
@@ -1340,7 +1328,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_deshabilitar;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler3;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lbl_actPermi_selectUsuario;
     private javax.swing.JLabel lbl_actuali_confpassNew;
     private javax.swing.JLabel lbl_actuali_nombreUsuario;
