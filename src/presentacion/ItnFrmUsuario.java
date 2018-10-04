@@ -341,6 +341,38 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         scpnl_tbl_usuarioListado = new javax.swing.JScrollPane();
         tbl_usuarioListado = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        pnl_crear = new javax.swing.JPanel();
+        lbl_crear_nombreUsuario = new javax.swing.JLabel();
+        txt_crear_nombreUsuario = new javax.swing.JTextField();
+        lbl_crear_correo = new javax.swing.JLabel();
+        txt_crear_correo = new javax.swing.JTextField();
+        lbl_crear_password = new javax.swing.JLabel();
+        pw_crear_contra = new javax.swing.JPasswordField();
+        lbl_crear_confirmPassw = new javax.swing.JLabel();
+        pw_crear_confContra = new javax.swing.JPasswordField();
+        pnl_crear_rolContainer = new javax.swing.JPanel();
+        rb_crear_rolEstandar = new javax.swing.JRadioButton();
+        rb_crear_rolAdmin = new javax.swing.JRadioButton();
+        btn_crearUsuario = new javax.swing.JButton();
+        scpnl_tbl_usuarioCreado = new javax.swing.JScrollPane();
+        tbl_usuarioCreado = new javax.swing.JTable();
+        pnl_actualizar = new javax.swing.JPanel();
+        lbl_actuali_nombreUsuario = new javax.swing.JLabel();
+        txt_actuali_nombreUsuario = new javax.swing.JTextField();
+        btn_actualiUsuario = new javax.swing.JButton();
+        lbl_actuali_nombreUsuario1 = new javax.swing.JLabel();
+        txt_actuali_correo = new javax.swing.JTextField();
+        pnlActualizarClave = new javax.swing.JPanel();
+        pw_actuali_lastpass = new javax.swing.JPasswordField();
+        lbl_actuali_passActual = new javax.swing.JLabel();
+        pw_actuali_newPass = new javax.swing.JPasswordField();
+        lbl_actuali_passNew = new javax.swing.JLabel();
+        pw_actuali_confNewPass = new javax.swing.JPasswordField();
+        lbl_actuali_confpassNew = new javax.swing.JLabel();
+        btn_cancelarActualiUsuario = new javax.swing.JButton();
+        btnActualiContrasenna = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 35), new java.awt.Dimension(0, 35), new java.awt.Dimension(32767, 35));
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 200), new java.awt.Dimension(0, 200), new java.awt.Dimension(32767, 200));
         pnl_deshabilitar = new javax.swing.JPanel();
         lbl_deshab_selectUsuario = new javax.swing.JLabel();
         pnl_deshab_deshabContainer = new javax.swing.JPanel();
@@ -360,39 +392,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         btn_actPermi = new javax.swing.JButton();
         scpnl_tbl_usuarioActPermiso = new javax.swing.JScrollPane();
         tbl_actPermisos = new javax.swing.JTable();
-        pnl_actualizar = new javax.swing.JPanel();
-        lbl_actuali_nombreUsuario = new javax.swing.JLabel();
-        txt_actuali_nombreUsuario = new javax.swing.JTextField();
-        btn_actualiUsuario = new javax.swing.JButton();
-        lbl_actuali_nombreUsuario1 = new javax.swing.JLabel();
-        txt_actuali_correo = new javax.swing.JTextField();
-        pnlActualizarClave = new javax.swing.JPanel();
-        pw_actuali_lastpass = new javax.swing.JPasswordField();
-        lbl_actuali_passActual = new javax.swing.JLabel();
-        pw_actuali_newPass = new javax.swing.JPasswordField();
-        lbl_actuali_passNew = new javax.swing.JLabel();
-        pw_actuali_confNewPass = new javax.swing.JPasswordField();
-        lbl_actuali_confpassNew = new javax.swing.JLabel();
-        btn_cancelarActualiUsuario = new javax.swing.JButton();
-        btnActualiContrasenna = new javax.swing.JButton();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 35), new java.awt.Dimension(0, 35), new java.awt.Dimension(32767, 35));
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 200), new java.awt.Dimension(0, 200), new java.awt.Dimension(32767, 200));
-        pnl_crear = new javax.swing.JPanel();
-        lbl_crear_nombreUsuario = new javax.swing.JLabel();
-        txt_crear_nombreUsuario = new javax.swing.JTextField();
-        lbl_crear_correo = new javax.swing.JLabel();
-        txt_crear_correo = new javax.swing.JTextField();
-        lbl_crear_password = new javax.swing.JLabel();
-        pw_crear_contra = new javax.swing.JPasswordField();
-        lbl_crear_confirmPassw = new javax.swing.JLabel();
-        pw_crear_confContra = new javax.swing.JPasswordField();
-        pnl_crear_rolContainer = new javax.swing.JPanel();
-        rb_crear_rolEstandar = new javax.swing.JRadioButton();
-        rb_crear_rolAdmin = new javax.swing.JRadioButton();
-        btn_crearUsuario = new javax.swing.JButton();
-        scpnl_tbl_usuarioCreado = new javax.swing.JScrollPane();
-        tbl_usuarioCreado = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -479,8 +478,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnl_listadoLayout.createSequentialGroup()
-                        .addComponent(lbl_listado_buscarUsuario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_listado_buscarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)
                         .addComponent(txt_listado_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 976, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(scpnl_tbl_usuarioListado, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(45, Short.MAX_VALUE))
@@ -489,15 +488,299 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_listadoLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addGroup(pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_listado_buscarUsuario)
-                    .addComponent(txt_listado_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(scpnl_tbl_usuarioListado, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_listado_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_listado_buscarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(scpnl_tbl_usuarioListado, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
         tb_modUsuario_permisos.addTab("Listado de usuarios", pnl_listado);
+
+        pnl_crear.setName("Agregar usuario"); // NOI18N
+
+        lbl_crear_nombreUsuario.setText("Nombre de Usuario:");
+
+        txt_crear_nombreUsuario.setNextFocusableComponent(txt_crear_correo);
+
+        lbl_crear_correo.setText("Correo Electrónico:");
+
+        txt_crear_correo.setNextFocusableComponent(pw_crear_contra);
+
+        lbl_crear_password.setText("Contraseña:");
+
+        pw_crear_contra.setNextFocusableComponent(pw_crear_confContra);
+
+        lbl_crear_confirmPassw.setText("Confirmar Contraseña:");
+
+        pw_crear_confContra.setNextFocusableComponent(rb_crear_rolAdmin);
+
+        pnl_crear_rolContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Rol de Usuarios:"));
+
+        bg_crear_rol.add(rb_crear_rolEstandar);
+        rb_crear_rolEstandar.setSelected(true);
+        rb_crear_rolEstandar.setText("Estándar");
+        rb_crear_rolEstandar.setNextFocusableComponent(btn_crearUsuario);
+
+        bg_crear_rol.add(rb_crear_rolAdmin);
+        rb_crear_rolAdmin.setText("Administrador");
+        rb_crear_rolAdmin.setNextFocusableComponent(rb_crear_rolEstandar);
+
+        javax.swing.GroupLayout pnl_crear_rolContainerLayout = new javax.swing.GroupLayout(pnl_crear_rolContainer);
+        pnl_crear_rolContainer.setLayout(pnl_crear_rolContainerLayout);
+        pnl_crear_rolContainerLayout.setHorizontalGroup(
+            pnl_crear_rolContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_crear_rolContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(rb_crear_rolAdmin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(rb_crear_rolEstandar)
+                .addContainerGap())
+        );
+        pnl_crear_rolContainerLayout.setVerticalGroup(
+            pnl_crear_rolContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_crear_rolContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnl_crear_rolContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rb_crear_rolEstandar)
+                    .addComponent(rb_crear_rolAdmin))
+                .addGap(0, 19, Short.MAX_VALUE))
+        );
+
+        btn_crearUsuario.setText("Crear Usuario");
+        btn_crearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_crearUsuarioActionPerformed(evt);
+            }
+        });
+
+        tbl_usuarioCreado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre de Usuario", "Correo", "Rol"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl_usuarioCreado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tbl_usuarioCreado.setUpdateSelectionOnSort(false);
+        scpnl_tbl_usuarioCreado.setViewportView(tbl_usuarioCreado);
+
+        javax.swing.GroupLayout pnl_crearLayout = new javax.swing.GroupLayout(pnl_crear);
+        pnl_crear.setLayout(pnl_crearLayout);
+        pnl_crearLayout.setHorizontalGroup(
+            pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_crearLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(scpnl_tbl_usuarioCreado)
+                    .addGroup(pnl_crearLayout.createSequentialGroup()
+                        .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_crear_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_crear_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_crear_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_crear_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(96, 96, 96)
+                        .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pw_crear_contra, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pw_crear_confContra, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_crear_password, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_crear_confirmPassw, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                        .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnl_crear_rolContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_crearUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(35, 35, 35))
+        );
+        pnl_crearLayout.setVerticalGroup(
+            pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_crearLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pnl_crearLayout.createSequentialGroup()
+                        .addComponent(pnl_crear_rolContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(btn_crearUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnl_crearLayout.createSequentialGroup()
+                        .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_crear_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_crear_password, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_crear_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pw_crear_contra, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_crear_confirmPassw, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_crear_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pw_crear_confContra, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_crear_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(50, 50, 50)
+                .addComponent(scpnl_tbl_usuarioCreado, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        tb_modUsuario_permisos.addTab("Agregar usuario", pnl_crear);
+
+        pnl_actualizar.setName("Actualizar información"); // NOI18N
+
+        lbl_actuali_nombreUsuario.setText("Nombre de Usuario:");
+
+        txt_actuali_nombreUsuario.setNextFocusableComponent(txt_actuali_correo);
+
+        btn_actualiUsuario.setText("Actualizar Usuario");
+        btn_actualiUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualiUsuarioActionPerformed(evt);
+            }
+        });
+
+        lbl_actuali_nombreUsuario1.setText("Correo Electrónico:");
+
+        txt_actuali_correo.setNextFocusableComponent(btn_actualiUsuario);
+
+        pnlActualizarClave.setBorder(javax.swing.BorderFactory.createTitledBorder("Actualización de contraseña"));
+
+        pw_actuali_lastpass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pw_actuali_lastpassActionPerformed(evt);
+            }
+        });
+
+        lbl_actuali_passActual.setText("Contraseña actual:");
+
+        lbl_actuali_passNew.setText("Nueva contraseña:");
+
+        lbl_actuali_confpassNew.setText("Confirmar contraseña:");
+
+        btn_cancelarActualiUsuario.setText("Cancelar");
+        btn_cancelarActualiUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActualiUsuarioActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlActualizarClaveLayout = new javax.swing.GroupLayout(pnlActualizarClave);
+        pnlActualizarClave.setLayout(pnlActualizarClaveLayout);
+        pnlActualizarClaveLayout.setHorizontalGroup(
+            pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlActualizarClaveLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_cancelarActualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlActualizarClaveLayout.createSequentialGroup()
+                        .addGroup(pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pw_actuali_lastpass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_actuali_passActual))
+                        .addGap(33, 33, 33)
+                        .addGroup(pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_actuali_confpassNew)
+                            .addComponent(pw_actuali_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pw_actuali_confNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_actuali_passNew))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlActualizarClaveLayout.setVerticalGroup(
+            pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlActualizarClaveLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_actuali_passActual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_actuali_passNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pw_actuali_newPass, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(pw_actuali_lastpass))
+                .addGap(18, 18, 18)
+                .addComponent(lbl_actuali_confpassNew, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pw_actuali_confNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_cancelarActualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7))
+        );
+
+        btnActualiContrasenna.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
+        btnActualiContrasenna.setText("Actualizar Contraseña");
+        btnActualiContrasenna.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
+        btnActualiContrasenna.setContentAreaFilled(false);
+        btnActualiContrasenna.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualiContrasenna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualiContrasennaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnl_actualizarLayout = new javax.swing.GroupLayout(pnl_actualizar);
+        pnl_actualizar.setLayout(pnl_actualizarLayout);
+        pnl_actualizarLayout.setHorizontalGroup(
+            pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnActualiContrasenna, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                                .addComponent(lbl_actuali_nombreUsuario)
+                                .addGap(254, 254, 254)
+                                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_actuali_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_actuali_nombreUsuario1)))
+                            .addComponent(pnlActualizarClave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(35, 35, 35)
+                        .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(424, Short.MAX_VALUE))
+                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_actuali_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
+        );
+        pnl_actualizarLayout.setVerticalGroup(
+            pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                        .addComponent(lbl_actuali_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_actuali_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_actuali_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                        .addComponent(lbl_actuali_nombreUsuario1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(33, 33, 33)))
+                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                        .addComponent(btnActualiContrasenna, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlActualizarClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77))
+        );
+
+        tb_modUsuario_permisos.addTab("Actualizar información", pnl_actualizar);
+        pnl_actualizar.getAccessibleContext().setAccessibleName("");
 
         pnl_deshabilitar.setName("Habilitar usuarios"); // NOI18N
 
@@ -604,28 +887,31 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         pnl_deshabilitarLayout.setHorizontalGroup(
             pnl_deshabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_deshabilitarLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap()
                 .addGroup(pnl_deshabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_deshab_selectUsuario)
-                    .addGroup(pnl_deshabilitarLayout.createSequentialGroup()
-                        .addComponent(pnl_deshab_deshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(586, 586, 586)
-                        .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tb_deshab, javax.swing.GroupLayout.PREFERRED_SIZE, 1110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addGroup(pnl_deshabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_deshabilitarLayout.createSequentialGroup()
+                            .addComponent(pnl_deshab_deshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tb_deshab, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_deshab_selectUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         pnl_deshabilitarLayout.setVerticalGroup(
             pnl_deshabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_deshabilitarLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(lbl_deshab_selectUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tb_deshab, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addGroup(pnl_deshabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(lbl_deshab_selectUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tb_deshab, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(pnl_deshabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnl_deshab_deshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnl_deshabilitarLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         tb_modUsuario_permisos.addTab("Habilitar usuarios", pnl_deshabilitar);
@@ -703,7 +989,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         pnl_actualizarPermisosLayout.setHorizontalGroup(
             pnl_actualizarPermisosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_actualizarPermisosLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap()
                 .addGroup(pnl_actualizarPermisosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_actPermi_selectUsuario)
                     .addGroup(pnl_actualizarPermisosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -712,333 +998,28 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_actPermi, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(scpnl_tbl_usuarioActPermiso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1095, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         pnl_actualizarPermisosLayout.setVerticalGroup(
             pnl_actualizarPermisosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_actualizarPermisosLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(lbl_actPermi_selectUsuario)
-                .addGap(35, 35, 35)
-                .addComponent(scpnl_tbl_usuarioActPermiso, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_actPermi_selectUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(scpnl_tbl_usuarioActPermiso, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(pnl_actualizarPermisosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnl_actPermi_rolContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_actPermi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(btn_actPermi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         tb_modUsuario_permisos.addTab("Actualizar permisos", pnl_actualizarPermisos);
-
-        pnl_actualizar.setName("Actualizar información"); // NOI18N
-
-        lbl_actuali_nombreUsuario.setText("Nombre de Usuario:");
-
-        txt_actuali_nombreUsuario.setNextFocusableComponent(txt_actuali_correo);
-
-        btn_actualiUsuario.setText("Actualizar Usuario");
-        btn_actualiUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_actualiUsuarioActionPerformed(evt);
-            }
-        });
-
-        lbl_actuali_nombreUsuario1.setText("Correo Electrónico:");
-
-        txt_actuali_correo.setNextFocusableComponent(btn_actualiUsuario);
-
-        pnlActualizarClave.setBorder(javax.swing.BorderFactory.createTitledBorder("Actualización de contraseña"));
-
-        pw_actuali_lastpass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pw_actuali_lastpassActionPerformed(evt);
-            }
-        });
-
-        lbl_actuali_passActual.setText("Contraseña actual:");
-
-        lbl_actuali_passNew.setText("Nueva contraseña:");
-
-        lbl_actuali_confpassNew.setText("Confirmar contraseña:");
-
-        btn_cancelarActualiUsuario.setText("Cancelar");
-        btn_cancelarActualiUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cancelarActualiUsuarioActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlActualizarClaveLayout = new javax.swing.GroupLayout(pnlActualizarClave);
-        pnlActualizarClave.setLayout(pnlActualizarClaveLayout);
-        pnlActualizarClaveLayout.setHorizontalGroup(
-            pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlActualizarClaveLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlActualizarClaveLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btn_cancelarActualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlActualizarClaveLayout.createSequentialGroup()
-                        .addGroup(pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pw_actuali_lastpass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_actuali_passActual))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pw_actuali_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_actuali_passNew)
-                            .addComponent(lbl_actuali_confpassNew)
-                            .addComponent(pw_actuali_confNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(42, 42, 42))
-        );
-        pnlActualizarClaveLayout.setVerticalGroup(
-            pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlActualizarClaveLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(pnlActualizarClaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlActualizarClaveLayout.createSequentialGroup()
-                        .addComponent(lbl_actuali_passActual, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pw_actuali_lastpass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlActualizarClaveLayout.createSequentialGroup()
-                        .addComponent(lbl_actuali_passNew)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pw_actuali_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(lbl_actuali_confpassNew)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pw_actuali_confNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_cancelarActualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        btnActualiContrasenna.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
-        btnActualiContrasenna.setText("Actualizar Contraseña");
-        btnActualiContrasenna.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
-        btnActualiContrasenna.setContentAreaFilled(false);
-        btnActualiContrasenna.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnActualiContrasenna.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualiContrasennaActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnl_actualizarLayout = new javax.swing.GroupLayout(pnl_actualizar);
-        pnl_actualizar.setLayout(pnl_actualizarLayout);
-        pnl_actualizarLayout.setHorizontalGroup(
-            pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnActualiContrasenna, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(pnlActualizarClave, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                                    .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                                            .addComponent(lbl_actuali_nombreUsuario)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
-                                            .addComponent(txt_actuali_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(169, 169, 169)))
-                                    .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lbl_actuali_nombreUsuario1)
-                                        .addComponent(txt_actuali_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
-                        .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-        );
-        pnl_actualizarLayout.setVerticalGroup(
-            pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
-                                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                                        .addComponent(lbl_actuali_nombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(6, 6, 6))
-                                    .addComponent(lbl_actuali_nombreUsuario1, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(18, 18, 18)
-                                .addComponent(txt_actuali_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(txt_actuali_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                                .addComponent(btnActualiContrasenna, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(pnlActualizarClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(147, 147, 147))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_actualiUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(131, 131, 131))))
-        );
-
-        tb_modUsuario_permisos.addTab("Actualizar información", pnl_actualizar);
-        pnl_actualizar.getAccessibleContext().setAccessibleName("");
-
-        pnl_crear.setName("Agregar usuario"); // NOI18N
-
-        lbl_crear_nombreUsuario.setText("Nombre de Usuario:");
-
-        txt_crear_nombreUsuario.setNextFocusableComponent(txt_crear_correo);
-
-        lbl_crear_correo.setText("Correo Electrónico:");
-
-        txt_crear_correo.setNextFocusableComponent(pw_crear_contra);
-
-        lbl_crear_password.setText("Contraseña:");
-
-        pw_crear_contra.setNextFocusableComponent(pw_crear_confContra);
-
-        lbl_crear_confirmPassw.setText("Confirmar Contraseña:");
-
-        pw_crear_confContra.setNextFocusableComponent(rb_crear_rolAdmin);
-
-        pnl_crear_rolContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Rol de Usuarios:"));
-
-        bg_crear_rol.add(rb_crear_rolEstandar);
-        rb_crear_rolEstandar.setSelected(true);
-        rb_crear_rolEstandar.setText("Estándar");
-        rb_crear_rolEstandar.setNextFocusableComponent(btn_crearUsuario);
-
-        bg_crear_rol.add(rb_crear_rolAdmin);
-        rb_crear_rolAdmin.setText("Administrador");
-        rb_crear_rolAdmin.setNextFocusableComponent(rb_crear_rolEstandar);
-
-        javax.swing.GroupLayout pnl_crear_rolContainerLayout = new javax.swing.GroupLayout(pnl_crear_rolContainer);
-        pnl_crear_rolContainer.setLayout(pnl_crear_rolContainerLayout);
-        pnl_crear_rolContainerLayout.setHorizontalGroup(
-            pnl_crear_rolContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_crear_rolContainerLayout.createSequentialGroup()
-                .addComponent(rb_crear_rolAdmin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rb_crear_rolEstandar)
-                .addContainerGap())
-        );
-        pnl_crear_rolContainerLayout.setVerticalGroup(
-            pnl_crear_rolContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_crear_rolContainerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnl_crear_rolContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rb_crear_rolAdmin)
-                    .addComponent(rb_crear_rolEstandar)))
-        );
-
-        btn_crearUsuario.setText("Crear Usuario");
-        btn_crearUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_crearUsuarioActionPerformed(evt);
-            }
-        });
-
-        tbl_usuarioCreado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nombre de Usuario", "Correo", "Rol"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tbl_usuarioCreado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tbl_usuarioCreado.setUpdateSelectionOnSort(false);
-        scpnl_tbl_usuarioCreado.setViewportView(tbl_usuarioCreado);
-
-        javax.swing.GroupLayout pnl_crearLayout = new javax.swing.GroupLayout(pnl_crear);
-        pnl_crear.setLayout(pnl_crearLayout);
-        pnl_crearLayout.setHorizontalGroup(
-            pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_crearLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scpnl_tbl_usuarioCreado)
-                    .addGroup(pnl_crearLayout.createSequentialGroup()
-                        .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbl_crear_nombreUsuario)
-                            .addComponent(lbl_crear_correo)
-                            .addComponent(txt_crear_nombreUsuario)
-                            .addComponent(txt_crear_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                        .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbl_crear_password)
-                            .addComponent(lbl_crear_confirmPassw)
-                            .addComponent(pw_crear_contra)
-                            .addComponent(pw_crear_confContra, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(77, 77, 77)
-                        .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pnl_crear_rolContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_crearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(35, 35, 35))
-        );
-        pnl_crearLayout.setVerticalGroup(
-            pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_crearLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnl_crearLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(pnl_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pnl_crearLayout.createSequentialGroup()
-                                .addComponent(lbl_crear_nombreUsuario)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_crear_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23)
-                                .addComponent(lbl_crear_correo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_crear_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnl_crearLayout.createSequentialGroup()
-                                .addComponent(pnl_crear_rolContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)
-                                .addComponent(btn_crearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_crearLayout.createSequentialGroup()
-                        .addComponent(lbl_crear_password)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pw_crear_contra, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(lbl_crear_confirmPassw)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pw_crear_confContra, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(scpnl_tbl_usuarioCreado, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
-        );
-
-        tb_modUsuario_permisos.addTab("Agregar usuario", pnl_crear);
-
-        jLabel1.setFont(new java.awt.Font("Serif", 1, 30)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Módulo de Usuarios");
-        jLabel1.setToolTipText("");
 
         javax.swing.GroupLayout pnl_modUsuarioLayout = new javax.swing.GroupLayout(pnl_modUsuario);
         pnl_modUsuario.setLayout(pnl_modUsuarioLayout);
         pnl_modUsuarioLayout.setHorizontalGroup(
             pnl_modUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modUsuarioLayout.createSequentialGroup()
                 .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(tb_modUsuario_permisos, javax.swing.GroupLayout.PREFERRED_SIZE, 1165, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1047,11 +1028,9 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         pnl_modUsuarioLayout.setVerticalGroup(
             pnl_modUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_modUsuarioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(tb_modUsuario_permisos, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(tb_modUsuario_permisos, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1362,7 +1341,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler3;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl_actPermi_selectUsuario;
     private javax.swing.JLabel lbl_actuali_confpassNew;
     private javax.swing.JLabel lbl_actuali_nombreUsuario;
