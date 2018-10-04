@@ -123,10 +123,12 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         telefonos.add(textoTelefono); //añadir a la lista
         
     
+    }
+    
     public void cargarTablas() {
         //usuarios.clear();
         clientes = controlador.obtenerClientes();
-        cargarUsuariosJTable(tbl_usuarioListado, true);
+        cargarClientesJTable(tbl_usuarioListado, true);
         //cargarUsuariosJTable(tbl_usuarioCreado, true);
         //cargarUsuariosJTable(tbl_deshabilitar, true);
         //cargarUsuariosJTable(tbl_habilitar, false);
@@ -142,7 +144,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         System.out.println(sesion.getUsuario().getNombre());
     }
     
-    public void cargarUsuariosJTable(JTable tabla, boolean estado) {
+    public void cargarClientesJTable(JTable tabla, boolean estado) {
         Object[] row = new Object[7];
         model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0);
@@ -417,17 +419,16 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             .addGroup(pnl_crear_creditoClienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(rb_crear_conCredito)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(rb_crear_sinCredito)
-                .addGap(19, 19, 19))
+                .addContainerGap())
         );
         pnl_crear_creditoClienteLayout.setVerticalGroup(
             pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_crear_creditoClienteLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
-                .addComponent(rb_crear_sinCredito))
-            .addGroup(pnl_crear_creditoClienteLayout.createSequentialGroup()
-                .addComponent(rb_crear_conCredito)
+                .addGroup(pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rb_crear_conCredito)
+                    .addComponent(rb_crear_sinCredito))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 

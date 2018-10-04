@@ -22,7 +22,8 @@ public class Principal {
     public static void main(String[] args) {
         
         try { 
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");//com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel")
             
         } catch (Exception ex) { 
             ex.printStackTrace(); 
