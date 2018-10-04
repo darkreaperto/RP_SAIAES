@@ -253,7 +253,7 @@ public class MdlCliente {
                 apellido1 = resultado.getString("apellido1_Personas");
                 apellido2 = resultado.getString("apellido2_Personas");
                 cedula = resultado.getString("ced_Personas");
-                limiteCred = resultado.getFloat("limCredPersonas");
+                limiteCred = resultado.getFloat("limCred_Personas");
                 aprobarCred = resultado.getInt("aprobCred_Personas") == 1;
                 codCliente = resultado.getString("cod_Clientes");
                 estadoCliente = resultado.getString("estado_Clientes");
