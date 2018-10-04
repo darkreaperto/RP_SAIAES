@@ -31,7 +31,7 @@ public class Contacto {
         this.codigo = codigo;
         this.info = info;
         this.tipo = codTipo.equals("1") ? TipoContacto.TELEFONO : 
-                TipoContacto.CORREO_ELECTRONICO;
+                TipoContacto.CORREO;
         this.codTipo = codTipo;
         this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
     }
