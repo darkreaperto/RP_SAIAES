@@ -145,7 +145,7 @@ public class MdlCliente {
             }
             
             for (int i = 0; i < contactos.size(); i++) {
-                int tipo = contactos.get(i).get(0).equals(TipoContacto.CORREO_ELECTRONICO) ? 1 : 2;
+                int tipo = contactos.get(i).get(0).equals(TipoContacto.CORREO) ? 1 : 2;
                 String info = contactos.get(i).get(1).toString();
                 
                 params.clear();

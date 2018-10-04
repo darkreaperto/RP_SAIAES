@@ -18,5 +18,5 @@ public enum TipoContacto {
     /**
      * Tipo de contacto para correo electrónico.
      */
-    CORREO_ELECTRONICO
+    CORREO
 }

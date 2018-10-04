@@ -98,7 +98,7 @@ public class MdlContacto {
             TipoContacto tipo) {
 
         //Código de tipo de contacto. 1: CORREO, 2: TELËFONO
-        int codTipo = tipo.equals(TipoContacto.CORREO_ELECTRONICO) ? 1 : 2;
+        int codTipo = tipo.equals(TipoContacto.CORREO) ? 1 : 2;
         int codPer = Integer.valueOf(codPersona);
         
         ArrayList<Object> params = new ArrayList<>();
@@ -138,7 +138,7 @@ public class MdlContacto {
     public boolean actualizarContacto(String info, String codPersona, 
             TipoContacto tipo, Estado estado, String codigo) {
         
-        int codTipo = tipo.equals(TipoContacto.CORREO_ELECTRONICO) ? 1 : 2;
+        int codTipo = tipo.equals(TipoContacto.CORREO) ? 1 : 2;
         String varEstado = estado.equals(Estado.Activo) ? "A" : "I";
 
         ArrayList<Object> params = new ArrayList<>();
