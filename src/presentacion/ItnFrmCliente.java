@@ -8,6 +8,7 @@ package presentacion;
 import controladores.CtrAcceso;
 import controladores.CtrCliente;
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -33,8 +34,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private static ArrayList<JTextField> correos;
     private static DefaultTableModel model;
     
-    private int masTelefono = 0;
-    private int masCorreo = 0;
+    private int masTelefono = 1;
+    private int masCorreo = 1;
     /**
      * Instancia un nuevo formulario interno de usuario.
      * @param sesionAcc Usuario en sesión actual 
@@ -112,17 +113,26 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         pos = correos.get(correos.size()-1).getY() + 
                 correos.get(correos.size()-1).getHeight() + 5;
         textoCorreo.setBounds(14, pos, 209, 30);
-
+        
+        //Mover el botón de agregar nuevo
+        btnNuevoCorreo.setBounds(btnNuevoCorreo.getX(), pos, 
+                btnNuevoCorreo.getWidth(), btnNuevoCorreo.getHeight());
+        pnlCrearCorreo.add(btnNuevoCorreo);
+        
         //Cambiar tamaño del panel con campos de texto
-        pnlCrearCorreo.setSize(pnlCrearCorreo.getWidth(), 
-                pnlCrearCorreo.getHeight()+3);
+        pnlCrearCorreo.setBounds(pnlCrearCorreo.getX(), pnlCrearCorreo.getY(), 
+                pnlCrearCorreo.getWidth(), 
+                textoCorreo.getY() + textoCorreo.getHeight()+5);
         pnlCrearCorreo.setPreferredSize(new Dimension (
                 pnlCrearCorreo.getWidth(), 
-                pnlCrearCorreo.getHeight()+textoCorreo.getHeight()));
-
-
+                pnlCrearCorreo.getHeight()));
+        
         correos.add(textoCorreo); //añadir a la lista
-        //pnlCrearCorreo.repaint();        
+        //pnlCrearCorreo.repaint();
+        
+        //mover scroll al final
+        pnlCrearCorreo.scrollRectToVisible(new Rectangle(0, pnlCrearCorreo.getHeight()-1, 1, 1));
+        
     }
     /**
      * Crea nuevo campo de texto para ingresar otro teléfono al cliente
@@ -136,15 +146,24 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         pos = telefonos.get(telefonos.size()-1).getY() + 
             telefonos.get(telefonos.size()-1).getHeight() + 5;
         textoTelefono.setBounds(14, pos, 209, 30);//.setBounds(5, posCorreo, 220, 30);
-
+        
+        //Mover el botón de agregar nuevo
+        btnNuevoTelefono.setBounds(btnNuevoTelefono.getX(), pos, 
+                btnNuevoTelefono.getWidth(), btnNuevoTelefono.getHeight());
+        pnlCrearTelefono.add(btnNuevoTelefono);
+        
         //Cambiar tamaño del panel con campos de texto
-        pnlCrearTelefono.setSize(pnlCrearTelefono.getWidth(), 
-                pnlCrearTelefono.getHeight()+3);
+        pnlCrearTelefono.setBounds(pnlCrearTelefono.getX(), pnlCrearTelefono.getY(), 
+                pnlCrearTelefono.getWidth(), 
+                textoTelefono.getY() + textoTelefono.getHeight()+5);
         pnlCrearTelefono.setPreferredSize(new Dimension (
                 pnlCrearTelefono.getWidth(), 
-                pnlCrearTelefono.getHeight()+textoTelefono.getHeight()));
+                pnlCrearTelefono.getHeight()));
         
         telefonos.add(textoTelefono); //añadir a la lista
+        
+        //mover scroll al final
+        pnlCrearTelefono.scrollRectToVisible(new Rectangle(0, pnlCrearTelefono.getHeight()-1, 1, 1));
         
     }
     
