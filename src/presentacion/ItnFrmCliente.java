@@ -37,7 +37,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private int masTelefono = 1;
     private int masCorreo = 1;
     /**
-     * Instancia un nuevo formulario interno de usuario.
+     * Instancia un nuevo formulario interno de clientes.
      * @param sesionAcc Usuario en sesión actual 
      * @param clientes Lista con los clientes en la base de datos
      */
@@ -194,9 +194,9 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         lbl_crear_nombreCliente = new javax.swing.JLabel();
         txt_crear_nombreCliente = new javax.swing.JTextField();
         lbl_crear_apellidoCliente1 = new javax.swing.JLabel();
-        txt_crear_nombreCliente1 = new javax.swing.JTextField();
+        txt_crear_apellidoCliente1 = new javax.swing.JTextField();
         lbl_crear_apellidoCliente2 = new javax.swing.JLabel();
-        txt_crear_nombreCliente2 = new javax.swing.JTextField();
+        txt_crear_apellidoCliente2 = new javax.swing.JTextField();
         pnl_crear_creditoCliente = new javax.swing.JPanel();
         rbCrearCreditoLim = new javax.swing.JRadioButton();
         rbCrearCredito = new javax.swing.JRadioButton();
@@ -245,8 +245,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         scpnlClientesEditarContacto = new javax.swing.JScrollPane();
         pnlEditarCorreo = new javax.swing.JPanel();
         pnlEditarContactoCliente = new javax.swing.JPanel();
-        lblEditarCorreo = new javax.swing.JLabel();
         lblEditarTelefono = new javax.swing.JLabel();
+        lblEditarCorreo = new javax.swing.JLabel();
         btnEditarGuardarTel = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         scpnlEditarListaTelef = new javax.swing.JScrollPane();
@@ -259,7 +259,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         btnEditarGuardarCorreo = new javax.swing.JButton();
         btnEditarCancelCorreo = new javax.swing.JButton();
         pnlHabilitar = new javax.swing.JPanel();
-        lblDeshabSelectUsuario = new javax.swing.JLabel();
+        lblDeshabSelectCliente = new javax.swing.JLabel();
         tbDeshab = new javax.swing.JTabbedPane();
         scpnlClientesDeshab = new javax.swing.JScrollPane();
         tblClientesActivos = new javax.swing.JTable();
@@ -271,6 +271,9 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         btn_deshabilitar = new javax.swing.JButton();
         pnlLimCredito = new javax.swing.JPanel();
 
+        setClosable(true);
+        setIconifiable(true);
+        setTitle("Módulo de Clientes");
         setPreferredSize(new java.awt.Dimension(1240, 670));
 
         lblListadoCliente.setText("Buscar cliente: ");
@@ -559,12 +562,12 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                                     .addComponent(txt_crear_cedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(50, 50, 50)
                                 .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txt_crear_nombreCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_crear_apellidoCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txt_crear_limiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbl_crear_apellidoCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbl_crear_apellidoCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbl_crear_limiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_crear_nombreCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txt_crear_apellidoCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                                 .addComponent(pnlCrearContactoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(24, 24, 24))
@@ -588,11 +591,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                         .addComponent(lbl_crear_apellidoCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_crear_nombreCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_crear_apellidoCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl_crear_apellidoCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
-                        .addComponent(txt_crear_nombreCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_crear_apellidoCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)
                         .addComponent(lbl_crear_limiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -762,9 +765,9 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         pnlEditarContactoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Contacto:"));
         pnlEditarContactoCliente.setAutoscrolls(true);
 
-        lblEditarCorreo.setText("Correo Electrónico:");
-
         lblEditarTelefono.setText("Teléfono:");
+
+        lblEditarCorreo.setText("Correo Electrónico:");
 
         btnEditarGuardarTel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
         btnEditarGuardarTel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -923,7 +926,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         tb_modCliente.addTab("Editar cliente", pnl_actualizar);
 
-        lblDeshabSelectUsuario.setText("Seleccionar Cliente:");
+        lblDeshabSelectCliente.setText("Seleccionar Cliente:");
 
         tblClientesActivos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1024,15 +1027,16 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             .addGroup(pnlHabilitarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlHabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDeshabSelectUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlHabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(pnlHabilitarLayout.createSequentialGroup()
-                            .addGap(12, 12, 12)
-                            .addComponent(pnlDeshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(tbDeshab, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(72, Short.MAX_VALUE))
+                    .addGroup(pnlHabilitarLayout.createSequentialGroup()
+                        .addComponent(lblDeshabSelectCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 970, Short.MAX_VALUE))
+                    .addComponent(tbDeshab, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlHabilitarLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(pnlDeshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         pnlHabilitarLayout.setVerticalGroup(
             pnlHabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1043,7 +1047,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                         .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlHabilitarLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addComponent(lblDeshabSelectUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblDeshabSelectCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tbDeshab, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1273,7 +1277,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblCrearTelefono;
-    private javax.swing.JLabel lblDeshabSelectUsuario;
+    private javax.swing.JLabel lblDeshabSelectCliente;
     private javax.swing.JLabel lblEditarApellidoCliente;
     private javax.swing.JLabel lblEditarCedulaCliente;
     private javax.swing.JLabel lblEditarCorreo;
@@ -1340,11 +1344,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtEditarSegundoApellido;
     private javax.swing.JTextField txtEditarTelefono;
     private javax.swing.JTextField txtListadoCliente;
+    private javax.swing.JTextField txt_crear_apellidoCliente1;
+    private javax.swing.JTextField txt_crear_apellidoCliente2;
     private javax.swing.JTextField txt_crear_cedulaCliente;
     private javax.swing.JTextField txt_crear_limiteCliente;
     private javax.swing.JTextField txt_crear_nombreCliente;
-    private javax.swing.JTextField txt_crear_nombreCliente1;
-    private javax.swing.JTextField txt_crear_nombreCliente2;
     private javax.swing.JTextField txt_crear_nombreCliente3;
     private javax.swing.JTextField txt_crear_nombreCliente4;
     // End of variables declaration//GEN-END:variables

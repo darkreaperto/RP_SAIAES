@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import logica.negocio.Cliente;
+import logica.negocio.Madera;
 import logica.negocio.Usuario;
 import logica.servicios.Autoguardado;
 
@@ -28,9 +29,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private static ItnFrmAccesoUsuario modUsuarioAcceso;
     private static ItnFrmUsuario modUsuario;
     private static ItnFrmCliente modCliente;
+    private static ItnFrmInventario modInventario;
     private static CtrAcceso sesionAcc;
     private static ArrayList<Usuario> usuarios;
     private static ArrayList<Cliente> clientes;
+    private static ArrayList<Madera> productos;
     private static Autoguardado a;
 
     /**
@@ -152,6 +155,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         dpn_principal = new javax.swing.JDesktopPane();
+        scpnlModulos = new javax.swing.JScrollPane();
         tlb_modulos = new javax.swing.JToolBar();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btn_facturacion = new javax.swing.JButton();
@@ -184,11 +188,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         dpn_principal.setLayout(dpn_principalLayout);
         dpn_principalLayout.setHorizontalGroup(
             dpn_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1239, Short.MAX_VALUE)
+            .addGap(0, 1245, Short.MAX_VALUE)
         );
         dpn_principalLayout.setVerticalGroup(
             dpn_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 670, Short.MAX_VALUE)
         );
 
         tlb_modulos.setFloatable(false);
@@ -308,6 +312,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         tlb_modulos.add(btn_usuarios);
 
+        scpnlModulos.setViewportView(tlb_modulos);
+
         mnbtn_archivo.setText("Archivo");
         mnbtn_archivo.setEnabled(false);
         mnb_principal.add(mnbtn_archivo);
@@ -341,20 +347,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(tlb_modulos, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scpnlModulos, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dpn_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(tlb_modulos, javax.swing.GroupLayout.PREFERRED_SIZE, 721, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(dpn_principal)
-                .addContainerGap())
+                .addComponent(dpn_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
+            .addComponent(scpnlModulos)
         );
 
         pack();
@@ -390,6 +394,16 @@ public class FrmPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Hi! An amazing stocktaking module "
                 + "will be developed here! \n Hold on a little more please. "
                 + "We are working hard!");
+        //Abrir formulario de inventario.
+        modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
+        //modCliente.deshabilitarPaneles();
+        modInventario.setVisible(true);
+        if (dpn_principal.getComponentCount() == 0) {
+            dpn_principal.add(modInventario);
+        } else {
+            if (!(dpn_principal.getComponent(0) instanceof ItnFrmInventario)) 
+                dpn_principal.add(modInventario);
+        }
     }//GEN-LAST:event_btn_inventarioActionPerformed
 
     private void btn_consultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultasActionPerformed
@@ -487,6 +501,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu mnbtn_editar;
     private javax.swing.JMenu mnbtn_salir;
     private javax.swing.JMenu mnbtn_ver;
+    private javax.swing.JScrollPane scpnlModulos;
     private javax.swing.JToolBar tlb_modulos;
     // End of variables declaration//GEN-END:variables
 }

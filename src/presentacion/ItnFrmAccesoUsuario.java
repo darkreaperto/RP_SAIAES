@@ -14,6 +14,7 @@ import controladores.CtrUsuario;
 import controladores.CtrVerificacion;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.ScrollPane;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
@@ -122,15 +123,19 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         //Habilitar botones   
         for (Component c : frameParent.getComponents()) {
             //System.out.println("C "+c);
-            
-            if (c instanceof JToolBar) {
-                for (Component b : ((JToolBar) c).getComponents()) {
-                    //System.out.println("B "+b);
-                    if (b instanceof JButton) {                        
-                        b.setEnabled(true);
+            if(c instanceof ScrollPane) {
+                for (Component s : ((ScrollPane) c).getComponents()) {
+                    if (s instanceof JToolBar) {
+                        for (Component b : ((JToolBar) s).getComponents()) {
+                            //System.out.println("B "+b);
+                            if (b instanceof JButton) {                        
+                                b.setEnabled(true);
+                            }
+                        }
                     }
                 }
             }
+            
         
             /**
              * Prueba: mostrar formulario interno después de acceder
