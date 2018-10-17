@@ -10,11 +10,13 @@ import controladores.CtrCliente;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
 import logica.negocio.Contacto;
+import logica.servicios.Regex;
 import util.Estado;
 import util.TipoContacto;
 import util.TipoCredito;
@@ -33,6 +35,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private static ArrayList<JTextField> telefonos;
     private static ArrayList<JTextField> correos;
     private static DefaultTableModel model;
+    private final Regex verificacion;
     
     private int masTelefono = 1;
     private int masCorreo = 1;
@@ -50,6 +53,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         ItnFrmCliente.sesion = sesionAcc;
         correos = new ArrayList<>();
         telefonos = new ArrayList<>();
+        verificacion = new Regex();
         //correos.add(txt_crear_correo);
         //telefonos.add(txt_crear_telefono);
         cargarTablas();
@@ -70,105 +74,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             instancia = new ItnFrmCliente(sesionAcc, clientes);
         }
         return instancia;
-    }
-    /**
-     * Para todas las tablas en la interfaz, llama el método que carga una tabla 
-     * con la información de los clientes.
-     */
-    public void cargarTablas() {
-        //usuarios.clear();
-        clientes = controlador.obtenerClientes();
-        cargarClientesJTable(tbListadoCliente, true);
-        cargarClientesJTable(tbl_crear, true);
-        cargarClientesJTable(tbl_editar, true);
-        cargarClientesJTable(tblClientesActivos, true);
-        cargarClientesJTable(tblClientesInactivos, false);
-
-//        for (int i = 0; i < usuarios.size(); i++) {
-//            if (sesion.getUsuario().getNombre()
-//                    .equals(usuarios.get(i).getNombre())) {
-//                txt_actuali_nombreUsuario.setText(usuarios.get(i).getNombre());
-//                txt_actuali_correo.setText(usuarios.get(i).getCorreo());
-//            }
-//        }
-        System.out.println(sesion.getUsuario().getNombre());
-    }
-    /**
-     * Limpia los elementos en la interfaz.
-     */
-    public void limpiarCampos() {
-        masCorreo = 0;
-        masTelefono = 0;
-    }
-      /**
-     * Carga/llena una de la interfaz con la información de 
-     * los clientes.
-     * @param tabla Tabla a llenar
-     * @param estado Indica si el cliente está o no inactivo
-     */
-    public void cargarClientesJTable(JTable tabla, boolean estado) {
-        Object[] row = new Object[7];
-        model = (DefaultTableModel) tabla.getModel();
-        model.setRowCount(0);
-        for (int i = 0; i < clientes.size(); i++) {
-
-            if (clientes.get(i).getEstado().equals(Estado.Activo) && estado) {
-                
-                row[0] = clientes.get(i).getCedula();
-                row[1] = clientes.get(i).getApellido1(); 
-                row[2] = clientes.get(i).getApellido2();
-                row[3] = clientes.get(i).getNombre();
-                row[4] = clientes.get(i).isAprobarCredito() ? "✔" : "✘";
-                row[5] = "₡ " + clientes.get(i).getLimiteCredito();
-                
-                ArrayList<Contacto> contactos = clientes.get(i).getContactos();
-                
-                String texto = "<html><body>";
-                for (Contacto c: contactos) {
-                    String tipo = c.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
-                    texto += tipo + " " + c.getInfo() + "<br>";
-                }
-                texto += "</body></html>";
-                row[6] = texto;
-                    
-                model.addRow(row);
-                
-                tabla.setRowHeight(i, contactos.size() > 0 ? 
-                        contactos.size()*20 : tabla.getRowHeight(i));
-            }
-            if (clientes.get(i).getEstado().equals(Estado.Deshabilitado) && !estado) {
-                
-                row[0] = clientes.get(i).getCedula();
-                row[1] = clientes.get(i).getApellido1(); 
-                row[2] = clientes.get(i).getApellido2();
-                row[3] = clientes.get(i).getNombre();
-                row[4] = clientes.get(i).isAprobarCredito() ? "✔" : "✘";
-                row[5] = "₡ " + clientes.get(i).getLimiteCredito();
-                
-                ArrayList<Contacto> contactos = clientes.get(i).getContactos();
-                
-                String texto = "<html><body>";
-                for (Contacto c: contactos) {
-                    String tipo = c.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
-                    texto += tipo + " " + c.getInfo() + "<br>";
-                }
-                texto += "</body></html>";
-                row[6] = texto;
-                    
-                model.addRow(row);
-                
-                tabla.setRowHeight(i, contactos.size() > 0 ? 
-                        contactos.size()*20 : tabla.getRowHeight(i));
-            }
-        }
-    }
-    
-    
-    
-    public void agregarCliente(String nombre, String apellido1, 
-            String apellido2, String cedula, float limiteCred, 
-            boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
-        
     }
     
     /**
@@ -209,15 +114,15 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         pnlCrearTelefono = new javax.swing.JPanel();
         lblCrearTelefono = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
-        txt_crear_nombreCliente4 = new javax.swing.JTextField();
-        btnCrearCliente2 = new javax.swing.JButton();
+        lsCrearTelefonos = new javax.swing.JList<>();
+        txt_agregarTelefono = new javax.swing.JTextField();
+        btnAgregarTelefono = new javax.swing.JButton();
         pnlCrearCorreo1 = new javax.swing.JPanel();
         lbl_crear_correo1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        txt_crear_nombreCliente3 = new javax.swing.JTextField();
-        btnCrearCliente1 = new javax.swing.JButton();
+        lsCrearCorreos = new javax.swing.JList<>();
+        txt_agregarCorreo = new javax.swing.JTextField();
+        btnAgregarCorreo = new javax.swing.JButton();
         spnl_crear_clientes = new javax.swing.JScrollPane();
         tbl_crear = new javax.swing.JTable();
         btnCrearCliente = new javax.swing.JButton();
@@ -393,17 +298,17 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         lblCrearTelefono.setText("Teléfono:");
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        lsCrearTelefonos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "---Sin teléfonos---" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(lsCrearTelefonos);
 
-        btnCrearCliente2.setText("+");
-        btnCrearCliente2.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarTelefono.setText("+");
+        btnAgregarTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearCliente2ActionPerformed(evt);
+                btnAgregarTelefonoActionPerformed(evt);
             }
         });
 
@@ -414,14 +319,14 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             .addGroup(pnlCrearTelefonoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlCrearTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
                     .addGroup(pnlCrearTelefonoLayout.createSequentialGroup()
                         .addComponent(lblCrearTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 236, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlCrearTelefonoLayout.createSequentialGroup()
-                        .addComponent(txt_crear_nombreCliente4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_agregarTelefono)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCrearCliente2, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)))
+                        .addComponent(btnAgregarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlCrearTelefonoLayout.setVerticalGroup(
@@ -429,11 +334,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             .addGroup(pnlCrearTelefonoLayout.createSequentialGroup()
                 .addComponent(lblCrearTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlCrearTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txt_crear_nombreCliente4)
-                    .addComponent(btnCrearCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_agregarTelefono)
+                    .addComponent(btnAgregarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -443,17 +348,17 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         lbl_crear_correo1.setText("Correo Electrónico:");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        lsCrearCorreos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "---Sin correos---" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(lsCrearCorreos);
 
-        btnCrearCliente1.setText("+");
-        btnCrearCliente1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarCorreo.setText("+");
+        btnAgregarCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearCliente1ActionPerformed(evt);
+                btnAgregarCorreoActionPerformed(evt);
             }
         });
 
@@ -467,11 +372,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(pnlCrearCorreo1Layout.createSequentialGroup()
                         .addComponent(lbl_crear_correo1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 168, Short.MAX_VALUE))
+                        .addGap(0, 178, Short.MAX_VALUE))
                     .addGroup(pnlCrearCorreo1Layout.createSequentialGroup()
-                        .addComponent(txt_crear_nombreCliente3)
+                        .addComponent(txt_agregarCorreo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCrearCliente1)))
+                        .addComponent(btnAgregarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlCrearCorreo1Layout.setVerticalGroup(
@@ -482,8 +387,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlCrearCorreo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txt_crear_nombreCliente3, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(btnCrearCliente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txt_agregarCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(btnAgregarCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -494,7 +399,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         pnlCrearContactoClienteLayout.setHorizontalGroup(
             pnlCrearContactoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCrearContactoClienteLayout.createSequentialGroup()
-                .addComponent(tbCrearContactoClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addComponent(tbCrearContactoClientes)
                 .addGap(10, 10, 10))
         );
         pnlCrearContactoClienteLayout.setVerticalGroup(
@@ -1097,8 +1002,116 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Para todas las tablas en la interfaz, llama el método que carga una tabla 
+     * con la información de los clientes.
+     */
+    public void cargarTablas() {
+        //usuarios.clear();
+        clientes = controlador.obtenerClientes();
+        cargarClientesJTable(tbListadoCliente, true);
+        cargarClientesJTable(tbl_crear, true);
+        cargarClientesJTable(tbl_editar, true);
+        cargarClientesJTable(tblClientesActivos, true);
+        cargarClientesJTable(tblClientesInactivos, false);
+
+//        for (int i = 0; i < usuarios.size(); i++) {
+//            if (sesion.getUsuario().getNombre()
+//                    .equals(usuarios.get(i).getNombre())) {
+//                txt_actuali_nombreUsuario.setText(usuarios.get(i).getNombre());
+//                txt_actuali_correo.setText(usuarios.get(i).getCorreo());
+//            }
+//        }
+        System.out.println(sesion.getUsuario().getNombre());
+    }
+    
+    /**
+     * Limpia los elementos en la interfaz.
+     */
+    public void limpiarCampos() {
+        masCorreo = 0;
+        masTelefono = 0;
+    }
+    
+    /**
+     * Carga/llena una de la interfaz con la información de 
+     * los clientes.
+     * @param tabla Tabla a llenar
+     * @param estado Indica si el cliente está o no inactivo
+     */
+    public void cargarClientesJTable(JTable tabla, boolean estado) {
+        Object[] row = new Object[7];
+        model = (DefaultTableModel) tabla.getModel();
+        model.setRowCount(0);
+        for (int i = 0; i < clientes.size(); i++) {
+
+            if (clientes.get(i).getEstado().equals(Estado.Activo) && estado) {
+                
+                row[0] = clientes.get(i).getCedula();
+                row[1] = clientes.get(i).getApellido1(); 
+                row[2] = clientes.get(i).getApellido2();
+                row[3] = clientes.get(i).getNombre();
+                row[4] = clientes.get(i).isAprobarCredito() ? "✔" : "✘";
+                row[5] = "₡ " + clientes.get(i).getLimiteCredito();
+                
+                ArrayList<Contacto> contactos = clientes.get(i).getContactos();
+                
+                String texto = "<html><body>";
+                for (Contacto c: contactos) {
+                    String tipo = c.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
+                    texto += tipo + " " + c.getInfo() + "<br>";
+                }
+                texto += "</body></html>";
+                row[6] = texto;
+                    
+                model.addRow(row);
+                
+                tabla.setRowHeight(i, contactos.size() > 0 ? 
+                        contactos.size()*20 : tabla.getRowHeight(i));
+            }
+            if (clientes.get(i).getEstado().equals(Estado.Deshabilitado) && !estado) {
+                
+                row[0] = clientes.get(i).getCedula();
+                row[1] = clientes.get(i).getApellido1(); 
+                row[2] = clientes.get(i).getApellido2();
+                row[3] = clientes.get(i).getNombre();
+                row[4] = clientes.get(i).isAprobarCredito() ? "✔" : "✘";
+                row[5] = "₡ " + clientes.get(i).getLimiteCredito();
+                
+                ArrayList<Contacto> contactos = clientes.get(i).getContactos();
+                
+                String texto = "<html><body>";
+                for (Contacto c: contactos) {
+                    String tipo = c.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
+                    texto += tipo + " " + c.getInfo() + "<br>";
+                }
+                texto += "</body></html>";
+                row[6] = texto;
+                    
+                model.addRow(row);
+                
+                tabla.setRowHeight(i, contactos.size() > 0 ? 
+                        contactos.size()*20 : tabla.getRowHeight(i));
+            }
+        }
+    }
+    
+    public void agregarCliente(String nombre, String apellido1, 
+            String apellido2, String cedula, float limiteCred, 
+            boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
+        
+        controlador.crearCliente(nombre, apellido1, apellido2, cedula, limiteCred, 
+                aprobarCred, contactos);
+    }
+    
     private void btnCrearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearClienteActionPerformed
         ArrayList<ArrayList<Object>> contactos;
+        ArrayList<Object> correos = new ArrayList<>();
+        for (int i=0; i<lsCrearCorreos.getModel().getSize(); i++) {
+            
+        }
+        
+        ArrayList<Object> telefonos = new ArrayList<>();
         
         /*agregarCliente(txtEditarNombreCliente, txtEditarPrimerApellido, 
                 txtEditarSegundoApellido, txtEditarCedulaCliente, 
@@ -1244,31 +1257,48 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarGuardarCorreoActionPerformed
 
     private void btnEditarCancelCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelCorreoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnEditarCancelCorreoActionPerformed
 
-    private void btnCrearCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCliente1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCrearCliente1ActionPerformed
+    private void btnAgregarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCorreoActionPerformed
+        String correo = txt_agregarCorreo.getText().trim();
+        
+        if (verificacion.validaEmail(correo)) {
+            DefaultListModel<String> m = new DefaultListModel<>();
+            for (int i=0; i<lsCrearCorreos.getModel().getSize(); i++) {
+                m.addElement(lsCrearCorreos.getModel().getElementAt(i));
+            }
+            m.addElement(correo);
+            lsCrearCorreos.setModel(m);
+        } else {
+            //CORREO SINTAX ERROR
+        }
+    }//GEN-LAST:event_btnAgregarCorreoActionPerformed
 
-    private void btnCrearCliente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCliente2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCrearCliente2ActionPerformed
+    private void btnAgregarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTelefonoActionPerformed
+        String telefono = txt_agregarTelefono.getText().trim();
+        
+        DefaultListModel<String> m = new DefaultListModel<>();
+        for (int i=0; i<lsCrearTelefonos.getModel().getSize(); i++) {
+            m.addElement(lsCrearTelefonos.getModel().getElementAt(i));
+        }
+        m.addElement(telefono);
+        //((DefaultListModel)lsCrearCorreos.getModel()).addElement(correo);
+        lsCrearTelefonos.setModel(m);
+    }//GEN-LAST:event_btnAgregarTelefonoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crearCredito;
+    private javax.swing.JButton btnAgregarCorreo;
+    private javax.swing.JButton btnAgregarTelefono;
     private javax.swing.JButton btnCrearCliente;
-    private javax.swing.JButton btnCrearCliente1;
-    private javax.swing.JButton btnCrearCliente2;
     private javax.swing.JButton btnEditarCancelCorreo;
     private javax.swing.JButton btnEditarCancelTel;
     private javax.swing.JButton btnEditarCliente;
     private javax.swing.JButton btnEditarGuardarCorreo;
     private javax.swing.JButton btnEditarGuardarTel;
     private javax.swing.JButton btn_deshabilitar;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -1289,6 +1319,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbl_crear_limiteCliente;
     private javax.swing.JLabel lbl_crear_nombreCliente;
     private javax.swing.JList<String> lsCorreos;
+    private javax.swing.JList<String> lsCrearCorreos;
+    private javax.swing.JList<String> lsCrearTelefonos;
     private javax.swing.JList<String> lsTelefonos;
     private javax.swing.JPanel pnlCrearContactoCliente;
     private javax.swing.JPanel pnlCrearCorreo1;
@@ -1340,12 +1372,12 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtEditarSegundoApellido;
     private javax.swing.JTextField txtEditarTelefono;
     private javax.swing.JTextField txtListadoCliente;
+    private javax.swing.JTextField txt_agregarCorreo;
+    private javax.swing.JTextField txt_agregarTelefono;
     private javax.swing.JTextField txt_crear_cedulaCliente;
     private javax.swing.JTextField txt_crear_limiteCliente;
     private javax.swing.JTextField txt_crear_nombreCliente;
     private javax.swing.JTextField txt_crear_nombreCliente1;
     private javax.swing.JTextField txt_crear_nombreCliente2;
-    private javax.swing.JTextField txt_crear_nombreCliente3;
-    private javax.swing.JTextField txt_crear_nombreCliente4;
     // End of variables declaration//GEN-END:variables
 }
