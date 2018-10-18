@@ -29,7 +29,7 @@ public final class Conexion {
     /**
      * Constructor de la clase conexión.
      */
-    public Conexion() {
+    private Conexion() {
 
     }
     /**

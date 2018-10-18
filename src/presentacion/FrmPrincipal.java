@@ -221,7 +221,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_inventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_inventario.png"))); // NOI18N
         btn_inventario.setText("  Inventario  ");
-        btn_inventario.setEnabled(false);
         btn_inventario.setFocusable(false);
         btn_inventario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_inventario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
