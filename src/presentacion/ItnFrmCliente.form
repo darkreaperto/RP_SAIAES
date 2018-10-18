@@ -4,6 +4,8 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="bg_crearCredito">
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="bg_crearHabilitar">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
@@ -1517,11 +1519,17 @@
                   <SubComponents>
                     <Component class="javax.swing.JRadioButton" name="rbDeshabDeshabCliente">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="bg_crearHabilitar"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Deshabilitar"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rbDeshabHabilitarCliente">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="bg_crearHabilitar"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Habilitar"/>
                       </Properties>
                     </Component>

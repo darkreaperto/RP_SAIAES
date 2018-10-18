@@ -300,7 +300,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_usuario.png"))); // NOI18N
         btn_usuarios.setText("   Usuarios   ");
-        btn_usuarios.setEnabled(false);
         btn_usuarios.setFocusable(false);
         btn_usuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_usuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

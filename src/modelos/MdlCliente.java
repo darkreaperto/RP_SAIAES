@@ -220,6 +220,60 @@ public class MdlCliente {
             return creacionExitosa;
         }
     }
+    
+    /**
+     * Inactiva el cliente en la bd.
+     * @param cedula cédula unívoca del cliente
+     * @return 
+     */
+    public boolean inactivarCliente(String cedula) {
+        
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(cedula);
+        
+        boolean creacionExitosa = false;
+        try {
+            procedimiento = "pc_inactivar_cliente(?)";
+
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            creacionExitosa = true;
+
+        } catch (SQLException ex) {
+            creacionExitosa = false;
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return creacionExitosa;
+        }
+    }
+    
+    /**
+     * Activa el cliente en la bd.
+     * @param cedula cédula unívoca del cliente
+     * @return 
+     */
+    public boolean activarCliente(String cedula) {
+        
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(cedula);
+        
+        boolean creacionExitosa = false;
+        try {
+            procedimiento = "pc_activar_cliente(?)";
+
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            creacionExitosa = true;
+
+        } catch (SQLException ex) {
+            creacionExitosa = false;
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return creacionExitosa;
+        }
+    }
 
     /**
      * Buscar usuario enviando por parámetro el criterio de búsqueda.
