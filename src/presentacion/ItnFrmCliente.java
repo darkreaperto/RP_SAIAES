@@ -1121,16 +1121,26 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     
     private void btnCrearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearClienteActionPerformed
         ArrayList<ArrayList<Object>> contactos = new ArrayList<>();
-        ArrayList<Object> correos = new ArrayList<>();
+        ArrayList<Object> correo;
         for (int i=0; i<lsCrearCorreos.getModel().getSize(); i++) {
-            
+            correo = new ArrayList<>();
+            correo.add(TipoContacto.CORREO);
+            correo.add(lsCrearCorreos.getModel().getElementAt(i));
+            contactos.add(correo);
         }
         
-        ArrayList<Object> telefonos = new ArrayList<>();
+        ArrayList<Object> telefono;
+        for (int i=0; i<lsCrearTelefonos.getModel().getSize(); i++) {
+            telefono = new ArrayList<>();
+            telefono.add(TipoContacto.TELEFONO);
+            telefono.add(lsCrearTelefonos.getModel().getElementAt(i));
+            contactos.add(telefono);
+        }
         
         agregarCliente(txt_crear_nombreCliente.getText(), txt_crear_apellidoCliente1.getText(), 
                 txt_crear_apellidoCliente2.getText(), txt_crear_cedulaCliente.getText(), 
                 Float.valueOf(txt_crear_limiteCliente.getText()), true, contactos);
+        
         limpiarCampos();
         System.out.println((bg_crearCredito.getSelection().toString()));
         
