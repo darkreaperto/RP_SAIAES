@@ -52,7 +52,6 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         ItnFrmUsuario.sesion = sesionAcc;
         cargarTablas();
         pnlActualizarClave.setVisible(false);
-
     }
 
     /**
