@@ -66,18 +66,18 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         scpnlTblListadoCliente = new javax.swing.JScrollPane();
         tbListadoCliente = new javax.swing.JTable();
         pnl_agregar = new javax.swing.JPanel();
-        lbl_crear_nombreProducto = new javax.swing.JLabel();
+        lblCrearCodigoProducto = new javax.swing.JLabel();
         lbl_crear_cedulaCliente = new javax.swing.JLabel();
-        lbl_crear_apellidoCliente1 = new javax.swing.JLabel();
-        lbl_crear_limiteCliente = new javax.swing.JLabel();
+        lblCrearTipoProducto = new javax.swing.JLabel();
+        lblCrearCantidad = new javax.swing.JLabel();
         spnl_crear_clientes = new javax.swing.JScrollPane();
         tbl_crear = new javax.swing.JTable();
         btnCrearCliente = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        txt_crear_telefono1 = new javax.swing.JTextField();
+        cmbCrearTipoProducto = new javax.swing.JComboBox<>();
+        txtCrearCantidad = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txt_crear_telefono2 = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        pnlCrearMedidas = new javax.swing.JPanel();
         txt_crear_nombreCliente2 = new javax.swing.JTextField();
         lbl_crear_apellidoCliente6 = new javax.swing.JLabel();
         txt_crear_nombreCliente3 = new javax.swing.JTextField();
@@ -86,11 +86,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         lbl_crear_apellidoCliente7 = new javax.swing.JLabel();
         txt_crear_nombreCliente4 = new javax.swing.JTextField();
         lbl_crear_apellidoCliente4 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        lbl_crear_apellidoCliente16 = new javax.swing.JLabel();
+        cmbCrearTipoMadera = new javax.swing.JComboBox<>();
+        lblCrearTipoMadera = new javax.swing.JLabel();
         lbl_crear_limiteCliente1 = new javax.swing.JLabel();
         txt_crear_telefono3 = new javax.swing.JTextField();
-        txtCrearCodigoArticulo = new javax.swing.JTextField();
+        txtCrearCodigoProducto = new javax.swing.JTextField();
         pnl_actualizar = new javax.swing.JPanel();
         lbl_crear_nombreProducto2 = new javax.swing.JLabel();
         lbl_crear_cedulaCliente1 = new javax.swing.JLabel();
@@ -195,13 +195,13 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
         tbpnl_modInventario.addTab("Listado Inventario", pnl_listado);
 
-        lbl_crear_nombreProducto.setText("Código:");
+        lblCrearCodigoProducto.setText("Código:");
 
         lbl_crear_cedulaCliente.setText("Descripción:");
 
-        lbl_crear_apellidoCliente1.setText("Tipo de producto:");
+        lblCrearTipoProducto.setText("Tipo de producto:");
 
-        lbl_crear_limiteCliente.setText("Cantidad:");
+        lblCrearCantidad.setText("Cantidad:");
 
         tbl_crear.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -228,11 +228,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acerrada", "Item 2", "Item 3", "Item 4" }));
+        cmbCrearTipoProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acerrada", "Item 2", "Item 3", "Item 4" }));
 
         jScrollPane1.setViewportView(txt_crear_telefono2);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Medidas"));
+        pnlCrearMedidas.setBorder(javax.swing.BorderFactory.createTitledBorder("Medidas"));
 
         lbl_crear_apellidoCliente6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_crear_apellidoCliente6.setText("Alto");
@@ -254,49 +254,49 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         lbl_crear_apellidoCliente4.setText("Grueso");
         lbl_crear_apellidoCliente4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlCrearMedidasLayout = new javax.swing.GroupLayout(pnlCrearMedidas);
+        pnlCrearMedidas.setLayout(pnlCrearMedidasLayout);
+        pnlCrearMedidasLayout.setHorizontalGroup(
+            pnlCrearMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCrearMedidasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlCrearMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txt_crear_nombreCliente2)
                     .addComponent(lbl_crear_apellidoCliente6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_crear_apellidoCliente3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlCrearMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_crear_apellidoCliente5)
                     .addComponent(txt_crear_nombreCliente3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_crear_apellidoCliente7, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlCrearMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lbl_crear_apellidoCliente4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txt_crear_nombreCliente4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        pnlCrearMedidasLayout.setVerticalGroup(
+            pnlCrearMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearMedidasLayout.createSequentialGroup()
                 .addGap(2, 2, 2)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlCrearMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_crear_nombreCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_crear_apellidoCliente3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_crear_nombreCliente3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_crear_nombreCliente4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_crear_apellidoCliente7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlCrearMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_crear_apellidoCliente4)
                     .addComponent(lbl_crear_apellidoCliente5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbl_crear_apellidoCliente6)))
         );
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cedro", "Item 2", "Item 3", "Item 4" }));
+        cmbCrearTipoMadera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cedro", "Item 2", "Item 3", "Item 4" }));
 
-        lbl_crear_apellidoCliente16.setText("Tipo de Madera:");
+        lblCrearTipoMadera.setText("Tipo de Madera:");
 
         lbl_crear_limiteCliente1.setText("Precio por vara:");
 
@@ -311,21 +311,21 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lbl_crear_nombreProducto, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbl_crear_apellidoCliente1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCrearCodigoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblCrearCodigoProducto, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblCrearTipoProducto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmbCrearTipoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(pnlCrearMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCrearCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(108, 108, 108)
                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_crear_telefono3, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(pnl_agregarLayout.createSequentialGroup()
                                     .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txt_crear_telefono1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbl_crear_apellidoCliente16, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbl_crear_limiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtCrearCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblCrearTipoMadera, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cmbCrearTipoMadera, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblCrearCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(lbl_crear_cedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -350,28 +350,28 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnl_agregarLayout.createSequentialGroup()
-                                .addComponent(lbl_crear_nombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblCrearCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCrearCodigoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCrearCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbl_crear_apellidoCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblCrearTipoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cmbCrearTipoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnl_agregarLayout.createSequentialGroup()
-                                .addComponent(lbl_crear_apellidoCliente16, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblCrearTipoMadera, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
-                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmbCrearTipoMadera, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbl_crear_limiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblCrearCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
-                                .addComponent(txt_crear_telefono1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtCrearCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnl_agregarLayout.createSequentialGroup()
                                 .addComponent(lbl_crear_limiteCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txt_crear_telefono3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(pnlCrearMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(spnl_crear_clientes, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -822,24 +822,25 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCrearCliente;
     private javax.swing.JButton btnCrearCliente1;
     private javax.swing.JButton btn_deshabilitar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cmbCrearTipoMadera;
+    private javax.swing.JComboBox<String> cmbCrearTipoProducto;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblCrearCantidad;
+    private javax.swing.JLabel lblCrearCodigoProducto;
+    private javax.swing.JLabel lblCrearTipoMadera;
+    private javax.swing.JLabel lblCrearTipoProducto;
     private javax.swing.JLabel lblDeshabSelectUsuario;
     private javax.swing.JLabel lblListadoCliente;
-    private javax.swing.JLabel lbl_crear_apellidoCliente1;
     private javax.swing.JLabel lbl_crear_apellidoCliente10;
     private javax.swing.JLabel lbl_crear_apellidoCliente11;
     private javax.swing.JLabel lbl_crear_apellidoCliente12;
     private javax.swing.JLabel lbl_crear_apellidoCliente13;
     private javax.swing.JLabel lbl_crear_apellidoCliente14;
     private javax.swing.JLabel lbl_crear_apellidoCliente15;
-    private javax.swing.JLabel lbl_crear_apellidoCliente16;
     private javax.swing.JLabel lbl_crear_apellidoCliente3;
     private javax.swing.JLabel lbl_crear_apellidoCliente4;
     private javax.swing.JLabel lbl_crear_apellidoCliente5;
@@ -849,11 +850,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbl_crear_apellidoCliente9;
     private javax.swing.JLabel lbl_crear_cedulaCliente;
     private javax.swing.JLabel lbl_crear_cedulaCliente1;
-    private javax.swing.JLabel lbl_crear_limiteCliente;
     private javax.swing.JLabel lbl_crear_limiteCliente1;
-    private javax.swing.JLabel lbl_crear_nombreProducto;
     private javax.swing.JLabel lbl_crear_nombreProducto2;
     private javax.swing.JLabel lbl_crear_nombreProducto3;
+    private javax.swing.JPanel pnlCrearMedidas;
     private javax.swing.JPanel pnlDeshabContainer;
     private javax.swing.JPanel pnlHabilitar;
     private javax.swing.JPanel pnl_actualizar;
@@ -874,7 +874,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbl_crear;
     private javax.swing.JTable tbl_crear1;
     private javax.swing.JTabbedPane tbpnl_modInventario;
-    private javax.swing.JTextField txtCrearCodigoArticulo;
+    private javax.swing.JTextField txtCrearCantidad;
+    private javax.swing.JTextField txtCrearCodigoProducto;
     private javax.swing.JTextField txtListadoCliente;
     private javax.swing.JTextField txt_crear_nombreCliente2;
     private javax.swing.JTextField txt_crear_nombreCliente3;
@@ -882,7 +883,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_crear_nombreCliente5;
     private javax.swing.JTextField txt_crear_nombreCliente6;
     private javax.swing.JTextField txt_crear_nombreCliente7;
-    private javax.swing.JTextField txt_crear_telefono1;
     private javax.swing.JTextField txt_crear_telefono2;
     private javax.swing.JTextField txt_crear_telefono3;
     private javax.swing.JTextField txt_crear_telefono4;
