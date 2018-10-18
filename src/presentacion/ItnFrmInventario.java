@@ -57,7 +57,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             case 1:
                 pnlCrearMedidasAcerrada.setVisible(false);
                 pnlCrearMedidasTroza.setVisible(true);
-                pnlCrearMedidasTroza.setBounds(25, 160, 290, 74);
+                pnlCrearMedidasTroza.setBounds(25, 160, 295, 74);
                 pnl_agregar.add(pnlCrearMedidasTroza);
                 txtCrearPrecioVara.setEnabled(false);
                 txtCrearPrecioVara.setText("0");
@@ -66,7 +66,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             case 2:
                 pnlCrearMedidasTroza.setVisible(false);
                 pnlCrearMedidasAcerrada.setVisible(true);
-                pnlCrearMedidasAcerrada.setBounds(25, 160, 290, 74);
+                pnlCrearMedidasAcerrada.setBounds(25, 160, 295, 74);
                 pnl_agregar.add(pnlCrearMedidasAcerrada);
                 txtCrearPrecioVara.setEnabled(true);
                 txtCrearPrecioVara.setText("");
@@ -266,7 +266,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Nombre", "Tipo de Madera", "Medidas", "Tipo de Producto", "Cantidad", "Descripción"
+                "Código de Producto", "Nombre", "Tipo de Madera", "Medidas", "Tipo de Producto", "Cantidad", "Descripción"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -370,21 +370,20 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     .addComponent(spnlCrearProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 1146, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblCrearTipoProducto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cmbCrearTipoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblCrearTipoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCrearCodigoProducto)
-                            .addComponent(txtCrearCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCrearCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbCrearTipoProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(108, 108, 108)
                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCrearPrecioVara, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(pnl_agregarLayout.createSequentialGroup()
-                                    .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtCrearCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtCrearCantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                                         .addComponent(lblCrearTipoMadera, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cmbCrearTipoMadera, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblCrearCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(lblCrearCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cmbCrearTipoMadera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(lblCrearDescripcionProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)

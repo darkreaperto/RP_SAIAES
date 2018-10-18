@@ -284,7 +284,7 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="7" rowCount="0">
-                            <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
+                            <Column editable="false" title="C&#xf3;digo de Producto" type="java.lang.Object"/>
                             <Column editable="false" title="Nombre" type="java.lang.Object"/>
                             <Column editable="false" title="Tipo de Madera" type="java.lang.Object"/>
                             <Column editable="false" title="Medidas" type="java.lang.Object"/>
@@ -359,23 +359,21 @@
                               <Component id="spnlCrearProductos" min="-2" pref="1146" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="lblCrearTipoProducto" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                          <Component id="cmbCrearTipoProducto" alignment="1" min="-2" pref="290" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="lblCrearTipoProducto" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
                                       <Component id="lblCrearCodigoProducto" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtCrearCodigoProducto" min="-2" pref="295" max="-2" attributes="0"/>
+                                      <Component id="cmbCrearTipoProducto" alignment="1" min="-2" pref="295" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtCrearPrecioVara" min="-2" pref="295" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="txtCrearCantidad" min="-2" pref="295" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="txtCrearCantidad" pref="295" max="32767" attributes="0"/>
                                                   <Component id="lblCrearTipoMadera" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                                  <Component id="cmbCrearTipoMadera" alignment="0" min="-2" pref="290" max="-2" attributes="0"/>
                                                   <Component id="lblCrearCantidad" min="-2" pref="202" max="-2" attributes="0"/>
+                                                  <Component id="cmbCrearTipoMadera" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="32767" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
