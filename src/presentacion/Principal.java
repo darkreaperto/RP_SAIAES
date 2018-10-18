@@ -6,6 +6,8 @@
 package presentacion;
 
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JRootPane;
@@ -26,8 +28,9 @@ public class Principal {
         //ventana.setExtendedState(JFrame.MAXIMIZED_BOTH);
         ventana.setLocation(0, 0);
         //ventana.setUndecorated(true);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        ventana.setSize(screenSize.width, screenSize.height);
+        //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Rectangle winSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+        ventana.setSize(winSize.width, winSize.height);
         ventana.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
         ventana.setVisible(true);
         

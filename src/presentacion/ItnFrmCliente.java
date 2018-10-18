@@ -7,8 +7,6 @@ package presentacion;
 
 import controladores.CtrAcceso;
 import controladores.CtrCliente;
-import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JTable;
@@ -250,12 +248,27 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         bg_crearCredito.add(rbCrearCreditoLim);
         rbCrearCreditoLim.setText("Crédito limitado");
+        rbCrearCreditoLim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbCrearCreditoLimActionPerformed(evt);
+            }
+        });
 
         bg_crearCredito.add(rbCrearCredito);
         rbCrearCredito.setText("Crédito");
+        rbCrearCredito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbCrearCreditoActionPerformed(evt);
+            }
+        });
 
         bg_crearCredito.add(rbCrearSinCredito);
         rbCrearSinCredito.setText("Sin crédigo");
+        rbCrearSinCredito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbCrearSinCreditoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_crear_creditoClienteLayout = new javax.swing.GroupLayout(pnl_crear_creditoCliente);
         pnl_crear_creditoCliente.setLayout(pnl_crear_creditoClienteLayout);
@@ -269,7 +282,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnl_crear_creditoClienteLayout.createSequentialGroup()
                         .addComponent(rbCrearCredito)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(rbCrearCreditoLim)))
                 .addContainerGap())
         );
@@ -287,7 +300,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         lbl_crear_limiteCliente.setText("Límite de crédito:");
 
-        txt_crear_limiteCliente.setEnabled(false);
+        txt_crear_limiteCliente.setEditable(false);
 
         pnlCrearContactoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Contacto:"));
         pnlCrearContactoCliente.setAutoscrolls(true);
@@ -480,7 +493,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         pnl_agregarLayout.setVerticalGroup(
             pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_agregarLayout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                         .addComponent(lbl_crear_cedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -954,7 +967,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                         .addGap(35, 35, 35)
                         .addComponent(lblDeshabSelectCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tbDeshab, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                        .addComponent(tbDeshab, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pnlDeshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17))
@@ -970,7 +983,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
         pnlLimCreditoLayout.setVerticalGroup(
             pnlLimCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 569, Short.MAX_VALUE)
+            .addGap(0, 566, Short.MAX_VALUE)
         );
 
         tb_modCliente.addTab("Límite de crédito", pnlLimCredito);
@@ -1290,6 +1303,21 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         //((DefaultListModel)lsCrearCorreos.getModel()).addElement(correo);
         lsCrearTelefonos.setModel(m);
     }//GEN-LAST:event_btnAgregarTelefonoActionPerformed
+
+    private void rbCrearCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCrearCreditoActionPerformed
+        txt_crear_limiteCliente.setText("0");
+        txt_crear_limiteCliente.setEditable(false);
+    }//GEN-LAST:event_rbCrearCreditoActionPerformed
+
+    private void rbCrearCreditoLimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCrearCreditoLimActionPerformed
+        txt_crear_limiteCliente.setText("");
+        txt_crear_limiteCliente.setEditable(true);
+    }//GEN-LAST:event_rbCrearCreditoLimActionPerformed
+
+    private void rbCrearSinCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCrearSinCreditoActionPerformed
+        txt_crear_limiteCliente.setText("");
+        txt_crear_limiteCliente.setEditable(false);
+    }//GEN-LAST:event_rbCrearSinCreditoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
