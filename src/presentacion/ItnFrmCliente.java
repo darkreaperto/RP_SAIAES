@@ -84,6 +84,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         bg_crearCredito = new javax.swing.ButtonGroup();
+        bg_crearHabilitar = new javax.swing.ButtonGroup();
         pnl_modCliente = new javax.swing.JPanel();
         tb_modCliente = new javax.swing.JTabbedPane();
         pnl_listado = new javax.swing.JPanel();
@@ -698,11 +699,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255)));
 
-        lsTelefonos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         scpnlEditarListaTelef.setViewportView(lsTelefonos);
 
         btnEditarCancelTel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/cancel.png"))); // NOI18N
@@ -713,11 +709,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        lsCorreos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         scpnlEditarListaCorreo.setViewportView(lsCorreos);
 
         btnEditarGuardarCorreo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
@@ -908,8 +899,10 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         pnlDeshabContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Activo:"));
 
+        bg_crearHabilitar.add(rbDeshabDeshabCliente);
         rbDeshabDeshabCliente.setText("Deshabilitar");
 
+        bg_crearHabilitar.add(rbDeshabHabilitarCliente);
         rbDeshabHabilitarCliente.setText("Habilitar");
 
         javax.swing.GroupLayout pnlDeshabContainerLayout = new javax.swing.GroupLayout(pnlDeshabContainer);
@@ -1060,23 +1053,24 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         Object[] row = new Object[7];
         model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0);
-        for (int i = 0; i < clientes.size(); i++) {
+        int i = 0;
+        for (Cliente c: clientes) {
 
-            if (clientes.get(i).getEstado().equals(Estado.Activo) && estado) {
+            if (c.getEstado().equals(Estado.Activo) && estado) {
                 
-                row[0] = clientes.get(i).getCedula();
-                row[1] = clientes.get(i).getApellido1(); 
-                row[2] = clientes.get(i).getApellido2();
-                row[3] = clientes.get(i).getNombre();
-                row[4] = clientes.get(i).isAprobarCredito() ? "✔" : "✘";
-                row[5] = "₡ " + clientes.get(i).getLimiteCredito();
+                row[0] = c.getCedula();
+                row[1] = c.getApellido1(); 
+                row[2] = c.getApellido2();
+                row[3] = c.getNombre();
+                row[4] = c.isAprobarCredito() ? "✔" : "✘";
+                row[5] = "₡ " + c.getLimiteCredito();
                 
-                ArrayList<Contacto> contactos = clientes.get(i).getContactos();
+                ArrayList<Contacto> contactos = c.getContactos();
                 
                 String texto = "<html><body>";
-                for (Contacto c: contactos) {
-                    String tipo = c.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
-                    texto += tipo + " " + c.getInfo() + "<br>";
+                for (Contacto ct: contactos) {
+                    String tipo = ct.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
+                    texto += tipo + " " + ct.getInfo() + "<br>";
                 }
                 texto += "</body></html>";
                 row[6] = texto;
@@ -1085,22 +1079,24 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 
                 tabla.setRowHeight(i, contactos.size() > 0 ? 
                         contactos.size()*20 : tabla.getRowHeight(i));
+                
+                i++;
             }
-            if (clientes.get(i).getEstado().equals(Estado.Deshabilitado) && !estado) {
+            if (c.getEstado().equals(Estado.Deshabilitado) && !estado) {
                 
-                row[0] = clientes.get(i).getCedula();
-                row[1] = clientes.get(i).getApellido1(); 
-                row[2] = clientes.get(i).getApellido2();
-                row[3] = clientes.get(i).getNombre();
-                row[4] = clientes.get(i).isAprobarCredito() ? "✔" : "✘";
-                row[5] = "₡ " + clientes.get(i).getLimiteCredito();
+                row[0] = c.getCedula();
+                row[1] = c.getApellido1(); 
+                row[2] = c.getApellido2();
+                row[3] = c.getNombre();
+                row[4] = c.isAprobarCredito() ? "✔" : "✘";
+                row[5] = "₡ " + c.getLimiteCredito();
                 
-                ArrayList<Contacto> contactos = clientes.get(i).getContactos();
+                ArrayList<Contacto> contactos = c.getContactos();
                 
                 String texto = "<html><body>";
-                for (Contacto c: contactos) {
-                    String tipo = c.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
-                    texto += tipo + " " + c.getInfo() + "<br>";
+                for (Contacto ct: contactos) {
+                    String tipo = ct.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
+                    texto += tipo + " " + ct.getInfo() + "<br>";
                 }
                 texto += "</body></html>";
                 row[6] = texto;
@@ -1109,6 +1105,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 
                 tabla.setRowHeight(i, contactos.size() > 0 ? 
                         contactos.size()*20 : tabla.getRowHeight(i));
+                
+                i++;
             }
         }
     }
@@ -1143,118 +1141,125 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarClienteActionPerformed
 
     private void tblClientesActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesActivosMouseClicked
-//        try {
-//            model = (DefaultTableModel) tblClientesActivos.getModel();
-//            int selectedRowIndex = tblClientesActivos.getSelectedRow();
-//            String nombre
-//            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-//
-//            for (int i = 0; i < usuarios.size(); i++) {
-//                if (usuarios.get(i).getNombre().equals(nombre)) {
-//                    //Si el codigo coincide
-//                    if (usuarios.get(i).getEstado().equals(Estado.Activo)) {
-//                        //Verifica el tipo de estado
-//                        rbDeshabDeshabCliente.setSelected(true);
-//                    } else {
-//                        rbDeshabHabilitarCliente.setSelected(true);
-//                    }
-//                }
-//            }
-//        } catch (Exception ex) {
-//
-//        }
+        try {
+            model = (DefaultTableModel) tblClientesActivos.getModel();
+            int selectedRowIndex = tblClientesActivos.getSelectedRow();
+            String cedula
+            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+            for (int i = 0; i < clientes.size(); i++) {
+                if (clientes.get(i).getCedula().equals(cedula)) {
+                    //Si el codigo coincide
+                    if (clientes.get(i).getEstado().equals(Estado.Activo)) {
+                        //Verifica el tipo de estado
+                        rbDeshabDeshabCliente.setSelected(true);
+                    } else {
+                        rbDeshabHabilitarCliente.setSelected(true);
+                    }
+                }
+            }
+        } catch (Exception ex) {
+
+        }
     }//GEN-LAST:event_tblClientesActivosMouseClicked
 
     private void tblClientesActivosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblClientesActivosKeyReleased
-//        try {
-//            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
-//                model = (DefaultTableModel) tblClientesActivos.getModel();
-//                int selectedRowIndex = tblClientesActivos.getSelectedRow();
-//                String nombre
-//                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-//
-//                for (int i = 0; i < usuarios.size(); i++) {
-//                    if (usuarios.get(i).getNombre().equals(nombre)) {
-//                        //Si el codigo coincide
-//                        if (usuarios.get(i).getEstado().equals(Estado.Activo)) {
-//                            //Verifica el tipo de estado
-//                            rbDeshabDeshabCliente.setSelected(true);
-//                        } else {
-//                            rbDeshabHabilitarCliente.setSelected(true);
-//                        }
-//                    }
-//                }
-//            }
-//        } catch (Exception ex) {
-//
-//        }
+        try {
+            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+                model = (DefaultTableModel) tblClientesActivos.getModel();
+                int selectedRowIndex = tblClientesActivos.getSelectedRow();
+                String cedula
+                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+                for (int i = 0; i < clientes.size(); i++) {
+                    if (clientes.get(i).getCedula().equals(cedula)) {
+                        //Si el codigo coincide
+                        if (clientes.get(i).getEstado().equals(Estado.Activo)) {
+                            //Verifica el tipo de estado
+                            rbDeshabDeshabCliente.setSelected(true);
+                        } else {
+                            rbDeshabHabilitarCliente.setSelected(true);
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+
+        }
     }//GEN-LAST:event_tblClientesActivosKeyReleased
 
     private void tblClientesInactivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesInactivosMouseClicked
-//        try {
-//            model = (DefaultTableModel) tblClientesInactivos.getModel();
-//            int selectedRowIndex = tblClientesInactivos.getSelectedRow();
-//            String nombre
-//            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-//
-//            for (int i = 0; i < usuarios.size(); i++) {
-//                if (usuarios.get(i).getNombre().equals(nombre)) {
-//                    //Si el codigo coincide
-//                    if (usuarios.get(i).getEstado().equals(Estado.Deshabilitado)) {
-//                        //Verifica el tipo de estado
-//                        rbDeshabHabilitarCliente.setSelected(true);
-//                    } else {
-//                        rbDeshabDeshabCliente.setSelected(true);
-//                    }
-//                }
-//            }
-//        } catch (Exception ex) {
-//
-//        }
+        try {
+            model = (DefaultTableModel) tblClientesInactivos.getModel();
+            int selectedRowIndex = tblClientesInactivos.getSelectedRow();
+            String cedula
+            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+            for (int i = 0; i < clientes.size(); i++) {
+                if (clientes.get(i).getCedula().equals(cedula)) {
+                    //Si el codigo coincide
+                    if (clientes.get(i).getEstado().equals(Estado.Deshabilitado)) {
+                        //Verifica el tipo de estado
+                        rbDeshabHabilitarCliente.setSelected(true);
+                    } else {
+                        rbDeshabDeshabCliente.setSelected(true);
+                    }
+                }
+            }
+        } catch (Exception ex) {
+
+        }
     }//GEN-LAST:event_tblClientesInactivosMouseClicked
 
     private void tblClientesInactivosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblClientesInactivosKeyReleased
-//        try {
-//            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
-//                model = (DefaultTableModel) tblClientesInactivos.getModel();
-//                int selectedRowIndex = tblClientesInactivos.getSelectedRow();
-//                String nombre
-//                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-//
-//                for (int i = 0; i < usuarios.size(); i++) {
-//                    if (usuarios.get(i).getNombre().equals(nombre)) {
-//                        if (usuarios.get(i).getEstado().equals(Estado.Deshabilitado)) {
-//                            rbDeshabHabilitarCliente.setSelected(true);
-//                        } else {
-//                            rbDeshabDeshabCliente.setSelected(true);
-//                        }
-//                    }
-//                }
-//            }
-//        } catch (Exception ex) {
-//
-//        }
+        try {
+            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+                model = (DefaultTableModel) tblClientesInactivos.getModel();
+                int selectedRowIndex = tblClientesInactivos.getSelectedRow();
+                String cedula
+                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+                for (int i = 0; i < clientes.size(); i++) {
+                    if (clientes.get(i).getCedula().equals(cedula)) {
+                        if (clientes.get(i).getEstado().equals(Estado.Deshabilitado)) {
+                            rbDeshabHabilitarCliente.setSelected(true);
+                        } else {
+                            rbDeshabDeshabCliente.setSelected(true);
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+
+        }
     }//GEN-LAST:event_tblClientesInactivosKeyReleased
 
     private void btn_deshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deshabilitarActionPerformed
-//        try {
-//            model = (DefaultTableModel) tbl_deshabilitar.getModel();
-//            int selectedRowIndex = tbl_deshabilitar.getSelectedRow();
-//            String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0));
-//            Estado estado
-//            = rb_deshab_habilitar.isSelected() ? Estado.Activo : Estado.Deshabilitado;
-//
-//            controlador.actualizarUsuario(
-//                String.valueOf(model.getValueAt(selectedRowIndex, 1)),
-//                String.valueOf(model.getValueAt(selectedRowIndex, 2)),
-//                String.valueOf(model.getValueAt(selectedRowIndex, 3)),
-//                Rol.Administrador, estado, codigo);
-//            //Actualizar
-//            cargarTablas();
-//        } catch (Exception e) {
+        try {
+            
+            model = tbDeshab.getSelectedIndex() == 0 ? 
+                    (DefaultTableModel) tblClientesActivos.getModel() : 
+                    (DefaultTableModel) tblClientesInactivos.getModel();
+            
+            int selectedRowIndex = tbDeshab.getSelectedIndex() == 0 ? 
+                    tblClientesActivos.getSelectedRow() : 
+                    tblClientesInactivos.getSelectedRow();
+            
+            Estado estado
+                    = rbDeshabHabilitarCliente.isSelected() ? Estado.Activo : Estado.Deshabilitado;
+            
+            if (estado.equals(Estado.Deshabilitado)) {
+                controlador.inactivarCliente(model.getValueAt(selectedRowIndex, 0).toString());
+            } else {
+                controlador.activarCliente(model.getValueAt(selectedRowIndex, 0).toString());
+            }
+            //Actualizar
+            cargarTablas();
+        } catch (Exception e) {
+            e.printStackTrace();
 //            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-//                TipoMensaje.ANY_ROW_SELECTED);
-//        }
+//                    TipoMensaje.ANY_ROW_SELECTED);
+        }
     }//GEN-LAST:event_btn_deshabilitarActionPerformed
 
     private void btnEditarGuardarTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarTelActionPerformed
@@ -1323,6 +1328,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crearCredito;
+    private javax.swing.ButtonGroup bg_crearHabilitar;
     private javax.swing.JButton btnAgregarCorreo;
     private javax.swing.JButton btnAgregarTelefono;
     private javax.swing.JButton btnCrearCliente;

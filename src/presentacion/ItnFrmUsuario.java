@@ -1152,20 +1152,33 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
 
     private void btn_deshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deshabilitarActionPerformed
         try {
-            model = (DefaultTableModel) tbl_deshabilitar.getModel();
-            int selectedRowIndex = tbl_deshabilitar.getSelectedRow();
-            String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0));
+            
+            model = tb_deshab.getSelectedIndex() == 0 ? 
+                    (DefaultTableModel) tbl_deshabilitar.getModel() : 
+                    (DefaultTableModel) tbl_habilitar.getModel();
+            
+            System.out.println("TB: " + tbl_habilitar.getSelectedRow());
+            int selectedRowIndex = tb_deshab.getSelectedIndex() == 0 ? 
+                    tbl_deshabilitar.getSelectedRow() : 
+                    tbl_habilitar.getSelectedRow();
+            
+            System.out.println("IND: " + selectedRowIndex);
             Estado estado
                     = rb_deshab_habilitar.isSelected() ? Estado.Activo : Estado.Deshabilitado;
-
-            controlador.actualizarUsuario(
-                    String.valueOf(model.getValueAt(selectedRowIndex, 1)),
-                    String.valueOf(model.getValueAt(selectedRowIndex, 2)),
-                    String.valueOf(model.getValueAt(selectedRowIndex, 3)),
-                    Rol.Administrador, estado, codigo);
+            
+            Usuario user = null;
+            for (Usuario u: usuarios) {
+                if (u.getNombre().equals(model.getValueAt(selectedRowIndex, 0).toString())) {
+                    user = u;
+                }
+            }
+            System.out.println("UUU: " + user.getNombre());
+            controlador.actualizarUsuario(user.getNombre(), user.getContrasenna(),
+                    user.getCorreo(), user.getRol(), estado, user.getCodigo());
             //Actualizar
             cargarTablas();
         } catch (Exception e) {
+            e.printStackTrace();
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                     TipoMensaje.ANY_ROW_SELECTED);
         }

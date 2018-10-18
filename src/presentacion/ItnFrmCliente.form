@@ -4,6 +4,8 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="bg_crearCredito">
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="bg_crearHabilitar">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
@@ -1194,13 +1196,7 @@
                                     <Component class="javax.swing.JList" name="lsTelefonos">
                                       <Properties>
                                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                          <StringArray count="5">
-                                            <StringItem index="0" value="Item 1"/>
-                                            <StringItem index="1" value="Item 2"/>
-                                            <StringItem index="2" value="Item 3"/>
-                                            <StringItem index="3" value="Item 4"/>
-                                            <StringItem index="4" value="Item 5"/>
-                                          </StringArray>
+                                          <StringArray count="0"/>
                                         </Property>
                                       </Properties>
                                       <AuxValues>
@@ -1232,13 +1228,7 @@
                                     <Component class="javax.swing.JList" name="lsCorreos">
                                       <Properties>
                                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                          <StringArray count="5">
-                                            <StringItem index="0" value="Item 1"/>
-                                            <StringItem index="1" value="Item 2"/>
-                                            <StringItem index="2" value="Item 3"/>
-                                            <StringItem index="3" value="Item 4"/>
-                                            <StringItem index="4" value="Item 5"/>
-                                          </StringArray>
+                                          <StringArray count="0"/>
                                         </Property>
                                       </Properties>
                                       <AuxValues>
@@ -1529,11 +1519,17 @@
                   <SubComponents>
                     <Component class="javax.swing.JRadioButton" name="rbDeshabDeshabCliente">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="bg_crearHabilitar"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Deshabilitar"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rbDeshabHabilitarCliente">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="bg_crearHabilitar"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Habilitar"/>
                       </Properties>
                     </Component>

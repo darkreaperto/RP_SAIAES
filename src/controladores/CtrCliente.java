@@ -109,6 +109,26 @@ public class CtrCliente {
                 cedula, limiteCred, aprobarCred, contactos, estado, codPersona, 
                 codigo);
     }
+    
+    /**
+     * Inactiva el cliente en la bd.
+     * @param cedula cédula unívoca del cliente
+     * @return 
+     */
+    public boolean inactivarCliente(String cedula) {
+        
+        return mdlCliente.inactivarCliente(cedula);
+    }
+    
+    /**
+     * Activa el cliente en la bd.
+     * @param cedula cédula unívoca del cliente
+     * @return 
+     */
+    public boolean activarCliente(String cedula) {
+        
+        return mdlCliente.activarCliente(cedula);
+    }
 
     /**
      * Buscar cliente enviando por parámetro el criterio de búsqueda.
