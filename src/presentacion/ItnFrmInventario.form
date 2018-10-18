@@ -174,12 +174,12 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="lbl_crear_nombreProducto" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lbl_crear_apellidoCliente1" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                          <Component id="jComboBox1" alignment="1" min="-2" pref="290" max="-2" attributes="0"/>
+                                          <Component id="lblCrearCodigoProducto" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblCrearTipoProducto" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                          <Component id="cmbCrearTipoProducto" alignment="1" min="-2" pref="290" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtCrearCodigoArticulo" min="-2" pref="295" max="-2" attributes="0"/>
+                                      <Component id="pnlCrearMedidas" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtCrearCodigoProducto" min="-2" pref="295" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -187,10 +187,10 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="txt_crear_telefono1" min="-2" pref="295" max="-2" attributes="0"/>
-                                                  <Component id="lbl_crear_apellidoCliente16" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                                  <Component id="jComboBox4" alignment="0" min="-2" pref="290" max="-2" attributes="0"/>
-                                                  <Component id="lbl_crear_limiteCliente" min="-2" pref="202" max="-2" attributes="0"/>
+                                                  <Component id="txtCrearCantidad" min="-2" pref="295" max="-2" attributes="0"/>
+                                                  <Component id="lblCrearTipoMadera" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                                  <Component id="cmbCrearTipoMadera" alignment="0" min="-2" pref="290" max="-2" attributes="0"/>
+                                                  <Component id="lblCrearCantidad" min="-2" pref="202" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="32767" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
@@ -226,22 +226,22 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="lbl_crear_nombreProducto" min="-2" pref="21" max="-2" attributes="0"/>
+                                          <Component id="lblCrearCodigoProducto" min="-2" pref="21" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtCrearCodigoArticulo" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="txtCrearCodigoProducto" min="-2" pref="30" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lbl_crear_apellidoCliente1" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="lblCrearTipoProducto" min="-2" pref="25" max="-2" attributes="0"/>
                                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                          <Component id="jComboBox1" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="cmbCrearTipoProducto" min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="lbl_crear_apellidoCliente16" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="lblCrearTipoMadera" min="-2" pref="25" max="-2" attributes="0"/>
                                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                          <Component id="jComboBox4" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="cmbCrearTipoMadera" min="-2" pref="30" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lbl_crear_limiteCliente" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="lblCrearCantidad" min="-2" pref="25" max="-2" attributes="0"/>
                                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                          <Component id="txt_crear_telefono1" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="txtCrearCantidad" min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -251,7 +251,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="txt_crear_telefono3" min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="pnlCrearMedidas" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -263,7 +263,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lbl_crear_nombreProducto">
+                <Component class="javax.swing.JLabel" name="lblCrearCodigoProducto">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
                   </Properties>
@@ -273,12 +273,12 @@
                     <Property name="text" type="java.lang.String" value="Descripci&#xf3;n:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente1">
+                <Component class="javax.swing.JLabel" name="lblCrearTipoProducto">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Tipo de producto:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lbl_crear_limiteCliente">
+                <Component class="javax.swing.JLabel" name="lblCrearCantidad">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cantidad:"/>
                   </Properties>
@@ -342,7 +342,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrearClienteActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox1">
+                <Component class="javax.swing.JComboBox" name="cmbCrearTipoProducto">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="4">
@@ -357,7 +357,7 @@
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txt_crear_telefono1">
+                <Component class="javax.swing.JTextField" name="txtCrearCantidad">
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane1">
 
@@ -367,7 +367,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="jPanel1">
+                <Container class="javax.swing.JPanel" name="pnlCrearMedidas">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -468,7 +468,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JComboBox" name="jComboBox4">
+                <Component class="javax.swing.JComboBox" name="cmbCrearTipoMadera">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="4">
@@ -483,7 +483,7 @@
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente16">
+                <Component class="javax.swing.JLabel" name="lblCrearTipoMadera">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Tipo de Madera:"/>
                   </Properties>
@@ -495,7 +495,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txt_crear_telefono3">
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtCrearCodigoArticulo">
+                <Component class="javax.swing.JTextField" name="txtCrearCodigoProducto">
                 </Component>
               </SubComponents>
             </Container>
