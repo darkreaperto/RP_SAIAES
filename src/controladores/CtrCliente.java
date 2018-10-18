@@ -69,7 +69,7 @@ public class CtrCliente {
 
     /**
      * Inserta un nuevo cliente en la BD.
-     * @param nombre
+     * @param nombre 
      * @param apellido1
      * @param apellido2
      * @param cedula
