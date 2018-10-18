@@ -10,6 +10,7 @@ import controladores.CtrCliente;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import javax.print.DocFlavor;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -381,8 +382,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         lbl_crear_limiteCliente.setText("Límite de crédito:");
-
-        txt_crear_limiteCliente.setEnabled(false);
 
         pnlCrearContactoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Contacto:"));
         pnlCrearContactoCliente.setAutoscrolls(true);
@@ -1102,12 +1101,13 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearClienteActionPerformed
-        ArrayList<ArrayList<Object>> contactos;
+        ArrayList<ArrayList<Object>> contactos = new ArrayList<>();
         
-        /*agregarCliente(txtEditarNombreCliente, txtEditarPrimerApellido, 
-                txtEditarSegundoApellido, txtEditarCedulaCliente, 
-                txtEditarLimiteCliente, true, );*/
+        agregarCliente(txt_crear_nombreCliente.getText(), txt_crear_apellidoCliente1.getText(), 
+                txt_crear_apellidoCliente2.getText(), txt_crear_cedulaCliente.getText(), 
+                Float.valueOf(txt_crear_limiteCliente.getText()), true, contactos);
         limpiarCampos();
+        System.out.println((bg_crearCredito.getSelection().toString()));
         
     }//GEN-LAST:event_btnCrearClienteActionPerformed
 

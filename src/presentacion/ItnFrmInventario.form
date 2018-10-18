@@ -49,7 +49,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="47" max="32767" attributes="0"/>
+                  <EmptySpace pref="35" max="32767" attributes="0"/>
                   <Component id="tbpnl_modInventario" min="-2" pref="580" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -169,48 +169,43 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="spnl_crear_clientes" min="-2" pref="1146" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lbl_crear_apellidoCliente1" min="-2" pref="199" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txt_crear_nombreCliente2" max="32767" attributes="0"/>
-                                              <Component id="lbl_crear_apellidoCliente6" min="-2" pref="45" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="lbl_crear_nombreProducto" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbl_crear_apellidoCliente1" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                          <Component id="jComboBox1" alignment="1" min="-2" pref="290" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtCrearCodigoArticulo" min="-2" pref="295" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txt_crear_telefono3" min="-2" pref="295" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="txt_crear_telefono1" min="-2" pref="295" max="-2" attributes="0"/>
+                                                  <Component id="lbl_crear_apellidoCliente16" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                                  <Component id="jComboBox4" alignment="0" min="-2" pref="290" max="-2" attributes="0"/>
+                                                  <Component id="lbl_crear_limiteCliente" min="-2" pref="202" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="lbl_crear_cedulaCliente" min="-2" pref="200" max="-2" attributes="0"/>
+                                                  <Component id="jScrollPane1" min="-2" pref="335" max="-2" attributes="0"/>
+                                                  <Component id="btnCrearCliente" alignment="0" min="-2" pref="335" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="lbl_crear_apellidoCliente3" min="-2" pref="15" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="lbl_crear_apellidoCliente5" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txt_crear_nombreCliente3" min="-2" pref="45" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="lbl_crear_apellidoCliente7" min="-2" pref="15" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="lbl_crear_apellidoCliente4" max="32767" attributes="0"/>
-                                              <Component id="txt_crear_nombreCliente4" max="32767" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="lbl_crear_limiteCliente1" min="-2" pref="202" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Component id="lbl_crear_apellidoCliente2" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
-                                      <Component id="jComboBox1" alignment="0" min="-2" pref="290" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lbl_crear_limiteCliente" min="-2" pref="202" max="-2" attributes="0"/>
-                                      <Component id="txt_crear_telefono1" min="-2" pref="295" max="-2" attributes="0"/>
-                                      <Component id="lbl_crear_nombreProducto" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                      <Component id="lbl_crear_nombreProducto1" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="lbl_crear_cedulaCliente" min="-2" pref="200" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane1" max="32767" attributes="0"/>
-                                      <Component id="btnCrearCliente" alignment="0" pref="335" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="spnl_crear_clientes" min="-2" pref="1146" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="24" max="32767" attributes="0"/>
                       </Group>
@@ -219,54 +214,50 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace pref="37" max="32767" attributes="0"/>
+                          <EmptySpace pref="27" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="lbl_crear_apellidoCliente1" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                  <Component id="jComboBox1" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="lbl_crear_cedulaCliente" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane1" min="-2" pref="122" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnCrearCliente" min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="lbl_crear_limiteCliente" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                      <Component id="lbl_crear_cedulaCliente" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" attributes="0">
+                                          <Component id="lbl_crear_nombreProducto" min="-2" pref="21" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="txtCrearCodigoArticulo" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="lbl_crear_apellidoCliente1" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                          <Component id="jComboBox1" min="-2" pref="30" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="lbl_crear_apellidoCliente16" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                          <Component id="jComboBox4" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="lbl_crear_limiteCliente" min="-2" pref="25" max="-2" attributes="0"/>
                                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                                           <Component id="txt_crear_telefono1" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="lbl_crear_nombreProducto" alignment="1" min="-2" pref="26" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_apellidoCliente2" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="txt_crear_nombreCliente2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_apellidoCliente3" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                              <Component id="txt_crear_nombreCliente3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="txt_crear_nombreCliente4" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_apellidoCliente7" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_nombreProducto1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="btnCrearCliente" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lbl_crear_apellidoCliente4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_apellidoCliente5" alignment="3" max="32767" attributes="0"/>
-                                              <Component id="lbl_crear_apellidoCliente6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jScrollPane1" min="-2" pref="60" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="lbl_crear_limiteCliente1" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="txt_crear_telefono3" min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="spnl_crear_clientes" min="-2" pref="323" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="spnl_crear_clientes" min="-2" pref="280" max="-2" attributes="0"/>
+                          <EmptySpace pref="19" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -274,7 +265,7 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="lbl_crear_nombreProducto">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Nombre:"/>
+                    <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbl_crear_cedulaCliente">
@@ -286,13 +277,6 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Tipo de producto:"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente2">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Medidas producto:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="txt_crear_nombreCliente2">
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbl_crear_limiteCliente">
                   <Properties>
@@ -352,13 +336,139 @@
                 </Container>
                 <Component class="javax.swing.JButton" name="btnCrearCliente">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Crear Cliente"/>
+                    <Property name="text" type="java.lang.String" value="Agregar Producto"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrearClienteActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBox1">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="4">
+                        <StringItem index="0" value="Acerrada"/>
+                        <StringItem index="1" value="Item 2"/>
+                        <StringItem index="2" value="Item 3"/>
+                        <StringItem index="3" value="Item 4"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txt_crear_telefono1">
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextField" name="txt_crear_telefono2">
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="jPanel1">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="Medidas"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txt_crear_nombreCliente2" max="32767" attributes="0"/>
+                                  <Component id="lbl_crear_apellidoCliente6" min="-2" pref="45" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="lbl_crear_apellidoCliente3" min="-2" pref="15" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbl_crear_apellidoCliente5" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_crear_nombreCliente3" min="-2" pref="45" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="lbl_crear_apellidoCliente7" min="-2" pref="15" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="lbl_crear_apellidoCliente4" max="32767" attributes="0"/>
+                                  <Component id="txt_crear_nombreCliente4" min="-2" pref="51" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="25" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txt_crear_nombreCliente2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="lbl_crear_apellidoCliente3" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="txt_crear_nombreCliente3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="txt_crear_nombreCliente4" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="lbl_crear_apellidoCliente7" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lbl_crear_apellidoCliente4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_crear_apellidoCliente5" alignment="3" max="32767" attributes="0"/>
+                                  <Component id="lbl_crear_apellidoCliente6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextField" name="txt_crear_nombreCliente2">
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente6">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
+                        <Property name="text" type="java.lang.String" value="Alto"/>
+                        <Property name="horizontalTextPosition" type="int" value="0"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txt_crear_nombreCliente3">
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente3">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
+                        <Property name="text" type="java.lang.String" value="x"/>
+                        <Property name="horizontalTextPosition" type="int" value="0"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente5">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
+                        <Property name="text" type="java.lang.String" value="Ancho"/>
+                        <Property name="horizontalTextPosition" type="int" value="0"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente7">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
+                        <Property name="text" type="java.lang.String" value="x"/>
+                        <Property name="horizontalTextPosition" type="int" value="0"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txt_crear_nombreCliente4">
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente4">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
+                        <Property name="text" type="java.lang.String" value="Grueso"/>
+                        <Property name="horizontalTextPosition" type="int" value="0"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JComboBox" name="jComboBox4">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="4">
@@ -373,74 +483,27 @@
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente3">
+                <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente16">
                   <Properties>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="x"/>
-                    <Property name="horizontalTextPosition" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Tipo de Madera:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txt_crear_nombreCliente3">
-                </Component>
-                <Component class="javax.swing.JTextField" name="txt_crear_nombreCliente4">
-                </Component>
-                <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente4">
+                <Component class="javax.swing.JLabel" name="lbl_crear_limiteCliente1">
                   <Properties>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Grueso"/>
-                    <Property name="horizontalTextPosition" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Precio por vara:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente5">
-                  <Properties>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Ancho"/>
-                    <Property name="horizontalTextPosition" type="int" value="0"/>
-                  </Properties>
+                <Component class="javax.swing.JTextField" name="txt_crear_telefono3">
                 </Component>
-                <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente6">
-                  <Properties>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Alto"/>
-                    <Property name="horizontalTextPosition" type="int" value="0"/>
-                  </Properties>
+                <Component class="javax.swing.JTextField" name="txtCrearCodigoArticulo">
                 </Component>
-                <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente7">
-                  <Properties>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="x"/>
-                    <Property name="horizontalTextPosition" type="int" value="0"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="txt_crear_telefono1">
-                </Component>
-                <Component class="javax.swing.JLabel" name="lbl_crear_nombreProducto1">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="(Medida + Tipo)"/>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                        <LineBorder>
-                          <Color PropertyName="color" blue="ff" green="99" red="66" type="rgb"/>
-                        </LineBorder>
-                      </Border>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                  <SubComponents>
-                    <Component class="javax.swing.JTextField" name="txt_crear_telefono2">
-                    </Component>
-                  </SubComponents>
-                </Container>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="pnl_actualizar">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Editar producto">
-                    <Property name="tabTitle" type="java.lang.String" value="Editar producto"/>
+                  <JTabbedPaneConstraints tabName="Editar producto existente">
+                    <Property name="tabTitle" type="java.lang.String" value="Editar producto existente"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -453,7 +516,6 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lbl_crear_apellidoCliente8" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="txt_crear_nombreCliente5" alignment="0" max="32767" attributes="0"/>
@@ -475,14 +537,15 @@
                                           </Group>
                                       </Group>
                                       <Component id="lbl_crear_apellidoCliente9" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
-                                      <Component id="jComboBox2" alignment="0" min="-2" pref="290" max="-2" attributes="0"/>
+                                      <Component id="lbl_crear_apellidoCliente15" min="-2" pref="199" max="-2" attributes="0"/>
+                                      <Component id="jComboBox3" min="-2" pref="290" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lbl_crear_limiteCliente1" alignment="0" min="-2" pref="202" max="-2" attributes="0"/>
-                                      <Component id="txt_crear_telefono3" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
+                                      <Component id="lbl_crear_apellidoCliente8" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
                                       <Component id="lbl_crear_nombreProducto2" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                                       <Component id="lbl_crear_nombreProducto3" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
+                                      <Component id="jComboBox2" min="-2" pref="290" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -502,48 +565,42 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbl_crear_apellidoCliente8" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                  <Component id="jComboBox2" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="lbl_crear_cedulaCliente1" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lbl_crear_apellidoCliente8" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="lbl_crear_apellidoCliente15" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="lbl_crear_limiteCliente1" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                      <Component id="lbl_crear_cedulaCliente1" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                          <Component id="txt_crear_telefono3" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="lbl_crear_nombreProducto2" alignment="1" min="-2" pref="26" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_apellidoCliente9" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="txt_crear_nombreCliente5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_apellidoCliente10" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                              <Component id="txt_crear_nombreCliente6" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="txt_crear_nombreCliente7" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_apellidoCliente14" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_nombreProducto3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="btnCrearCliente1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lbl_crear_apellidoCliente11" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_apellidoCliente12" alignment="3" max="32767" attributes="0"/>
-                                              <Component id="lbl_crear_apellidoCliente13" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jScrollPane2" min="-2" pref="60" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jComboBox2" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="jComboBox3" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="lbl_crear_nombreProducto2" alignment="1" min="-2" pref="26" max="-2" attributes="0"/>
+                                      <Component id="lbl_crear_apellidoCliente9" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="txt_crear_nombreCliente5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="lbl_crear_apellidoCliente10" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="txt_crear_nombreCliente6" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="txt_crear_nombreCliente7" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="lbl_crear_apellidoCliente14" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="lbl_crear_nombreProducto3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="btnCrearCliente1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lbl_crear_apellidoCliente11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbl_crear_apellidoCliente12" alignment="3" max="32767" attributes="0"/>
+                                      <Component id="lbl_crear_apellidoCliente13" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Component id="jScrollPane2" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="spnl_crear_clientes1" min="-2" pref="318" max="-2" attributes="0"/>
@@ -574,11 +631,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txt_crear_nombreCliente5">
-                </Component>
-                <Component class="javax.swing.JLabel" name="lbl_crear_limiteCliente1">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Cantidad:"/>
-                  </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="spnl_crear_clientes1">
 
@@ -693,8 +745,6 @@
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txt_crear_telefono3">
-                </Component>
                 <Component class="javax.swing.JLabel" name="lbl_crear_nombreProducto3">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="(Medida + Tipo)"/>
@@ -715,6 +765,26 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente15">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Tipo de producto:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jComboBox3">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="4">
+                        <StringItem index="0" value="Cedro"/>
+                        <StringItem index="1" value="Item 2"/>
+                        <StringItem index="2" value="Item 3"/>
+                        <StringItem index="3" value="Item 4"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="pnlHabilitar">
