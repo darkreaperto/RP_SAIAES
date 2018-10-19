@@ -35,11 +35,11 @@ public class MdlCliente {
     private static ArrayList<Cliente> clientes;
     /** Mensaje de error desde la base. */
     private static Mensaje msgError;
-    /**  */
+    /** Controlador de contacto. */
     private static CtrContacto ctrContacto;
     
     /**
-     * Constructor de clase modelo de usuario.
+     * Constructor de clase modelo de cliente.
      */
     public MdlCliente() {
         conexion = new CtrConexion();

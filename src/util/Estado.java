@@ -7,16 +7,16 @@ package util;
  */
 
 /**
- * Enumeración para el estado de usuario.
+ * Enumeración para el estado del registro.
  * @author ahoihanabi
  */
 public enum Estado {
     /**
-     * Usuario activo en el sistema.
+     * Registro activo en el sistema.
      */
     Activo,
     /**
-     * Usuario inactivo en el sistema (No puede ingresar).
+     * Registro inactivo en el sistema.
      */
     Deshabilitado
 }
