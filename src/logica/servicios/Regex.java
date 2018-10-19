@@ -23,7 +23,7 @@ public class Regex {
             = "(?=.*[a-z])(?=.*[0-9]).(?=\\S+$).{6,16}"; //(?=.*[A-Z])Mayuscula
     private static final String USERNAME_REGEX
             = "^[A-Za-z0-9_.][^\\s]{4,16}$";
-    private static final String NAMES_REGEX = "^[A-Za-z]";
+    private static final String NAMES_REGEX = "^[a-zA-Z ]*$";
     private static final String PHONE_REGEX = "^[0-9]{8,8}";
 
     /**

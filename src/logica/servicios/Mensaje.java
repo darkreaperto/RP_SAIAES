@@ -37,11 +37,20 @@ public class Mensaje {
                 msg = "¿Está seguro que desea salir de la recuperación de "
                         + "contraseña?";
                 break;
+            case CUSTOMER_INSERTION_SUCCESS:
+                msg = "La creación del cliente ha sido éxitosa";
+                break;
+            case CUSTOMER_INSERTION_FAILURE:
+                msg = "Ha ocurrido un error en la creación del cliente";
+                break;
             case EMAIL_SYNTAX_FAILURE:
                 msg = "El correo electrónico ingresado no es admitido";
                 break;
             case EMPTY_CONFIRMATION_CODE_FIELD:
                 msg = "Debe proporcionar un código de recuperación";
+                break;
+            case EMPTY_CUSTOMER_FIELDS:
+                msg = "Asegúrese de llenar todos los campos.";
                 break;
             case EMPTY_EMAIL_FIELD:
                 msg = "Debe proporcionar un correo electrónico";
@@ -54,6 +63,10 @@ public class Mensaje {
                 break;
             case MISMATCHING_PASSWORD_FIELDS:
                 msg = "Las contraseñas no coinciden";
+                break;
+            case NUMBER_FORMAT_EXCEPTION:
+                msg = "Un campo de tipo número contiene un carácter distindo a"
+                        + "un número";
                 break;
             case PASSWORD_SYNTAX_FAILURE:
                 msg = "La contraseña debe contener:"
@@ -108,6 +121,10 @@ public class Mensaje {
                 break;
             case WRONG_CONFIRMATION_CODE:
                 msg = "El código de recuperación es incorrecto";
+                break;
+            case WRONG_CUSTOMER_FIELDS:
+                msg = "Verifique que los campos estén llenos con información"
+                        + " válida.";
                 break;
             default:
                 msg = "¡Ups! ¡Algo no ha salido bien!";

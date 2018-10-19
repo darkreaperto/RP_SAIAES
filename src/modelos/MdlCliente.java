@@ -137,7 +137,7 @@ public class MdlCliente {
 
         boolean creacionExitosa = true;
         try {
-            procedimiento = "pc_crear_cliente(?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "? = pc_crear_cliente(?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);

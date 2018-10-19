@@ -1120,29 +1120,44 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             String apellido2, String cedula, String limiteCred, 
             boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
         
-        if (verificacion.validaNombre(nombre) && 
-                verificacion.validaNombre(apellido1) && 
-                verificacion.validaNombre(apellido2)) {
-            
-            float limiteCredito;
-            try {
-                limiteCredito = Float.valueOf(limiteCred);
-                
-                boolean creado = controlador.crearCliente(nombre, apellido1, 
-                        apellido2, cedula, limiteCredito, aprobarCred, contactos);
-                
-                if (creado) {
+        controlador.crearCliente("R", "C", "C", "17", 27, true, contactos);
+        
+        if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
+//            if (verificacion.validaNombre(nombre) && 
+//                    verificacion.validaNombre(apellido1) && 
+//                    verificacion.validaNombre(apellido2)) {
+
+                float limiteCredito;
+                try {
+                    limiteCredito = Float.valueOf(limiteCred);
+                    System.out.println(limiteCredito);
+
+                    boolean creado = controlador.crearCliente(nombre, apellido1, 
+                            apellido2, cedula, limiteCredito, aprobarCred, contactos);
                     
-                } else {
-                    
+                    if (creado) {
+                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                        TipoMensaje.CUSTOMER_INSERTION_SUCCESS);
+                        
+                        cargarTablas();
+                    } else {
+                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.CUSTOMER_INSERTION_FAILURE);
+                    }
+                } catch (NumberFormatException ex) {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.NUMBER_FORMAT_EXCEPTION);
+                } catch (Exception ex) {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.SOMETHING_WENT_WRONG);
                 }
-            } catch (NumberFormatException ex) {
-                
-            } catch (Exception ex) {
-                
-            }
+//            } else {
+//                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+//                    TipoMensaje.WRONG_CUSTOMER_FIELDS);
+//            }
         } else {
-            
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.EMPTY_CUSTOMER_FIELDS);
         }
     }
     
@@ -1236,10 +1251,13 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         
         boolean credito = rbCrearCredito.isSelected() || 
                 rbCrearCreditoLim.isSelected();
-        String limiteCred = txt_crear_limiteCliente.getText().isEmpty() ? 
-                "0" : txt_crear_limiteCliente.getText();
-        agregarCliente(txt_crear_nombreCliente.getText(), txt_crear_apellidoCliente1.getText(), 
-                txt_crear_apellidoCliente2.getText(), txt_crear_cedulaCliente.getText(), 
+        String limiteCred = txt_crear_limiteCliente.getText().trim().isEmpty() ? 
+                "0" : txt_crear_limiteCliente.getText().trim();
+        
+        agregarCliente(txt_crear_nombreCliente.getText().trim(), 
+                txt_crear_apellidoCliente1.getText().trim(), 
+                txt_crear_apellidoCliente2.getText().trim(), 
+                txt_crear_cedulaCliente.getText().trim(), 
                 limiteCred, credito, contactos);
         
         limpiarCampos();
