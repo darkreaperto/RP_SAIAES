@@ -21,22 +21,36 @@ public class Mensaje {
      * @param mensaje Enum identificador para escoger el detalle del mensaje
      * @return el mensaje a mostrar.
      */
-    public String obtenerMensaje(TipoMensaje mensaje) {
+    private String obtenerMensaje(TipoMensaje mensaje) {
 
         String msg;
 
         switch (mensaje) {
-            case EMPTY_USERNAME_FIELD:
-                msg = "Debe proporcionar un nombre de usuario";
+            case ANY_ROW_SELECTED:
+                msg = "Seleccione un elemento de la lista";
                 break;
-            case EMPTY_PASSWORD_FIELD:
-                msg = "Debe proporcionar una contraseña";
+            case CONFIRMATION_EMAIL_NOT_FOUND:
+                msg = "No se ha podido encontrar un correo asociado \nal "
+                        + "nombre de usuario especificado";
+                break;
+            case CONFIRM_RESET_PASSWORD_CANCEL:
+                msg = "¿Está seguro que desea salir de la recuperación de "
+                        + "contraseña?";
+                break;
+            case EMAIL_SYNTAX_FAILURE:
+                msg = "El correo electrónico ingresado no es admitido";
+                break;
+            case EMPTY_CONFIRMATION_CODE_FIELD:
+                msg = "Debe proporcionar un código de recuperación";
                 break;
             case EMPTY_EMAIL_FIELD:
                 msg = "Debe proporcionar un correo electrónico";
                 break;
-            case EMAIL_SYNTAX_FAILURE:
-                msg = "El correo electrónico ingresado no es admitido";
+            case EMPTY_PASSWORD_FIELD:
+                msg = "Debe proporcionar una contraseña";
+                break;
+            case EMPTY_USERNAME_FIELD:
+                msg = "Debe proporcionar un nombre de usuario";
                 break;
             case MISMATCHING_PASSWORD_FIELDS:
                 msg = "Las contraseñas no coinciden";
@@ -49,27 +63,8 @@ public class Mensaje {
                         + "\n Máximo 16 caracteres."
                         + "\n Ningún espacio en blanco.";
                 break;
-            case USER_INSERTION_SUCCESS:
-                msg = "La creación del usuario ha sido éxitosa";
-                break;
-            case USER_INSERTION_FAILURE:
-                msg = "Ha ocurrido un error en la creación del usuario";
-                break;
-            case USER_ACCESS_SUCCESS:
-                msg = "Acceso concedido. Bienvenido/a.";
-                break;
-            case USER_ACCESS_FAILURE:
-                msg = "Ha ocurrido un error en el del usuario "
-                        + "\n Verifique la información ingresada";
-                break;
-            case USER_UPDATE_SUCCESS:
-                msg = "La actualización del usuario ha sido éxitosa";
-                break;
-            case USER_UPDATE_FAILURE:
-                msg = "Ha ocurrido un error en la actualización del usuario";
-                break;
-            case ANY_ROW_SELECTED:
-                msg = "Seleccione un elemento de la lista";
+            case PHONE_SYNTAX_FAILURE:
+                msg = "El número de teléfono ingresado no es admitido";
                 break;
             case SEND_CONFIRMATION_EMAIL_FAILURE:
                 msg = "Ha ocurrido un error. No se ha podido enviar \nel "
@@ -80,28 +75,36 @@ public class Mensaje {
                         + "\nRevise el correo asociado al nombre de usuario "
                         + "\ningresado para obtener el código de recuperación";
                 break;
-            case CONFIRMATION_EMAIL_NOT_FOUND:
-                msg = "No se ha podido encontrar un correo asociado \nal "
-                        + "nombre de usuario especificado";
+            case USER_ACCESS_SUCCESS:
+                msg = "Acceso concedido. Bienvenido/a.";
                 break;
-            case CONFIRM_RESET_PASSWORD_CANCEL:
-                msg = "¿Está seguro que desea salir de la recuperación de "
-                        + "contraseña?";
+            case USER_ACCESS_FAILURE:
+                msg = "Ha ocurrido un error en el del usuario "
+                        + "\n Verifique la información ingresada";
+                break;
+            case USER_INSERTION_SUCCESS:
+                msg = "La creación del usuario ha sido éxitosa";
+                break;
+            case USER_INSERTION_FAILURE:
+                msg = "Ha ocurrido un error en la creación del usuario";
+                break;
+            case USER_UPDATE_FAILURE:
+                msg = "Ha ocurrido un error en la actualización del usuario";
+                break;
+            case USER_UPDATE_SUCCESS:
+                msg = "La actualización del usuario ha sido éxitosa";
                 break;
             case USERNAME_SYNTAX_FAILURE:
                 msg = "El nombre de usuario debe ser de"
                         + "\n al menos 4 caracteres de largo.";
                 break;
-            case RESET_PASSWORD_SUCCESS:
-                msg = "La contraseña para el usuario especificado "
-                        + "\nha sido restablecida con éxito";
-                break;
             case RESET_PASSWORD_FAILURE:
                 msg = "No se ha podido restablecer la "
                         + "\ncontraseña para el usuario especificado";
                 break;
-            case EMPTY_CONFIRMATION_CODE_FIELD:
-                msg = "Debe proporcionar un código de recuperación";
+            case RESET_PASSWORD_SUCCESS:
+                msg = "La contraseña para el usuario especificado "
+                        + "\nha sido restablecida con éxito";
                 break;
             case WRONG_CONFIRMATION_CODE:
                 msg = "El código de recuperación es incorrecto";

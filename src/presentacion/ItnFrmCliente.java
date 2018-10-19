@@ -9,15 +9,19 @@ import controladores.CtrAcceso;
 import controladores.CtrCliente;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
 import logica.negocio.Contacto;
+import logica.servicios.Mensaje;
 import logica.servicios.Regex;
 import util.Estado;
 import util.TipoContacto;
 import util.TipoCredito;
+import util.TipoMensaje;
 
 /**
  * Inicializa la ventana que contiene la información de los clientes.
@@ -28,10 +32,12 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private static ItnFrmCliente instancia = null;
     private static CtrCliente controlador;
     private static CtrAcceso sesion;
-    
+        private static Mensaje msg;
     private static ArrayList<Cliente> clientes;
-    private static ArrayList<JTextField> telefonos;
-    private static ArrayList<JTextField> correos;
+    private static ArrayList<String> crearTelefonos;
+    private static ArrayList<String> crearCorreos;
+    private static ArrayList<Contacto> editarTelefonos;
+    private static ArrayList<Contacto> editarCorreos;
     private static DefaultTableModel model;
     private final Regex verificacion;
     
@@ -49,14 +55,13 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         
         ItnFrmCliente.clientes = clientes;
         ItnFrmCliente.sesion = sesionAcc;
-        correos = new ArrayList<>();
-        telefonos = new ArrayList<>();
+        crearCorreos = new ArrayList<>();
+        crearTelefonos = new ArrayList<>();
         verificacion = new Regex();
         //correos.add(txt_crear_correo);
         //telefonos.add(txt_crear_telefono);
         cargarTablas();
-        //verificacion = new Regex();
-        //msg = new Mensaje();
+        msg = new Mensaje();
     }
     
     /**
@@ -85,6 +90,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         bg_crearCredito = new javax.swing.ButtonGroup();
         bg_crearHabilitar = new javax.swing.ButtonGroup();
+        bg_editarCredito = new javax.swing.ButtonGroup();
         pnl_modCliente = new javax.swing.JPanel();
         tb_modCliente = new javax.swing.JTabbedPane();
         pnl_listado = new javax.swing.JPanel();
@@ -315,11 +321,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         lblCrearTelefono.setText("Teléfono:");
 
-        lsCrearTelefonos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "---Sin teléfonos---" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(lsCrearTelefonos);
 
         btnAgregarTelefono.setText("+");
@@ -365,11 +366,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         lbl_crear_correo1.setText("Correo Electrónico:");
 
-        lsCrearCorreos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "---Sin correos---" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(lsCrearCorreos);
 
         btnAgregarCorreo.setText("+");
@@ -494,7 +490,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         pnl_agregarLayout.setVerticalGroup(
             pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_agregarLayout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                         .addComponent(lbl_crear_cedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -544,6 +540,16 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbl_editar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_editarMouseClicked(evt);
+            }
+        });
+        tbl_editar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tbl_editarKeyReleased(evt);
+            }
+        });
         spnl_editar_clientes.setViewportView(tbl_editar);
         if (tbl_editar.getColumnModel().getColumnCount() > 0) {
             tbl_editar.getColumnModel().getColumn(0).setResizable(false);
@@ -574,13 +580,13 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         pnlEditarCreditoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Crédito de Cliente:"));
 
-        bg_crearCredito.add(rbEditarCreditoLim);
+        bg_editarCredito.add(rbEditarCreditoLim);
         rbEditarCreditoLim.setText("Crédito limitado");
 
-        bg_crearCredito.add(rbEditarCredito);
+        bg_editarCredito.add(rbEditarCredito);
         rbEditarCredito.setText("Crédito");
 
-        bg_crearCredito.add(rbEditarSinCredito);
+        bg_editarCredito.add(rbEditarSinCredito);
         rbEditarSinCredito.setText("Sin Crédito");
 
         javax.swing.GroupLayout pnlEditarCreditoClienteLayout = new javax.swing.GroupLayout(pnlEditarCreditoCliente);
@@ -672,7 +678,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                         .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtEditarNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtEditarSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         scpnlClientesEditarCliente.setViewportView(pnlEditarTelefono);
@@ -810,27 +816,26 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         pnl_actualizar.setLayout(pnl_actualizarLayout);
         pnl_actualizarLayout.setHorizontalGroup(
             pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(spnl_editar_clientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1191, Short.MAX_VALUE)
             .addGroup(pnl_actualizarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spnl_editar_clientes)
-                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                        .addGap(954, 954, 954)
-                        .addComponent(btnEditarCliente)
-                        .addGap(0, 60, Short.MAX_VALUE))
-                    .addComponent(tbEditarContactoClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(tbEditarContactoClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnEditarCliente)))
                 .addContainerGap())
         );
         pnl_actualizarLayout.setVerticalGroup(
             pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_actualizarLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(tbEditarContactoClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbEditarContactoClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(spnl_editar_clientes, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spnl_editar_clientes, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEditarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(64, 64, 64))
         );
 
         tb_modCliente.addTab("Editar cliente", pnl_actualizar);
@@ -960,7 +965,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                         .addGap(35, 35, 35)
                         .addComponent(lblDeshabSelectCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tbDeshab, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+                        .addComponent(tbDeshab, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pnlDeshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17))
@@ -976,7 +981,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
         pnlLimCreditoLayout.setVerticalGroup(
             pnlLimCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 566, Short.MAX_VALUE)
+            .addGap(0, 561, Short.MAX_VALUE)
         );
 
         tb_modCliente.addTab("Límite de crédito", pnlLimCredito);
@@ -1111,28 +1116,131 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
     }
     
-    public void agregarCliente(String nombre, String apellido1, 
-            String apellido2, String cedula, float limiteCred, 
+    private void agregarCliente(String nombre, String apellido1, 
+            String apellido2, String cedula, String limiteCred, 
             boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
         
-        controlador.crearCliente(nombre, apellido1, apellido2, cedula, limiteCred, 
-                aprobarCred, contactos);
+        if (verificacion.validaNombre(nombre) && 
+                verificacion.validaNombre(apellido1) && 
+                verificacion.validaNombre(apellido2)) {
+            
+            float limiteCredito;
+            try {
+                limiteCredito = Float.valueOf(limiteCred);
+                
+                boolean creado = controlador.crearCliente(nombre, apellido1, 
+                        apellido2, cedula, limiteCredito, aprobarCred, contactos);
+                
+                if (creado) {
+                    
+                } else {
+                    
+                }
+            } catch (NumberFormatException ex) {
+                
+            } catch (Exception ex) {
+                
+            }
+        } else {
+            
+        }
+    }
+    
+    private void actualizarCliente(String nombre, String apellido1, 
+            String apellido2, String cedula, String limiteCred, 
+            boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
+        
+        if (verificacion.validaNombre(nombre) && 
+                verificacion.validaNombre(apellido1) && 
+                verificacion.validaNombre(apellido2)) {
+            
+            float limiteCredito;
+            try {
+                limiteCredito = Float.valueOf(limiteCred);
+                
+                boolean creado = controlador.crearCliente(nombre, apellido1, 
+                        apellido2, cedula, limiteCredito, aprobarCred, contactos);
+                
+                if (creado) {
+                    
+                } else {
+                    
+                }
+            } catch (NumberFormatException ex) {
+                
+            } catch (Exception ex) {
+                
+            }
+        } else {
+            
+        }
+    }
+    
+    private void cargarEditarCliente(Cliente cliente) {
+        txtEditarCedulaCliente.setText(cliente.getCedula());
+        txtEditarNombreCliente.setText(cliente.getNombre());
+        txtEditarPrimerApellido.setText(cliente.getApellido1());
+        txtEditarSegundoApellido.setText(cliente.getApellido2());
+        
+        if (cliente.isAprobarCredito()) {
+            if (cliente.getLimiteCredito() > 0.0) {
+                rbEditarCreditoLim.setSelected(true);
+                txtEditarLimiteCliente.setText(String.valueOf(cliente.getLimiteCredito()));
+            } else {
+                rbEditarCredito.setSelected(true);
+                txtEditarLimiteCliente.setText(String.valueOf(cliente.getLimiteCredito()));
+            }
+            System.out.println(cliente.getLimiteCredito());
+        } else {
+            rbEditarSinCredito.setSelected(true);
+            txtEditarLimiteCliente.setText("");
+        }
+        
+        editarTelefonos = new ArrayList<>();
+        editarCorreos = new ArrayList<>();
+        DefaultListModel<String> mTelefonos = new DefaultListModel<>();
+        DefaultListModel<String> mCorreos = new DefaultListModel<>();
+        
+        for (Contacto ct: cliente.getContactos()) {
+            if (ct.getTipo().equals(TipoContacto.CORREO)) {
+                editarCorreos.add(ct);
+                mCorreos.addElement(ct.getInfo());
+            } else {
+                editarTelefonos.add(ct);
+                mTelefonos.addElement(ct.getInfo());
+            }
+        }
+        lsTelefonos.setModel(mTelefonos);
+        lsCorreos.setModel(mCorreos);
     }
     
     private void btnCrearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearClienteActionPerformed
         ArrayList<ArrayList<Object>> contactos = new ArrayList<>();
-        ArrayList<Object> correos = new ArrayList<>();
+        ArrayList<Object> correo;
         for (int i=0; i<lsCrearCorreos.getModel().getSize(); i++) {
-            
+            correo = new ArrayList<>();
+            correo.add(TipoContacto.CORREO);
+            correo.add(lsCrearCorreos.getModel().getElementAt(i));
+            contactos.add(correo);
         }
         
-        ArrayList<Object> telefonos = new ArrayList<>();
+        ArrayList<Object> telefono;
+        for (int i=0; i<lsCrearTelefonos.getModel().getSize(); i++) {
+            telefono = new ArrayList<>();
+            telefono.add(TipoContacto.TELEFONO);
+            telefono.add(lsCrearTelefonos.getModel().getElementAt(i));
+            contactos.add(telefono);
+        }
         
+        boolean credito = rbCrearCredito.isSelected() || 
+                rbCrearCreditoLim.isSelected();
+        String limiteCred = txt_crear_limiteCliente.getText().isEmpty() ? 
+                "0" : txt_crear_limiteCliente.getText();
         agregarCliente(txt_crear_nombreCliente.getText(), txt_crear_apellidoCliente1.getText(), 
                 txt_crear_apellidoCliente2.getText(), txt_crear_cedulaCliente.getText(), 
-                Float.valueOf(txt_crear_limiteCliente.getText()), true, contactos);
+                limiteCred, credito, contactos);
+        
         limpiarCampos();
-        System.out.println((bg_crearCredito.getSelection().toString()));
         
     }//GEN-LAST:event_btnCrearClienteActionPerformed
 
@@ -1263,7 +1371,42 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_deshabilitarActionPerformed
 
     private void btnEditarGuardarTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarTelActionPerformed
-        // TODO add your handling code here:
+        String telefono = txtEditarTelefono.getText().trim();
+        
+        if (verificacion.validaTelefono(telefono) && !editarTelefonos.contains(telefono)) {
+            //editarTelefonos.add(telefono);
+            
+            try {
+                int indice = tbl_editar.getSelectedRow();
+                String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
+                for (Cliente c: clientes) {
+                    if (c.getCedula().equals(cedula)) {
+                        controlador.crearContacto(TipoContacto.TELEFONO, telefono, c.getCodigo());
+                        editarTelefonos = new ArrayList<>();
+                        for (Contacto ct: controlador.obtenerContactos(c.getCodigo())) {
+                            if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
+                                editarTelefonos.add(ct);
+                            }
+                        }
+                    }
+                }
+            } catch (NullPointerException ex) {
+                
+            } catch (Exception ex) {
+                
+            } finally {
+                cargarTablas();
+            }
+            
+            DefaultListModel<String> m = new DefaultListModel<>();
+            for (int i=0; i<editarTelefonos.size(); i++) {
+                m.addElement(editarTelefonos.get(i).getInfo());
+            }
+            lsTelefonos.setModel(m);
+        } else {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.PHONE_SYNTAX_FAILURE);
+        }
     }//GEN-LAST:event_btnEditarGuardarTelActionPerformed
 
     private void txtListadoClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtListadoClienteKeyReleased
@@ -1272,42 +1415,116 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtListadoClienteKeyReleased
 
     private void btnEditarCancelTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelTelActionPerformed
-        // TODO add your handling code here:
+        try {
+            int indice = lsTelefonos.getSelectedIndex();            
+            controlador.inactivarContacto(editarTelefonos.get(indice).getCodigo());
+            editarTelefonos.remove(indice);
+            
+            DefaultListModel<String> m = new DefaultListModel<>();
+            for (int i=0; i<editarTelefonos.size(); i++) {
+                m.addElement(editarTelefonos.get(i).getInfo());
+            }
+            lsTelefonos.setModel(m);
+        } catch(NullPointerException ex) {
+            
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            
+        } catch (Exception ex) {
+            
+        } finally {
+            cargarTablas();
+        }
     }//GEN-LAST:event_btnEditarCancelTelActionPerformed
 
     private void btnEditarGuardarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarCorreoActionPerformed
-        // TODO add your handling code here:
+        String correo = txtEditarCorreoCliente.getText().trim();
+        
+        if (verificacion.validaEmail(correo) && !editarCorreos.contains(correo)) {
+            try {
+                int indice = tbl_editar.getSelectedRow();
+                String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
+                for (Cliente c: clientes) {
+                    if (c.getCedula().equals(cedula)) {
+                        controlador.crearContacto(TipoContacto.CORREO, correo, c.getCodigo());
+                        editarCorreos = new ArrayList<>();
+                        for (Contacto ct: controlador.obtenerContactos(c.getCodigo())) {
+                            if (ct.getTipo().equals(TipoContacto.CORREO)) {
+                                editarCorreos.add(ct);
+                            }
+                        }
+                    }
+                }
+            } catch (NullPointerException ex) {
+                
+            } catch (Exception ex) {
+                
+            } finally {
+                cargarTablas();
+            }
+            
+            DefaultListModel<String> m = new DefaultListModel<>();
+            for (int i=0; i<editarCorreos.size(); i++) {
+                m.addElement(editarCorreos.get(i).getInfo());
+            }
+            lsCorreos.setModel(m);
+        } else {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.PHONE_SYNTAX_FAILURE);
+        }
     }//GEN-LAST:event_btnEditarGuardarCorreoActionPerformed
 
     private void btnEditarCancelCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelCorreoActionPerformed
-        
+        try {
+            int indice = lsCorreos.getSelectedIndex();
+            controlador.inactivarContacto(editarCorreos.get(indice).getCodigo());
+            editarCorreos.remove(indice);
+            
+            DefaultListModel<String> m = new DefaultListModel<>();
+            for (int i=0; i<editarCorreos.size(); i++) {
+                m.addElement(editarCorreos.get(i).getInfo());
+            }
+            lsCorreos.setModel(m);
+        } catch(NullPointerException ex) {
+            
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            
+        } catch (Exception ex) {
+            
+        } finally {
+            cargarTablas();
+        }
     }//GEN-LAST:event_btnEditarCancelCorreoActionPerformed
 
     private void btnAgregarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCorreoActionPerformed
         String correo = txt_agregarCorreo.getText().trim();
         
-        if (verificacion.validaEmail(correo)) {
+        if (verificacion.validaEmail(correo) && !crearCorreos.contains(correo)) {
+            crearCorreos.add(correo);
             DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<lsCrearCorreos.getModel().getSize(); i++) {
-                m.addElement(lsCrearCorreos.getModel().getElementAt(i));
+            for (int i=0; i<crearCorreos.size(); i++) {
+                m.addElement(crearCorreos.get(i));
             }
-            m.addElement(correo);
             lsCrearCorreos.setModel(m);
         } else {
-            //CORREO SINTAX ERROR
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.EMAIL_SYNTAX_FAILURE);
         }
     }//GEN-LAST:event_btnAgregarCorreoActionPerformed
 
     private void btnAgregarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTelefonoActionPerformed
         String telefono = txt_agregarTelefono.getText().trim();
         
-        DefaultListModel<String> m = new DefaultListModel<>();
-        for (int i=0; i<lsCrearTelefonos.getModel().getSize(); i++) {
-            m.addElement(lsCrearTelefonos.getModel().getElementAt(i));
+        if (verificacion.validaTelefono(telefono) && !crearTelefonos.contains(telefono)) {
+            crearTelefonos.add(telefono);
+            DefaultListModel<String> m = new DefaultListModel<>();
+            for (int i=0; i<crearTelefonos.size(); i++) {
+                m.addElement(crearTelefonos.get(i));
+            }
+            lsCrearTelefonos.setModel(m);
+        } else {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.PHONE_SYNTAX_FAILURE);
         }
-        m.addElement(telefono);
-        //((DefaultListModel)lsCrearCorreos.getModel()).addElement(correo);
-        lsCrearTelefonos.setModel(m);
     }//GEN-LAST:event_btnAgregarTelefonoActionPerformed
 
     private void rbCrearCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCrearCreditoActionPerformed
@@ -1325,10 +1542,45 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         txt_crear_limiteCliente.setEditable(false);
     }//GEN-LAST:event_rbCrearSinCreditoActionPerformed
 
+    private void tbl_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_editarMouseClicked
+        try {
+            model = (DefaultTableModel) tbl_editar.getModel();
+            int selectedRowIndex = tbl_editar.getSelectedRow();
+            String cedula
+            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+            for (int i = 0; i < clientes.size(); i++) {
+                if (clientes.get(i).getCedula().equals(cedula)) {
+                    cargarEditarCliente(clientes.get(i));
+                }
+            }
+        } catch (Exception ex) {
+
+        }
+    }//GEN-LAST:event_tbl_editarMouseClicked
+
+    private void tbl_editarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_editarKeyReleased
+        try {
+            model = (DefaultTableModel) tbl_editar.getModel();
+            int selectedRowIndex = tbl_editar.getSelectedRow();
+            String cedula
+            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+            for (int i = 0; i < clientes.size(); i++) {
+                if (clientes.get(i).getCedula().equals(cedula)) {
+                    cargarEditarCliente(clientes.get(i));
+                }
+            }
+        } catch (Exception ex) {
+
+        }
+    }//GEN-LAST:event_tbl_editarKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crearCredito;
     private javax.swing.ButtonGroup bg_crearHabilitar;
+    private javax.swing.ButtonGroup bg_editarCredito;
     private javax.swing.JButton btnAgregarCorreo;
     private javax.swing.JButton btnAgregarTelefono;
     private javax.swing.JButton btnCrearCliente;

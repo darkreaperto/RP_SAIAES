@@ -85,6 +85,16 @@ public class CtrContacto {
                 codigo);
     }
     
+    public boolean activarContacto(String codigo) {
+        
+        return mdlContacto.activarContacto(codigo);
+    }
+    
+    public boolean inactivarContacto(String codigo) {
+        
+        return mdlContacto.inactivarContacto(codigo);
+    }
+    
     /**
      * Buscar contacto enviando por parámetro el criterio de búsqueda.
      * @param param Parametros para consultar contacto en la base de datos
