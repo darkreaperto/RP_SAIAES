@@ -164,6 +164,50 @@ public class MdlContacto {
             return creacionExitosa;
         }
     }
+    
+    public boolean activarContacto(String codigo) {
+        
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(codigo);
+
+        boolean creacionExitosa = false;
+        try {
+            procedimiento = "pc_activar_contacto(?)";
+
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            creacionExitosa = true;
+
+        } catch (SQLException ex) {
+            creacionExitosa = false;
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return creacionExitosa;
+        }
+    }
+    
+    public boolean inactivarContacto(String codigo) {
+        
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(codigo);
+
+        boolean creacionExitosa = false;
+        try {
+            procedimiento = "pc_inactivar_contacto(?)";
+
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            creacionExitosa = true;
+
+        } catch (SQLException ex) {
+            creacionExitosa = false;
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return creacionExitosa;
+        }
+    }
 
     /**
      * Buscar contacto enviando por parámetro el criterio de búsqueda.

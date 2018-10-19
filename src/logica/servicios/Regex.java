@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package logica.servicios;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +23,8 @@ public class Regex {
             = "(?=.*[a-z])(?=.*[0-9]).(?=\\S+$).{6,16}"; //(?=.*[A-Z])Mayuscula
     private static final String USERNAME_REGEX
             = "^[A-Za-z0-9_.][^\\s]{4,16}$";
+    private static final String NAMES_REGEX = "^[A-Za-z]";
+    private static final String PHONE_REGEX = "^[0-9]{8,8}";
 
     /**
      * Constructor de clase regex
@@ -61,6 +64,18 @@ public class Regex {
     public boolean validaNombreUsuario(String nombreUsuario) {
         patron = Pattern.compile(USERNAME_REGEX);
         matcher = patron.matcher(nombreUsuario);
+        return matcher.matches();
+    }
+    
+    public boolean validaNombre(String nombre) {
+        patron = Pattern.compile(NAMES_REGEX, Pattern.CASE_INSENSITIVE);
+        matcher = patron.matcher(nombre);
+        return matcher.matches();
+    }
+    
+    public boolean validaTelefono(String telefono) {
+        patron = Pattern.compile(PHONE_REGEX, Pattern.CASE_INSENSITIVE);
+        matcher = patron.matcher(telefono);
         return matcher.matches();
     }
 }
