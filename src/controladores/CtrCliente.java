@@ -10,6 +10,7 @@ import logica.negocio.Cliente;
 import logica.negocio.Contacto;
 import modelos.MdlCliente;
 import util.Estado;
+import util.TipoContacto;
 
 /**
  * Controlador de la clase Cliente.
@@ -66,6 +67,10 @@ public class CtrCliente {
     public ArrayList<Cliente> obtenerClientes() {
         return mdlCliente.obtenerClientes();
     }
+    
+    public ArrayList<Contacto> obtenerContactos(String codPersona) {
+        return mdlCliente.obtenerContactos(codPersona);
+    }
 
     /**
      * Inserta un nuevo cliente en la BD.
@@ -84,6 +89,14 @@ public class CtrCliente {
 
         return mdlCliente.crearCliente(nombre, apellido1, apellido2, cedula, 
                 limiteCred, aprobarCred, contactos);
+    }
+    
+    public boolean crearContacto(TipoContacto tipo, String info, String codPersona) {
+        return mdlCliente.crearContacto(tipo, info, codPersona);
+    }
+    
+    public boolean inactivarContacto(String codigo) {
+        return mdlCliente.inactivarContacto(codigo);
     }
 
     /**

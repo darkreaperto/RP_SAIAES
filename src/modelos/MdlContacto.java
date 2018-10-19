@@ -190,7 +190,7 @@ public class MdlContacto {
     public boolean inactivarContacto(String codigo) {
         
         ArrayList<Object> params = new ArrayList<>();
-        params.add(codigo);
+        params.add(Integer.valueOf(codigo));
 
         boolean creacionExitosa = false;
         try {

@@ -36,8 +36,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private static ArrayList<Cliente> clientes;
     private static ArrayList<String> crearTelefonos;
     private static ArrayList<String> crearCorreos;
-    private static ArrayList<String> editarTelefonos;
-    private static ArrayList<String> editarCorreos;
+    private static ArrayList<Contacto> editarTelefonos;
+    private static ArrayList<Contacto> editarCorreos;
     private static DefaultTableModel model;
     private final Regex verificacion;
     
@@ -1116,7 +1116,37 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
     }
     
-    public void agregarCliente(String nombre, String apellido1, 
+    private void agregarCliente(String nombre, String apellido1, 
+            String apellido2, String cedula, String limiteCred, 
+            boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
+        
+        if (verificacion.validaNombre(nombre) && 
+                verificacion.validaNombre(apellido1) && 
+                verificacion.validaNombre(apellido2)) {
+            
+            float limiteCredito;
+            try {
+                limiteCredito = Float.valueOf(limiteCred);
+                
+                boolean creado = controlador.crearCliente(nombre, apellido1, 
+                        apellido2, cedula, limiteCredito, aprobarCred, contactos);
+                
+                if (creado) {
+                    
+                } else {
+                    
+                }
+            } catch (NumberFormatException ex) {
+                
+            } catch (Exception ex) {
+                
+            }
+        } else {
+            
+        }
+    }
+    
+    private void actualizarCliente(String nombre, String apellido1, 
             String apellido2, String cedula, String limiteCred, 
             boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
         
@@ -1173,20 +1203,15 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         
         for (Contacto ct: cliente.getContactos()) {
             if (ct.getTipo().equals(TipoContacto.CORREO)) {
-                editarCorreos.add(ct.getInfo());
+                editarCorreos.add(ct);
                 mCorreos.addElement(ct.getInfo());
             } else {
-                editarTelefonos.add(ct.getInfo());
+                editarTelefonos.add(ct);
                 mTelefonos.addElement(ct.getInfo());
             }
         }
         lsTelefonos.setModel(mTelefonos);
         lsCorreos.setModel(mCorreos);
-    }
-    
-    private void actualizarJListContactos(JList lista) {
-        DefaultListModel<String> mTelefonos = new DefaultListModel<>();
-        DefaultListModel<String> mCorreos = new DefaultListModel<>();
     }
     
     private void btnCrearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearClienteActionPerformed
@@ -1216,7 +1241,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 limiteCred, credito, contactos);
         
         limpiarCampos();
-        System.out.println((bg_crearCredito.getSelection().toString()));
         
     }//GEN-LAST:event_btnCrearClienteActionPerformed
 
@@ -1350,10 +1374,33 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         String telefono = txtEditarTelefono.getText().trim();
         
         if (verificacion.validaTelefono(telefono) && !editarTelefonos.contains(telefono)) {
-            editarTelefonos.add(telefono);
+            //editarTelefonos.add(telefono);
+            
+            try {
+                int indice = tbl_editar.getSelectedRow();
+                String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
+                for (Cliente c: clientes) {
+                    if (c.getCedula().equals(cedula)) {
+                        controlador.crearContacto(TipoContacto.TELEFONO, telefono, c.getCodigo());
+                        editarTelefonos = new ArrayList<>();
+                        for (Contacto ct: controlador.obtenerContactos(c.getCodigo())) {
+                            if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
+                                editarTelefonos.add(ct);
+                            }
+                        }
+                    }
+                }
+            } catch (NullPointerException ex) {
+                
+            } catch (Exception ex) {
+                
+            } finally {
+                cargarTablas();
+            }
+            
             DefaultListModel<String> m = new DefaultListModel<>();
             for (int i=0; i<editarTelefonos.size(); i++) {
-                m.addElement(editarTelefonos.get(i));
+                m.addElement(editarTelefonos.get(i).getInfo());
             }
             lsTelefonos.setModel(m);
         } else {
@@ -1369,11 +1416,13 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
     private void btnEditarCancelTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelTelActionPerformed
         try {
-            int indice = lsTelefonos.getSelectedIndex();
+            int indice = lsTelefonos.getSelectedIndex();            
+            controlador.inactivarContacto(editarTelefonos.get(indice).getCodigo());
             editarTelefonos.remove(indice);
+            
             DefaultListModel<String> m = new DefaultListModel<>();
             for (int i=0; i<editarTelefonos.size(); i++) {
-                m.addElement(editarTelefonos.get(i));
+                m.addElement(editarTelefonos.get(i).getInfo());
             }
             lsTelefonos.setModel(m);
         } catch(NullPointerException ex) {
@@ -1382,6 +1431,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             
         } catch (Exception ex) {
             
+        } finally {
+            cargarTablas();
         }
     }//GEN-LAST:event_btnEditarCancelTelActionPerformed
 
@@ -1389,10 +1440,31 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         String correo = txtEditarCorreoCliente.getText().trim();
         
         if (verificacion.validaEmail(correo) && !editarCorreos.contains(correo)) {
-            editarCorreos.add(correo);
+            try {
+                int indice = tbl_editar.getSelectedRow();
+                String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
+                for (Cliente c: clientes) {
+                    if (c.getCedula().equals(cedula)) {
+                        controlador.crearContacto(TipoContacto.CORREO, correo, c.getCodigo());
+                        editarCorreos = new ArrayList<>();
+                        for (Contacto ct: controlador.obtenerContactos(c.getCodigo())) {
+                            if (ct.getTipo().equals(TipoContacto.CORREO)) {
+                                editarCorreos.add(ct);
+                            }
+                        }
+                    }
+                }
+            } catch (NullPointerException ex) {
+                
+            } catch (Exception ex) {
+                
+            } finally {
+                cargarTablas();
+            }
+            
             DefaultListModel<String> m = new DefaultListModel<>();
             for (int i=0; i<editarCorreos.size(); i++) {
-                m.addElement(editarCorreos.get(i));
+                m.addElement(editarCorreos.get(i).getInfo());
             }
             lsCorreos.setModel(m);
         } else {
@@ -1404,10 +1476,12 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private void btnEditarCancelCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelCorreoActionPerformed
         try {
             int indice = lsCorreos.getSelectedIndex();
+            controlador.inactivarContacto(editarCorreos.get(indice).getCodigo());
             editarCorreos.remove(indice);
+            
             DefaultListModel<String> m = new DefaultListModel<>();
             for (int i=0; i<editarCorreos.size(); i++) {
-                m.addElement(editarCorreos.get(i));
+                m.addElement(editarCorreos.get(i).getInfo());
             }
             lsCorreos.setModel(m);
         } catch(NullPointerException ex) {
@@ -1416,6 +1490,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             
         } catch (Exception ex) {
             
+        } finally {
+            cargarTablas();
         }
     }//GEN-LAST:event_btnEditarCancelCorreoActionPerformed
 

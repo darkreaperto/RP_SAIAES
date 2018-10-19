@@ -106,6 +106,10 @@ public class MdlCliente {
             return clientes;
         }
     }
+    
+    public ArrayList<Contacto> obtenerContactos(String codPersona) {
+        return ctrContacto.consultarContactos(codPersona);
+    }
 
     /**
      * Inserta un nuevo cliente en la BD.
@@ -154,9 +158,6 @@ public class MdlCliente {
                 params.add(tipo);
                 
                 ctrContacto.crearContacto(info, indice, tipo);
-
-                //procedimiento = "pc_crear_contacto(?, ?, ?)";
-                //resultado = conexion.ejecutarProcedimiento(procedimiento, params);
             }
             
             //creacionExitosa = true;
@@ -170,6 +171,14 @@ public class MdlCliente {
             conexion.cerrarConexion();
             return creacionExitosa;
         }
+    }
+    
+    public boolean crearContacto(TipoContacto tipo, String info, String codPersona) {
+        return ctrContacto.crearContacto(info, codPersona, tipo);
+    }
+    
+    public boolean inactivarContacto(String codigo) {
+        return ctrContacto.inactivarContacto(codigo);
     }
 
     /**
