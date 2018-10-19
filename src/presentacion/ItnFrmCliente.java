@@ -1206,8 +1206,10 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 editarCorreos.add(ct);
                 mCorreos.addElement(ct.getInfo());
             } else {
-                editarTelefonos.add(ct);
-                mTelefonos.addElement(ct.getInfo());
+                if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
+                    editarTelefonos.add(ct);
+                    mTelefonos.addElement(ct.getInfo());
+                }
             }
         }
         lsTelefonos.setModel(mTelefonos);
