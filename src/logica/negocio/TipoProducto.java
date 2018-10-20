@@ -5,6 +5,9 @@
  */
 package logica.negocio;
 
+import util.Estado;
+import util.TipoProd;
+
 /**
  *
  * @author aoihanabi
@@ -12,17 +15,26 @@ package logica.negocio;
 public class TipoProducto {
     private String codigo;
     private String descripcion;
-    private String estado;
-
+    private Estado estado;
+    private TipoProd tipo;
+    
     public TipoProducto() {
     }
 
     public TipoProducto(String codigo, String descripcion, String estado) {
         this.codigo = codigo;
         this.descripcion = descripcion;
-        this.estado = estado;
+        this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
+        if(descripcion.equals("Troza")) {
+            this.tipo = TipoProd.TROZA;
+        } else if (descripcion.equals("Acerrada")) {
+            this.tipo = TipoProd.ASERRADA;
+        } else if (descripcion.equals("Terminada")) {
+            this.tipo = TipoProd.TERMINADA;
+        }
+        
     }
-
+    
     public String getCodigo() {
         return codigo;
     }
@@ -39,11 +51,25 @@ public class TipoProducto {
         this.descripcion = descripcion;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public TipoProd getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoProd tipo) {
+        this.tipo = tipo;
+    }
+    
+    @Override
+    public String toString()
+    {
+     return descripcion;
     }
 }

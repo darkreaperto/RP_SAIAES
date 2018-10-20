@@ -10,19 +10,26 @@ import controladores.CtrMadera;
 import controladores.CtrTipoMadera;
 import controladores.CtrTipoProducto;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
 import logica.negocio.Madera;
 import logica.negocio.TipoMadera;
 import logica.negocio.TipoProducto;
+import logica.servicios.Mensaje;
+import logica.servicios.Regex;
 import util.Estado;
+import util.TipoMensaje;
+import util.TipoProd;
 
 /**
  * Inicializa la ventana que contiene la información de los productos.
+ *
  * @author ahoihanabi
  */
 public class ItnFrmInventario extends javax.swing.JInternalFrame {
+
     private static ItnFrmInventario instancia = null;
     private static CtrMadera controlador;
     private static CtrAcceso sesion;
@@ -32,29 +39,35 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private static ArrayList<TipoProducto> tproductos;
     private static ArrayList<TipoMadera> tmaderas;
     private DefaultTableModel model;
+    private final Regex verificacion;
+    private static Mensaje msg;
+
     /**
      * Instancia un nuevo formulario interno de clientes.
-     * @param sesionAcc Usuario en sesión actual 
+     *
+     * @param sesionAcc Usuario en sesión actual
      * @param productos Lista con los productos en la base de datos
      */
     public ItnFrmInventario(CtrAcceso sesionAcc, ArrayList<Madera> productos) {
         initComponents();
-        
+
         //Inicializar variables
-        controlador = CtrMadera.getInstancia();        
+        controlador = CtrMadera.getInstancia();
         ItnFrmInventario.sesion = sesionAcc;
         ItnFrmInventario.productos = productos;
         ctrTipoProducto = new CtrTipoProducto();
         ctrTipoMadera = new CtrTipoMadera();
         tproductos = new ArrayList<>();
         tmaderas = new ArrayList<>();
+        verificacion = new Regex();
         
         cargarCombos();
-        cargarTablas();
         
+        cargarTablas();
+
         pnlCrearMedidasTroza.setVisible(false);
     }
-    
+
     /**
      * Retorna la única instancia de la clase.
      *
@@ -69,15 +82,17 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         }
         return instancia;
     }
+
     /**
      * Coloca el panel de medidas indicada de acuerdo al tipo de producto que se
      * selecciona.
      */
-    private void cambiarPanelMedidas() {
-        int indiceTipoProducto = cmbCrearTipoProducto.getSelectedIndex();
-        switch (indiceTipoProducto) {
-            case 1:
+    private void cambiarPanelMedidas(TipoProd tipo) {
+                
+        switch (tipo) {
+            case TROZA:
                 pnlCrearMedidasAcerrada.setVisible(false);
+                pnlCrearMedidasTerminada.setVisible(false);
                 pnlCrearMedidasTroza.setVisible(true);
                 pnlCrearMedidasTroza.setBounds(25, 160, 295, 74);
                 pnl_agregar.add(pnlCrearMedidasTroza);
@@ -85,11 +100,22 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 txtCrearPrecioVara.setText("0");
                 instancia.pack();
                 break;
-            case 2:
+            case ASERRADA:
                 pnlCrearMedidasTroza.setVisible(false);
+                pnlCrearMedidasTerminada.setVisible(false);
                 pnlCrearMedidasAcerrada.setVisible(true);
                 pnlCrearMedidasAcerrada.setBounds(25, 160, 295, 74);
                 pnl_agregar.add(pnlCrearMedidasAcerrada);
+                txtCrearPrecioVara.setEnabled(true);
+                txtCrearPrecioVara.setText("");
+                instancia.pack();
+                break;
+            case TERMINADA:
+                pnlCrearMedidasTroza.setVisible(false);
+                pnlCrearMedidasAcerrada.setVisible(false);
+                pnlCrearMedidasTerminada.setVisible(true);
+                pnlCrearMedidasTerminada.setBounds(25, 160, 295, 74);
+                pnl_agregar.add(pnlCrearMedidasTerminada);
                 txtCrearPrecioVara.setEnabled(true);
                 txtCrearPrecioVara.setText("");
                 instancia.pack();
@@ -102,22 +128,27 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 break;
         }
     }
+
     /**
      * Carga los combo box según corresponda con el tipo de madera y producto.
      */
     private void cargarCombos() {
         tproductos = ctrTipoProducto.obtenerTiposProducto();
-        for(TipoProducto item : tproductos) {
+
+        for (TipoProducto item : tproductos) {
             System.out.println(item.getDescripcion());
-            cmbCrearTipoProducto.addItem(item.getDescripcion());
-            cmbEditarTipoProducto.addItem(item.getDescripcion());
+            cmbCrearTipoProducto.addItem(item);
+            cmbEditarTipoProducto.addItem(item);
         }
         tmaderas = ctrTipoMadera.obtenerTiposMadera();
         tmaderas.forEach((item) -> {
-            cmbCrearTipoMadera.addItem(item.getDescripcion());
-            cmbEditarTipoMadera.addItem(item.getDescripcion());
+            cmbCrearTipoMadera.addItem(item);
+            cmbEditarTipoMadera.addItem(item);
         });
+        
+        cmbCrearTipoProducto.setSelectedIndex(0);
     }
+
     /**
      * Llena las tablas del modulo con los productos.
      */
@@ -130,6 +161,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         cargarProductosJTable(tblProductosActivos, true);
         cargarProductosJTable(tbl_editar, true);
     }
+
     /**
      * Cargar la tabla (modelo) con los usuarios existentes.
      *
@@ -140,7 +172,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         Object[] row = new Object[8];
         model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0);
-        
+
         for (int i = 0; i < productos.size(); i++) {
 
             if (productos.get(i).getEstado().equals(Estado.Activo) && estado) {
@@ -167,12 +199,44 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             }
         }
     }
+
     /**
      * Crea un nuevo producto.
      */
-    private void crearProducto() {
-        
+    private void crearProducto(String codProd, String nombre, 
+            String codTipoMadera, String descTipoMadera, String medida, 
+            String codTipoProducto, String descTipoProducto, 
+            String cantidad, String precio, String descripcion) {
+        //Campos no están vacíos
+        if (!codProd.isEmpty()&& !nombre.isEmpty() && !medida.isEmpty() && 
+                !descTipoMadera.isEmpty() && !descTipoProducto.isEmpty() && 
+                !cantidad.isEmpty() && !precio.isEmpty()) {
+            System.out.println(descTipoMadera +"{}"+ descTipoProducto);
+                        
+            //Verificar números
+            if (verificacion.validaPrecio(precio)) {
+                if (verificacion.validaCantidadUnidades(cantidad)
+                && verificacion.validaCantidadUnidades(codProd)) {
+                    double preci = Double.valueOf(precio);
+                    int cant = Integer.valueOf(cantidad);
+                                        
+                } else {
+                    msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
+                            TipoMensaje.UNITQUANTITY_SYNTAX_FAILURE);
+                    txtCrearCantidad.requestFocus();
+                }
+            } else {
+                msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+                        TipoMensaje.PRICE_SYNTAX_FAILURE);
+                txtCrearPrecioVara.requestFocus();
+                txtCrearPrecioVara.selectAll();
+            }
+        } else {
+            msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
+                    TipoMensaje.EMPTY_TEXT_FIELD);
+        }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -183,17 +247,20 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         pnlCrearMedidasAcerrada = new javax.swing.JPanel();
-        lbl_crear_apellidoCliente8 = new javax.swing.JLabel();
-        txt_crear_nombreCliente5 = new javax.swing.JTextField();
-        lbl_crear_apellidoCliente9 = new javax.swing.JLabel();
-        txt_crear_nombreCliente6 = new javax.swing.JTextField();
-        lbl_crear_apellidoCliente10 = new javax.swing.JLabel();
-        lbl_crear_apellidoCliente11 = new javax.swing.JLabel();
-        txt_crear_nombreCliente7 = new javax.swing.JTextField();
-        lbl_crear_apellidoCliente12 = new javax.swing.JLabel();
+        lblCrearMedDE = new javax.swing.JLabel();
+        txtCrearMedVaras = new javax.swing.JTextField();
+        lblCrearMedVaras = new javax.swing.JLabel();
+        txtCrearMedAncho = new javax.swing.JTextField();
+        lblCrearAncho = new javax.swing.JLabel();
+        lblCrearMedX = new javax.swing.JLabel();
+        txtCrearMedGrueso = new javax.swing.JTextField();
+        lblCrearMedGrueso = new javax.swing.JLabel();
         pnlCrearMedidasTroza = new javax.swing.JPanel();
-        txtCrearCodigoProducto1 = new javax.swing.JTextField();
-        lblCrearCodigoProducto1 = new javax.swing.JLabel();
+        txtCrearMedTroza = new javax.swing.JTextField();
+        lblCrearMedTroza = new javax.swing.JLabel();
+        pnlCrearMedidasTerminada = new javax.swing.JPanel();
+        txtCrearMedTermi = new javax.swing.JTextField();
+        lblCrearMedTermiLargo = new javax.swing.JLabel();
         pnl_modInventario = new javax.swing.JPanel();
         tbpnl_modInventario = new javax.swing.JTabbedPane();
         pnl_listado = new javax.swing.JPanel();
@@ -250,25 +317,25 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
         pnlCrearMedidasAcerrada.setBorder(javax.swing.BorderFactory.createTitledBorder("Medidas:"));
 
-        lbl_crear_apellidoCliente8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_crear_apellidoCliente8.setText("x");
-        lbl_crear_apellidoCliente8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblCrearMedDE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCrearMedDE.setText("de");
+        lblCrearMedDE.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        lbl_crear_apellidoCliente9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_crear_apellidoCliente9.setText("Alto");
-        lbl_crear_apellidoCliente9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblCrearMedVaras.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCrearMedVaras.setText("Varas");
+        lblCrearMedVaras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        lbl_crear_apellidoCliente10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_crear_apellidoCliente10.setText("Ancho");
-        lbl_crear_apellidoCliente10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblCrearAncho.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCrearAncho.setText("Ancho");
+        lblCrearAncho.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        lbl_crear_apellidoCliente11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_crear_apellidoCliente11.setText("x");
-        lbl_crear_apellidoCliente11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblCrearMedX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCrearMedX.setText("x");
+        lblCrearMedX.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        lbl_crear_apellidoCliente12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_crear_apellidoCliente12.setText("Grueso");
-        lbl_crear_apellidoCliente12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblCrearMedGrueso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCrearMedGrueso.setText("Grueso");
+        lblCrearMedGrueso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout pnlCrearMedidasAcerradaLayout = new javax.swing.GroupLayout(pnlCrearMedidasAcerrada);
         pnlCrearMedidasAcerrada.setLayout(pnlCrearMedidasAcerradaLayout);
@@ -277,42 +344,42 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             .addGroup(pnlCrearMedidasAcerradaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlCrearMedidasAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txt_crear_nombreCliente5)
-                    .addComponent(lbl_crear_apellidoCliente9, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCrearMedVaras)
+                    .addComponent(lblCrearMedVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_crear_apellidoCliente8)
-                .addGap(26, 26, 26)
+                .addComponent(lblCrearMedDE)
+                .addGap(18, 18, 18)
                 .addGroup(pnlCrearMedidasAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_crear_apellidoCliente10)
-                    .addComponent(txt_crear_nombreCliente6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCrearAncho)
+                    .addComponent(txtCrearMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_crear_apellidoCliente11, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblCrearMedX, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlCrearMedidasAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbl_crear_apellidoCliente12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txt_crear_nombreCliente7, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(lblCrearMedGrueso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCrearMedGrueso, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         pnlCrearMedidasAcerradaLayout.setVerticalGroup(
             pnlCrearMedidasAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearMedidasAcerradaLayout.createSequentialGroup()
                 .addGap(2, 2, 2)
                 .addGroup(pnlCrearMedidasAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_crear_nombreCliente5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_crear_nombreCliente6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_crear_nombreCliente7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_crear_apellidoCliente11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_crear_apellidoCliente8))
+                    .addComponent(txtCrearMedVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCrearMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCrearMedGrueso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCrearMedX, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCrearMedDE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlCrearMedidasAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_crear_apellidoCliente12)
-                    .addComponent(lbl_crear_apellidoCliente10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbl_crear_apellidoCliente9)))
+                    .addComponent(lblCrearMedGrueso)
+                    .addComponent(lblCrearAncho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblCrearMedVaras)))
         );
 
         pnlCrearMedidasTroza.setBorder(javax.swing.BorderFactory.createTitledBorder("Medidas:"));
 
-        lblCrearCodigoProducto1.setText("Pulgadas:");
+        lblCrearMedTroza.setText("Pulgadas:");
 
         javax.swing.GroupLayout pnlCrearMedidasTrozaLayout = new javax.swing.GroupLayout(pnlCrearMedidasTroza);
         pnlCrearMedidasTroza.setLayout(pnlCrearMedidasTrozaLayout);
@@ -320,9 +387,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             pnlCrearMedidasTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCrearMedidasTrozaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblCrearCodigoProducto1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblCrearMedTroza, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(txtCrearCodigoProducto1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCrearMedTroza, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         pnlCrearMedidasTrozaLayout.setVerticalGroup(
@@ -330,8 +397,33 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearMedidasTrozaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlCrearMedidasTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblCrearCodigoProducto1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCrearCodigoProducto1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCrearMedTroza, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCrearMedTroza, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        pnlCrearMedidasTerminada.setBorder(javax.swing.BorderFactory.createTitledBorder("Medidas:"));
+
+        lblCrearMedTermiLargo.setText("Largo:");
+
+        javax.swing.GroupLayout pnlCrearMedidasTerminadaLayout = new javax.swing.GroupLayout(pnlCrearMedidasTerminada);
+        pnlCrearMedidasTerminada.setLayout(pnlCrearMedidasTerminadaLayout);
+        pnlCrearMedidasTerminadaLayout.setHorizontalGroup(
+            pnlCrearMedidasTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCrearMedidasTerminadaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblCrearMedTermiLargo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(txtCrearMedTermi, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnlCrearMedidasTerminadaLayout.setVerticalGroup(
+            pnlCrearMedidasTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearMedidasTerminadaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlCrearMedidasTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(lblCrearMedTermiLargo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCrearMedTermi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -438,7 +530,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             }
         });
 
-        cmbCrearTipoProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione un tipo --" }));
         cmbCrearTipoProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbCrearTipoProductoActionPerformed(evt);
@@ -446,8 +537,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         });
 
         scpnlCrearDescripcion.setViewportView(txtCrearDescripcionProducto);
-
-        cmbCrearTipoMadera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione un tipo --" }));
 
         lblCrearTipoMadera.setText("Tipo de madera:");
 
@@ -469,35 +558,36 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             .addComponent(cmbCrearTipoProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(108, 108, 108)
                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCrearPrecioVara, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(pnl_agregarLayout.createSequentialGroup()
+                            .addGroup(pnl_agregarLayout.createSequentialGroup()
+                                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(txtCrearCantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                                         .addComponent(lblCrearTipoMadera, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(lblCrearCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(cmbCrearTipoMadera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblCrearDescripcionProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(scpnlCrearDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnCrearProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(pnl_agregarLayout.createSequentialGroup()
-                                    .addComponent(lblCrearPrecioVara, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, Short.MAX_VALUE))))))
+                                    .addComponent(txtCrearPrecioVara, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCrearDescripcionProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(scpnlCrearDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnCrearProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnl_agregarLayout.createSequentialGroup()
+                                .addComponent(lblCrearPrecioVara, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         pnl_agregarLayout.setVerticalGroup(
             pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_agregarLayout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
-                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                         .addComponent(lblCrearDescripcionProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(scpnlCrearDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCrearProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnCrearProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnl_agregarLayout.createSequentialGroup()
@@ -518,11 +608,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                                 .addComponent(cmbCrearTipoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblCrearPrecioVara, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCrearPrecioVara, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCrearPrecioVara, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)))
                 .addComponent(spnlCrearProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         tbpnl_modInventario.addTab("Agregar producto", pnl_agregar);
@@ -560,7 +650,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             }
         });
 
-        cmbEditarTipoProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione un tipo --" }));
         cmbEditarTipoProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbEditarTipoProductoActionPerformed(evt);
@@ -568,8 +657,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         });
 
         scpnlEditarDescripcion.setViewportView(txtEditarDescripcionProducto);
-
-        cmbEditarTipoMadera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione un tipo --" }));
 
         lblEditarTipoMadera.setText("Tipo de madera:");
 
@@ -811,126 +898,157 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
     private void btn_deshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deshabilitarActionPerformed
         //        try {
-            //            model = (DefaultTableModel) tbl_deshabilitar.getModel();
-            //            int selectedRowIndex = tbl_deshabilitar.getSelectedRow();
-            //            String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0));
-            //            Estado estado
-            //            = rb_deshab_habilitar.isSelected() ? Estado.Activo : Estado.Deshabilitado;
-            //
-            //            controlador.actualizarUsuario(
-                //                String.valueOf(model.getValueAt(selectedRowIndex, 1)),
-                //                String.valueOf(model.getValueAt(selectedRowIndex, 2)),
-                //                String.valueOf(model.getValueAt(selectedRowIndex, 3)),
-                //                Rol.Administrador, estado, codigo);
-            //            //Actualizar
-            //            cargarTablas();
-            //        } catch (Exception e) {
-            //            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-                //                TipoMensaje.ANY_ROW_SELECTED);
-            //        }
+        //            model = (DefaultTableModel) tbl_deshabilitar.getModel();
+        //            int selectedRowIndex = tbl_deshabilitar.getSelectedRow();
+        //            String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0));
+        //            Estado estado
+        //            = rb_deshab_habilitar.isSelected() ? Estado.Activo : Estado.Deshabilitado;
+        //
+        //            controlador.actualizarUsuario(
+        //                String.valueOf(model.getValueAt(selectedRowIndex, 1)),
+        //                String.valueOf(model.getValueAt(selectedRowIndex, 2)),
+        //                String.valueOf(model.getValueAt(selectedRowIndex, 3)),
+        //                Rol.Administrador, estado, codigo);
+        //            //Actualizar
+        //            cargarTablas();
+        //        } catch (Exception e) {
+        //            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+        //                TipoMensaje.ANY_ROW_SELECTED);
+        //        }
     }//GEN-LAST:event_btn_deshabilitarActionPerformed
 
     private void tblProductosInactivosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblProductosInactivosKeyReleased
         //        try {
-            //            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
-                //                model = (DefaultTableModel) tblClientesInactivos.getModel();
-                //                int selectedRowIndex = tblClientesInactivos.getSelectedRow();
-                //                String nombre
-                //                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-                //
-                //                for (int i = 0; i < usuarios.size(); i++) {
-                    //                    if (usuarios.get(i).getNombre().equals(nombre)) {
-                        //                        if (usuarios.get(i).getEstado().equals(Estado.Deshabilitado)) {
-                            //                            rbDeshabHabilitarCliente.setSelected(true);
-                            //                        } else {
-                            //                            rbDeshabDeshabCliente.setSelected(true);
-                            //                        }
-                        //                    }
-                    //                }
-                //            }
-            //        } catch (Exception ex) {
-            //
-            //        }
+        //            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+        //                model = (DefaultTableModel) tblClientesInactivos.getModel();
+        //                int selectedRowIndex = tblClientesInactivos.getSelectedRow();
+        //                String nombre
+        //                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+        //
+        //                for (int i = 0; i < usuarios.size(); i++) {
+        //                    if (usuarios.get(i).getNombre().equals(nombre)) {
+        //                        if (usuarios.get(i).getEstado().equals(Estado.Deshabilitado)) {
+        //                            rbDeshabHabilitarCliente.setSelected(true);
+        //                        } else {
+        //                            rbDeshabDeshabCliente.setSelected(true);
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        } catch (Exception ex) {
+        //
+        //        }
     }//GEN-LAST:event_tblProductosInactivosKeyReleased
 
     private void tblProductosInactivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosInactivosMouseClicked
         //        try {
-            //            model = (DefaultTableModel) tblClientesInactivos.getModel();
-            //            int selectedRowIndex = tblClientesInactivos.getSelectedRow();
-            //            String nombre
-            //            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-            //
-            //            for (int i = 0; i < usuarios.size(); i++) {
-                //                if (usuarios.get(i).getNombre().equals(nombre)) {
-                    //                    //Si el codigo coincide
-                    //                    if (usuarios.get(i).getEstado().equals(Estado.Deshabilitado)) {
-                        //                        //Verifica el tipo de estado
-                        //                        rbDeshabHabilitarCliente.setSelected(true);
-                        //                    } else {
-                        //                        rbDeshabDeshabCliente.setSelected(true);
-                        //                    }
-                    //                }
-                //            }
-            //        } catch (Exception ex) {
-            //
-            //        }
+        //            model = (DefaultTableModel) tblClientesInactivos.getModel();
+        //            int selectedRowIndex = tblClientesInactivos.getSelectedRow();
+        //            String nombre
+        //            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+        //
+        //            for (int i = 0; i < usuarios.size(); i++) {
+        //                if (usuarios.get(i).getNombre().equals(nombre)) {
+        //                    //Si el codigo coincide
+        //                    if (usuarios.get(i).getEstado().equals(Estado.Deshabilitado)) {
+        //                        //Verifica el tipo de estado
+        //                        rbDeshabHabilitarCliente.setSelected(true);
+        //                    } else {
+        //                        rbDeshabDeshabCliente.setSelected(true);
+        //                    }
+        //                }
+        //            }
+        //        } catch (Exception ex) {
+        //
+        //        }
     }//GEN-LAST:event_tblProductosInactivosMouseClicked
 
     private void tblProductosActivosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblProductosActivosKeyReleased
         //        try {
-            //            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
-                //                model = (DefaultTableModel) tblClientesActivos.getModel();
-                //                int selectedRowIndex = tblClientesActivos.getSelectedRow();
-                //                String nombre
-                //                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-                //
-                //                for (int i = 0; i < usuarios.size(); i++) {
-                    //                    if (usuarios.get(i).getNombre().equals(nombre)) {
-                        //                        //Si el codigo coincide
-                        //                        if (usuarios.get(i).getEstado().equals(Estado.Activo)) {
-                            //                            //Verifica el tipo de estado
-                            //                            rbDeshabDeshabCliente.setSelected(true);
-                            //                        } else {
-                            //                            rbDeshabHabilitarCliente.setSelected(true);
-                            //                        }
-                        //                    }
-                    //                }
-                //            }
-            //        } catch (Exception ex) {
-            //
-            //        }
+        //            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+        //                model = (DefaultTableModel) tblClientesActivos.getModel();
+        //                int selectedRowIndex = tblClientesActivos.getSelectedRow();
+        //                String nombre
+        //                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+        //
+        //                for (int i = 0; i < usuarios.size(); i++) {
+        //                    if (usuarios.get(i).getNombre().equals(nombre)) {
+        //                        //Si el codigo coincide
+        //                        if (usuarios.get(i).getEstado().equals(Estado.Activo)) {
+        //                            //Verifica el tipo de estado
+        //                            rbDeshabDeshabCliente.setSelected(true);
+        //                        } else {
+        //                            rbDeshabHabilitarCliente.setSelected(true);
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        } catch (Exception ex) {
+        //
+        //        }
     }//GEN-LAST:event_tblProductosActivosKeyReleased
 
     private void tblProductosActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosActivosMouseClicked
         //        try {
-            //            model = (DefaultTableModel) tblClientesActivos.getModel();
-            //            int selectedRowIndex = tblClientesActivos.getSelectedRow();
-            //            String nombre
-            //            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-            //
-            //            for (int i = 0; i < usuarios.size(); i++) {
-                //                if (usuarios.get(i).getNombre().equals(nombre)) {
-                    //                    //Si el codigo coincide
-                    //                    if (usuarios.get(i).getEstado().equals(Estado.Activo)) {
-                        //                        //Verifica el tipo de estado
-                        //                        rbDeshabDeshabCliente.setSelected(true);
-                        //                    } else {
-                        //                        rbDeshabHabilitarCliente.setSelected(true);
-                        //                    }
-                    //                }
-                //            }
-            //        } catch (Exception ex) {
-            //
-            //        }
+        //            model = (DefaultTableModel) tblClientesActivos.getModel();
+        //            int selectedRowIndex = tblClientesActivos.getSelectedRow();
+        //            String nombre
+        //            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+        //
+        //            for (int i = 0; i < usuarios.size(); i++) {
+        //                if (usuarios.get(i).getNombre().equals(nombre)) {
+        //                    //Si el codigo coincide
+        //                    if (usuarios.get(i).getEstado().equals(Estado.Activo)) {
+        //                        //Verifica el tipo de estado
+        //                        rbDeshabDeshabCliente.setSelected(true);
+        //                    } else {
+        //                        rbDeshabHabilitarCliente.setSelected(true);
+        //                    }
+        //                }
+        //            }
+        //        } catch (Exception ex) {
+        //
+        //        }
     }//GEN-LAST:event_tblProductosActivosMouseClicked
 
     private void cmbCrearTipoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCrearTipoProductoActionPerformed
-        cambiarPanelMedidas();
         
+        System.out.println(cmbCrearTipoProducto.getItemAt(cmbCrearTipoMadera.getSelectedIndex()).getTipo());
+        cambiarPanelMedidas(cmbCrearTipoProducto.getItemAt(cmbCrearTipoMadera.getSelectedIndex()).getTipo());
     }//GEN-LAST:event_cmbCrearTipoProductoActionPerformed
 
     private void btnCrearProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProductoActionPerformed
-        crearProducto();
+        
+        TipoMadera tMadera = cmbCrearTipoMadera.getItemAt(
+                cmbCrearTipoMadera.getSelectedIndex());
+        TipoProducto tProducto = cmbCrearTipoProducto.getItemAt(
+                cmbCrearTipoProducto.getSelectedIndex());
+        
+        String medida; TipoProd tipo = tProducto.getTipo();
+        switch (tipo) {
+            case TROZA:
+                medida = txtCrearMedTroza.getText() + " pulgadas";
+                break;
+            case ASERRADA:
+                medida = txtCrearMedVaras.getText() + " varas de "
+                        + txtCrearMedAncho.getText() + " x " 
+                        + txtCrearMedGrueso.getText();
+                break;
+            case TERMINADA:
+                medida = txtCrearMedTermi.getText() + " de largo";
+                break;
+            default:
+                medida = "No medida";
+                break;
+        }
+
+        String nombre = tMadera + " " + medida;
+
+        crearProducto(txtCrearCodigoProducto.getText(), nombre, 
+            tMadera.getCodigo(), tMadera.getDescripcion(), 
+            medida, tProducto.getCodigo(), 
+            tProducto.getDescripcion(), txtCrearCantidad.getText(), 
+            txtCrearPrecioVara.getText(), txtCrearDescripcionProducto.getText());
     }//GEN-LAST:event_btnCrearProductoActionPerformed
 
     private void txtListadoInventarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtListadoInventarioKeyReleased
@@ -954,15 +1072,21 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCrearProducto;
     private javax.swing.JButton btnEditarProducto;
     private javax.swing.JButton btn_deshabilitar;
-    private javax.swing.JComboBox<String> cmbCrearTipoMadera;
-    private javax.swing.JComboBox<String> cmbCrearTipoProducto;
-    private javax.swing.JComboBox<String> cmbEditarTipoMadera;
-    private javax.swing.JComboBox<String> cmbEditarTipoProducto;
+    private javax.swing.JComboBox<TipoMadera> cmbCrearTipoMadera;
+    private javax.swing.JComboBox<TipoProducto> cmbCrearTipoProducto;
+    private javax.swing.JComboBox<TipoMadera> cmbEditarTipoMadera;
+    private javax.swing.JComboBox<TipoProducto> cmbEditarTipoProducto;
     private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JLabel lblCrearAncho;
     private javax.swing.JLabel lblCrearCantidad;
     private javax.swing.JLabel lblCrearCodigoProducto;
-    private javax.swing.JLabel lblCrearCodigoProducto1;
     private javax.swing.JLabel lblCrearDescripcionProducto;
+    private javax.swing.JLabel lblCrearMedDE;
+    private javax.swing.JLabel lblCrearMedGrueso;
+    private javax.swing.JLabel lblCrearMedTermiLargo;
+    private javax.swing.JLabel lblCrearMedTroza;
+    private javax.swing.JLabel lblCrearMedVaras;
+    private javax.swing.JLabel lblCrearMedX;
     private javax.swing.JLabel lblCrearPrecioVara;
     private javax.swing.JLabel lblCrearTipoMadera;
     private javax.swing.JLabel lblCrearTipoProducto;
@@ -974,12 +1098,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblEditarTipoMadera;
     private javax.swing.JLabel lblEditarTipoProducto;
     private javax.swing.JLabel lblListadoInventario;
-    private javax.swing.JLabel lbl_crear_apellidoCliente10;
-    private javax.swing.JLabel lbl_crear_apellidoCliente11;
-    private javax.swing.JLabel lbl_crear_apellidoCliente12;
-    private javax.swing.JLabel lbl_crear_apellidoCliente8;
-    private javax.swing.JLabel lbl_crear_apellidoCliente9;
     private javax.swing.JPanel pnlCrearMedidasAcerrada;
+    private javax.swing.JPanel pnlCrearMedidasTerminada;
     private javax.swing.JPanel pnlCrearMedidasTroza;
     private javax.swing.JPanel pnlDeshabContainer;
     private javax.swing.JPanel pnlHabilitar;
@@ -1005,18 +1125,18 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane tbpnl_modInventario;
     private javax.swing.JTextField txtCrearCantidad;
     private javax.swing.JTextField txtCrearCodigoProducto;
-    private javax.swing.JTextField txtCrearCodigoProducto1;
     private javax.swing.JTextField txtCrearDescripcionProducto;
+    private javax.swing.JTextField txtCrearMedAncho;
+    private javax.swing.JTextField txtCrearMedGrueso;
+    private javax.swing.JTextField txtCrearMedTermi;
+    private javax.swing.JTextField txtCrearMedTroza;
+    private javax.swing.JTextField txtCrearMedVaras;
     private javax.swing.JTextField txtCrearPrecioVara;
     private javax.swing.JTextField txtEditarCantidad;
     private javax.swing.JTextField txtEditarCodigoProducto;
     private javax.swing.JTextField txtEditarDescripcionProducto;
     private javax.swing.JTextField txtEditarPrecioVara;
     private javax.swing.JTextField txtListadoInventario;
-    private javax.swing.JTextField txt_crear_nombreCliente5;
-    private javax.swing.JTextField txt_crear_nombreCliente6;
-    private javax.swing.JTextField txt_crear_nombreCliente7;
     // End of variables declaration//GEN-END:variables
 
-    
 }

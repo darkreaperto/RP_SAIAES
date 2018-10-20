@@ -40,6 +40,10 @@ public class Mensaje {
             case EMAIL_SYNTAX_FAILURE:
                 msg = "El correo electrónico ingresado no es admitido";
                 break;
+            case EMPTY_TEXT_FIELD:
+                msg = "Algunos campos están vacíos, "
+                        + "ingrese la información solicitada";
+                break;
             case EMPTY_CONFIRMATION_CODE_FIELD:
                 msg = "Debe proporcionar un código de recuperación";
                 break;
@@ -74,6 +78,12 @@ public class Mensaje {
                 msg = "El correo de recuperación se ha enviado con éxito. "
                         + "\nRevise el correo asociado al nombre de usuario "
                         + "\ningresado para obtener el código de recuperación";
+                break;
+            case PRICE_SYNTAX_FAILURE:
+                msg = "Precio ingresado no es correcto";
+                break;
+            case UNITQUANTITY_SYNTAX_FAILURE:
+                msg = "Solo puede ingresar números enteros";
                 break;
             case USER_ACCESS_SUCCESS:
                 msg = "Acceso concedido. Bienvenido/a.";

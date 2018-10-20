@@ -20,7 +20,7 @@ public class TipoMadera {
     public TipoMadera(String codigo, String descripcion, String estado) {
         this.codigo = codigo;
         this.descripcion = descripcion;
-        this.estado = estado;
+        this.estado = estado;        
     }
 
     public String getCodigo() {
