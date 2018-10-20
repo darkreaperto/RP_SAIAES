@@ -60,6 +60,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         tproductos = new ArrayList<>();
         tmaderas = new ArrayList<>();
         verificacion = new Regex();
+        msg = new Mensaje();
         
         cargarCombos();
         
@@ -98,7 +99,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 pnl_agregar.add(pnlCrearMedidasTroza);
                 txtCrearPrecioVara.setEnabled(false);
                 txtCrearPrecioVara.setText("0");
-                instancia.pack();
+                pnl_agregar.repaint();
+                //instancia.pack();
                 break;
             case ASERRADA:
                 pnlCrearMedidasTroza.setVisible(false);
@@ -133,20 +135,20 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * Carga los combo box según corresponda con el tipo de madera y producto.
      */
     private void cargarCombos() {
-        tproductos = ctrTipoProducto.obtenerTiposProducto();
-
+        
+        tproductos = ctrTipoProducto.obtenerTiposProducto();  
         for (TipoProducto item : tproductos) {
-            System.out.println(item.getDescripcion());
             cmbCrearTipoProducto.addItem(item);
             cmbEditarTipoProducto.addItem(item);
         }
+        
         tmaderas = ctrTipoMadera.obtenerTiposMadera();
         tmaderas.forEach((item) -> {
             cmbCrearTipoMadera.addItem(item);
             cmbEditarTipoMadera.addItem(item);
         });
-        
         cmbCrearTipoProducto.setSelectedIndex(0);
+        cmbCrearTipoMadera.setSelectedIndex(0);
     }
 
     /**
@@ -201,25 +203,69 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     }
 
     /**
+     * Limpia los campos de texto del panel, según el nombre del botón que se
+     * presiona.
+     *
+     * @param panel presionado
+     */
+    public void limpiarTexto(String panel) {
+
+        if (panel.equals("Crear")) {
+            cmbCrearTipoProducto.setSelectedIndex(0);
+            cambiarPanelMedidas(TipoProd.TROZA);
+            txtCrearMedTroza.setText("");
+            cmbCrearTipoMadera.setSelectedIndex(0);
+            txtCrearCodigoProducto.setText("");
+            txtCrearCantidad.setText("");
+            txtCrearPrecioVara.setText("");
+            txtCrearDescripcionProducto.setText("");
+        } else if (panel.equals("Actualizar")) {
+//            txt_actuali_nombreUsuario.setText("");
+//            txt_actuali_correo.setText("");
+//            pw_actuali_lastpass.setText("");
+//            pw_actuali_newPass.setText("");
+//            pw_actuali_confNewPass.setText("");
+        }
+    }
+    /**
      * Crea un nuevo producto.
      */
     private void crearProducto(String codProd, String nombre, 
-            String codTipoMadera, String descTipoMadera, String medida, 
-            String codTipoProducto, String descTipoProducto, 
+            String codTipoMadera, String medida, String codTipoProducto, 
             String cantidad, String precio, String descripcion) {
+        
         //Campos no están vacíos
-        if (!codProd.isEmpty()&& !nombre.isEmpty() && !medida.isEmpty() && 
-                !descTipoMadera.isEmpty() && !descTipoProducto.isEmpty() && 
+        if (!codProd.isEmpty() && !nombre.isEmpty() && !medida.isEmpty() && 
+                !codTipoMadera.isEmpty() && !codTipoProducto.isEmpty() && 
                 !cantidad.isEmpty() && !precio.isEmpty()) {
-            System.out.println(descTipoMadera +"{}"+ descTipoProducto);
                         
-            //Verificar números
+            //Verificar precio
             if (verificacion.validaPrecio(precio)) {
-                if (verificacion.validaCantidadUnidades(cantidad)
-                && verificacion.validaCantidadUnidades(codProd)) {
+                //Verificar cantidades
+                if (verificacion.validaCantidadUnidades(cantidad) && 
+                        verificacion.validaCantidadUnidades(codProd) && 
+                        verificacion.validaCantidadUnidades(codTipoMadera) && 
+                        verificacion.validaCantidadUnidades(codTipoProducto)) {
                     double preci = Double.valueOf(precio);
                     int cant = Integer.valueOf(cantidad);
-                                        
+                    int cProd = Integer.valueOf(codProd);
+                    int cTmadera = Integer.valueOf(codTipoMadera);
+                    int cTproducto = Integer.valueOf(codTipoProducto);
+                    
+                    System.out.println("AGREGANDO PRODUCTO, PLEASE WAIT... "+ preci);
+                    boolean crear = controlador.crearProducto(cProd, nombre, 
+                            cTmadera, medida, cTproducto, cant, preci, descripcion);
+                    if (crear) {
+                        cargarTablas();
+                        cargarCombos();
+                        
+                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+                                TipoMensaje.PRODUCT_INSERTION_SUCCESS);
+                    } else {
+                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                                TipoMensaje.PRODUCT_INSERTION_FAILURE);
+                        limpiarTexto("Crear");
+                    }
                 } else {
                     msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
                             TipoMensaje.UNITQUANTITY_SYNTAX_FAILURE);
@@ -1012,9 +1058,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblProductosActivosMouseClicked
 
     private void cmbCrearTipoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCrearTipoProductoActionPerformed
+        if (cmbCrearTipoProducto.getItemCount() > 0) {
+            cambiarPanelMedidas(cmbCrearTipoProducto.getItemAt(cmbCrearTipoProducto.getSelectedIndex()).getTipo());
+        }
         
-        System.out.println(cmbCrearTipoProducto.getItemAt(cmbCrearTipoMadera.getSelectedIndex()).getTipo());
-        cambiarPanelMedidas(cmbCrearTipoProducto.getItemAt(cmbCrearTipoMadera.getSelectedIndex()).getTipo());
     }//GEN-LAST:event_cmbCrearTipoProductoActionPerformed
 
     private void btnCrearProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProductoActionPerformed
@@ -1045,10 +1092,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         String nombre = tMadera + " " + medida;
 
         crearProducto(txtCrearCodigoProducto.getText(), nombre, 
-            tMadera.getCodigo(), tMadera.getDescripcion(), 
-            medida, tProducto.getCodigo(), 
-            tProducto.getDescripcion(), txtCrearCantidad.getText(), 
-            txtCrearPrecioVara.getText(), txtCrearDescripcionProducto.getText());
+            tMadera.getCodigo(), medida, tProducto.getCodigo(), 
+            txtCrearCantidad.getText(), txtCrearPrecioVara.getText(), 
+            txtCrearDescripcionProducto.getText());
+        System.out.println(txtCrearCodigoProducto.getText() +"|"+ nombre +"|"+ tMadera.getCodigo() +"|"+ medida+"|"+ tProducto.getCodigo() +"|"+ txtCrearCantidad.getText()+"|"+ txtCrearPrecioVara.getText()+"|"+ txtCrearDescripcionProducto.getText());
     }//GEN-LAST:event_btnCrearProductoActionPerformed
 
     private void txtListadoInventarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtListadoInventarioKeyReleased

@@ -51,4 +51,11 @@ public class CtrMadera {
     public ArrayList<Madera> obtenerProductos() {
         return mdlMadera.obtenerProductos();
     }
+    
+    public boolean crearProducto(int codProd, String nombre, int codTipoMadera, 
+            String medida, int codTipoProducto, int cantidad, double precio, 
+            String descripcion) {
+        return mdlMadera.crearProducto(codProd, nombre, codTipoMadera, medida, 
+                codTipoProducto, cantidad, precio, descripcion);
+    }
 }

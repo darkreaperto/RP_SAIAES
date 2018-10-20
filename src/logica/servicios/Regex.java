@@ -27,7 +27,7 @@ public class Regex {
             = "^[A-Za-z0-9_.][^\\s]{4,16}$";
     private static final String NAMES_REGEX = "^[A-Za-z]";
     private static final String PHONE_REGEX = "^[0-9]{8,8}";
-    private static final String PRICE_REGEX = "^[0-9]+\\.$";
+    private static final String PRICE_REGEX = "^\\d{1,10}(\\.\\d{1,2})?$";
     private static final String UNITQUANTITY_REGEX = "^[0-9]*$";
 
     /**

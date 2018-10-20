@@ -44,6 +44,10 @@ public enum TipoMensaje {
     SEND_CONFIRMATION_EMAIL_SUCCESS,
     /** Identificador del mensaje: precio ingresado no es correcto. */
     PRICE_SYNTAX_FAILURE,
+    /** Identificador del mensaje: fallo en la inserción del producto. */
+    PRODUCT_INSERTION_FAILURE,
+    /** Identificador del mensaje: exito en la inserción del producto. */
+    PRODUCT_INSERTION_SUCCESS,
     /** Identificador del mensaje: solo puede ingresar numeros enteros. Precio ingresado no es correcto*/
     UNITQUANTITY_SYNTAX_FAILURE,
     /** Identificador del mensaje: fallo en la inserción de usuario. */

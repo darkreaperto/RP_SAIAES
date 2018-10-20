@@ -82,6 +82,12 @@ public class Mensaje {
             case PRICE_SYNTAX_FAILURE:
                 msg = "Precio ingresado no es correcto";
                 break;
+            case PRODUCT_INSERTION_SUCCESS:
+                msg = "La creación del producto ha sido éxitosa";
+                break;
+            case PRODUCT_INSERTION_FAILURE:
+                msg = "Ha ocurrido un error en la creación del producto";
+                break;
             case UNITQUANTITY_SYNTAX_FAILURE:
                 msg = "Solo puede ingresar números enteros";
                 break;
