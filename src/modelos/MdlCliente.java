@@ -124,7 +124,7 @@ public class MdlCliente {
      * @return 
      */
     public boolean crearCliente(String nombre, String apellido1, 
-            String apellido2, String cedula, float limiteCred, 
+            String apellido2, String cedula, double limiteCred, 
             boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
 
         ArrayList<Object> params = new ArrayList<>();
@@ -198,12 +198,9 @@ public class MdlCliente {
      * @return 
      */
     public boolean actualizarCliente(String nombre, String apellido1, 
-            String apellido2, String cedula, float limiteCred, 
-            boolean aprobarCred, ArrayList<Contacto> contactos, Estado estado,
-            String codPersona, String codigo) {
+            String apellido2, String cedula, double limiteCred, 
+            boolean aprobarCred, String codPersona) {
         
-        String varEstado = estado.equals(Estado.Activo) ? "A" : "I";
-
         ArrayList<Object> params = new ArrayList<>();
         params.add(nombre);
         params.add(apellido1);
@@ -211,13 +208,11 @@ public class MdlCliente {
         params.add(cedula);
         params.add(limiteCred);
         params.add(aprobarCred ? 1 : 0);
-        params.add(varEstado);
         params.add(codPersona);
-        params.add(codigo);
 
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_actualizar_cliente(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_actualizar_cliente(?, ?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);

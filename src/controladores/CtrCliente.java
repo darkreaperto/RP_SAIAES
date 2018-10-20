@@ -84,7 +84,7 @@ public class CtrCliente {
      * @return 
      */
     public boolean crearCliente(String nombre, String apellido1, 
-            String apellido2, String cedula, float limiteCred, 
+            String apellido2, String cedula, double limiteCred, 
             boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
 
         return mdlCliente.crearCliente(nombre, apellido1, apellido2, cedula, 
@@ -114,13 +114,11 @@ public class CtrCliente {
      * @return 
      */
     public boolean actualizarCliente(String nombre, String apellido1, 
-            String apellido2, String cedula, float limiteCred, 
-            boolean aprobarCred, ArrayList<Contacto> contactos, Estado estado,
-            String codPersona, String codigo) {
+            String apellido2, String cedula, double limiteCred, 
+            boolean aprobarCred, String codPersona) {
         
         return mdlCliente.actualizarCliente(nombre, apellido1, apellido2, 
-                cedula, limiteCred, aprobarCred, contactos, estado, codPersona, 
-                codigo);
+                cedula, limiteCred, aprobarCred, codPersona);
     }
     
     /**

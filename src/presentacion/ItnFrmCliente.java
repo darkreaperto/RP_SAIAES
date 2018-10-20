@@ -9,10 +9,8 @@ import controladores.CtrAcceso;
 import controladores.CtrCliente;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
 import logica.negocio.Contacto;
@@ -20,7 +18,6 @@ import logica.servicios.Mensaje;
 import logica.servicios.Regex;
 import util.Estado;
 import util.TipoContacto;
-import util.TipoCredito;
 import util.TipoMensaje;
 
 /**
@@ -1108,10 +1105,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 //                    verificacion.validaNombre(apellido1) && 
 //                    verificacion.validaNombre(apellido2)) {
 
-                float limiteCredito;
+                double limiteCredito;
                 try {
-                    limiteCredito = Float.valueOf(limiteCred);
-
+                    limiteCredito = Double.valueOf(limiteCred);
+                    System.out.println(limiteCredito);
+                    
                     boolean creado = controlador.crearCliente(nombre, apellido1, 
                             apellido2, cedula, limiteCredito, aprobarCred, contactos);
                     
@@ -1143,28 +1141,33 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     
     private void actualizarCliente(String nombre, String apellido1, 
             String apellido2, String cedula, String limiteCred, 
-            boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
+            boolean aprobarCred) {
         
-        if (verificacion.validaNombre(nombre) && 
-                verificacion.validaNombre(apellido1) && 
-                verificacion.validaNombre(apellido2)) {
-            
-            float limiteCredito;
-            try {
-                limiteCredito = Float.valueOf(limiteCred);
-                
-                boolean creado = controlador.crearCliente(nombre, apellido1, 
-                        apellido2, cedula, limiteCredito, aprobarCred, contactos);
-                
-                if (creado) {
-                    
-                } else {
-                    
+        if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
+            if (verificacion.validaNombre(nombre) && 
+                    verificacion.validaNombre(apellido1) && 
+                    verificacion.validaNombre(apellido2)) {
+
+                double limiteCredito;
+                try {
+                    limiteCredito = Double.valueOf(limiteCred);
+
+                    boolean creado = controlador.actualizarCliente(nombre, apellido1, 
+                            apellido2, cedula, limiteCredito, aprobarCred, 
+                            cedula);
+
+                    if (creado) {
+
+                    } else {
+
+                    }
+                } catch (NumberFormatException ex) {
+                    ex.printStackTrace();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
-            } catch (NumberFormatException ex) {
-                
-            } catch (Exception ex) {
-                
+            } else {
+
             }
         } else {
             
