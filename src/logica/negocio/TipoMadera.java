@@ -20,7 +20,7 @@ public class TipoMadera {
     public TipoMadera(String codigo, String descripcion, String estado) {
         this.codigo = codigo;
         this.descripcion = descripcion;
-        this.estado = estado;
+        this.estado = estado;        
     }
 
     public String getCodigo() {
@@ -45,5 +45,11 @@ public class TipoMadera {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    
+    @Override
+    public String toString()
+    {
+     return descripcion;
     }
 }

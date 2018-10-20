@@ -27,6 +27,8 @@ public enum TipoMensaje {
     EMPTY_CONFIRMATION_CODE_FIELD,
     /** Identificador del mensaje: campos de cliente vacíos. */
     EMPTY_CUSTOMER_FIELDS,
+    /** Identificador del mensaje: campos de texto vacío. */
+    EMPTY_TEXT_FIELD,
     /** Identificador del mensaje: campo de correo vacío. */
     EMPTY_EMAIL_FIELD,
     /** Identificador del mensaje: campo de contraseña vacío. */
@@ -43,12 +45,20 @@ public enum TipoMensaje {
     PHONE_SYNTAX_FAILURE,
     /** Identificador del mensaje: fallo en la recuperación de contraseña. */
     RESET_PASSWORD_FAILURE,
-    /** Identificador del mensaje: éxit en la recuperación de contraseña. */
+    /** Identificador del mensaje: éxito en la recuperación de contraseña. */
     RESET_PASSWORD_SUCCESS,
     /** Identificador del mensaje: fallo al enviar correo de confirmación. */
     SEND_CONFIRMATION_EMAIL_FAILURE,
     /** Identificador del mensaje: éxito al enviar correo de confirmación. */
     SEND_CONFIRMATION_EMAIL_SUCCESS,
+    /** Identificador del mensaje: precio ingresado no es correcto. */
+    PRICE_SYNTAX_FAILURE,
+    /** Identificador del mensaje: fallo en la inserción del producto. */
+    PRODUCT_INSERTION_FAILURE,
+    /** Identificador del mensaje: exito en la inserción del producto. */
+    PRODUCT_INSERTION_SUCCESS,
+    /** Identificador del mensaje: solo puede ingresar numeros enteros. Precio ingresado no es correcto*/
+    UNITQUANTITY_SYNTAX_FAILURE,
     /** Identificador del mensaje: fallo en la inserción de usuario. */
     USER_INSERTION_FAILURE,
     /** Identificador del mensaje: exito en la inserción de usuario. */

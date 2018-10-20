@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.negocio.Madera;
+import logica.servicios.Mensaje;
 
 /**
  *
@@ -25,12 +26,14 @@ public class MdlMadera {
     private static ResultSet resultado;
     /** Lista de productos en la base. */
     private static ArrayList<Madera> productos;
-    
+    /** Clase Mensaje para mostrar errores capturados. */
+    private static Mensaje msgError;
     /**
      * Constructor de clase modelo de cliente.
      */
     public MdlMadera() {
         conexion = new CtrConexion();
+        msgError = new Mensaje();
     }
     /**
      * Llena una lista con todos los productos almacenados en la BD.
@@ -90,6 +93,40 @@ public class MdlMadera {
         } finally {
             conexion.cerrarConexion();
             return productos;
+        }
+    }
+    
+    public boolean crearProducto(int codProd, String nombre, int codTipoMadera, 
+            String medida, int codTipoProducto, int cantidad, double precio, 
+            String descripcion) {
+        
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(codProd);
+        params.add(nombre);
+        params.add(descripcion);
+        params.add(precio);
+        params.add(cantidad);
+        params.add(medida);
+        params.add(codTipoMadera);
+        params.add(codTipoProducto);
+
+        boolean creacionExitosa = true;
+        try {
+            procedimiento = "pc_crear_producto(?, ?, ?, ?, ?, ?, ?, ?)";
+
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            //creacionExitosa = true;
+            System.out.println(resultado);
+
+        } catch (SQLException ex) {
+            System.err.println(ex);            
+            creacionExitosa = false;
+            System.out.println("ERROR SQL " + ex.getErrorCode());
+            msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
+        } finally {
+            conexion.cerrarConexion();
+            return creacionExitosa;
         }
     }
     
