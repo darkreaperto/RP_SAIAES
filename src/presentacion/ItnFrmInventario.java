@@ -183,7 +183,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 row[2] = productos.get(i).getDescTipoMadera();
                 row[3] = productos.get(i).getMedidas();
                 row[4] = productos.get(i).getDescTipoProducto();
-                row[5] = productos.get(i).getCantidad();
+                row[5] = productos.get(i).getCantidad() <= 0 ? 
+                        "No aplica" : productos.get(i).getCantidad();
                 row[6] = productos.get(i).getPrecioXvara();
                 row[7] = productos.get(i).getDescripcion();
                 model.addRow(row);
@@ -194,7 +195,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 row[2] = productos.get(i).getDescTipoMadera();
                 row[3] = productos.get(i).getMedidas();
                 row[4] = productos.get(i).getDescTipoProducto();
-                row[5] = productos.get(i).getCantidad();
+                row[5] = productos.get(i).getCantidad() <= 0 ? 
+                        "No aplica" : productos.get(i).getCantidad();
                 row[6] = productos.get(i).getPrecioXvara();
                 row[7] = productos.get(i).getDescripcion();
                 model.addRow(row);
@@ -326,7 +328,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         cmbCrearTipoProducto = new javax.swing.JComboBox<>();
         txtCrearCantidad = new javax.swing.JTextField();
         scpnlCrearDescripcion = new javax.swing.JScrollPane();
-        txtCrearDescripcionProducto = new javax.swing.JTextField();
+        txtCrearDescripcionProducto = new javax.swing.JTextArea();
         cmbCrearTipoMadera = new javax.swing.JComboBox<>();
         lblCrearTipoMadera = new javax.swing.JLabel();
         lblCrearPrecioVara = new javax.swing.JLabel();
@@ -582,6 +584,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             }
         });
 
+        txtCrearDescripcionProducto.setColumns(20);
+        txtCrearDescripcionProducto.setRows(5);
         scpnlCrearDescripcion.setViewportView(txtCrearDescripcionProducto);
 
         lblCrearTipoMadera.setText("Tipo de madera:");
@@ -1172,7 +1176,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane tbpnl_modInventario;
     private javax.swing.JTextField txtCrearCantidad;
     private javax.swing.JTextField txtCrearCodigoProducto;
-    private javax.swing.JTextField txtCrearDescripcionProducto;
+    private javax.swing.JTextArea txtCrearDescripcionProducto;
     private javax.swing.JTextField txtCrearMedAncho;
     private javax.swing.JTextField txtCrearMedGrueso;
     private javax.swing.JTextField txtCrearMedTermi;

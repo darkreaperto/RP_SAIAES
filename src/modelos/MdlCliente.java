@@ -9,6 +9,7 @@ import controladores.CtrConexion;
 import controladores.CtrContacto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import logica.negocio.Cliente;
 import logica.negocio.Contacto;
@@ -134,6 +135,7 @@ public class MdlCliente {
         params.add(limiteCred);
         int aprobar = aprobarCred ? 1 : 0;
         params.add(aprobar);
+        params.add(Types.BIGINT);
 
         boolean creacionExitosa = true;
         try {
@@ -142,10 +144,10 @@ public class MdlCliente {
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
             
-            String indice = "0";
+            int indice = 0;
             //obtener el índice de la fila insertada
             while (resultado.next()) {
-                indice = String.valueOf(resultado.getInt("@indice"));
+                indice = resultado.getInt("@indice");
             }
             
             for (int i = 0; i < contactos.size(); i++) {
@@ -157,7 +159,7 @@ public class MdlCliente {
                 params.add(indice);
                 params.add(tipo);
                 
-                ctrContacto.crearContacto(info, indice, tipo);
+                ctrContacto.crearContacto(info, String.valueOf(indice), tipo);
             }
             
             //creacionExitosa = true;

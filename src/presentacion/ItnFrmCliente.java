@@ -533,7 +533,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -551,14 +551,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         });
         spnl_editar_clientes.setViewportView(tbl_editar);
-        if (tbl_editar.getColumnModel().getColumnCount() > 0) {
-            tbl_editar.getColumnModel().getColumn(0).setResizable(false);
-            tbl_editar.getColumnModel().getColumn(1).setResizable(false);
-            tbl_editar.getColumnModel().getColumn(2).setResizable(false);
-            tbl_editar.getColumnModel().getColumn(3).setResizable(false);
-            tbl_editar.getColumnModel().getColumn(5).setResizable(false);
-            tbl_editar.getColumnModel().getColumn(6).setResizable(false);
-        }
 
         btnEditarCliente.setText("Guardar Cambios");
         btnEditarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -1029,15 +1021,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         cargarClientesJTable(tbl_editar, true);
         cargarClientesJTable(tblClientesActivos, true);
         cargarClientesJTable(tblClientesInactivos, false);
-
-//        for (int i = 0; i < usuarios.size(); i++) {
-//            if (sesion.getUsuario().getNombre()
-//                    .equals(usuarios.get(i).getNombre())) {
-//                txt_actuali_nombreUsuario.setText(usuarios.get(i).getNombre());
-//                txt_actuali_correo.setText(usuarios.get(i).getCorreo());
-//            }
-//        }
-        System.out.println(sesion.getUsuario().getNombre());
     }
     
     /**
@@ -1119,30 +1102,42 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private void agregarCliente(String nombre, String apellido1, 
             String apellido2, String cedula, String limiteCred, 
             boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
-        
-        if (verificacion.validaNombre(nombre) && 
-                verificacion.validaNombre(apellido1) && 
-                verificacion.validaNombre(apellido2)) {
-            
-            float limiteCredito;
-            try {
-                limiteCredito = Float.valueOf(limiteCred);
-                
-                boolean creado = controlador.crearCliente(nombre, apellido1, 
-                        apellido2, cedula, limiteCredito, aprobarCred, contactos);
-                
-                if (creado) {
+          
+        if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
+//            if (verificacion.validaNombre(nombre) && 
+//                    verificacion.validaNombre(apellido1) && 
+//                    verificacion.validaNombre(apellido2)) {
+
+                float limiteCredito;
+                try {
+                    limiteCredito = Float.valueOf(limiteCred);
+
+                    boolean creado = controlador.crearCliente(nombre, apellido1, 
+                            apellido2, cedula, limiteCredito, aprobarCred, contactos);
                     
-                } else {
-                    
+                    if (creado) {
+                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                        TipoMensaje.CUSTOMER_INSERTION_SUCCESS);
+                        
+                        cargarTablas();
+                    } else {
+                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.CUSTOMER_INSERTION_FAILURE);
+                    }
+                } catch (NumberFormatException ex) {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.NUMBER_FORMAT_EXCEPTION);
+                } catch (Exception ex) {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.SOMETHING_WENT_WRONG);
                 }
-            } catch (NumberFormatException ex) {
-                
-            } catch (Exception ex) {
-                
-            }
+//            } else {
+//                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+//                    TipoMensaje.WRONG_CUSTOMER_FIELDS);
+//            }
         } else {
-            
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.EMPTY_CUSTOMER_FIELDS);
         }
     }
     
@@ -1206,8 +1201,10 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 editarCorreos.add(ct);
                 mCorreos.addElement(ct.getInfo());
             } else {
-                editarTelefonos.add(ct);
-                mTelefonos.addElement(ct.getInfo());
+                if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
+                    editarTelefonos.add(ct);
+                    mTelefonos.addElement(ct.getInfo());
+                }
             }
         }
         lsTelefonos.setModel(mTelefonos);
@@ -1234,10 +1231,13 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         
         boolean credito = rbCrearCredito.isSelected() || 
                 rbCrearCreditoLim.isSelected();
-        String limiteCred = txt_crear_limiteCliente.getText().isEmpty() ? 
-                "0" : txt_crear_limiteCliente.getText();
-        agregarCliente(txt_crear_nombreCliente.getText(), txt_crear_apellidoCliente1.getText(), 
-                txt_crear_apellidoCliente2.getText(), txt_crear_cedulaCliente.getText(), 
+        String limiteCred = txt_crear_limiteCliente.getText().trim().isEmpty() ? 
+                "0" : txt_crear_limiteCliente.getText().trim();
+        
+        agregarCliente(txt_crear_nombreCliente.getText().trim(), 
+                txt_crear_apellidoCliente1.getText().trim(), 
+                txt_crear_apellidoCliente2.getText().trim(), 
+                txt_crear_cedulaCliente.getText().trim(), 
                 limiteCred, credito, contactos);
         
         limpiarCampos();
@@ -1469,7 +1469,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             lsCorreos.setModel(m);
         } else {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                    TipoMensaje.PHONE_SYNTAX_FAILURE);
+                    TipoMensaje.EMAIL_SYNTAX_FAILURE);
         }
     }//GEN-LAST:event_btnEditarGuardarCorreoActionPerformed
 

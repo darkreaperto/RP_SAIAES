@@ -16,10 +16,17 @@ public enum TipoMensaje {
     CONFIRMATION_EMAIL_NOT_FOUND,
     /** Identificador del mensaje: cancelar restablecer contraseña. */
     CONFIRM_RESET_PASSWORD_CANCEL,
+    /** Identificador del mensaje: fallo en la inserción de cliente. */
+    CUSTOMER_INSERTION_FAILURE,
+    /** Identificador del mensaje: exito en la inserción de cliente. */
+    CUSTOMER_INSERTION_SUCCESS,
+    /** Identificador del mensaje: fallo de acceso. */
     /** Identificador del mensaje: fallo en la sintáxis del correo. */
     EMAIL_SYNTAX_FAILURE,
     /** Identificador del mensaje: campo de confirmación de correo vacío. */
     EMPTY_CONFIRMATION_CODE_FIELD,
+    /** Identificador del mensaje: campos de cliente vacíos. */
+    EMPTY_CUSTOMER_FIELDS,
     /** Identificador del mensaje: campos de texto vacío. */
     EMPTY_TEXT_FIELD,
     /** Identificador del mensaje: campo de correo vacío. */
@@ -30,6 +37,8 @@ public enum TipoMensaje {
     EMPTY_USERNAME_FIELD,
     /** Identificador del mensaje: campos de contraseñas no coinciden. */
     MISMATCHING_PASSWORD_FIELDS,
+    /** Identificador del mensaje: campos de número con carácteres alfa. */
+    NUMBER_FORMAT_EXCEPTION,
     /** Identificador del mensaje: fallo en la sintaxis de contraseña. */
     PASSWORD_SYNTAX_FAILURE,
     /** Identificador del mensaje: fallo en la sintaxix del número de teléfono. */
@@ -66,4 +75,8 @@ public enum TipoMensaje {
     USERNAME_SYNTAX_FAILURE,
     /** Identificador del mensaje: codigo de confirmación incorrecto. */
     WRONG_CONFIRMATION_CODE,
+    /** Identificador del mensaje: campos de cliente incorrectos. */
+    WRONG_CUSTOMER_FIELDS,
+    /** Identificador del mensaje: algo ha salido mal. */
+    SOMETHING_WENT_WRONG
 }

@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 
 /**
@@ -147,18 +148,26 @@ public final class Conexion {
         //Recorrer la lista de parametros a recibir 
         //por el procedimiento almacenado
         for (int i = 0; i < params.size(); i++) {
-            //Si el parametro es un String
-            if (params.get(i) instanceof String) {
-                String temp = (String) params.get(i);
-                procedimiento.setString(i + 1, temp);
-                //Si el parametro es entero
-            } else {
+            //Si el parametro es entero
+            if (params.get(i) instanceof Integer){
                 int temp = (int) params.get(i);
                 procedimiento.setInt(i + 1, temp);
+            } else if (params.get(i) instanceof Float) {
+                float temp =  (float) params.get(i);
+                procedimiento.setFloat(i + 1, temp);
+            } else if (params.get(i) instanceof Double) {
+                double temp =  (double) params.get(i);
+                procedimiento.setDouble(i + 1, temp);
+            } else if (params.get(i) instanceof String) {
+                String temp = (String) params.get(i);
+                procedimiento.setString(i + 1, temp);
+            } else if (params.get(i) instanceof Types) {
+                int temp = Integer.valueOf(params.get(i).toString());
+                procedimiento.registerOutParameter(i + 1, temp);
             }
         }
 
         resultado = procedimiento.executeQuery();
         return resultado;
-    }
+    }    
 }
