@@ -176,7 +176,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         rbDeshabDeshabCliente = new javax.swing.JRadioButton();
         rbDeshabHabilitarCliente = new javax.swing.JRadioButton();
         btn_deshabilitar = new javax.swing.JButton();
-        pnlLimCredito = new javax.swing.JPanel();
 
         setClosable(true);
         setIconifiable(true);
@@ -267,7 +266,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         });
 
         bg_crearCredito.add(rbCrearSinCredito);
-        rbCrearSinCredito.setText("Sin crédigo");
+        rbCrearSinCredito.setText("Sin crédito");
         rbCrearSinCredito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbCrearSinCreditoActionPerformed(evt);
@@ -962,19 +961,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         tb_modCliente.addTab("Habilitar clientes", pnlHabilitar);
 
-        javax.swing.GroupLayout pnlLimCreditoLayout = new javax.swing.GroupLayout(pnlLimCredito);
-        pnlLimCredito.setLayout(pnlLimCreditoLayout);
-        pnlLimCreditoLayout.setHorizontalGroup(
-            pnlLimCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1194, Short.MAX_VALUE)
-        );
-        pnlLimCreditoLayout.setVerticalGroup(
-            pnlLimCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 561, Short.MAX_VALUE)
-        );
-
-        tb_modCliente.addTab("Límite de crédito", pnlLimCredito);
-
         javax.swing.GroupLayout pnl_modClienteLayout = new javax.swing.GroupLayout(pnl_modCliente);
         pnl_modCliente.setLayout(pnl_modClienteLayout);
         pnl_modClienteLayout.setHorizontalGroup(
@@ -1144,34 +1130,34 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             boolean aprobarCred) {
         
         if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
-            if (verificacion.validaNombre(nombre) && 
-                    verificacion.validaNombre(apellido1) && 
-                    verificacion.validaNombre(apellido2)) {
+//            if (verificacion.validaNombre(nombre) && 
+//                    verificacion.validaNombre(apellido1) && 
+//                    verificacion.validaNombre(apellido2)) {
 
                 double limiteCredito;
                 try {
                     limiteCredito = Double.valueOf(limiteCred);
 
-                    boolean creado = controlador.actualizarCliente(nombre, apellido1, 
-                            apellido2, cedula, limiteCredito, aprobarCred, 
-                            cedula);
+                    boolean actualizado = controlador.actualizarCliente(nombre, 
+                            apellido1, apellido2, cedula, limiteCredito, 
+                            aprobarCred, cedula);
 
-                    if (creado) {
+                    if (actualizado) {
 
                     } else {
-
+                        
                     }
                 } catch (NumberFormatException ex) {
-                    ex.printStackTrace();
+                    System.err.println(ex);
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+                    System.err.println(ex);
                 }
             } else {
 
             }
-        } else {
-            
-        }
+//        } else {
+//            
+//        }
     }
     
     private void cargarEditarCliente(Cliente cliente) {
@@ -1244,11 +1230,20 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 limiteCred, credito, contactos);
         
         limpiarCampos();
-        
     }//GEN-LAST:event_btnCrearClienteActionPerformed
 
     private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
-        // TODO add your handling code here:
+        
+        boolean credito = rbEditarCredito.isSelected() || 
+                rbEditarCreditoLim.isSelected();
+        String limiteCred = txtEditarLimiteCliente.getText().trim().isEmpty() ? 
+                "0" : txtEditarLimiteCliente.getText().trim();
+        
+        actualizarCliente(txtEditarNombreCliente.getText().trim(), 
+                txtEditarPrimerApellido.getText().trim(), 
+                txtEditarSegundoApellido.getText().trim(), 
+                txtEditarCedulaCliente.getText().trim(), 
+                limiteCred, credito);
     }//GEN-LAST:event_btnEditarClienteActionPerformed
 
     private void tblClientesActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesActivosMouseClicked
@@ -1317,6 +1312,10 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                     }
                 }
             }
+        } catch (NullPointerException ex){
+            
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            
         } catch (Exception ex) {
 
         }
@@ -1625,7 +1624,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnlEditarCreditoCliente;
     private javax.swing.JPanel pnlEditarTelefono;
     private javax.swing.JPanel pnlHabilitar;
-    private javax.swing.JPanel pnlLimCredito;
     private javax.swing.JPanel pnl_actualizar;
     private javax.swing.JPanel pnl_agregar;
     private javax.swing.JPanel pnl_crear_creditoCliente;
