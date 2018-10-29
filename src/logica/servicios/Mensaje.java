@@ -47,7 +47,7 @@ public class Mensaje {
                 msg = "El correo electrónico ingresado no es admitido";
                 break;
             case EMPTY_TEXT_FIELD:
-                msg = "Algunos campos están vacíos, "
+                msg = "Uno o más campos están vacíos, "
                         + "ingrese la información solicitada";
                 break;
             case EMPTY_CONFIRMATION_CODE_FIELD:
