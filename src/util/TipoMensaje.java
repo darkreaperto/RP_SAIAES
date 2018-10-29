@@ -5,18 +5,26 @@
  */
 package util;
 
+import logica.negocio.Madera;
+
 /**
  * Enumeración de los mensajes de interfaz para mostrar, por tipo.
  * @author dark-reaper
  */
 public enum TipoMensaje {
-    /** Identificador del mensaje: ninguna fila seleccionada. */
+    /** Identificador del mensaje: ninguna fila seleccionada.
+        Identificador del mensaje: correo de confirmación no encontrado.
+        Identificador del mensaje: cancelar restablecer contraseña.
+        Identificador del mensaje: fallo en la inserción de cliente.
+        @see Madera 
+        
+    */
     ANY_ROW_SELECTED,
-    /** Identificador del mensaje: correo de confirmación no encontrado. */
+    
     CONFIRMATION_EMAIL_NOT_FOUND,
-    /** Identificador del mensaje: cancelar restablecer contraseña. */
+    
     CONFIRM_RESET_PASSWORD_CANCEL,
-    /** Identificador del mensaje: fallo en la inserción de cliente. */
+    
     CUSTOMER_INSERTION_FAILURE,
     /** Identificador del mensaje: exito en la inserción de cliente. */
     CUSTOMER_INSERTION_SUCCESS,

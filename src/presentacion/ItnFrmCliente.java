@@ -29,7 +29,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private static ItnFrmCliente instancia = null;
     private static CtrCliente controlador;
     private static CtrAcceso sesion;
-        private static Mensaje msg;
+    private static Mensaje msg;
     private static ArrayList<Cliente> clientes;
     private static ArrayList<String> crearTelefonos;
     private static ArrayList<String> crearCorreos;
@@ -88,6 +88,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         bg_crearCredito = new javax.swing.ButtonGroup();
         bg_crearHabilitar = new javax.swing.ButtonGroup();
         bg_editarCredito = new javax.swing.ButtonGroup();
+        menuEmergente = new javax.swing.JPopupMenu();
+        itEditar = new javax.swing.JMenuItem();
         pnl_modCliente = new javax.swing.JPanel();
         tb_modCliente = new javax.swing.JTabbedPane();
         pnl_listado = new javax.swing.JPanel();
@@ -176,7 +178,14 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         rbDeshabDeshabCliente = new javax.swing.JRadioButton();
         rbDeshabHabilitarCliente = new javax.swing.JRadioButton();
         btn_deshabilitar = new javax.swing.JButton();
-        pnlLimCredito = new javax.swing.JPanel();
+
+        itEditar.setText("Editar");
+        itEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itEditarActionPerformed(evt);
+            }
+        });
+        menuEmergente.add(itEditar);
 
         setClosable(true);
         setIconifiable(true);
@@ -207,6 +216,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbListadoCliente.setComponentPopupMenu(menuEmergente);
         scpnlTblListadoCliente.setViewportView(tbListadoCliente);
 
         javax.swing.GroupLayout pnl_listadoLayout = new javax.swing.GroupLayout(pnl_listado);
@@ -267,7 +277,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         });
 
         bg_crearCredito.add(rbCrearSinCredito);
-        rbCrearSinCredito.setText("Sin crédigo");
+        rbCrearSinCredito.setText("Sin crédito");
         rbCrearSinCredito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbCrearSinCreditoActionPerformed(evt);
@@ -667,12 +677,12 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                         .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtEditarNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtEditarSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         scpnlClientesEditarCliente.setViewportView(pnlEditarTelefono);
 
-        tbEditarContactoClientes.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/cliente_pequeno.png")), scpnlClientesEditarCliente); // NOI18N
+        tbEditarContactoClientes.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/cl_ed_cliente.png")), scpnlClientesEditarCliente); // NOI18N
 
         scpnlClientesEditarContacto.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -799,7 +809,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         scpnlClientesEditarContacto.setViewportView(pnlEditarCorreo);
 
-        tbEditarContactoClientes.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/clientesEditContact.png")), scpnlClientesEditarContacto); // NOI18N
+        tbEditarContactoClientes.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/cl_ed_contacto.png")), scpnlClientesEditarContacto); // NOI18N
 
         javax.swing.GroupLayout pnl_actualizarLayout = new javax.swing.GroupLayout(pnl_actualizar);
         pnl_actualizar.setLayout(pnl_actualizarLayout);
@@ -961,19 +971,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         tb_modCliente.addTab("Habilitar clientes", pnlHabilitar);
-
-        javax.swing.GroupLayout pnlLimCreditoLayout = new javax.swing.GroupLayout(pnlLimCredito);
-        pnlLimCredito.setLayout(pnlLimCreditoLayout);
-        pnlLimCreditoLayout.setHorizontalGroup(
-            pnlLimCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1194, Short.MAX_VALUE)
-        );
-        pnlLimCreditoLayout.setVerticalGroup(
-            pnlLimCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 561, Short.MAX_VALUE)
-        );
-
-        tb_modCliente.addTab("Límite de crédito", pnlLimCredito);
 
         javax.swing.GroupLayout pnl_modClienteLayout = new javax.swing.GroupLayout(pnl_modCliente);
         pnl_modCliente.setLayout(pnl_modClienteLayout);
@@ -1579,6 +1576,21 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tbl_editarKeyReleased
 
+    private void itEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itEditarActionPerformed
+        
+        int selectedRowIndex = tbListadoCliente.getSelectedRow();
+        String cedula
+        = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+        for (int i = 0; i < clientes.size(); i++) {
+            if (clientes.get(i).getCedula().equals(cedula)) {
+                cargarEditarCliente(clientes.get(i));
+            }
+        }
+        tb_modCliente.setSelectedIndex(2);
+        
+    }//GEN-LAST:event_itEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crearCredito;
@@ -1593,6 +1605,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditarGuardarCorreo;
     private javax.swing.JButton btnEditarGuardarTel;
     private javax.swing.JButton btn_deshabilitar;
+    private javax.swing.JMenuItem itEditar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -1616,6 +1629,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JList<String> lsCrearCorreos;
     private javax.swing.JList<String> lsCrearTelefonos;
     private javax.swing.JList<String> lsTelefonos;
+    private javax.swing.JPopupMenu menuEmergente;
     private javax.swing.JPanel pnlCrearContactoCliente;
     private javax.swing.JPanel pnlCrearCorreo1;
     private javax.swing.JPanel pnlCrearTelefono;
@@ -1625,7 +1639,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnlEditarCreditoCliente;
     private javax.swing.JPanel pnlEditarTelefono;
     private javax.swing.JPanel pnlHabilitar;
-    private javax.swing.JPanel pnlLimCredito;
     private javax.swing.JPanel pnl_actualizar;
     private javax.swing.JPanel pnl_agregar;
     private javax.swing.JPanel pnl_crear_creditoCliente;

@@ -12,19 +12,22 @@ import util.Estado;
  * @author dark-reaper
  */
 public class Madera {
+    private int cantidad;
+    private double precioXvara;
     private String codigo;
+    private String codTipoProducto;
+    private String descTipoProducto;
     private String codProducto;
     private String nombre;
     private String codTipoMadera;
     private String descTipoMadera;
     private String medidas;
-    private String codTipoProducto;
-    private String descTipoProducto;
-    private int cantidad;
-    private double precioXvara;
+    
+    
     private String descripcion;
+    private String codProveedor;   
     private Estado estado;
-    private String codProveedor;
+    
     
     /**
      * Constructor vacío de clase madera.

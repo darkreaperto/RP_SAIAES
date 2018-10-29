@@ -8,6 +8,22 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="bg_editarCredito">
     </Component>
+    <Container class="javax.swing.JPopupMenu" name="menuEmergente">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+      <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="itEditar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Editar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itEditarActionPerformed"/>
+          </Events>
+        </MenuItem>
+      </SubComponents>
+    </Container>
   </NonVisualComponents>
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
@@ -184,6 +200,9 @@
                               <Renderer/>
                             </Column>
                           </TableColumnModel>
+                        </Property>
+                        <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                          <ComponentRef name="menuEmergente"/>
                         </Property>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -384,7 +403,7 @@
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="bg_crearCredito"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Sin cr&#xe9;digo"/>
+                        <Property name="text" type="java.lang.String" value="Sin cr&#xe9;dito"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbCrearSinCreditoActionPerformed"/>
@@ -833,7 +852,7 @@
                           <JTabbedPaneConstraints tabName="">
                             <Property name="tabTitle" type="java.lang.String" value=""/>
                             <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/recursos/cliente_pequeno.png"/>
+                              <Image iconType="3" name="/recursos/cl_ed_cliente.png"/>
                             </Property>
                           </JTabbedPaneConstraints>
                         </Constraint>
@@ -912,7 +931,7 @@
                                               </Group>
                                           </Group>
                                       </Group>
-                                      <EmptySpace pref="45" max="32767" attributes="0"/>
+                                      <EmptySpace pref="23" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1039,7 +1058,7 @@
                           <JTabbedPaneConstraints tabName="">
                             <Property name="tabTitle" type="java.lang.String" value=""/>
                             <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/recursos/clientesEditContact.png"/>
+                              <Image iconType="3" name="/recursos/cl_ed_contacto.png"/>
                             </Property>
                           </JTabbedPaneConstraints>
                         </Constraint>
@@ -1545,28 +1564,6 @@
                   </Events>
                 </Component>
               </SubComponents>
-            </Container>
-            <Container class="javax.swing.JPanel" name="pnlLimCredito">
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="L&#xed;mite de cr&#xe9;dito">
-                    <Property name="tabTitle" type="java.lang.String" value="L&#xed;mite de cr&#xe9;dito"/>
-                  </JTabbedPaneConstraints>
-                </Constraint>
-              </Constraints>
-
-              <Layout>
-                <DimensionLayout dim="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="1194" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-                <DimensionLayout dim="1">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="561" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-              </Layout>
             </Container>
           </SubComponents>
         </Container>
