@@ -205,11 +205,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de crédito", "Contactos"
+                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de crédito", "Contactos", "Cod. Cliente", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -217,6 +217,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         });
         tbListadoCliente.setComponentPopupMenu(menuEmergente);
+        tbListadoCliente.getTableHeader().setReorderingAllowed(false);
         scpnlTblListadoCliente.setViewportView(tbListadoCliente);
 
         javax.swing.GroupLayout pnl_listadoLayout = new javax.swing.GroupLayout(pnl_listado);
@@ -435,17 +436,18 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de Crédito", "Contactos"
+                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de Crédito", "Contactos", "Cod. Cliente", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tbl_crear.getTableHeader().setReorderingAllowed(false);
         spnl_crear_clientes.setViewportView(tbl_crear);
         if (tbl_crear.getColumnModel().getColumnCount() > 0) {
             tbl_crear.getColumnModel().getColumn(0).setResizable(false);
@@ -454,6 +456,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             tbl_crear.getColumnModel().getColumn(3).setResizable(false);
             tbl_crear.getColumnModel().getColumn(5).setResizable(false);
             tbl_crear.getColumnModel().getColumn(6).setResizable(false);
+            tbl_crear.getColumnModel().getColumn(7).setResizable(false);
         }
 
         btnCrearCliente.setText("Crear Cliente");
@@ -537,17 +540,18 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de Crédito", "Contactos"
+                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de Crédito", "Contactos", "Cod. Cliente", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tbl_editar.getTableHeader().setReorderingAllowed(false);
         tbl_editar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbl_editarMouseClicked(evt);
@@ -582,12 +586,27 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         bg_editarCredito.add(rbEditarCreditoLim);
         rbEditarCreditoLim.setText("Crédito limitado");
+        rbEditarCreditoLim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbEditarCreditoLimActionPerformed(evt);
+            }
+        });
 
         bg_editarCredito.add(rbEditarCredito);
         rbEditarCredito.setText("Crédito");
+        rbEditarCredito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbEditarCreditoActionPerformed(evt);
+            }
+        });
 
         bg_editarCredito.add(rbEditarSinCredito);
         rbEditarSinCredito.setText("Sin Crédito");
+        rbEditarSinCredito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbEditarSinCreditoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlEditarCreditoClienteLayout = new javax.swing.GroupLayout(pnlEditarCreditoCliente);
         pnlEditarCreditoCliente.setLayout(pnlEditarCreditoClienteLayout);
@@ -622,7 +641,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         lblEditarLimiteCliente.setText("Límite de crédito:");
 
-        txtEditarLimiteCliente.setEnabled(false);
+        txtEditarLimiteCliente.setEditable(false);
 
         javax.swing.GroupLayout pnlEditarTelefonoLayout = new javax.swing.GroupLayout(pnlEditarTelefono);
         pnlEditarTelefono.setLayout(pnlEditarTelefonoLayout);
@@ -715,6 +734,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        lsCorreos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lsCorreos.setLayoutOrientation(javax.swing.JList.VERTICAL_WRAP);
         scpnlEditarListaCorreo.setViewportView(lsCorreos);
 
         btnEditarGuardarCorreo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
@@ -847,17 +868,18 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de Crédiito", "Contacto"
+                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de crédito", "Contacto", "Cod. Cliente", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tblClientesActivos.getTableHeader().setReorderingAllowed(false);
         tblClientesActivos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblClientesActivosMouseClicked(evt);
@@ -877,11 +899,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cédula ", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de crédito", "Contacto"
+                "Cédula ", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de crédito", "Contacto", "Cod. Cliente", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, true, false, true, true, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1033,9 +1055,10 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
      * @param estado Indica si el cliente está o no inactivo
      */
     public void cargarClientesJTable(JTable tabla, boolean estado) {
-        Object[] row = new Object[7];
+        Object[] row = new Object[9];
         model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0);
+        model.setColumnCount(9);
         int i = 0;
         for (Cliente c: clientes) {
 
@@ -1057,7 +1080,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 }
                 texto += "</body></html>";
                 row[6] = texto;
-                    
+                
+                
+                row[7] = c.getCodCliente(); //codigo de cliente
+                row[8] = c.getCodigo(); //codigo de persona
+                
                 model.addRow(row);
                 
                 tabla.setRowHeight(i, contactos.size() > 0 ? 
@@ -1083,7 +1110,10 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 }
                 texto += "</body></html>";
                 row[6] = texto;
-                    
+                
+                row[7] = c.getCodCliente(); //codigo de cliente
+                row[8] = c.getCodigo(); //codigo de persona
+                
                 model.addRow(row);
                 
                 tabla.setRowHeight(i, contactos.size() > 0 ? 
@@ -1092,6 +1122,9 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 i++;
             }
         }
+        
+        tabla.removeColumn(tabla.getColumnModel().getColumn(7));
+        tabla.removeColumn(tabla.getColumnModel().getColumn(7));
     }
     
     private void agregarCliente(String nombre, String apellido1, 
@@ -1139,7 +1172,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     
     private void actualizarCliente(String nombre, String apellido1, 
             String apellido2, String cedula, String limiteCred, 
-            boolean aprobarCred) {
+            boolean aprobarCred, String codPersona) {
         
         if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
 //            if (verificacion.validaNombre(nombre) && 
@@ -1152,12 +1185,24 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
                     boolean actualizado = controlador.actualizarCliente(nombre, 
                             apellido1, apellido2, cedula, limiteCredito, 
-                            aprobarCred, cedula);
+                            aprobarCred, codPersona);
 
                     if (actualizado) {
-
-                    } else {
+                        System.out.println("Yay!");
+                        cargarTablas();
                         
+                        txtEditarCedulaCliente.setText("");
+                        txtEditarCorreoCliente.setText("");
+                        txtEditarLimiteCliente.setText("");
+                        txtEditarNombreCliente.setText("");
+                        txtEditarPrimerApellido.setText("");
+                        txtEditarSegundoApellido.setText("");
+                        txtEditarTelefono.setText("");
+                        
+                        lsCorreos.setModel(new DefaultListModel());
+                        lsCorreos.setModel(new DefaultListModel());
+                    } else {
+                        System.out.println("Yaq!");
                     }
                 } catch (NumberFormatException ex) {
                     System.err.println(ex);
@@ -1182,6 +1227,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             if (cliente.getLimiteCredito() > 0.0) {
                 rbEditarCreditoLim.setSelected(true);
                 txtEditarLimiteCliente.setText(String.valueOf(cliente.getLimiteCredito()));
+                txtEditarLimiteCliente.setEditable(true);
             } else {
                 rbEditarCredito.setSelected(true);
                 txtEditarLimiteCliente.setText(String.valueOf(cliente.getLimiteCredito()));
@@ -1245,17 +1291,31 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCrearClienteActionPerformed
 
     private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
-        
-        boolean credito = rbEditarCredito.isSelected() || 
-                rbEditarCreditoLim.isSelected();
-        String limiteCred = txtEditarLimiteCliente.getText().trim().isEmpty() ? 
-                "0" : txtEditarLimiteCliente.getText().trim();
-        
-        actualizarCliente(txtEditarNombreCliente.getText().trim(), 
-                txtEditarPrimerApellido.getText().trim(), 
-                txtEditarSegundoApellido.getText().trim(), 
-                txtEditarCedulaCliente.getText().trim(), 
-                limiteCred, credito);
+        try {
+            model = (DefaultTableModel) tbl_editar.getModel();
+            int indiceFila = tbl_editar.getSelectedRow();
+            
+            boolean credito = rbEditarCredito.isSelected() || 
+                    rbEditarCreditoLim.isSelected();
+            String limiteCred = txtEditarLimiteCliente.getText().trim().isEmpty() 
+                    || rbEditarCredito.isSelected() ? 
+                    "0.0" : txtEditarLimiteCliente.getText().trim();
+            
+            String codPersona = (String) model.getValueAt(indiceFila, 8);
+            System.out.println("CODIGO PER: "+codPersona);
+            
+            actualizarCliente(txtEditarNombreCliente.getText().trim(), 
+                    txtEditarPrimerApellido.getText().trim(), 
+                    txtEditarSegundoApellido.getText().trim(), 
+                    txtEditarCedulaCliente.getText().trim(), 
+                    limiteCred, credito, codPersona);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            ex.printStackTrace();
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnEditarClienteActionPerformed
 
     private void tblClientesActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesActivosMouseClicked
@@ -1276,8 +1336,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                     }
                 }
             }
-        } catch (Exception ex) {
-
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+        }
+        catch (Exception ex) {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
         }
     }//GEN-LAST:event_tblClientesActivosMouseClicked
 
@@ -1387,10 +1450,9 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private void btnEditarGuardarTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarTelActionPerformed
         String telefono = txtEditarTelefono.getText().trim();
         
-        if (verificacion.validaTelefono(telefono) && !editarTelefonos.contains(telefono)) {
-            //editarTelefonos.add(telefono);
-            
-            try {
+        try {
+            if (verificacion.validaTelefono(telefono)) {// && !editarTelefonos.contains(telefono)) {
+                
                 int indice = tbl_editar.getSelectedRow();
                 String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
                 for (Cliente c: clientes) {
@@ -1404,23 +1466,24 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                         }
                     }
                 }
-            } catch (NullPointerException ex) {
-                
-            } catch (Exception ex) {
-                
-            } finally {
-                cargarTablas();
+            } else {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.PHONE_SYNTAX_FAILURE);
             }
+        }catch (NullPointerException ex) {
             
-            DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<editarTelefonos.size(); i++) {
-                m.addElement(editarTelefonos.get(i).getInfo());
-            }
-            lsTelefonos.setModel(m);
-        } else {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                    TipoMensaje.PHONE_SYNTAX_FAILURE);
+        } catch (Exception ex) {
+                
+        } finally {
+            cargarTablas();
         }
+            
+        DefaultListModel<String> m = new DefaultListModel<>();
+        for (int i=0; i<editarTelefonos.size(); i++) {
+            m.addElement(editarTelefonos.get(i).getInfo());
+        }
+        lsTelefonos.setModel(m);
+        txtEditarTelefono.setText("");
     }//GEN-LAST:event_btnEditarGuardarTelActionPerformed
 
     private void txtListadoClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtListadoClienteKeyReleased
@@ -1451,11 +1514,13 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarCancelTelActionPerformed
 
     private void btnEditarGuardarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarCorreoActionPerformed
+        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, null);
         String correo = txtEditarCorreoCliente.getText().trim();
-        
-        if (verificacion.validaEmail(correo) && !editarCorreos.contains(correo)) {
-            try {
-                int indice = tbl_editar.getSelectedRow();
+        int indice = 0;
+        try {
+            if (verificacion.validaEmail(correo)) {
+            
+                indice = tbl_editar.getSelectedRow();
                 String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
                 for (Cliente c: clientes) {
                     if (c.getCedula().equals(cedula)) {
@@ -1464,32 +1529,35 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                         for (Contacto ct: controlador.obtenerContactos(c.getCodigo())) {
                             if (ct.getTipo().equals(TipoContacto.CORREO)) {
                                 editarCorreos.add(ct);
+                                
+                                DefaultListModel<String> m = new DefaultListModel<>();
+                                for (int i=0; i<editarCorreos.size(); i++) {
+                                    m.addElement(editarCorreos.get(i).getInfo());
+                                }
+                                lsCorreos.setModel(m);
+                                txtEditarCorreoCliente.setText("");
                             }
                         }
                     }
                 }
-            } catch (NullPointerException ex) {
-                
-            } catch (Exception ex) {
-                
-            } finally {
-                cargarTablas();
+            } else {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.EMAIL_SYNTAX_FAILURE);
             }
-            
-            DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<editarCorreos.size(); i++) {
-                m.addElement(editarCorreos.get(i).getInfo());
-            }
-            lsCorreos.setModel(m);
-        } else {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                    TipoMensaje.EMAIL_SYNTAX_FAILURE);
+        } catch (NullPointerException ex) {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+        } catch (Exception ex) {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, null);
+        } finally {
+            cargarTablas();
+            tbl_editar.setRowSelectionInterval(indice, indice);
         }
     }//GEN-LAST:event_btnEditarGuardarCorreoActionPerformed
 
     private void btnEditarCancelCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelCorreoActionPerformed
+        int indice = 0;
         try {
-            int indice = lsCorreos.getSelectedIndex();
+            indice = lsCorreos.getSelectedIndex();
             controlador.inactivarContacto(editarCorreos.get(indice).getCodigo());
             editarCorreos.remove(indice);
             
@@ -1506,6 +1574,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             
         } finally {
             cargarTablas();
+            tbl_editar.setRowSelectionInterval(indice, indice);
         }
     }//GEN-LAST:event_btnEditarCancelCorreoActionPerformed
 
@@ -1591,19 +1660,94 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbl_editarKeyReleased
 
     private void itEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itEditarActionPerformed
-        
-        int selectedRowIndex = tbListadoCliente.getSelectedRow();
-        String cedula
-        = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+        try {
+            model = (DefaultTableModel) tbListadoCliente.getModel();
+            int selectedRowIndex = tbListadoCliente.getSelectedRow();
+            String cedula
+            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
 
-        for (int i = 0; i < clientes.size(); i++) {
-            if (clientes.get(i).getCedula().equals(cedula)) {
-                cargarEditarCliente(clientes.get(i));
+            for (int i = 0; i < clientes.size(); i++) {
+                if (clientes.get(i).getCedula().equals(cedula)) {
+                    cargarEditarCliente(clientes.get(i));
+                }
             }
+            tb_modCliente.setSelectedIndex(2);
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+            ex.printStackTrace();
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
         }
-        tb_modCliente.setSelectedIndex(2);
-        
+        catch (Exception ex) {
+            ex.printStackTrace();
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
+        }
     }//GEN-LAST:event_itEditarActionPerformed
+
+    private void rbEditarCreditoLimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEditarCreditoLimActionPerformed
+        try {
+            model = (DefaultTableModel) tbl_editar.getModel();
+            int selectedRowIndex = tbl_editar.getSelectedRow();
+            String cedula
+            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+            float limCred = 0;
+            for (int i = 0; i < clientes.size(); i++) {
+                if (clientes.get(i).getCedula().equals(cedula)) {
+                    limCred = clientes.get(i).getLimiteCredito();
+                }
+            }
+            
+            txtEditarLimiteCliente.setText(String.valueOf(limCred));
+            txtEditarLimiteCliente.setEditable(true);
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+            ex.printStackTrace();
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
+        }
+    }//GEN-LAST:event_rbEditarCreditoLimActionPerformed
+
+    private void rbEditarCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEditarCreditoActionPerformed
+        try {
+            model = (DefaultTableModel) tbl_editar.getModel();
+            int selectedRowIndex = tbl_editar.getSelectedRow();
+            
+            String cedula
+            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+            
+            txtEditarLimiteCliente.setText("0.0");
+            txtEditarLimiteCliente.setEditable(false);
+            
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+            ex.printStackTrace();
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
+        }
+    }//GEN-LAST:event_rbEditarCreditoActionPerformed
+
+    private void rbEditarSinCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEditarSinCreditoActionPerformed
+        try {
+            model = (DefaultTableModel) tbl_editar.getModel();
+            int selectedRowIndex = tbl_editar.getSelectedRow();
+            
+            String cedula
+            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+            
+            txtEditarLimiteCliente.setText("");
+            txtEditarLimiteCliente.setEditable(false);
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+            ex.printStackTrace();
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
+        }
+    }//GEN-LAST:event_rbEditarSinCreditoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
