@@ -50,39 +50,109 @@ public class MdlMadera {
 
             String codigo;
             String codProducto;
-            String nombre;
             String codTipoMadera;
             String descTipoMadera;
             String medidas;
-            String codTipoProducto;
-            String descTipoProducto;
-            int cantidad;
+            String tipoProducto;
+            int unidades;
             double precioXvara;
             String descripcion;
             String estado;
             String codProveedor;
+            String nomProveedor;
+            
                     
             while (resultado.next()) {
                 
                 codigo = resultado.getString("cod_Productos");
                 codProducto = resultado.getString("codProd_Productos");
-                nombre = resultado.getString("nom_Productos");
                 descripcion = resultado.getString("desc_Productos");
                 precioXvara = resultado.getDouble("precioXvara_Productos");
-                cantidad = resultado.getInt("cantidad_Productos");
+                unidades = resultado.getInt("unidad_Productos");
                 medidas = resultado.getString("medidas_Productos");
                 codTipoMadera = resultado.getString("codTipoMadera_Productos");
                 descTipoMadera = resultado.getString("desc_TipoMadera");
-                codTipoProducto = resultado.getString("codTipoProducto_Productos");
-                descTipoProducto = resultado.getString("desc_TipoProducto");
+                tipoProducto = resultado.getString("tipoProducto_Productos");
                 codProveedor = resultado.getString("codigo_Proveedores");
+                nomProveedor = resultado.getString("nom_Proveedor");
                 estado = resultado.getString("estado_Productos");
                                 
                 Madera producto
-                        = new Madera(codigo, codProducto, nombre, codTipoMadera, 
-                                descTipoMadera, medidas, codTipoProducto, 
-                                descTipoProducto, cantidad, precioXvara, 
-                                descripcion, estado, codProveedor);
+                        = new Madera(codigo, codProducto, codTipoMadera, 
+                                descTipoMadera, medidas, tipoProducto, unidades, 
+                                precioXvara, descripcion, estado, codProveedor, 
+                                nomProveedor);
+
+                if (!productos.contains(producto)) {
+                    productos.add(producto);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return productos;
+        }
+    }
+    /**
+     * Buscar producto enviando por parámetro el criterio de búsqueda.
+     * @param param Parametros para consultar productos en la base de datos
+     * @return lista de productos
+     */
+    public ArrayList consultarProductos(String param) {
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(param);
+
+        productos = new ArrayList<>();
+
+        try {
+            procedimiento = "pc_consultar_productos(?)";
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+
+            String codigo;
+            String codProducto;
+            String codTipoMadera;
+            String descTipoMadera;
+            String medidas;
+            String tipoProducto;
+            int unidades;
+            double precioXvara;
+            String descripcion;
+            String estado;
+            String codProveedor;
+            String nomProveedor;
+            /*p.cod_Productos, 
+    	   p.codProd_Productos, 
+           p.desc_Productos, 
+           p.precioXvara_Productos, 
+           p.unidad_Productos, 
+           p.medidas_Productos, 
+           p.codTipoMadera_Productos, 
+           tm.desc_TipoMadera, 
+           p.tipoProducto_Productos, 
+           p.codigo_Proveedores,
+     	   prs.nom_Personas,
+           p.estado_Productos*/
+
+            while (resultado.next()) {
+                codigo = resultado.getString("cod_Productos");
+                codProducto = resultado.getString("codProd_Productos");
+                codTipoMadera = resultado.getString("codTipoMadera_Productos");
+                descTipoMadera = resultado.getString("desc_TipoMadera");
+                medidas = resultado.getString("medidas_Productos");
+                tipoProducto = resultado.getString("tipoProducto_Productos");
+                unidades = resultado.getInt("unidad_Productos");
+                precioXvara = resultado.getDouble("precioXvara_Productos");
+                descripcion = resultado.getString("desc_Productos");
+                estado = resultado.getString("estado_Productos");
+                codProveedor = resultado.getString("codigo_Proveedores");
+                nomProveedor = resultado.getString("nom_Proveedor");
+                Madera producto
+                        = new Madera(codigo, codProducto, codTipoMadera, 
+                                descTipoMadera, medidas, tipoProducto, unidades, 
+                                precioXvara, descripcion, estado, codProveedor, 
+                                nomProveedor);
 
                 if (!productos.contains(producto)) {
                     productos.add(producto);
@@ -96,19 +166,32 @@ public class MdlMadera {
         }
     }
     
-    public boolean crearProducto(int codProd, String nombre, int codTipoMadera, 
-            String medida, int codTipoProducto, int cantidad, double precio, 
-            String descripcion) {
+    /**
+     * Inserta un nuevo producto en la BD
+     *
+     * @param codProd codigo personalizado asignado al producto
+     * @param codTipoMadera codigo del tipo de madera del producto
+     * @param medida medidas del producto
+     * @param tipoProducto descripcion de cual es el tipo de producto
+     * @param unidades cantidad de unidades que entran
+     * @param precio precio por vara del producto
+     * @param descripcion detalle del producto (opcional)
+     * @param codProveedor codigo del proveedor
+     * @return true si inserta el usuario.
+     */
+    public boolean crearProducto(String codProd, int codTipoMadera, 
+            String medida, String tipoProducto, int unidades, double precio, 
+            String descripcion, int codProveedor) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(codProd);
-        params.add(nombre);
         params.add(descripcion);
         params.add(precio);
-        params.add(cantidad);
+        params.add(unidades);
         params.add(medida);
         params.add(codTipoMadera);
-        params.add(codTipoProducto);
+        params.add(tipoProducto);
+        params.add(codProveedor);
 
         boolean creacionExitosa = true;
         try {

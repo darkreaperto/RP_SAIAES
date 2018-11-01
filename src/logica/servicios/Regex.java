@@ -28,7 +28,7 @@ public class Regex {
     private static final String NAMES_REGEX = "^[a-zA-Z ]*$";
     private static final String PHONE_REGEX = "^[0-9]{8,8}";
     private static final String PRICE_REGEX = "^\\d{1,10}(\\.\\d{1,2})?$";
-    private static final String UNITQUANTITY_REGEX = "^[0-9]*$";
+    private static final String UNITQUANTITY_REGEX = "^[0-9]*$";//"^[0-9]*$";
 
     /**
      * Constructor de clase regex
@@ -115,7 +115,7 @@ public class Regex {
      * @param unidad unidad a ingresar
      * @return True si las unidades son válidas.
      */
-    public boolean validaCantidadUnidades(String unidad) {
+    public boolean validaEnteros(String unidad) {
         patron = Pattern.compile(UNITQUANTITY_REGEX, Pattern.CASE_INSENSITIVE);
         matcher = patron.matcher(unidad);
         return matcher.matches();
