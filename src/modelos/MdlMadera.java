@@ -165,9 +165,23 @@ public class MdlMadera {
             return productos;
         }
     }
-    public boolean crearProducto(int codProd, int codTipoMadera, 
+    
+    /**
+     * Inserta un nuevo producto en la BD
+     *
+     * @param codProd codigo personalizado asignado al producto
+     * @param codTipoMadera codigo del tipo de madera del producto
+     * @param medida medidas del producto
+     * @param tipoProducto descripcion de cual es el tipo de producto
+     * @param unidades cantidad de unidades que entran
+     * @param precio precio por vara del producto
+     * @param descripcion detalle del producto (opcional)
+     * @param codProveedor codigo del proveedor
+     * @return true si inserta el usuario.
+     */
+    public boolean crearProducto(String codProd, int codTipoMadera, 
             String medida, String tipoProducto, int unidades, double precio, 
-            String descripcion, String codProveedor, String nomProveedor) {
+            String descripcion, int codProveedor) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(codProd);
@@ -178,11 +192,10 @@ public class MdlMadera {
         params.add(codTipoMadera);
         params.add(tipoProducto);
         params.add(codProveedor);
-        params.add(nomProveedor);
 
         boolean creacionExitosa = true;
         try {
-            procedimiento = "pc_crear_producto(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_crear_producto(?, ?, ?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);

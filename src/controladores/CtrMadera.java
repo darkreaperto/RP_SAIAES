@@ -59,12 +59,23 @@ public class CtrMadera {
     public ArrayList consultarProductos(String param) {
         return mdlMadera.consultarProductos(param);
     }
-    
-    public boolean crearProducto(int codProd, int codTipoMadera, 
+    /**
+     * Inserta un nuevo producto en la BD
+     *
+     * @param codProd codigo personalizado asignado al producto
+     * @param codTipoMadera codigo del tipo de madera del producto
+     * @param medida medidas del producto
+     * @param tipoProducto descripcion de cual es el tipo de producto
+     * @param unidades cantidad de unidades que entran
+     * @param precio precio por vara del producto
+     * @param descripcion detalle del producto (opcional)
+     * @param codProveedor codigo del proveedor
+     * @return true si inserta el usuario.
+     */
+    public boolean crearProducto(String codProd, int codTipoMadera, 
             String medida, String tipoProducto, int unidades, double precio, 
-            String descripcion, String codProveedor, String nomProveedor) {
+            String descripcion, int codProveedor) {
         return mdlMadera.crearProducto(codProd, codTipoMadera, medida, 
-                tipoProducto, unidades, precio, descripcion, codProveedor, 
-                nomProveedor);
+                tipoProducto, unidades, precio, descripcion, codProveedor);
     }
 }

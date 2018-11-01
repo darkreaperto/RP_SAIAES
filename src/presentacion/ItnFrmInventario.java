@@ -7,6 +7,7 @@ package presentacion;
 
 import controladores.CtrAcceso;
 import controladores.CtrMadera;
+import controladores.CtrProveedor;
 import controladores.CtrTipoMadera;
 import controladores.CtrTipoProducto;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
 import logica.negocio.Madera;
+import logica.negocio.Proveedor;
 import logica.negocio.TipoMadera;
 import logica.negocio.TipoProducto;
 import logica.servicios.Mensaje;
@@ -31,11 +33,11 @@ import util.TipoProd;
 public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
     private static ArrayList<Madera> productos;
-    private static ArrayList<TipoProducto> tproductos;
+    private static ArrayList<Proveedor> proveedores;
     private static ArrayList<TipoMadera> tmaderas;
     private static CtrAcceso sesion;
     private static CtrMadera controlador;
-    private static CtrTipoProducto ctrTipoProducto;
+    private static CtrProveedor ctrProveedor;
     private static CtrTipoMadera ctrTipoMadera;
     private static DefaultTableModel model;
     private static ItnFrmInventario instancia = null;    
@@ -55,9 +57,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         controlador = CtrMadera.getInstancia();
         ItnFrmInventario.sesion = sesionAcc;
         ItnFrmInventario.productos = productos;
-        ctrTipoProducto = new CtrTipoProducto();
+        ctrProveedor = new CtrProveedor();
         ctrTipoMadera = new CtrTipoMadera();
-        tproductos = new ArrayList<>();
+        proveedores = new ArrayList<>();
         tmaderas = new ArrayList<>();
         verificacion = new Regex();
         msg = new Mensaje();
@@ -138,19 +140,23 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      */
     private void cargarCombos() {
         
-        /*tproductos = ctrTipoProducto.obtenerTiposProducto();  
-        for (TipoProducto item : tproductos) {
-//            cmbCrearTipoProducto.addItem(item);
-//            cmbEditarTipoProducto.addItem(item);
-        }*/
+        proveedores = ctrProveedor.obtenerProveedores();  
+        for (Proveedor item : proveedores) {
+            cbxNuevoTProveedor.addItem(item);
+            cbxEditarTProveedor.addItem(item);
+        }
         
         tmaderas = ctrTipoMadera.obtenerTiposMadera();
         tmaderas.forEach((item) -> {
-//            cmbCrearTipoMadera.addItem(item);
-//            cmbEditarTipoMadera.addItem(item);
+            cbxNuevoTVariedad.addItem(item);            
+            cbxEditarTVariedad.addItem(item);
+            cbxNuevoAcVariedad.addItem(item);
+            cbxEditarAcVariedad.addItem(item);
+            cbxNuevoTmVariedad.addItem(item);
+            cbxEditarTmVariedad.addItem(item);
         });
-//        cmbCrearTipoProducto.setSelectedIndex(0);
-//        cmbCrearTipoMadera.setSelectedIndex(0);
+        cbxNuevoTProveedor.setSelectedIndex(0);
+        cbxNuevoTVariedad.setSelectedIndex(0);
     }
 
     /**
@@ -205,7 +211,21 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             }
         }
     }
-
+    public String verificarTipoMadera() {
+        
+        int tipoProd = tbNuevoTipoProd.getSelectedIndex();
+        switch (tipoProd) {
+            case 0:
+                return "ASERRADA";
+            case 1:
+                return "TROZA";
+            case 2:
+                return "TERMINADA";
+            default:                
+                break;
+        }
+        return "NO IDENTIFICADO";
+    }
     /**
      * Limpia los campos de texto del panel, según el nombre del botón que se
      * presiona.
@@ -234,32 +254,32 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     /**
      * Crea un nuevo producto.
      */
-    private void crearProducto(String codProd, String nombre, 
-            String codTipoMadera, String medida, String codTipoProducto, 
-            String cantidad, String precio, String descripcion) {
+    private void crearProducto(String codProd, String codTipoMadera, 
+            String medida, String tipoProducto, String unidades, String precio, 
+            String descripcion, String codProveedor) {
         
         //Campos no están vacíos
-        if (!codProd.isEmpty() && !nombre.isEmpty() && !medida.isEmpty() && 
-                !codTipoMadera.isEmpty() && !codTipoProducto.isEmpty() && 
-                !cantidad.isEmpty() && !precio.isEmpty()) {
+        if (!codProd.isEmpty() && !medida.isEmpty() && !codTipoMadera.isEmpty() 
+                && !tipoProducto.isEmpty() && !unidades.isEmpty() && !precio.isEmpty() 
+                && !codProveedor.isEmpty()) {
                         
             //Verificar precio
             if (verificacion.validaPrecio(precio)) {
-                //Verificar cantidades
-                if (verificacion.validaCantidadUnidades(cantidad) && 
-                        verificacion.validaCantidadUnidades(codProd) && 
-                        verificacion.validaCantidadUnidades(codTipoMadera) && 
-                        verificacion.validaCantidadUnidades(codTipoProducto)) {
+                
+                //Verificar numeros enteros
+                /*if (verificacion.validaEnteros(unidades) && 
+                        verificacion.validaEnteros(codTipoMadera)) {
+                    */
                     double preci = Double.valueOf(precio);
-                    int cant = Integer.valueOf(cantidad);
-                    int cProd = Integer.valueOf(codProd);
+                    int unit = Integer.valueOf(unidades);
                     int cTmadera = Integer.valueOf(codTipoMadera);
-                    int cTproducto = Integer.valueOf(codTipoProducto);
-                    
+                    int cProveedor = Integer.valueOf(codProveedor);
+                   
                     System.out.println("AGREGANDO PRODUCTO, PLEASE WAIT... "+ preci);
-                    //boolean crear = controlador.crearProducto(cProd, nombre, 
-//                            cTmadera, medida, cTproducto, cant, preci, descripcion);
-                    if (true) {
+                    boolean crear = controlador.crearProducto(codProd, cTmadera,
+                            medida, tipoProducto, unit, preci, descripcion,
+                            cProveedor);
+                    if (crear) {
                         cargarTablas();
                         cargarCombos();
                         
@@ -270,11 +290,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                                 TipoMensaje.PRODUCT_INSERTION_FAILURE);
                         limpiarTexto("Crear");
                     }
-                } else {
+                /*} else {
                     msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
                             TipoMensaje.UNITQUANTITY_SYNTAX_FAILURE);
 //                    txtCrearCantidad.requestFocus();
-                }
+                }*/
             } else {
                 msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                         TipoMensaje.PRICE_SYNTAX_FAILURE);
@@ -688,8 +708,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         txtaNuevoAcDescripcion.setRows(5);
         scpnlNuevoAcDescripcion.setViewportView(txtaNuevoAcDescripcion);
 
-        cbxNuevoAcVariedad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout pnlNuevoAcerradaLayout = new javax.swing.GroupLayout(pnlNuevoAcerrada);
         pnlNuevoAcerrada.setLayout(pnlNuevoAcerradaLayout);
         pnlNuevoAcerradaLayout.setHorizontalGroup(
@@ -800,10 +818,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         txtaNuevoTDescripcion.setRows(5);
         scpnlNuevoTDescripcion.setViewportView(txtaNuevoTDescripcion);
 
-        cbxNuevoTVariedad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cbxNuevoTProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout pnlNuevoTrozaLayout = new javax.swing.GroupLayout(pnlNuevoTroza);
         pnlNuevoTroza.setLayout(pnlNuevoTrozaLayout);
         pnlNuevoTrozaLayout.setHorizontalGroup(
@@ -876,8 +890,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         lblNuevoTmVariedad.setText("Variedad de madera:");
 
         lblNuevoTmPrecio.setText("Precio:");
-
-        cbxNuevoTmVariedad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout pnlNuevoTerminadaLayout = new javax.swing.GroupLayout(pnlNuevoTerminada);
         pnlNuevoTerminada.setLayout(pnlNuevoTerminadaLayout);
@@ -990,8 +1002,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         lblActAcIngresaUNID.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         lblActAcIngresaUNID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblActAcIngresaUNID.setText("unidades.");
-
-        cbxActAcCodigo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         txtaActAcDetalle.setEditable(false);
         txtaActAcDetalle.setBackground(new java.awt.Color(238, 238, 238));
@@ -1111,8 +1121,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         });
         scpnlTblTActualizar.setViewportView(tbActTroza);
 
-        cbxActTCodigo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         btnActualizarProducto2.setText("Actualizar Inventario");
         btnActualizarProducto2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1204,8 +1212,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             }
         });
         scpnlTblTmActualizar.setViewportView(tbActTerminada);
-
-        cbxActTmCodigo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnActualizarProducto1.setText("Actualizar Inventario");
         btnActualizarProducto1.addActionListener(new java.awt.event.ActionListener() {
@@ -1316,8 +1322,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         lblEditarAcMedVaras.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         lblEditarAcMedVaras.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEditarAcMedVaras.setText("Varas");
-
-        cbxEditarAcVariedad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         txtaEditarAcDescripcion.setColumns(20);
         txtaEditarAcDescripcion.setRows(3);
@@ -1433,10 +1437,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         txtaEditarTDescripcion.setTabSize(5);
         scpnlEditarTDescripcion.setViewportView(txtaEditarTDescripcion);
 
-        cbxEditarTVariedad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cbxEditarTProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout pnlEditarTrozaLayout = new javax.swing.GroupLayout(pnlEditarTroza);
         pnlEditarTroza.setLayout(pnlEditarTrozaLayout);
         pnlEditarTrozaLayout.setHorizontalGroup(
@@ -1508,8 +1508,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         lblEditarTmVariedad.setText("Variedad de madera:");
 
         lblEditarTmPrecio.setText("Precio:");
-
-        cbxEditarTmVariedad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout pnlEditarTerminadaLayout = new javax.swing.GroupLayout(pnlEditarTerminada);
         pnlEditarTerminada.setLayout(pnlEditarTerminadaLayout);
@@ -1814,7 +1812,43 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jFormattedTextField1ActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        // TODO add your handling code here:
+
+        String medidas;
+        TipoMadera tipoMad;
+        if(verificarTipoMadera().equals("ASERRADA")) {
+            
+            medidas = txtNuevoAcMedVaras.getText().trim() + " de " + 
+                txtNuevoAcMedGrueso.getText().trim() + "x" + 
+                txtNuevoAcMedAncho.getText().trim();
+            tipoMad = (TipoMadera)cbxNuevoAcVariedad.getSelectedItem();
+            
+            crearProducto(txtNuevoAcCodigo.getText().trim(),
+                tipoMad.getCodigo(), medidas, verificarTipoMadera(),
+                txtNuevoAcUnidades.getText().trim(), 
+                txtNuevoAcPrecio.getText().trim(), 
+                txtaNuevoAcDescripcion.getText().trim(), "0");
+        } else if(verificarTipoMadera().equals("TROZA")) {
+            
+            medidas = txtNuevoTMedPulgadas.getText().trim() + " pulgadas";
+            tipoMad = (TipoMadera)cbxNuevoTVariedad.getSelectedItem();
+            Proveedor pv = (Proveedor)cbxNuevoTProveedor.getSelectedItem();
+            
+            crearProducto(txtNuevoTCodigo.getText(), 
+                tipoMad.getCodigo(), medidas, verificarTipoMadera(), "0", "0", 
+                txtaNuevoTDescripcion.getText().trim(), 
+                pv.getCodProveedor());
+        } else if (verificarTipoMadera().equals("TERMINADA")) {
+            
+            tipoMad = (TipoMadera)cbxNuevoTmVariedad.getSelectedItem();
+            
+            crearProducto(txtNuevoTmCodigo.getText(), 
+                tipoMad.getCodigo(), "0", verificarTipoMadera(), "0", 
+                txtNuevoTmPrecio.getText().trim(), 
+                txtNuevoTmNombre.getText().trim(), "0");
+        }
+        
+        
+        //limpiarCampos();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnActualizarProducto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarProducto1ActionPerformed
@@ -1837,17 +1871,17 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btn_deshabilitar;
-    private javax.swing.JComboBox<String> cbxActAcCodigo;
-    private javax.swing.JComboBox<String> cbxActTCodigo;
-    private javax.swing.JComboBox<String> cbxActTmCodigo;
-    private javax.swing.JComboBox<String> cbxEditarAcVariedad;
-    private javax.swing.JComboBox<String> cbxEditarTProveedor;
-    private javax.swing.JComboBox<String> cbxEditarTVariedad;
-    private javax.swing.JComboBox<String> cbxEditarTmVariedad;
-    private javax.swing.JComboBox<String> cbxNuevoAcVariedad;
-    private javax.swing.JComboBox<String> cbxNuevoTProveedor;
-    private javax.swing.JComboBox<String> cbxNuevoTVariedad;
-    private javax.swing.JComboBox<String> cbxNuevoTmVariedad;
+    private javax.swing.JComboBox<Object> cbxActAcCodigo;
+    private javax.swing.JComboBox<Object> cbxActTCodigo;
+    private javax.swing.JComboBox<Object> cbxActTmCodigo;
+    private javax.swing.JComboBox<Object> cbxEditarAcVariedad;
+    private javax.swing.JComboBox<Object> cbxEditarTProveedor;
+    private javax.swing.JComboBox<Object> cbxEditarTVariedad;
+    private javax.swing.JComboBox<Object> cbxEditarTmVariedad;
+    private javax.swing.JComboBox<Object> cbxNuevoAcVariedad;
+    private javax.swing.JComboBox<Object> cbxNuevoTProveedor;
+    private javax.swing.JComboBox<Object> cbxNuevoTVariedad;
+    private javax.swing.JComboBox<Object> cbxNuevoTmVariedad;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel lblActAcCodigo;
     private javax.swing.JLabel lblActAcDetalle;

@@ -389,9 +389,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_facturacionActionPerformed
 
     private void btn_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inventarioActionPerformed
-        JOptionPane.showMessageDialog(null, "Hi! An amazing stocktaking module "
-                + "will be developed here! \n Hold on a little more please. "
-                + "We are working hard!");
+        
         //Abrir formulario de inventario.
         modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
         //modCliente.deshabilitarPaneles();

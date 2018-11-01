@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTabbedPane;
 import logica.negocio.Cliente;
+import logica.negocio.Madera;
 
 /**
  * Inicializa la ventana de acceso para ingresar el usuario y contraseña.
@@ -43,6 +44,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     private static CtrAcceso sesionAcc;
     private static ArrayList<Usuario> usuarios;
     private static ArrayList<Cliente> clientes;
+    private static ArrayList<Madera> productos;
     private final AESEncrypt crypter;
     private final Mensaje msg;
     private static CtrRecover recover;
@@ -141,14 +143,15 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
              * Prueba: mostrar formulario interno después de acceder
              */
             if (c instanceof JDesktopPane) {
-                ItnFrmCliente modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
+                //ItnFrmCliente modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
+                ItnFrmInventario modCliente = ItnFrmInventario.getInstancia(sesionAcc, productos);
                 //modUsuario.deshabilitarPaneles();
                 modCliente.setVisible(true);
                 if (((JDesktopPane) c).getComponentCount() == 0) {
                     ((JDesktopPane) c).add(modCliente);
 
                 } else {
-                    if (!(((JDesktopPane) c).getComponent(0) instanceof ItnFrmCliente)) {
+                    if (!(((JDesktopPane) c).getComponent(0) instanceof ItnFrmInventario)) {
                         ((JDesktopPane) c).add(modCliente);
                     }
                 }
