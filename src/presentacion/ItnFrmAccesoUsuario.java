@@ -254,6 +254,10 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         pw_nuevaClaveConf_recClv = new javax.swing.JPasswordField();
         pb_enviarCorreo = new javax.swing.JProgressBar();
         lbl_correo_recClv = new javax.swing.JLabel();
+        pnl_cargarListas = new javax.swing.JPanel();
+        btn_salir_carLis = new javax.swing.JButton();
+        lblConfUsuario5 = new javax.swing.JLabel();
+        pb_cargar = new javax.swing.JProgressBar();
         pnl_modAccesoUsuario = new javax.swing.JPanel();
         lbl_acc_NombreUsuario = new javax.swing.JLabel();
         lbl_acc_password = new javax.swing.JLabel();
@@ -397,6 +401,54 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        pnl_cargarListas.setAutoscrolls(true);
+        pnl_cargarListas.setPreferredSize(new java.awt.Dimension(590, 385));
+
+        btn_salir_carLis.setText("Salir");
+        btn_salir_carLis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salir_carLisActionPerformed(evt);
+            }
+        });
+
+        lblConfUsuario5.setText("<html><body>\nCargando...<br>\nCargando... x2\n</body></html>");
+
+        pb_cargar.setIndeterminate(true);
+        pb_cargar.setString("Cargando...");
+        pb_cargar.setStringPainted(true);
+        pb_enviarCorreo.setVisible(false);
+
+        javax.swing.GroupLayout pnl_cargarListasLayout = new javax.swing.GroupLayout(pnl_cargarListas);
+        pnl_cargarListas.setLayout(pnl_cargarListasLayout);
+        pnl_cargarListasLayout.setHorizontalGroup(
+            pnl_cargarListasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_cargarListasLayout.createSequentialGroup()
+                .addGroup(pnl_cargarListasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_cargarListasLayout.createSequentialGroup()
+                        .addGap(461, 461, 461)
+                        .addComponent(btn_salir_carLis, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnl_cargarListasLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblConfUsuario5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pb_cargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        pnl_cargarListasLayout.setVerticalGroup(
+            pnl_cargarListasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_cargarListasLayout.createSequentialGroup()
+                .addGroup(pnl_cargarListasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_cargarListasLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(pb_cargar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnl_cargarListasLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblConfUsuario5, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(238, 238, 238)
+                .addComponent(btn_salir_carLis, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setIconifiable(true);
         setTitle("ACCESO A SISTEMA");
@@ -471,7 +523,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                         .addComponent(btn_acc_entrar)))
                 .addGap(26, 26, 26)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(lbl_acc_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -510,7 +562,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnl_modAccesoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 384, Short.MAX_VALUE)
+                .addComponent(pnl_modAccesoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -665,6 +717,10 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                 new String(pw_acc_password.getPassword()));
     }//GEN-LAST:event_txt_NombreUsuarioActionPerformed
 
+    private void btn_salir_carLisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salir_carLisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_salir_carLisActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_acc_entrar;
     private javax.swing.JButton btn_acc_recup;
@@ -672,17 +728,21 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_codigoConf_recClv;
     private javax.swing.JButton btn_confUsuario_recClv;
     private javax.swing.JButton btn_nuevaClave_recClv;
+    private javax.swing.JButton btn_salir_carLis;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblConfUsuario;
     private javax.swing.JLabel lblConfUsuario1;
     private javax.swing.JLabel lblConfUsuario2;
     private javax.swing.JLabel lblConfUsuario3;
     private javax.swing.JLabel lblConfUsuario4;
+    private javax.swing.JLabel lblConfUsuario5;
     private javax.swing.JLabel lbl_acc_NombreUsuario;
     private javax.swing.JLabel lbl_acc_logo;
     private javax.swing.JLabel lbl_acc_password;
     private javax.swing.JLabel lbl_correo_recClv;
+    private javax.swing.JProgressBar pb_cargar;
     private javax.swing.JProgressBar pb_enviarCorreo;
+    private javax.swing.JPanel pnl_cargarListas;
     private javax.swing.JPanel pnl_modAccesoUsuario;
     private javax.swing.JPanel pnl_recuperar_clave;
     private javax.swing.JPasswordField pw_acc_password;
