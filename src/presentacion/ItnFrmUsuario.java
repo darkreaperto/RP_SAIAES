@@ -394,6 +394,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setTitle("Módulo de Usuario");
+        setPreferredSize(new java.awt.Dimension(1240, 680));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -1033,7 +1034,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnl_modUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
+            .addComponent(pnl_modUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
         );
 
         pack();
