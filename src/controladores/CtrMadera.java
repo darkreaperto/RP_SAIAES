@@ -26,14 +26,13 @@ public class CtrMadera {
         productos = new ArrayList<>();
         mdlMadera = new MdlMadera();
     }
-    public CtrMadera(String codigo, String codProducto, String nombre, 
-            String codTipoMadera, String descTipoMadera, String medidas, 
-            String codTipoProducto, String descTipoProducto, int cantidad, 
-            double precioXvara, String descripcion, String estado,
-            String codProveedor) {
-        madera = new Madera(codigo, codProducto, nombre, codTipoMadera, 
-                descTipoMadera, medidas, codTipoProducto, descTipoProducto,
-                cantidad, precioXvara, descripcion, estado, codProveedor);
+    public CtrMadera(String codigo, String codProducto, String codTipoMadera, 
+            String descTipoMadera, String medidas, String tipoProducto, 
+            int unidades, double precioXvara, String descripcion, String estado,
+            String codProveedor, String nomProveedor) {
+        madera = new Madera(codigo, codProducto, codTipoMadera, 
+                descTipoMadera, medidas, tipoProducto, unidades, precioXvara, 
+                descripcion, estado, codProveedor, nomProveedor);
     }
     /**
      * Obtener instancia única del controlador de madera.
@@ -52,10 +51,20 @@ public class CtrMadera {
         return mdlMadera.obtenerProductos();
     }
     
-    public boolean crearProducto(int codProd, String nombre, int codTipoMadera, 
-            String medida, int codTipoProducto, int cantidad, double precio, 
-            String descripcion) {
-        return mdlMadera.crearProducto(codProd, nombre, codTipoMadera, medida, 
-                codTipoProducto, cantidad, precio, descripcion);
+    /**
+     * Buscar producto enviando por parámetro el criterio de búsqueda.
+     * @param param Parametros para consultar producto en la base de datos
+     * @return lista de productos
+     */
+    public ArrayList consultarProductos(String param) {
+        return mdlMadera.consultarProductos(param);
+    }
+    
+    public boolean crearProducto(int codProd, int codTipoMadera, 
+            String medida, String tipoProducto, int unidades, double precio, 
+            String descripcion, String codProveedor, String nomProveedor) {
+        return mdlMadera.crearProducto(codProd, codTipoMadera, medida, 
+                tipoProducto, unidades, precio, descripcion, codProveedor, 
+                nomProveedor);
     }
 }

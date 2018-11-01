@@ -12,20 +12,17 @@ import util.Estado;
  * @author dark-reaper
  */
 public class Madera {
-    private int cantidad;
+    private int unidades;
     private double precioXvara;
     private String codigo;
-    private String codTipoProducto;
-    private String descTipoProducto;
     private String codProducto;
-    private String nombre;
     private String codTipoMadera;
     private String descTipoMadera;
     private String medidas;
-    
-    
-    private String descripcion;
-    private String codProveedor;   
+    private String descripcion;    
+    private String codProveedor;
+    private String nomProveedor;
+    private String tipoProducto;
     private Estado estado;
     
     
@@ -39,36 +36,33 @@ public class Madera {
      * Constructor de clase madera, inicializa variables.
      * @param codigo codigo producto.
      * @param codProducto codigo especificado de producto.
-     * @param nombre nombre del producto(madera).
      * @param codTipoMadera codigo del tipo de madera.
      * @param descTipoMadera descripcion del tipo de madera.
      * @param medidas medidas del producto de acuerdo a su tipo.
-     * @param codTipoProducto tipo de producto(troza, acerrada, terminada).
-     * @param cantidad unidades de producto.
-     * @param descTipoProducto descripcion del tipo de producto.
+     * @param tipoProducto tipo de producto(troza, acerrada, terminada).
+     * @param unidades unidades de producto.
      * @param precioXvara precio por vara del producto.
      * @param descripcion descripciones detalladas del producto.
      * @param estado Estado de producto.
      * @param codProveedor codigo del proveedor.
+     * @param nomProveedor nombre del proveedor.
      */
-    public Madera(String codigo, String codProducto, String nombre, 
-            String codTipoMadera, String descTipoMadera, String medidas, 
-            String codTipoProducto, String descTipoProducto, int cantidad, 
-            double precioXvara, String descripcion, String estado,
-            String codProveedor) {
+    public Madera(String codigo, String codProducto, String codTipoMadera, 
+            String descTipoMadera, String medidas, String tipoProducto,
+            int unidades, double precioXvara, String descripcion, String estado,
+            String codProveedor, String nomProveedor) {
         this.codigo = codigo;
         this.codProducto = codProducto;
-        this.nombre = nombre;
         this.codTipoMadera = codTipoMadera;
         this.descTipoMadera = descTipoMadera;
         this.medidas = medidas;
-        this.codTipoProducto = codTipoProducto;
-        this.descTipoProducto = descTipoProducto;
-        this.cantidad = cantidad;
+        this.tipoProducto = tipoProducto;
+        this.unidades = unidades;
         this.precioXvara = precioXvara;
         this.descripcion = descripcion;
         this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
         this.codProveedor = codProveedor;
+        this.nomProveedor = nomProveedor;
         
     }
 
@@ -105,22 +99,6 @@ public class Madera {
     }
     
     /**
-     * Obtener el nombre del producto.
-     * @return el nombre 
-     */
-    public String getNombre() {
-        return nombre;
-    }
-    
-    /**
-     * Establecer nombre de producto
-     * @param nombre El nombre.
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-    
-    /**
      * Obtener el codigo del tipo de madera del producto.
      * @return el codigo de tipo de madera
      */
@@ -135,11 +113,17 @@ public class Madera {
     public void setCodTipoMadera(String codTipoMadera) {
         this.codTipoMadera = codTipoMadera;
     }
-
+    
+    /**
+     * Obtener descripción del tipo de madera de producto
+     * @return descripción del tipo de madera
+     */
     public String getDescTipoMadera() {
         return descTipoMadera;
     }
-
+    /***
+     * Establecer descripción del tipo de madera de producto
+     */
     public void setDescTipoMadera(String descTipoMadera) {
         this.descTipoMadera = descTipoMadera;
     }
@@ -161,43 +145,35 @@ public class Madera {
     }
     
     /**
-     * Obtener el codigo del tipo de producto.
-     * @return codigo del tipo
+     * Obtener el tipo de producto.
+     * @return tipo de producto
      */
-    public String getCodTipoProducto() {
-        return codTipoProducto;
+    public String getTipoProducto() {
+        return tipoProducto;
     }
     
     /**
-     * Establecer codigo de tipo de producto del producto
-     * @param codTipoProducto el codigo del tipo.
+     * Establecer el tipo de producto.
+     * @param tipoProducto tipo de producto
      */
-    public void setCodTipoProducto(String codTipoProducto) {
-        this.codTipoProducto = codTipoProducto;
-    }
-
-    public String getDescTipoProducto() {
-        return descTipoProducto;
-    }
-
-    public void setDescTipoProducto(String descTipoProducto) {
-        this.descTipoProducto = descTipoProducto;
+    public void setTipoProducto(String tipoProducto) {
+        this.tipoProducto = tipoProducto;
     }
     
     /**
-     * Obtener la cantidad por unidad.
-     * @return la cantidad
+     * Obtener la unidades por unidad.
+     * @return la unidades
      */
-    public int getCantidad() {
-        return cantidad;
+    public int getUnidades() {
+        return unidades;
     }
     
     /**
-     * Establecer cantidad de producto
-     * @param cantidad la cantidad
+     * Establecer unidades de producto
+     * @param unidades la unidades
      */
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setUnidades(int unidades) {
+        this.unidades = unidades;
     }
     
     /**
@@ -262,5 +238,18 @@ public class Madera {
     public void setCodProveedor(String codProveedor) {
         this.codProveedor = codProveedor;
     }
-    
+    /**
+     * Obtener el nombre del proveedor.
+     * @return El nombre del proveedor
+     */
+    public String getNomProveedor() {
+        return nomProveedor;
+    }
+    /**
+     * Establecer el nombre del proveedor
+     * @param nomProveedor El nombre del proveedor
+     */
+    public void setNomProveedor(String nomProveedor) {
+        this.nomProveedor = nomProveedor;
+    }
 }

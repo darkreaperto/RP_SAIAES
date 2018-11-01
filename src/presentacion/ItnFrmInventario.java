@@ -138,11 +138,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      */
     private void cargarCombos() {
         
-        tproductos = ctrTipoProducto.obtenerTiposProducto();  
+        /*tproductos = ctrTipoProducto.obtenerTiposProducto();  
         for (TipoProducto item : tproductos) {
 //            cmbCrearTipoProducto.addItem(item);
 //            cmbEditarTipoProducto.addItem(item);
-        }
+        }*/
         
         tmaderas = ctrTipoMadera.obtenerTiposMadera();
         tmaderas.forEach((item) -> {
@@ -180,27 +180,25 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         for (int i = 0; i < productos.size(); i++) {
             //tipo prod- codigo- variedad- medidas- proveedor- unidades- precio- descripción
             if (productos.get(i).getEstado().equals(Estado.Activo) && estado) {
-                row[0] = productos.get(i).getDescTipoProducto();
+                row[0] = productos.get(i).getTipoProducto();
                 row[1] = productos.get(i).getCodProducto();////////
                 row[2] = productos.get(i).getDescTipoMadera();
                 row[3] = productos.get(i).getMedidas();
-                row[4] = productos.get(i).getCodProveedor() == null ? 
-                        "No aplica" : productos.get(i).getCodProveedor();
-                row[5] = productos.get(i).getCantidad() <= 0 ? 
-                        "No aplica" : productos.get(i).getCantidad();
+                row[4] = productos.get(i).getNomProveedor();//getCodProveedor() == null ? "No aplica" : productos.get(i).getCodProveedor();
+                row[5] = productos.get(i).getUnidades() <= 0 ? 
+                        "No aplica" : productos.get(i).getUnidades();
                 row[6] = productos.get(i).getPrecioXvara();
                 row[7] = productos.get(i).getDescripcion();
                 model.addRow(row);
             }
             if (productos.get(i).getEstado().equals(Estado.Deshabilitado) && !estado) {
-                row[0] = productos.get(i).getDescTipoProducto();
+                row[0] = productos.get(i).getTipoProducto();
                 row[1] = productos.get(i).getCodProducto();////////
                 row[2] = productos.get(i).getDescTipoMadera();
                 row[3] = productos.get(i).getMedidas();
-                row[4] = productos.get(i).getCodProveedor() == null ? 
-                        "No aplica" : productos.get(i).getCodProveedor();
-                row[5] = productos.get(i).getCantidad() <= 0 ? 
-                        "No aplica" : productos.get(i).getCantidad();
+                row[4] = productos.get(i).getNomProveedor();//getCodProveedor() == null ? "No aplica" : productos.get(i).getCodProveedor();
+                row[5] = productos.get(i).getUnidades() <= 0 ? 
+                        "No aplica" : productos.get(i).getUnidades();
                 row[6] = productos.get(i).getPrecioXvara();
                 row[7] = productos.get(i).getDescripcion();
                 model.addRow(row);
@@ -259,9 +257,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     int cTproducto = Integer.valueOf(codTipoProducto);
                     
                     System.out.println("AGREGANDO PRODUCTO, PLEASE WAIT... "+ preci);
-                    boolean crear = controlador.crearProducto(cProd, nombre, 
-                            cTmadera, medida, cTproducto, cant, preci, descripcion);
-                    if (crear) {
+                    //boolean crear = controlador.crearProducto(cProd, nombre, 
+//                            cTmadera, medida, cTproducto, cant, preci, descripcion);
+                    if (true) {
                         cargarTablas();
                         cargarCombos();
                         
@@ -1807,8 +1805,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnActualizarProductoActionPerformed
 
     private void txtListadoInventarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtListadoInventarioKeyReleased
-        //usuarios = controlador.consultarUsuarios(txt_listado_buscar.getText().trim());
-        //cargarUsuariosJTable(tbl_usuarioListado, true);
+        productos = controlador.consultarProductos(txtListadoInventario.getText().trim());
+        cargarProductosJTable(tbListadoInventario, true);
     }//GEN-LAST:event_txtListadoInventarioKeyReleased
 
     private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
