@@ -11,6 +11,7 @@ import controladores.CtrProveedor;
 import controladores.CtrTipoMadera;
 import controladores.CtrTipoProducto;
 import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -65,10 +66,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         msg = new Mensaje();
         
         cargarCombos();
-        
         cargarTablas();
-
-        pnlCrearMedidasTroza.setVisible(false);
     }
 
     /**
@@ -84,55 +82,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             instancia = new ItnFrmInventario(sesionAcc, productos);
         }
         return instancia;
-    }
-
-    /**
-     * Coloca el panel de medidas indicada de acuerdo al tipo de producto que se
-     * selecciona.
-     */
-    private void cambiarPanelMedidas(TipoProd tipo) {
-                
-        switch (tipo) {
-            case TROZA:
-                pnlCrearMedidasAcerrada.setVisible(false);
-                pnlCrearMedidasTerminada.setVisible(false);
-                pnlCrearMedidasTroza.setVisible(true);
-                pnlCrearMedidasTroza.setBounds(25, 160, 295, 74);
-                pnl_actualizar.add(pnlCrearMedidasTroza);
-                /*txtCrearPrecioVara.setEnabled(false);
-                txtCrearPrecioVara.setText("0");
-                txtCrearCantidad.setEnabled(false);
-                txtCrearCantidad.setText("0");*/
-                pnl_actualizar.repaint();
-                //instancia.pack();
-                break;
-            case ASERRADA:
-                pnlCrearMedidasTroza.setVisible(false);
-                pnlCrearMedidasTerminada.setVisible(false);
-                pnlCrearMedidasAcerrada.setVisible(true);
-                pnlCrearMedidasAcerrada.setBounds(25, 160, 295, 74);
-                pnl_actualizar.add(pnlCrearMedidasAcerrada);
-//                txtCrearPrecioVara.setEnabled(true);
-//                txtCrearPrecioVara.setText("");
-                instancia.pack();
-                break;
-            case TERMINADA:
-                pnlCrearMedidasTroza.setVisible(false);
-                pnlCrearMedidasAcerrada.setVisible(false);
-                pnlCrearMedidasTerminada.setVisible(true);
-                pnlCrearMedidasTerminada.setBounds(25, 160, 295, 74);
-                pnl_actualizar.add(pnlCrearMedidasTerminada);
-//                txtCrearPrecioVara.setEnabled(true);
-//                txtCrearPrecioVara.setText("");
-                instancia.pack();
-                break;
-            default:
-                pnlCrearMedidasAcerrada.setVisible(false);
-                pnlCrearMedidasTroza.setVisible(false);
-//                txtCrearPrecioVara.setEnabled(true);
-//                txtCrearPrecioVara.setText("");
-                break;
-        }
     }
 
     /**
@@ -231,30 +180,45 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * presiona.
      *
      * @param panel presionado
+     * @param tmad
      */
-    public void limpiarTexto(String panel) {
+    public void limpiarCampos(String panel, String tmad) {
 
         if (panel.equals("Crear")) {
-//            cmbCrearTipoProducto.setSelectedIndex(0);
-            cambiarPanelMedidas(TipoProd.TROZA);
-            txtCrearMedTroza.setText("");
-//            cmbCrearTipoMadera.setSelectedIndex(0);
-//            txtCrearCodigoProducto.setText("");
-//            txtCrearCantidad.setText("");
-//            txtCrearPrecioVara.setText("");
-//            txtCrearDescripcionProducto.setText("");
+            switch (tmad) {
+                case "aserrada":
+                    txtNuevoAcCodigo.setText("");
+                    txtNuevoAcMedAncho.setText("");
+                    txtNuevoAcMedGrueso.setText("");
+                    txtNuevoAcMedVaras.setText("");
+                    txtNuevoAcPrecio.setText("");
+                    txtNuevoAcUnidades.setText("");
+                    txtaNuevoAcDescripcion.setText("");
+                    cbxNuevoAcVariedad.removeAllItems();
+                    break;
+                case "troza":
+                    txtNuevoTCodigo.setText("");
+                    txtNuevoTMedPulgadas.setText("");
+                    txtaNuevoTDescripcion.setText("");
+                    cbxNuevoTVariedad.removeAllItems();
+                    cbxNuevoTProveedor.removeAllItems();
+                    break;
+                case "terminada":
+                    txtNuevoTmCodigo.setText("");
+                    txtNuevoTmNombre.setText("");
+                    txtNuevoTmPrecio.setText("");
+                    cbxNuevoTmVariedad.removeAll();
+                    break;
+                default:
+                    break;
+            }
         } else if (panel.equals("Actualizar")) {
-//            txt_actuali_nombreUsuario.setText("");
-//            txt_actuali_correo.setText("");
-//            pw_actuali_lastpass.setText("");
-//            pw_actuali_newPass.setText("");
-//            pw_actuali_confNewPass.setText("");
         }
     }
     /**
      * Crea un nuevo producto.
      */
-    private void crearProducto(String codProd, String codTipoMadera, 
+    private boolean crearProducto(String codProd, String codTipoMadera, 
             String medida, String tipoProducto, String unidades, String precio, 
             String descripcion, String codProveedor) {
         
@@ -281,14 +245,13 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             cProveedor);
                     if (crear) {
                         cargarTablas();
-                        cargarCombos();
-                        
+                        cargarCombos();                        
                         msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-                                TipoMensaje.PRODUCT_INSERTION_SUCCESS);
+                                TipoMensaje.PRODUCT_INSERTION_SUCCESS);                        
+                        return true;
                     } else {
                         msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                                TipoMensaje.PRODUCT_INSERTION_FAILURE);
-                        limpiarTexto("Crear");
+                                TipoMensaje.PRODUCT_INSERTION_FAILURE);                        
                     }
                 /*} else {
                     msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
@@ -305,6 +268,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
                     TipoMensaje.EMPTY_TEXT_FIELD);
         }
+        return false;
     }
 
     /**
@@ -316,21 +280,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlCrearMedidasAcerrada = new javax.swing.JPanel();
-        lblCrearMedDE = new javax.swing.JLabel();
-        txtCrearMedVaras = new javax.swing.JTextField();
-        lblCrearMedVaras = new javax.swing.JLabel();
-        txtCrearMedAncho = new javax.swing.JTextField();
-        lblCrearAncho = new javax.swing.JLabel();
-        lblCrearMedX = new javax.swing.JLabel();
-        txtCrearMedGrueso = new javax.swing.JTextField();
-        lblCrearMedGrueso = new javax.swing.JLabel();
-        pnlCrearMedidasTroza = new javax.swing.JPanel();
-        txtCrearMedTroza = new javax.swing.JTextField();
-        lblCrearMedTroza = new javax.swing.JLabel();
-        pnlCrearMedidasTerminada = new javax.swing.JPanel();
-        txtCrearMedTermi = new javax.swing.JTextField();
-        lblCrearMedTermiLargo = new javax.swing.JLabel();
         pnl_modInventario = new javax.swing.JPanel();
         tbpnl_modInventario = new javax.swing.JTabbedPane();
         pnl_listado = new javax.swing.JPanel();
@@ -484,118 +433,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         rbDeshabDeshabProducto = new javax.swing.JRadioButton();
         rbDeshabHabilitarProducto = new javax.swing.JRadioButton();
         btn_deshabilitar = new javax.swing.JButton();
-
-        pnlCrearMedidasAcerrada.setBorder(javax.swing.BorderFactory.createTitledBorder("Medidas:"));
-
-        lblCrearMedDE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCrearMedDE.setText("de");
-        lblCrearMedDE.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        lblCrearMedVaras.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCrearMedVaras.setText("Varas");
-        lblCrearMedVaras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        lblCrearAncho.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCrearAncho.setText("Ancho");
-        lblCrearAncho.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        lblCrearMedX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCrearMedX.setText("x");
-        lblCrearMedX.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        lblCrearMedGrueso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCrearMedGrueso.setText("Grueso");
-        lblCrearMedGrueso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout pnlCrearMedidasAcerradaLayout = new javax.swing.GroupLayout(pnlCrearMedidasAcerrada);
-        pnlCrearMedidasAcerrada.setLayout(pnlCrearMedidasAcerradaLayout);
-        pnlCrearMedidasAcerradaLayout.setHorizontalGroup(
-            pnlCrearMedidasAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlCrearMedidasAcerradaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlCrearMedidasAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCrearMedVaras)
-                    .addComponent(lblCrearMedVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblCrearMedDE)
-                .addGap(18, 18, 18)
-                .addGroup(pnlCrearMedidasAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCrearAncho)
-                    .addComponent(txtCrearMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(lblCrearMedX, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlCrearMedidasAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblCrearMedGrueso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCrearMedGrueso, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlCrearMedidasAcerradaLayout.setVerticalGroup(
-            pnlCrearMedidasAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearMedidasAcerradaLayout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addGroup(pnlCrearMedidasAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCrearMedVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCrearMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCrearMedGrueso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCrearMedX, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCrearMedDE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlCrearMedidasAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCrearMedGrueso)
-                    .addComponent(lblCrearAncho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblCrearMedVaras)))
-        );
-
-        pnlCrearMedidasTroza.setBorder(javax.swing.BorderFactory.createTitledBorder("Medidas:"));
-
-        lblCrearMedTroza.setText("Pulgadas:");
-
-        javax.swing.GroupLayout pnlCrearMedidasTrozaLayout = new javax.swing.GroupLayout(pnlCrearMedidasTroza);
-        pnlCrearMedidasTroza.setLayout(pnlCrearMedidasTrozaLayout);
-        pnlCrearMedidasTrozaLayout.setHorizontalGroup(
-            pnlCrearMedidasTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlCrearMedidasTrozaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblCrearMedTroza, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(txtCrearMedTroza, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        pnlCrearMedidasTrozaLayout.setVerticalGroup(
-            pnlCrearMedidasTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearMedidasTrozaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlCrearMedidasTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblCrearMedTroza, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCrearMedTroza, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        pnlCrearMedidasTerminada.setBorder(javax.swing.BorderFactory.createTitledBorder("Medidas:"));
-
-        lblCrearMedTermiLargo.setText("Varas:");
-
-        javax.swing.GroupLayout pnlCrearMedidasTerminadaLayout = new javax.swing.GroupLayout(pnlCrearMedidasTerminada);
-        pnlCrearMedidasTerminada.setLayout(pnlCrearMedidasTerminadaLayout);
-        pnlCrearMedidasTerminadaLayout.setHorizontalGroup(
-            pnlCrearMedidasTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlCrearMedidasTerminadaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblCrearMedTermiLargo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(txtCrearMedTermi, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pnlCrearMedidasTerminadaLayout.setVerticalGroup(
-            pnlCrearMedidasTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearMedidasTerminadaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlCrearMedidasTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblCrearMedTermiLargo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCrearMedTermi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
 
         setClosable(true);
         setIconifiable(true);
@@ -1815,40 +1652,46 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
         String medidas;
         TipoMadera tipoMad;
-        if(verificarTipoMadera().equals("ASERRADA")) {
-            
-            medidas = txtNuevoAcMedVaras.getText().trim() + " de " + 
-                txtNuevoAcMedGrueso.getText().trim() + "x" + 
-                txtNuevoAcMedAncho.getText().trim();
-            tipoMad = (TipoMadera)cbxNuevoAcVariedad.getSelectedItem();
-            
-            crearProducto(txtNuevoAcCodigo.getText().trim(),
-                tipoMad.getCodigo(), medidas, verificarTipoMadera(),
-                txtNuevoAcUnidades.getText().trim(), 
-                txtNuevoAcPrecio.getText().trim(), 
-                txtaNuevoAcDescripcion.getText().trim(), "0");
-        } else if(verificarTipoMadera().equals("TROZA")) {
-            
+        if (verificarTipoMadera().equals("ASERRADA")) {
+
+            medidas = txtNuevoAcMedVaras.getText().trim() + " de "
+                    + txtNuevoAcMedGrueso.getText().trim() + "x"
+                    + txtNuevoAcMedAncho.getText().trim();
+            tipoMad = (TipoMadera) cbxNuevoAcVariedad.getSelectedItem();
+
+            boolean cprod = crearProducto(txtNuevoAcCodigo.getText().trim(),
+                    tipoMad.getCodigo(), medidas, verificarTipoMadera(),
+                    txtNuevoAcUnidades.getText().trim(),
+                    txtNuevoAcPrecio.getText().trim(),
+                    txtaNuevoAcDescripcion.getText().trim(), "0");
+            if(cprod) {
+                limpiarCampos("Crear","ASERRADA");
+            }
+        } else if (verificarTipoMadera().equals("TROZA")) {
+
             medidas = txtNuevoTMedPulgadas.getText().trim() + " pulgadas";
-            tipoMad = (TipoMadera)cbxNuevoTVariedad.getSelectedItem();
-            Proveedor pv = (Proveedor)cbxNuevoTProveedor.getSelectedItem();
-            
-            crearProducto(txtNuevoTCodigo.getText(), 
-                tipoMad.getCodigo(), medidas, verificarTipoMadera(), "0", "0", 
-                txtaNuevoTDescripcion.getText().trim(), 
-                pv.getCodProveedor());
+            tipoMad = (TipoMadera) cbxNuevoTVariedad.getSelectedItem();
+            Proveedor pv = (Proveedor) cbxNuevoTProveedor.getSelectedItem();
+
+            boolean cprod = crearProducto(txtNuevoTCodigo.getText(),
+                    tipoMad.getCodigo(), medidas, verificarTipoMadera(), "0", "0",
+                    txtaNuevoTDescripcion.getText().trim(),
+                    pv.getCodProveedor());
+            if(cprod) {
+                limpiarCampos("Crear","TROZA");
+            }
         } else if (verificarTipoMadera().equals("TERMINADA")) {
-            
-            tipoMad = (TipoMadera)cbxNuevoTmVariedad.getSelectedItem();
-            
-            crearProducto(txtNuevoTmCodigo.getText(), 
-                tipoMad.getCodigo(), "0", verificarTipoMadera(), "0", 
-                txtNuevoTmPrecio.getText().trim(), 
-                txtNuevoTmNombre.getText().trim(), "0");
+
+            tipoMad = (TipoMadera) cbxNuevoTmVariedad.getSelectedItem();
+
+            boolean cprod = crearProducto(txtNuevoTmCodigo.getText(),
+                    tipoMad.getCodigo(), "0", verificarTipoMadera(), "0",
+                    txtNuevoTmPrecio.getText().trim(),
+                    txtNuevoTmNombre.getText().trim(), "0");
+            if(cprod) {
+                limpiarCampos("Crear","TERMINADA");
+            }
         }
-        
-        
-        //limpiarCampos();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnActualizarProducto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarProducto1ActionPerformed
@@ -1895,13 +1738,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblActTmIngresa;
     private javax.swing.JLabel lblActTmIngresaUNID;
     private javax.swing.JLabel lblActTmNombre;
-    private javax.swing.JLabel lblCrearAncho;
-    private javax.swing.JLabel lblCrearMedDE;
-    private javax.swing.JLabel lblCrearMedGrueso;
-    private javax.swing.JLabel lblCrearMedTermiLargo;
-    private javax.swing.JLabel lblCrearMedTroza;
-    private javax.swing.JLabel lblCrearMedVaras;
-    private javax.swing.JLabel lblCrearMedX;
     private javax.swing.JLabel lblDeshabSelectInventario;
     private javax.swing.JLabel lblEditarAcCodigo;
     private javax.swing.JLabel lblEditarAcDescripcion;
@@ -1949,9 +1785,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnlActualizarAcerrada;
     private javax.swing.JPanel pnlActualizarTerminada;
     private javax.swing.JPanel pnlActualizarTroza;
-    private javax.swing.JPanel pnlCrearMedidasAcerrada;
-    private javax.swing.JPanel pnlCrearMedidasTerminada;
-    private javax.swing.JPanel pnlCrearMedidasTroza;
     private javax.swing.JPanel pnlDeshabContainer;
     private javax.swing.JPanel pnlEditarAcerrada;
     private javax.swing.JPanel pnlEditarTerminada;
@@ -1998,11 +1831,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtActAcIngresa;
     private javax.swing.JTextField txtActTIngresa;
     private javax.swing.JTextField txtActTmIngresa;
-    private javax.swing.JTextField txtCrearMedAncho;
-    private javax.swing.JTextField txtCrearMedGrueso;
-    private javax.swing.JTextField txtCrearMedTermi;
-    private javax.swing.JTextField txtCrearMedTroza;
-    private javax.swing.JTextField txtCrearMedVaras;
     private javax.swing.JTextField txtEditarAcCodigo;
     private javax.swing.JTextField txtEditarAcMedAncho;
     private javax.swing.JTextField txtEditarAcMedGrueso;
