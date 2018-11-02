@@ -16,6 +16,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import logica.negocio.Cliente;
 import logica.negocio.Madera;
+import logica.negocio.Proveedor;
 import logica.negocio.Usuario;
 import logica.servicios.Autoguardado;
 
@@ -30,10 +31,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private static ItnFrmUsuario modUsuario;
     private static ItnFrmCliente modCliente;
     private static ItnFrmInventario modInventario;
+    private static ItnFrmProveedor modProveedor;
     private static CtrAcceso sesionAcc;
     private static ArrayList<Usuario> usuarios;
     private static ArrayList<Cliente> clientes;
     private static ArrayList<Madera> productos;
+    private static ArrayList<Proveedor> proveedores;
     private static Autoguardado a;
 
     /**
@@ -268,7 +271,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_proveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_proveedor.png"))); // NOI18N
         btn_proveedor.setText("Proveedores");
-        btn_proveedor.setEnabled(false);
         btn_proveedor.setFocusable(false);
         btn_proveedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_proveedor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -429,12 +431,31 @@ public class FrmPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Hi! An amazing providers module "
                 + "will be developed here! \n Hold on a little more please. "
                 + "We are working hard!");
+        modProveedor = ItnFrmProveedor.getInstancia(sesionAcc, proveedores);
+        
+        modProveedor.setVisible(true);
+        if (dpn_principal.getComponentCount() == 0) {
+            dpn_principal.add(modProveedor);
+        } else {
+            if (!(dpn_principal.getComponent(0) instanceof ItnFrmCliente)) 
+                dpn_principal.add(modProveedor);
+        }
     }//GEN-LAST:event_btn_proveedorActionPerformed
 
     private void btn_maquinariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_maquinariaActionPerformed
         JOptionPane.showMessageDialog(null, "Hi! An amazing enginery module "
                 + "will be developed here! \n Hold on a little more please. "
                 + "We are working hard!");
+        //Abrir formulario de usuarios.
+        modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
+        //modCliente.deshabilitarPaneles();
+        modCliente.setVisible(true);
+        if (dpn_principal.getComponentCount() == 0) {
+            dpn_principal.add(modCliente);
+        } else {
+            if (!(dpn_principal.getComponent(0) instanceof ItnFrmCliente)) 
+                dpn_principal.add(modCliente);
+        }
     }//GEN-LAST:event_btn_maquinariaActionPerformed
 
     /**
