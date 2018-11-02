@@ -75,7 +75,31 @@ public class CtrMadera {
     public boolean crearProducto(String codProd, int codTipoMadera, 
             String medida, String tipoProducto, int unidades, double precio, 
             String descripcion, int codProveedor) {
+        
         return mdlMadera.crearProducto(codProd, codTipoMadera, medida, 
                 tipoProducto, unidades, precio, descripcion, codProveedor);
+    }
+    
+    public boolean actualizarProducto(String codProd, int codTipoMadera, 
+            String medidas, int unidades, double precio, String descripcion, 
+            int codProveedor, String codigo) {
+        
+        return mdlMadera.actualizarProducto(codProd, codTipoMadera, medidas, 
+                unidades, precio, descripcion, codProveedor, codigo);
+    }
+    
+    public boolean inactivarProducto(String codigo) {
+        
+        return mdlMadera.inactivarProducto(codigo);
+    }
+    
+    public boolean activarProducto(String codigo) {
+        
+        return mdlMadera.activarProducto(codigo);
+    }
+    
+    public boolean actualizarInventario(int unidades, String codigo) {
+        
+        return mdlMadera.actualizarInventario(unidades, codigo);
     }
 }
