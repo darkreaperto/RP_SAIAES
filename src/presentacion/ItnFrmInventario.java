@@ -104,6 +104,17 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             cbxNuevoTmVariedad.addItem(item);
             cbxEditarTmVariedad.addItem(item);
         });
+        
+        productos = controlador.obtenerProductos();  
+        for (Madera item : productos) {
+            if (item.getTipoProducto().toUpperCase().equals("ASERRADA")) {
+                cbxActAcCodigo.addItem(item);
+            } else if (item.getTipoProducto().toUpperCase().equals("TROZA")) {
+                cbxActTCodigo.addItem(item);
+            } else {
+                cbxActTmCodigo.addItem(item);
+            }
+        }
         cbxNuevoTProveedor.setSelectedIndex(0);
         cbxNuevoTVariedad.setSelectedIndex(0);
     }
@@ -128,9 +139,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * @param estado Estado del producto a incresar
      */
     public void cargarProductosJTable(JTable tabla, boolean estado) {
-        Object[] row = new Object[8];
+        Object[] row = new Object[9];
         model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0);
+        model.setColumnCount(9);
 
         for (int i = 0; i < productos.size(); i++) {
             //tipo prod- codigo- variedad- medidas- proveedor- unidades- precio- descripción
@@ -144,6 +156,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                         "No aplica" : productos.get(i).getUnidades();
                 row[6] = productos.get(i).getPrecioXvara();
                 row[7] = productos.get(i).getDescripcion();
+                
+                row[8] = productos.get(i).getCodigo();
+                
                 model.addRow(row);
             }
             if (productos.get(i).getEstado().equals(Estado.Deshabilitado) && !estado) {
@@ -156,13 +171,23 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                         "No aplica" : productos.get(i).getUnidades();
                 row[6] = productos.get(i).getPrecioXvara();
                 row[7] = productos.get(i).getDescripcion();
+                
+                row[8] = productos.get(i).getCodigo();
+                
                 model.addRow(row);
             }
         }
-    }
-    public String verificarTipoMadera() {
         
-        int tipoProd = tbNuevoTipoProd.getSelectedIndex();
+        tabla.removeColumn(tabla.getColumnModel().getColumn(8));
+    }
+    public String verificarTipoMadera(String panel) {
+        
+        int tipoProd = 0;
+        if (panel.toUpperCase().equals("CREAR")) {
+            tipoProd = tbNuevoTipoProd.getSelectedIndex();
+        } else if (panel.toUpperCase().equals("EDITAR")) {
+            tipoProd = tbEditarTipoProd.getSelectedIndex();
+        }
         switch (tipoProd) {
             case 0:
                 return "ASERRADA";
@@ -184,9 +209,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      */
     public void limpiarCampos(String panel, String tmad) {
 
-        if (panel.equals("Crear")) {
-            switch (tmad) {
-                case "aserrada":
+        if (panel.toUpperCase().equals("CREAR")) {
+            switch (tmad.toLowerCase()) {
+                case "ASERRADA":
                     txtNuevoAcCodigo.setText("");
                     txtNuevoAcMedAncho.setText("");
                     txtNuevoAcMedGrueso.setText("");
@@ -196,14 +221,14 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     txtaNuevoAcDescripcion.setText("");
                     cbxNuevoAcVariedad.removeAllItems();
                     break;
-                case "troza":
+                case "TROZA":
                     txtNuevoTCodigo.setText("");
                     txtNuevoTMedPulgadas.setText("");
                     txtaNuevoTDescripcion.setText("");
                     cbxNuevoTVariedad.removeAllItems();
                     cbxNuevoTProveedor.removeAllItems();
                     break;
-                case "terminada":
+                case "TERMINADA":
                     txtNuevoTmCodigo.setText("");
                     txtNuevoTmNombre.setText("");
                     txtNuevoTmPrecio.setText("");
@@ -212,7 +237,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 default:
                     break;
             }
-        } else if (panel.equals("Actualizar")) {
+        } else if (panel.toUpperCase().equals("ACTUALIZAR")) {
         }
     }
     /**
@@ -270,6 +295,61 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         }
         return false;
     }
+    
+    private boolean actualizarProducto(String codProd, String codTipoMadera, 
+            String medida, String unidades, String precio, String descripcion, 
+            String codProveedor, String codigo) {
+        
+        //Campos no están vacíos
+        if (!codProd.isEmpty() && !medida.isEmpty() && !codTipoMadera.isEmpty() 
+                && !unidades.isEmpty() && !precio.isEmpty() 
+                && !codProveedor.isEmpty()) {
+                        
+            //Verificar precio
+            if (verificacion.validaPrecio(precio)) {
+                
+                //Verificar numeros enteros
+                /*if (verificacion.validaEnteros(unidades) && 
+                        verificacion.validaEnteros(codTipoMadera)) {
+                    */
+                    double preci = Double.valueOf(precio);
+                    int unit = Integer.valueOf(unidades);
+                    int cTmadera = Integer.valueOf(codTipoMadera);
+                    int cProveedor = Integer.valueOf(codProveedor);
+                   
+                    System.out.println("ACTUALIZANDO PRODUCTO, PLEASE WAIT... "+ preci);
+                    boolean editar = controlador.actualizarProducto(codProd, 
+                            cTmadera, medida, unit, preci, descripcion, 
+                            cProveedor, codigo);
+                    
+                    if (editar) {
+                        cargarTablas();
+                        cargarCombos();                        
+                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+                                TipoMensaje.PRODUCT_UPDATE_SUCCESS);
+                        
+                        return true;
+                    } else {
+                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                                TipoMensaje.PRODUCT_UPDATE_FAILURE);                        
+                    }
+                /*} else {
+                    msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
+                            TipoMensaje.UNITQUANTITY_SYNTAX_FAILURE);
+//                    txtCrearCantidad.requestFocus();
+                }*/
+            } else {
+                msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
+                        TipoMensaje.PRICE_SYNTAX_FAILURE);
+//                txtCrearPrecioVara.requestFocus();
+//                txtCrearPrecioVara.selectAll();
+            }
+        } else {
+            msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
+                    TipoMensaje.EMPTY_TEXT_FIELD);
+        }
+        return false;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -280,6 +360,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bgDeshab = new javax.swing.ButtonGroup();
         pnl_modInventario = new javax.swing.JPanel();
         tbpnl_modInventario = new javax.swing.JTabbedPane();
         pnl_listado = new javax.swing.JPanel();
@@ -349,7 +430,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         txtaActAcDetalle = new javax.swing.JTextArea();
         scpnlTblAcActualizar = new javax.swing.JScrollPane();
         tbActAcerrada = new javax.swing.JTable();
-        btnActualizarProducto = new javax.swing.JButton();
+        btnActualizarAserrada = new javax.swing.JButton();
         pnlActualizarTroza = new javax.swing.JPanel();
         lblActTCodigo = new javax.swing.JLabel();
         lblActTIngresaPULG = new javax.swing.JLabel();
@@ -361,7 +442,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         scpnlTblTActualizar = new javax.swing.JScrollPane();
         tbActTroza = new javax.swing.JTable();
         cbxActTCodigo = new javax.swing.JComboBox<>();
-        btnActualizarProducto2 = new javax.swing.JButton();
+        btnActualizarTroza = new javax.swing.JButton();
         pnlActualizarTerminada = new javax.swing.JPanel();
         lblActTmNombre = new javax.swing.JLabel();
         lblActTmIngresaUNID = new javax.swing.JLabel();
@@ -373,7 +454,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         scpnlTblTmActualizar = new javax.swing.JScrollPane();
         tbActTerminada = new javax.swing.JTable();
         cbxActTmCodigo = new javax.swing.JComboBox<>();
-        btnActualizarProducto1 = new javax.swing.JButton();
+        btnActualizarTerminada = new javax.swing.JButton();
         pnl_editar = new javax.swing.JPanel();
         tbEditarTipoProd = new javax.swing.JTabbedPane();
         pnlEditarAcerrada = new javax.swing.JPanel();
@@ -461,11 +542,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción"
+                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -751,7 +832,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                         .addGroup(pnlNuevoTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNuevoTmPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNuevoTmPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlNuevoTerminadaLayout.setVerticalGroup(
             pnlNuevoTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -787,11 +868,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción"
+                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -855,11 +936,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción"
+                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -868,10 +949,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         });
         scpnlTblAcActualizar.setViewportView(tbActAcerrada);
 
-        btnActualizarProducto.setText("Actualizar Inventario");
-        btnActualizarProducto.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizarAserrada.setText("Actualizar Inventario");
+        btnActualizarAserrada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarProductoActionPerformed(evt);
+                btnActualizarAserradaActionPerformed(evt);
             }
         });
 
@@ -893,8 +974,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlActualizarAcerradaLayout.createSequentialGroup()
                         .addComponent(lblActAcDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(155, 155, 155))
-                    .addComponent(btnActualizarProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                    .addComponent(btnActualizarAserrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addComponent(scpnlTblAcActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -918,7 +999,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             .addComponent(txtActAcIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblActAcIngresaUNID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                        .addComponent(btnActualizarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnActualizarAserrada, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(scpnlTblAcActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -947,11 +1028,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción"
+                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -960,10 +1041,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         });
         scpnlTblTActualizar.setViewportView(tbActTroza);
 
-        btnActualizarProducto2.setText("Actualizar Inventario");
-        btnActualizarProducto2.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizarTroza.setText("Actualizar Inventario");
+        btnActualizarTroza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarProducto2ActionPerformed(evt);
+                btnActualizarTrozaActionPerformed(evt);
             }
         });
 
@@ -985,8 +1066,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                         .addComponent(lblActTDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(155, 155, 155))
                     .addComponent(lblActTCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnActualizarProducto2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                    .addComponent(btnActualizarTroza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addComponent(scpnlTblTActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1010,7 +1091,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             .addComponent(txtActTIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblActTIngresaPULG, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnActualizarProducto2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnActualizarTroza, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(scpnlTblTActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1039,11 +1120,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción"
+                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1052,10 +1133,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         });
         scpnlTblTmActualizar.setViewportView(tbActTerminada);
 
-        btnActualizarProducto1.setText("Actualizar Inventario");
-        btnActualizarProducto1.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizarTerminada.setText("Actualizar Inventario");
+        btnActualizarTerminada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarProducto1ActionPerformed(evt);
+                btnActualizarTerminadaActionPerformed(evt);
             }
         });
 
@@ -1077,8 +1158,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlActualizarTerminadaLayout.createSequentialGroup()
                         .addComponent(lblActTmDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(155, 155, 155))
-                    .addComponent(btnActualizarProducto1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                    .addComponent(btnActualizarTerminada, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addComponent(scpnlTblTmActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1102,7 +1183,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             .addComponent(txtActTmIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblActTmIngresaUNID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnActualizarProducto1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnActualizarTerminada, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(scpnlTblTmActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1123,7 +1204,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             .addGroup(pnl_actualizarLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(tbActualizarTipoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         tbpnl_modInventario.addTab("Actualizar inventario", pnl_actualizar);
@@ -1398,15 +1479,20 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción"
+                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEditarMouseClicked(evt);
             }
         });
         scpnlTbEditar.setViewportView(tblEditar);
@@ -1455,15 +1541,20 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción"
+                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tbProductosActivos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbProductosActivosMouseClicked(evt);
             }
         });
         scpnlDeshabProducto.setViewportView(tbProductosActivos);
@@ -1475,15 +1566,20 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción"
+                "Tipo de producto", "Código", "Variedad de madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripción", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tbProductosInactivos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbProductosInactivosMouseClicked(evt);
             }
         });
         scpnlHabilitarProducto.setViewportView(tbProductosInactivos);
@@ -1492,8 +1588,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
         pnlDeshabContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Activo:"));
 
+        bgDeshab.add(rbDeshabDeshabProducto);
         rbDeshabDeshabProducto.setText("Deshabilitar");
 
+        bgDeshab.add(rbDeshabHabilitarProducto);
         rbDeshabHabilitarProducto.setText("Habilitar");
 
         javax.swing.GroupLayout pnlDeshabContainerLayout = new javax.swing.GroupLayout(pnlDeshabContainer);
@@ -1549,7 +1647,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                         .addGap(35, 35, 35)
                         .addComponent(lblDeshabSelectInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tbDeshab, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                        .addComponent(tbDeshab, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pnlDeshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17))
@@ -1589,57 +1687,56 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_deshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deshabilitarActionPerformed
-        //        try {
-        //            model = (DefaultTableModel) tbl_deshabilitar.getModel();
-        //            int selectedRowIndex = tbl_deshabilitar.getSelectedRow();
-        //            String codigo = String.valueOf(model.getValueAt(selectedRowIndex, 0));
-        //            Estado estado
-        //            = rb_deshab_habilitar.isSelected() ? Estado.Activo : Estado.Deshabilitado;
-        //
-        //            controlador.actualizarUsuario(
-        //                String.valueOf(model.getValueAt(selectedRowIndex, 1)),
-        //                String.valueOf(model.getValueAt(selectedRowIndex, 2)),
-        //                String.valueOf(model.getValueAt(selectedRowIndex, 3)),
-        //                Rol.Administrador, estado, codigo);
-        //            //Actualizar
-        //            cargarTablas();
-        //        } catch (Exception e) {
-        //            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-        //                TipoMensaje.ANY_ROW_SELECTED);
-        //        }
+        try {
+            
+            model = tbDeshab.getSelectedIndex() == 0 ? 
+                    (DefaultTableModel) tbProductosActivos.getModel() : 
+                    (DefaultTableModel) tbProductosInactivos.getModel();
+            
+            int selectedRowIndex = tbDeshab.getSelectedIndex() == 0 ? 
+                    tbProductosActivos.getSelectedRow() : 
+                    tbProductosInactivos.getSelectedRow();
+            
+            Estado estado
+                    = rbDeshabHabilitarProducto.isSelected() ? Estado.Activo : Estado.Deshabilitado;
+            
+            String codigo = (String) model.getValueAt(selectedRowIndex, 8);
+            
+            if (estado.equals(Estado.Deshabilitado)) {
+                controlador.inactivarProducto(codigo);
+                System.out.println(codigo);
+            } else {
+                controlador.activarProducto(codigo);
+                System.out.println(codigo);
+            }
+            //Actualizar
+            cargarTablas();
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+                    TipoMensaje.ANY_ROW_SELECTED);
+        }
     }//GEN-LAST:event_btn_deshabilitarActionPerformed
 
-    private void btnActualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarProductoActionPerformed
-        
-        TipoMadera tMadera;// = cmbCrearTipoMadera.getItemAt(cmbCrearTipoMadera.getSelectedIndex());
-        TipoProducto tProducto;// = cmbCrearTipoProducto.getItemAt(cmbCrearTipoProducto.getSelectedIndex());
-        
-        String medida; TipoProd tipo;// = tProducto.getTipo();
-        /*switch (tipo) {
-            case TROZA:
-                medida = txtCrearMedTroza.getText() + " pulgadas";
-                break;
-            case ASERRADA:
-                medida = txtCrearMedVaras.getText() + " varas de "
-                        + txtCrearMedAncho.getText() + " x " 
-                        + txtCrearMedGrueso.getText();
-                break;
-            case TERMINADA:
-                medida = txtCrearMedTermi.getText() + " de largo";
-                break;
-            default:
-                medida = "No medida";
-                break;
-        }*/
-
-        /*String nombre = tMadera + " " + medida;
-
-        crearProducto(txtCrearCodigoProducto.getText(), nombre, 
-            tMadera.getCodigo(), medida, tProducto.getCodigo(), 
-            txtCrearCantidad.getText(), txtCrearPrecioVara.getText(), 
-            txtCrearDescripcionProducto.getText());
-        System.out.println(txtCrearCodigoProducto.getText() +"|"+ nombre +"|"+ tMadera.getCodigo() +"|"+ medida+"|"+ tProducto.getCodigo() +"|"+ txtCrearCantidad.getText()+"|"+ txtCrearPrecioVara.getText()+"|"+ txtCrearDescripcionProducto.getText());*/
-    }//GEN-LAST:event_btnActualizarProductoActionPerformed
+    private void btnActualizarAserradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarAserradaActionPerformed
+        if (!txtActAcIngresa.getText().isEmpty()) {
+            if (cbxActAcCodigo.getSelectedIndex() >= 0) {
+                try {
+                    int unidades = Integer.parseInt(txtActAcIngresa.getText());
+                    String codigo = cbxActAcCodigo.getItemAt(cbxActAcCodigo.getSelectedIndex()).getCodigo();
+                    controlador.actualizarInventario(unidades, codigo);
+                } catch (NumberFormatException ex) {
+                    
+                }catch (NullPointerException ex) {
+                    
+                }
+            } else {
+                
+            }
+        } else {
+            
+        } 
+    }//GEN-LAST:event_btnActualizarAserradaActionPerformed
 
     private void txtListadoInventarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtListadoInventarioKeyReleased
         productos = controlador.consultarProductos(txtListadoInventario.getText().trim());
@@ -1654,7 +1751,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
         String medidas;
         TipoMadera tipoMad;
-        if (verificarTipoMadera().equals("ASERRADA")) {
+        if (verificarTipoMadera("CREAR").equals("ASERRADA")) {
 
             medidas = txtNuevoAcMedVaras.getText().trim() + " de "
                     + txtNuevoAcMedGrueso.getText().trim() + "x"
@@ -1662,32 +1759,32 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             tipoMad = (TipoMadera) cbxNuevoAcVariedad.getSelectedItem();
 
             boolean cprod = crearProducto(txtNuevoAcCodigo.getText().trim(),
-                    tipoMad.getCodigo(), medidas, verificarTipoMadera(),
+                    tipoMad.getCodigo(), medidas, verificarTipoMadera("CREAR"),
                     txtNuevoAcUnidades.getText().trim(),
                     txtNuevoAcPrecio.getText().trim(),
                     txtaNuevoAcDescripcion.getText().trim(), "0");
             if(cprod) {
                 limpiarCampos("Crear","ASERRADA");
             }
-        } else if (verificarTipoMadera().equals("TROZA")) {
+        } else if (verificarTipoMadera("CREAR").equals("TROZA")) {
 
             medidas = txtNuevoTMedPulgadas.getText().trim() + " pulgadas";
             tipoMad = (TipoMadera) cbxNuevoTVariedad.getSelectedItem();
             Proveedor pv = (Proveedor) cbxNuevoTProveedor.getSelectedItem();
 
             boolean cprod = crearProducto(txtNuevoTCodigo.getText(),
-                    tipoMad.getCodigo(), medidas, verificarTipoMadera(), "0", "0",
+                    tipoMad.getCodigo(), medidas, verificarTipoMadera("CREAR"), "0", "0",
                     txtaNuevoTDescripcion.getText().trim(),
                     pv.getCodProveedor());
             if(cprod) {
                 limpiarCampos("Crear","TROZA");
             }
-        } else if (verificarTipoMadera().equals("TERMINADA")) {
+        } else if (verificarTipoMadera("CREAR").equals("TERMINADA")) {
 
             tipoMad = (TipoMadera) cbxNuevoTmVariedad.getSelectedItem();
 
             boolean cprod = crearProducto(txtNuevoTmCodigo.getText(),
-                    tipoMad.getCodigo(), "0", verificarTipoMadera(), "0",
+                    tipoMad.getCodigo(), "0", verificarTipoMadera("CREAR"), "0",
                     txtNuevoTmPrecio.getText().trim(),
                     txtNuevoTmNombre.getText().trim(), "0");
             if(cprod) {
@@ -1696,33 +1793,254 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
-    private void btnActualizarProducto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarProducto1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnActualizarProducto1ActionPerformed
+    private void btnActualizarTerminadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarTerminadaActionPerformed
+        if (!txtActTmIngresa.getText().isEmpty()) {
+            if (cbxActTmCodigo.getSelectedIndex() >= 0) {
+                try {
+                    int unidades = Integer.parseInt(txtActTmIngresa.getText());
+                    String codigo = cbxActTmCodigo.getItemAt(cbxActTmCodigo.getSelectedIndex()).getCodigo();
+                    controlador.actualizarInventario(unidades, codigo);
+                } catch (NumberFormatException ex) {
+                    
+                }catch (NullPointerException ex) {
+                    
+                }
+            } else {
+                
+            }
+        } else {
+            
+        }
+    }//GEN-LAST:event_btnActualizarTerminadaActionPerformed
 
-    private void btnActualizarProducto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarProducto2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnActualizarProducto2ActionPerformed
+    private void btnActualizarTrozaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarTrozaActionPerformed
+        if (!txtActTIngresa.getText().isEmpty()) {
+            if (cbxActTCodigo.getSelectedIndex() >= 0) {
+                try {
+                    int unidades = Integer.parseInt(txtActTIngresa.getText());
+                    String codigo = cbxActTCodigo.getItemAt(cbxActTCodigo.getSelectedIndex()).getCodigo();
+                    controlador.actualizarInventario(unidades, codigo);
+                } catch (NumberFormatException ex) {
+                    
+                }catch (NullPointerException ex) {
+                    
+                }
+            } else {
+                
+            }
+        } else {
+            
+        }
+    }//GEN-LAST:event_btnActualizarTrozaActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        try {
+            model = (DefaultTableModel) tblEditar.getModel();
+            int indiceFila = tblEditar.getSelectedRow();
+            String codigo = (String) tblEditar.getValueAt(indiceFila, 8);
+            
+            String medidas;
+            TipoMadera tipoMad;
+            if (verificarTipoMadera("EDITAR").equals("ASERRADA")) {
+
+                medidas = txtEditarAcMedVaras.getText().trim() + " varas de "
+                        + txtEditarAcMedGrueso.getText().trim() + "x"
+                        + txtEditarAcMedAncho.getText().trim();
+                tipoMad = (TipoMadera) cbxEditarAcVariedad.getSelectedItem();
+
+                boolean aprod = actualizarProducto(txtEditarAcCodigo.getText().trim(),
+                        tipoMad.getCodigo(), medidas, txtEditarAcUnidades.getText().trim(),
+                        txtEditarAcPrecio.getText().trim(),
+                        txtaEditarAcDescripcion.getText().trim(), "0", codigo);
+                if(aprod) {
+                    limpiarCampos("Editar","ASERRADA");
+                }
+            } else if (verificarTipoMadera("EDITAR").equals("TROZA")) {
+
+                medidas = txtEditarTMedPulgadas.getText().trim() + " pulgadas";
+                tipoMad = (TipoMadera) cbxEditarTVariedad.getSelectedItem();
+                Proveedor pv = (Proveedor) cbxEditarTProveedor.getSelectedItem();
+
+                boolean aprod = actualizarProducto(txtEditarTCodigo.getText().trim(),
+                        tipoMad.getCodigo(), medidas, "0", "0",
+                        txtaEditarTDescripcion.getText().trim(), 
+                        pv.getCodProveedor(), codigo);
+                if(aprod) {
+                    limpiarCampos("Editar","TROZA");
+                }
+            } else if (verificarTipoMadera("EDITAR").equals("TERMINADA")) {
+
+                tipoMad = (TipoMadera) cbxEditarTmVariedad.getSelectedItem();
+
+                boolean aprod = actualizarProducto(txtEditarTmCodigo.getText(),
+                        tipoMad.getCodigo(), "0", "0", 
+                        txtEditarTmPrecio.getText().trim(),
+                        txtEditarTmNombre.getText().trim(), "0", codigo);
+                if(aprod) {
+                    limpiarCampos("Editar","TERMINADA");
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            ex.printStackTrace();
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void tblEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditarMouseClicked
+        try {
+            model = (DefaultTableModel) tblEditar.getModel();
+            int indiceFila = tblEditar.getSelectedRow();
+            String codigo = (String) tblEditar.getValueAt(indiceFila, 8);
+            
+            Madera prod = new Madera();
+            for (Madera p: productos) {
+                if (p.getCodigo().equals(codigo)) {
+                    prod = p;
+                    break;
+                }
+            }
+            System.out.println("FLARBI");
+            if (prod.getTipoProducto().equals("ASERRADA")) {
+                String[] medidas = new String[3];
+                System.out.println(prod.getMedidas().substring(0, prod.getMedidas().indexOf(" varas de ")));
+                medidas[0] = prod.getMedidas().substring(0, prod.getMedidas().indexOf(" varas de "));
+                medidas[1] = prod.getMedidas().substring(prod.getMedidas().indexOf("varas de ")+8, prod.getMedidas().indexOf("x"));
+                medidas[2] = prod.getMedidas().substring(prod.getMedidas().indexOf("x")+1, prod.getMedidas().length());
+                
+                txtEditarAcMedVaras.setText(medidas[0]);
+                txtEditarAcMedGrueso.setText(medidas[1]);
+                txtEditarAcMedAncho.setText(medidas[2]);
+                
+                for (int i=0; i<cbxEditarAcVariedad.getItemCount(); i++) {
+                    if (cbxEditarAcVariedad.getItemAt(i).getDescripcion().equals(prod.getDescTipoMadera())) {
+                        cbxEditarAcVariedad.setSelectedIndex(i);
+                    }
+                }
+
+                txtEditarAcCodigo.setText(prod.getCodTipoMadera());
+                txtEditarAcUnidades.setText(String.valueOf(prod.getUnidades()));
+                txtEditarAcPrecio.setText(String.valueOf(prod.getPrecioXvara()));
+                txtaEditarAcDescripcion.setText(prod.getDescripcion());
+                
+                tbEditarTipoProd.setSelectedIndex(0);
+                
+            } else if (prod.getTipoProducto().equals("TROZA")) {
+                
+                String medidas = prod.getMedidas().substring(0, prod.getMedidas().indexOf("pulgadas"));
+                txtEditarTMedPulgadas.setText(medidas);
+                
+                txtEditarTCodigo.setText(prod.getCodProducto());
+                
+                for (int i=0; i<cbxEditarTVariedad.getItemCount(); i++) {
+                    if (cbxEditarTVariedad.getItemAt(i).getDescripcion().equals(prod.getDescTipoMadera())) {
+                        cbxEditarTVariedad.setSelectedIndex(i);
+                    }
+                }
+                
+                for (int i=0; i<cbxEditarTProveedor.getItemCount(); i++) {
+                    String nom  = cbxEditarTProveedor.getItemAt(i).getNombre() 
+                            + " " + cbxEditarTProveedor.getItemAt(i).getApellido1();
+                    if (nom.equals(prod.getNomProveedor())) {
+                        cbxEditarTProveedor.setSelectedIndex(i);
+                    }
+                }
+
+                txtaEditarTDescripcion.setText(prod.getDescripcion());
+                
+                tbEditarTipoProd.setSelectedIndex(1);
+                
+            } else if (prod.getTipoProducto().equals("TERMINADA")) {
+
+                for (int i=0; i<cbxEditarTmVariedad.getItemCount(); i++) {
+                    if (cbxEditarTmVariedad.getItemAt(i).getDescripcion().equals(prod.getDescTipoMadera())) {
+                        cbxEditarTmVariedad.setSelectedIndex(i);
+                    }
+                }
+
+                txtEditarTmCodigo.setText(prod.getCodProducto());
+                txtEditarTmPrecio.setText(String.valueOf(prod.getPrecioXvara()));
+                txtEditarTmNombre.setText(prod.getDescripcion());
+                
+                tbEditarTipoProd.setSelectedIndex(2);
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            ex.printStackTrace();
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_tblEditarMouseClicked
+
+    private void tbProductosActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductosActivosMouseClicked
+        try {
+            model = (DefaultTableModel) tbProductosActivos.getModel();
+            int selectedRowIndex = tbProductosActivos.getSelectedRow();
+            String codigo = (String) model.getValueAt(selectedRowIndex, 8);
+
+            for (int i = 0; i < productos.size(); i++) {
+                if (productos.get(i).getCodigo().equals(codigo)) {
+                    //Si el codigo coincide
+                    if (productos.get(i).getEstado().equals(Estado.Activo)) {
+                        //Verifica el tipo de estado
+                        rbDeshabDeshabProducto.setSelected(true);
+                    } else {
+                        rbDeshabHabilitarProducto.setSelected(true);
+                    }
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+        }
+        catch (Exception ex) {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
+        }
+    }//GEN-LAST:event_tbProductosActivosMouseClicked
+
+    private void tbProductosInactivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductosInactivosMouseClicked
+        try {
+            model = (DefaultTableModel) tbProductosInactivos.getModel();
+            int selectedRowIndex = tbProductosInactivos.getSelectedRow();
+            String codigo = (String) model.getValueAt(selectedRowIndex, 8);
+
+            for (int i = 0; i < productos.size(); i++) {
+                if (productos.get(i).getCodigo().equals(codigo)) {
+                    //Si el codigo coincide
+                    if (productos.get(i).getEstado().equals(Estado.Activo)) {
+                        //Verifica el tipo de estado
+                        rbDeshabDeshabProducto.setSelected(true);
+                    } else {
+                        rbDeshabHabilitarProducto.setSelected(true);
+                    }
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+        }
+        catch (Exception ex) {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
+        }
+    }//GEN-LAST:event_tbProductosInactivosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizarProducto;
-    private javax.swing.JButton btnActualizarProducto1;
-    private javax.swing.JButton btnActualizarProducto2;
+    private javax.swing.ButtonGroup bgDeshab;
+    private javax.swing.JButton btnActualizarAserrada;
+    private javax.swing.JButton btnActualizarTerminada;
+    private javax.swing.JButton btnActualizarTroza;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btn_deshabilitar;
-    private javax.swing.JComboBox<Object> cbxActAcCodigo;
-    private javax.swing.JComboBox<Object> cbxActTCodigo;
-    private javax.swing.JComboBox<Object> cbxActTmCodigo;
-    private javax.swing.JComboBox<Object> cbxEditarAcVariedad;
-    private javax.swing.JComboBox<Object> cbxEditarTProveedor;
-    private javax.swing.JComboBox<Object> cbxEditarTVariedad;
-    private javax.swing.JComboBox<Object> cbxEditarTmVariedad;
+    private javax.swing.JComboBox<Madera> cbxActAcCodigo;
+    private javax.swing.JComboBox<Madera> cbxActTCodigo;
+    private javax.swing.JComboBox<Madera> cbxActTmCodigo;
+    private javax.swing.JComboBox<TipoMadera> cbxEditarAcVariedad;
+    private javax.swing.JComboBox<Proveedor> cbxEditarTProveedor;
+    private javax.swing.JComboBox<TipoMadera> cbxEditarTVariedad;
+    private javax.swing.JComboBox<TipoMadera> cbxEditarTmVariedad;
     private javax.swing.JComboBox<Object> cbxNuevoAcVariedad;
     private javax.swing.JComboBox<Object> cbxNuevoTProveedor;
     private javax.swing.JComboBox<Object> cbxNuevoTVariedad;

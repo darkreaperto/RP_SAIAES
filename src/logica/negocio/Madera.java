@@ -252,4 +252,10 @@ public class Madera {
     public void setNomProveedor(String nomProveedor) {
         this.nomProveedor = nomProveedor;
     }
+    
+    @Override
+    public String toString()
+    {
+     return codigo +" " + descTipoMadera + " " + medidas;
+    }
 }

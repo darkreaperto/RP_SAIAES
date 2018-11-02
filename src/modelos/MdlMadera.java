@@ -213,4 +213,101 @@ public class MdlMadera {
         }
     }
     
+    public boolean actualizarProducto(String codProd, int codTipoMadera, 
+            String medidas, int unidades, double precio, String descripcion, 
+            int codProveedor, String codigo) {
+        
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(codProd);
+        params.add(descripcion);
+        params.add(precio);
+        params.add(unidades);
+        params.add(medidas);
+        params.add(codTipoMadera);
+        params.add(codProveedor);
+        params.add(codigo);
+
+        boolean creacionExitosa = false;
+        try {
+            procedimiento = "pc_actualizar_producto(?, ?, ?, ?, ?, ?, ?, ?)";
+
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            creacionExitosa = true;
+
+        } catch (SQLException ex) {
+            creacionExitosa = false;
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return creacionExitosa;
+        }
+    }
+    
+    public boolean inactivarProducto(String codigo) {
+        
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(codigo);
+        
+        boolean creacionExitosa = false;
+        try {
+            procedimiento = "pc_inactivar_producto(?)";
+
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            creacionExitosa = true;
+
+        } catch (SQLException ex) {
+            creacionExitosa = false;
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return creacionExitosa;
+        }
+    }
+    
+    public boolean activarProducto(String codigo) {
+        
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(codigo);
+        
+        boolean creacionExitosa = false;
+        try {
+            procedimiento = "pc_activar_producto(?)";
+
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            creacionExitosa = true;
+
+        } catch (SQLException ex) {
+            creacionExitosa = false;
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return creacionExitosa;
+        }
+    }
+    
+    public boolean actualizarInventario(int unidades, String codigo) {
+        
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(unidades);
+        params.add(codigo);
+        
+        boolean creacionExitosa = false;
+        try {
+            procedimiento = "pc_actualizar_inventario(?, ?)";
+
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            creacionExitosa = true;
+
+        } catch (SQLException ex) {
+            creacionExitosa = false;
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return creacionExitosa;
+        }
+    }
 }

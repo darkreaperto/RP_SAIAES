@@ -101,6 +101,12 @@ public class Mensaje {
             case PRODUCT_INSERTION_FAILURE:
                 msg = "Ha ocurrido un error en la creación del producto";
                 break;
+            case PRODUCT_UPDATE_SUCCESS:
+                msg = "La actualización del producto ha sido éxitosa";
+                break;
+            case PRODUCT_UPDATE_FAILURE:
+                msg = "Ha ocurrido un error en la actualización del producto";
+                break;
             case UNITQUANTITY_SYNTAX_FAILURE:
                 msg = "Solo puede ingresar números enteros";
                 break;

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="bgDeshab">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
     <Property name="iconifiable" type="boolean" value="true"/>
@@ -144,7 +148,7 @@
                     <Component class="javax.swing.JTable" name="tbListadoInventario">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="8" rowCount="0">
+                          <Table columnCount="9" rowCount="0">
                             <Column editable="false" title="Tipo de producto" type="java.lang.Object"/>
                             <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                             <Column editable="false" title="Variedad de madera" type="java.lang.Object"/>
@@ -153,10 +157,16 @@
                             <Column editable="false" title="Unidades" type="java.lang.Object"/>
                             <Column editable="false" title="Precio" type="java.lang.Object"/>
                             <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
+                            <Column editable="false" title="Codigo" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -713,7 +723,7 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="15" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -797,7 +807,7 @@
                     <Component class="javax.swing.JTable" name="tblAgregarInv">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="8" rowCount="0">
+                          <Table columnCount="9" rowCount="0">
                             <Column editable="false" title="Tipo de producto" type="java.lang.Object"/>
                             <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                             <Column editable="false" title="Variedad de madera" type="java.lang.Object"/>
@@ -806,10 +816,16 @@
                             <Column editable="false" title="Unidades" type="java.lang.Object"/>
                             <Column editable="false" title="Precio" type="java.lang.Object"/>
                             <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
+                            <Column editable="false" title="Codigo" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -885,7 +901,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="tbActualizarTipoProd" min="-2" pref="455" max="-2" attributes="0"/>
-                          <EmptySpace pref="37" max="32767" attributes="0"/>
+                          <EmptySpace pref="69" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -930,9 +946,9 @@
                                           <Component id="lblActAcDetalle" min="-2" pref="140" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="btnActualizarProducto" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="btnActualizarAserrada" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="84" max="32767" attributes="0"/>
+                                  <EmptySpace pref="81" max="32767" attributes="0"/>
                                   <Component id="scpnlTblAcActualizar" min="-2" pref="688" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -959,7 +975,7 @@
                                               <Component id="lblActAcIngresaUNID" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace pref="65" max="32767" attributes="0"/>
-                                          <Component id="btnActualizarProducto" min="-2" pref="31" max="-2" attributes="0"/>
+                                          <Component id="btnActualizarAserrada" min="-2" pref="31" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="scpnlTblAcActualizar" pref="0" max="32767" attributes="0"/>
                                   </Group>
@@ -1000,7 +1016,7 @@
                             </Property>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Madera&gt;"/>
                           </AuxValues>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtActAcIngresa">
@@ -1039,7 +1055,7 @@
                             <Component class="javax.swing.JTable" name="tbActAcerrada">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="8" rowCount="0">
+                                  <Table columnCount="9" rowCount="0">
                                     <Column editable="false" title="Tipo de producto" type="java.lang.Object"/>
                                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                                     <Column editable="false" title="Variedad de madera" type="java.lang.Object"/>
@@ -1048,10 +1064,16 @@
                                     <Column editable="false" title="Unidades" type="java.lang.Object"/>
                                     <Column editable="false" title="Precio" type="java.lang.Object"/>
                                     <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
+                                    <Column editable="false" title="Codigo" type="java.lang.Object"/>
                                   </Table>
                                 </Property>
                                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                                   <TableColumnModel selectionModel="0">
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
                                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                       <Title/>
                                       <Editor/>
@@ -1101,12 +1123,12 @@
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JButton" name="btnActualizarProducto">
+                        <Component class="javax.swing.JButton" name="btnActualizarAserrada">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Actualizar Inventario"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarProductoActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarAserradaActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>
@@ -1143,9 +1165,9 @@
                                           <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="lblActTCodigo" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="btnActualizarProducto2" max="32767" attributes="0"/>
+                                      <Component id="btnActualizarTroza" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="84" max="32767" attributes="0"/>
+                                  <EmptySpace pref="81" max="32767" attributes="0"/>
                                   <Component id="scpnlTblTActualizar" min="-2" pref="688" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -1172,7 +1194,7 @@
                                               <Component id="lblActTIngresaPULG" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="btnActualizarProducto2" min="-2" pref="31" max="-2" attributes="0"/>
+                                          <Component id="btnActualizarTroza" min="-2" pref="31" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="scpnlTblTActualizar" pref="416" max="32767" attributes="0"/>
                                   </Group>
@@ -1241,7 +1263,7 @@
                             <Component class="javax.swing.JTable" name="tbActTroza">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="8" rowCount="0">
+                                  <Table columnCount="9" rowCount="0">
                                     <Column editable="false" title="Tipo de producto" type="java.lang.Object"/>
                                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                                     <Column editable="false" title="Variedad de madera" type="java.lang.Object"/>
@@ -1250,10 +1272,16 @@
                                     <Column editable="false" title="Unidades" type="java.lang.Object"/>
                                     <Column editable="false" title="Precio" type="java.lang.Object"/>
                                     <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
+                                    <Column editable="false" title="Codigo" type="java.lang.Object"/>
                                   </Table>
                                 </Property>
                                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                                   <TableColumnModel selectionModel="0">
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
                                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                       <Title/>
                                       <Editor/>
@@ -1310,15 +1338,15 @@
                             </Property>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Madera&gt;"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JButton" name="btnActualizarProducto2">
+                        <Component class="javax.swing.JButton" name="btnActualizarTroza">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Actualizar Inventario"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarProducto2ActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarTrozaActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>
@@ -1355,9 +1383,9 @@
                                           <Component id="lblActTmDetalle" min="-2" pref="140" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="btnActualizarProducto1" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
+                                      <Component id="btnActualizarTerminada" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="84" max="32767" attributes="0"/>
+                                  <EmptySpace pref="81" max="32767" attributes="0"/>
                                   <Component id="scpnlTblTmActualizar" min="-2" pref="688" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -1384,7 +1412,7 @@
                                               <Component id="lblActTmIngresaUNID" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="btnActualizarProducto1" min="-2" pref="31" max="-2" attributes="0"/>
+                                          <Component id="btnActualizarTerminada" min="-2" pref="31" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="scpnlTblTmActualizar" pref="416" max="32767" attributes="0"/>
                                   </Group>
@@ -1453,7 +1481,7 @@
                             <Component class="javax.swing.JTable" name="tbActTerminada">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="8" rowCount="0">
+                                  <Table columnCount="9" rowCount="0">
                                     <Column editable="false" title="Tipo de producto" type="java.lang.Object"/>
                                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                                     <Column editable="false" title="Variedad de madera" type="java.lang.Object"/>
@@ -1462,10 +1490,16 @@
                                     <Column editable="false" title="Unidades" type="java.lang.Object"/>
                                     <Column editable="false" title="Precio" type="java.lang.Object"/>
                                     <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
+                                    <Column editable="false" title="Codigo" type="java.lang.Object"/>
                                   </Table>
                                 </Property>
                                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                                   <TableColumnModel selectionModel="0">
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
                                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                       <Title/>
                                       <Editor/>
@@ -1522,15 +1556,15 @@
                             </Property>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Madera&gt;"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JButton" name="btnActualizarProducto1">
+                        <Component class="javax.swing.JButton" name="btnActualizarTerminada">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Actualizar Inventario"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarProducto1ActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarTerminadaActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>
@@ -1812,7 +1846,7 @@
                             </Property>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;TipoMadera&gt;"/>
                           </AuxValues>
                         </Component>
                         <Container class="javax.swing.JScrollPane" name="scpnlEditarAcDescripcion">
@@ -1984,7 +2018,7 @@
                             </Property>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;TipoMadera&gt;"/>
                           </AuxValues>
                         </Component>
                         <Component class="javax.swing.JComboBox" name="cbxEditarTProveedor">
@@ -1994,7 +2028,7 @@
                             </Property>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Proveedor&gt;"/>
                           </AuxValues>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtEditarTMedPulgadas">
@@ -2100,7 +2134,7 @@
                             </Property>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;TipoMadera&gt;"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
@@ -2114,7 +2148,7 @@
                     <Component class="javax.swing.JTable" name="tblEditar">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="8" rowCount="0">
+                          <Table columnCount="9" rowCount="0">
                             <Column editable="false" title="Tipo de producto" type="java.lang.Object"/>
                             <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                             <Column editable="false" title="Variedad de madera" type="java.lang.Object"/>
@@ -2123,10 +2157,16 @@
                             <Column editable="false" title="Unidades" type="java.lang.Object"/>
                             <Column editable="false" title="Precio" type="java.lang.Object"/>
                             <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
+                            <Column editable="false" title="Codigo" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -2173,6 +2213,9 @@
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblEditarMouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -2226,7 +2269,7 @@
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                   <Component id="lblDeshabSelectInventario" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="tbDeshab" pref="374" max="32767" attributes="0"/>
+                                  <Component id="tbDeshab" pref="402" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="pnlDeshabContainer" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -2260,7 +2303,7 @@
                         <Component class="javax.swing.JTable" name="tbProductosActivos">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="8" rowCount="0">
+                              <Table columnCount="9" rowCount="0">
                                 <Column editable="false" title="Tipo de producto" type="java.lang.Object"/>
                                 <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                                 <Column editable="false" title="Variedad de madera" type="java.lang.Object"/>
@@ -2269,10 +2312,16 @@
                                 <Column editable="false" title="Unidades" type="java.lang.Object"/>
                                 <Column editable="false" title="Precio" type="java.lang.Object"/>
                                 <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
+                                <Column editable="false" title="Codigo" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
@@ -2319,6 +2368,9 @@
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbProductosActivosMouseClicked"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -2336,7 +2388,7 @@
                         <Component class="javax.swing.JTable" name="tbProductosInactivos">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="8" rowCount="0">
+                              <Table columnCount="9" rowCount="0">
                                 <Column editable="false" title="Tipo de producto" type="java.lang.Object"/>
                                 <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                                 <Column editable="false" title="Variedad de madera" type="java.lang.Object"/>
@@ -2345,10 +2397,16 @@
                                 <Column editable="false" title="Unidades" type="java.lang.Object"/>
                                 <Column editable="false" title="Precio" type="java.lang.Object"/>
                                 <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
+                                <Column editable="false" title="Codigo" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
@@ -2395,6 +2453,9 @@
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbProductosInactivosMouseClicked"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -2435,11 +2496,17 @@
                   <SubComponents>
                     <Component class="javax.swing.JRadioButton" name="rbDeshabDeshabProducto">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="bgDeshab"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Deshabilitar"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rbDeshabHabilitarProducto">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="bgDeshab"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Habilitar"/>
                       </Properties>
                     </Component>
