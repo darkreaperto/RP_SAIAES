@@ -255,7 +255,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_cliente.png"))); // NOI18N
         btn_clientes.setText("   Clientes    ");
-        btn_clientes.setEnabled(false);
         btn_clientes.setFocusable(false);
         btn_clientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_clientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

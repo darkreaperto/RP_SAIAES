@@ -60,4 +60,12 @@ public class Cliente extends Persona {
     public void setCodCliente(String codCliente) {
         this.codCliente = codCliente;
     }
+    
+    public String toString() {
+        String res = this.getNombre() + " " +
+                     this.getApellido1() + " " + 
+                     this.getApellido2();
+        
+        return res;
+    }
 }

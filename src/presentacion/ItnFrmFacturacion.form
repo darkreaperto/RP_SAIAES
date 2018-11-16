@@ -67,12 +67,12 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblTextProducto" min="-2" pref="155" max="-2" attributes="0"/>
-                              <Component id="txtProductoFac" min="-2" pref="715" max="-2" attributes="0"/>
+                              <Component id="txtProducto" min="-2" pref="715" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtProductoFac1" min="-2" pref="292" max="-2" attributes="0"/>
-                              <Component id="lblTextProducto1" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCantidad" min="-2" pref="292" max="-2" attributes="0"/>
+                              <Component id="lblTextCantidad" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -92,13 +92,13 @@
                   <Component id="pnlEncabezado" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblTextProducto1" min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="lblTextCantidad" min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="lblTextProducto" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtProductoFac" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="txtProductoFac1" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="txtProducto" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="txtCantidad" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -278,6 +278,10 @@
                 <Property name="text" type="java.lang.String" value="Nombre del cliente..."/>
                 <Property name="selectionStart" type="int" value="0"/>
               </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtClienteFacFocusGained"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtClienteFacKeyReleased"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -286,11 +290,15 @@
             <Property name="text" type="java.lang.String" value="Producto:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtProductoFac">
+        <Component class="javax.swing.JTextField" name="txtProducto">
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar producto..."/>
             <Property name="selectionStart" type="int" value="0"/>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtProductoFocusGained"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtProductoKeyReleased"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="scpnlList">
           <AuxValues>
@@ -306,7 +314,7 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
               </AuxValues>
             </Component>
           </SubComponents>
@@ -324,7 +332,7 @@
                   <Table columnCount="4" rowCount="0">
                     <Column editable="false" title="Nombre" type="java.lang.Object"/>
                     <Column editable="false" title="Medida" type="java.lang.Object"/>
-                    <Column editable="true" title="Cantidad" type="java.lang.Object"/>
+                    <Column editable="false" title="Cantidad" type="java.lang.Object"/>
                     <Column editable="false" title="Subtotal" type="java.lang.Object"/>
                   </Table>
                 </Property>
@@ -503,15 +511,18 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblTextProducto1">
+        <Component class="javax.swing.JLabel" name="lblTextCantidad">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cantidad:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtProductoFac1">
+        <Component class="javax.swing.JTextField" name="txtCantidad">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cantidad en unidades..."/>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCantidadFocusGained"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
