@@ -6,7 +6,9 @@
             <file>file:/home/dark-reaper/NetBeansProjects/RP_SAIAES/src/modelos/MdlCliente.java</file>
             <file>file:/home/dark-reaper/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmInventario.java</file>
             <file>file:/home/dark-reaper/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmCliente.java</file>
+            <file>file:/home/dark-reaper/NetBeansProjects/RP_SAIAES/src/logica/negocio/Madera.java</file>
             <file>file:/home/dark-reaper/NetBeansProjects/RP_SAIAES/src/modelos/MdlMadera.java</file>
+            <file>file:/home/dark-reaper/NetBeansProjects/RP_SAIAES/src/logica/negocio/TipoMadera.java</file>
             <file>file:/home/dark-reaper/NetBeansProjects/RP_SAIAES/src/controladores/CtrMadera.java</file>
             <file>file:/home/dark-reaper/NetBeansProjects/RP_SAIAES/src/controladores/CtrCliente.java</file>
         </group>

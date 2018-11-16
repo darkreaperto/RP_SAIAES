@@ -1837,7 +1837,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         try {
             model = (DefaultTableModel) tblEditar.getModel();
             int indiceFila = tblEditar.getSelectedRow();
-            String codigo = (String) tblEditar.getValueAt(indiceFila, 8);
+            String codigo = (String) model.getValueAt(indiceFila, 8);
             
             String medidas;
             TipoMadera tipoMad;
@@ -1892,7 +1892,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private void tblEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditarMouseClicked
         try {
             model = (DefaultTableModel) tblEditar.getModel();
+            
             int indiceFila = tblEditar.getSelectedRow();
+            System.out.println("COUNT "+tblEditar.getColumnCount());
             String codigo = (String) tblEditar.getValueAt(indiceFila, 8);
             
             Madera prod = new Madera();
