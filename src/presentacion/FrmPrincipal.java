@@ -32,6 +32,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private static ItnFrmCliente modCliente;
     private static ItnFrmInventario modInventario;
     private static ItnFrmProveedor modProveedor;
+    private static ItnFrmFacturacion modFacturacion;
     private static CtrAcceso sesionAcc;
     private static ArrayList<Usuario> usuarios;
     private static ArrayList<Cliente> clientes;
@@ -208,7 +209,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_facturacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_facturacion.png"))); // NOI18N
         btn_facturacion.setText(" Facturación");
-        btn_facturacion.setEnabled(false);
         btn_facturacion.setFocusable(false);
         btn_facturacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_facturacion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -357,7 +357,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(dpn_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(scpnlModulos)
         );
 
@@ -385,6 +385,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btn_facturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturacionActionPerformed
+        //Abrir formulario de facturación.
+        modFacturacion = ItnFrmFacturacion.getInstancia(sesionAcc);
+        modFacturacion.setVisible(true);
+        if (dpn_principal.getComponentCount() == 0) {
+            dpn_principal.add(modFacturacion);
+        } else {
+            if (!(dpn_principal.getComponent(0) instanceof ItnFrmFacturacion)) 
+                dpn_principal.add(modFacturacion);
+        }
         JOptionPane.showMessageDialog(null, "Hi! An amazing billing module will "
                 + "be developed here! \n Hold on a little more please. We are "
                 + "working hard!");
@@ -416,7 +425,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 + "We are working hard!");
         //Abrir formulario de usuarios.
         modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
-        //modCliente.deshabilitarPaneles();
         modCliente.setVisible(true);
         if (dpn_principal.getComponentCount() == 0) {
             dpn_principal.add(modCliente);

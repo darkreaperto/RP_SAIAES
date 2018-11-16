@@ -50,7 +50,16 @@ public class CtrMadera {
     public ArrayList<Madera> obtenerProductos() {
         return mdlMadera.obtenerProductos();
     }
-    
+    public ArrayList<Madera> getListaProductos() {
+        if(productos == null || productos.isEmpty()) {
+            productos = obtenerProductos();
+            System.out.println("I'M EMPTY");
+            return obtenerProductos();
+        } else {
+            System.out.println("I was empty");
+            return productos;
+        }
+    }
     /**
      * Buscar producto enviando por parámetro el criterio de búsqueda.
      * @param param Parametros para consultar producto en la base de datos
@@ -98,8 +107,8 @@ public class CtrMadera {
         return mdlMadera.activarProducto(codigo);
     }
     
-    public boolean actualizarInventario(int unidades, String codigo) {
+    public boolean actualizarInventario(String tipoProd, int unidades, String codigo) {
         
-        return mdlMadera.actualizarInventario(unidades, codigo);
+        return mdlMadera.actualizarInventario(tipoProd, unidades, codigo);
     }
 }

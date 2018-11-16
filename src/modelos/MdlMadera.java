@@ -288,15 +288,16 @@ public class MdlMadera {
         }
     }
     
-    public boolean actualizarInventario(int unidades, String codigo) {
+    public boolean actualizarInventario(String tipoProd, int unidades, String codigo) {
         
         ArrayList<Object> params = new ArrayList<>();
+        params.add(tipoProd);
         params.add(unidades);
         params.add(codigo);
         
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_actualizar_inventario(?, ?)";
+            procedimiento = "pc_actualizar_inventario(?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);

@@ -9,22 +9,17 @@ import controladores.CtrAcceso;
 import controladores.CtrMadera;
 import controladores.CtrProveedor;
 import controladores.CtrTipoMadera;
-import controladores.CtrTipoProducto;
 import java.util.ArrayList;
-import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import logica.negocio.Cliente;
 import logica.negocio.Madera;
 import logica.negocio.Proveedor;
 import logica.negocio.TipoMadera;
-import logica.negocio.TipoProducto;
 import logica.servicios.Mensaje;
 import logica.servicios.Regex;
 import util.Estado;
 import util.TipoMensaje;
-import util.TipoProd;
 
 /**
  * Inicializa la ventana que contiene la información de los productos.
@@ -83,7 +78,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         }
         return instancia;
     }
-
+    
     /**
      * Carga los combo box según corresponda con el tipo de madera y producto.
      */
@@ -122,7 +117,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     /**
      * Llena las tablas del modulo con los productos.
      */
-    public void cargarTablas() {
+    private void cargarTablas() {
 
         productos = controlador.obtenerProductos();
         cargarProductosJTable(tbListadoInventario, true);
@@ -130,6 +125,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         cargarProductosJTable(tblEditar, true);
         cargarProductosJTable(tbProductosActivos, true);
         cargarProductosJTable(tbProductosInactivos, false);
+        cargarProductosJTable(tbActAcerrada, true);
+        cargarProductosJTable(tbActTroza, true);
+        cargarProductosJTable(tbActTerminada, true);
     }
 
     /**
@@ -927,7 +925,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         txtaActAcDetalle.setBackground(new java.awt.Color(238, 238, 238));
         txtaActAcDetalle.setColumns(5);
         txtaActAcDetalle.setRows(3);
-        txtaActAcDetalle.setText("Dejar las tablas todas iguales y solo cargar las de acerrada?\nTodas iguales iguales?\nCambiar las columnas según corresponda?");
         txtaActAcDetalle.setBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
         scpnltxtaActAcDetalle.setViewportView(txtaActAcDetalle);
 
@@ -1526,7 +1523,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 .addGap(35, 35, 35)
                 .addComponent(tbEditarTipoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(scpnlTbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scpnlTbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1667,7 +1664,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         pnl_modInventarioLayout.setVerticalGroup(
             pnl_modInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modInventarioLayout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addComponent(tbpnl_modInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1724,7 +1721,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 try {
                     int unidades = Integer.parseInt(txtActAcIngresa.getText());
                     String codigo = cbxActAcCodigo.getItemAt(cbxActAcCodigo.getSelectedIndex()).getCodigo();
-                    controlador.actualizarInventario(unidades, codigo);
+                    controlador.actualizarInventario("ASERRADA", unidades, codigo);
+                    cargarTablas();
+                    cargarCombos();
                 } catch (NumberFormatException ex) {
                     
                 }catch (NullPointerException ex) {
@@ -1799,7 +1798,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 try {
                     int unidades = Integer.parseInt(txtActTmIngresa.getText());
                     String codigo = cbxActTmCodigo.getItemAt(cbxActTmCodigo.getSelectedIndex()).getCodigo();
-                    controlador.actualizarInventario(unidades, codigo);
+                    controlador.actualizarInventario("TERMINADA", unidades, codigo);
+                    cargarTablas();
+                    cargarCombos();
                 } catch (NumberFormatException ex) {
                     
                 }catch (NullPointerException ex) {
@@ -1819,7 +1820,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 try {
                     int unidades = Integer.parseInt(txtActTIngresa.getText());
                     String codigo = cbxActTCodigo.getItemAt(cbxActTCodigo.getSelectedIndex()).getCodigo();
-                    controlador.actualizarInventario(unidades, codigo);
+                    controlador.actualizarInventario("TROZA", unidades, codigo);
+                    cargarTablas();
+                    cargarCombos();
                 } catch (NumberFormatException ex) {
                     
                 }catch (NullPointerException ex) {
@@ -1837,7 +1840,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         try {
             model = (DefaultTableModel) tblEditar.getModel();
             int indiceFila = tblEditar.getSelectedRow();
-            String codigo = (String) tblEditar.getValueAt(indiceFila, 8);
+            String codigo = (String) model.getValueAt(indiceFila, 8);
             
             String medidas;
             TipoMadera tipoMad;
@@ -1893,7 +1896,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         try {
             model = (DefaultTableModel) tblEditar.getModel();
             int indiceFila = tblEditar.getSelectedRow();
-            String codigo = (String) tblEditar.getValueAt(indiceFila, 8);
+            System.out.println(tblEditar.getValueAt(indiceFila, 7));
+            String codigo = (String) model.getValueAt(indiceFila, 8);
             
             Madera prod = new Madera();
             for (Madera p: productos) {
