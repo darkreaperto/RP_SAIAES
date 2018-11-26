@@ -177,10 +177,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_usuarios = new javax.swing.JButton();
         mnb_principal = new javax.swing.JMenuBar();
         mnbtn_archivo = new javax.swing.JMenu();
+        mniCerrarSesion = new javax.swing.JMenuItem();
+        mniSalir = new javax.swing.JMenuItem();
         mnbtn_editar = new javax.swing.JMenu();
         mnbtn_ver = new javax.swing.JMenu();
-        mnbtn_salir = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAI-AES");
@@ -315,6 +315,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         mnbtn_archivo.setText("Archivo");
         mnbtn_archivo.setEnabled(false);
+
+        mniCerrarSesion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        mniCerrarSesion.setText("Cerrar Sesión");
+        mniCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniCerrarSesionActionPerformed(evt);
+            }
+        });
+        mnbtn_archivo.add(mniCerrarSesion);
+
+        mniSalir.setText("Salir");
+        mnbtn_archivo.add(mniSalir);
+
         mnb_principal.add(mnbtn_archivo);
 
         mnbtn_editar.setText("Editar");
@@ -324,20 +337,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnbtn_ver.setText("Ver");
         mnbtn_ver.setEnabled(false);
         mnb_principal.add(mnbtn_ver);
-
-        mnbtn_salir.setText("Salir");
-        mnbtn_salir.setEnabled(false);
-
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Cerrar Sesión");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        mnbtn_salir.add(jMenuItem1);
-
-        mnb_principal.add(mnbtn_salir);
 
         setJMenuBar(mnb_principal);
 
@@ -379,9 +378,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_usuariosActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mniCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCerrarSesionActionPerformed
         cerrarSesion();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mniCerrarSesionActionPerformed
 
     private void btn_facturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturacionActionPerformed
         //Abrir formulario de facturación.
@@ -512,7 +511,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_proveedor;
     private javax.swing.JButton btn_usuarios;
     private javax.swing.JDesktopPane dpn_principal;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
@@ -523,8 +521,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar mnb_principal;
     private javax.swing.JMenu mnbtn_archivo;
     private javax.swing.JMenu mnbtn_editar;
-    private javax.swing.JMenu mnbtn_salir;
     private javax.swing.JMenu mnbtn_ver;
+    private javax.swing.JMenuItem mniCerrarSesion;
+    private javax.swing.JMenuItem mniSalir;
     private javax.swing.JScrollPane scpnlModulos;
     private javax.swing.JToolBar tlb_modulos;
     // End of variables declaration//GEN-END:variables

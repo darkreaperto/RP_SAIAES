@@ -564,6 +564,9 @@
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarTelefonoActionPerformed"/>
                                   </Events>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="ItnFrmCliente_btnAgregarTelefono"/>
+                                  </AuxValues>
                                 </Component>
                               </SubComponents>
                             </Container>

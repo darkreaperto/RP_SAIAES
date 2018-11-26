@@ -270,11 +270,11 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nombre", "Medida", "Cantidad", "Subtotal"
+                "Descripción", "Medida", "Cantidad", "Prec. Unidad", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
