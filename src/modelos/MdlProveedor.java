@@ -106,28 +106,22 @@ public class MdlProveedor {
      * @param apellido1 apellido 1 del proveedor
      * @param apellido2 apellido 2 del proveedor
      * @param cedula cedula del proveedor
-     * @param limiteCred limite de crédito del proveedor
-     * @param aprobarCred aprobación de crédito del proveedor
      * @param contactos contactos del proveedor
      * @return True si agrega el proveedor exitosamente
      */
-    /*public boolean crearCliente(String nombre, String apellido1, 
-            String apellido2, String cedula, double limiteCred, 
-            boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
+    public boolean crearProveedor(String nombre, String apellido1, 
+            String apellido2, String cedula,ArrayList<ArrayList<Object>> contactos) {
 
         ArrayList<Object> params = new ArrayList<>();
         params.add(nombre);
         params.add(apellido1);
         params.add(apellido2);
         params.add(cedula);
-        params.add(limiteCred);
-        int aprobar = aprobarCred ? 1 : 0;
-        params.add(aprobar);
         params.add(Types.BIGINT);
 
         boolean creacionExitosa = true;
         try {
-            procedimiento = "pc_crear_cliente(?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_crear_proveedor(?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
@@ -161,7 +155,7 @@ public class MdlProveedor {
             conexion.cerrarConexion();
             return creacionExitosa;
         }
-    }*/
+    }
     
     /**
      * 
@@ -193,23 +187,19 @@ public class MdlProveedor {
      * @return 
      */
     
-    /*
-    public boolean actualizarCliente(String nombre, String apellido1, 
-            String apellido2, String cedula, double limiteCred, 
-            boolean aprobarCred, String codPersona) {
+    public boolean actualizarProveedor(String nombre, String apellido1, 
+            String apellido2, String cedula, String codPersona) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(nombre);
         params.add(apellido1);
         params.add(apellido2);
         params.add(cedula);
-        params.add(limiteCred);
-        params.add(aprobarCred ? 1 : 0);
         params.add(codPersona);
 
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_actualizar_cliente(?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_actualizar_proveedor(?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
@@ -222,21 +212,21 @@ public class MdlProveedor {
             conexion.cerrarConexion();
             return creacionExitosa;
         }
-    }*/
+    }
     
     /**
      * Inactiva el proveedor en la bd.
      * @param cedula cédula unívoca del proveedor
      * @return true si inactiva el proveedor
      */
-    /*public boolean inactivarCliente(String cedula) {
+    public boolean inactivarProveedor(String cedula) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(cedula);
         
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_inactivar_cliente(?)";
+            procedimiento = "pc_inactivar_proveedor(?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
@@ -249,22 +239,22 @@ public class MdlProveedor {
             conexion.cerrarConexion();
             return creacionExitosa;
         }
-    }*/
+    }
     
     /**
      * Activa el proveedor en la bd.
      * @param cedula cédula unívoca del proveedor
      * @return 
      */
-    /*
-    public boolean activarCliente(String cedula) {
+    
+    public boolean activarProveedor(String cedula) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(cedula);
         
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_activar_cliente(?)";
+            procedimiento = "pc_activar_proveedor(?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
@@ -277,7 +267,7 @@ public class MdlProveedor {
             conexion.cerrarConexion();
             return creacionExitosa;
         }
-    }*/
+    }
 
     
     /**
@@ -285,15 +275,15 @@ public class MdlProveedor {
      * @param param Parametros para consultar usuario en la base de datos
      * @return lista de proveedores
      */
-    /*
-    public ArrayList consultarClientes(String param) {
+    
+    public ArrayList consultarProveedor(String param) {
         ArrayList<Object> params = new ArrayList<>();
         params.add(param);
         
         proveedores = new ArrayList<>();
         
         try {
-            procedimiento = "pc_consultar_clientes(?)";
+            procedimiento = "pc_consultar_proveedores(?)";
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
 
@@ -302,8 +292,6 @@ public class MdlProveedor {
             String apellido1;
             String apellido2;
             String cedula;
-            float limiteCred;
-            boolean aprobarCred;
             String codCliente;
             String estadoCliente;
 
@@ -313,19 +301,16 @@ public class MdlProveedor {
                 apellido1 = resultado.getString("apellido1_Personas");
                 apellido2 = resultado.getString("apellido2_Personas");
                 cedula = resultado.getString("ced_Personas");
-                limiteCred = resultado.getFloat("limCred_Personas");
-                aprobarCred = resultado.getInt("aprobCred_Personas") == 1;
-                codCliente = resultado.getString("cod_Clientes");
-                estadoCliente = resultado.getString("estado_Clientes");
+                codCliente = resultado.getString("cod_Proveedores");
+                estadoCliente = resultado.getString("estado_Proveedores");
 
                 ArrayList<Contacto> contactos = ctrContacto.consultarContactos(codPersona);
-                Cliente cliente
-                        = new Cliente(codPersona, nombre, apellido1, apellido2, 
-                                cedula, limiteCred, aprobarCred, contactos, 
-                                codCliente, estadoCliente);
+                Proveedor proveedor
+                        = new Proveedor(codPersona, nombre, apellido1, apellido2, 
+                                cedula, contactos, codCliente, estadoCliente);
 
-                if (!proveedores.contains(cliente)) {
-                    proveedores.add(cliente);
+                if (!proveedores.contains(proveedor)) {
+                    proveedores.add(proveedor);
                 }
             }
         } catch (SQLException ex) {
@@ -334,7 +319,7 @@ public class MdlProveedor {
             conexion.cerrarConexion();
             return proveedores;
         }
-    }*/
+    }
     
     /*
     public void agregarCliente(String nombre, String apellido1, 

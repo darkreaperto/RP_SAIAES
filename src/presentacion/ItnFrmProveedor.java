@@ -5,17 +5,70 @@
  */
 package presentacion;
 
+import controladores.CtrAcceso;
+import controladores.CtrProveedor;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import logica.negocio.Contacto;
+import logica.negocio.Proveedor;
+import logica.servicios.Mensaje;
+import logica.servicios.Regex;
+import util.Estado;
+import util.TipoContacto;
+import util.TipoMensaje;
+
 /**
  *
  * @author aoihanabi
  */
 public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
+    private static ItnFrmProveedor instancia = null;
+    private static CtrProveedor controlador;
+    private static CtrAcceso sesion;
+    private static Mensaje msg;
+    private static ArrayList<Proveedor> proveedores;
+    private static ArrayList<String> crearTelefonos;
+    private static ArrayList<String> crearCorreos;
+    private static ArrayList<Contacto> editarTelefonos;
+    private static ArrayList<Contacto> editarCorreos;
+    private static DefaultTableModel model;
+    private final Regex verificacion;
     /**
-     * Creates new form ItnFrmProveedor
+     * Creates new form ItnFrmProveedor.
+     * @param sesionAcc usuario en sesión
+     * @param proveedores lista de proveedores obtenida desde la bd.
      */
-    public ItnFrmProveedor() {
+    public ItnFrmProveedor(CtrAcceso sesionAcc, ArrayList<Proveedor> proveedores) {
         initComponents();
+        //Inicializar variables
+        controlador = CtrProveedor.getInstancia();
+        
+        ItnFrmProveedor.proveedores = proveedores;
+        ItnFrmProveedor.sesion = sesionAcc;
+        crearCorreos = new ArrayList<>();
+        crearTelefonos = new ArrayList<>();
+        verificacion = new Regex();        
+        cargarTablas();
+        msg = new Mensaje();
+    }
+    
+    /**
+     * Retorna la única instancia de la clase.
+     *
+     * @param sesionAcc Usuario en sesión actual.
+     * @param proveedores Lista de proveedores en la base de datos.
+     * @return instancia de la clase de proveedores.
+     */
+    public static ItnFrmProveedor getInstancia(CtrAcceso sesionAcc,
+            ArrayList<Proveedor> proveedores) {
+        if (instancia == null) {
+            instancia = new ItnFrmProveedor(sesionAcc, proveedores);
+        }
+        return instancia;
     }
 
     /**
@@ -27,26 +80,1435 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bg_Habilitar = new javax.swing.ButtonGroup();
+        pnl_modProveedor = new javax.swing.JPanel();
+        tb_modProveedor = new javax.swing.JTabbedPane();
+        pnl_listado = new javax.swing.JPanel();
+        lblListadoProveedor = new javax.swing.JLabel();
+        txtListadoProveedor = new javax.swing.JTextField();
+        scpnlTblListadoProveedor = new javax.swing.JScrollPane();
+        tbListadoProveedor = new javax.swing.JTable();
+        pnl_agregar = new javax.swing.JPanel();
+        lbl_crear_cedulaProveedor = new javax.swing.JLabel();
+        lbl_crear_nombreProveedor = new javax.swing.JLabel();
+        lbl_crear_apellido1Proveedor = new javax.swing.JLabel();
+        lbl_crear_apellido2Proveedor = new javax.swing.JLabel();
+        txt_crear_cedulaProveedor = new javax.swing.JTextField();
+        txt_crear_nombreProveedor = new javax.swing.JTextField();
+        txt_crear_apellido1Proveedor = new javax.swing.JTextField();
+        txt_crear_apellido2Proveedor = new javax.swing.JTextField();
+        pnlCrearContactoProveedor = new javax.swing.JPanel();
+        tbCrearContactoProveedores = new javax.swing.JTabbedPane();
+        scpnlProveedoresCrearTelefono = new javax.swing.JScrollPane();
+        pnlCrearTelefono = new javax.swing.JPanel();
+        lblCrearTelefono = new javax.swing.JLabel();
+        spnlCrearTelefonos = new javax.swing.JScrollPane();
+        lsCrearTelefonos = new javax.swing.JList<>();
+        txt_agregarTelefono = new javax.swing.JTextField();
+        btnAgregarTelefono = new javax.swing.JButton();
+        pnlCrearCorreo = new javax.swing.JPanel();
+        lbl_crear_correo = new javax.swing.JLabel();
+        scpnl_crearCorreo = new javax.swing.JScrollPane();
+        lsCrearCorreos = new javax.swing.JList<>();
+        txt_agregarCorreo = new javax.swing.JTextField();
+        btnAgregarCorreo = new javax.swing.JButton();
+        spnl_crear_proveedores = new javax.swing.JScrollPane();
+        tbl_crear = new javax.swing.JTable();
+        btnCrearProveedor = new javax.swing.JButton();
+        pnl_actualizar = new javax.swing.JPanel();
+        spnl_editar_proveedor = new javax.swing.JScrollPane();
+        tbl_editar = new javax.swing.JTable();
+        btnEditarProveedor = new javax.swing.JButton();
+        tbEditarContactoProveedor = new javax.swing.JTabbedPane();
+        scpnl_EditarProveedor = new javax.swing.JScrollPane();
+        pnlEditarTelefono = new javax.swing.JPanel();
+        lblEditarCedulaProveedor = new javax.swing.JLabel();
+        lblEditarNombreProveedor = new javax.swing.JLabel();
+        lblEditarApellidoProveedor = new javax.swing.JLabel();
+        lblEditarSegundoProveedor = new javax.swing.JLabel();
+        txtEditarCedulaProveedor = new javax.swing.JTextField();
+        txtEditarNombreProveedor = new javax.swing.JTextField();
+        txtEditarAp1Proveedor = new javax.swing.JTextField();
+        txtEditarAp2Proveedor = new javax.swing.JTextField();
+        scpnl_EditarContactoProveedor = new javax.swing.JScrollPane();
+        pnlEditarCorreo = new javax.swing.JPanel();
+        pnlEditarContactoProveedor = new javax.swing.JPanel();
+        lblEditarTelefono = new javax.swing.JLabel();
+        lblEditarCorreo = new javax.swing.JLabel();
+        scpnlEditarListaTelef = new javax.swing.JScrollPane();
+        lsTelefonos = new javax.swing.JList<>();
+        txtEditarTelefono = new javax.swing.JTextField();
+        btnEditarGuardarTel = new javax.swing.JButton();
+        btnEditarCancelTel = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        scpnlEditarListaCorreo = new javax.swing.JScrollPane();
+        lsCorreos = new javax.swing.JList<>();
+        txtEditarCorreoProveedor = new javax.swing.JTextField();
+        btnEditarGuardarCorreo = new javax.swing.JButton();
+        btnEditarCancelCorreo = new javax.swing.JButton();
+        pnlHabilitar = new javax.swing.JPanel();
+        lblDeshabSelectProveedor = new javax.swing.JLabel();
+        tbDeshab = new javax.swing.JTabbedPane();
+        scpnlProveedorDeshab = new javax.swing.JScrollPane();
+        tblProveedoresActivos = new javax.swing.JTable();
+        scpnlProveedorHabilitar = new javax.swing.JScrollPane();
+        tblProveedoresInactivos = new javax.swing.JTable();
+        pnlDeshabContainer = new javax.swing.JPanel();
+        rbDeshabDeshabProveedor = new javax.swing.JRadioButton();
+        rbDeshabHabilitarProveedor = new javax.swing.JRadioButton();
+        btn_deshabilitar = new javax.swing.JButton();
+
         setClosable(true);
         setIconifiable(true);
         setTitle("Módulo Proveedores");
         setPreferredSize(new java.awt.Dimension(1240, 680));
 
+        lblListadoProveedor.setText("Buscar proveedor: ");
+
+        txtListadoProveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtListadoProveedorKeyReleased(evt);
+            }
+        });
+
+        tbListadoProveedor.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Contactos", "Cod. Proveedor", "Codigo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbListadoProveedor.getTableHeader().setReorderingAllowed(false);
+        scpnlTblListadoProveedor.setViewportView(tbListadoProveedor);
+
+        javax.swing.GroupLayout pnl_listadoLayout = new javax.swing.GroupLayout(pnl_listado);
+        pnl_listado.setLayout(pnl_listadoLayout);
+        pnl_listadoLayout.setHorizontalGroup(
+            pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_listadoLayout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addGroup(pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(scpnlTblListadoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 1165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnl_listadoLayout.createSequentialGroup()
+                        .addComponent(lblListadoProveedor)
+                        .addGap(10, 10, 10)
+                        .addComponent(txtListadoProveedor)))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+        pnl_listadoLayout.setVerticalGroup(
+            pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_listadoLayout.createSequentialGroup()
+                .addGroup(pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_listadoLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(lblListadoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_listadoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtListadoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(scpnlTblListadoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        tb_modProveedor.addTab("Listado proveedores", pnl_listado);
+
+        lbl_crear_cedulaProveedor.setText("Cédula:");
+
+        lbl_crear_nombreProveedor.setText("Nombre:");
+
+        lbl_crear_apellido1Proveedor.setText("Primer Apellido:");
+
+        lbl_crear_apellido2Proveedor.setText("Segundo Apellido:");
+
+        txt_crear_cedulaProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_crear_cedulaProveedorActionPerformed(evt);
+            }
+        });
+
+        pnlCrearContactoProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder("Contacto:"));
+        pnlCrearContactoProveedor.setAutoscrolls(true);
+
+        tbCrearContactoProveedores.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        tbCrearContactoProveedores.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
+
+        scpnlProveedoresCrearTelefono.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        pnlCrearTelefono.setRequestFocusEnabled(false);
+
+        lblCrearTelefono.setText("Teléfono:");
+
+        spnlCrearTelefonos.setViewportView(lsCrearTelefonos);
+
+        btnAgregarTelefono.setText("+");
+        btnAgregarTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarTelefonoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlCrearTelefonoLayout = new javax.swing.GroupLayout(pnlCrearTelefono);
+        pnlCrearTelefono.setLayout(pnlCrearTelefonoLayout);
+        pnlCrearTelefonoLayout.setHorizontalGroup(
+            pnlCrearTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCrearTelefonoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlCrearTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(spnlCrearTelefonos, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                    .addGroup(pnlCrearTelefonoLayout.createSequentialGroup()
+                        .addComponent(lblCrearTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlCrearTelefonoLayout.createSequentialGroup()
+                        .addComponent(txt_agregarTelefono)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAgregarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        pnlCrearTelefonoLayout.setVerticalGroup(
+            pnlCrearTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCrearTelefonoLayout.createSequentialGroup()
+                .addComponent(lblCrearTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spnlCrearTelefonos, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlCrearTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt_agregarTelefono)
+                    .addComponent(btnAgregarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        scpnlProveedoresCrearTelefono.setViewportView(pnlCrearTelefono);
+
+        tbCrearContactoProveedores.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/telefono.png")), scpnlProveedoresCrearTelefono); // NOI18N
+
+        lbl_crear_correo.setText("Correo Electrónico:");
+
+        scpnl_crearCorreo.setViewportView(lsCrearCorreos);
+
+        btnAgregarCorreo.setText("+");
+        btnAgregarCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCorreoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlCrearCorreoLayout = new javax.swing.GroupLayout(pnlCrearCorreo);
+        pnlCrearCorreo.setLayout(pnlCrearCorreoLayout);
+        pnlCrearCorreoLayout.setHorizontalGroup(
+            pnlCrearCorreoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCrearCorreoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlCrearCorreoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scpnl_crearCorreo)
+                    .addGroup(pnlCrearCorreoLayout.createSequentialGroup()
+                        .addComponent(lbl_crear_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 177, Short.MAX_VALUE))
+                    .addGroup(pnlCrearCorreoLayout.createSequentialGroup()
+                        .addComponent(txt_agregarCorreo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAgregarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        pnlCrearCorreoLayout.setVerticalGroup(
+            pnlCrearCorreoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCrearCorreoLayout.createSequentialGroup()
+                .addComponent(lbl_crear_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scpnl_crearCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlCrearCorreoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt_agregarCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(btnAgregarCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        tbCrearContactoProveedores.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/email.png")), pnlCrearCorreo); // NOI18N
+
+        javax.swing.GroupLayout pnlCrearContactoProveedorLayout = new javax.swing.GroupLayout(pnlCrearContactoProveedor);
+        pnlCrearContactoProveedor.setLayout(pnlCrearContactoProveedorLayout);
+        pnlCrearContactoProveedorLayout.setHorizontalGroup(
+            pnlCrearContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCrearContactoProveedorLayout.createSequentialGroup()
+                .addComponent(tbCrearContactoProveedores)
+                .addGap(10, 10, 10))
+        );
+        pnlCrearContactoProveedorLayout.setVerticalGroup(
+            pnlCrearContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCrearContactoProveedorLayout.createSequentialGroup()
+                .addComponent(tbCrearContactoProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 7, Short.MAX_VALUE))
+        );
+
+        tbl_crear.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Contactos", "Cod. Proveedor", "Codigo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl_crear.getTableHeader().setReorderingAllowed(false);
+        spnl_crear_proveedores.setViewportView(tbl_crear);
+
+        btnCrearProveedor.setText("Crear Proveedor");
+        btnCrearProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearProveedorActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnl_agregarLayout = new javax.swing.GroupLayout(pnl_agregar);
+        pnl_agregar.setLayout(pnl_agregarLayout);
+        pnl_agregarLayout.setHorizontalGroup(
+            pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_agregarLayout.createSequentialGroup()
+                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnl_agregarLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCrearProveedor))
+                    .addGroup(pnl_agregarLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(spnl_crear_proveedores)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_agregarLayout.createSequentialGroup()
+                                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lbl_crear_nombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_crear_cedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_crear_nombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_crear_cedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(50, 50, 50)
+                                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txt_crear_apellido2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_crear_apellido1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_crear_apellido2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_crear_apellido1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                                .addComponent(pnlCrearContactoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(24, 24, 24))
+        );
+        pnl_agregarLayout.setVerticalGroup(
+            pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_agregarLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_agregarLayout.createSequentialGroup()
+                        .addComponent(lbl_crear_cedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_crear_cedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_crear_nombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_crear_nombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlCrearContactoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnl_agregarLayout.createSequentialGroup()
+                        .addComponent(lbl_crear_apellido1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_crear_apellido1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_crear_apellido2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(txt_crear_apellido2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(spnl_crear_proveedores, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCrearProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        tb_modProveedor.addTab("Agregar proveedor", pnl_agregar);
+
+        tbl_editar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Contactos", "Cod. Proveedor", "Codigo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl_editar.getTableHeader().setReorderingAllowed(false);
+        tbl_editar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_editarMouseClicked(evt);
+            }
+        });
+        tbl_editar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tbl_editarKeyReleased(evt);
+            }
+        });
+        spnl_editar_proveedor.setViewportView(tbl_editar);
+
+        btnEditarProveedor.setText("Guardar Cambios");
+        btnEditarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarProveedorActionPerformed(evt);
+            }
+        });
+
+        tbEditarContactoProveedor.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        tbEditarContactoProveedor.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+
+        scpnl_EditarProveedor.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        pnlEditarTelefono.setRequestFocusEnabled(false);
+
+        lblEditarCedulaProveedor.setText("Cédula:");
+
+        lblEditarNombreProveedor.setText("Nombre:");
+
+        lblEditarApellidoProveedor.setText("Primer Apellido:");
+
+        lblEditarSegundoProveedor.setText("Segundo Apellido:");
+
+        javax.swing.GroupLayout pnlEditarTelefonoLayout = new javax.swing.GroupLayout(pnlEditarTelefono);
+        pnlEditarTelefono.setLayout(pnlEditarTelefonoLayout);
+        pnlEditarTelefonoLayout.setHorizontalGroup(
+            pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEditarTelefonoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblEditarCedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEditarCedulaProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                    .addComponent(lblEditarNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEditarNombreProveedor))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblEditarApellidoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEditarAp1Proveedor)
+                    .addComponent(lblEditarSegundoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEditarAp2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(553, 553, 553))
+        );
+        pnlEditarTelefonoLayout.setVerticalGroup(
+            pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEditarTelefonoLayout.createSequentialGroup()
+                .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEditarTelefonoLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(lblEditarCedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(txtEditarCedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlEditarTelefonoLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(lblEditarApellidoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtEditarAp1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblEditarSegundoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEditarNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEditarNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEditarAp2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        scpnl_EditarProveedor.setViewportView(pnlEditarTelefono);
+
+        tbEditarContactoProveedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/cl_ed_cliente.png")), scpnl_EditarProveedor); // NOI18N
+
+        scpnl_EditarContactoProveedor.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        pnlEditarContactoProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder("Contacto:"));
+        pnlEditarContactoProveedor.setAutoscrolls(true);
+
+        lblEditarTelefono.setText("Teléfono:");
+
+        lblEditarCorreo.setText("Correo Electrónico:");
+
+        scpnlEditarListaTelef.setViewportView(lsTelefonos);
+
+        btnEditarGuardarTel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
+        btnEditarGuardarTel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnEditarGuardarTel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarGuardarTelActionPerformed(evt);
+            }
+        });
+
+        btnEditarCancelTel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/cancel.png"))); // NOI18N
+        btnEditarCancelTel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnEditarCancelTel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarCancelTelActionPerformed(evt);
+            }
+        });
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255)));
+
+        lsCorreos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lsCorreos.setLayoutOrientation(javax.swing.JList.VERTICAL_WRAP);
+        scpnlEditarListaCorreo.setViewportView(lsCorreos);
+
+        btnEditarGuardarCorreo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
+        btnEditarGuardarCorreo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnEditarGuardarCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarGuardarCorreoActionPerformed(evt);
+            }
+        });
+
+        btnEditarCancelCorreo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/cancel.png"))); // NOI18N
+        btnEditarCancelCorreo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnEditarCancelCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarCancelCorreoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlEditarContactoProveedorLayout = new javax.swing.GroupLayout(pnlEditarContactoProveedor);
+        pnlEditarContactoProveedor.setLayout(pnlEditarContactoProveedorLayout);
+        pnlEditarContactoProveedorLayout.setHorizontalGroup(
+            pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEditarContactoProveedorLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblEditarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlEditarContactoProveedorLayout.createSequentialGroup()
+                        .addComponent(txtEditarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditarGuardarTel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditarCancelTel))
+                    .addComponent(scpnlEditarListaTelef, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(79, 79, 79)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEditarContactoProveedorLayout.createSequentialGroup()
+                        .addComponent(txtEditarCorreoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditarGuardarCorreo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditarCancelCorreo))
+                    .addComponent(scpnlEditarListaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEditarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(102, Short.MAX_VALUE))
+        );
+        pnlEditarContactoProveedorLayout.setVerticalGroup(
+            pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEditarContactoProveedorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEditarContactoProveedorLayout.createSequentialGroup()
+                        .addComponent(lblEditarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scpnlEditarListaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtEditarCorreoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnEditarGuardarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnEditarCancelCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlEditarContactoProveedorLayout.createSequentialGroup()
+                        .addComponent(lblEditarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)
+                        .addComponent(scpnlEditarListaTelef, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtEditarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnEditarGuardarTel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnEditarCancelTel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(35, Short.MAX_VALUE))
+            .addGroup(pnlEditarContactoProveedorLayout.createSequentialGroup()
+                .addComponent(jSeparator1)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout pnlEditarCorreoLayout = new javax.swing.GroupLayout(pnlEditarCorreo);
+        pnlEditarCorreo.setLayout(pnlEditarCorreoLayout);
+        pnlEditarCorreoLayout.setHorizontalGroup(
+            pnlEditarCorreoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEditarCorreoLayout.createSequentialGroup()
+                .addComponent(pnlEditarContactoProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnlEditarCorreoLayout.setVerticalGroup(
+            pnlEditarCorreoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEditarCorreoLayout.createSequentialGroup()
+                .addComponent(pnlEditarContactoProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+
+        scpnl_EditarContactoProveedor.setViewportView(pnlEditarCorreo);
+
+        tbEditarContactoProveedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/cl_ed_contacto.png")), scpnl_EditarContactoProveedor); // NOI18N
+
+        javax.swing.GroupLayout pnl_actualizarLayout = new javax.swing.GroupLayout(pnl_actualizar);
+        pnl_actualizar.setLayout(pnl_actualizarLayout);
+        pnl_actualizarLayout.setHorizontalGroup(
+            pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(spnl_editar_proveedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1194, Short.MAX_VALUE)
+            .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tbEditarContactoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnEditarProveedor)))
+                .addContainerGap())
+        );
+        pnl_actualizarLayout.setVerticalGroup(
+            pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(tbEditarContactoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(spnl_editar_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEditarProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64))
+        );
+
+        tb_modProveedor.addTab("Editar proveedor", pnl_actualizar);
+
+        lblDeshabSelectProveedor.setText("Seleccionar Proveedor:");
+
+        tblProveedoresActivos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Contacto", "Cod. Cliente", "Codigo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblProveedoresActivos.getTableHeader().setReorderingAllowed(false);
+        tblProveedoresActivos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProveedoresActivosMouseClicked(evt);
+            }
+        });
+        tblProveedoresActivos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblProveedoresActivosKeyReleased(evt);
+            }
+        });
+        scpnlProveedorDeshab.setViewportView(tblProveedoresActivos);
+
+        tbDeshab.addTab("Activos", scpnlProveedorDeshab);
+
+        tblProveedoresInactivos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Cédula ", "Primer Apellido", "Segundo Apellido", "Nombre", "Contacto", "Cod. Proveedor", "Codigo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblProveedoresInactivos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProveedoresInactivosMouseClicked(evt);
+            }
+        });
+        tblProveedoresInactivos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblProveedoresInactivosKeyReleased(evt);
+            }
+        });
+        scpnlProveedorHabilitar.setViewportView(tblProveedoresInactivos);
+
+        tbDeshab.addTab("Inactivos", scpnlProveedorHabilitar);
+
+        pnlDeshabContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Activo:"));
+
+        bg_Habilitar.add(rbDeshabDeshabProveedor);
+        rbDeshabDeshabProveedor.setSelected(true);
+        rbDeshabDeshabProveedor.setText("Deshabilitar");
+
+        bg_Habilitar.add(rbDeshabHabilitarProveedor);
+        rbDeshabHabilitarProveedor.setText("Habilitar");
+
+        javax.swing.GroupLayout pnlDeshabContainerLayout = new javax.swing.GroupLayout(pnlDeshabContainer);
+        pnlDeshabContainer.setLayout(pnlDeshabContainerLayout);
+        pnlDeshabContainerLayout.setHorizontalGroup(
+            pnlDeshabContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDeshabContainerLayout.createSequentialGroup()
+                .addComponent(rbDeshabHabilitarProveedor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(rbDeshabDeshabProveedor)
+                .addContainerGap())
+        );
+        pnlDeshabContainerLayout.setVerticalGroup(
+            pnlDeshabContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDeshabContainerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlDeshabContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbDeshabHabilitarProveedor)
+                    .addComponent(rbDeshabDeshabProveedor)))
+        );
+
+        btn_deshabilitar.setText("Guardar Cambios");
+        btn_deshabilitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deshabilitarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlHabilitarLayout = new javax.swing.GroupLayout(pnlHabilitar);
+        pnlHabilitar.setLayout(pnlHabilitarLayout);
+        pnlHabilitarLayout.setHorizontalGroup(
+            pnlHabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHabilitarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlHabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlHabilitarLayout.createSequentialGroup()
+                        .addComponent(lblDeshabSelectProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 970, Short.MAX_VALUE))
+                    .addComponent(tbDeshab, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlHabilitarLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(pnlDeshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        pnlHabilitarLayout.setVerticalGroup(
+            pnlHabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHabilitarLayout.createSequentialGroup()
+                .addGroup(pnlHabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlHabilitarLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlHabilitarLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(lblDeshabSelectProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tbDeshab, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pnlDeshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(17, 17, 17))
+        );
+
+        tb_modProveedor.addTab("Habilitar proveedor", pnlHabilitar);
+
+        javax.swing.GroupLayout pnl_modProveedorLayout = new javax.swing.GroupLayout(pnl_modProveedor);
+        pnl_modProveedor.setLayout(pnl_modProveedorLayout);
+        pnl_modProveedorLayout.setHorizontalGroup(
+            pnl_modProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modProveedorLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tb_modProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 1199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        pnl_modProveedorLayout.setVerticalGroup(
+            pnl_modProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_modProveedorLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(tb_modProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 606, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1230, Short.MAX_VALUE)
+            .addComponent(pnl_modProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 648, Short.MAX_VALUE)
+            .addComponent(pnl_modProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    /**
+     * Para todas las tablas en la interfaz, llama el método que carga una tabla 
+     * con la información de los clientes.
+     */
+    public void cargarTablas() {
+        proveedores = controlador.obtenerProveedores();
+        cargarProveedorJTable(tbListadoProveedor, true);
+        cargarProveedorJTable(tbl_crear, true);
+        cargarProveedorJTable(tbl_editar, true);
+        cargarProveedorJTable(tblProveedoresActivos, true);
+        cargarProveedorJTable(tblProveedoresInactivos, false);
+    }
+    
+    /**
+     * Carga/llena una de la interfaz con la información de 
+     * los clientes.
+     * @param tabla Tabla a llenar
+     * @param estado Indica si el cliente está o no inactivo
+     */
+    public void cargarProveedorJTable(JTable tabla, boolean estado) {
+        Object[] row = new Object[7];
+        model = (DefaultTableModel) tabla.getModel();
+        model.setRowCount(0);
+        model.setColumnCount(7);
+        int i = 0;
+        for (Proveedor pv: proveedores) {
+
+            if (pv.getEstado().equals(Estado.Activo) && estado) {
+                
+                row[0] = pv.getCedula();
+                row[1] = pv.getApellido1(); 
+                row[2] = pv.getApellido2();
+                row[3] = pv.getNombre();
+                               
+                ArrayList<Contacto> contactos = pv.getContactos();
+                
+                String texto = "<html><body>";
+                for (Contacto ct: contactos) {
+                    String tipo = ct.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
+                    texto += tipo + " " + ct.getInfo() + "<br>";
+                }
+                texto += "</body></html>";
+                row[4] = texto;
+                
+                
+                row[5] = pv.getCodProveedor(); //codigo de proveedor
+                row[6] = pv.getCodigo(); //codigo de persona
+                
+                model.addRow(row);
+                
+                tabla.setRowHeight(i, contactos.size() > 0 ? 
+                        contactos.size()*20 : tabla.getRowHeight(i));
+                
+                i++;
+            }
+            if (pv.getEstado().equals(Estado.Deshabilitado) && !estado) {
+                
+                row[0] = pv.getCedula();
+                row[1] = pv.getApellido1(); 
+                row[2] = pv.getApellido2();
+                row[3] = pv.getNombre();
+                                
+                ArrayList<Contacto> contactos = pv.getContactos();
+                
+                String texto = "<html><body>";
+                for (Contacto ct: contactos) {
+                    String tipo = ct.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
+                    texto += tipo + " " + ct.getInfo() + "<br>";
+                }
+                texto += "</body></html>";
+                row[4] = texto;
+                
+                row[5] = pv.getCodProveedor(); //codigo de proveedor
+                row[6] = pv.getCodigo(); //codigo de persona
+                
+                model.addRow(row);
+                
+                tabla.setRowHeight(i, contactos.size() > 0 ? 
+                        contactos.size()*20 : tabla.getRowHeight(i));
+                
+                i++;
+            }
+        }
+        
+        tabla.removeColumn(tabla.getColumnModel().getColumn(5));
+        tabla.removeColumn(tabla.getColumnModel().getColumn(5));
+    }
+    
+    private void agregarProveedor(String nombre, String apellido1, 
+            String apellido2, String cedula,
+            ArrayList<ArrayList<Object>> contactos) {
+          
+        if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
+//            if (verificacion.validaNombre(nombre) && 
+//                    verificacion.validaNombre(apellido1) && 
+//                    verificacion.validaNombre(apellido2)) {
+
+                try {                    
+                    boolean creado = controlador.crearProveedor(nombre, apellido1, 
+                            apellido2, cedula, contactos);
+                    
+                    if (creado) {
+                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                        TipoMensaje.CUSTOMER_INSERTION_SUCCESS);
+                        
+                        cargarTablas();
+                    } else {
+                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.CUSTOMER_INSERTION_FAILURE);
+                    }
+                } catch (NumberFormatException ex) {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.NUMBER_FORMAT_EXCEPTION);
+                } catch (Exception ex) {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.SOMETHING_WENT_WRONG);
+                }
+//            } else {
+//                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+//                    TipoMensaje.WRONG_CUSTOMER_FIELDS);
+//            }
+        } else {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.EMPTY_CUSTOMER_FIELDS);
+        }
+    }
+    
+    private void actualizarProveedor(String nombre, String apellido1, 
+            String apellido2, String cedula, String codPersona) {
+        
+        if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
+//            if (verificacion.validaNombre(nombre) && 
+//                    verificacion.validaNombre(apellido1) && 
+//                    verificacion.validaNombre(apellido2)) {
+
+                try {
+                    boolean actualizado = controlador.actualizarProveedor(
+                            nombre, apellido1, apellido2, cedula, codPersona);
+
+                    if (actualizado) {
+                        System.out.println("Yay!");
+                        cargarTablas();
+                        
+                        txtEditarCedulaProveedor.setText("");
+                        txtEditarCorreoProveedor.setText("");
+                        txtEditarNombreProveedor.setText("");
+                        txtEditarAp1Proveedor.setText("");
+                        txtEditarAp2Proveedor.setText("");
+                        txtEditarTelefono.setText("");
+                        
+                        lsCorreos.setModel(new DefaultListModel());
+                        lsCorreos.setModel(new DefaultListModel());
+                    } else {
+                        System.out.println("Yaq!");
+                    }
+                } catch (NumberFormatException ex) {
+                    System.err.println(ex);
+                } catch (Exception ex) {
+                    System.err.println(ex);
+                }
+            } else {
+
+            }
+//        } else {
+//            
+//        }
+    }
+    
+    private void cargarEditarCliente(Proveedor proveedor) {
+        txtEditarCedulaProveedor.setText(proveedor.getCedula());
+        txtEditarNombreProveedor.setText(proveedor.getNombre());
+        txtEditarAp1Proveedor.setText(proveedor.getApellido1());
+        txtEditarAp2Proveedor.setText(proveedor.getApellido2());
+
+        editarTelefonos = new ArrayList<>();
+        editarCorreos = new ArrayList<>();
+        DefaultListModel<String> mTelefonos = new DefaultListModel<>();
+        DefaultListModel<String> mCorreos = new DefaultListModel<>();
+        
+        for (Contacto ct: proveedor.getContactos()) {
+            if (ct.getTipo().equals(TipoContacto.CORREO)) {
+                editarCorreos.add(ct);
+                mCorreos.addElement(ct.getInfo());
+            } else {
+                if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
+                    editarTelefonos.add(ct);
+                    mTelefonos.addElement(ct.getInfo());
+                }
+            }
+        }
+        lsTelefonos.setModel(mTelefonos);
+        lsCorreos.setModel(mCorreos);
+    }
+    
+    
+    private void txtListadoProveedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtListadoProveedorKeyReleased
+        proveedores = controlador.consultarProveedor(txtListadoProveedor.getText().trim());
+        cargarProveedorJTable(tbListadoProveedor, true);
+    }//GEN-LAST:event_txtListadoProveedorKeyReleased
+
+    private void btnAgregarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTelefonoActionPerformed
+        String telefono = txt_agregarTelefono.getText().trim();
+
+        if (verificacion.validaTelefono(telefono) && !crearTelefonos.contains(telefono)) {
+            crearTelefonos.add(telefono);
+            DefaultListModel<String> m = new DefaultListModel<>();
+            for (int i=0; i<crearTelefonos.size(); i++) {
+                m.addElement(crearTelefonos.get(i));
+            }
+            lsCrearTelefonos.setModel(m);
+        } else {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                TipoMensaje.PHONE_SYNTAX_FAILURE);
+        }
+    }//GEN-LAST:event_btnAgregarTelefonoActionPerformed
+
+    private void btnAgregarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCorreoActionPerformed
+        String correo = txt_agregarCorreo.getText().trim();
+
+        if (verificacion.validaEmail(correo) && !crearCorreos.contains(correo)) {
+            crearCorreos.add(correo);
+            DefaultListModel<String> m = new DefaultListModel<>();
+            for (int i=0; i<crearCorreos.size(); i++) {
+                m.addElement(crearCorreos.get(i));
+            }
+            lsCrearCorreos.setModel(m);
+        } else {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                TipoMensaje.EMAIL_SYNTAX_FAILURE);
+        }
+    }//GEN-LAST:event_btnAgregarCorreoActionPerformed
+
+    private void btnCrearProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProveedorActionPerformed
+        ArrayList<ArrayList<Object>> contactos = new ArrayList<>();
+        ArrayList<Object> correo;
+        for (int i=0; i<lsCrearCorreos.getModel().getSize(); i++) {
+            correo = new ArrayList<>();
+            correo.add(TipoContacto.CORREO);
+            correo.add(lsCrearCorreos.getModel().getElementAt(i));
+            contactos.add(correo);
+        }
+
+        ArrayList<Object> telefono;
+        for (int i=0; i<lsCrearTelefonos.getModel().getSize(); i++) {
+            telefono = new ArrayList<>();
+            telefono.add(TipoContacto.TELEFONO);
+            telefono.add(lsCrearTelefonos.getModel().getElementAt(i));
+            contactos.add(telefono);
+        }
+        
+        agregarProveedor(txt_crear_nombreProveedor.getText().trim(),
+            txt_crear_apellido1Proveedor.getText().trim(),
+            txt_crear_apellido2Proveedor.getText().trim(),
+            txt_crear_cedulaProveedor.getText().trim(), contactos);
+
+    }//GEN-LAST:event_btnCrearProveedorActionPerformed
+
+    private void tbl_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_editarMouseClicked
+        try {
+            model = (DefaultTableModel) tbl_editar.getModel();
+            int selectedRowIndex = tbl_editar.getSelectedRow();
+            String cedula
+            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+            for (int i = 0; i < proveedores.size(); i++) {
+                if (proveedores.get(i).getCedula().equals(cedula)) {
+                    cargarEditarCliente(proveedores.get(i));
+                }
+            }
+        } catch (Exception ex) {
+
+        }
+    }//GEN-LAST:event_tbl_editarMouseClicked
+
+    private void tbl_editarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_editarKeyReleased
+        try {
+            model = (DefaultTableModel) tbl_editar.getModel();
+            int selectedRowIndex = tbl_editar.getSelectedRow();
+            String cedula
+            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+            for (int i = 0; i < proveedores.size(); i++) {
+                if (proveedores.get(i).getCedula().equals(cedula)) {
+                    cargarEditarCliente(proveedores.get(i));
+                    System.out.println(proveedores.get(i).getCedula());
+                }
+            }
+        } catch (Exception ex) {
+
+        }
+    }//GEN-LAST:event_tbl_editarKeyReleased
+
+    private void btnEditarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProveedorActionPerformed
+        try {
+            model = (DefaultTableModel) tbl_editar.getModel();
+            int indiceFila = tbl_editar.getSelectedRow();
+
+            String codPersona = (String) model.getValueAt(indiceFila, 6);
+            System.out.println("CODIGO PER: "+codPersona);
+
+            actualizarProveedor(txtEditarNombreProveedor.getText().trim(),
+                txtEditarAp1Proveedor.getText().trim(),
+                txtEditarAp2Proveedor.getText().trim(),
+                txtEditarCedulaProveedor.getText().trim(), codPersona);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            ex.printStackTrace();
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnEditarProveedorActionPerformed
+
+    private void btnEditarGuardarTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarTelActionPerformed
+        String telefono = txtEditarTelefono.getText().trim();
+        int indice = 0;
+        try {
+            if (verificacion.validaTelefono(telefono)) {// && !editarTelefonos.contains(telefono)) {
+
+                indice = tbl_editar.getSelectedRow();
+                String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
+                for (Proveedor pv: proveedores) {
+                    if (pv.getCedula().equals(cedula)) {
+                        controlador.crearContacto(TipoContacto.TELEFONO, telefono, pv.getCodigo());
+                        editarTelefonos = new ArrayList<>();
+                        for (Contacto ct: controlador.obtenerContactos(pv.getCodigo())) {
+                            if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
+                                editarTelefonos.add(ct);
+                            }
+                        }
+                    }
+                }
+            } else {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                    TipoMensaje.PHONE_SYNTAX_FAILURE);
+            }
+        }catch (NullPointerException ex) {
+
+        } catch (Exception ex) {
+
+        } finally {
+            cargarTablas();
+            tbl_editar.setRowSelectionInterval(indice, indice);
+        }
+
+        DefaultListModel<String> m = new DefaultListModel<>();
+        for (int i=0; i<editarTelefonos.size(); i++) {
+            m.addElement(editarTelefonos.get(i).getInfo());
+        }
+        lsTelefonos.setModel(m);
+        txtEditarTelefono.setText("");
+    }//GEN-LAST:event_btnEditarGuardarTelActionPerformed
+
+    private void btnEditarCancelTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelTelActionPerformed
+        int indice = 0;
+        try {
+            indice = lsTelefonos.getSelectedIndex();
+            String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
+            controlador.inactivarContacto(editarTelefonos.get(indice).getCodigo());
+            editarTelefonos.remove(indice);
+
+            DefaultListModel<String> m = new DefaultListModel<>();
+            for (int i=0; i<editarTelefonos.size(); i++) {
+                m.addElement(editarTelefonos.get(i).getInfo());
+            }
+            lsTelefonos.setModel(m);
+        } catch(NullPointerException ex) {
+
+        } catch (ArrayIndexOutOfBoundsException ex) {
+
+        } catch (Exception ex) {
+
+        } finally {
+            cargarTablas();
+            tbl_editar.setRowSelectionInterval(indice, indice);
+        }
+    }//GEN-LAST:event_btnEditarCancelTelActionPerformed
+
+    private void btnEditarGuardarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarCorreoActionPerformed
+        //msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, null);
+        String correo = txtEditarCorreoProveedor.getText().trim();
+        int indice = 0;
+        try {
+            if (verificacion.validaEmail(correo)) {
+
+                indice = tbl_editar.getSelectedRow();
+                String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
+                for (Proveedor pv: proveedores) {
+                    if (pv.getCedula().equals(cedula)) {
+                        controlador.crearContacto(TipoContacto.CORREO, correo, pv.getCodigo());
+                        editarCorreos = new ArrayList<>();
+                        for (Contacto ct: controlador.obtenerContactos(pv.getCodigo())) {
+                            if (ct.getTipo().equals(TipoContacto.CORREO)) {
+                                editarCorreos.add(ct);
+
+                                DefaultListModel<String> m = new DefaultListModel<>();
+                                for (int i=0; i<editarCorreos.size(); i++) {
+                                    m.addElement(editarCorreos.get(i).getInfo());
+                                }
+                                lsCorreos.setModel(m);
+                                txtEditarCorreoProveedor.setText("");
+                            }
+                        }
+                    }
+                }
+            } else {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                    TipoMensaje.EMAIL_SYNTAX_FAILURE);
+            }
+        } catch (NullPointerException ex) {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+        } catch (Exception ex) {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, null);
+        } finally {
+            cargarTablas();
+            tbl_editar.setRowSelectionInterval(indice, indice);
+        }
+    }//GEN-LAST:event_btnEditarGuardarCorreoActionPerformed
+
+    private void btnEditarCancelCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelCorreoActionPerformed
+        int indice = 0;
+        try {
+            indice = lsCorreos.getSelectedIndex();
+            controlador.inactivarContacto(editarCorreos.get(indice).getCodigo());
+            editarCorreos.remove(indice);
+
+            DefaultListModel<String> m = new DefaultListModel<>();
+            for (int i=0; i<editarCorreos.size(); i++) {
+                m.addElement(editarCorreos.get(i).getInfo());
+            }
+            lsCorreos.setModel(m);
+        } catch(NullPointerException ex) {
+
+        } catch (ArrayIndexOutOfBoundsException ex) {
+
+        } catch (Exception ex) {
+
+        } finally {
+            cargarTablas();
+            tbl_editar.setRowSelectionInterval(indice, indice);
+        }
+    }//GEN-LAST:event_btnEditarCancelCorreoActionPerformed
+
+    private void tblProveedoresActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedoresActivosMouseClicked
+        try {
+            model = (DefaultTableModel) tblProveedoresActivos.getModel();
+            int selectedRowIndex = tblProveedoresActivos.getSelectedRow();
+            String cedula
+            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+            for (int i = 0; i < proveedores.size(); i++) {
+                if (proveedores.get(i).getCedula().equals(cedula)) {
+                    //Si el codigo coincide
+                    if (proveedores.get(i).getEstado().equals(Estado.Activo)) {
+                        //Verifica el tipo de estado
+                        rbDeshabDeshabProveedor.setSelected(true);
+                    } else {
+                        rbDeshabHabilitarProveedor.setSelected(true);
+                    }
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+        }
+        catch (Exception ex) {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
+        }
+    }//GEN-LAST:event_tblProveedoresActivosMouseClicked
+
+    private void tblProveedoresActivosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblProveedoresActivosKeyReleased
+        try {
+            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+                model = (DefaultTableModel) tblProveedoresActivos.getModel();
+                int selectedRowIndex = tblProveedoresActivos.getSelectedRow();
+                String cedula
+                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+                for (int i = 0; i < proveedores.size(); i++) {
+                    if (proveedores.get(i).getCedula().equals(cedula)) {
+                        //Si el codigo coincide
+                        if (proveedores.get(i).getEstado().equals(Estado.Activo)) {
+                            //Verifica el tipo de estado
+                            rbDeshabDeshabProveedor.setSelected(true);
+                        } else {
+                            rbDeshabHabilitarProveedor.setSelected(true);
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+
+        }
+    }//GEN-LAST:event_tblProveedoresActivosKeyReleased
+
+    private void tblProveedoresInactivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedoresInactivosMouseClicked
+        try {
+            model = (DefaultTableModel) tblProveedoresInactivos.getModel();
+            int selectedRowIndex = tblProveedoresInactivos.getSelectedRow();
+            String cedula
+            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+            for (int i = 0; i < proveedores.size(); i++) {
+                if (proveedores.get(i).getCedula().equals(cedula)) {
+                    //Si el codigo coincide
+                    if (proveedores.get(i).getEstado().equals(Estado.Deshabilitado)) {
+                        //Verifica el tipo de estado
+                        rbDeshabHabilitarProveedor.setSelected(true);
+                    } else {
+                        rbDeshabDeshabProveedor.setSelected(true);
+                    }
+                }
+            }
+        } catch (NullPointerException ex){
+
+        } catch (ArrayIndexOutOfBoundsException ex) {
+
+        } catch (Exception ex) {
+
+        }
+    }//GEN-LAST:event_tblProveedoresInactivosMouseClicked
+
+    private void tblProveedoresInactivosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblProveedoresInactivosKeyReleased
+        try {
+            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+                model = (DefaultTableModel) tblProveedoresInactivos.getModel();
+                int selectedRowIndex = tblProveedoresInactivos.getSelectedRow();
+                String cedula
+                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+                for (int i = 0; i < proveedores.size(); i++) {
+                    if (proveedores.get(i).getCedula().equals(cedula)) {
+                        if (proveedores.get(i).getEstado().equals(Estado.Deshabilitado)) {
+                            rbDeshabHabilitarProveedor.setSelected(true);
+                        } else {
+                            rbDeshabDeshabProveedor.setSelected(true);
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+
+        }
+    }//GEN-LAST:event_tblProveedoresInactivosKeyReleased
+
+    private void btn_deshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deshabilitarActionPerformed
+        try {
+
+            model = tbDeshab.getSelectedIndex() == 0 ?
+            (DefaultTableModel) tblProveedoresActivos.getModel() :
+            (DefaultTableModel) tblProveedoresInactivos.getModel();
+
+            int selectedRowIndex = tbDeshab.getSelectedIndex() == 0 ?
+            tblProveedoresActivos.getSelectedRow() :
+            tblProveedoresInactivos.getSelectedRow();
+
+            Estado estado
+            = rbDeshabHabilitarProveedor.isSelected() ? Estado.Activo : Estado.Deshabilitado;
+
+            if (estado.equals(Estado.Deshabilitado)) {
+                controlador.inactivarProveedor(model.getValueAt(selectedRowIndex, 0).toString());
+            } else {
+                controlador.activarProveedor(model.getValueAt(selectedRowIndex, 0).toString());
+            }
+            //Actualizar
+            cargarTablas();
+        } catch (Exception e) {
+            e.printStackTrace();
+            //            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+                //                    TipoMensaje.ANY_ROW_SELECTED);
+        }
+    }//GEN-LAST:event_btn_deshabilitarActionPerformed
+
+    private void txt_crear_cedulaProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_crear_cedulaProveedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_crear_cedulaProveedorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup bg_Habilitar;
+    private javax.swing.JButton btnAgregarCorreo;
+    private javax.swing.JButton btnAgregarTelefono;
+    private javax.swing.JButton btnCrearProveedor;
+    private javax.swing.JButton btnEditarCancelCorreo;
+    private javax.swing.JButton btnEditarCancelTel;
+    private javax.swing.JButton btnEditarGuardarCorreo;
+    private javax.swing.JButton btnEditarGuardarTel;
+    private javax.swing.JButton btnEditarProveedor;
+    private javax.swing.JButton btn_deshabilitar;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblCrearTelefono;
+    private javax.swing.JLabel lblDeshabSelectProveedor;
+    private javax.swing.JLabel lblEditarApellidoProveedor;
+    private javax.swing.JLabel lblEditarCedulaProveedor;
+    private javax.swing.JLabel lblEditarCorreo;
+    private javax.swing.JLabel lblEditarNombreProveedor;
+    private javax.swing.JLabel lblEditarSegundoProveedor;
+    private javax.swing.JLabel lblEditarTelefono;
+    private javax.swing.JLabel lblListadoProveedor;
+    private javax.swing.JLabel lbl_crear_apellido1Proveedor;
+    private javax.swing.JLabel lbl_crear_apellido2Proveedor;
+    private javax.swing.JLabel lbl_crear_cedulaProveedor;
+    private javax.swing.JLabel lbl_crear_correo;
+    private javax.swing.JLabel lbl_crear_nombreProveedor;
+    private javax.swing.JList<String> lsCorreos;
+    private javax.swing.JList<String> lsCrearCorreos;
+    private javax.swing.JList<String> lsCrearTelefonos;
+    private javax.swing.JList<String> lsTelefonos;
+    private javax.swing.JPanel pnlCrearContactoProveedor;
+    private javax.swing.JPanel pnlCrearCorreo;
+    private javax.swing.JPanel pnlCrearTelefono;
+    private javax.swing.JPanel pnlDeshabContainer;
+    private javax.swing.JPanel pnlEditarContactoProveedor;
+    private javax.swing.JPanel pnlEditarCorreo;
+    private javax.swing.JPanel pnlEditarTelefono;
+    private javax.swing.JPanel pnlHabilitar;
+    private javax.swing.JPanel pnl_actualizar;
+    private javax.swing.JPanel pnl_agregar;
+    private javax.swing.JPanel pnl_listado;
+    private javax.swing.JPanel pnl_modProveedor;
+    private javax.swing.JRadioButton rbDeshabDeshabProveedor;
+    private javax.swing.JRadioButton rbDeshabHabilitarProveedor;
+    private javax.swing.JScrollPane scpnlEditarListaCorreo;
+    private javax.swing.JScrollPane scpnlEditarListaTelef;
+    private javax.swing.JScrollPane scpnlProveedorDeshab;
+    private javax.swing.JScrollPane scpnlProveedorHabilitar;
+    private javax.swing.JScrollPane scpnlProveedoresCrearTelefono;
+    private javax.swing.JScrollPane scpnlTblListadoProveedor;
+    private javax.swing.JScrollPane scpnl_EditarContactoProveedor;
+    private javax.swing.JScrollPane scpnl_EditarProveedor;
+    private javax.swing.JScrollPane scpnl_crearCorreo;
+    private javax.swing.JScrollPane spnlCrearTelefonos;
+    private javax.swing.JScrollPane spnl_crear_proveedores;
+    private javax.swing.JScrollPane spnl_editar_proveedor;
+    private javax.swing.JTabbedPane tbCrearContactoProveedores;
+    private javax.swing.JTabbedPane tbDeshab;
+    private javax.swing.JTabbedPane tbEditarContactoProveedor;
+    private javax.swing.JTable tbListadoProveedor;
+    private javax.swing.JTabbedPane tb_modProveedor;
+    private javax.swing.JTable tblProveedoresActivos;
+    private javax.swing.JTable tblProveedoresInactivos;
+    private javax.swing.JTable tbl_crear;
+    private javax.swing.JTable tbl_editar;
+    private javax.swing.JTextField txtEditarAp1Proveedor;
+    private javax.swing.JTextField txtEditarAp2Proveedor;
+    private javax.swing.JTextField txtEditarCedulaProveedor;
+    private javax.swing.JTextField txtEditarCorreoProveedor;
+    private javax.swing.JTextField txtEditarNombreProveedor;
+    private javax.swing.JTextField txtEditarTelefono;
+    private javax.swing.JTextField txtListadoProveedor;
+    private javax.swing.JTextField txt_agregarCorreo;
+    private javax.swing.JTextField txt_agregarTelefono;
+    private javax.swing.JTextField txt_crear_apellido1Proveedor;
+    private javax.swing.JTextField txt_crear_apellido2Proveedor;
+    private javax.swing.JTextField txt_crear_cedulaProveedor;
+    private javax.swing.JTextField txt_crear_nombreProveedor;
     // End of variables declaration//GEN-END:variables
 }

@@ -256,6 +256,6 @@ public class Madera {
     @Override
     public String toString()
     {
-     return codigo +" " + descTipoMadera + " " + medidas;
+     return codProducto +": " + descTipoMadera + " " + medidas;
     }
 }

@@ -86,7 +86,7 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="dpn_principal" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Component id="scpnlModulos" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -137,7 +137,6 @@
                   <Image iconType="3" name="/recursos/c_facturacion.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value=" Facturaci&#xf3;n"/>
-                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -224,7 +223,6 @@
                   <Image iconType="3" name="/recursos/c_proveedor.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Proveedores"/>
-                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>

@@ -83,20 +83,20 @@ public class CtrProveedor {
      * @param contactos
      * @return 
      */
-    /*public boolean crearCliente(String nombre, String apellido1, 
-            String apellido2, String cedula, double limiteCred, 
-            boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
+    public boolean crearProveedor(String nombre, String apellido1, 
+            String apellido2, String cedula, 
+            ArrayList<ArrayList<Object>> contactos) {
 
-        return mdlCliente.crearCliente(nombre, apellido1, apellido2, cedula, 
-                limiteCred, aprobarCred, contactos);
-    }*/
+        return mdlProveedor.crearProveedor(nombre, apellido1, apellido2, 
+                cedula, contactos);
+    }
     
     /**
-     * 
-     * @param tipo
-     * @param info
-     * @param codPersona
-     * @return 
+     * Crea el contacto/s para el proveedor en la bd
+     * @param tipo tipo de contacto
+     * @param info detalle del contacto
+     * @param codPersona codigo de persona con el contacto
+     * @return true si crea el contacto exitosamente
      */
     public boolean crearContacto(TipoContacto tipo, String info, String codPersona) {
         return mdlProveedor.crearContacto(tipo, info, codPersona);
@@ -120,42 +120,41 @@ public class CtrProveedor {
      * @param codigo
      * @return 
      */
-    /*public boolean actualizarCliente(String nombre, String apellido1, 
-            String apellido2, String cedula, double limiteCred, 
-            boolean aprobarCred, String codPersona) {
+    public boolean actualizarProveedor(String nombre, String apellido1, 
+            String apellido2, String cedula, String codPersona) {
         
-        return mdlCliente.actualizarCliente(nombre, apellido1, apellido2, 
-                cedula, limiteCred, aprobarCred, codPersona);
-    }*/
+        return mdlProveedor.actualizarProveedor(nombre, apellido1, apellido2, 
+                cedula, codPersona);
+    }
     
     /**
      * Inactiva el proveedor en la bd.
      * @param cedula cédula unívoca del proveedor
-     * @return 
+     * @return True si lo inactivó correctamente
      */
-    /*public boolean inactivarCliente(String cedula) {
+    public boolean inactivarProveedor(String cedula) {
         
-        return mdlCliente.inactivarCliente(cedula);
-    }*/
+        return mdlProveedor.inactivarProveedor(cedula);
+    }
     
     /**
      * Activa el proveedor en la bd.
      * @param cedula cédula unívoca del proveedor
-     * @return 
+     * @return True si lo activó correctamente
      */
-    /*public boolean activarCliente(String cedula) {
+    public boolean activarProveedor(String cedula) {
         
-        return mdlCliente.activarCliente(cedula);
-    }*/
+        return mdlProveedor.activarProveedor(cedula);
+    }
 
     /**
      * Buscar proveedor enviando por parámetro el criterio de búsqueda.
      * @param param Parametros para consultar proveedor en la base de datos
      * @return lista de proveedores
      */
-    /*public ArrayList consultarClientes(String param) {
-        return mdlCliente.consultarClientes(param);
-    }*/
+    public ArrayList consultarProveedor(String param) {
+        return mdlProveedor.consultarProveedor(param);
+    }
     
     /**
      * Obtener código de persona.
