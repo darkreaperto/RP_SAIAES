@@ -52,7 +52,9 @@ public final class Conexion {
         boolean conexionExitosa = false;
         try {
             conexion = DriverManager.getConnection("jdbc:mysql://localhost/"
-                    + "sai_aes?useSSL=false",
+                    + "sai_aes?useSSL=false&useUnicode=true&"
+                    + "useJDBCCompliantTimezoneShift=true&"
+                    + "useLegacyDatetimeCode=false&serverTimezone=UTC",
                     "usuario", "usuario2018");
             conexionExitosa = true;
         } catch (SQLException ex) {
