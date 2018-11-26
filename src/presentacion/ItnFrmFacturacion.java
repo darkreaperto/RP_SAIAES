@@ -109,6 +109,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             }
         }        
         txtClienteFac.setText(cli);
+        lblClienteNom.setText(cli);
     }
         
     /**
@@ -131,6 +132,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         lblTextClienteFac = new javax.swing.JLabel();
         txtClienteFac = new javax.swing.JTextField();
+        lblClienteNom = new javax.swing.JLabel();
+        ftClienteFac = new javax.swing.JFormattedTextField();
         lblTextProducto = new javax.swing.JLabel();
         txtProducto = new javax.swing.JTextField();
         scpnlList = new javax.swing.JScrollPane();
@@ -190,29 +193,25 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             }
         });
 
+        lblClienteNom.setText("CLIENTE GENÉRICO");
+
+        try {
+            ftClienteFac.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#-####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        ftClienteFac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ftClienteFacKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlEncabezadoLayout = new javax.swing.GroupLayout(pnlEncabezado);
         pnlEncabezado.setLayout(pnlEncabezadoLayout);
         pnlEncabezadoLayout.setHorizontalGroup(
             pnlEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEncabezadoLayout.createSequentialGroup()
                 .addGroup(pnlEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlEncabezadoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(pnlEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlEncabezadoLayout.createSequentialGroup()
-                                .addComponent(lblTextUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(48, 48, 48)
-                                .addComponent(lblUsuarioFac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(pnlEncabezadoLayout.createSequentialGroup()
-                                .addComponent(lblTextConsecutivoFac, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblConsecutivo, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)))
-                        .addGap(424, 424, 424)
-                        .addGroup(pnlEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEncabezadoLayout.createSequentialGroup()
-                                .addComponent(lblTextFechaFac, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(72, 72, 72))))
                     .addGroup(pnlEncabezadoLayout.createSequentialGroup()
                         .addGroup(pnlEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlEncabezadoLayout.createSequentialGroup()
@@ -222,8 +221,32 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                                 .addContainerGap()
                                 .addComponent(lblTextClienteFac, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtClienteFac, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 53, Short.MAX_VALUE)))
+                                .addComponent(lblClienteNom, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 31, Short.MAX_VALUE))
+                    .addGroup(pnlEncabezadoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlEncabezadoLayout.createSequentialGroup()
+                                .addGroup(pnlEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlEncabezadoLayout.createSequentialGroup()
+                                        .addComponent(lblTextUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(48, 48, 48)
+                                        .addComponent(lblUsuarioFac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(pnlEncabezadoLayout.createSequentialGroup()
+                                        .addComponent(lblTextConsecutivoFac, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblConsecutivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(424, 424, 424)
+                                .addGroup(pnlEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEncabezadoLayout.createSequentialGroup()
+                                        .addComponent(lblTextFechaFac, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(72, 72, 72))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEncabezadoLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(ftClienteFac, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtClienteFac, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         pnlEncabezadoLayout.setVerticalGroup(
@@ -243,8 +266,10 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtClienteFac, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(lblTextClienteFac, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                    .addComponent(txtClienteFac)
+                    .addComponent(lblTextClienteFac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblClienteNom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ftClienteFac, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13))
         );
 
@@ -416,7 +441,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                     .addComponent(btnAddProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(scpnlList, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scpnlTblLineaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                .addComponent(scpnlTblLineaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlTotales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -465,11 +490,21 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             llenarListaClientes(txtClienteFac.getText().trim());
         }
     }//GEN-LAST:event_txtClienteFacKeyReleased
+
+    private void ftClienteFacKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftClienteFacKeyReleased
+        System.out.println("EVT "+evt.getKeyCode());
+        if (evt.getKeyCode() == 10) { //enter
+            System.out.println("EVT");
+            llenarListaClientes(ftClienteFac.getText().replace("-", "").trim());
+        }
+    }//GEN-LAST:event_ftClienteFacKeyReleased
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddProduct;
     private javax.swing.JButton btnFacturar;
+    private javax.swing.JFormattedTextField ftClienteFac;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblClienteNom;
     private javax.swing.JLabel lblConsecutivo;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblImpuesto;
