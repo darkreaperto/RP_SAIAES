@@ -6,11 +6,15 @@
 package presentacion;
 
 import controladores.CtrAcceso;
+import controladores.CtrCliente;
 import controladores.CtrMadera;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JTextField;
+import logica.negocio.Cliente;
 import logica.negocio.Madera;
 
 /**
@@ -21,6 +25,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     
     private static ItnFrmFacturacion instancia = null;
     private static CtrMadera ctrInventario = new CtrMadera();
+    private static CtrCliente ctrCliente = new CtrCliente();
     private static ArrayList<Madera> listaProd;
     /**
      * Instancia un formulario interno de facturación
@@ -28,9 +33,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
      */
     protected ItnFrmFacturacion(CtrAcceso sesionAcc) {
         initComponents();
-        placeDate();
+        addDate();
         lblUsuarioFac.setText(sesionAcc.getUsuario().getNombre());
-        listaProd = ctrInventario.getListaProductos();        
     }
     /**
      * Retorna la única instancia de la clase.
@@ -39,47 +43,74 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
      * @return instancia.
      */
     public static ItnFrmFacturacion getInstancia(CtrAcceso sesionAcc) {
-        // params: ,ArrayList<Usuario> usuarios
+        
         if (instancia == null) {
             instancia = new ItnFrmFacturacion(sesionAcc);
         }
         return instancia;
     }
-    public final void placeDate() {
+    /**
+     * Obtener la fecha del sistema y agregarla a un campo de texto
+     */
+    public final void addDate() {
         lblFecha.setText(LocalDateTime.now().format(DateTimeFormatter.
                 ofPattern("dd-MM-yyyy")));
     }
-//    editarTelefonos = new ArrayList<>();
-//        editarCorreos = new ArrayList<>();
-//        DefaultListModel<String> mTelefonos = new DefaultListModel<>();
-//        DefaultListModel<String> mCorreos = new DefaultListModel<>();
-//        
-//        for (Contacto ct: cliente.getContactos()) {
-//            if (ct.getTipo().equals(TipoContacto.CORREO)) {
-//                editarCorreos.add(ct);
-//                mCorreos.addElement(ct.getInfo());
-//            } else {
-//                if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
-//                    editarTelefonos.add(ct);
-//                    mTelefonos.addElement(ct.getInfo());
-//                }
-//            }
-//        }
-//        lsTelefonos.setModel(mTelefonos);
-//        lsCorreos.setModel(mCorreos);
-    public void llenarLista() {
+    /**
+     * Obtener la lista de productos consultados y mostrarla en la lista 
+     * de la interfaz
+     * @param c atributo con que se consultan los productos
+     */
+    public void llenarListaProductos(String c) {
         listaProd =  new ArrayList<>();
-        DefaultListModel<String> mProductos = new DefaultListModel<>();
+        DefaultListModel<Object> mProductos = new DefaultListModel<>();
+        listaProd = ctrInventario.consultarProductos(c);
         
-//        if(listaProd =! null) {
-//            lsEscogerProd.add();
-//        }
-        
+        for (Madera m : listaProd) {
+            mProductos.addElement(m);             
+        }
+        lsEscogerProd.setModel(mProductos);        
     }
     
-    
-    
-    
+    /**
+     * Obtener de la lista clietes el cliente ingresado por cédula en el 
+     * campo de texto
+     * @param p 
+     */
+    public void llenarListaClientes(String p) {
+        JList<Object> lsEscogerCli = new JList();
+//        int x = txtClienteFac.getX();
+//        int y = txtClienteFac.getY() + txtClienteFac.getHeight() + 1;
+//        
+//        lsEscogerCli.setBounds(x, y, 50, 20);
+//        pnlEncabezado.add(lsEscogerCli);
+//        pnlEncabezado.repaint();
+//        pnl_modFactura.add(lsEscogerCli);
+//        pnl_modFactura.repaint();
+//        lsEscogerCli.setVisible(true);
+        
+        ArrayList<Cliente> listaCli =  new ArrayList<>();
+        DefaultListModel<Object> mClientes = new DefaultListModel<>();
+        listaCli = ctrCliente.consultarClientes(p);
+        System.out.println(listaCli);
+        
+        for (Cliente c : listaCli) {
+            mClientes.addElement(c);             
+        }
+        System.out.println(listaProd);
+        lsEscogerCli.setModel(mClientes);
+        String cli = "ESTIMADO CLIENTE";
+        
+        for (Cliente c: listaCli) {
+            System.out.println("CED "+c.getCedula());
+            if (c.getCedula().equals(p)) {
+                cli = c.toString();
+                break;
+            }
+        }        
+        txtClienteFac.setText(cli);
+    }
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,7 +132,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         lblTextClienteFac = new javax.swing.JLabel();
         txtClienteFac = new javax.swing.JTextField();
         lblTextProducto = new javax.swing.JLabel();
-        txtProductoFac = new javax.swing.JTextField();
+        txtProducto = new javax.swing.JTextField();
         scpnlList = new javax.swing.JScrollPane();
         lsEscogerProd = new javax.swing.JList<>();
         scpnlTblLineaPedido = new javax.swing.JScrollPane();
@@ -115,8 +146,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         lblTotal = new javax.swing.JLabel();
         btnFacturar = new javax.swing.JButton();
         btnAddProduct = new javax.swing.JButton();
-        lblTextProducto1 = new javax.swing.JLabel();
-        txtProductoFac1 = new javax.swing.JTextField();
+        lblTextCantidad = new javax.swing.JLabel();
+        txtCantidad = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -148,6 +179,16 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 
         txtClienteFac.setText("Nombre del cliente...");
         txtClienteFac.setSelectionStart(0);
+        txtClienteFac.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtClienteFacFocusGained(evt);
+            }
+        });
+        txtClienteFac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtClienteFacKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlEncabezadoLayout = new javax.swing.GroupLayout(pnlEncabezado);
         pnlEncabezado.setLayout(pnlEncabezadoLayout);
@@ -209,8 +250,18 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 
         lblTextProducto.setText("Producto:");
 
-        txtProductoFac.setText("Buscar producto...");
-        txtProductoFac.setSelectionStart(0);
+        txtProducto.setText("Buscar producto...");
+        txtProducto.setSelectionStart(0);
+        txtProducto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtProductoFocusGained(evt);
+            }
+        });
+        txtProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtProductoKeyReleased(evt);
+            }
+        });
 
         scpnlList.setViewportView(lsEscogerProd);
 
@@ -223,7 +274,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -304,9 +355,14 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 
         btnAddProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/add.png"))); // NOI18N
 
-        lblTextProducto1.setText("Cantidad:");
+        lblTextCantidad.setText("Cantidad:");
 
-        txtProductoFac1.setText("Cantidad en unidades...");
+        txtCantidad.setText("Cantidad en unidades...");
+        txtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCantidadFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_modFacturaLayout = new javax.swing.GroupLayout(pnl_modFactura);
         pnl_modFactura.setLayout(pnl_modFacturaLayout);
@@ -331,11 +387,11 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                     .addGroup(pnl_modFacturaLayout.createSequentialGroup()
                         .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTextProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtProductoFac, javax.swing.GroupLayout.PREFERRED_SIZE, 715, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 715, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtProductoFac1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTextProducto1)))
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTextCantidad)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modFacturaLayout.createSequentialGroup()
                         .addComponent(scpnlList, javax.swing.GroupLayout.PREFERRED_SIZE, 959, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -349,12 +405,12 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 .addComponent(pnlEncabezado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTextProducto1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTextProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtProductoFac, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtProductoFac1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnAddProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -379,6 +435,36 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductoKeyReleased
+        llenarListaProductos(txtProducto.getText().trim());
+    }//GEN-LAST:event_txtProductoKeyReleased
+
+    private void txtProductoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProductoFocusGained
+        if (!(evt.getSource() instanceof JTextField)) return;
+        txtProducto = (JTextField)evt.getSource();
+        txtProducto.selectAll();
+    }//GEN-LAST:event_txtProductoFocusGained
+
+    private void txtClienteFacFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtClienteFacFocusGained
+        if (!(evt.getSource() instanceof JTextField)) return;
+        txtClienteFac = (JTextField)evt.getSource();
+        txtClienteFac.selectAll();
+    }//GEN-LAST:event_txtClienteFacFocusGained
+
+    private void txtCantidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadFocusGained
+        if (!(evt.getSource() instanceof JTextField)) return;
+        txtCantidad = (JTextField)evt.getSource();
+        txtCantidad.selectAll();
+    }//GEN-LAST:event_txtCantidadFocusGained
+
+    private void txtClienteFacKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteFacKeyReleased
+        System.out.println("EVT "+evt.getKeyCode());
+        if (evt.getKeyCode() == 10) { //enter
+            System.out.println("EVT");
+            llenarListaClientes(txtClienteFac.getText().trim());
+        }
+    }//GEN-LAST:event_txtClienteFacKeyReleased
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddProduct;
@@ -388,26 +474,26 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblImpuesto;
     private javax.swing.JLabel lblSubtotal;
+    private javax.swing.JLabel lblTextCantidad;
     private javax.swing.JLabel lblTextClienteFac;
     private javax.swing.JLabel lblTextConsecutivoFac;
     private javax.swing.JLabel lblTextFechaFac;
     private javax.swing.JLabel lblTextImpuestos;
     private javax.swing.JLabel lblTextProducto;
-    private javax.swing.JLabel lblTextProducto1;
     private javax.swing.JLabel lblTextSubtotal;
     private javax.swing.JLabel lblTextTotal;
     private javax.swing.JLabel lblTextUsuario;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblUsuarioFac;
-    private javax.swing.JList<String> lsEscogerProd;
+    private javax.swing.JList<Object> lsEscogerProd;
     private javax.swing.JPanel pnlEncabezado;
     private javax.swing.JPanel pnlTotales;
     private javax.swing.JPanel pnl_modFactura;
     private javax.swing.JScrollPane scpnlList;
     private javax.swing.JScrollPane scpnlTblLineaPedido;
     private javax.swing.JTable tblLineaPedido;
+    private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtClienteFac;
-    private javax.swing.JTextField txtProductoFac;
-    private javax.swing.JTextField txtProductoFac1;
+    private javax.swing.JTextField txtProducto;
     // End of variables declaration//GEN-END:variables
 }
