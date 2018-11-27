@@ -196,8 +196,8 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
      */
     public void iniciarSesion(String usuario, String clave) {
 
-        usuario = "usuario";
-        clave = "usuario2018";
+        //usuario = "usuario";
+        //clave = "usuario2018";
         
         //usuario = "usuario";
         //clave = "usuario2018";

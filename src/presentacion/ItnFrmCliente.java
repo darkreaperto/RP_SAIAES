@@ -1127,6 +1127,16 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         tabla.removeColumn(tabla.getColumnModel().getColumn(7));
     }
     
+    /**
+     * Crea un nuevo cliente en la BD con la información enviada por parámetro.
+     * @param nombre nombre del cliente
+     * @param apellido1 primer apellido del cliente
+     * @param apellido2 segundo apellido del cliente
+     * @param cedula cedula del cliente
+     * @param limiteCred límite de crédito asignado
+     * @param aprobarCred si tiene o no crédito permitido
+     * @param contactos contactos del cliente
+     */
     private void agregarCliente(String nombre, String apellido1, 
             String apellido2, String cedula, String limiteCred, 
             boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
@@ -1170,6 +1180,16 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
     }
     
+    /**
+     * Actualiza la información de los clientes.
+     * @param nombre nombre del cliente
+     * @param apellido1 primer apellido del cliente
+     * @param apellido2 segundo apellido del cliente
+     * @param cedula cedula del cliente
+     * @param limiteCred límite de crédito asignado 
+     * @param aprobarCred si tiene o no crédito permitido
+     * @param codPersona codigo de persona para enlazar en la tabla de la BD
+     */
     private void actualizarCliente(String nombre, String apellido1, 
             String apellido2, String cedula, String limiteCred, 
             boolean aprobarCred, String codPersona) {
@@ -1217,6 +1237,10 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 //        }
     }
     
+    /**
+     * Carga los campos elementos de Editar clientes cuando se selecciona uno
+     * @param cliente información del cliente a cargar
+     */
     private void cargarEditarCliente(Cliente cliente) {
         txtEditarCedulaCliente.setText(cliente.getCedula());
         txtEditarNombreCliente.setText(cliente.getNombre());
@@ -1514,7 +1538,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarCancelTelActionPerformed
 
     private void btnEditarGuardarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarCorreoActionPerformed
-        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, null);
+        //msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, null);
         String correo = txtEditarCorreoCliente.getText().trim();
         int indice = 0;
         try {

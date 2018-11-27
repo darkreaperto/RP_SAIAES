@@ -18,7 +18,7 @@ import logica.negocio.Cliente;
 import logica.negocio.Madera;
 
 /**
- *
+ * Inicializa la ventana que contiene la información de los facturación.
  * @author aoihanabi
  */
 public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
@@ -75,21 +75,12 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     /**
      * Obtener de la lista clietes el cliente ingresado por cédula en el 
      * campo de texto
-     * @param p 
+     * @param p cedula del cliente para consultar
      */
     public void llenarListaClientes(String p) {
         JList<Object> lsEscogerCli = new JList();
-//        int x = txtClienteFac.getX();
-//        int y = txtClienteFac.getY() + txtClienteFac.getHeight() + 1;
-//        
-//        lsEscogerCli.setBounds(x, y, 50, 20);
-//        pnlEncabezado.add(lsEscogerCli);
-//        pnlEncabezado.repaint();
-//        pnl_modFactura.add(lsEscogerCli);
-//        pnl_modFactura.repaint();
-//        lsEscogerCli.setVisible(true);
-        
-        ArrayList<Cliente> listaCli =  new ArrayList<>();
+
+        ArrayList<Cliente> listaCli; //=  new ArrayList<>();
         DefaultListModel<Object> mClientes = new DefaultListModel<>();
         listaCli = ctrCliente.consultarClientes(p);
         System.out.println(listaCli);

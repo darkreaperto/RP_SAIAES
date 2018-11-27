@@ -203,7 +203,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * presiona.
      *
      * @param panel presionado
-     * @param tmad
+     * @param tmad tipo de madera
      */
     public void limpiarCampos(String panel, String tmad) {
 
