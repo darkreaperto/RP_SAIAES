@@ -171,16 +171,43 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btn_clientes = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
         btn_proveedor = new javax.swing.JButton();
-        jSeparator6 = new javax.swing.JToolBar.Separator();
-        btn_maquinaria = new javax.swing.JButton();
         jSeparator7 = new javax.swing.JToolBar.Separator();
         btn_usuarios = new javax.swing.JButton();
         mnb_principal = new javax.swing.JMenuBar();
         mnbtn_archivo = new javax.swing.JMenu();
-        mnbtn_editar = new javax.swing.JMenu();
+        mniCerrarSesion = new javax.swing.JMenuItem();
+        mniSalir = new javax.swing.JMenuItem();
+        mnbtn_modulos = new javax.swing.JMenu();
+        mnClientes = new javax.swing.JMenu();
+        mniAgregarCliente = new javax.swing.JMenuItem();
+        mniEditarCliente = new javax.swing.JMenuItem();
+        mniHabilitarCliente = new javax.swing.JMenuItem();
+        mniListadoClientes = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        mnConsultas = new javax.swing.JMenu();
+        jSeparator8 = new javax.swing.JPopupMenu.Separator();
+        mnFacturacion = new javax.swing.JMenu();
+        jSeparator9 = new javax.swing.JPopupMenu.Separator();
+        mnInventario = new javax.swing.JMenu();
+        mniActualizarInventario = new javax.swing.JMenuItem();
+        mniAgregarProdNuevo = new javax.swing.JMenuItem();
+        mniEditarProd = new javax.swing.JMenuItem();
+        mniHabilitarInventario = new javax.swing.JMenuItem();
+        mniListadoProd = new javax.swing.JMenuItem();
+        jSeparator10 = new javax.swing.JPopupMenu.Separator();
+        mnProveedores = new javax.swing.JMenu();
+        mniAgregarProveedor = new javax.swing.JMenuItem();
+        mniEditarProveedor = new javax.swing.JMenuItem();
+        mniHabilitarProveedor = new javax.swing.JMenuItem();
+        mniListadoProveedores = new javax.swing.JMenuItem();
+        jSeparator11 = new javax.swing.JPopupMenu.Separator();
+        mnUsuarios = new javax.swing.JMenu();
+        mniActualizarInfo = new javax.swing.JMenuItem();
+        mniActualizarPermisos = new javax.swing.JMenuItem();
+        mniAgregarUsuario = new javax.swing.JMenuItem();
+        mniHabilitarUsuarios = new javax.swing.JMenuItem();
+        mniListadoUsuarios = new javax.swing.JMenuItem();
         mnbtn_ver = new javax.swing.JMenu();
-        mnbtn_salir = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAI-AES");
@@ -280,22 +307,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         tlb_modulos.add(btn_proveedor);
 
-        jSeparator6.setSeparatorSize(new java.awt.Dimension(15, 10));
-        tlb_modulos.add(jSeparator6);
-
-        btn_maquinaria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_maquinaria.png"))); // NOI18N
-        btn_maquinaria.setText(" Maquinaria ");
-        btn_maquinaria.setEnabled(false);
-        btn_maquinaria.setFocusable(false);
-        btn_maquinaria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_maquinaria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn_maquinaria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_maquinariaActionPerformed(evt);
-            }
-        });
-        tlb_modulos.add(btn_maquinaria);
-
         jSeparator7.setSeparatorSize(new java.awt.Dimension(15, 10));
         tlb_modulos.add(jSeparator7);
 
@@ -315,29 +326,110 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         mnbtn_archivo.setText("Archivo");
         mnbtn_archivo.setEnabled(false);
+
+        mniCerrarSesion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        mniCerrarSesion.setText("Cerrar Sesión");
+        mniCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniCerrarSesionActionPerformed(evt);
+            }
+        });
+        mnbtn_archivo.add(mniCerrarSesion);
+
+        mniSalir.setText("Salir");
+        mnbtn_archivo.add(mniSalir);
+
         mnb_principal.add(mnbtn_archivo);
 
-        mnbtn_editar.setText("Editar");
-        mnbtn_editar.setEnabled(false);
-        mnb_principal.add(mnbtn_editar);
+        mnbtn_modulos.setText("Módulos");
+        mnbtn_modulos.setEnabled(false);
+
+        mnClientes.setText("Clientes");
+
+        mniAgregarCliente.setText("Agregar");
+        mnClientes.add(mniAgregarCliente);
+
+        mniEditarCliente.setText("Editar");
+        mnClientes.add(mniEditarCliente);
+
+        mniHabilitarCliente.setText("Habilitar/Deshabilitar");
+        mnClientes.add(mniHabilitarCliente);
+
+        mniListadoClientes.setText("Listado de clientes");
+        mnClientes.add(mniListadoClientes);
+
+        mnbtn_modulos.add(mnClientes);
+        mnbtn_modulos.add(jSeparator6);
+
+        mnConsultas.setText("Consultas");
+        mnbtn_modulos.add(mnConsultas);
+        mnbtn_modulos.add(jSeparator8);
+
+        mnFacturacion.setText("Facturación");
+        mnbtn_modulos.add(mnFacturacion);
+        mnbtn_modulos.add(jSeparator9);
+
+        mnInventario.setText("Inventario");
+
+        mniActualizarInventario.setText("Actualizar inventario");
+        mnInventario.add(mniActualizarInventario);
+
+        mniAgregarProdNuevo.setText("Agregar nuevo");
+        mnInventario.add(mniAgregarProdNuevo);
+
+        mniEditarProd.setText("Editar");
+        mnInventario.add(mniEditarProd);
+
+        mniHabilitarInventario.setText("Habilitar/Deshabilitar");
+        mnInventario.add(mniHabilitarInventario);
+
+        mniListadoProd.setText("Listado de productos");
+        mnInventario.add(mniListadoProd);
+
+        mnbtn_modulos.add(mnInventario);
+        mnbtn_modulos.add(jSeparator10);
+
+        mnProveedores.setText("Proveedores");
+
+        mniAgregarProveedor.setText("Agregar");
+        mnProveedores.add(mniAgregarProveedor);
+
+        mniEditarProveedor.setText("Editar");
+        mnProveedores.add(mniEditarProveedor);
+
+        mniHabilitarProveedor.setText("Habilitar/Deshabilitar");
+        mnProveedores.add(mniHabilitarProveedor);
+
+        mniListadoProveedores.setText("Listado de proveedores");
+        mnProveedores.add(mniListadoProveedores);
+
+        mnbtn_modulos.add(mnProveedores);
+        mnbtn_modulos.add(jSeparator11);
+
+        mnUsuarios.setText("Usuarios");
+
+        mniActualizarInfo.setText("Actualizar informacion");
+        mnUsuarios.add(mniActualizarInfo);
+
+        mniActualizarPermisos.setText("Actualizar permisos");
+        mnUsuarios.add(mniActualizarPermisos);
+
+        mniAgregarUsuario.setText("Agregar");
+        mnUsuarios.add(mniAgregarUsuario);
+
+        mniHabilitarUsuarios.setText("Habilitar/Deshabilitar");
+        mnUsuarios.add(mniHabilitarUsuarios);
+
+        mniListadoUsuarios.setText("Listado de usuarios");
+        mnUsuarios.add(mniListadoUsuarios);
+
+        mnbtn_modulos.add(mnUsuarios);
+
+        mnb_principal.add(mnbtn_modulos);
 
         mnbtn_ver.setText("Ver");
         mnbtn_ver.setEnabled(false);
         mnb_principal.add(mnbtn_ver);
-
-        mnbtn_salir.setText("Salir");
-        mnbtn_salir.setEnabled(false);
-
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Cerrar Sesión");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        mnbtn_salir.add(jMenuItem1);
-
-        mnb_principal.add(mnbtn_salir);
 
         setJMenuBar(mnb_principal);
 
@@ -379,9 +471,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_usuariosActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mniCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCerrarSesionActionPerformed
         cerrarSesion();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mniCerrarSesionActionPerformed
 
     private void btn_facturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturacionActionPerformed
         //Abrir formulario de facturación.
@@ -449,22 +541,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_proveedorActionPerformed
 
-    private void btn_maquinariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_maquinariaActionPerformed
-        JOptionPane.showMessageDialog(null, "Hi! An amazing enginery module "
-                + "will be developed here! \n Hold on a little more please. "
-                + "We are working hard!");
-        //Abrir formulario de usuarios.
-        modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
-        //modCliente.deshabilitarPaneles();
-        modCliente.setVisible(true);
-        if (dpn_principal.getComponentCount() == 0) {
-            dpn_principal.add(modCliente);
-        } else {
-            if (!(dpn_principal.getComponent(0) instanceof ItnFrmCliente)) 
-                dpn_principal.add(modCliente);
-        }
-    }//GEN-LAST:event_btn_maquinariaActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -508,23 +584,50 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_consultas;
     private javax.swing.JButton btn_facturacion;
     private javax.swing.JButton btn_inventario;
-    private javax.swing.JButton btn_maquinaria;
     private javax.swing.JButton btn_proveedor;
     private javax.swing.JButton btn_usuarios;
     private javax.swing.JDesktopPane dpn_principal;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator10;
+    private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
-    private javax.swing.JToolBar.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JToolBar.Separator jSeparator7;
+    private javax.swing.JPopupMenu.Separator jSeparator8;
+    private javax.swing.JPopupMenu.Separator jSeparator9;
+    private javax.swing.JMenu mnClientes;
+    private javax.swing.JMenu mnConsultas;
+    private javax.swing.JMenu mnFacturacion;
+    private javax.swing.JMenu mnInventario;
+    private javax.swing.JMenu mnProveedores;
+    private javax.swing.JMenu mnUsuarios;
     private javax.swing.JMenuBar mnb_principal;
     private javax.swing.JMenu mnbtn_archivo;
-    private javax.swing.JMenu mnbtn_editar;
-    private javax.swing.JMenu mnbtn_salir;
+    private javax.swing.JMenu mnbtn_modulos;
     private javax.swing.JMenu mnbtn_ver;
+    private javax.swing.JMenuItem mniActualizarInfo;
+    private javax.swing.JMenuItem mniActualizarInventario;
+    private javax.swing.JMenuItem mniActualizarPermisos;
+    private javax.swing.JMenuItem mniAgregarCliente;
+    private javax.swing.JMenuItem mniAgregarProdNuevo;
+    private javax.swing.JMenuItem mniAgregarProveedor;
+    private javax.swing.JMenuItem mniAgregarUsuario;
+    private javax.swing.JMenuItem mniCerrarSesion;
+    private javax.swing.JMenuItem mniEditarCliente;
+    private javax.swing.JMenuItem mniEditarProd;
+    private javax.swing.JMenuItem mniEditarProveedor;
+    private javax.swing.JMenuItem mniHabilitarCliente;
+    private javax.swing.JMenuItem mniHabilitarInventario;
+    private javax.swing.JMenuItem mniHabilitarProveedor;
+    private javax.swing.JMenuItem mniHabilitarUsuarios;
+    private javax.swing.JMenuItem mniListadoClientes;
+    private javax.swing.JMenuItem mniListadoProd;
+    private javax.swing.JMenuItem mniListadoProveedores;
+    private javax.swing.JMenuItem mniListadoUsuarios;
+    private javax.swing.JMenuItem mniSalir;
     private javax.swing.JScrollPane scpnlModulos;
     private javax.swing.JToolBar tlb_modulos;
     // End of variables declaration//GEN-END:variables

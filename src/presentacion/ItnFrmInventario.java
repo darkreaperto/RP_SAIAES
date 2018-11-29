@@ -208,7 +208,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     public void limpiarCampos(String panel, String tmad) {
 
         if (panel.toUpperCase().equals("CREAR")) {
-            switch (tmad.toLowerCase()) {
+            switch (tmad.toUpperCase()) {
                 case "ASERRADA":
                     txtNuevoAcCodigo.setText("");
                     txtNuevoAcMedAncho.setText("");
@@ -217,7 +217,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     txtNuevoAcPrecio.setText("");
                     txtNuevoAcUnidades.setText("");
                     txtaNuevoAcDescripcion.setText("");
-                    cbxNuevoAcVariedad.removeAllItems();
+                    //cbxNuevoAcVariedad.removeAllItems();
+                    cargarCombos();
                     break;
                 case "TROZA":
                     txtNuevoTCodigo.setText("");
@@ -225,17 +226,63 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     txtaNuevoTDescripcion.setText("");
                     cbxNuevoTVariedad.removeAllItems();
                     cbxNuevoTProveedor.removeAllItems();
+                    cargarCombos();
                     break;
                 case "TERMINADA":
                     txtNuevoTmCodigo.setText("");
                     txtNuevoTmNombre.setText("");
                     txtNuevoTmPrecio.setText("");
                     cbxNuevoTmVariedad.removeAll();
+                    cargarCombos();
+                    break;
+                default:
+                    break;
+            }
+        } else if (panel.toUpperCase().equals("EDITAR")) {
+            switch (tmad.toUpperCase()) {
+                case "ASERRADA":
+                    txtEditarAcCodigo.setText("");
+                    txtEditarAcMedAncho.setText("");
+                    txtEditarAcMedGrueso.setText("");
+                    txtEditarAcMedVaras.setText("");
+                    txtEditarAcPrecio.setText("");
+                    txtEditarAcUnidades.setText("");
+                    txtaEditarAcDescripcion.setText("");
+                    //cbxNuevoAcVariedad.removeAllItems();
+                    cargarCombos();
+                    break;
+                case "TROZA":
+                    txtEditarTCodigo.setText("");
+                    txtEditarTMedPulgadas.setText("");
+                    txtaEditarTDescripcion.setText("");
+                    cbxEditarTVariedad.removeAllItems();
+                    //cbxEditarTProveedor.removeAllItems();
+                    cargarCombos();
+                    break;
+                case "TERMINADA":
+                    txtEditarTmCodigo.setText("");
+                    txtEditarTmNombre.setText("");
+                    txtEditarTmPrecio.setText("");
+                    //cbxEditarTmVariedad.removeAll();
+                    cargarCombos();
                     break;
                 default:
                     break;
             }
         } else if (panel.toUpperCase().equals("ACTUALIZAR")) {
+            switch (tmad.toUpperCase()) {
+                case "ASERRADA":
+                    txtActAcIngresa.setText("");
+                    break;
+                case "TROZA":
+                    txtActTIngresa.setText("");
+                    break;
+                case "TERMINADA":
+                    txtActTmIngresa.setText("");
+                    break;
+                default:
+                    break;
+            }
         }
     }
     /**
@@ -520,7 +567,14 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
         tbpnl_modInventario.setPreferredSize(new java.awt.Dimension(1208, 645));
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("₡#,##0.00"))));
+        try {
+            javax.swing.text.MaskFormatter mask = new javax.swing.text.MaskFormatter("#-####-####");
+            mask.setPlaceholderCharacter('_');
+            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(mask));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextField1.setText("_-____-____");
         jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFormattedTextField1ActionPerformed(evt);
@@ -598,7 +652,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
         lblNuevoAcPrecio.setText("Precio por vara:");
 
-        lblNuevoAcDescripcion.setText("Descripcion:");
+        lblNuevoAcDescripcion.setText("Descripción:");
 
         lblNuevoAcMedDE.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         lblNuevoAcMedDE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -689,7 +743,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                                     .addComponent(txtNuevoAcMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblNuevoAcMedAncho, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
+                                        .addComponent(lblNuevoAcMedAncho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(lblNuevoAcMedGrueso)))
                                 .addGroup(pnlNuevoAcerradaLayout.createSequentialGroup()
                                     .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1309,7 +1363,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                                     .addComponent(txtEditarAcMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblEditarAcMedAncho, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
+                                        .addComponent(lblEditarAcMedAncho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(lblEditarAcMedGrueso)))
                                 .addGroup(pnlEditarAcerradaLayout.createSequentialGroup()
                                     .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1664,7 +1718,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         pnl_modInventarioLayout.setVerticalGroup(
             pnl_modInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modInventarioLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(tbpnl_modInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1724,6 +1778,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     controlador.actualizarInventario("ASERRADA", unidades, codigo);
                     cargarTablas();
                     cargarCombos();
+                    limpiarCampos("ACTUALIZAR", "ASERRADA");
                 } catch (NumberFormatException ex) {
                     
                 }catch (NullPointerException ex) {
@@ -1801,6 +1856,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     controlador.actualizarInventario("TERMINADA", unidades, codigo);
                     cargarTablas();
                     cargarCombos();
+                    limpiarCampos("ACTUALIZAR", "TERMINADA");
                 } catch (NumberFormatException ex) {
                     
                 }catch (NullPointerException ex) {
@@ -1823,6 +1879,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     controlador.actualizarInventario("TROZA", unidades, codigo);
                     cargarTablas();
                     cargarCombos();
+                    limpiarCampos("ACTUALIZAR", "TROZA");
                 } catch (NumberFormatException ex) {
                     
                 }catch (NullPointerException ex) {
@@ -1895,6 +1952,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private void tblEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditarMouseClicked
         try {
             model = (DefaultTableModel) tblEditar.getModel();
+            
             int indiceFila = tblEditar.getSelectedRow();
             System.out.println(tblEditar.getValueAt(indiceFila, 7));
             String codigo = (String) model.getValueAt(indiceFila, 8);

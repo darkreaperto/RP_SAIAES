@@ -30,6 +30,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import logica.negocio.Cliente;
 import logica.negocio.Madera;
@@ -124,9 +125,10 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         Container frameParent = this.getParent().getParent();
         //Habilitar botones   
         for (Component c : frameParent.getComponents()) {
-            //System.out.println("C "+c);
-            if(c instanceof ScrollPane) {
-                for (Component s : ((ScrollPane) c).getComponents()) {
+            System.out.println("C "+c);
+            if(c instanceof JScrollPane) {
+                for (Component s : ((JScrollPane) c).getComponents()) {
+                    System.out.println("S "+s);
                     if (s instanceof JToolBar) {
                         for (Component b : ((JToolBar) s).getComponents()) {
                             //System.out.println("B "+b);
@@ -143,15 +145,15 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
              * Prueba: mostrar formulario interno después de acceder
              */
             if (c instanceof JDesktopPane) {
-                //ItnFrmCliente modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
-                ItnFrmInventario modCliente = ItnFrmInventario.getInstancia(sesionAcc, productos);
+                ItnFrmCliente modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
+                //ItnFrmInventario modCliente = ItnFrmInventario.getInstancia(sesionAcc, productos);
                 //modUsuario.deshabilitarPaneles();
                 modCliente.setVisible(true);
                 if (((JDesktopPane) c).getComponentCount() == 0) {
                     ((JDesktopPane) c).add(modCliente);
 
                 } else {
-                    if (!(((JDesktopPane) c).getComponent(0) instanceof ItnFrmInventario)) {
+                    if (!(((JDesktopPane) c).getComponent(0) instanceof ItnFrmCliente)) {
                         ((JDesktopPane) c).add(modCliente);
                     }
                 }
@@ -196,8 +198,8 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
      */
     public void iniciarSesion(String usuario, String clave) {
 
-        //usuario = "usuario";
-        //clave = "usuario2018";
+        usuario = "usuario";
+        clave = "usuario2018";
         
         //usuario = "usuario";
         //clave = "usuario2018";

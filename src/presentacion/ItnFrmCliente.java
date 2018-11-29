@@ -1043,9 +1043,29 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     /**
      * Limpia los elementos en la interfaz.
      */
-    public void limpiarCampos() {
-        masCorreo = 0;
-        masTelefono = 0;
+    public void limpiarCampos(String panel) {
+        switch (panel.toUpperCase()) {
+            case "CREAR":
+                txt_crear_apellidoCliente1.setText("");
+                txt_crear_apellidoCliente2.setText("");
+                txt_crear_cedulaCliente.setText("");
+                txt_crear_limiteCliente.setText("");
+                txt_crear_nombreCliente.setText("");
+                lsCrearTelefonos.removeAll();
+                lsCrearCorreos.removeAll();
+                break;
+            case "EDITAR":
+                txtEditarPrimerApellido.setText("");
+                txtEditarSegundoApellido.setText("");
+                txtEditarCedulaCliente.setText("");
+                txtEditarLimiteCliente.setText("");
+                txtEditarNombreCliente.setText("");
+                lsTelefonos.removeAll();
+                lsCorreos.removeAll();
+                break;
+            default:
+                throw new AssertionError();
+        }
     }
     
     /**
@@ -1311,7 +1331,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 txt_crear_cedulaCliente.getText().trim(), 
                 limiteCred, credito, contactos);
         
-        limpiarCampos();
+        limpiarCampos("CREAR");
     }//GEN-LAST:event_btnCrearClienteActionPerformed
 
     private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
@@ -1340,6 +1360,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        
+        limpiarCampos("EDITAR");
     }//GEN-LAST:event_btnEditarClienteActionPerformed
 
     private void tblClientesActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesActivosMouseClicked
@@ -1486,6 +1508,13 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                         for (Contacto ct: controlador.obtenerContactos(c.getCodigo())) {
                             if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
                                 editarTelefonos.add(ct);
+                                
+                                DefaultListModel<String> m = new DefaultListModel<>();
+                                for (int i=0; i<editarTelefonos.size(); i++) {
+                                    m.addElement(editarTelefonos.get(i).getInfo());
+                                }
+                                lsTelefonos.setModel(m);
+                                txtEditarTelefono.setText("");
                             }
                         }
                     }
@@ -1501,13 +1530,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         } finally {
             cargarTablas();
         }
-            
-        DefaultListModel<String> m = new DefaultListModel<>();
-        for (int i=0; i<editarTelefonos.size(); i++) {
-            m.addElement(editarTelefonos.get(i).getInfo());
-        }
-        lsTelefonos.setModel(m);
-        txtEditarTelefono.setText("");
     }//GEN-LAST:event_btnEditarGuardarTelActionPerformed
 
     private void txtListadoClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtListadoClienteKeyReleased
@@ -1616,6 +1638,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                     TipoMensaje.EMAIL_SYNTAX_FAILURE);
         }
+        txt_agregarCorreo.setText("");
     }//GEN-LAST:event_btnAgregarCorreoActionPerformed
 
     private void btnAgregarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTelefonoActionPerformed
@@ -1632,6 +1655,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                     TipoMensaje.PHONE_SYNTAX_FAILURE);
         }
+        
+        txt_agregarTelefono.setText("");
     }//GEN-LAST:event_btnAgregarTelefonoActionPerformed
 
     private void rbCrearCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCrearCreditoActionPerformed

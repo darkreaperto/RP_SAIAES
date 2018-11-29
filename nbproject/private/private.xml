@@ -6,10 +6,9 @@
             <file>file:/home/aoihanabi/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmFacturacion.java</file>
             <file>file:/home/aoihanabi/NetBeansProjects/RP_SAIAES/src/presentacion/FrmPrincipal.java</file>
             <file>file:/home/aoihanabi/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmInventario.java</file>
-            <file>file:/home/aoihanabi/NetBeansProjects/RP_SAIAES/src/controladores/CtrMadera.java</file>
-            <file>file:/home/aoihanabi/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmCliente.java</file>
             <file>file:/home/aoihanabi/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmAccesoUsuario.java</file>
-            <file>file:/home/aoihanabi/NetBeansProjects/RP_SAIAES/src/logica/servicios/Mensaje.java</file>
+            <file>file:/home/aoihanabi/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmCliente.java</file>
+            <file>file:/home/aoihanabi/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmUsuario.java</file>
         </group>
     </open-files>
 </project-private>
