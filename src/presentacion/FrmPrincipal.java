@@ -10,10 +10,18 @@ import java.awt.Component;
 import java.awt.Container;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRootPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JToolBar;
+import javax.swing.JViewport;
 import logica.negocio.Cliente;
 import logica.negocio.Madera;
 import logica.negocio.Proveedor;
@@ -60,14 +68,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         ventanaAcceso();
     }
 
-    /**
-     * Inhablita el acceso a la interfaz (bloquea botones).
-     */
-    public void cerrarSesion() {
-        cerrarInternalFrame();
-        bloquearBotones();
-    }
-
+    
     /**
      * Mostrar formulario interno de acceso al sistema.
      */
@@ -86,18 +87,224 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }
     
     /**
-     * Deshabilita los botones de los modulos.
+     * Mostrar formulario interno de facturación.
      */
-    public void bloquearBotones() {
-        
-        for (Component c: tlb_modulos.getComponents())
-            c.setEnabled(false);
-        
-        mnb_principal.setEnabled(false);
-        for (Component c: mnb_principal.getComponents())
-            c.setEnabled(false);
+    public void ventanaFacturacion() {
+        modFacturacion = ItnFrmFacturacion.getInstancia(sesionAcc);
+        modFacturacion.setVisible(true);
+        if (dpn_principal.getComponentCount() == 0) {
+            dpn_principal.add(modFacturacion);
+        } else {
+            if (!(dpn_principal.getComponent(0) instanceof ItnFrmFacturacion)) 
+                dpn_principal.add(modFacturacion);
+        }
+//        JOptionPane.showMessageDialog(null, "Hi! An amazing billing module will "
+//                + "be developed here! \n Hold on a little more please. We are "
+//                + "working hard!");
     }
     
+    /**
+     * Mostrar formulario interno de inventario.
+     */
+    public void ventanaInventario() {
+        modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
+        //modCliente.deshabilitarPaneles();
+        modInventario.setVisible(true);
+        if (dpn_principal.getComponentCount() == 0) {
+            dpn_principal.add(modInventario);
+        } else {
+            if (!(dpn_principal.getComponent(0) instanceof ItnFrmInventario)) 
+                dpn_principal.add(modInventario);
+        }
+    }
+    
+    /**
+     * Mostrar formulario interno de consultas.
+     */
+    public void ventanaConsultas() {
+        JOptionPane.showMessageDialog(null, "Hi! An amazing query module "
+                + "will be developed here! \n Hold on a little more please. "
+                + "We are working hard!");
+    }
+    
+    /**
+     * Mostrar formulario interno de clientes.
+     */
+    public void ventanaClientes() {
+        //Abrir formulario de usuarios.
+        modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
+        modCliente.setVisible(true);
+        if (dpn_principal.getComponentCount() == 0) {
+            dpn_principal.add(modCliente);
+        } else {
+            if (!(dpn_principal.getComponent(0) instanceof ItnFrmCliente)) 
+                dpn_principal.add(modCliente);
+        }
+//        JOptionPane.showMessageDialog(null, "Hi! An amazing costumers module "
+//                + "will be developed here! \n Hold on a little more please. "
+//                + "We are working hard!");
+    }
+    
+    /**
+     * Mostrar formulario interno de proveedores.
+     */
+    public void ventanaProveedores() {
+        modProveedor = ItnFrmProveedor.getInstancia(sesionAcc, proveedores);
+        
+        modProveedor.setVisible(true);
+        if (dpn_principal.getComponentCount() == 0) {
+            dpn_principal.add(modProveedor);
+        } else {
+            if (!(dpn_principal.getComponent(0) instanceof ItnFrmCliente)) 
+                dpn_principal.add(modProveedor);
+        }
+//        JOptionPane.showMessageDialog(null, "Hi! An amazing providers module "
+//                + "will be developed here! \n Hold on a little more please. "
+//                + "We are working hard!");
+    }
+    
+    /**
+     * Mostrar formulario interno de usuarios.
+     */
+    public void ventanaUsuarios() {
+        modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
+        modUsuario.deshabilitarPaneles();
+        modUsuario.setVisible(true);
+        if (dpn_principal.getComponentCount() == 0) {
+            dpn_principal.add(modUsuario);
+        } else {
+            if (!(dpn_principal.getComponent(0) instanceof ItnFrmUsuario)) 
+                dpn_principal.add(modUsuario);
+        }
+    }
+    
+    /**
+     * Acceder al desktopPane para tener acceso a los distintos módulos del 
+     * sistema.
+     * @param internal Frame interno al que se desea accesar
+     * @param num Número de pestaña a la que se ingresa
+     */
+    public void accederModulos(JInternalFrame internal, int num) {
+        
+        //Acceder DesktopPane
+        Container frameParent = this;//.getParent(); 
+        System.out.println("FRAMEPARENT" + frameParent);
+        for (Component c : frameParent.getComponents()) {
+            System.out.println("Componentes " + c);
+            
+            if (c instanceof JRootPane) {
+                for (Component r: ((JRootPane) c).getComponents()) {
+                    System.out.println("ROOT " + r);
+                    if (r instanceof JLayeredPane) {
+                        for (Component l: ((JLayeredPane) r).getComponents()) {
+                            System.out.println("LAY " + l);
+                            if (l instanceof JPanel) {
+                                for (Component p: ((JPanel) l).getComponents()) {
+                                    System.out.println("PAN " + p);
+                                    accederModuloEspecifico(internal, num, p);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     * Acceder a los distintos modulos del sistema en una pestaña específica.
+     * @param internal Frame interno al que se desea accesar
+     * @param num Número de pestaña a la que se ingresa
+     * @param p componente que contiene el desktopPane
+     */
+    public void accederModuloEspecifico(JInternalFrame internal, int num, Component p) {
+        
+        /**
+        * Mostrar formulario interno después de acceder al desktopPane
+        */
+        System.out.println("CLASS " + internal.getClass());
+       if (p instanceof JDesktopPane) {
+           internal.setVisible(true);
+           if (((JDesktopPane) p).getComponentCount() == 0) {
+               ((JDesktopPane) p).add(internal);
+
+           } else {
+               ///Object modClass = internal.getClass();
+               if(internal.getClass().toString().contains(
+                       "ItnFrmFacturacion")) {
+                   if (!(((JDesktopPane) p).getComponent(0) instanceof 
+                           ItnFrmFacturacion )) {
+                        ((JDesktopPane) p).add(internal);
+                    }
+               } else if (internal.getClass().toString().contains(
+                       "ItnFrmInventario")) {
+                   if (!(((JDesktopPane) p).getComponent(0) instanceof 
+                           ItnFrmInventario )) {
+                        ((JDesktopPane) p).add(internal);
+                    }
+               } else if (internal.getClass().toString().contains(
+                       "ItnFrmConsultas")) {
+//                  if (!(((JDesktopPane) p).getComponent(0) instanceof 
+                            //ItnFrmConsultas )) {
+//                      ((JDesktopPane) p).add(internal);
+//                  }
+               } else if (internal.getClass().toString().contains(
+                       "ItnFrmCliente")) {
+                   if (!(((JDesktopPane) p).getComponent(0) instanceof 
+                           ItnFrmCliente )) {
+                        ((JDesktopPane) p).add(internal);
+                    }
+               } else if (internal.getClass().toString().contains(
+                       "ItnFrmProveedor")) {
+                   if (!(((JDesktopPane) p).getComponent(0) instanceof 
+                           ItnFrmProveedor )) {
+                        ((JDesktopPane) p).add(internal);
+                    }
+               } else if (internal.getClass().toString().contains(
+                       "ItnFrmUsuario")) {
+                   if (!(((JDesktopPane) p).getComponent(0) instanceof 
+                           ItnFrmUsuario )) {
+                        ((JDesktopPane) p).add(internal);
+                    }
+               }
+
+           }
+           for (Component i: internal.getComponents()) {
+               //System.out.println("MOD " + i);
+               if (i instanceof JRootPane) {
+                   for (Component rm: ((JRootPane) i).getComponents()) {
+                       //System.out.println("ROOT " + r);
+                       if (rm instanceof JLayeredPane) {
+                           for (Component lm: ((JLayeredPane) rm).
+                                   getComponents()) {
+                               //System.out.println("LAY " + l);
+                               if (lm instanceof JPanel) {
+                                   for (Component pm: ((JPanel) lm).
+                                           getComponents()) {
+                                       //System.out.println("PAN " + p);
+                                       if (pm instanceof JPanel) {
+                                           for (Component tm: ((JPanel) pm).
+                                                   getComponents()) {
+                                               //System.out.println("TAB " + t);
+                                               if (tm instanceof JTabbedPane) {
+                                                   ((JTabbedPane) tm).
+                                                           setSelectedIndex(num);
+                                               }
+                                           }
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   }
+               }
+           }
+       }
+                                        
+    }
+    /**
+     * ???
+     */
     public void mostrarInternalFrame() {
         switch (sesionAcc.getModuloActual()) {
             case MODULO_ACCESO:
@@ -119,6 +326,27 @@ public class FrmPrincipal extends javax.swing.JFrame {
             default:
                 break;
         }
+    }
+    
+    /**
+     * Inhablita el acceso a la interfaz (bloquea botones).
+     */
+    public void cerrarSesion() {
+        cerrarInternalFrame();
+        bloquearBotones();
+    }
+
+    /**
+     * Deshabilita los botones de los modulos.
+     */
+    public void bloquearBotones() {
+        
+        for (Component c: tlb_modulos.getComponents())
+            c.setEnabled(false);
+        
+        mnb_principal.setEnabled(false);
+        for (Component c: mnb_principal.getComponents())
+            c.setEnabled(false);
     }
     
     /**
@@ -215,6 +443,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
+        dpn_principal.setName("DesktopPanelPrincipal"); // NOI18N
+
         javax.swing.GroupLayout dpn_principalLayout = new javax.swing.GroupLayout(dpn_principal);
         dpn_principal.setLayout(dpn_principalLayout);
         dpn_principalLayout.setHorizontalGroup(
@@ -226,9 +456,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addGap(0, 670, Short.MAX_VALUE)
         );
 
+        scpnlModulos.setName("ScrollPanePrincipal"); // NOI18N
+
         tlb_modulos.setFloatable(false);
         tlb_modulos.setOrientation(javax.swing.SwingConstants.VERTICAL);
         tlb_modulos.setRollover(true);
+        tlb_modulos.setName("ToolbarBotones"); // NOI18N
         tlb_modulos.setPreferredSize(new java.awt.Dimension(104, 707));
 
         jSeparator1.setSeparatorSize(new java.awt.Dimension(15, 10));
@@ -236,6 +469,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_facturacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_facturacion.png"))); // NOI18N
         btn_facturacion.setText(" Facturación");
+        btn_facturacion.setEnabled(false);
         btn_facturacion.setFocusable(false);
         btn_facturacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_facturacion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -251,6 +485,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_inventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_inventario.png"))); // NOI18N
         btn_inventario.setText("  Inventario  ");
+        btn_inventario.setEnabled(false);
         btn_inventario.setFocusable(false);
         btn_inventario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_inventario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -282,6 +517,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_cliente.png"))); // NOI18N
         btn_clientes.setText("   Clientes    ");
+        btn_clientes.setEnabled(false);
         btn_clientes.setFocusable(false);
         btn_clientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_clientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -297,6 +533,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_proveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_proveedor.png"))); // NOI18N
         btn_proveedor.setText("Proveedores");
+        btn_proveedor.setEnabled(false);
         btn_proveedor.setFocusable(false);
         btn_proveedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_proveedor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -312,6 +549,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btn_usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_usuario.png"))); // NOI18N
         btn_usuarios.setText("   Usuarios   ");
+        btn_usuarios.setEnabled(false);
         btn_usuarios.setFocusable(false);
         btn_usuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_usuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -323,6 +561,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         tlb_modulos.add(btn_usuarios);
 
         scpnlModulos.setViewportView(tlb_modulos);
+
+        mnb_principal.setName("MenuPrincipal"); // NOI18N
 
         mnbtn_archivo.setText("Archivo");
         mnbtn_archivo.setEnabled(false);
@@ -347,15 +587,35 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnClientes.setText("Clientes");
 
         mniAgregarCliente.setText("Agregar");
+        mniAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAgregarClienteActionPerformed(evt);
+            }
+        });
         mnClientes.add(mniAgregarCliente);
 
         mniEditarCliente.setText("Editar");
+        mniEditarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniEditarClienteActionPerformed(evt);
+            }
+        });
         mnClientes.add(mniEditarCliente);
 
         mniHabilitarCliente.setText("Habilitar/Deshabilitar");
+        mniHabilitarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniHabilitarClienteActionPerformed(evt);
+            }
+        });
         mnClientes.add(mniHabilitarCliente);
 
         mniListadoClientes.setText("Listado de clientes");
+        mniListadoClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniListadoClientesActionPerformed(evt);
+            }
+        });
         mnClientes.add(mniListadoClientes);
 
         mnbtn_modulos.add(mnClientes);
@@ -372,18 +632,43 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnInventario.setText("Inventario");
 
         mniActualizarInventario.setText("Actualizar inventario");
+        mniActualizarInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniActualizarInventarioActionPerformed(evt);
+            }
+        });
         mnInventario.add(mniActualizarInventario);
 
         mniAgregarProdNuevo.setText("Agregar nuevo");
+        mniAgregarProdNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAgregarProdNuevoActionPerformed(evt);
+            }
+        });
         mnInventario.add(mniAgregarProdNuevo);
 
         mniEditarProd.setText("Editar");
+        mniEditarProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniEditarProdActionPerformed(evt);
+            }
+        });
         mnInventario.add(mniEditarProd);
 
         mniHabilitarInventario.setText("Habilitar/Deshabilitar");
+        mniHabilitarInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniHabilitarInventarioActionPerformed(evt);
+            }
+        });
         mnInventario.add(mniHabilitarInventario);
 
         mniListadoProd.setText("Listado de productos");
+        mniListadoProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniListadoProdActionPerformed(evt);
+            }
+        });
         mnInventario.add(mniListadoProd);
 
         mnbtn_modulos.add(mnInventario);
@@ -392,15 +677,35 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnProveedores.setText("Proveedores");
 
         mniAgregarProveedor.setText("Agregar");
+        mniAgregarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAgregarProveedorActionPerformed(evt);
+            }
+        });
         mnProveedores.add(mniAgregarProveedor);
 
         mniEditarProveedor.setText("Editar");
+        mniEditarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniEditarProveedorActionPerformed(evt);
+            }
+        });
         mnProveedores.add(mniEditarProveedor);
 
         mniHabilitarProveedor.setText("Habilitar/Deshabilitar");
+        mniHabilitarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniHabilitarProveedorActionPerformed(evt);
+            }
+        });
         mnProveedores.add(mniHabilitarProveedor);
 
         mniListadoProveedores.setText("Listado de proveedores");
+        mniListadoProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniListadoProveedoresActionPerformed(evt);
+            }
+        });
         mnProveedores.add(mniListadoProveedores);
 
         mnbtn_modulos.add(mnProveedores);
@@ -409,25 +714,50 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnUsuarios.setText("Usuarios");
 
         mniActualizarInfo.setText("Actualizar informacion");
+        mniActualizarInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniActualizarInfoActionPerformed(evt);
+            }
+        });
         mnUsuarios.add(mniActualizarInfo);
 
         mniActualizarPermisos.setText("Actualizar permisos");
+        mniActualizarPermisos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniActualizarPermisosActionPerformed(evt);
+            }
+        });
         mnUsuarios.add(mniActualizarPermisos);
 
         mniAgregarUsuario.setText("Agregar");
+        mniAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAgregarUsuarioActionPerformed(evt);
+            }
+        });
         mnUsuarios.add(mniAgregarUsuario);
 
         mniHabilitarUsuarios.setText("Habilitar/Deshabilitar");
+        mniHabilitarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniHabilitarUsuariosActionPerformed(evt);
+            }
+        });
         mnUsuarios.add(mniHabilitarUsuarios);
 
         mniListadoUsuarios.setText("Listado de usuarios");
+        mniListadoUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniListadoUsuariosActionPerformed(evt);
+            }
+        });
         mnUsuarios.add(mniListadoUsuarios);
 
         mnbtn_modulos.add(mnUsuarios);
 
         mnb_principal.add(mnbtn_modulos);
 
-        mnbtn_ver.setText("Ver");
+        mnbtn_ver.setText("Ayuda");
         mnbtn_ver.setEnabled(false);
         mnb_principal.add(mnbtn_ver);
 
@@ -445,11 +775,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scpnlModulos)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(dpn_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(scpnlModulos)
         );
 
         pack();
@@ -460,15 +790,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
         //Abrir formulario de usuarios.
-        modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
-        modUsuario.deshabilitarPaneles();
-        modUsuario.setVisible(true);
-        if (dpn_principal.getComponentCount() == 0) {
-            dpn_principal.add(modUsuario);
-        } else {
-            if (!(dpn_principal.getComponent(0) instanceof ItnFrmUsuario)) 
-                dpn_principal.add(modUsuario);
-        }
+        ventanaUsuarios();
     }//GEN-LAST:event_btn_usuariosActionPerformed
 
     private void mniCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCerrarSesionActionPerformed
@@ -477,69 +799,114 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void btn_facturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturacionActionPerformed
         //Abrir formulario de facturación.
-        modFacturacion = ItnFrmFacturacion.getInstancia(sesionAcc);
-        modFacturacion.setVisible(true);
-        if (dpn_principal.getComponentCount() == 0) {
-            dpn_principal.add(modFacturacion);
-        } else {
-            if (!(dpn_principal.getComponent(0) instanceof ItnFrmFacturacion)) 
-                dpn_principal.add(modFacturacion);
-        }
-        JOptionPane.showMessageDialog(null, "Hi! An amazing billing module will "
-                + "be developed here! \n Hold on a little more please. We are "
-                + "working hard!");
+        ventanaFacturacion();
     }//GEN-LAST:event_btn_facturacionActionPerformed
 
     private void btn_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inventarioActionPerformed
-        
         //Abrir formulario de inventario.
-        modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
-        //modCliente.deshabilitarPaneles();
-        modInventario.setVisible(true);
-        if (dpn_principal.getComponentCount() == 0) {
-            dpn_principal.add(modInventario);
-        } else {
-            if (!(dpn_principal.getComponent(0) instanceof ItnFrmInventario)) 
-                dpn_principal.add(modInventario);
-        }
+        ventanaInventario();
     }//GEN-LAST:event_btn_inventarioActionPerformed
 
     private void btn_consultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultasActionPerformed
-        JOptionPane.showMessageDialog(null, "Hi! An amazing query module "
-                + "will be developed here! \n Hold on a little more please. "
-                + "We are working hard!");
+        ventanaConsultas();
     }//GEN-LAST:event_btn_consultasActionPerformed
 
     private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
-        JOptionPane.showMessageDialog(null, "Hi! An amazing costumers module "
-                + "will be developed here! \n Hold on a little more please. "
-                + "We are working hard!");
-        //Abrir formulario de usuarios.
-        modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
-        modCliente.setVisible(true);
-        if (dpn_principal.getComponentCount() == 0) {
-            dpn_principal.add(modCliente);
-        } else {
-            if (!(dpn_principal.getComponent(0) instanceof ItnFrmCliente)) 
-                dpn_principal.add(modCliente);
-        }
-        
+        ventanaClientes();
     }//GEN-LAST:event_btn_clientesActionPerformed
 
     private void btn_proveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_proveedorActionPerformed
-        JOptionPane.showMessageDialog(null, "Hi! An amazing providers module "
-                + "will be developed here! \n Hold on a little more please. "
-                + "We are working hard!");
-        modProveedor = ItnFrmProveedor.getInstancia(sesionAcc, proveedores);
-        
-        modProveedor.setVisible(true);
-        if (dpn_principal.getComponentCount() == 0) {
-            dpn_principal.add(modProveedor);
-        } else {
-            if (!(dpn_principal.getComponent(0) instanceof ItnFrmCliente)) 
-                dpn_principal.add(modProveedor);
-        }
+        ventanaProveedores();
     }//GEN-LAST:event_btn_proveedorActionPerformed
+
+    private void mniAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAgregarClienteActionPerformed
+        modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
+        accederModulos(modCliente,1);
+    }//GEN-LAST:event_mniAgregarClienteActionPerformed
+
+    private void mniEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEditarClienteActionPerformed
+        modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
+        accederModulos(modCliente,2);    }//GEN-LAST:event_mniEditarClienteActionPerformed
+
+    private void mniHabilitarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHabilitarClienteActionPerformed
+        modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
+        accederModulos(modCliente,3);
+    }//GEN-LAST:event_mniHabilitarClienteActionPerformed
+
+    private void mniListadoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniListadoClientesActionPerformed
+        modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
+        accederModulos(modCliente,0);
+    }//GEN-LAST:event_mniListadoClientesActionPerformed
+
+    private void mniActualizarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniActualizarInventarioActionPerformed
+        modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
+        accederModulos(modInventario,2);
+    }//GEN-LAST:event_mniActualizarInventarioActionPerformed
+
+    private void mniAgregarProdNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAgregarProdNuevoActionPerformed
+        modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
+        accederModulos(modInventario,1);
+    }//GEN-LAST:event_mniAgregarProdNuevoActionPerformed
+
+    private void mniEditarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEditarProdActionPerformed
+        modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
+        accederModulos(modInventario,3);
+    }//GEN-LAST:event_mniEditarProdActionPerformed
+
+    private void mniHabilitarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHabilitarInventarioActionPerformed
+        modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
+        accederModulos(modInventario,4);
+    }//GEN-LAST:event_mniHabilitarInventarioActionPerformed
+
+    private void mniListadoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniListadoProdActionPerformed
+        modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
+        accederModulos(modInventario,0);
+    }//GEN-LAST:event_mniListadoProdActionPerformed
+
+    private void mniAgregarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAgregarProveedorActionPerformed
+        modProveedor = ItnFrmProveedor.getInstancia(sesionAcc, proveedores);
+        accederModulos(modProveedor,1);
+    }//GEN-LAST:event_mniAgregarProveedorActionPerformed
+
+    private void mniEditarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEditarProveedorActionPerformed
+        modProveedor = ItnFrmProveedor.getInstancia(sesionAcc, proveedores);
+        accederModulos(modProveedor,2);
+    }//GEN-LAST:event_mniEditarProveedorActionPerformed
+
+    private void mniHabilitarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHabilitarProveedorActionPerformed
+        modProveedor = ItnFrmProveedor.getInstancia(sesionAcc, proveedores);
+        accederModulos(modProveedor,3);
+    }//GEN-LAST:event_mniHabilitarProveedorActionPerformed
+
+    private void mniListadoProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniListadoProveedoresActionPerformed
+        modProveedor = ItnFrmProveedor.getInstancia(sesionAcc, proveedores);
+        accederModulos(modProveedor,0);
+    }//GEN-LAST:event_mniListadoProveedoresActionPerformed
+
+    private void mniActualizarInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniActualizarInfoActionPerformed
+        modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
+        accederModulos(modUsuario,2);
+    }//GEN-LAST:event_mniActualizarInfoActionPerformed
+
+    private void mniActualizarPermisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniActualizarPermisosActionPerformed
+        modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
+        accederModulos(modUsuario,4);
+    }//GEN-LAST:event_mniActualizarPermisosActionPerformed
+
+    private void mniAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAgregarUsuarioActionPerformed
+        modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
+        accederModulos(modUsuario,1);
+    }//GEN-LAST:event_mniAgregarUsuarioActionPerformed
+
+    private void mniHabilitarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHabilitarUsuariosActionPerformed
+        modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
+        accederModulos(modUsuario,3);
+    }//GEN-LAST:event_mniHabilitarUsuariosActionPerformed
+
+    private void mniListadoUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniListadoUsuariosActionPerformed
+        modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
+        accederModulos(modUsuario,0);
+    }//GEN-LAST:event_mniListadoUsuariosActionPerformed
 
     /**
      * @param args the command line arguments

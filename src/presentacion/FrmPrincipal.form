@@ -3,6 +3,9 @@
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="mnb_principal">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="MenuPrincipal" noResource="true"/>
+      </Properties>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="mnbtn_archivo">
           <Properties>
@@ -46,21 +49,33 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Agregar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniAgregarClienteActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniEditarCliente">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Editar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniEditarClienteActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniHabilitarCliente">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Habilitar/Deshabilitar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniHabilitarClienteActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniListadoClientes">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Listado de clientes"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniListadoClientesActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
@@ -89,26 +104,41 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Actualizar inventario"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniActualizarInventarioActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniAgregarProdNuevo">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Agregar nuevo"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniAgregarProdNuevoActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniEditarProd">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Editar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniEditarProdActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniHabilitarInventario">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Habilitar/Deshabilitar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniHabilitarInventarioActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniListadoProd">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Listado de productos"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniListadoProdActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
@@ -123,21 +153,33 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Agregar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniAgregarProveedorActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniEditarProveedor">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Editar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniEditarProveedorActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniHabilitarProveedor">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Habilitar/Deshabilitar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniHabilitarProveedorActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniListadoProveedores">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Listado de proveedores"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniListadoProveedoresActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
@@ -152,26 +194,41 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Actualizar informacion"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniActualizarInfoActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniActualizarPermisos">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Actualizar permisos"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniActualizarPermisosActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniAgregarUsuario">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Agregar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniAgregarUsuarioActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniHabilitarUsuarios">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Habilitar/Deshabilitar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniHabilitarUsuariosActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniListadoUsuarios">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Listado de usuarios"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniListadoUsuariosActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
@@ -179,7 +236,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnbtn_ver">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ver"/>
+            <Property name="text" type="java.lang.String" value="Ayuda"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Menu>
@@ -225,17 +282,20 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Component id="scpnlModulos" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="dpn_principal" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
-          <Component id="scpnlModulos" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JDesktopPane" name="dpn_principal">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="DesktopPanelPrincipal" noResource="true"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -251,6 +311,9 @@
       </Layout>
     </Container>
     <Container class="javax.swing.JScrollPane" name="scpnlModulos">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="ScrollPanePrincipal" noResource="true"/>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
@@ -259,6 +322,7 @@
             <Property name="floatable" type="boolean" value="false"/>
             <Property name="orientation" type="int" value="1"/>
             <Property name="rollover" type="boolean" value="true"/>
+            <Property name="name" type="java.lang.String" value="ToolbarBotones" noResource="true"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[104, 707]"/>
             </Property>
@@ -279,6 +343,7 @@
                   <Image iconType="3" name="/recursos/c_facturacion.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value=" Facturaci&#xf3;n"/>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -300,6 +365,7 @@
                   <Image iconType="3" name="/recursos/c_inventario.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="  Inventario  "/>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -343,6 +409,7 @@
                   <Image iconType="3" name="/recursos/c_cliente.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="   Clientes    "/>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -364,6 +431,7 @@
                   <Image iconType="3" name="/recursos/c_proveedor.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Proveedores"/>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -385,6 +453,7 @@
                   <Image iconType="3" name="/recursos/c_usuario.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="   Usuarios   "/>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>

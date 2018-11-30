@@ -5,6 +5,7 @@
  */
 package presentacion;
 
+import com.sun.prism.image.ViewPort;
 import logica.servicios.Mensaje;
 import logica.servicios.AESEncrypt;
 import controladores.CtrMail;
@@ -30,8 +31,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JViewport;
 import logica.negocio.Cliente;
 import logica.negocio.Madera;
 
@@ -110,9 +113,10 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         }
         System.out.println(sesionAcc.getUsuario().getNombre());
         
+        //System.out.println("Root----------------------------------------");
         Container root = this.getParent().getParent().getParent();
         for (Component c : root.getComponents()) {
-            System.out.println("C "+c);
+            //System.out.println("Compon "+c);
             if(c instanceof JMenuBar) {
                 for (Component m : ((JMenuBar) c).getComponents()) {
                     if (m instanceof JMenuItem) {
@@ -121,28 +125,29 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                 }
             }            
         }
+        
+        //System.out.println("Frame----------------------------------------");
         //Habilitar botones de los modulos
-        Container frameParent = this.getParent().getParent();
-        //Habilitar botones   
+        Container frameParent = this.getParent().getParent();  
         for (Component c : frameParent.getComponents()) {
-            System.out.println("C "+c);
-            if(c instanceof JScrollPane) {
-                for (Component s : ((JScrollPane) c).getComponents()) {
-                    System.out.println("S "+s);
-                    if (s instanceof JToolBar) {
-                        for (Component b : ((JToolBar) s).getComponents()) {
-                            //System.out.println("B "+b);
-                            if (b instanceof JButton) {                        
-                                b.setEnabled(true);
-                            }
-                        }
+            //System.out.println("Compon "+c);
+            
+            if(c instanceof JScrollPane) {                
+                JScrollPane scroll = ((JScrollPane)c); //ScrollPane Principal
+                JViewport viewport; //ViewPort para accesar a elementos en el scrollpane
+                viewport = scroll.getViewport();
+                JToolBar toolbar = ((JToolBar)viewport.getView());
+
+                for (Component b : toolbar.getComponents()) {                  
+                    //System.out.println("Button "+b);
+                    if (b instanceof JButton) {
+                        b.setEnabled(true);
                     }
                 }
             }
-            
-        
+                    
             /**
-             * Prueba: mostrar formulario interno después de acceder
+             * Mostrar formulario interno después de acceder
              */
             if (c instanceof JDesktopPane) {
                 ItnFrmCliente modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
@@ -158,19 +163,19 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                     }
                 }
                 for (Component i: modCliente.getComponents()) {
-                    System.out.println("MOD " + i);
+                    //System.out.println("MOD " + i);
                     if (i instanceof JRootPane) {
                         for (Component r: ((JRootPane) i).getComponents()) {
-                            System.out.println("ROOT " + r);
+                            //System.out.println("ROOT " + r);
                             if (r instanceof JLayeredPane) {
                                 for (Component l: ((JLayeredPane) r).getComponents()) {
-                                    System.out.println("LAY " + l);
+                                    //System.out.println("LAY " + l);
                                     if (l instanceof JPanel) {
                                         for (Component p: ((JPanel) l).getComponents()) {
-                                            System.out.println("PAN " + p);
+                                            //System.out.println("PAN " + p);
                                             if (p instanceof JPanel) {
                                                 for (Component t: ((JPanel) p).getComponents()) {
-                                                    System.out.println("TAB " + t);
+                                                    //System.out.println("TAB " + t);
                                                     if (t instanceof JTabbedPane) {
                                                         ((JTabbedPane) t).setSelectedIndex(1);
                                                     }
