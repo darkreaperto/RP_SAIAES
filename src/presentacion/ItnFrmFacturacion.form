@@ -32,7 +32,10 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="pnl_modFactura" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="pnl_modFactura" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="36" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -44,25 +47,25 @@
           <Group type="103" groupAlignment="1" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="pnlEncabezado" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="txtClienteFac" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="pnlTotales" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="scpnlTblLineaPedido" max="32767" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="pnlTotales" min="-2" pref="324" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="pnlEncabezado" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -72,7 +75,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="txtCantidad" min="-2" pref="292" max="-2" attributes="0"/>
-                              <Component id="lblTextCantidad" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblTextCantidad" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -81,7 +84,7 @@
                           <Component id="btnAddProduct" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="95" pref="95" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -90,9 +93,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="pnlEncabezado" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="66" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblTextCantidad" min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="lblTextCantidad" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="lblTextProducto" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -105,10 +108,13 @@
                       <Component id="btnAddProduct" max="32767" attributes="0"/>
                       <Component id="scpnlList" min="-2" pref="55" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="scpnlTblLineaPedido" pref="196" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="pnlTotales" min="-2" max="-2" attributes="0"/>
+                  <Component id="scpnlTblLineaPedido" min="-2" pref="185" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="txtClienteFac" min="-2" max="-2" attributes="0"/>
+                      <Component id="pnlTotales" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -129,55 +135,41 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jSeparator1" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Component id="jSeparator1" min="-2" pref="1109" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="lblTextUsuario" min="-2" pref="82" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="lblTextClienteFac" min="-2" pref="159" max="-2" attributes="0"/>
+                                      <Component id="lblUsuarioFac" min="-2" pref="385" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
+                                      <Component id="lblTextConsecutivoFac" min="-2" pref="115" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="lblClienteNom" min="-2" pref="347" max="-2" attributes="0"/>
+                                      <Component id="lblConsecutivo" min="-2" pref="418" max="-2" attributes="0"/>
                                   </Group>
-                              </Group>
-                              <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="lblTextUsuario" min="-2" pref="117" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                                              <Component id="lblUsuarioFac" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="lblTextConsecutivoFac" min="-2" pref="159" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="lblConsecutivo" max="32767" attributes="0"/>
-                                          </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="btnAgregarCliente" min="-2" pref="84" max="-2" attributes="0"/>
+                                          <Component id="lblTextClienteFac" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="424" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lblFecha" alignment="1" min="-2" pref="231" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
-                                              <Component id="lblTextFechaFac" min="-2" pref="159" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                                              <Component id="ftClienteFac" max="32767" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnBuscarCliente" min="-2" pref="50" max="-2" attributes="0"/>
                                           </Group>
+                                          <Component id="lblClienteNom" max="32767" attributes="0"/>
+                                          <Component id="btnBusquedaAv" min="-2" pref="390" max="-2" attributes="0"/>
                                       </Group>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      <Component id="ftClienteFac" min="-2" pref="230" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtClienteFac" min="-2" pref="229" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
+                                      <Component id="pnlInfoCliente" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <EmptySpace min="0" pref="16" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -187,35 +179,41 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="lblTextUsuario" alignment="0" pref="30" max="32767" attributes="0"/>
+                              <Component id="lblUsuarioFac" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lblTextConsecutivoFac" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="lblConsecutivo" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="lblTextUsuario" alignment="0" pref="30" max="32767" attributes="0"/>
-                          <Component id="lblUsuarioFac" alignment="0" max="32767" attributes="0"/>
-                          <Component id="lblTextFechaFac" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lblTextConsecutivoFac" pref="30" max="32767" attributes="0"/>
-                          <Component id="lblConsecutivo" max="32767" attributes="0"/>
-                          <Component id="lblFecha" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jSeparator1" min="-2" pref="2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblTextClienteFac" alignment="3" max="32767" attributes="0"/>
-                                  <Component id="lblClienteNom" max="32767" attributes="0"/>
-                                  <Component id="ftClienteFac" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="lblTextClienteFac" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="lblClienteNom" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="ftClienteFac" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="btnBuscarCliente" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="btnBusquedaAv" min="-2" pref="31" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="btnAgregarCliente" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="txtClienteFac" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="pnlInfoCliente" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -255,27 +253,6 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblTextFechaFac">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Fecha de facturaci&#xf3;n:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblFecha">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="14" style="1"/>
-                </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="toolTipText" type="java.lang.String" value="Usuario en sesi&#xf3;n."/>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder>
-                      <Color PropertyName="color" blue="e5" green="cf" id="Button.shadow" palette="3" red="b8" type="palette"/>
-                    </LineBorder>
-                  </Border>
-                </Property>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator1">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -292,19 +269,16 @@
                 <Property name="text" type="java.lang.String" value="Cliente:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtClienteFac">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Nombre del cliente..."/>
-                <Property name="selectionStart" type="int" value="0"/>
-              </Properties>
-              <Events>
-                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtClienteFacFocusGained"/>
-                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtClienteFacKeyReleased"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JLabel" name="lblClienteNom">
               <Properties>
                 <Property name="text" type="java.lang.String" value="CLIENTE GEN&#xc9;RICO"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                    <LineBorder>
+                      <Color PropertyName="color" blue="a0" green="a0" id="Button.shadow" palette="3" red="a0" type="palette"/>
+                    </LineBorder>
+                  </Border>
+                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="ftClienteFac">
@@ -318,6 +292,81 @@
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ftClienteFacKeyReleased"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JButton" name="btnBusquedaAv">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="B&#xfa;squeda Avanzada"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBusquedaAvActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnBuscarCliente">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/recursos/busqueda.png"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarClienteActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnAgregarCliente">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Agregar nuevo cliente"/>
+                <Property name="horizontalTextPosition" type="int" value="2"/>
+                <Property name="verticalTextPosition" type="int" value="1"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarClienteActionPerformed"/>
+              </Events>
+            </Component>
+            <Container class="javax.swing.JPanel" name="pnlInfoCliente">
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                          <Component id="lblInfoCliente" min="-2" pref="182" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="btnBuscarCliente1" min="-2" pref="42" max="-2" attributes="0"/>
+                          <EmptySpace pref="297" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblInfoCliente" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="btnBuscarCliente1" min="-2" pref="31" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="lblInfoCliente">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Despliegue la Informaci&#xf3;n del cliente"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnBuscarCliente1">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/recursos/desplegar.png"/>
+                    </Property>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="null"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarCliente1ActionPerformed"/>
+                  </Events>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="lblTextProducto">
@@ -423,55 +472,48 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblTextImpuestos" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblTextSubtotal" min="-2" pref="73" max="-2" attributes="0"/>
-                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lblSubtotal" max="32767" attributes="0"/>
-                          <Component id="lblImpuesto" pref="72" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="lblTextImpuestos" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="lblTextTotal" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblTotal" min="-2" pref="85" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="btnFacturar" min="-2" pref="132" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
+                      <Component id="lblImpuesto" min="-2" pref="72" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lblTextSubtotal" min="-2" pref="73" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblSubtotal" min="-2" pref="72" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="lblTextTotal" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblTotal" min="-2" pref="2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnFacturar" min="-2" pref="132" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="lblTotal" min="-2" pref="30" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnFacturar" pref="36" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="lblTotal" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="lblTextTotal" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="lblTextImpuestos" alignment="0" pref="30" max="32767" attributes="0"/>
-                                      <Component id="lblImpuesto" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btnFacturar" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                          <Component id="lblTextSubtotal" alignment="3" pref="30" max="32767" attributes="0"/>
+                                          <Component id="lblTextImpuestos" alignment="3" max="32767" attributes="0"/>
+                                          <Component id="lblImpuesto" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="lblSubtotal" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="lblTextTotal" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lblTextSubtotal" alignment="0" pref="30" max="32767" attributes="0"/>
-                                  <Component id="lblSubtotal" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="15" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -563,6 +605,16 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCantidadFocusGained"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtClienteFac">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nombre del cliente..."/>
+            <Property name="selectionStart" type="int" value="0"/>
+          </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtClienteFacFocusGained"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtClienteFacKeyReleased"/>
           </Events>
         </Component>
       </SubComponents>

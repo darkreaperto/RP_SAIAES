@@ -218,7 +218,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
      * @param p componente que contiene el desktopPane
      */
     public void accederModuloEspecifico(JInternalFrame internal, int num, Component p) {
-        
         /**
         * Mostrar formulario interno después de acceder al desktopPane
         */
