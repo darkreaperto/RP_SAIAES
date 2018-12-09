@@ -51,16 +51,16 @@ public final class Conexion {
     public boolean abrirConexion() {
         boolean conexionExitosa = false;
         try {
-//            conexion = DriverManager.getConnection("jdbc:mysql://localhost/"
-//                    + "sai_aes?useSSL=false&useUnicode=true&"
-//                    + "useJDBCCompliantTimezoneShift=true&"
-//                    + "useLegacyDatetimeCode=false&serverTimezone=UTC",
-//                    "usuario", "usuario2018");
-                conexion = DriverManager.getConnection("jdbc:mysql://localhost/"
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/"
                     + "sai_aes?useSSL=false&useUnicode=true&"
                     + "useJDBCCompliantTimezoneShift=true&"
                     + "useLegacyDatetimeCode=false&serverTimezone=UTC",
-                    "root", "root");
+                    "usuario", "usuario2018");
+////                conexion = DriverManager.getConnection("jdbc:mysql://localhost/"
+////                    + "sai_aes?useSSL=false&useUnicode=true&"
+////                    + "useJDBCCompliantTimezoneShift=true&"
+////                    + "useLegacyDatetimeCode=false&serverTimezone=UTC",
+////                    "root", "root");
             conexionExitosa = true;
         } catch (SQLException ex) {
             conexionExitosa = false;
