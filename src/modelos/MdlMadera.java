@@ -29,7 +29,7 @@ public class MdlMadera {
     /** Clase Mensaje para mostrar errores capturados. */
     private static Mensaje msgError;
     /**
-     * Constructor de clase modelo de cliente.
+     * Constructor de clase modelo de madera.
      */
     public MdlMadera() {
         conexion = new CtrConexion();

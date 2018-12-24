@@ -61,27 +61,31 @@ public class CtrCliente {
     
     /**
      * Llena una lista con todos los clientes almacenados en la BD.
-     *
      * @return lista de clientes.
      */
     public ArrayList<Cliente> obtenerClientes() {
         return mdlCliente.obtenerClientes();
     }
     
+    /**
+     * Llama el método que obtiene una lista de contactos de la BD
+     * @param codPersona codigo de la persona a quien pertenecen los contactos.
+     * @return Lista de contactos.
+     */
     public ArrayList<Contacto> obtenerContactos(String codPersona) {
         return mdlCliente.obtenerContactos(codPersona);
     }
 
     /**
-     * Inserta un nuevo cliente en la BD.
-     * @param nombre 
-     * @param apellido1
-     * @param apellido2
-     * @param cedula
-     * @param limiteCred
-     * @param aprobarCred
-     * @param contactos
-     * @return 
+     * Llama el método que inserta un nuevo cliente en la BD.
+     * @param nombre nombre del cliente
+     * @param apellido1 primer apellido del cliente
+     * @param apellido2 segundo apellido del cliente
+     * @param cedula cédula de identificación del cliente
+     * @param limiteCred cantidad límite de crédito del cliente
+     * @param aprobarCred aprobación al crédito del cliente
+     * @param contactos contactos (teléfonos y correos) del cliente
+     * @return verdadero si el cliente se crea existosamente
      */
     public boolean crearCliente(String nombre, String apellido1, 
             String apellido2, String cedula, double limiteCred, 
@@ -91,27 +95,36 @@ public class CtrCliente {
                 limiteCred, aprobarCred, contactos);
     }
     
+    /**
+     * Llama el método que inserta un nuevo contacto en la BD
+     * @param tipo tipo de contacto (correo o teléfono)
+     * @param info número telefónico o correo electrónico correspondiente
+     * @param codPersona codigo de persona a quien pertenece el contacto
+     * @return verdadero si el contacto se crea existosamente
+     */
     public boolean crearContacto(TipoContacto tipo, String info, String codPersona) {
         return mdlCliente.crearContacto(tipo, info, codPersona);
     }
     
+    /**
+     * Llama el método que inactiva un contacto existente
+     * @param codigo código del contacto a inactivar
+     * @return verdadero si el contacto se inactiva exitosamente
+     */
     public boolean inactivarContacto(String codigo) {
         return mdlCliente.inactivarContacto(codigo);
     }
 
     /**
-     * Actualiza toda la información del cliente en la BD.
-     * @param nombre
-     * @param apellido1
-     * @param apellido2
-     * @param cedula
-     * @param limiteCred
-     * @param aprobarCred
-     * @param contactos
-     * @param estado
-     * @param codPersona
-     * @param codigo
-     * @return 
+     * Llama el método que actualiza toda la información del cliente en la BD.
+     * @param nombre nombre del cliente
+     * @param apellido1 primer apellido del cliente
+     * @param apellido2 segundo apellido del cliente
+     * @param cedula cédula de identificación del cliente
+     * @param limiteCred cantidad límite de crédito del cliente
+     * @param aprobarCred aprobación al crédito del cliente
+     * @param codPersona codigo de persona a quien se actualiza la información
+     * @return verdadero si la información se actualiza exitosamente
      */
     public boolean actualizarCliente(String nombre, String apellido1, 
             String apellido2, String cedula, double limiteCred, 
@@ -122,9 +135,9 @@ public class CtrCliente {
     }
     
     /**
-     * Inactiva el cliente en la bd.
+     * Llama el método que inactiva el cliente en la bd.
      * @param cedula cédula unívoca del cliente
-     * @return 
+     * @return verdadero si la inactivación del cliente es exitosa
      */
     public boolean inactivarCliente(String cedula) {
         
@@ -132,9 +145,9 @@ public class CtrCliente {
     }
     
     /**
-     * Activa el cliente en la bd.
+     * Llama el método que activa el cliente en la bd.
      * @param cedula cédula unívoca del cliente
-     * @return 
+     * @return verdadero si la activación del cliente es exitosa
      */
     public boolean activarCliente(String cedula) {
         

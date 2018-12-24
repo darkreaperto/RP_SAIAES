@@ -52,18 +52,18 @@ public class CtrContacto {
     /**
      * Llama el método que llena una lista con todos los usuarios almacenados 
      * en la BD.
-     * @return 
+     * @return Lista de contactos obtenidos
      */
     public ArrayList<Contacto> obtenerUsuarios() {
         return mdlContacto.obtenerContactos();
     }
     
     /**
-     * 
-     * @param info
-     * @param codPersona
-     * @param tipo
-     * @return 
+     * Llama el método que inserta un contacto en la BD
+     * @param info información de contacto correspondiente (tel o correo)
+     * @param codPersona codigo de persona a quien pertenece el contacto
+     * @param tipo tipo de contacto (tel o correo)
+     * @return verdadero si el contacto se inserta exitosamente
      */
     public boolean crearContacto(String info, String codPersona, 
             TipoContacto tipo) {
@@ -71,13 +71,13 @@ public class CtrContacto {
     }
     
     /**
-     * 
-     * @param info
-     * @param codPersona
-     * @param tipo
-     * @param estado
-     * @param codigo
-     * @return 
+     * Llama el método que actualiza un contacto en la BD
+     * @param info información de contacto correspondiente (tel o correo)
+     * @param codPersona codigo de persona a quien pertenece el contacto
+     * @param tipo tipo de contacto (tel o correo)
+     * @param estado estado activo o inactivo en que está el contacto
+     * @param codigo código del contacto
+     * @return verdadero si el contacto se actualiza existosamente
      */
     public boolean actualizarContacto(String info, String codPersona, 
             TipoContacto tipo, Estado estado, String codigo) {
@@ -85,13 +85,21 @@ public class CtrContacto {
                 codigo);
     }
     
-    public boolean activarContacto(String codigo) {
-        
+    /**
+     * Llama el método que activa el contacto
+     * @param codigo código del contacto
+     * @return verdadero si el contacto se activa exitosamente 
+     */
+    public boolean activarContacto(String codigo) {        
         return mdlContacto.activarContacto(codigo);
     }
     
-    public boolean inactivarContacto(String codigo) {
-        
+    /**
+     * Llama el método que inactiva el contacto
+     * @param codigo código de contacto
+     * @return verdadero si el contato se inactiva exitosamente
+     */
+    public boolean inactivarContacto(String codigo) {        
         return mdlContacto.inactivarContacto(codigo);
     }
     
