@@ -114,7 +114,7 @@ public class CtrContacto {
     
     /**
      * Obtener código.
-     * @return Codigo de contacto
+     * @return codigo de contacto
      */
     public String getCodigo() {
         return contacto.getCodigo();

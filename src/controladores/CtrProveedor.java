@@ -67,20 +67,22 @@ public class CtrProveedor {
     public ArrayList<Proveedor> obtenerProveedores() {
         return mdlProveedor.obtenerProveedores();
     }
-    
+    /**
+     * Llama el método que obtiene la lista de contactos de la persona indicada
+     * @param codPersona codigo de persona
+     * @return verdadero si se obtiene la lista de contactos exitosamente.
+     */
     public ArrayList<Contacto> obtenerContactos(String codPersona) {
         return mdlProveedor.obtenerContactos(codPersona);
     }
 
     /**
-     * Inserta un nuevo proveedor en la BD.
-     * @param nombre 
-     * @param apellido1
-     * @param apellido2
-     * @param cedula
-     * @param limiteCred
-     * @param aprobarCred
-     * @param contactos
+     * Llama el método que inserta un nuevo proveedor en la BD.
+     * @param nombre nombre del proveedor
+     * @param apellido1 primer apellido del proveedor
+     * @param apellido2 segundo apellido del proveedor
+     * @param cedula cedula del proveedor
+     * @param contactos lista de contactos del proveedor
      * @return 
      */
     public boolean crearProveedor(String nombre, String apellido1, 
@@ -102,23 +104,23 @@ public class CtrProveedor {
         return mdlProveedor.crearContacto(tipo, info, codPersona);
     }
     
+    /**
+     * Llama el método que inactiva un contacto en la bd
+     * @param codigo codigo de contacto
+     * @return verdadero si inactiva el contacto eixtosamente
+     */
     public boolean inactivarContacto(String codigo) {
         return mdlProveedor.inactivarContacto(codigo);
     }
 
     /**
      * Actualiza toda la información del proveedor en la BD.
-     * @param nombre
-     * @param apellido1
-     * @param apellido2
-     * @param cedula
-     * @param limiteCred
-     * @param aprobarCred
-     * @param contactos
-     * @param estado
-     * @param codPersona
-     * @param codigo
-     * @return 
+     * @param nombre nombre del proveedor
+     * @param apellido1 primer apellido del proveedor
+     * @param apellido2 segundo apellido del proveedor
+     * @param cedula cédula del proveedor
+     * @param codPersona codigo de persona
+     * @return verdadero si actualiza el proveedor exitosamente
      */
     public boolean actualizarProveedor(String nombre, String apellido1, 
             String apellido2, String cedula, String codPersona) {

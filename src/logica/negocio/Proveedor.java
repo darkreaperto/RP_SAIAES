@@ -56,7 +56,11 @@ public class Proveedor extends Persona {
     public void setCodProveedor(String codProveedor) {
         this.codProveedor = codProveedor;
     }
-    
+    /**
+     * Sobreescritura del método toString para obtener información básica del
+     * proveedor
+     * @return información básica del producto/madera
+     */
     @Override
     public String toString()
     {

@@ -150,19 +150,20 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
              * Mostrar formulario interno después de acceder
              */
             if (c instanceof JDesktopPane) {
-                ItnFrmCliente modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
-                //ItnFrmInventario modCliente = ItnFrmInventario.getInstancia(sesionAcc, productos);
+                //ItnFrmCliente modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
+                //ItnFrmInventario modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
+                ItnFrmFacturacion modFactura = ItnFrmFacturacion.getInstancia(sesionAcc, clientes, productos);
                 //modUsuario.deshabilitarPaneles();
-                modCliente.setVisible(true);
+                modFactura.setVisible(true);
                 if (((JDesktopPane) c).getComponentCount() == 0) {
-                    ((JDesktopPane) c).add(modCliente);
+                    ((JDesktopPane) c).add(modFactura);
 
                 } else {
                     if (!(((JDesktopPane) c).getComponent(0) instanceof ItnFrmCliente)) {
-                        ((JDesktopPane) c).add(modCliente);
+                        ((JDesktopPane) c).add(modFactura);
                     }
                 }
-                for (Component i: modCliente.getComponents()) {
+                for (Component i: modFactura.getComponents()) {
                     //System.out.println("MOD " + i);
                     if (i instanceof JRootPane) {
                         for (Component r: ((JRootPane) i).getComponents()) {

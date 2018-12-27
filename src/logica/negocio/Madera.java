@@ -123,6 +123,7 @@ public class Madera {
     }
     /***
      * Establecer descripción del tipo de madera de producto
+     * @param descTipoMadera descripción/nombre del tipo de madera
      */
     public void setDescTipoMadera(String descTipoMadera) {
         this.descTipoMadera = descTipoMadera;
@@ -252,7 +253,11 @@ public class Madera {
     public void setNomProveedor(String nomProveedor) {
         this.nomProveedor = nomProveedor;
     }
-    
+    /**
+     * Sobreescritura del método toString para obtener información básica del
+     * producto/madera
+     * @return información básica del producto/madera
+     */
     @Override
     public String toString()
     {

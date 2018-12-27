@@ -4,15 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Gladys/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmFacturacion.java</file>
-            <file>file:/C:/Users/Gladys/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmCliente.java</file>
-            <file>file:/C:/Users/Gladys/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Factura.java</file>
-            <file>file:/C:/Users/Gladys/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Exoneracion.java</file>
-            <file>file:/C:/Users/Gladys/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Impuesto.java</file>
-            <file>file:/C:/Users/Gladys/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/LineaPedido.java</file>
+            <file>file:/C:/Users/Gladys/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlMadera.java</file>
             <file>file:/C:/Users/Gladys/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/FrmPrincipal.java</file>
-            <file>file:/C:/Users/Gladys/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/LineaDetalle.java</file>
-            <file>file:/C:/Users/Gladys/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/Principal.java</file>
-            <file>file:/C:/Users/Gladys/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Madera.java</file>
+            <file>file:/C:/Users/Gladys/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrMadera.java</file>
         </group>
     </open-files>
 </project-private>

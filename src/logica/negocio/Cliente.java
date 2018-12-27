@@ -60,7 +60,12 @@ public class Cliente extends Persona {
     public void setCodCliente(String codCliente) {
         this.codCliente = codCliente;
     }
-    
+    /**
+     * Sobrescritura del metodo to string para accesar información básica
+     * del cliente
+     * @return el nombre completo del cliente.
+     */
+    @Override
     public String toString() {
         String res = this.getNombre() + " " +
                      this.getApellido1() + " " + 

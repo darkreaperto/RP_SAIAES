@@ -10,7 +10,6 @@ import java.awt.Component;
 import java.awt.Container;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -18,10 +17,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JToolBar;
-import javax.swing.JViewport;
 import logica.negocio.Cliente;
 import logica.negocio.Madera;
 import logica.negocio.Proveedor;
@@ -34,6 +30,7 @@ import logica.servicios.Autoguardado;
  */
 public class FrmPrincipal extends javax.swing.JFrame {
 
+    private static FrmPrincipal instancia = null;
     //Internal frames de los modulos
     private static ItnFrmAccesoUsuario modUsuarioAcceso;
     private static ItnFrmUsuario modUsuario;
@@ -41,7 +38,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private static ItnFrmInventario modInventario;
     private static ItnFrmProveedor modProveedor;
     private static ItnFrmFacturacion modFacturacion;
+    //Controlador de acceso: variable almacena sesión actual
     private static CtrAcceso sesionAcc;
+    //Listas
     private static ArrayList<Usuario> usuarios;
     private static ArrayList<Cliente> clientes;
     private static ArrayList<Madera> productos;
@@ -54,7 +53,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     public FrmPrincipal() {
         initComponents();
-
+        
+        System.out.println("MY FRAME " + this);
         a =  Autoguardado.getInstancia("lol.txt");
         try {
             a.abrirArchivo();
@@ -68,7 +68,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         ventanaAcceso();
     }
 
-    
+    public static FrmPrincipal getInstancia() {
+        return instancia == null ? new FrmPrincipal() : instancia;
+    }
     /**
      * Mostrar formulario interno de acceso al sistema.
      */
@@ -90,7 +92,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
      * Mostrar formulario interno de facturación.
      */
     public void ventanaFacturacion() {
-        modFacturacion = ItnFrmFacturacion.getInstancia(sesionAcc);
+        modFacturacion = ItnFrmFacturacion.getInstancia(sesionAcc, clientes,
+                productos);
         modFacturacion.setVisible(true);
         if (dpn_principal.getComponentCount() == 0) {
             dpn_principal.add(modFacturacion);
@@ -184,10 +187,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
      * @param internal Frame interno al que se desea accesar
      * @param num Número de pestaña a la que se ingresa
      */
-    public void accederModulos(JInternalFrame internal, int num) {
+    public void accederModulos(Container frameParent, JInternalFrame internal, 
+            int num) {
         
         //Acceder DesktopPane
-        Container frameParent = this;//.getParent(); 
+        //Container frameParent = this;//.getParent(); 
         System.out.println("FRAMEPARENT" + frameParent);
         for (Component c : frameParent.getComponents()) {
             System.out.println("Componentes " + c);
@@ -249,9 +253,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
 //                  }
                } else if (internal.getClass().toString().contains(
                        "ItnFrmCliente")) {
+                   System.out.println("well but..");
                    if (!(((JDesktopPane) p).getComponent(0) instanceof 
                            ItnFrmCliente )) {
                         ((JDesktopPane) p).add(internal);
+                        System.out.println("well i'll open it");
                     }
                } else if (internal.getClass().toString().contains(
                        "ItnFrmProveedor")) {
@@ -269,22 +275,22 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
            }
            for (Component i: internal.getComponents()) {
-               //System.out.println("MOD " + i);
+               System.out.println("MODD " + i);
                if (i instanceof JRootPane) {
                    for (Component rm: ((JRootPane) i).getComponents()) {
-                       //System.out.println("ROOT " + r);
+                       System.out.println("ROOTT " + rm);
                        if (rm instanceof JLayeredPane) {
                            for (Component lm: ((JLayeredPane) rm).
                                    getComponents()) {
-                               //System.out.println("LAY " + l);
+                               System.out.println("LAYY " + lm);
                                if (lm instanceof JPanel) {
                                    for (Component pm: ((JPanel) lm).
                                            getComponents()) {
-                                       //System.out.println("PAN " + p);
+                                       System.out.println("PAN " + p);
                                        if (pm instanceof JPanel) {
                                            for (Component tm: ((JPanel) pm).
                                                    getComponents()) {
-                                               //System.out.println("TAB " + t);
+                                               System.out.println("TAB " + tm);
                                                if (tm instanceof JTabbedPane) {
                                                    ((JTabbedPane) tm).
                                                            setSelectedIndex(num);
@@ -820,92 +826,112 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void mniAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAgregarClienteActionPerformed
         modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
-        accederModulos(modCliente,1);
+        //accederModulos(modCliente,1);
+        accederModulos(this,modCliente,1);
+        System.out.println(FrmPrincipal.getInstancia());
     }//GEN-LAST:event_mniAgregarClienteActionPerformed
-
-    private void mniEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEditarClienteActionPerformed
-        modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
-        accederModulos(modCliente,2);    }//GEN-LAST:event_mniEditarClienteActionPerformed
 
     private void mniHabilitarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHabilitarClienteActionPerformed
         modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
-        accederModulos(modCliente,3);
+        //accederModulos(modCliente,3);
+        accederModulos(this,modCliente,3);
     }//GEN-LAST:event_mniHabilitarClienteActionPerformed
 
     private void mniListadoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniListadoClientesActionPerformed
         modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
-        accederModulos(modCliente,0);
+       // accederModulos(modCliente,0);
+       accederModulos(this,modCliente,0);
     }//GEN-LAST:event_mniListadoClientesActionPerformed
 
     private void mniActualizarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniActualizarInventarioActionPerformed
         modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
-        accederModulos(modInventario,2);
+        //accederModulos(modInventario,2);
+        accederModulos(this,modInventario,2);
     }//GEN-LAST:event_mniActualizarInventarioActionPerformed
 
     private void mniAgregarProdNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAgregarProdNuevoActionPerformed
         modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
-        accederModulos(modInventario,1);
+        //accederModulos(modInventario,1);
+        accederModulos(this,modInventario,1);
     }//GEN-LAST:event_mniAgregarProdNuevoActionPerformed
 
     private void mniEditarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEditarProdActionPerformed
         modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
-        accederModulos(modInventario,3);
+        //accederModulos(modInventario,3);
+        accederModulos(this,modInventario,3);
     }//GEN-LAST:event_mniEditarProdActionPerformed
 
     private void mniHabilitarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHabilitarInventarioActionPerformed
         modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
-        accederModulos(modInventario,4);
+       // accederModulos(modInventario,4);
+       accederModulos(this,modInventario,4);
     }//GEN-LAST:event_mniHabilitarInventarioActionPerformed
 
     private void mniListadoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniListadoProdActionPerformed
         modInventario = ItnFrmInventario.getInstancia(sesionAcc, productos);
-        accederModulos(modInventario,0);
+        //accederModulos(modInventario,0);
+        accederModulos(this,modInventario,0);
     }//GEN-LAST:event_mniListadoProdActionPerformed
 
     private void mniAgregarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAgregarProveedorActionPerformed
         modProveedor = ItnFrmProveedor.getInstancia(sesionAcc, proveedores);
-        accederModulos(modProveedor,1);
+        //accederModulos(modProveedor,1);
+        accederModulos(this,modProveedor,1);
     }//GEN-LAST:event_mniAgregarProveedorActionPerformed
 
     private void mniEditarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEditarProveedorActionPerformed
         modProveedor = ItnFrmProveedor.getInstancia(sesionAcc, proveedores);
-        accederModulos(modProveedor,2);
+        //accederModulos(modProveedor,2);
+        accederModulos(this,modProveedor,2);
     }//GEN-LAST:event_mniEditarProveedorActionPerformed
 
     private void mniHabilitarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHabilitarProveedorActionPerformed
         modProveedor = ItnFrmProveedor.getInstancia(sesionAcc, proveedores);
-        accederModulos(modProveedor,3);
+        //accederModulos(modProveedor,3);
+        accederModulos(this,modProveedor,3);
     }//GEN-LAST:event_mniHabilitarProveedorActionPerformed
 
     private void mniListadoProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniListadoProveedoresActionPerformed
         modProveedor = ItnFrmProveedor.getInstancia(sesionAcc, proveedores);
-        accederModulos(modProveedor,0);
+        //accederModulos(modProveedor,0);
+        accederModulos(this,modProveedor,0);
     }//GEN-LAST:event_mniListadoProveedoresActionPerformed
 
     private void mniActualizarInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniActualizarInfoActionPerformed
         modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
-        accederModulos(modUsuario,2);
+        //accederModulos(modUsuario,2);
+        accederModulos(this,modUsuario,2);
     }//GEN-LAST:event_mniActualizarInfoActionPerformed
 
     private void mniActualizarPermisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniActualizarPermisosActionPerformed
         modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
-        accederModulos(modUsuario,4);
+        //accederModulos(modUsuario,4);
+        accederModulos(this,modUsuario,4);
     }//GEN-LAST:event_mniActualizarPermisosActionPerformed
 
     private void mniAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAgregarUsuarioActionPerformed
         modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
-        accederModulos(modUsuario,1);
+        //accederModulos(modUsuario,1);
+        accederModulos(this,modUsuario,1);
     }//GEN-LAST:event_mniAgregarUsuarioActionPerformed
 
     private void mniHabilitarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHabilitarUsuariosActionPerformed
         modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
-        accederModulos(modUsuario,3);
+        //accederModulos(modUsuario,3);
+        accederModulos(this,modUsuario,3);
     }//GEN-LAST:event_mniHabilitarUsuariosActionPerformed
 
     private void mniListadoUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniListadoUsuariosActionPerformed
         modUsuario = ItnFrmUsuario.getInstancia(sesionAcc, usuarios);
-        accederModulos(modUsuario,0);
+        //accederModulos(modUsuario,0);
+        accederModulos(this,modUsuario,0);
     }//GEN-LAST:event_mniListadoUsuariosActionPerformed
+
+    private void mniEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEditarClienteActionPerformed
+        modCliente = ItnFrmCliente.getInstancia(sesionAcc, clientes);
+        //accederModulos(modCliente, 2);
+        accederModulos(this,modCliente, 2);
+    }//GEN-LAST:event_mniEditarClienteActionPerformed
 
     /**
      * @param args the command line arguments

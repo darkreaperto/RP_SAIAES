@@ -39,7 +39,6 @@ public class CtrTipoProducto {
     
     /**
      * Llena una lista con todos los tipos de producto almacenados en la BD.
-     *
      * @return lista de tipos de producto.
      */
     public ArrayList<TipoProducto> obtenerTiposProducto() {

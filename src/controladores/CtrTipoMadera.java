@@ -39,7 +39,6 @@ public class CtrTipoMadera {
     
     /**
      * Llena una lista con todos los tipos de madera almacenados en la BD.
-     *
      * @return lista de tipos de madera.
      */
     public ArrayList<TipoMadera> obtenerTiposMadera() {

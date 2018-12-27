@@ -5,8 +5,6 @@
  */
 package logica.negocio;
 
-import java.util.ArrayList;
-
 /**
  * Instancia la línea de pedido con lista de productos para facturar.
  * @author aoihanabi

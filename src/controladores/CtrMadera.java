@@ -26,6 +26,23 @@ public class CtrMadera {
         productos = new ArrayList<>();
         mdlMadera = new MdlMadera();
     }
+    
+    /**
+     * Constructor de controlador de madera, crea un objeto madera con
+     * sus parámetros.
+     * @param codigo codigo de madera
+     * @param codProducto codigo del producto (personalizado)
+     * @param codTipoMadera codigo del tipo de madera
+     * @param descTipoMadera descripción del tipo de madera
+     * @param medidas medidas de la madera/producto
+     * @param tipoProducto tipo de producto (aserrada/troza/terminada)
+     * @param unidades cantidad de productos en unidades
+     * @param precioXvara precio del producto 
+     * @param descripcion detalles que describen el producto
+     * @param estado estado activo o inactivo del producto
+     * @param codProveedor codigo del proveedor del producto(solo troza)
+     * @param nomProveedor nombre del proveedor del producto(solo troza)
+     */
     public CtrMadera(String codigo, String codProducto, String codTipoMadera, 
             String descTipoMadera, String medidas, String tipoProducto, 
             int unidades, double precioXvara, String descripcion, String estado,
@@ -44,12 +61,17 @@ public class CtrMadera {
     
     /**
      * Llena una lista con todos los tipos de productos almacenados en la BD.
-     *
      * @return lista de tipos de productos.
      */
     public ArrayList<Madera> obtenerProductos() {
         return mdlMadera.obtenerProductos();
     }
+    /**
+     * Verifica si la lista de productos está vacía para llamar el método que
+     * la llena desde la bd, en caso de no estar vacía ya se tienen los productos
+     * así que se retorna la lista existente.
+     * @return lista de productos existentes
+     */
     public ArrayList<Madera> getListaProductos() {
         if(productos == null || productos.isEmpty()) {
             productos = obtenerProductos();
@@ -79,7 +101,7 @@ public class CtrMadera {
      * @param precio precio por vara del producto
      * @param descripcion detalle del producto (opcional)
      * @param codProveedor codigo del proveedor
-     * @return true si inserta el usuario.
+     * @return verdadero si inserta el producto.
      */
     public boolean crearProducto(String codProd, int codTipoMadera, 
             String medida, String tipoProducto, int unidades, double precio, 
@@ -89,6 +111,18 @@ public class CtrMadera {
                 tipoProducto, unidades, precio, descripcion, codProveedor);
     }
     
+    /**
+     * 
+     * @param codProd codigo personalizado asignado al producto
+     * @param codTipoMadera codigo del tipo de madera del producto
+     * @param medidas medidas del producto
+     * @param unidades cantidad de unidades que entran
+     * @param precio precio por vara del producto
+     * @param descripcion detalle del producto (opcional)
+     * @param codProveedor codigo del proveedor
+     * @param codigo codigo de madera
+     * @return verdadero si actualiza el producto exitosamente
+     */
     public boolean actualizarProducto(String codProd, int codTipoMadera, 
             String medidas, int unidades, double precio, String descripcion, 
             int codProveedor, String codigo) {
@@ -96,17 +130,31 @@ public class CtrMadera {
         return mdlMadera.actualizarProducto(codProd, codTipoMadera, medidas, 
                 unidades, precio, descripcion, codProveedor, codigo);
     }
-    
+    /**
+     * Llama el método que inactiva un producto en la bd
+     * @param codigo codigo del producto/madera
+     * @return Verdadero si inactiva el producto
+     */
     public boolean inactivarProducto(String codigo) {
         
         return mdlMadera.inactivarProducto(codigo);
     }
-    
+    /**
+     * Llama el método que activa un producto en la bd
+     * @param codigo codigo del producto/madera
+     * @return verdadero si activa el producto exitosamente
+     */
     public boolean activarProducto(String codigo) {
         
         return mdlMadera.activarProducto(codigo);
     }
-    
+    /**
+     * Llama el método que actualiza un producto ya existente en el inventario
+     * @param tipoProd tipo de producto (aserrada/troza/terminada)
+     * @param unidades cantidad en unidades del producto
+     * @param codigo codigo de madera
+     * @return verdadero si el producto se actualiza exitosamente.
+     */
     public boolean actualizarInventario(String tipoProd, int unidades, String codigo) {
         
         return mdlMadera.actualizarInventario(tipoProd, unidades, codigo);
