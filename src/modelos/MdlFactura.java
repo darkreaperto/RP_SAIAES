@@ -7,6 +7,9 @@ package modelos;
 
 import controladores.CtrConexion;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import logica.negocio.Madera;
 import logica.servicios.Mensaje;
 
 /**
@@ -18,6 +21,7 @@ public class MdlFactura {
     private static String procedimiento;
     private static ResultSet resultado;
     private static Mensaje msgError;
+    ArrayList<Madera> productos;
 
     /**
      * Constructor de clase modelo de factura.

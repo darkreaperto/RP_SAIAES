@@ -7,6 +7,7 @@ package controladores;
 
 import java.util.ArrayList;
 import logica.negocio.Factura;
+import logica.negocio.Madera;
 import modelos.MdlFactura;
 
 /**
@@ -33,5 +34,5 @@ public class CtrFactura {
      */
     public static CtrFactura getInstancia() {
         return  instancia == null ? new CtrFactura() : instancia;
-    }
+    }    
 }

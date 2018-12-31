@@ -132,7 +132,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
     /**
      * Cargar la tabla (modelo) con los usuarios existentes.
-     *
      * @param tabla Nombre de la tabla a llenar
      * @param estado Estado del producto a incresar
      */
@@ -1718,7 +1717,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         pnl_modInventarioLayout.setVerticalGroup(
             pnl_modInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modInventarioLayout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addComponent(tbpnl_modInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

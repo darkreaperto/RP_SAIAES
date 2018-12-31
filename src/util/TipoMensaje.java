@@ -21,6 +21,8 @@ public enum TipoMensaje {
     */
     ANY_ROW_SELECTED,
     
+    ANY_RADIO_BUTTON_SELECTED,
+    
     CONFIRMATION_EMAIL_NOT_FOUND,
     
     CONFIRM_RESET_PASSWORD_CANCEL,

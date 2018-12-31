@@ -90,6 +90,17 @@ public class CtrMadera {
     public ArrayList consultarProductos(String param) {
         return mdlMadera.consultarProductos(param);
     }
+    
+    /**
+     * Llena una lista con productos según la información especificada para 
+     * la búsqueda.
+     * @param paramProd Datos del producto para consultar usuario en la bd
+     * @param codBusq código de clasificación/especificación de búsqueda
+     * @return lista de productos.
+     */
+    public ArrayList<Madera> busqAvzProductos(String paramProd, int codBusq) {
+        return mdlMadera.busqAvzProductos(paramProd, codBusq);
+    }
     /**
      * Inserta un nuevo producto en la BD
      *

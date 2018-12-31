@@ -84,20 +84,18 @@
                                       <Component id="pnlTotales" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="scpnlTblLineaPedido" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="lblTextProducto" min="-2" pref="81" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="txtProducto" min="-2" pref="360" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnAddProduct1" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="btnAddProduct1" min="-2" pref="48" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+                                      <Component id="lblTextCantidad" min="-2" pref="79" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="txtCantidad" min="-2" pref="175" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="lblTextPrecio" min="-2" pref="50" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtPrecio" min="-2" pref="199" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblTextCantidad" min="-2" pref="63" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtCantidad" min="-2" pref="191" max="-2" attributes="0"/>
+                                      <Component id="btnAgregarVarios" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="scpnlList" alignment="1" max="32767" attributes="0"/>
                               </Group>
@@ -152,33 +150,32 @@
                       </Group>
                       <Component id="pnlInfoCliente" min="-2" pref="128" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Component id="jSeparator3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblTextPrecio" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="txtPrecio" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="lblTextCantidad" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="txtCantidad" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="btnAddProduct1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblTextProducto" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                               <Component id="txtProducto" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="lblTextProducto" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="btnAddProduct1" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblTextCantidad" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="txtCantidad" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <Component id="btnAgregarVarios" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="scpnlList" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                      <Component id="btnAddProduct" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="scpnlList" min="-2" pref="75" max="-2" attributes="0"/>
+                      <Component id="btnAddProduct" min="-2" pref="60" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="scpnlTblLineaPedido" pref="251" max="32767" attributes="0"/>
+                          <Component id="scpnlTblLineaPedido" pref="208" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="pnlTotales" min="-2" max="-2" attributes="0"/>
@@ -190,7 +187,7 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -226,11 +223,6 @@
         <Component class="javax.swing.JLabel" name="lblTextClienteFac">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cliente:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblTextPrecio">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Precio:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblClienteNom">
@@ -271,14 +263,6 @@
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtClienteFacFocusGained"/>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtClienteFacKeyReleased"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtPrecio">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Precio unitario..."/>
-          </Properties>
-          <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPrecioFocusGained"/>
           </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="ftClienteFac">
@@ -671,7 +655,7 @@
         <Component class="javax.swing.JButton" name="btnAddProduct1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/recursos/f_crearproducto.png"/>
+              <Image iconType="3" name="/recursos/f_crearProducto.png"/>
             </Property>
           </Properties>
           <Events>
@@ -687,6 +671,17 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddImpuestoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnAgregarVarios">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/recursos/add.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Agregar productos varios"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarVariosActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

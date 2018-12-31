@@ -5,12 +5,25 @@
  */
 package presentacion;
 
+import controladores.CtrMadera;
+import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import logica.negocio.Madera;
+import logica.servicios.Mensaje;
+import util.Estado;
+import util.TipoMensaje;
+
 /**
  *
  * @author aoihanabi
  */
 public class DlgFacBusqueda extends javax.swing.JDialog {
     public static ItnFrmFacturacion ifrmFacturacion;
+    private static CtrMadera ctrInventario = new CtrMadera();
+    private static ArrayList<Madera> productos;
+    private static DefaultTableModel model;
+    private static Mensaje msg;
     /**
      * Creates new form DlgFacBusqueda.
      * @param parent ventana padre de este Jdialog
@@ -25,7 +38,60 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(this);
     }
+    
+    /**
+     * Realiza la búsqueda de acuerdo al radiobutton seleccionado.
+     */
+    public void filtrarBusqueda() {
+        try {
+            if(rbVariedadProd.isSelected()) {
+                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 0);
+            } else if (rbMedidasProd.isSelected()) {
+                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 1);
+            } else if (rbDescripProd.isSelected()) {
+                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 2);
+            } else if(rbProveedorProd.isSelected()) {
+                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 3);
+            } else if(rbTipoProd.isSelected()) {
+                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 4);
+            } else if(rbCodigoProd.isSelected()) {
+                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 5);
+            }
+        } catch (Exception e) {
+            msg.mostrarMensaje(ERROR, TipoMensaje.ANY_ROW_SELECTED);
+        }
+    }
+    /**
+     *  Obtiene la lista de productos filtrados y la carga en la tabla (modelo).
+     * @param tabla Nombre de la tabla a llenar
+     * @param paramProd Datos del producto para consultar producto en la bd
+     * @param codBusq código de clasificación/especificación de búsqueda
+     */
+    public void cargarProductosJTable(JTable tabla, String paramProd, int codBusq) {
+        Object[] row = new Object[9];
+        productos = ctrInventario.busqAvzProductos(paramProd, codBusq);
+        model = (DefaultTableModel) tabla.getModel();
+        model.setRowCount(0);
+        model.setColumnCount(9);
 
+        for (int i = 0; i < productos.size(); i++) {
+            //tipo prod- codigo- variedad- medidas- proveedor- unidades- precio- descripción
+            row[0] = productos.get(i).getTipoProducto();
+            row[1] = productos.get(i).getCodProducto();////////
+            row[2] = productos.get(i).getDescTipoMadera();
+            row[3] = productos.get(i).getMedidas();
+            row[4] = productos.get(i).getNomProveedor();//getCodProveedor() == null ? "No aplica" : productos.get(i).getCodProveedor();
+            row[5] = productos.get(i).getUnidades() <= 0 ? 
+                    "No aplica" : productos.get(i).getUnidades();
+            row[6] = productos.get(i).getPrecioXvara();
+            row[7] = productos.get(i).getDescripcion();                
+            row[8] = productos.get(i).getCodigo();
+                
+            model.addRow(row);            
+        }
+        
+        tabla.removeColumn(tabla.getColumnModel().getColumn(8));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,29 +104,18 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
         bgCriterioBusqueda = new javax.swing.ButtonGroup();
         pnlBusquedaAvanzada = new javax.swing.JPanel();
         btnCancelarBusqueda = new javax.swing.JButton();
-        tb_facBusqueda = new javax.swing.JTabbedPane();
-        pnlBuscarCliente = new javax.swing.JPanel();
-        txtBusquedaCliente = new javax.swing.JTextField();
-        scpnlTblListadoCliente = new javax.swing.JScrollPane();
-        tbListadoCliente = new javax.swing.JTable();
-        btnBuscarCliente = new javax.swing.JButton();
-        pnlFiltroCliente = new javax.swing.JPanel();
-        rbNombre = new javax.swing.JRadioButton();
-        rbCodigoCliente = new javax.swing.JRadioButton();
-        rbTelefono = new javax.swing.JRadioButton();
-        rbCorreo = new javax.swing.JRadioButton();
-        rbEstado = new javax.swing.JRadioButton();
-        pnlBuscarProducto = new javax.swing.JPanel();
-        txtBusquedaProd = new javax.swing.JTextField();
         scpnlTblListadoProd = new javax.swing.JScrollPane();
         tbListadoProd = new javax.swing.JTable();
+        txtBusquedaProd = new javax.swing.JTextField();
         btnBuscarProd = new javax.swing.JButton();
         pnlFiltroProd = new javax.swing.JPanel();
-        rbNombre1 = new javax.swing.JRadioButton();
-        rbCodigoCliente1 = new javax.swing.JRadioButton();
-        rbTelefono1 = new javax.swing.JRadioButton();
-        rbCorreo1 = new javax.swing.JRadioButton();
-        rbEstado1 = new javax.swing.JRadioButton();
+        rbTipoProd = new javax.swing.JRadioButton();
+        rbCodigoProd = new javax.swing.JRadioButton();
+        rbVariedadProd = new javax.swing.JRadioButton();
+        rbMedidasProd = new javax.swing.JRadioButton();
+        rbDescripProd = new javax.swing.JRadioButton();
+        rbProveedorProd = new javax.swing.JRadioButton();
+        btnAceptarBusqueda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Búsqueda Avanzada");
@@ -72,12 +127,12 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
             }
         });
 
-        tbListadoCliente.setModel(new javax.swing.table.DefaultTableModel(
+        tbListadoProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de crédito", "Contactos", "Cod. Cliente", "Codigo"
+                "Tipo de Producto", "Código", "Variedad Madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripcion", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -88,131 +143,38 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tbListadoCliente.getTableHeader().setReorderingAllowed(false);
-        scpnlTblListadoCliente.setViewportView(tbListadoCliente);
-
-        btnBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/busqueda.png"))); // NOI18N
-        btnBuscarCliente.setText("Buscar");
-
-        pnlFiltroCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Especificación de búsqueda:"));
-
-        bgCriterioBusqueda.add(rbNombre);
-        rbNombre.setText("Nombre");
-
-        bgCriterioBusqueda.add(rbCodigoCliente);
-        rbCodigoCliente.setText("Código");
-
-        bgCriterioBusqueda.add(rbTelefono);
-        rbTelefono.setText("Teléfono/Celular");
-
-        bgCriterioBusqueda.add(rbCorreo);
-        rbCorreo.setText("Correo Electrónico");
-
-        bgCriterioBusqueda.add(rbEstado);
-        rbEstado.setText("Estado: Activo/Inactivo");
-
-        javax.swing.GroupLayout pnlFiltroClienteLayout = new javax.swing.GroupLayout(pnlFiltroCliente);
-        pnlFiltroCliente.setLayout(pnlFiltroClienteLayout);
-        pnlFiltroClienteLayout.setHorizontalGroup(
-            pnlFiltroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFiltroClienteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlFiltroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(rbTelefono)
-                    .addComponent(rbCodigoCliente)
-                    .addComponent(rbNombre)
-                    .addComponent(rbCorreo)
-                    .addComponent(rbEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlFiltroClienteLayout.setVerticalGroup(
-            pnlFiltroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFiltroClienteLayout.createSequentialGroup()
-                .addComponent(rbNombre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbCodigoCliente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbTelefono)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbCorreo)
-                .addGap(3, 3, 3)
-                .addComponent(rbEstado)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout pnlBuscarClienteLayout = new javax.swing.GroupLayout(pnlBuscarCliente);
-        pnlBuscarCliente.setLayout(pnlBuscarClienteLayout);
-        pnlBuscarClienteLayout.setHorizontalGroup(
-            pnlBuscarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBuscarClienteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlBuscarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlBuscarClienteLayout.createSequentialGroup()
-                        .addComponent(scpnlTblListadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(pnlFiltroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlBuscarClienteLayout.createSequentialGroup()
-                        .addComponent(txtBusquedaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlBuscarClienteLayout.setVerticalGroup(
-            pnlBuscarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBuscarClienteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlBuscarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBusquedaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlBuscarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBuscarClienteLayout.createSequentialGroup()
-                        .addComponent(pnlFiltroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 146, Short.MAX_VALUE))
-                    .addComponent(scpnlTblListadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-
-        tb_facBusqueda.addTab("Buscar Cliente", pnlBuscarCliente);
-
-        tbListadoProd.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Tipo de Producto", "Código", "Variedad Madera", "Medidas", "Proveedor", "Unidades", "Descripcion", "Codigo"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         tbListadoProd.getTableHeader().setReorderingAllowed(false);
         scpnlTblListadoProd.setViewportView(tbListadoProd);
+
+        txtBusquedaProd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBusquedaProdKeyReleased(evt);
+            }
+        });
 
         btnBuscarProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/busqueda.png"))); // NOI18N
         btnBuscarProd.setText("Buscar");
 
-        pnlFiltroProd.setBorder(javax.swing.BorderFactory.createTitledBorder("Especificación de búsqueda:"));
+        pnlFiltroProd.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Especificación de búsqueda:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 13))); // NOI18N
 
-        bgCriterioBusqueda.add(rbNombre1);
-        rbNombre1.setText("Tipo de producto");
+        bgCriterioBusqueda.add(rbTipoProd);
+        rbTipoProd.setText("Tipo de producto");
 
-        bgCriterioBusqueda.add(rbCodigoCliente1);
-        rbCodigoCliente1.setText("Código");
+        bgCriterioBusqueda.add(rbCodigoProd);
+        rbCodigoProd.setText("Código");
 
-        bgCriterioBusqueda.add(rbTelefono1);
-        rbTelefono1.setText("Variedad madera");
+        bgCriterioBusqueda.add(rbVariedadProd);
+        rbVariedadProd.setSelected(true);
+        rbVariedadProd.setText("Variedad madera");
 
-        bgCriterioBusqueda.add(rbCorreo1);
-        rbCorreo1.setText("Medidas");
+        bgCriterioBusqueda.add(rbMedidasProd);
+        rbMedidasProd.setText("Medidas");
 
-        bgCriterioBusqueda.add(rbEstado1);
-        rbEstado1.setText("Precio");
+        bgCriterioBusqueda.add(rbDescripProd);
+        rbDescripProd.setText("Descripción");
+
+        bgCriterioBusqueda.add(rbProveedorProd);
+        rbProveedorProd.setText("Proveedor");
 
         javax.swing.GroupLayout pnlFiltroProdLayout = new javax.swing.GroupLayout(pnlFiltroProd);
         pnlFiltroProd.setLayout(pnlFiltroProdLayout);
@@ -220,63 +182,39 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
             pnlFiltroProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFiltroProdLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlFiltroProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(rbTelefono1)
-                    .addComponent(rbCodigoCliente1)
-                    .addComponent(rbNombre1)
-                    .addComponent(rbCorreo1)
-                    .addComponent(rbEstado1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGroup(pnlFiltroProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbVariedadProd)
+                    .addComponent(rbTipoProd)
+                    .addComponent(rbMedidasProd)
+                    .addComponent(rbCodigoProd)
+                    .addComponent(rbDescripProd, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbProveedorProd))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         pnlFiltroProdLayout.setVerticalGroup(
             pnlFiltroProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFiltroProdLayout.createSequentialGroup()
-                .addComponent(rbNombre1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFiltroProdLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(rbVariedadProd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbCodigoCliente1)
+                .addComponent(rbMedidasProd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbTelefono1)
+                .addComponent(rbDescripProd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbCorreo1)
-                .addGap(3, 3, 3)
-                .addComponent(rbEstado1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(rbProveedorProd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbTipoProd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbCodigoProd)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout pnlBuscarProductoLayout = new javax.swing.GroupLayout(pnlBuscarProducto);
-        pnlBuscarProducto.setLayout(pnlBuscarProductoLayout);
-        pnlBuscarProductoLayout.setHorizontalGroup(
-            pnlBuscarProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBuscarProductoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlBuscarProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBuscarProductoLayout.createSequentialGroup()
-                        .addComponent(scpnlTblListadoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(pnlFiltroProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlBuscarProductoLayout.createSequentialGroup()
-                        .addComponent(txtBusquedaProd, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscarProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        pnlBuscarProductoLayout.setVerticalGroup(
-            pnlBuscarProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBuscarProductoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlBuscarProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBusquedaProd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlBuscarProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBuscarProductoLayout.createSequentialGroup()
-                        .addComponent(pnlFiltroProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 146, Short.MAX_VALUE))
-                    .addComponent(scpnlTblListadoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-
-        tb_facBusqueda.addTab("Buscar Producto", pnlBuscarProducto);
+        btnAceptarBusqueda.setText("Aceptar");
+        btnAceptarBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarBusquedaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlBusquedaAvanzadaLayout = new javax.swing.GroupLayout(pnlBusquedaAvanzada);
         pnlBusquedaAvanzada.setLayout(pnlBusquedaAvanzadaLayout);
@@ -285,33 +223,54 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBusquedaAvanzadaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlBusquedaAvanzadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tb_facBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 799, Short.MAX_VALUE)
+                    .addComponent(btnCancelarBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlBusquedaAvanzadaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCancelarBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(pnlFiltroProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 3, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlBusquedaAvanzadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pnlBusquedaAvanzadaLayout.createSequentialGroup()
+                        .addComponent(txtBusquedaProd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scpnlTblListadoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAceptarBusqueda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         pnlBusquedaAvanzadaLayout.setVerticalGroup(
             pnlBusquedaAvanzadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBusquedaAvanzadaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tb_facBusqueda)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancelarBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addGroup(pnlBusquedaAvanzadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBusquedaAvanzadaLayout.createSequentialGroup()
+                        .addGroup(pnlBusquedaAvanzadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtBusquedaProd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addComponent(scpnlTblListadoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlBusquedaAvanzadaLayout.createSequentialGroup()
+                        .addComponent(pnlFiltroProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(pnlBusquedaAvanzadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelarBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAceptarBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-
-        tb_facBusqueda.getAccessibleContext().setAccessibleName("BuscarCliente");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlBusquedaAvanzada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlBusquedaAvanzada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlBusquedaAvanzada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlBusquedaAvanzada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -320,6 +279,14 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
     private void btnCancelarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarBusquedaActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarBusquedaActionPerformed
+
+    private void btnAceptarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarBusquedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAceptarBusquedaActionPerformed
+
+    private void txtBusquedaProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusquedaProdKeyReleased
+        filtrarBusqueda();
+    }//GEN-LAST:event_txtBusquedaProdKeyReleased
 
     /**
      * @param args the command line arguments
@@ -365,30 +332,19 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgCriterioBusqueda;
-    private javax.swing.JButton btnBuscarCliente;
+    private javax.swing.JButton btnAceptarBusqueda;
     private javax.swing.JButton btnBuscarProd;
     private javax.swing.JButton btnCancelarBusqueda;
-    private javax.swing.JPanel pnlBuscarCliente;
-    private javax.swing.JPanel pnlBuscarProducto;
     private javax.swing.JPanel pnlBusquedaAvanzada;
-    private javax.swing.JPanel pnlFiltroCliente;
     private javax.swing.JPanel pnlFiltroProd;
-    private javax.swing.JRadioButton rbCodigoCliente;
-    private javax.swing.JRadioButton rbCodigoCliente1;
-    private javax.swing.JRadioButton rbCorreo;
-    private javax.swing.JRadioButton rbCorreo1;
-    private javax.swing.JRadioButton rbEstado;
-    private javax.swing.JRadioButton rbEstado1;
-    private javax.swing.JRadioButton rbNombre;
-    private javax.swing.JRadioButton rbNombre1;
-    private javax.swing.JRadioButton rbTelefono;
-    private javax.swing.JRadioButton rbTelefono1;
-    private javax.swing.JScrollPane scpnlTblListadoCliente;
+    private javax.swing.JRadioButton rbCodigoProd;
+    private javax.swing.JRadioButton rbDescripProd;
+    private javax.swing.JRadioButton rbMedidasProd;
+    private javax.swing.JRadioButton rbProveedorProd;
+    private javax.swing.JRadioButton rbTipoProd;
+    private javax.swing.JRadioButton rbVariedadProd;
     private javax.swing.JScrollPane scpnlTblListadoProd;
-    private javax.swing.JTable tbListadoCliente;
     private javax.swing.JTable tbListadoProd;
-    private javax.swing.JTabbedPane tb_facBusqueda;
-    private javax.swing.JTextField txtBusquedaCliente;
     private javax.swing.JTextField txtBusquedaProd;
     // End of variables declaration//GEN-END:variables
 }

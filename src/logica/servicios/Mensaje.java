@@ -29,6 +29,9 @@ public class Mensaje {
             case ANY_ROW_SELECTED:
                 msg = "Seleccione un elemento de la lista";
                 break;
+            case ANY_RADIO_BUTTON_SELECTED:
+                msg = "Seleccione una opción de filtrado";
+                break;
             case CONFIRMATION_EMAIL_NOT_FOUND:
                 msg = "No se ha podido encontrar un correo asociado \nal "
                         + "nombre de usuario especificado";

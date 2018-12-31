@@ -37,7 +37,6 @@ public class MdlMadera {
     }
     /**
      * Llena una lista con todos los productos almacenados en la BD.
-     *
      * @return lista de productos.
      */
     public ArrayList<Madera> obtenerProductos() {
@@ -122,18 +121,6 @@ public class MdlMadera {
             String estado;
             String codProveedor;
             String nomProveedor;
-            /*p.cod_Productos, 
-    	   p.codProd_Productos, 
-           p.desc_Productos, 
-           p.precioXvara_Productos, 
-           p.unidad_Productos, 
-           p.medidas_Productos, 
-           p.codTipoMadera_Productos, 
-           tm.desc_TipoMadera, 
-           p.tipoProducto_Productos, 
-           p.codigo_Proveedores,
-     	   prs.nom_Personas,
-           p.estado_Productos*/
 
             while (resultado.next()) {
                 codigo = resultado.getString("cod_Productos");
@@ -165,7 +152,69 @@ public class MdlMadera {
             return productos;
         }
     }
-    
+    /**
+     * Buscar productos enviando por parámetro el código de clasificación de
+     * búsqueda y el critério de búsqueda.
+     * @param paramProd Datos del producto para consultar producto en la bd
+     * @param codBusq código de clasificación/especificación de búsqueda
+     * @return lista de productos
+     */
+    public ArrayList busqAvzProductos(String paramProd, int codBusq) {
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(paramProd);
+        params.add(codBusq);
+        
+        productos = new ArrayList<>();
+        
+        try {
+            procedimiento = "pc_busq_avz_producto(?, ?)";
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+
+            String codigo;
+            String codProducto;
+            String codTipoMadera;
+            String descTipoMadera;
+            String medidas;
+            String tipoProducto;
+            int unidades;
+            double precioXvara;
+            String descripcion;
+            String estado;
+            String codProveedor;
+            String nomProveedor;
+            
+            while (resultado.next()) {
+                codigo = resultado.getString("cod_Productos");
+                codProducto = resultado.getString("codProd_Productos");
+                descripcion = resultado.getString("desc_Productos");
+                precioXvara = resultado.getDouble("precioXvara_Productos");
+                unidades = resultado.getInt("unidad_Productos");
+                medidas = resultado.getString("medidas_Productos");
+                codTipoMadera = resultado.getString("codTipoMadera_Productos");
+                descTipoMadera = resultado.getString("desc_TipoMadera");
+                tipoProducto = resultado.getString("tipoProducto_Productos");
+                codProveedor = resultado.getString("codigo_Proveedores");
+                nomProveedor = resultado.getString("nom_Proveedor");
+                estado = resultado.getString("estado_Productos");
+
+                Madera producto
+                        = new Madera(codigo, codProducto, codTipoMadera, 
+                                descTipoMadera, medidas, tipoProducto, unidades, 
+                                precioXvara, descripcion, estado, codProveedor, 
+                                nomProveedor);
+
+                if (!productos.contains(producto)) {
+                    productos.add(producto);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return productos;
+        }
+    }
     /**
      * Inserta un nuevo producto en la BD
      *
