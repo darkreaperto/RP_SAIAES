@@ -151,6 +151,10 @@ public class Mensaje {
                 msg = "Verifique que los campos estén llenos con información"
                         + " válida.";
                 break;
+            case WRONG_DECIMAL_NUMBER:
+                msg = "Solo se permite un carácter de punto decimal (.) en el"
+                        + " porcentaje de impuesto.";
+                break;
             default:
                 msg = "¡Ups! ¡Algo no ha salido bien!";
                 break;

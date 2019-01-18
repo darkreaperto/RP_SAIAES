@@ -35,4 +35,22 @@ public class CtrImpuesto {
         return instancia == null ? new CtrImpuesto() : instancia;
     }
     
+    /**
+     * Llama el método que inserta un registro 'impuesto' en la bd
+     * @param codigoImpuesto codigo del tipo de impuesto indicado por haciendda
+     * @param tarifaImpuesto porcentaje de impuesto aplicado al producto
+     * @param montoImpuesto valor extra(impuesto) que se sumará al precio del 
+     * producto
+     * @return verdadero si el impuesto se crea exitosamente
+     */
+    public boolean crearImpuesto(String codigoImpuesto, double tarifaImpuesto, 
+            double montoImpuesto) {
+
+        return mdlImpuesto.crearImpuesto(codigoImpuesto, tarifaImpuesto, 
+                montoImpuesto);
+    }
+    
+    public int getCodImpuesto() {
+        return mdlImpuesto.getCodImpuesto();
+    }
 }

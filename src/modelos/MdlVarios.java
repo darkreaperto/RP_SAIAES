@@ -8,57 +8,46 @@ package modelos;
 import controladores.CtrConexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
+import logica.negocio.Varios;
 import logica.servicios.Mensaje;
 
 /**
- * Modelo de clase impuesto
+ * Modelo de la clase varios
  * @author aoihanabi
  */
-public class MdlImpuesto {
+public class MdlVarios {
     private static CtrConexion conexion;
     private static String procedimiento;
     private static ResultSet resultado;
+    private static ArrayList<Varios> prodVarios;
     private static Mensaje msgError;
-    private static int indice = 0;
 
-    /**
-     * Constructor de clase modelo de impuesto.
-     */
-    public MdlImpuesto() {
+    public MdlVarios() {
         conexion = new CtrConexion();
         msgError = new Mensaje();
     }
+    
     /**
-     * Llama el procedimiento almacenado que crea un registro 'impuesto' en la bd
-     * @param codigoImpuesto codigo del tipo de impuesto indicado por haciendda
-     * @param tarifaImpuesto porcentaje de impuesto aplicado al producto
-     * @param montoImpuesto valor extra(impuesto) que se sumará al precio del 
-     * producto
-     * @return verdadero si el impuesto se crea exitosamente
+     * Inserta un nuevo producto "varios" en la BD
+     * @param precio precio del producto
+     * @param descripcion detalle del producto
+     * @return true si inserta el producto.
      */
-    public boolean crearImpuesto(String codigoImpuesto, double tarifaImpuesto, 
-            double montoImpuesto) {
+    public boolean crearVarios(String descripcion, double precio) {
+        
         ArrayList<Object> params = new ArrayList<>();
-        params.add(codigoImpuesto);
-        params.add(tarifaImpuesto);
-        params.add(montoImpuesto);
-        params.add(Types.BIGINT);
+        params.add(descripcion);
+        params.add(precio);
 
         boolean creacionExitosa = true;
         try {
-            procedimiento = "pc_crear_impuesto(?, ?, ?, ?)";
+            procedimiento = "pc_crear_varios(?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
-            
-            //obtener el índice de la fila insertada
-            while (resultado.next()) {
-                indice = resultado.getInt("@indiceImpuesto");
-            }
-                       
             System.out.println(resultado);
+
         } catch (SQLException ex) {
             System.err.println(ex);            
             creacionExitosa = false;
@@ -68,9 +57,5 @@ public class MdlImpuesto {
             conexion.cerrarConexion();
             return creacionExitosa;
         }
-    }
-    
-    public int getCodImpuesto() {
-        return indice;
     }
 }

@@ -40,27 +40,26 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="lblDescripcionVarios" min="-2" pref="91" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtDescripcionVarios" min="-2" pref="411" max="-2" attributes="0"/>
+                          <Component id="btnCancelarVarios" min="-2" pref="115" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                          <Component id="btnAgregarVarios" min="-2" pref="115" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="lblCantidadVarios" min="-2" pref="91" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="lblDescripcionVarios" min="-2" pref="91" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="spnCantidad" min="-2" pref="142" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="lblCantidadVarios1" min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="btnCancelarVarios" alignment="0" min="-2" pref="146" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="lblPrecioVarios" min="-2" pref="93" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnAgregarVarios" max="32767" attributes="0"/>
-                              <Component id="txtDescripcionVarios1" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtDescripcionVarios" pref="200" max="32767" attributes="0"/>
+                              <Component id="txtPrecioVarios" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -73,17 +72,15 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtDescripcionVarios" pref="30" max="32767" attributes="0"/>
-                      <Component id="lblDescripcionVarios" max="32767" attributes="0"/>
+                      <Component id="lblDescripcionVarios" pref="30" max="32767" attributes="0"/>
+                      <Component id="txtDescripcionVarios" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="spnCantidad" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="lblCantidadVarios" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="lblCantidadVarios1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="txtDescripcionVarios1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblPrecioVarios" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txtPrecioVarios" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="43" max="32767" attributes="0"/>
+                  <EmptySpace pref="44" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnAgregarVarios" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="btnCancelarVarios" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
@@ -94,6 +91,20 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
+        <Component class="javax.swing.JLabel" name="lblDescripcionVarios">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Descripci&#xf3;n: "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblPrecioVarios">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Precio:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtDescripcionVarios">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtPrecioVarios">
+        </Component>
         <Component class="javax.swing.JButton" name="btnCancelarVarios">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
@@ -103,27 +114,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JSpinner" name="spnCantidad">
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblDescripcionVarios">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Descripci&#xf3;n: "/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtDescripcionVarios">
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblCantidadVarios">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Cantidad:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblCantidadVarios1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Precio Unitario:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtDescripcionVarios1">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarVariosActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

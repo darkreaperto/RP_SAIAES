@@ -63,6 +63,8 @@ public enum TipoMensaje {
     SEND_CONFIRMATION_EMAIL_SUCCESS,
     /** Identificador del mensaje: precio ingresado no es correcto. */
     PRICE_SYNTAX_FAILURE,
+    
+    PRODUCT_AMOUNT_EXCEEDED,
     /** Identificador del mensaje: fallo en la inserción del producto. */
     PRODUCT_INSERTION_FAILURE,
     /** Identificador del mensaje: exito en la inserción del producto. */
@@ -91,6 +93,7 @@ public enum TipoMensaje {
     WRONG_CONFIRMATION_CODE,
     /** Identificador del mensaje: campos de cliente incorrectos. */
     WRONG_CUSTOMER_FIELDS,
+    WRONG_DECIMAL_NUMBER,
     /** Identificador del mensaje: algo ha salido mal. */
     SOMETHING_WENT_WRONG
 }

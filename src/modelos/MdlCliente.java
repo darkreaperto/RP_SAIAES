@@ -162,7 +162,6 @@ public class MdlCliente {
                 ctrContacto.crearContacto(info, String.valueOf(indice), tipo);
             }
             
-            //creacionExitosa = true;
             System.out.println(resultado);
         } catch (SQLException ex) {
             System.err.println(ex);            

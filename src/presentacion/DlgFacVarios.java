@@ -5,12 +5,22 @@
  */
 package presentacion;
 
+import controladores.CtrVarios;
+import javax.swing.JOptionPane;
+import logica.servicios.Mensaje;
+import logica.servicios.Regex;
+import util.TipoMensaje;
+
 /**
  *
  * @author aoihanabi
  */
 public class DlgFacVarios extends javax.swing.JDialog {
     public static ItnFrmFacturacion ifrmFacturacion;
+    public static CtrVarios controlador;
+    private final Regex verificacion;
+    private static Mensaje msg;
+    
     /**
      * Creates new form DlgFacVarios.
      * @param parent ventana padre de este Jdialog
@@ -24,8 +34,64 @@ public class DlgFacVarios extends javax.swing.JDialog {
         this.setModal(modal);
         initComponents();
         setLocationRelativeTo(this);
+        
+        controlador = new CtrVarios();
+        verificacion = new Regex();
+        msg = new Mensaje();
     }
-
+    
+    /**
+     * Verificar la información solicitada y agregar el producto a la bd.
+     * @param descripcion detalle que describe el producto
+     * @param precio precio del producto
+     * @return verdadero si agrega el producto exitosamente
+     */
+    public boolean agregarVarios(String descripcion, String precio) {
+               
+        if(!descripcion.isEmpty() && !precio.isEmpty()) {
+            if(verificacion.validaPrecio(precio)) {
+                //System.out.println(verificacion.validaPrecio(precio));
+                double preciodou = Double.valueOf(precio);
+                //System.out.println(preciodou);
+                boolean crear = controlador.crearVarios(descripcion, preciodou);
+                if (crear) {                        
+                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+                            TipoMensaje.PRODUCT_INSERTION_SUCCESS);                        
+                    return true;
+                } else {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                            TipoMensaje.PRODUCT_INSERTION_FAILURE);                        
+                }
+            }else{
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.PRICE_SYNTAX_FAILURE);
+            }
+        } else {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.EMPTY_TEXT_FIELD);
+        }
+        return false;
+    }
+    
+    private boolean validarPrecio(String precio) {
+        boolean exito = false;
+        try {
+            Double.parseDouble(precio);
+            exito = true;
+        } catch (NumberFormatException ex) {
+            System.out.println(ex.toString());
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        } finally {
+            return exito;
+        }
+    }
+    
+    private void enviarDatos(String descripcion, double precio) {
+        ifrmFacturacion.facVarios[0] = descripcion;
+        ifrmFacturacion.facVarios[1] = precio;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,26 +102,27 @@ public class DlgFacVarios extends javax.swing.JDialog {
     private void initComponents() {
 
         pnlFacVarios = new javax.swing.JPanel();
+        lblDescripcionVarios = new javax.swing.JLabel();
+        lblPrecioVarios = new javax.swing.JLabel();
+        txtDescripcionVarios = new javax.swing.JTextField();
+        txtPrecioVarios = new javax.swing.JTextField();
         btnCancelarVarios = new javax.swing.JButton();
         btnAgregarVarios = new javax.swing.JButton();
-        spnCantidad = new javax.swing.JSpinner();
-        lblDescripcionVarios = new javax.swing.JLabel();
-        txtDescripcionVarios = new javax.swing.JTextField();
-        lblCantidadVarios = new javax.swing.JLabel();
-        lblCantidadVarios1 = new javax.swing.JLabel();
-        txtDescripcionVarios1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        lblDescripcionVarios.setText("Descripción: ");
+
+        lblPrecioVarios.setText("Precio:");
 
         btnCancelarVarios.setText("Cancelar");
 
         btnAgregarVarios.setText("Agregar");
-
-        lblDescripcionVarios.setText("Descripción: ");
-
-        lblCantidadVarios.setText("Cantidad:");
-
-        lblCantidadVarios1.setText("Precio Unitario:");
+        btnAgregarVarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarVariosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlFacVariosLayout = new javax.swing.GroupLayout(pnlFacVarios);
         pnlFacVarios.setLayout(pnlFacVariosLayout);
@@ -63,24 +130,22 @@ public class DlgFacVarios extends javax.swing.JDialog {
             pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFacVariosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlFacVariosLayout.createSequentialGroup()
-                        .addComponent(lblDescripcionVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDescripcionVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnCancelarVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
+                        .addComponent(btnAgregarVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlFacVariosLayout.createSequentialGroup()
                         .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlFacVariosLayout.createSequentialGroup()
-                                .addComponent(lblCantidadVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(spnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblCantidadVarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnCancelarVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAgregarVarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtDescripcionVarios1))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFacVariosLayout.createSequentialGroup()
+                                .addComponent(lblDescripcionVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFacVariosLayout.createSequentialGroup()
+                                .addComponent(lblPrecioVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3)))
+                        .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtDescripcionVarios, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(txtPrecioVarios))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlFacVariosLayout.setVerticalGroup(
@@ -88,15 +153,13 @@ public class DlgFacVarios extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFacVariosLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtDescripcionVarios, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(lblDescripcionVarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCantidadVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCantidadVarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDescripcionVarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                    .addComponent(lblDescripcionVarios, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(txtDescripcionVarios))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPrecioVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecioVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelarVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -116,6 +179,22 @@ public class DlgFacVarios extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAgregarVariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVariosActionPerformed
+        String descripcion = txtDescripcionVarios.getText();
+        String precio = txtPrecioVarios.getText().trim();
+        
+        if (validarPrecio(precio)) {
+            enviarDatos(descripcion, Double.parseDouble(precio));
+        }
+        ifrmFacturacion.agregarLineaVarios();
+        //System.out.println(txtDescripcionVarios.getText() + " " + txtPrecioVarios.getText());
+//        boolean agregado = agregarVarios(descripcion, precio);
+//        if(agregado) {
+//            txtDescripcionVarios.setText("");
+//            txtPrecioVarios.setText("");
+//        }
+    }//GEN-LAST:event_btnAgregarVariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,12 +241,10 @@ public class DlgFacVarios extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarVarios;
     private javax.swing.JButton btnCancelarVarios;
-    private javax.swing.JLabel lblCantidadVarios;
-    private javax.swing.JLabel lblCantidadVarios1;
     private javax.swing.JLabel lblDescripcionVarios;
+    private javax.swing.JLabel lblPrecioVarios;
     private javax.swing.JPanel pnlFacVarios;
-    private javax.swing.JSpinner spnCantidad;
     private javax.swing.JTextField txtDescripcionVarios;
-    private javax.swing.JTextField txtDescripcionVarios1;
+    private javax.swing.JTextField txtPrecioVarios;
     // End of variables declaration//GEN-END:variables
 }

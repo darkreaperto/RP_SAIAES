@@ -13,7 +13,7 @@ import logica.negocio.Madera;
 import logica.servicios.Mensaje;
 
 /**
- *
+ * Modelo de la clase varios
  * @author aoihanabi
  */
 public class MdlMadera {

@@ -10,15 +10,17 @@ package logica.negocio;
  * @author aoihanabi
  */
 public class LineaDetalle {
-    private String codLDetalle;
+    private String codLDetalle; //código de bd para línea de pedido
     private int numeroLinea;//consecutivo de línea
     private String tipoCodProducto; //04 cod interno?
     private String codigoProducto;
-    private double cantidad;
+    private int cantidad;
     private String unidadMedida; //es unidades, buscar codigo para unidades y poner estático?
     private String detalle;
     private double precioUnitario;
     private double total; //(cantidad*preciounitario)
+    private double descuento;
+    private String naturalezaDescuento;
     private double subtotal; //(total-descuentos)
     //Impuesto
     private String codImpuesto;
@@ -32,7 +34,6 @@ public class LineaDetalle {
     
     /**
      * Constructor de clase LineaPedido, inicializa variables.
-     * @param codLDetalle código de bd para línea de pedido
      * @param numeroLinea número consecutivo en línea de pedido
      * @param tipoCodProducto tipo codigo de producto
      * @param codigoProducto codigo del producto
@@ -41,16 +42,17 @@ public class LineaDetalle {
      * @param detalle descripción del producto
      * @param precioUnitario precio de producto por unidad
      * @param total cantidad de productos por su precio
+     * @param descuento monto del descuento
+     * @param naturalezaDescuento naturaleza o razón del descuento
      * @param subtotal productos sin descuento
      * @param codImpuesto codigo del tipo de impuesto
      * @param montoTotalLinea monto final por el que se facturará
      */
-    public LineaDetalle(String codLDetalle, int numeroLinea, 
-            String tipoCodProducto, String codigoProducto, double cantidad, 
+    public LineaDetalle(int numeroLinea, 
+            String tipoCodProducto, String codigoProducto, int cantidad, 
             String unidadMedida, String detalle, double precioUnitario, 
-            double total, double subtotal, String codImpuesto, 
-            double montoTotalLinea) {
-        this.codLDetalle = codLDetalle;
+            double total, double descuento, String naturalezaDescuento,
+            double subtotal, String codImpuesto, double montoTotalLinea) {
         this.numeroLinea = numeroLinea;
         this.tipoCodProducto = tipoCodProducto;
         this.codigoProducto = codigoProducto;
@@ -100,7 +102,7 @@ public class LineaDetalle {
      * Establecer cantidad de producto a facturar
      * @param cantidad cantidad de productos a facturar
      */
-    public void setCantidad(double cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -135,7 +137,21 @@ public class LineaDetalle {
     public void setTotal(double total) {
         this.total = total;
     }
-
+    
+    /**
+     * Establecer descuento del producto en la factura
+     * @param descuento monto de descuento del producto
+     */
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
+    }
+    /**
+     * Establecer la naturaleza del descuento
+     * @param naturalezaDescuento cantidad de productos por el precio unitario
+     */
+    public void setNaturalezaDescuento (String naturalezaDescuento) {
+        this.naturalezaDescuento = naturalezaDescuento;
+    }
     /**
      * Establecer subtotal de la factura
      * @param subtotal subtotal de factura
@@ -196,7 +212,7 @@ public class LineaDetalle {
      * Obtener la cantidad de productos a facturar.
      * @return cantidad de productos
      */
-    public double getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 
@@ -230,6 +246,22 @@ public class LineaDetalle {
      */
     public double getTotal() {
         return total;
+    }
+    
+    /**
+     * Obtener el valor de descuento del producto.
+     * @return valor total por descuento del producto
+     */
+    public double getDescuento() {
+        return descuento;
+    }
+    
+    /**
+     * Obtener la naturaleza del descuento del producto.
+     * @return naturaleza de descuento del producto
+     */
+    public String getNaturalezaDescuento() {
+        return naturalezaDescuento;
     }
 
     /**

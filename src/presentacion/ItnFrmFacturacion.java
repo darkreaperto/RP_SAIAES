@@ -8,25 +8,29 @@ package presentacion;
 import controladores.CtrAcceso;
 import controladores.CtrCliente;
 import controladores.CtrFactura;
+import controladores.CtrImpuesto;
+import controladores.CtrLineaDetalle;
 import controladores.CtrMadera;
 import java.awt.Container;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JDialog;
-import javax.swing.JInternalFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
+import logica.negocio.LineaDetalle;
 import logica.negocio.Madera;
+import logica.servicios.Mensaje;
+import util.TipoMensaje;
 
 /**
  * Inicializa la ventana que contiene la información de los facturación.
+ *
  * @author aoihanabi
  */
 public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
-    
+
     private static DlgFacBusqueda dialogBusqueda;
     private static DlgFacImpuesto dialogImpuesto;
     private static DlgFacVarios dialogVarios;
@@ -35,14 +39,25 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     private static CtrFactura controlador;
     private static CtrMadera ctrInventario = new CtrMadera();
     private static CtrCliente ctrCliente = new CtrCliente();
+    private static CtrImpuesto ctrImpuesto;
+    private static CtrLineaDetalle ctrLineaDetalle;
     private static FrmPrincipal ventanaPrincipal;
     private static ItnFrmCliente modCliente;
     private static ItnFrmInventario modInventario;
+    private static Mensaje msg;
     private static ArrayList<Madera> listaProd;
     private static ArrayList<Cliente> listaClientes;
+    //private static Madera selectedProd;// = new Madera();
+    private static ArrayList<Object> totales = new ArrayList<>();
+    private static double precioSinImpuesto = 0.0;
+    private static ArrayList<LineaDetalle> lineas = new ArrayList<>();
+    public double montoImpuesto;
+    public Object[] facVarios = new Object[2];  //productos varios [descripcion, precio]
     
+
     /**
      * Instancia un formulario interno de facturación.
+     *
      * @param sesion usuario en sesión actual
      * @param clientes Lista con los clientes en la base de datos
      * @param productos Lista con los productos en la bd.
@@ -50,14 +65,18 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     protected ItnFrmFacturacion(CtrAcceso sesion, ArrayList<Cliente> clientes,
             ArrayList<Madera> productos) {
         initComponents();
-        
+
         controlador = CtrFactura.getInstancia();
         ItnFrmFacturacion.sesionAcc = sesion;
         ItnFrmFacturacion.listaClientes = clientes;
         ItnFrmFacturacion.listaProd = productos;
         System.out.println("SE " + sesionAcc);
-        //lblUsuarioFac.setText(sesionAcc.getUsuario().getNombre());       
+        //lblUsuarioFac.setText(sesionAcc.getUsuario().getNombre());
+        ctrImpuesto = new CtrImpuesto();
+        ctrLineaDetalle = new CtrLineaDetalle();
+        msg = new Mensaje();
     }
+
     /**
      * Retorna la única instancia de la clase.
      *
@@ -66,34 +85,36 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
      * @param productos Lista con los productos en la bd.
      * @return instancia.
      */
-    public static ItnFrmFacturacion getInstancia(CtrAcceso sesionAcc, 
+    public static ItnFrmFacturacion getInstancia(CtrAcceso sesionAcc,
             ArrayList<Cliente> clientes, ArrayList<Madera> productos) {
-        
+
         if (instancia == null) {
             instancia = new ItnFrmFacturacion(sesionAcc, clientes, productos);
         }
         return instancia;
     }
+
     /**
-     * Obtener la lista de productos consultados y mostrarla en la lista 
-     * de la interfaz.
+     * Obtener la lista de productos consultados y mostrarla en la lista de la
+     * interfaz.
      * @param paramProd Datos del producto para consultar producto en la bd
      * @param codBusq código de clasificación/especificación de búsqueda
      */
     public void llenarListaProductos(String paramProd, int codBusq) {
-        listaProd =  new ArrayList<>();
-        DefaultListModel<Object> mProductos = new DefaultListModel<>();
+        listaProd = new ArrayList<>();
+        DefaultListModel<Madera> mProductos = new DefaultListModel<>();
         listaProd = ctrInventario.busqAvzProductos(paramProd, codBusq);
-        
+
         for (Madera m : listaProd) {
-            mProductos.addElement(m);             
+            mProductos.addElement(m);
         }
-        lsEscogerProd.setModel(mProductos);        
+        lsEscogerProd.setModel(mProductos);
     }
-    
+
     /**
-     * Obtener de la lista clietes el cliente ingresado por cédula en el 
-     * campo de texto
+     * Obtener de la lista clietes el cliente ingresado por cédula en el campo
+     * de texto
+     *
      * @param p cedula del cliente para consultar
      */
     public void llenarListaClientes(String p) {
@@ -103,42 +124,43 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         DefaultListModel<Object> mClientes = new DefaultListModel<>();
         listaCli = ctrCliente.consultarClientes(p);
         System.out.println(listaCli);
-        
+
         for (Cliente c : listaCli) {
-            mClientes.addElement(c);             
+            mClientes.addElement(c);
         }
         //System.out.println(listaProd);
         lsEscogerCli.setModel(mClientes);
         String cli = "ESTIMADO CLIENTE";
-        
-        for (Cliente c: listaCli) {
-            System.out.println("CED "+c.getCedula());
+
+        for (Cliente c : listaCli) {
+            System.out.println("CED " + c.getCedula());
             if (c.getCedula().equals(p)) {
                 cli = c.toString();
                 break;
             }
-        }        
+        }
         txtClienteFac.setText(cli);
         lblClienteNom.setText(cli);
-        if(!cli.equals("ESTIMADO CLIENTE")) {
+        if (!cli.equals("ESTIMADO CLIENTE")) {
             lblMostrarNombreCl.setText(cli);
         } else {
-            lblMostrarNombreCl.setText(""); 
+            lblMostrarNombreCl.setText("");
         }
     }
-    
+
     public void accederModuloCliente() {
         try {
             ventanaPrincipal = FrmPrincipal.getInstancia();
             Container frameParent = this.getParent().getParent().getParent().getParent().getParent();
             ventanaPrincipal.accederModulos(frameParent, modCliente, 1);
             //ventanaPrincipal.accederModulos(modCliente, 1);
-        modCliente.toFront();
+            modCliente.toFront();
         } catch (Exception e) {
             System.out.println(e.getCause());
         }
-        
+
     }
+
     public void accederModuloProducto() {
         try {
             ventanaPrincipal = FrmPrincipal.getInstancia();
@@ -149,8 +171,158 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println(e.getCause());
         }
-        
+
     }
+    public void abrirVentanaImpuesto() {
+        dialogImpuesto = new DlgFacImpuesto(this, true);
+        dialogImpuesto.setVisible(true);
+    }
+    /**
+     * Verifica si un ítem de la lista(en la interfaz) está
+     * seleccionado, luego llama el método escoger producto utilizando el código
+     * del ítem seleccionado.
+     * @return codigo del producto seleccionado.
+     */
+    public Madera verificarSeleccionLista() {
+        for (int i = 0; i < lsEscogerProd.getModel().getSize(); i++) {
+            //si cualquiera de los indices está seleccionado
+            if (lsEscogerProd.isSelectedIndex(i)) {
+                return lsEscogerProd.getModel().getElementAt(i);
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Obtener los datos pertinentes del producto para realizar los calculos 
+     * para la venta.
+     */
+    public void agregarLinea() {
+        Madera prodSelected = verificarSeleccionLista();
+        //si se obtuvo toda la información del producto seleccionado
+        if (prodSelected!=null) {
+            int cantTotal = prodSelected.getUnidades();
+            int cantSolicitada = Integer.valueOf(
+                    txtCantidad.getText().trim());
+            double precio = prodSelected.getPrecioXvara();
+            double descuento = 0.0;
+            calcularTotales(cantTotal, cantSolicitada, precio, descuento);
+            
+            abrirVentanaImpuesto();
+            System.out.println("nuevo MONTO: " + montoImpuesto);
+            
+            //si los totales se obtuvieron con éxito
+            if(!totales.isEmpty()) {
+                int numLinea = lineas.size() + 1;
+                String detalle = prodSelected.getTipoProducto() + ": " + 
+                        prodSelected.getDescTipoMadera() + " " + 
+                        prodSelected.getMedidas();
+                
+                LineaDetalle linea = new LineaDetalle(numLinea, "04", 
+                prodSelected.getCodProducto(), cantSolicitada, 
+                "unidades", detalle, precio, 
+                Double.valueOf(totales.get(0).toString()),
+                descuento, "No se realizó descuento", 
+                Double.valueOf(totales.get(2).toString()),
+                String.valueOf(ctrImpuesto.getCodImpuesto()), montoImpuesto);
+                
+                lineas.add(linea);
+                
+                System.out.println("LINEA: "+linea.getCodImpuesto());
+                
+                ctrLineaDetalle.crearLineaDetalle(String.valueOf(ctrImpuesto.getCodImpuesto()), 
+                        numLinea, "04", prodSelected.getCodProducto(), cantSolicitada, 
+                        "unidades", detalle, precio, getPrecioSinImpuesto(), descuento, 
+                        "No se realizó descuento", 
+                        Double.valueOf(totales.get(0).toString()), 
+                        montoImpuesto);
+            }
+            jTableAgregar();
+        }
+    }
+    
+    public void agregarLineaVarios() {
+        if (facVarios[0] != null && facVarios[1] != null) {
+            int numLinea = lineas.size() + 1;
+            LineaDetalle linea = new LineaDetalle(numLinea, "04", "99", 1,
+                    "unidades", String.valueOf(facVarios[0].toString()), 
+                    Double.valueOf(facVarios[1].toString()),
+                    Double.valueOf(facVarios[1].toString()),
+                    0.0, "No se realizó descuento",
+                    Double.valueOf(facVarios[1].toString()), "1",
+                    Double.valueOf(facVarios[1].toString()));
+            
+            lineas.add(linea);
+            
+            ctrLineaDetalle.crearLineaDetalle("1",numLinea, "04", "99", 1, 
+                        "unidades", String.valueOf(facVarios[0].toString()), 
+                        Double.valueOf(facVarios[1].toString()),
+                        Double.valueOf(facVarios[1].toString()), 
+                        0.0, "No se realizó descuento", 
+                        Double.valueOf(facVarios[1].toString()), 
+                        Double.valueOf(facVarios[1].toString()));
+        }
+        jTableAgregar();
+    }
+    
+    public void jTableAgregar() {
+        
+        for (int i = 0; i<lineas.size(); i++) {
+            
+            Object[] row = new Object[6];
+            DefaultTableModel model = (DefaultTableModel) tblLineaPedido.getModel();
+            model.setRowCount(0);
+            model.setColumnCount(6);
+
+            row[0] = lineas.get(i).getDetalle();
+            row[1] = lineas.get(i).getUnidadMedida(); 
+            row[2] = lineas.get(i).getCantidad();
+            row[3] = lineas.get(i).getPrecioUnitario();
+            row[4] = lineas.get(i).getSubtotal();
+            row[5] = lineas.get(i).getTotal();
+
+            model.addRow(row);
+        }
+    }
+    
+    /**
+     * Realiza los cálculos correspondientes referentes al precio total de la
+     * venta y el subtotal; además obtiene la cantidad restante 
+     * en inventario del producto seleccionado para actualizar la bd.
+     * @param cantTotal total de unidades del produto existentes en inventario.
+     * @param cantSolicitada cantidad de unidades del producto solicitada por el
+     * comprador.
+     * @param precio precio unitario del producto.
+     * @param descuento monto de descuento (en caso de aplicarse).
+     * @return Lista con los totales resultantes trans hacer los calculos
+     * correspondientes.
+     */
+    public ArrayList calcularTotales(int cantTotal, int cantSolicitada,
+            double precio, double descuento) {
+        //Si la cantidad solicitada no excede la existente en inventario
+        if (cantTotal >= cantSolicitada) {
+            double precioTotal = precio * cantSolicitada;
+            int cantRestante = cantTotal - cantSolicitada;
+            double subtotal = precioTotal - descuento;
+
+            totales.add(precioTotal);
+            precioSinImpuesto = precioTotal;
+            System.out.println("PRECIO SIN: " + precioSinImpuesto);
+            totales.add(cantRestante);
+            totales.add(subtotal);
+        } else {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                    TipoMensaje.PRODUCT_AMOUNT_EXCEEDED);
+        }
+        System.out.println("0: "+totales.get(0));
+        System.out.println("1: "+totales.get(1));
+        System.out.println("2: "+totales.get(2));
+        return totales;
+    }
+    public double getPrecioSinImpuesto() {
+        return precioSinImpuesto;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -216,8 +388,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         lblClienteNom.setText("CLIENTE GENÉRICO");
         lblClienteNom.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.SystemColor.activeCaption));
 
-        txtProducto.setText("Buscar producto...");
-        txtProducto.setSelectionStart(0);
+        txtProducto.setText("Codigo del producto...");
         txtProducto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtProductoFocusGained(evt);
@@ -266,6 +437,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         });
 
         lsEscogerProd.setForeground(new java.awt.Color(102, 102, 102));
+        lsEscogerProd.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scpnlList.setViewportView(lsEscogerProd);
 
         tblLineaPedido.setModel(new javax.swing.table.DefaultTableModel(
@@ -407,6 +579,11 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 
         btnAddProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/f_add.png"))); // NOI18N
         btnAddProduct.setToolTipText("Agregar producto a la linea");
+        btnAddProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddProductActionPerformed(evt);
+            }
+        });
 
         btnBusquedaAv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/busqueda.png"))); // NOI18N
         btnBusquedaAv.setText("Búsqueda Avanzada");
@@ -482,7 +659,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                             .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnCrearCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(pnlInfoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(34, 34, 34))
                         .addGroup(pnl_modFacturaLayout.createSequentialGroup()
@@ -503,7 +680,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                                     .addComponent(lblTextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                                     .addComponent(btnAgregarVarios))
                                 .addComponent(scpnlList, javax.swing.GroupLayout.Alignment.TRAILING))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -546,13 +723,12 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTextProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblTextProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAddProduct1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblTextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtProducto))
                     .addComponent(btnAgregarVarios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -576,7 +752,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnl_modFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnl_modFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 1224, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -587,29 +763,35 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductoKeyReleased
-        llenarListaProductos(txtProducto.getText(), 5);
+        llenarListaProductos(txtProducto.getText(), 5);//5=código búsqueda
     }//GEN-LAST:event_txtProductoKeyReleased
 
     private void txtProductoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProductoFocusGained
-        if (!(evt.getSource() instanceof JTextField)) return;
-        txtProducto = (JTextField)evt.getSource();
+        if (!(evt.getSource() instanceof JTextField)) {
+            return;
+        }
+        txtProducto = (JTextField) evt.getSource();
         txtProducto.selectAll();
     }//GEN-LAST:event_txtProductoFocusGained
 
     private void txtClienteFacFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtClienteFacFocusGained
-        if (!(evt.getSource() instanceof JTextField)) return;
-        txtClienteFac = (JTextField)evt.getSource();
+        if (!(evt.getSource() instanceof JTextField)) {
+            return;
+        }
+        txtClienteFac = (JTextField) evt.getSource();
         txtClienteFac.selectAll();
     }//GEN-LAST:event_txtClienteFacFocusGained
 
     private void txtCantidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadFocusGained
-        if (!(evt.getSource() instanceof JTextField)) return;
-        txtCantidad = (JTextField)evt.getSource();
+        if (!(evt.getSource() instanceof JTextField)) {
+            return;
+        }
+        txtCantidad = (JTextField) evt.getSource();
         txtCantidad.selectAll();
     }//GEN-LAST:event_txtCantidadFocusGained
 
     private void txtClienteFacKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteFacKeyReleased
-        System.out.println("EVT "+evt.getKeyCode());
+        System.out.println("EVT " + evt.getKeyCode());
         if (evt.getKeyCode() == 10) { //enter
             System.out.println("EVT");
             llenarListaClientes(txtClienteFac.getText().trim());
@@ -617,7 +799,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtClienteFacKeyReleased
 
     private void ftClienteFacKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftClienteFacKeyReleased
-        System.out.println("EVT "+evt.getKeyCode());
+        System.out.println("EVT " + evt.getKeyCode());
         if (evt.getKeyCode() == 10) { //enter
             System.out.println("EVT");
             llenarListaClientes(ftClienteFac.getText().replace("-", "").trim());
@@ -652,15 +834,19 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAddProduct1ActionPerformed
 
     private void btnAddImpuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddImpuestoActionPerformed
-        dialogImpuesto = new DlgFacImpuesto(this, true);
-        dialogImpuesto.setVisible(true);
+        abrirVentanaImpuesto();
     }//GEN-LAST:event_btnAddImpuestoActionPerformed
 
     private void btnAgregarVariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVariosActionPerformed
         dialogVarios = new DlgFacVarios(this, true);
         dialogVarios.setVisible(true);
+        agregarLineaVarios();
     }//GEN-LAST:event_btnAgregarVariosActionPerformed
-   
+
+    private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
+        agregarLinea();
+    }//GEN-LAST:event_btnAddProductActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddImpuesto;
     private javax.swing.JButton btnAddProduct;
@@ -688,7 +874,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblTextUsuario;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblUsuarioFac;
-    private javax.swing.JList<Object> lsEscogerProd;
+    private javax.swing.JList<Madera> lsEscogerProd;
     private javax.swing.JPanel pnlInfoCliente;
     private javax.swing.JPanel pnlTotales;
     private javax.swing.JPanel pnl_modFactura;
