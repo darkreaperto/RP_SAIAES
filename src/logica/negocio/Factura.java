@@ -5,51 +5,24 @@
  */
 package logica.negocio;
 
-import java.util.Date;
-
 /**
  * Instancia las facturas con sus atributos.
  * @author aoihanabi
  */
 public class Factura {
+    
     //Encabezado
-    private String codigoFac;
-    private String clave;
-    private String numeroConsecutivo;
-    private Date fechaEmision;
-    private String nombreEmisor;
-    private String tipoIdentEm;
-    private String numeroIdentEm;
-    private String provinciaEm;
-    private String cantonEm;
-    private String distritoEm;
-    private String otrasSenasEm;
-    private int codigoPaisEm;
-    private int numTelefonoEm;
-    private String correoElectronicoEm;
-    private String codReceptor;
-    private String condicionVenta;
-    private String plazoCredito; 
-    private String medioPago;
+    private FacEncabezado encabezado;
     //Linea de pedido
-    private String codigoLPedido;
+    private LineaDetalle lineaDetalle;
     //ResumenFactura
-    private String codigoMoneda;
-    private double tipoCambio;
-    private double totalServGravados;
-    private double totalSerExentos;
-    private double totalMercanciasGravadas;
-    private double totalMercanciasExentas;
-    private double totalGravado;
-    private double totalExento;
-    private double totalVenta;
-    private double totalDescuentos;
-    private double totalVentaNeta; //total venta menos total descuentos
-    private double totalImpuesto;
-    private double totalComprobante;
+    private FacResumen resumen;
     //Información de referencia
+    private FacReferencia infoReferencia;
     //Normativa vigente (resolución)
+    private FacNormativa normativa;
     //Mecanismo de seguridad
+    private FacSeguridad mecanSeguridad;
     
 
     /**
@@ -61,369 +34,118 @@ public class Factura {
     
     /**
      * Constructor de clase de factura, inicializa variables.
-     * @param codigoFac codigo de factura para la bd.
-     * @param clave clave numerica de factura.
-     * @param numeroConsecutivo consecutivo de factura.
-     * @param fechaEmision fecha en que se emite la factura.
-     * @param nombreEmisor nombre de quien realiza la factura (aserradero).
-     * @param tipoIdentEm tipo de identificación del emisor de factura.
-     * @param numeroIdentEm numero de identificación del emisor de factura.
-     * @param provinciaEm ubicación del emisor: provincia.
-     * @param cantonEm ubicación del emisor: cantón.
-     * @param distritoEm ubicación del emisor: distrito.
-     * @param otrasSenasEm ubicación del emisor: otras señas.
-     * @param codigoPaisEm código de país del emisor (506).
-     * @param numTelefonoEm número telefónico del emisor .
-     * @param correoElectronicoEm correo electrónico del emisor.
-     * @param codReceptor codigo del cliente que recibe la factura.
-     * @param condicionVenta condición de venta (crédito, contado).
-     * @param plazoCredito plazo para crédito.
-     * @param medioPago medio de págo de factura (efectivo, tarjeta, cheque, etc).
-     * @param codigoLPedido codigo del pedido (lista de productos a facturar)
-     * @param codigoMoneda codigo de moneda 
-     * @param tipoCambio tipo de cambio
-     * @param totalServGravados total de servicios gravados
-     * @param totalSerExentos total de servicios exentos
-     * @param totalMercanciasGravadas total de mercancías gravadas
-     * @param totalMercanciasExentas total de mercancías exentas
-     * @param totalGravado total gravado
-     * @param totalExento total exento
-     * @param totalVenta total de la venta
-     * @param totalDescuentos total de descuento
-     * @param totalVentaNeta total de la venta neta (total venta menos total descuento)
-     * @param totalImpuesto total de impuesto (suma de todos los montos de impuesto)
-     * @param totalComprobante total del comprobante (venta neta mas impuesto)
+     * @param encabezado encabezado de la factura
+     * @param lineaDetalle linea de detalle (lista de productos a facturar)
+     * @param resumen resumen de la factura
+     * @param infoReferencia información de referencia de la factura
+     * @param normativa información de normativa de la factura
+     * @param mecanSeguridad mecanismo de seguridad de la factura
      */
-    public Factura(String codigoFac, String clave, String numeroConsecutivo, 
-            Date fechaEmision, String nombreEmisor, String tipoIdentEm, 
-            String numeroIdentEm, String provinciaEm, String cantonEm, 
-            String distritoEm, String otrasSenasEm, int codigoPaisEm, 
-            int numTelefonoEm, String correoElectronicoEm, String codReceptor, 
-            String condicionVenta, String plazoCredito, String medioPago, 
-            String codigoLPedido, String codigoMoneda, double tipoCambio, 
-            double totalServGravados, double totalSerExentos, 
-            double totalMercanciasGravadas, double totalMercanciasExentas, 
-            double totalGravado, double totalExento, double totalVenta, 
-            double totalDescuentos, double totalVentaNeta, double totalImpuesto, 
-            double totalComprobante) {
-        this.codigoFac = codigoFac;
-        this.clave = clave;
-        this.numeroConsecutivo = numeroConsecutivo;
-        this.fechaEmision = fechaEmision;
-        this.nombreEmisor = nombreEmisor;
-        this.tipoIdentEm = tipoIdentEm;
-        this.numeroIdentEm = numeroIdentEm;
-        this.provinciaEm = provinciaEm;
-        this.cantonEm = cantonEm;
-        this.distritoEm = distritoEm;
-        this.otrasSenasEm = otrasSenasEm;
-        this.codigoPaisEm = codigoPaisEm;
-        this.numTelefonoEm = numTelefonoEm;
-        this.correoElectronicoEm = correoElectronicoEm;
-        this.codReceptor = codReceptor;
-        this.condicionVenta = condicionVenta;
-        this.plazoCredito = plazoCredito;
-        this.medioPago = medioPago;
-        this.codigoLPedido = codigoLPedido;
-        this.codigoMoneda = codigoMoneda;
-        this.tipoCambio = tipoCambio;
-        this.totalServGravados = totalServGravados;
-        this.totalSerExentos = totalSerExentos;
-        this.totalMercanciasGravadas = totalMercanciasGravadas;
-        this.totalMercanciasExentas = totalMercanciasExentas;
-        this.totalGravado = totalGravado;
-        this.totalExento = totalExento;
-        this.totalVenta = totalVenta;
-        this.totalDescuentos = totalDescuentos;
-        this.totalVentaNeta = totalVentaNeta;
-        this.totalImpuesto = totalImpuesto;
-        this.totalComprobante = totalComprobante;
-    }   
-
-    /**
-     * Establecer código de factura para la base de datos
-     * @param codigoFac código de factura para la bd
-     */
-    public void setCodigoFac(String codigoFac) {
-        this.codigoFac = codigoFac;
-    }
-
-    /**
-     * Establecer clave numérica de factura.
-     * @param clave clave numérica solicitada por Hacienda
-     */
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
-    /**
-     * Establecer número consecutivo de factura.
-     * @param numeroConsecutivo consecutivo solicitado por Hacienda
-     */
-    public void setNumeroConsecutivo(String numeroConsecutivo) {
-        this.numeroConsecutivo = numeroConsecutivo;
-    }
-
-    /**
-     * Establecer fecha de emisión de factura
-     * @param fechaEmision fecha en que es emitida la factura
-     */
-    public void setFechaEmision(Date fechaEmision) {
-        this.fechaEmision = fechaEmision;
-    }
-
-    /**
-     * Establecer nombre de quien realiza/envía la factura
-     * @param nombreEmisor nombre del emisor(Aserradero)
-     */
-    public void setNombreEmisor(String nombreEmisor) {
-        this.nombreEmisor = nombreEmisor;
-    }
-
-    /**
-     * Establecer tipo de identificación del emisor de factura
-     * @param tipoIdentEm tipo de identificación del emisor(Aserradero)
-     */
-    public void setTipoIdentEm(String tipoIdentEm) {
-        this.tipoIdentEm = tipoIdentEm;
-    }
-
-    /**
-     * Establecer número de identificación del emisor
-     * @param numeroIdentEm número de identifación del emisor(Aserradero)
-     */
-    public void setNumeroIdentEm(String numeroIdentEm) {
-        this.numeroIdentEm = numeroIdentEm;
-    }
-
-    /**
-     * Establecer provincia en que se ubica el emisor.
-     * @param provinciaEm provincia en que se ubica el emisor(Aserradero)
-     */
-    public void setProvinciaEm(String provinciaEm) {
-        this.provinciaEm = provinciaEm;
-    }
-    /**
-     * Establecer cantón en que se ubica el emisor.
-     * @param cantonEm cantón en que se ubica el emisor(Aserradero)
-     */
-    public void setCantonEm(String cantonEm) {
-        this.cantonEm = cantonEm;
-    }
-    
-    /**
-     * Establecer distrito en que se ubica el emisor.
-     * @param distritoEm distrito en que se ubica el emisor
-     */
-    public void setDistritoEm(String distritoEm) {
-        this.distritoEm = distritoEm;
-    }
-
-    /**
-     * Establecer otras señas detallando ubicación del emisor
-     * @param otrasSenasEm otras señas para ubicar el emisor
-     */
-    public void setOtrasSenasEm(String otrasSenasEm) {
-        this.otrasSenasEm = otrasSenasEm;
-    }
-
-    /**
-     * Establecer número/código de país del emisor
-     * @param codigoPaisEm código de país del emisor
-     */
-    public void setCodigoPaisEm(int codigoPaisEm) {
-        this.codigoPaisEm = codigoPaisEm;
-    }
-
-    /**
-     * Establecer número telefónico del emisor
-     * @param numTelefonoEm número telefónico del emisor(Aserradero)
-     */
-    public void setNumTelefonoEm(int numTelefonoEm) {
-        this.numTelefonoEm = numTelefonoEm;
-    }
-
-    /**
-     * Establecer correo electrónico del emisor
-     * @param correoElectronicoEm correo electrónico del emisor(Aserradero)
-     */
-    public void setCorreoElectronicoEm(String correoElectronicoEm) {
-        this.correoElectronicoEm = correoElectronicoEm;
-    }
-
-    /**
-     * Establecer código de cliente que recibirá la factura
-     * @param codReceptor código cliente receptor de factura
-     */
-    public void setCodReceptor(String codReceptor) {
-        this.codReceptor = codReceptor;
-    }
-
-    /**
-     * Establecer condición de venta
-     * @param condicionVenta condición de venta (crédito, contado)
-     */
-    public void setCondicionVenta(String condicionVenta) {
-        this.condicionVenta = condicionVenta;
-    }
-
-    /**
-     * Establecer plazo para crédito
-     * @param plazoCredito plazo de crédito
-     */
-    public void setPlazoCredito(String plazoCredito) {
-        this.plazoCredito = plazoCredito;
-    }
-
-    /**
-     * Establecer medio de pago de factura
-     * @param medioPago medio de pago(tarjeta, efectivo, etc.)
-     */
-    public void setMedioPago(String medioPago) {
-        this.medioPago = medioPago;
-    }
-
-    /**
-     * Obtener código de factura (BD)
-     * @return código de factura para bd
-     */
-    public String getCodigoFac() {
-        return codigoFac;
-    }
+    public Factura(FacEncabezado encabezado, LineaDetalle lineaDetalle, 
+            FacResumen resumen, FacReferencia infoReferencia, 
+            FacNormativa normativa, FacSeguridad mecanSeguridad) {
         
-    /**
-     * Obtener clave numérica
-     * @return clave numérica
-     */
-    public String getClave() {
-        return clave;
+        this.encabezado = encabezado;
+        this.lineaDetalle = lineaDetalle;
+        this.resumen = resumen;
+        this.infoReferencia = infoReferencia;
+        this.normativa = normativa;
+        this.mecanSeguridad = mecanSeguridad;
     }
 
     /**
-     * Obtener número consecutivo de factura
-     * @return número consecutivo
+     * Obtener el encabezado de la factura.
+     * @return the encabezado
      */
-    public String getNumeroConsecutivo() {
-        return numeroConsecutivo;
-    }
-    
-    /**
-     * Obtener fecha de emisión de factura
-     * @return fecha de emisión
-     */
-    public Date getFechaEmision() {
-        return fechaEmision;
+    public FacEncabezado getEncabezado() {
+        return encabezado;
     }
 
     /**
-     * Obtener nombre del emisor de factura
-     * @return nombre del emisor de factura
+     * Establecer el encabezado de la factura.
+     * @param encabezado the encabezado to set
      */
-    public String getNombreEmisor() {
-        return nombreEmisor;
+    public void setEncabezado(FacEncabezado encabezado) {
+        this.encabezado = encabezado;
     }
 
     /**
-     * Obtener tipo de identificación del emisor
-     * @return tipo de identificación del emisor
+     * Obtener la línea de detalle de la factura.
+     * @return the lineaDetalle
      */
-    public String getTipoIdentEm() {
-        return tipoIdentEm;
+    public LineaDetalle getLineaDetalle() {
+        return lineaDetalle;
     }
 
     /**
-     * Obtener número de identificación del emisor
-     * @return número de identificación del emisor
+     * Establecer la línea de detalle de la factura.
+     * @param lineaDetalle the lineaDetalle to set
      */
-    public String getNumeroIdentEm() {
-        return numeroIdentEm;
+    public void setLineaDetalle(LineaDetalle lineaDetalle) {
+        this.lineaDetalle = lineaDetalle;
     }
 
     /**
-     * Obtener provincia en que se ubica el emisor
-     * @return provincia del emisor
+     * Obtener el resumen de la factura.
+     * @return the resumen
      */
-    public String getProvinciaEm() {
-        return provinciaEm;
+    public FacResumen getResumen() {
+        return resumen;
     }
 
     /**
-     * Obtener catón en que se ubica el emisor
-     * @return cantón del emisor
+     * Establecer el resumen de la factura.
+     * @param resumen the resumen to set
      */
-    public String getCantonEm() {
-        return cantonEm;
+    public void setResumen(FacResumen resumen) {
+        this.resumen = resumen;
     }
 
     /**
-     * Obtener distrito en que se ubica el emisor
-     * @return distrito del emisor
+     * Obtener la información de referencia de la factura.
+     * @return the infoReferencia
      */
-    public String getDistritoEm() {
-        return distritoEm;
+    public FacReferencia getInfoReferencia() {
+        return infoReferencia;
     }
 
     /**
-     * Obtener otras señas para ubicar el emisor
-     * @return otras señas para ubicar emisor
+     * Establecer la información de referencia de la factura.
+     * @param infoReferencia the infoReferencia to set
      */
-    public String getOtrasSenasEm() {
-        return otrasSenasEm;
+    public void setInfoReferencia(FacReferencia infoReferencia) {
+        this.infoReferencia = infoReferencia;
     }
 
     /**
-     * Obtener código de país del emisor
-     * @return código de país del emisor
+     * Obtener la normativa de la factura.
+     * @return the normativa
      */
-    public int getCodigoPaisEm() {
-        return codigoPaisEm;
+    public FacNormativa getNormativa() {
+        return normativa;
     }
 
     /**
-     * Obtener número de teléfono del emisor
-     * @return número telefónico del emisor
+     * Establecer la normativa de la factura.
+     * @param normativa the normativa to set
      */
-    public int getNumTelefonoEm() {
-        return numTelefonoEm;
+    public void setNormativa(FacNormativa normativa) {
+        this.normativa = normativa;
     }
 
     /**
-     * Obtener correo electrónico del emisor
-     * @return correo del emisor
+     * Obtener el mecanismo de seguridad de la factura.
+     * @return the mecanSeguridad
      */
-    public String getCorreoElectronicoEm() {
-        return correoElectronicoEm;
+    public FacSeguridad getMecanSeguridad() {
+        return mecanSeguridad;
     }
 
     /**
-     * Obtener cliente receptor de la facutura
-     * @return cliente al que se le realiza la factura
+     * Establecer el mecanismo de seguridad de la factura.
+     * @param mecanSeguridad the mecanSeguridad to set
      */
-    public String getReceptor() {
-        return codReceptor;
-    }
-
-    /**
-     * Obtener condición de venta de factura 
-     * @return condición de venta de factura (crédito, contado, etc.)
-     */
-    public String getCondicionVenta() {
-        return condicionVenta;
-    }
-
-    /**
-     * Obtener plazo del crédito
-     * @return plazo del crédito
-     */
-    public String getPlazoCredito() {
-        return plazoCredito;
-    }
-
-    /**
-     * Obtener medio de pago de factura
-     * @return medio de pago de factura (efectivo, tarjeta, etc.)
-     */
-    public String getMedioPago() {
-        return medioPago;
+    public void setMecanSeguridad(FacSeguridad mecanSeguridad) {
+        this.mecanSeguridad = mecanSeguridad;
     }
 }
