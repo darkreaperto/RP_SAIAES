@@ -8,8 +8,8 @@ package logica.negocio;
 import java.util.Date;
 
 /**
- *
- * @author darkreaper
+ * Instancia con sus atributos, la clase para encabezado de las facturas.
+ * @author darkreaper 
  */
 public class FacEncabezado {
     

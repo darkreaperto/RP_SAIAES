@@ -6,7 +6,8 @@
 package logica.negocio;
 
 /**
- * Instancia los detalles de los productos a facturar. 
+ * Instancia con sus atributos, la clase para linea de detalle de las 
+ * facturas, con los detalles de cada producto a facturar. 
  * @author aoihanabi
  */
 public class LineaDetalle {

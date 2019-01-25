@@ -54,7 +54,7 @@ public final class Conexion {
             conexion = DriverManager.getConnection("jdbc:mysql://localhost/"
                     + "sai_aes?useSSL=false&useUnicode=true&"
                     + "useJDBCCompliantTimezoneShift=true&"
-                    + "useLegacyDatetimeCode=false&serverTimezone=UTC",
+                    + "useLegacyDatetimeCode=false&serverTimezone=GMT-06:00",
                     "usuario", "usuario2018");
 //                conexion = DriverManager.getConnection("jdbc:mysql://localhost/"
 //                    + "sai_aes?useSSL=false&useUnicode=true&"

@@ -6,7 +6,7 @@
 package logica.negocio;
 
 /**
- *
+ * Instancia con sus atributos, la clase para el resumen de factura.
  * @author darkreaper
  */
 public class FacResumen {
@@ -63,6 +63,7 @@ public class FacResumen {
     }
 
     /**
+     * Obtener el código de moneda.
      * @return the codigoMoneda
      */
     public String getCodigoMoneda() {
@@ -70,6 +71,7 @@ public class FacResumen {
     }
 
     /**
+     * Establecer el código de moneda.
      * @param codigoMoneda the codigoMoneda to set
      */
     public void setCodigoMoneda(String codigoMoneda) {
@@ -77,6 +79,7 @@ public class FacResumen {
     }
 
     /**
+     * Obtener el tipo de cambio.
      * @return the tipoCambio
      */
     public double getTipoCambio() {
@@ -84,6 +87,7 @@ public class FacResumen {
     }
 
     /**
+     * Establecer el tipo de cambio.
      * @param tipoCambio the tipoCambio to set
      */
     public void setTipoCambio(double tipoCambio) {
@@ -91,6 +95,7 @@ public class FacResumen {
     }
 
     /**
+     * Obtener el total de servicios gravados de la factura.
      * @return the totalServGravados
      */
     public double getTotalServGravados() {
@@ -98,6 +103,7 @@ public class FacResumen {
     }
 
     /**
+     * Establecer el total de servicios gravados de la factura.
      * @param totalServGravados the totalServGravados to set
      */
     public void setTotalServGravados(double totalServGravados) {
@@ -105,6 +111,7 @@ public class FacResumen {
     }
 
     /**
+     * Obtener el total de servicios exentos de la factura.
      * @return the totalSerExentos
      */
     public double getTotalSerExentos() {
@@ -112,6 +119,7 @@ public class FacResumen {
     }
 
     /**
+     * Establecer el total de servicios exentos de la factura.
      * @param totalSerExentos the totalSerExentos to set
      */
     public void setTotalSerExentos(double totalSerExentos) {
@@ -119,6 +127,7 @@ public class FacResumen {
     }
 
     /**
+     * Obtener el total de mercancías gravadas de la factura.
      * @return the totalMercanciasGravadas
      */
     public double getTotalMercanciasGravadas() {
@@ -126,6 +135,7 @@ public class FacResumen {
     }
 
     /**
+     * Establecer el total de mercancías gravadas de la factura.
      * @param totalMercanciasGravadas the totalMercanciasGravadas to set
      */
     public void setTotalMercanciasGravadas(double totalMercanciasGravadas) {
@@ -133,6 +143,7 @@ public class FacResumen {
     }
 
     /**
+     * Obtener el total de mercancías exentas de la factura.
      * @return the totalMercanciasExentas
      */
     public double getTotalMercanciasExentas() {
@@ -140,6 +151,7 @@ public class FacResumen {
     }
 
     /**
+     * Establecer el total de mercancías exentas de la factura.
      * @param totalMercanciasExentas the totalMercanciasExentas to set
      */
     public void setTotalMercanciasExentas(double totalMercanciasExentas) {
@@ -147,6 +159,7 @@ public class FacResumen {
     }
 
     /**
+     * Obtener el total gravado de la factura.
      * @return the totalGravado
      */
     public double getTotalGravado() {
@@ -154,6 +167,7 @@ public class FacResumen {
     }
 
     /**
+     * Establecer el total gravado de la factura.
      * @param totalGravado the totalGravado to set
      */
     public void setTotalGravado(double totalGravado) {
@@ -161,6 +175,7 @@ public class FacResumen {
     }
 
     /**
+     * Obtener el total exento de la factura.
      * @return the totalExento
      */
     public double getTotalExento() {
@@ -168,6 +183,7 @@ public class FacResumen {
     }
 
     /**
+     * Establecer el total exento de la factura.
      * @param totalExento the totalExento to set
      */
     public void setTotalExento(double totalExento) {
@@ -175,6 +191,7 @@ public class FacResumen {
     }
 
     /**
+     * Obtener el total de la venta.
      * @return the totalVenta
      */
     public double getTotalVenta() {
@@ -182,6 +199,7 @@ public class FacResumen {
     }
 
     /**
+     * Establecer el total de la venta.
      * @param totalVenta the totalVenta to set
      */
     public void setTotalVenta(double totalVenta) {
@@ -189,6 +207,7 @@ public class FacResumen {
     }
 
     /**
+     * Obtener el total de descuento.
      * @return the totalDescuentos
      */
     public double getTotalDescuentos() {
@@ -196,6 +215,7 @@ public class FacResumen {
     }
 
     /**
+     * Establecer el total de descuento.
      * @param totalDescuentos the totalDescuentos to set
      */
     public void setTotalDescuentos(double totalDescuentos) {
@@ -203,6 +223,7 @@ public class FacResumen {
     }
 
     /**
+     * Obtener el total de la venta neta.
      * @return the totalVentaNeta
      */
     public double getTotalVentaNeta() {
@@ -210,6 +231,7 @@ public class FacResumen {
     }
 
     /**
+     * Establecer el total de la venta neta.
      * @param totalVentaNeta the totalVentaNeta to set
      */
     public void setTotalVentaNeta(double totalVentaNeta) {
@@ -217,6 +239,7 @@ public class FacResumen {
     }
 
     /**
+     * Obtener el impuesto total de la factura.
      * @return the totalImpuesto
      */
     public double getTotalImpuesto() {
@@ -224,6 +247,7 @@ public class FacResumen {
     }
 
     /**
+     * Establecer el impuesto total de la factura.
      * @param totalImpuesto the totalImpuesto to set
      */
     public void setTotalImpuesto(double totalImpuesto) {
@@ -231,6 +255,7 @@ public class FacResumen {
     }
 
     /**
+     * Obtener el total de la factura.
      * @return the totalComprobante
      */
     public double getTotalComprobante() {
@@ -238,6 +263,7 @@ public class FacResumen {
     }
 
     /**
+     * Establecer el total de la factura.
      * @param totalComprobante the totalComprobante to set
      */
     public void setTotalComprobante(double totalComprobante) {
