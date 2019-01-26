@@ -7,10 +7,12 @@ package bd;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
 
@@ -168,6 +170,12 @@ public final class Conexion {
             } else if (params.get(i) instanceof String) {
                 String temp = (String) params.get(i);
                 procedimiento.setString(i + 1, temp);
+            } else if (params.get(i) instanceof Date) {
+                Date temp = (Date) params.get(i);
+                procedimiento.setDate(i + 1, temp);
+            } else if (params.get(i) instanceof Timestamp) {
+                Timestamp temp = (Timestamp) params.get(i);
+                procedimiento.setTimestamp(i + 1, temp);
             } else if (params.get(i) instanceof Types) {
                 int temp = Integer.valueOf(params.get(i).toString());
                 procedimiento.registerOutParameter(i + 1, temp);

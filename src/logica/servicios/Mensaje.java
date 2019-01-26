@@ -72,8 +72,8 @@ public class Mensaje {
                 msg = "Las contraseñas no coinciden";
                 break;
             case NUMBER_FORMAT_EXCEPTION:
-                msg = "Un campo de tipo número contiene un carácter distindo a"
-                        + "un número";
+                msg = "Uno de los campos de texto anteriores solo admite "
+                        + "números, verifique los datos ingresados";
                 break;
             case PASSWORD_SYNTAX_FAILURE:
                 msg = "La contraseña debe contener:"
@@ -109,6 +109,18 @@ public class Mensaje {
                 break;
             case PRODUCT_UPDATE_FAILURE:
                 msg = "Ha ocurrido un error en la actualización del producto";
+                break;
+            case TAX_CODE_MISSING:
+                msg = "El código del impuesto no se recuperó correctamente, "
+                        + "inténtelo de nuevo";
+                break;
+            case TAX_MISSING:
+                msg = "El cálculo del impuesto no se realizó correctamente, "
+                        + "favor verificar los datos ingresados.";
+                break;
+            case TOTALS_CALCULATION_FAILURE:
+                msg = "Ha ocurrido un error en el cálculo de los totales, "
+                        + "favor ingresar la linea de detalle nuevamente";
                 break;
             case UNITQUANTITY_SYNTAX_FAILURE:
                 msg = "Solo puede ingresar números enteros";

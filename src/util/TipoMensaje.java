@@ -47,7 +47,7 @@ public enum TipoMensaje {
     EMPTY_USERNAME_FIELD,
     /** Identificador del mensaje: campos de contraseñas no coinciden. */
     MISMATCHING_PASSWORD_FIELDS,
-    /** Identificador del mensaje: campos de número con carácteres alfa. */
+    /** Identificador del mensaje: campos de número con carácteres alfanumérico. */
     NUMBER_FORMAT_EXCEPTION,
     /** Identificador del mensaje: fallo en la sintaxis de contraseña. */
     PASSWORD_SYNTAX_FAILURE,
@@ -73,6 +73,12 @@ public enum TipoMensaje {
     PRODUCT_UPDATE_FAILURE,
     /** Identificador del mensaje: exito en la actualización del producto. */
     PRODUCT_UPDATE_SUCCESS,
+    
+    TAX_CODE_MISSING,
+    
+    TAX_MISSING,
+    
+    TOTALS_CALCULATION_FAILURE,
     /** Identificador del mensaje: solo puede ingresar numeros enteros. Precio ingresado no es correcto*/
     UNITQUANTITY_SYNTAX_FAILURE,
     /** Identificador del mensaje: fallo en la inserción de usuario. */

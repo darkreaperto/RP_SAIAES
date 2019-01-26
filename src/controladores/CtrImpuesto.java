@@ -37,7 +37,7 @@ public class CtrImpuesto {
     
     /**
      * Llama el método que inserta un registro 'impuesto' en la bd
-     * @param codigoImpuesto codigo del tipo de impuesto indicado por haciendda
+     * @param codigoImpuesto codigo del tipo de impuesto indicado por hacienda
      * @param tarifaImpuesto porcentaje de impuesto aplicado al producto
      * @param montoImpuesto valor extra(impuesto) que se sumará al precio del 
      * producto

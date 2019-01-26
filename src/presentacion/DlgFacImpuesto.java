@@ -12,7 +12,7 @@ import logica.servicios.Mensaje;
 import util.TipoMensaje;
 
 /**
- *
+ * Inicializa la ventana de dialog que contiene la información de exoneraciones.
  * @author aoihanabi
  */
 public class DlgFacImpuesto extends javax.swing.JDialog {
@@ -25,7 +25,6 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
 
     /**
      * Creates new form DlgFacImpuesto.
-     *
      * @param parent ventana padre de este Jdialog
      * @param modal establece si la ventana permite acceso a otras mientras está
      * abierta.
@@ -40,19 +39,46 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
         msg = new Mensaje();
         controlador = new CtrImpuesto();
     }
-
+    /**
+     * 
+     * @return 
+     */
     public double getPrecio() {
         return ifrmFacturacion.getPrecioSinImpuesto();
     }
-
-    public double gravarImpuesto() {
-        double porcentajeImpuesto = Double.valueOf(txtImpuesto.getText())/100;
-        System.out.println("precio SIN: " + getPrecio() + ", porcentaje: " + porcentajeImpuesto);
-        double precioImpuesto = getPrecio() * porcentajeImpuesto;
-        System.out.println("Precio CON: " + precioImpuesto);
-        return precioImpuesto;
+    /**
+     * 
+     * @return 
+     */
+    public double getValorImpuesto() {
+        double porcentajeImpuesto;
+        double valorImpuesto = 0.0;
+        try{
+            if(!txtImpuesto.getText().isEmpty()) {
+                porcentajeImpuesto = Double.valueOf(txtImpuesto.getText())/100;
+                valorImpuesto = getPrecio() * porcentajeImpuesto;
+                
+            } else {
+                msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                        TipoMensaje.EMPTY_TEXT_FIELD);
+            }
+        } catch (NumberFormatException ex) {
+            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                    TipoMensaje.WRONG_DECIMAL_NUMBER);
+            System.out.println("Number exception: " + ex);
+        } catch (Exception ex) {
+            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+                    TipoMensaje.SOMETHING_WENT_WRONG);
+            System.out.println("Exception: " + ex);
+        } finally {
+            return valorImpuesto;
+        }
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String codImpuestosHac() {
         String codigo = "98";
         if(rbGeneralVentas.isSelected()) {
@@ -62,12 +88,25 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
         }
         return codigo;
     }
-    
+    /**
+     * 
+     */
     public void enviarDatos() {
-        ifrmFacturacion.montoImpuesto = gravarImpuesto();
-        controlador.crearImpuesto(codImpuestosHac(), 
-                Double.valueOf(txtImpuesto.getText())/100, gravarImpuesto());
-        this.dispose();
+        if(!txtImpuesto.getText().isEmpty()) {
+            if(getValorImpuesto() > 0.0) {
+                ifrmFacturacion.montoImpuesto = getValorImpuesto();
+                controlador.crearImpuesto(codImpuestosHac(), 
+                        Double.valueOf(txtImpuesto.getText())/100, 
+                        getValorImpuesto());
+                this.dispose();
+            } else {
+                msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                    TipoMensaje.TAX_MISSING);
+            }
+        } else {
+            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                    TipoMensaje.EMPTY_TEXT_FIELD);
+        }
     }
 
     /**
@@ -235,6 +274,7 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarImpuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarImpuestoActionPerformed
+        
         this.dispose();
     }//GEN-LAST:event_btnCancelarImpuestoActionPerformed
 
@@ -243,19 +283,21 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAceptarImpuestoActionPerformed
 
     private void btnExonerarImpuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExonerarImpuestoActionPerformed
+        enviarDatos();
         dialogExoneracion = new DlgFacExoneracion(this, true);
         dialogExoneracion.setVisible(true);
     }//GEN-LAST:event_btnExonerarImpuestoActionPerformed
 
     private void txtImpuestoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtImpuestoKeyReleased
-        String valor = txtImpuesto.getText();
-        double precio = 0;
+        //String porcentaje = txtImpuesto.getText();
+        double valor = 0;
         try {
-            precio = gravarImpuesto();
+            valor = getValorImpuesto();
         } catch (NumberFormatException ex) {
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, TipoMensaje.WRONG_DECIMAL_NUMBER);
+            System.out.println("Number exception: " + ex);
         }
-        lblMontoImpuesto.setText(String.valueOf(precio));
+        lblMontoImpuesto.setText(String.valueOf(valor));
     }//GEN-LAST:event_txtImpuestoKeyReleased
 
     /**
