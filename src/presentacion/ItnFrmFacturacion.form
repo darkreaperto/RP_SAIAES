@@ -27,7 +27,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="pnl_modFactura" alignment="0" pref="1224" max="32767" attributes="0"/>
+          <Component id="pnl_modFactura" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -85,11 +85,16 @@
                                   </Group>
                                   <Component id="scpnlTblLineaPedido" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lblTextProducto" min="-2" pref="81" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtProducto" min="-2" pref="360" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnAddProduct1" min="-2" pref="48" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="scpnlList" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="lblTextProducto" min="-2" pref="81" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="txtProducto" min="-2" pref="360" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnAddProduct1" min="-2" pref="48" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                       <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
                                       <Component id="lblTextCantidad" min="-2" pref="79" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -97,7 +102,6 @@
                                       <EmptySpace pref="61" max="32767" attributes="0"/>
                                       <Component id="btnAgregarVarios" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="scpnlList" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -306,17 +310,23 @@
             <Component class="javax.swing.JTable" name="tblLineaPedido">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="6" rowCount="0">
+                  <Table columnCount="7" rowCount="0">
                     <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
                     <Column editable="false" title="Medida" type="java.lang.Object"/>
                     <Column editable="false" title="Cantidad" type="java.lang.Object"/>
-                    <Column editable="true" title="Prec. Unidad" type="java.lang.Object"/>
+                    <Column editable="false" title="Prec. Unidad" type="java.lang.Object"/>
+                    <Column editable="false" title="Impuesto" type="java.lang.Object"/>
                     <Column editable="false" title="Subtotal" type="java.lang.Object"/>
-                    <Column editable="true" title="Total" type="java.lang.Object"/>
+                    <Column editable="false" title="Total" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -374,14 +384,14 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="lblTextSubtotal" min="-2" pref="49" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblSubtotal" min="-2" pref="105" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="lblTextTotal" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="lblTextSubtotal" min="-2" pref="62" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblTotal" pref="108" max="32767" attributes="0"/>
+                      <Component id="lblSubtotal" min="-2" pref="152" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblTextTotal" min="-2" pref="41" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblTotal" min="-2" pref="130" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnFacturar" min="-2" pref="132" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -391,17 +401,22 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblSubtotal" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
-                          <Component id="lblTextTotal" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="lblTotal" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="lblTextSubtotal" min="-2" pref="30" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnFacturar" alignment="1" pref="30" max="32767" attributes="0"/>
-                              <Component id="lblTotal" alignment="1" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lblSubtotal" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="lblTextSubtotal" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                      <Component id="lblTextTotal" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="btnFacturar" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>

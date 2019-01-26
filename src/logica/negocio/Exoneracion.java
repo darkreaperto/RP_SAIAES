@@ -12,7 +12,6 @@ import java.util.Date;
  * @author aoihanabi
  */
 public class Exoneracion {
-    private String codExoneracion;
     private String tipoDocumento;
     private String numeroDocumento;
     private String nombreInstitucion;
@@ -28,7 +27,6 @@ public class Exoneracion {
     
     /**
      * Constructor de clase Exoneración, inicializa variables.
-     * @param codExoneracion codigo de exoneración para la bd
      * @param tipoDocumento tipo de documento de exoneración
      * @param numeroDocumento numero de documento de exoneración
      * @param nombreInstitucion nombre de institución que emitió la exoneración 
@@ -36,24 +34,15 @@ public class Exoneracion {
      * @param montoImpuesto monto de impuesto exonerado o autorizado sin impuesto
      * @param porcentajeCompra porcentaje de la compra autorizada o exoneración
      */
-    public Exoneracion(String codExoneracion, String tipoDocumento, 
+    public Exoneracion(String tipoDocumento, 
             String numeroDocumento, String nombreInstitucion, Date fechaEmision, 
             double montoImpuesto, int porcentajeCompra) {
-        this.codExoneracion = codExoneracion;
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
         this.nombreInstitucion = nombreInstitucion;
         this.fechaEmision = fechaEmision;
         this.montoImpuesto = montoImpuesto;
         this.porcentajeCompra = porcentajeCompra;
-    }
-
-    /**
-     * Establecer codigo de exoneración para la bd
-     * @param codExoneracion codigo para bd
-     */
-    public void setCodExoneracion(String codExoneracion) {
-        this.codExoneracion = codExoneracion;
     }
 
     /**
@@ -102,14 +91,6 @@ public class Exoneracion {
      */
     public void setPorcentajeCompra(int porcentajeCompra) {
         this.porcentajeCompra = porcentajeCompra;
-    }
-
-    /**
-     * Obtener el código de exoneración para bd
-     * @return codigo de exoneración para bd
-     */
-    public String getCodExoneracion() {
-        return codExoneracion;
     }
 
     /**

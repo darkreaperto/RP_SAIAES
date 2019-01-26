@@ -48,35 +48,33 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="pnlTipoExoneracion" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="33" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="lblTextNombreInstitucion" min="-2" pref="137" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="lblTextPrecio1" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="lblTextPrecio2" min="-2" pref="102" max="-2" attributes="0"/>
+                                      <Component id="lblTextMontoImpuesto" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="lblTextPocentCompra" min="-2" pref="102" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jTextField2" min="-2" pref="100" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                          <Component id="jTextField1" min="-2" pref="100" max="-2" attributes="0"/>
-                                      </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="txtPorcentajeCompra" max="32767" attributes="0"/>
+                                      <Component id="lblMontoImpuesto" min="-2" pref="100" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="lblMontoImpuesto" max="32767" attributes="0"/>
-                              <Component id="lblTextPrecio3" max="32767" attributes="0"/>
+                              <Component id="lblAserradero" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="btnCancelarBusqueda" min="-2" pref="168" max="-2" attributes="0"/>
+                          <Component id="btnCancelarExon" min="-2" pref="168" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnCancelarBusqueda1" min="-2" pref="168" max="-2" attributes="0"/>
+                          <Component id="btnAceptarExon" min="-2" pref="168" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -84,28 +82,28 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="lblTextPrecio3" min="-2" pref="25" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                          <Component id="lblMontoImpuesto" min="-2" pref="31" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblTextPrecio1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jTextField1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="lblTextNombreInstitucion" min="-2" pref="25" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblAserradero" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblTextMontoImpuesto" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="lblMontoImpuesto" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblTextPrecio2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jTextField2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="lblTextPocentCompra" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="txtPorcentajeCompra" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="pnlTipoExoneracion" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnCancelarBusqueda" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="btnCancelarBusqueda1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnCancelarExon" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnAceptarExon" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -131,7 +129,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="rbOdenCompra" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rbOrdenCompra" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="rbVentaDiplomatico" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="rbCompraAutorizada" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="rbExencionesHacienda" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -156,7 +154,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="rbVentaDiplomatico" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="rbOdenCompra" min="-2" max="-2" attributes="0"/>
+                      <Component id="rbOrdenCompra" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="rbExencionesHacienda" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -173,6 +171,7 @@
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="bgTipoExoneracion"/>
                 </Property>
+                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Compras autorizadas"/>
               </Properties>
             </Component>
@@ -184,7 +183,7 @@
                 <Property name="text" type="java.lang.String" value="Ventas exentas a diplom&#xe1;ticos"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="rbOdenCompra">
+            <Component class="javax.swing.JRadioButton" name="rbOrdenCompra">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="bgTipoExoneracion"/>
@@ -218,27 +217,24 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="lblTextPrecio1">
+        <Component class="javax.swing.JLabel" name="lblTextMontoImpuesto">
           <Properties>
             <Property name="text" type="java.lang.String" value="Monto Impuesto:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblTextPrecio2">
+        <Component class="javax.swing.JLabel" name="lblTextPocentCompra">
           <Properties>
             <Property name="text" type="java.lang.String" value="Porcentaje Compra:"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
+        <Component class="javax.swing.JLabel" name="lblTextNombreInstitucion">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nombre de Instituci&#xf3;n:"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblMontoImpuesto">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="12" style="1"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Aserradero El Soldado"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder>
@@ -248,26 +244,39 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblTextPrecio3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Nombre de Instituci&#xf3;n:"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="txtPorcentajeCompra">
         </Component>
-        <Component class="javax.swing.JButton" name="btnCancelarBusqueda">
+        <Component class="javax.swing.JButton" name="btnCancelarExon">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarBusquedaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarExonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnCancelarBusqueda1">
+        <Component class="javax.swing.JButton" name="btnAceptarExon">
           <Properties>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarBusqueda1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAceptarExonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblAserradero">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Sitka Small" size="14" style="1"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="ASERRADERO EL SOLDADO"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder>
+                  <Color PropertyName="color" blue="d1" green="b4" id="Active Caption" palette="2" red="99" type="palette"/>
+                </LineBorder>
+              </Border>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
