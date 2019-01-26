@@ -40,7 +40,7 @@ public class MdlAcceso {
             conexion.abrirConexion();
             
             String sql = "SELECT nombre_Usuarios, clave_Usuarios "
-                    + "FROM Usuarios "
+                    + "FROM usuarios "
                     + "WHERE nombre_Usuarios = '" + user + "'";
             
             ResultSet rs = conexion.ejecutarConsulta(sql);

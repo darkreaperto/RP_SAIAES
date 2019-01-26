@@ -5,12 +5,8 @@
         <group>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlExoneracion.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/DlgFacImpuesto.java</file>
-            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlAcceso.java</file>
-            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/util/TipoMensaje.java</file>
-            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrUsuario.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/FacEncabezado.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmFacturacion.java</file>
-            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/servicios/Mensaje.java</file>
-            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlUsuario.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrExoneracion.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/DlgFacExoneracion.java</file>
         </group>
