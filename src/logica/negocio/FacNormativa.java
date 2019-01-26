@@ -13,21 +13,13 @@ package logica.negocio;
 public class FacNormativa {
     
     private static final String NUMERO_RESOLUCION = "DGT-R-48-2016";
-    private String fechaResolucion;
+    private static final String FECHA_RESOLUCION = "07-10-2016 08:00:00";
     
     /**
      * Constructor vacío de la clase Normativa.
      */
     public FacNormativa() {
         
-    }
-    
-    /**
-     * Constructor de la clase Normativa.
-     * @param fechaResolucion la fecha de resolución de la normativa
-     */
-    public FacNormativa(String fechaResolucion) {
-        this.fechaResolucion = fechaResolucion;
     }
     
     /**
@@ -43,15 +35,7 @@ public class FacNormativa {
      * @return la fecha de resolución
      */
     public String getFechaResolucion() {
-        return fechaResolucion;
-    }
-    
-    /**
-     * Establecer la fecha de resolución de la normativa.
-     * @param fechaResolucion the fecha de resolucion a establecer
-     */
-    public void setFechaResolucion(String fechaResolucion) {
-        this.fechaResolucion = fechaResolucion;
+        return FECHA_RESOLUCION;
     }
     
 }
