@@ -75,6 +75,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         ctrImpuesto = new CtrImpuesto();
         ctrLineaDetalle = new CtrLineaDetalle();
         msg = new Mensaje();
+        
+        controlador.crearFacResumen("CRC", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     /**

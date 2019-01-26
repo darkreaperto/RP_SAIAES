@@ -35,4 +35,18 @@ public class CtrFactura {
     public static CtrFactura getInstancia() {
         return  instancia == null ? new CtrFactura() : instancia;
     }    
+    public boolean crearFacResumen(String codigoMoneda, double tipoCambio, 
+            double totalServGravados, double totalSerExentos, 
+            double totalMercanciasGravadas, double totalMercanciasExentas, 
+            double totalGravado, double totalExento, double totalVenta, 
+            double totalDescuentos, double totalVentaNeta, double totalImpuesto, 
+            double totalComprobante) {
+        
+        return mdlFactura.crearFacResumen(codigoMoneda, tipoCambio, totalServGravados, 
+                totalSerExentos, totalMercanciasGravadas, 
+                totalMercanciasExentas, totalGravado, totalExento, totalVenta, 
+                totalDescuentos, totalVentaNeta, totalImpuesto, 
+                totalComprobante);
+        
+    }
 }
