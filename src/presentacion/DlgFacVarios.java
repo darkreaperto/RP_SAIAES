@@ -101,6 +101,7 @@ public class DlgFacVarios extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bgClasificiacionProd = new javax.swing.ButtonGroup();
         pnlFacVarios = new javax.swing.JPanel();
         lblDescripcionVarios = new javax.swing.JLabel();
         lblPrecioVarios = new javax.swing.JLabel();
@@ -109,8 +110,8 @@ public class DlgFacVarios extends javax.swing.JDialog {
         btnCancelarVarios = new javax.swing.JButton();
         btnAgregarVarios = new javax.swing.JButton();
         pnlClasificacionProductos = new javax.swing.JPanel();
+        rbMercancía = new javax.swing.JRadioButton();
         rbServicio = new javax.swing.JRadioButton();
-        rbOtro = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -129,10 +130,10 @@ public class DlgFacVarios extends javax.swing.JDialog {
 
         pnlClasificacionProductos.setBorder(javax.swing.BorderFactory.createTitledBorder("Clasificación:"));
 
-        rbServicio.setText("Mercancía");
+        rbMercancía.setText("Mercancía");
 
-        rbOtro.setSelected(true);
-        rbOtro.setText("Servicio");
+        rbServicio.setSelected(true);
+        rbServicio.setText("Servicio");
 
         javax.swing.GroupLayout pnlClasificacionProductosLayout = new javax.swing.GroupLayout(pnlClasificacionProductos);
         pnlClasificacionProductos.setLayout(pnlClasificacionProductosLayout);
@@ -140,20 +141,20 @@ public class DlgFacVarios extends javax.swing.JDialog {
             pnlClasificacionProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlClasificacionProductosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rbOtro)
+                .addComponent(rbServicio)
                 .addGap(90, 90, 90))
             .addGroup(pnlClasificacionProductosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rbServicio)
+                .addComponent(rbMercancía)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlClasificacionProductosLayout.setVerticalGroup(
             pnlClasificacionProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlClasificacionProductosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rbServicio)
+                .addComponent(rbMercancía)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbOtro)
+                .addComponent(rbServicio)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -275,13 +276,14 @@ public class DlgFacVarios extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup bgClasificiacionProd;
     private javax.swing.JButton btnAgregarVarios;
     private javax.swing.JButton btnCancelarVarios;
     private javax.swing.JLabel lblDescripcionVarios;
     private javax.swing.JLabel lblPrecioVarios;
     private javax.swing.JPanel pnlClasificacionProductos;
     private javax.swing.JPanel pnlFacVarios;
-    private javax.swing.JRadioButton rbOtro;
+    private javax.swing.JRadioButton rbMercancía;
     private javax.swing.JRadioButton rbServicio;
     private javax.swing.JTextField txtDescripcionVarios;
     private javax.swing.JTextField txtPrecioVarios;
