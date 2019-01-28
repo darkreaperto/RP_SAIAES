@@ -78,7 +78,6 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 
     /**
      * Retorna la única instancia de la clase.
-     *
      * @param sesionAcc Usuario en sesión actual.
      * @param clientes Lista con los clientes en la base de datos
      * @param productos Lista con los productos en la bd.
@@ -147,27 +146,31 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }
 
     /**
-     * 
+     * Abre el módulo de clientes, específicamente en la pestaña agregar
+     * clientes para permitir el rápido acceso a la creación de un nuevo cliente.
      */
     public void accederModuloCliente() {
         try {
             ventanaPrincipal = FrmPrincipal.getInstancia();
-            Container frameParent = this.getParent().getParent().getParent().getParent().getParent();
+            Container frameParent = this.getParent().getParent().getParent()
+                    .getParent().getParent();
             ventanaPrincipal.accederModulos(frameParent, modCliente, 1);
             modCliente.toFront();
         } catch (Exception e) {
             System.out.println(e.getCause());
         }
-
     }
 
     /**
-     * 
+     * Abre el módulo de producto, específicamente en la pestaña agregar
+     * productos para permitir el rápido acceso a la creación de un nuevo 
+     * producto.
      */
     public void accederModuloProducto() {
         try {
             ventanaPrincipal = FrmPrincipal.getInstancia();
-            Container frameParent = this.getParent().getParent().getParent().getParent().getParent();
+            Container frameParent = this.getParent().getParent().getParent()
+                    .getParent().getParent();
             ventanaPrincipal.accederModulos(frameParent, modInventario, 1);
             modInventario.toFront();
         } catch (Exception e) {
@@ -177,7 +180,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }
     
     /**
-     * 
+     * Abre la ventana de impuestos para permitir especificarlo.
      */
     public void abrirVentanaImpuesto() {
         dialogImpuesto = new DlgFacImpuesto(this, true);
@@ -243,6 +246,14 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         
     }
     
+    /**
+     * Agrega una linea de detalle como objeto y a la base de datos.
+     * @param prodSelected producto seleccionado en la interfaz
+     * @param cantSolicitada cantidad solicitada por el cliente
+     * @param precio precio unitario del producto solicitado
+     * @param descuento descuento del producto
+     * @param precioConImpuesto precio más el impuesto del producto
+     */
     public void agregarLinea(Madera prodSelected, int cantSolicitada, 
             double precio, double descuento, double precioConImpuesto) {
         
@@ -272,6 +283,10 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 precioConImpuesto);
     }
     
+    /**
+     * Agrega una linea de detalle "varios" (producto no definido, 
+     * como transporte o cepillados) como objeto y a la base de datos.
+     */
     public void agregarLineaVarios() {
         if (facVarios[0] != null && facVarios[1] != null) {
             int numLinea = lineas.size() + 1;
@@ -296,6 +311,9 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         jTableAgregar();
     }
     
+    /**
+     * Agregar productos a la tabla en la interfaz para mostrar las lineas.
+     */
     public void jTableAgregar() {
         System.out.println("LINEAS SIZE: "+ lineas.size());
         
@@ -360,10 +378,18 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         }
         
     }
+    
+    /**
+     * Obtener el precio de un producto sin el impuesto incluido.
+     * @return el precio sin el impuesto.
+     */
     public double getPrecioSinImpuesto() {
         return precioSinImpuesto;
     }
     
+    /**
+     * Limpiar los campos de la interfaz de facturación.
+     */
    public void limpiarCampos() {
        txtProducto.setText("Código del producto...");
        txtCantidad.setText("Cantidad en unidades...");
