@@ -74,6 +74,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         ctrImpuesto = new CtrImpuesto();
         ctrLineaDetalle = new CtrLineaDetalle();
         msg = new Mensaje();
+        
+        ctrFactura.crearFacResumen("CRC", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     /**
@@ -269,7 +271,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         descuento, "No se realizó descuento", 
         Double.valueOf(totales.get(2).toString()),
         String.valueOf(ctrImpuesto.getCodImpuesto()), 
-                precioConImpuesto);
+                precioConImpuesto, true);
 
         lineas.add(linea); //Agregarlos a la tabla en interfaz
         //Crea líneaDetalle en la base de datos
@@ -281,6 +283,9 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 "No se realizó descuento", 
                 Double.valueOf(totales.get(0).toString()), 
                 precioConImpuesto);
+        
+        //SERVICIOS GRAVADOS: MODIFICAR INSERCIÓN DE PRODUCTOS VARIOS.
+        ctrFactura.crearFacResumen("CRC", 1, 0, descuento, precioConImpuesto, precioConImpuesto, precio, descuento, descuento, descuento, descuento, montoImpuesto, montoImpuesto)
     }
     
     /**
