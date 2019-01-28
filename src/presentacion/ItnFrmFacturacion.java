@@ -260,7 +260,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         descuento, "No se realizó descuento", 
         Double.valueOf(totales.get(2).toString()),
         String.valueOf(ctrImpuesto.getCodImpuesto()), 
-                precioConImpuesto);
+                precioConImpuesto, true);
 
         lineas.add(linea); //Agregarlos a la tabla en interfaz
         //Crea líneaDetalle en la base de datos

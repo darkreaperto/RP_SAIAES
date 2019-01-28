@@ -24,8 +24,10 @@ public class LineaDetalle {
     private String naturalezaDescuento;
     private double subtotal; //(total-descuentos)
     //Impuesto
-    private String codImpuesto;
+    private String codImpuestoH;
     private double montoTotalLinea;
+    //Adicional clasificación de producto
+    private boolean mercancia;
 
     /**
      * Constructor vacío de clase LíneaDetalle.
@@ -48,12 +50,14 @@ public class LineaDetalle {
      * @param subtotal productos sin descuento
      * @param codImpuesto codigo del tipo de impuesto
      * @param montoTotalLinea monto final por el que se facturará
+     * @param mercancia clasificación de producto (mercancia = true, serivicio = false)
      */
     public LineaDetalle(int numeroLinea, 
             String tipoCodProducto, String codigoProducto, int cantidad, 
             String unidadMedida, String detalle, double precioUnitario, 
             double total, double descuento, String naturalezaDescuento,
-            double subtotal, String codImpuesto, double montoTotalLinea) {
+            double subtotal, String codImpuesto, double montoTotalLinea, 
+            boolean mercancia) {
         this.numeroLinea = numeroLinea;
         this.tipoCodProducto = tipoCodProducto;
         this.codigoProducto = codigoProducto;
@@ -63,8 +67,9 @@ public class LineaDetalle {
         this.precioUnitario = precioUnitario;
         this.total = total;
         this.subtotal = subtotal;
-        this.codImpuesto = codImpuesto;
+        this.codImpuestoH = codImpuesto;
         this.montoTotalLinea = montoTotalLinea;
+        this.mercancia = mercancia;
     }
 
     /**
@@ -163,10 +168,10 @@ public class LineaDetalle {
 
     /**
      * Establecer código/tipo de impuesto
-     * @param codImpuesto codigo que especifíca el tipo de impuesto
+     * @param codImpuestoH codigo que especifíca el tipo de impuesto
      */
-    public void setCodImpuesto(String codImpuesto) {
-        this.codImpuesto = codImpuesto;
+    public void setCodImpuestoH(String codImpuestoH) {
+        this.codImpuestoH = codImpuestoH;
     }
 
     /**
@@ -175,6 +180,14 @@ public class LineaDetalle {
      */
     public void setMontoTotalLinea(double montoTotalLinea) {
         this.montoTotalLinea = montoTotalLinea;
+    }
+    
+    /**
+     * Establecer la clasificación de producto (mercancia = true, servicio = false).
+     * @param mercancia the mercancia to set
+     */
+    public void setMercancia(boolean mercancia) {
+        this.mercancia = mercancia;
     }
 
     /**
@@ -277,8 +290,8 @@ public class LineaDetalle {
      * Obtener el codigo o tipo de impuesto.
      * @return codigo de impuesto
      */
-    public String getCodImpuesto() {
-        return codImpuesto;
+    public String getCodImpuestoH() {
+        return codImpuestoH;
     }
 
     /**
@@ -287,6 +300,14 @@ public class LineaDetalle {
      */
     public double getMontoTotalLinea() {
         return montoTotalLinea;
+    }
+
+    /**
+     * Otener la clasificación de producto (mercancia = true, servicio = false).
+     * @return the mercancia
+     */
+    public boolean isMercancia() {
+        return mercancia;
     }
     
 }
