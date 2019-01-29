@@ -44,7 +44,7 @@ public class DlgFacExoneracion extends javax.swing.JDialog {
         controlador = new CtrExoneracion(); 
         ctrImpuesto = new CtrImpuesto();
         msg = new Mensaje();
-        lblMontoImpuesto.setText(String.valueOf(dlgFacImpuesto.getValorImpuesto()));
+        lblMontoImpuesto.setText(String.valueOf(dlgFacImpuesto.calcularImpuesto()));
         
     }
     

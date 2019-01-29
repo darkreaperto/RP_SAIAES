@@ -220,8 +220,9 @@ public class DlgFacVarios extends javax.swing.JDialog {
         
         if (!descripcion.isEmpty() && validarPrecio(precio)) {
             boolean mercancia = rbMercancía.isSelected();
+            //boolean exonerar = ckb
             ifrmFacturacion.agregarLineaVarios(descripcion, 
-                    Double.parseDouble(precio), mercancia);
+                    Double.parseDouble(precio), mercancia, true);
         } else {
             //NO SE INGRESARON BIEN LOS DATOS
         }

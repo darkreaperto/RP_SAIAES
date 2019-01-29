@@ -50,6 +50,7 @@ public class CtrLineaDetalle {
      * @param natDescuento naturaleza/razón del descuento
      * @param subtotal total de la venta menos el descuento
      * @param montoTotalLinea monto toal de la venta, sumando los impuestos
+     * @param mercancia si el producto es una mercancia o un servicio
      * @param exoneracion si se realiza o no exoneración (nulo si no se da exoneración)
      * @return verdadero si se crea exitosamente la linea de detalle
      */
@@ -58,6 +59,7 @@ public class CtrLineaDetalle {
             String unidadMedida, String detalleLinea, double precioLinea, 
             double totalLinea, double descuentoLinea, String natDescuento, 
             double subtotal, double montoTotalLinea, boolean mercancia) {
+        
         return mdlLineaDetalle.crearLineaDetalle(codigoImpuesto, numLinea, 
                 tipoCodProducto, codProducto, cantidadLinea, unidadMedida,
                 detalleLinea, precioLinea, totalLinea, descuentoLinea, 

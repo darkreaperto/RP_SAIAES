@@ -46,6 +46,7 @@ public class MdlLineaDetalle {
      * @param natDescuento naturaleza/razón del descuento
      * @param subtotal total de la venta menos el descuento
      * @param montoTotalLinea monto toal de la venta, sumando los impuestos
+     * @param mercancia si el producto es mercancia o servicio
      * @param exoneracion si se realiza o no exoneración (nulo si no se da exoneración)
      * @return verdadero si se crea exitosamente la linea de detalle
      */
@@ -90,7 +91,7 @@ public class MdlLineaDetalle {
 //        `exoneracion` VARCHAR(3)
         boolean creacionExitosa = true;
         try {
-            procedimiento = "pc_crear_linea_detalle(?,?,?,?,?,?,?,?,?,?,?,?,?, ?)";
+            procedimiento = "pc_crear_linea_detalle(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);

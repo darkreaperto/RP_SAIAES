@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
+import logica.negocio.Impuesto;
 import logica.negocio.LineaDetalle;
 import logica.negocio.Madera;
 import logica.servicios.Mensaje;
@@ -47,10 +48,10 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     private static ArrayList<Madera> listaProd;
     private static ArrayList<Cliente> listaClientes;
     //private static Madera selectedProd;// = new Madera();
-    private static ArrayList<Object> totales = new ArrayList<>();
+    private static ArrayList<Object> totales;
     private static double precioSinImpuesto = 0.0;
     private static ArrayList<LineaDetalle> lineas = new ArrayList<>();
-    public double montoImpuesto;
+    public Impuesto impuesto;
     public boolean exonerado = false;
     
 
@@ -225,12 +226,13 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 
                 //Sumar impuestos al precioXcantidad del producto
                 double precioConImpuesto = Double.valueOf(totales.get(0).toString())
-                        + montoImpuesto;
+                        + impuesto.getMontoImpuesto();
+                
                 //En caso de estar exonerado no se realiza la suma;
-                if(exonerado) {
-                   precioConImpuesto =  Double.valueOf(totales.get(0).toString());
-                   montoImpuesto = 0.0;
-                }
+//                if(exonerado) {
+//                   precioConImpuesto =  Double.valueOf(totales.get(0).toString());
+//                   montoImpuesto = 0.0;
+//                }
 
                 //si los totales se obtuvieron con éxito
                 if(!totales.isEmpty()) {
@@ -269,8 +271,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         Double.valueOf(totales.get(0).toString()),
         descuento, "No se realizó descuento", 
         Double.valueOf(totales.get(2).toString()),
-        String.valueOf(ctrImpuesto.getCodImpuesto()), 
-                precioConImpuesto, true, false);
+        impuesto, precioConImpuesto, true, false);
 
         lineas.add(linea); //Agregarlos a la tabla en interfaz
         //Crea líneaDetalle en la base de datos
@@ -283,7 +284,9 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 Double.valueOf(totales.get(0).toString()), 
                 precioConImpuesto, true);
         
-        
+        //Limpiar variables globales
+        impuesto = null;
+        precioSinImpuesto = 0;
     }
     
     /**
@@ -299,13 +302,13 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         
         //if (descripcion != null && facVarios[1] != null) {
             int numLinea = lineas.size() + 1;
-            LineaDetalle linea = new LineaDetalle(numLinea, "04", "99", 1,
-                    "unidades", descripcion, precio, precio, 0.0, 
-                    "No se realizó descuento", precio, "1", precio, mercancia,
-                    exonerado);
-            
-            lineas.add(linea);
-            
+//            LineaDetalle linea = new LineaDetalle(numLinea, "04", "99", 1,
+//                    "unidades", descripcion, precio, precio, 0.0, 
+//                    "No se realizó descuento", precio, "1", precio, mercancia,
+//                    exonerado);
+//            
+//            lineas.add(linea);
+//            
             ctrLineaDetalle.crearLineaDetalle("1",numLinea, "04", "99", 1, 
                         "unidades", descripcion, precio, precio, 0.0, 
                         "No se realizó descuento", precio, precio, mercancia);
@@ -365,7 +368,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             row[1] = lineas.get(i).getUnidadMedida(); 
             row[2] = lineas.get(i).getCantidad();
             row[3] = lineas.get(i).getPrecioUnitario();
-            row[4] = montoImpuesto;
+            row[4] = lineas.get(i).getImpuesto().getMontoImpuesto();
             row[5] = lineas.get(i).getSubtotal();
             row[6] = lineas.get(i).getMontoTotalLinea();
 
@@ -388,6 +391,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
      */
     public ArrayList calcularTotales(int cantTotal, int cantSolicitada,
             double precio, double descuento) {
+        
+        totales = new ArrayList<>();
         try {
             //Si la cantidad solicitada no excede la existente en inventario
             if (cantTotal >= cantSolicitada) {
