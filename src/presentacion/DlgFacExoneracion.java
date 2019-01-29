@@ -322,7 +322,6 @@ public class DlgFacExoneracion extends javax.swing.JDialog {
 
     private void btnAceptarExonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarExonActionPerformed
         crearExoneracion();
-        exonerar();
     }//GEN-LAST:event_btnAceptarExonActionPerformed
 
     /**

@@ -12,6 +12,7 @@ import java.util.Date;
  * @author aoihanabi
  */
 public class Exoneracion {
+    
     private String tipoDocumento;
     private String numeroDocumento;
     private String nombreInstitucion;
@@ -23,6 +24,7 @@ public class Exoneracion {
      * Constructor vacío de clase Exoneración.
      */
     public Exoneracion() {
+        
     }
     
     /**

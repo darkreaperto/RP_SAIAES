@@ -53,7 +53,7 @@ public class MdlLineaDetalle {
             String codProducto, double cantidadLinea, String unidadMedida,
             String detalleLinea, double precioLinea, double totalLinea,
             double descuentoLinea, String natDescuento, double subtotal,
-            double montoTotalLinea) {
+            double montoTotalLinea, boolean mercancia) {
 
         ArrayList<Object> params = new ArrayList<>();
         params.add(codigoImpuesto);
@@ -69,6 +69,7 @@ public class MdlLineaDetalle {
         params.add(natDescuento);
         params.add(subtotal);
         params.add(montoTotalLinea);
+        params.add(mercancia);
         //params.add(exoneracion);
         
 //        `codigoImpuesto` VARCHAR(2), 
@@ -89,7 +90,7 @@ public class MdlLineaDetalle {
 //        `exoneracion` VARCHAR(3)
         boolean creacionExitosa = true;
         try {
-            procedimiento = "pc_crear_linea_detalle(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            procedimiento = "pc_crear_linea_detalle(?,?,?,?,?,?,?,?,?,?,?,?,?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);

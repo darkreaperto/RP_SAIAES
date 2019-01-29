@@ -57,10 +57,10 @@ public class CtrLineaDetalle {
             String tipoCodProducto, String codProducto, double cantidadLinea, 
             String unidadMedida, String detalleLinea, double precioLinea, 
             double totalLinea, double descuentoLinea, String natDescuento, 
-            double subtotal, double montoTotalLinea) {
+            double subtotal, double montoTotalLinea, boolean mercancia) {
         return mdlLineaDetalle.crearLineaDetalle(codigoImpuesto, numLinea, 
                 tipoCodProducto, codProducto, cantidadLinea, unidadMedida,
                 detalleLinea, precioLinea, totalLinea, descuentoLinea, 
-                natDescuento, subtotal, montoTotalLinea);
+                natDescuento, subtotal, montoTotalLinea, mercancia);
     }
 }

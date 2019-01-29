@@ -176,6 +176,9 @@ public final class Conexion {
             } else if (params.get(i) instanceof Timestamp) {
                 Timestamp temp = (Timestamp) params.get(i);
                 procedimiento.setTimestamp(i + 1, temp);
+            } else if (params.get(i) instanceof Boolean) {
+                boolean temp =  (boolean) params.get(i);
+                procedimiento.setBoolean(i + 1, temp);
             } else if (params.get(i) instanceof Types) {
                 int temp = Integer.valueOf(params.get(i).toString());
                 procedimiento.registerOutParameter(i + 1, temp);

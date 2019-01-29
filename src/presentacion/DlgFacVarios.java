@@ -76,8 +76,10 @@ public class DlgFacVarios extends javax.swing.JDialog {
     private boolean validarPrecio(String precio) {
         boolean exito = false;
         try {
-            Double.parseDouble(precio);
-            exito = true;
+            double prec = Double.parseDouble(precio);
+            if (prec > 0) {
+                exito = true;
+            }
         } catch (NumberFormatException ex) {
             System.out.println(ex.toString());
         } catch (Exception ex) {
@@ -85,11 +87,6 @@ public class DlgFacVarios extends javax.swing.JDialog {
         } finally {
             return exito;
         }
-    }
-    
-    private void enviarDatos(String descripcion, double precio) {
-        ifrmFacturacion.facVarios[0] = descripcion;
-        ifrmFacturacion.facVarios[1] = precio;
     }
     
     /**
@@ -221,10 +218,14 @@ public class DlgFacVarios extends javax.swing.JDialog {
         String descripcion = txtDescripcionVarios.getText();
         String precio = txtPrecioVarios.getText().trim();
         
-        if (validarPrecio(precio)) {
-            enviarDatos(descripcion, Double.parseDouble(precio));
+        if (!descripcion.isEmpty() && validarPrecio(precio)) {
+            boolean mercancia = rbMercancía.isSelected();
+            ifrmFacturacion.agregarLineaVarios(descripcion, 
+                    Double.parseDouble(precio), mercancia);
+        } else {
+            //NO SE INGRESARON BIEN LOS DATOS
         }
-        ifrmFacturacion.agregarLineaVarios();
+        
         //System.out.println(txtDescripcionVarios.getText() + " " + txtPrecioVarios.getText());
 //        boolean agregado = agregarVarios(descripcion, precio);
 //        if(agregado) {

@@ -52,7 +52,6 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     private static ArrayList<LineaDetalle> lineas = new ArrayList<>();
     public double montoImpuesto;
     public boolean exonerado = false;
-    public Object[] facVarios = new Object[2];  //productos varios [descripcion, precio]
     
 
     /**
@@ -271,7 +270,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         descuento, "No se realizó descuento", 
         Double.valueOf(totales.get(2).toString()),
         String.valueOf(ctrImpuesto.getCodImpuesto()), 
-                precioConImpuesto, true);
+                precioConImpuesto, true, false);
 
         lineas.add(linea); //Agregarlos a la tabla en interfaz
         //Crea líneaDetalle en la base de datos
@@ -282,40 +281,73 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 getPrecioSinImpuesto(), descuento,
                 "No se realizó descuento", 
                 Double.valueOf(totales.get(0).toString()), 
-                precioConImpuesto);
+                precioConImpuesto, true);
         
-        //SERVICIOS GRAVADOS: MODIFICAR INSERCIÓN DE PRODUCTOS VARIOS.
-        ctrFactura.crearFacResumen("CRC", 1, 0, descuento, precioConImpuesto, precioConImpuesto, precio, descuento, descuento, descuento, descuento, montoImpuesto, montoImpuesto)
+        
     }
     
     /**
      * Agrega una linea de detalle "varios" (producto no definido, 
      * como transporte o cepillados) como objeto y a la base de datos.
+     * @param descripcion descripción del producto o servicio a vender
+     * @param precio precio total de producto o servicio
+     * @param mercancia true si se trata de mercancia o false si es un servicio
+     * @param exonerado
      */
-    public void agregarLineaVarios() {
-        if (facVarios[0] != null && facVarios[1] != null) {
+    public void agregarLineaVarios(String descripcion, double precio, 
+            boolean mercancia, boolean exonerado) {
+        
+        //if (descripcion != null && facVarios[1] != null) {
             int numLinea = lineas.size() + 1;
             LineaDetalle linea = new LineaDetalle(numLinea, "04", "99", 1,
-                    "unidades", String.valueOf(facVarios[0].toString()), 
-                    Double.valueOf(facVarios[1].toString()),
-                    Double.valueOf(facVarios[1].toString()),
-                    0.0, "No se realizó descuento",
-                    Double.valueOf(facVarios[1].toString()), "1",
-                    Double.valueOf(facVarios[1].toString()));
+                    "unidades", descripcion, precio, precio, 0.0, 
+                    "No se realizó descuento", precio, "1", precio, mercancia,
+                    exonerado);
             
             lineas.add(linea);
             
             ctrLineaDetalle.crearLineaDetalle("1",numLinea, "04", "99", 1, 
-                        "unidades", String.valueOf(facVarios[0].toString()), 
-                        Double.valueOf(facVarios[1].toString()),
-                        Double.valueOf(facVarios[1].toString()), 
-                        0.0, "No se realizó descuento", 
-                        Double.valueOf(facVarios[1].toString()), 
-                        Double.valueOf(facVarios[1].toString()));
-        }
+                        "unidades", descripcion, precio, precio, 0.0, 
+                        "No se realizó descuento", precio, precio, mercancia);
+        //}
         jTableAgregar();
     }
+    /**
+     * Prepara los totales de mercancia y servicio del resumen 
+     */
+    public void prepararResumen() {
+        
+        double totalServ = 0;
+        double totalServEx = 0;
+        double totalMerc = 0;
+        double totalMercEx = 0;
+        double totalGrav  = 0;
+        double totalEx = 0; 
+        double totalVenta  = 0;
+        double totalDescuentos = 0;
+        double totalVentaNeta = 0;
+        double totalImpuesto = 0;
+        double totalComprob = 0;
+        
+        for(int i = 0; i < lineas.size(); i++) {
+            if(exonerado)
+            if(lineas.get(i).isMercancia()) {
+                totalMerc += lineas.get(i).getMontoTotalLinea();
+            } else {
+                totalServ += lineas.get(i).getMontoTotalLinea();
+            }
+        }
+    }
     
+    public void agregarResumen(double totalServ, double totalServEx, 
+            double totalMerc, double totalMercEx, double totalGrav, 
+            double totalEx, double totalVenta, double totalDescuentos, 
+            double totalVentaNeta, double totalImpuesto, double totalComprob) {
+        
+        ctrFactura.crearFacResumen("CRC", 1, totalServ, totalServEx,totalMerc, 
+                totalMercEx, totalGrav, totalEx, totalVenta, totalDescuentos, 
+                totalVentaNeta, totalImpuesto, totalComprob);
+    }
     /**
      * Agregar productos a la tabla en la interfaz para mostrar las lineas.
      */
@@ -922,7 +954,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     private void btnAgregarVariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVariosActionPerformed
         dialogVarios = new DlgFacVarios(this, true);
         dialogVarios.setVisible(true);
-        agregarLineaVarios();
+        //agregarLineaVarios();
     }//GEN-LAST:event_btnAgregarVariosActionPerformed
 
     private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
