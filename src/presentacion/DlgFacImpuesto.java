@@ -119,22 +119,37 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
     private void initComponents() {
 
         bgTipoImpuesto = new javax.swing.ButtonGroup();
+        pnlPrincipal = new javax.swing.JPanel();
         pnlImpuesto = new javax.swing.JPanel();
         pnlTipoImpuesto = new javax.swing.JPanel();
         rbGeneralVentas = new javax.swing.JRadioButton();
         rbServicio = new javax.swing.JRadioButton();
         rbOtro = new javax.swing.JRadioButton();
+        txtImpuesto = new javax.swing.JTextField();
+        lblMontoImpuesto = new javax.swing.JLabel();
         lblTextTarifaImpuesto = new javax.swing.JLabel();
         lblTextMontoImpuesto = new javax.swing.JLabel();
-        lblMontoImpuesto = new javax.swing.JLabel();
-        btnCancelarImpuesto = new javax.swing.JButton();
-        btnAceptarImpuesto = new javax.swing.JButton();
-        btnExonerarImpuesto = new javax.swing.JButton();
-        txtImpuesto = new javax.swing.JTextField();
         lblTextMontoImpuesto1 = new javax.swing.JLabel();
+        pnlExoneracion = new javax.swing.JPanel();
+        pnlTipoExoneracion = new javax.swing.JPanel();
+        rbCompraAutorizada = new javax.swing.JRadioButton();
+        rbVentaDiplomatico = new javax.swing.JRadioButton();
+        rbOrdenCompra = new javax.swing.JRadioButton();
+        rbExencionesHacienda = new javax.swing.JRadioButton();
+        rbZonaFranca = new javax.swing.JRadioButton();
+        rbOtros = new javax.swing.JRadioButton();
+        lblTextMontoImpuestoEx = new javax.swing.JLabel();
+        lblTextPorcentCompra = new javax.swing.JLabel();
+        txtPorcentajeCompra = new javax.swing.JTextField();
+        lblMontoImpuestoEx = new javax.swing.JLabel();
+        ckbExonerar = new javax.swing.JCheckBox();
+        btnAceptarImpEx = new javax.swing.JButton();
+        btnCancelarImpEx = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar impuesto");
+
+        pnlImpuesto.setBorder(javax.swing.BorderFactory.createTitledBorder("Impuesto:"));
 
         pnlTipoImpuesto.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de impuesto:"));
 
@@ -153,11 +168,12 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
         pnlTipoImpuestoLayout.setHorizontalGroup(
             pnlTipoImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTipoImpuestoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(pnlTipoImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rbOtro)
                     .addComponent(rbServicio)
-                    .addComponent(rbGeneralVentas)))
+                    .addComponent(rbGeneralVentas))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         pnlTipoImpuestoLayout.setVerticalGroup(
             pnlTipoImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,38 +187,17 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
                 .addGap(26, 26, 26))
         );
 
-        lblTextTarifaImpuesto.setText("Impuesto: ");
-
-        lblTextMontoImpuesto.setText("Monto:");
-
-        lblMontoImpuesto.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.SystemColor.activeCaption));
-
-        btnCancelarImpuesto.setText("Cancelar");
-        btnCancelarImpuesto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarImpuestoActionPerformed(evt);
-            }
-        });
-
-        btnAceptarImpuesto.setText("Aceptar");
-        btnAceptarImpuesto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarImpuestoActionPerformed(evt);
-            }
-        });
-
-        btnExonerarImpuesto.setText("Exonerar");
-        btnExonerarImpuesto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExonerarImpuestoActionPerformed(evt);
-            }
-        });
-
         txtImpuesto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtImpuestoKeyReleased(evt);
             }
         });
+
+        lblMontoImpuesto.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.SystemColor.activeCaption));
+
+        lblTextTarifaImpuesto.setText("Impuesto: ");
+
+        lblTextMontoImpuesto.setText("Monto:");
 
         lblTextMontoImpuesto1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblTextMontoImpuesto1.setText("%");
@@ -212,50 +207,201 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
         pnlImpuestoLayout.setHorizontalGroup(
             pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlImpuestoLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addGroup(pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlTipoImpuesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancelarImpuesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addGroup(pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAceptarImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExonerarImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlTipoImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlImpuestoLayout.createSequentialGroup()
                         .addGroup(pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTextTarifaImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTextMontoImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblMontoImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlImpuestoLayout.createSequentialGroup()
-                                .addComponent(txtImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblTextMontoImpuesto1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(14, 14, 14))
+                                .addComponent(txtImpuesto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTextMontoImpuesto1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblMontoImpuesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
         pnlImpuestoLayout.setVerticalGroup(
             pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlImpuestoLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlImpuestoLayout.createSequentialGroup()
-                        .addGroup(pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblTextTarifaImpuesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblTextMontoImpuesto1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblTextMontoImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblMontoImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addComponent(btnExonerarImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 9, Short.MAX_VALUE))
-                    .addComponent(pnlTipoImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 121, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(pnlTipoImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelarImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAceptarImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblTextTarifaImpuesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblTextMontoImpuesto1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlImpuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblTextMontoImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMontoImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(79, Short.MAX_VALUE))
+        );
+
+        pnlExoneracion.setBorder(javax.swing.BorderFactory.createTitledBorder("Exoneración:"));
+        pnlExoneracion.setEnabled(false);
+
+        pnlTipoExoneracion.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione el tipo de exoneración:"));
+        pnlTipoExoneracion.setEnabled(false);
+
+        rbCompraAutorizada.setSelected(true);
+        rbCompraAutorizada.setText("Compras autorizadas");
+        rbCompraAutorizada.setEnabled(false);
+
+        rbVentaDiplomatico.setText("Ventas exentas a diplomáticos");
+        rbVentaDiplomatico.setEnabled(false);
+
+        rbOrdenCompra.setText("Orden de compra (Instituciones públicas y otros)");
+        rbOrdenCompra.setEnabled(false);
+
+        rbExencionesHacienda.setText("Exenciones Dirección General de Hacienda");
+        rbExencionesHacienda.setEnabled(false);
+
+        rbZonaFranca.setText("Zonas Francas");
+        rbZonaFranca.setEnabled(false);
+
+        rbOtros.setText("Otros");
+        rbOtros.setEnabled(false);
+
+        javax.swing.GroupLayout pnlTipoExoneracionLayout = new javax.swing.GroupLayout(pnlTipoExoneracion);
+        pnlTipoExoneracion.setLayout(pnlTipoExoneracionLayout);
+        pnlTipoExoneracionLayout.setHorizontalGroup(
+            pnlTipoExoneracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTipoExoneracionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlTipoExoneracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTipoExoneracionLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pnlTipoExoneracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbOrdenCompra)
+                            .addComponent(rbVentaDiplomatico)
+                            .addComponent(rbCompraAutorizada)
+                            .addComponent(rbExencionesHacienda)))
+                    .addGroup(pnlTipoExoneracionLayout.createSequentialGroup()
+                        .addGroup(pnlTipoExoneracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbZonaFranca)
+                            .addComponent(rbOtros))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        pnlTipoExoneracionLayout.setVerticalGroup(
+            pnlTipoExoneracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTipoExoneracionLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rbCompraAutorizada)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbVentaDiplomatico)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbOrdenCompra)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbExencionesHacienda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbZonaFranca)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbOtros))
+        );
+
+        lblTextMontoImpuestoEx.setText("Monto Impuesto:");
+        lblTextMontoImpuestoEx.setEnabled(false);
+        lblTextMontoImpuestoEx.setOpaque(true);
+
+        lblTextPorcentCompra.setText("Porcentaje Compra:");
+        lblTextPorcentCompra.setToolTipText("");
+        lblTextPorcentCompra.setEnabled(false);
+        lblTextPorcentCompra.setOpaque(true);
+
+        txtPorcentajeCompra.setEnabled(false);
+
+        lblMontoImpuestoEx.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.SystemColor.activeCaption));
+        lblMontoImpuestoEx.setEnabled(false);
+        lblMontoImpuestoEx.setOpaque(true);
+
+        javax.swing.GroupLayout pnlExoneracionLayout = new javax.swing.GroupLayout(pnlExoneracion);
+        pnlExoneracion.setLayout(pnlExoneracionLayout);
+        pnlExoneracionLayout.setHorizontalGroup(
+            pnlExoneracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlExoneracionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlExoneracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlTipoExoneracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlExoneracionLayout.createSequentialGroup()
+                        .addGroup(pnlExoneracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTextMontoImpuestoEx, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTextPorcentCompra))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlExoneracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblMontoImpuestoEx, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPorcentajeCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlExoneracionLayout.setVerticalGroup(
+            pnlExoneracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlExoneracionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlTipoExoneracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pnlExoneracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlExoneracionLayout.createSequentialGroup()
+                        .addComponent(lblTextMontoImpuestoEx, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTextPorcentCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlExoneracionLayout.createSequentialGroup()
+                        .addComponent(lblMontoImpuestoEx, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtPorcentajeCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+
+        ckbExonerar.setText("Exonerar");
+
+        btnAceptarImpEx.setText("Aceptar");
+        btnAceptarImpEx.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarImpExActionPerformed(evt);
+            }
+        });
+
+        btnCancelarImpEx.setText("Cancelar");
+        btnCancelarImpEx.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarImpExActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlPrincipalLayout = new javax.swing.GroupLayout(pnlPrincipal);
+        pnlPrincipal.setLayout(pnlPrincipalLayout);
+        pnlPrincipalLayout.setHorizontalGroup(
+            pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPrincipalLayout.createSequentialGroup()
+                        .addComponent(btnCancelarImpEx, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAceptarImpEx, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ckbExonerar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlPrincipalLayout.createSequentialGroup()
+                        .addComponent(pnlImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlExoneracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        pnlPrincipalLayout.setVerticalGroup(
+            pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlExoneracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ckbExonerar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAceptarImpEx, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelarImpEx, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -263,30 +409,28 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlImpuesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlImpuesto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelarImpuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarImpuestoActionPerformed
+    private void btnCancelarImpExActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarImpExActionPerformed
         
         this.dispose();
-    }//GEN-LAST:event_btnCancelarImpuestoActionPerformed
+    }//GEN-LAST:event_btnCancelarImpExActionPerformed
 
-    private void btnAceptarImpuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarImpuestoActionPerformed
+    private void btnAceptarImpExActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarImpExActionPerformed
         enviarDatos();
-    }//GEN-LAST:event_btnAceptarImpuestoActionPerformed
-
-    private void btnExonerarImpuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExonerarImpuestoActionPerformed
-        enviarDatos();
-        dialogExoneracion = new DlgFacExoneracion(this, true);
-        dialogExoneracion.setVisible(true);
-    }//GEN-LAST:event_btnExonerarImpuestoActionPerformed
+    }//GEN-LAST:event_btnAceptarImpExActionPerformed
 
     private void txtImpuestoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtImpuestoKeyReleased
         //String porcentaje = txtImpuesto.getText();
@@ -344,18 +488,31 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgTipoImpuesto;
-    private javax.swing.JButton btnAceptarImpuesto;
-    private javax.swing.JButton btnCancelarImpuesto;
-    private javax.swing.JButton btnExonerarImpuesto;
+    private javax.swing.JButton btnAceptarImpEx;
+    private javax.swing.JButton btnCancelarImpEx;
+    private javax.swing.JCheckBox ckbExonerar;
     private javax.swing.JLabel lblMontoImpuesto;
+    private javax.swing.JLabel lblMontoImpuestoEx;
     private javax.swing.JLabel lblTextMontoImpuesto;
     private javax.swing.JLabel lblTextMontoImpuesto1;
+    private javax.swing.JLabel lblTextMontoImpuestoEx;
+    private javax.swing.JLabel lblTextPorcentCompra;
     private javax.swing.JLabel lblTextTarifaImpuesto;
+    private javax.swing.JPanel pnlExoneracion;
     private javax.swing.JPanel pnlImpuesto;
+    private javax.swing.JPanel pnlPrincipal;
+    private javax.swing.JPanel pnlTipoExoneracion;
     private javax.swing.JPanel pnlTipoImpuesto;
+    private javax.swing.JRadioButton rbCompraAutorizada;
+    private javax.swing.JRadioButton rbExencionesHacienda;
     private javax.swing.JRadioButton rbGeneralVentas;
+    private javax.swing.JRadioButton rbOrdenCompra;
     private javax.swing.JRadioButton rbOtro;
+    private javax.swing.JRadioButton rbOtros;
     private javax.swing.JRadioButton rbServicio;
+    private javax.swing.JRadioButton rbVentaDiplomatico;
+    private javax.swing.JRadioButton rbZonaFranca;
     private javax.swing.JTextField txtImpuesto;
+    private javax.swing.JTextField txtPorcentajeCompra;
     // End of variables declaration//GEN-END:variables
 }
