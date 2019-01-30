@@ -124,6 +124,7 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
     /**
      * Crea el impuesto con la información pertinente para ser enviado a 
      * facturación.
+     * @return 
      */
     public Impuesto crearImpuesto() {
         
