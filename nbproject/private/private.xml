@@ -5,8 +5,11 @@
         <group>
             <file>file:/home/darkreaper/NetBeansProjects/RP_SAIAES/src/presentacion/DlgFacVarios.java</file>
             <file>file:/home/darkreaper/NetBeansProjects/RP_SAIAES/src/logica/negocio/LineaDetalle.java</file>
+            <file>file:/home/darkreaper/NetBeansProjects/RP_SAIAES/src/modelos/MdlLineaDetalle.java</file>
             <file>file:/home/darkreaper/NetBeansProjects/RP_SAIAES/src/presentacion/DlgFacExoneracion.java</file>
+            <file>file:/home/darkreaper/NetBeansProjects/RP_SAIAES/src/controladores/CtrLineaDetalle.java</file>
             <file>file:/home/darkreaper/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmFacturacion.java</file>
+            <file>file:/home/darkreaper/NetBeansProjects/RP_SAIAES/src/logica/negocio/Impuesto.java</file>
             <file>file:/home/darkreaper/NetBeansProjects/RP_SAIAES/src/presentacion/DlgFacImpuesto.java</file>
         </group>
     </open-files>

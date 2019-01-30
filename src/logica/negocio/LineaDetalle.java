@@ -28,7 +28,6 @@ public class LineaDetalle {
     private double montoTotalLinea;
     //Adicional clasificación de producto
     private boolean mercancia;
-    private boolean exonerado;
 
     /**
      * Constructor vacío de clase LíneaDetalle.
@@ -60,7 +59,7 @@ public class LineaDetalle {
             String unidadMedida, String detalle, double precioUnitario, 
             double total, double descuento, String naturalezaDescuento,
             double subtotal, Impuesto impuesto, double montoTotalLinea, 
-            boolean mercancia, boolean exonerado) {
+            boolean mercancia) {
         this.numeroLinea = numeroLinea;
         this.tipoCodProducto = tipoCodProducto;
         this.codigoProducto = codigoProducto;
@@ -73,7 +72,6 @@ public class LineaDetalle {
         this.impuesto = impuesto;
         this.montoTotalLinea = montoTotalLinea;
         this.mercancia = mercancia;
-        this.exonerado = exonerado;
     }
 
     /**
@@ -192,14 +190,6 @@ public class LineaDetalle {
      */
     public void setMercancia(boolean mercancia) {
         this.mercancia = mercancia;
-    }
-    
-    /**
-     * Establecer la exoneración del producto.
-     * @param exonerado the exonerado to set
-     */
-    public void setExonerado(boolean exonerado) {
-        this.exonerado = exonerado;
     }
 
     /**
@@ -320,14 +310,6 @@ public class LineaDetalle {
      */
     public boolean isMercancia() {
         return mercancia;
-    }
-
-    /**
-     * Obtener la exoneración del producto.
-     * @return the exonerado
-     */
-    public boolean isExonerado() {
-        return exonerado;
     }
     
 }

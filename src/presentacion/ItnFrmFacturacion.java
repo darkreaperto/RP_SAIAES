@@ -271,9 +271,10 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         Double.valueOf(totales.get(0).toString()),
         descuento, "No se realizó descuento", 
         Double.valueOf(totales.get(2).toString()),
-        impuesto, precioConImpuesto, true, false);
+        impuesto, precioConImpuesto, true);
 
         lineas.add(linea); //Agregarlos a la tabla en interfaz
+        
         //Crea líneaDetalle en la base de datos
         ctrLineaDetalle.crearLineaDetalle(
                 String.valueOf(ctrImpuesto.getCodImpuesto()), 
@@ -295,24 +296,22 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
      * @param descripcion descripción del producto o servicio a vender
      * @param precio precio total de producto o servicio
      * @param mercancia true si se trata de mercancia o false si es un servicio
-     * @param exonerado
      */
     public void agregarLineaVarios(String descripcion, double precio, 
-            boolean mercancia, boolean exonerado) {
+            boolean mercancia) {
         
-        //if (descripcion != null && facVarios[1] != null) {
+//        if (descripcion != null && facVarios[1] != null) {
             int numLinea = lineas.size() + 1;
-//            LineaDetalle linea = new LineaDetalle(numLinea, "04", "99", 1,
-//                    "unidades", descripcion, precio, precio, 0.0, 
-//                    "No se realizó descuento", precio, "1", precio, mercancia,
-//                    exonerado);
-//            
-//            lineas.add(linea);
-//            
+            LineaDetalle linea = new LineaDetalle(numLinea, "04", "99", 1,
+                    "unidades", descripcion, precio, precio, 0.0, 
+                    "No se realizó descuento", precio, "1", precio, mercancia);
+            
+            lineas.add(linea);
+            
             ctrLineaDetalle.crearLineaDetalle("1",numLinea, "04", "99", 1, 
                         "unidades", descripcion, precio, precio, 0.0, 
                         "No se realizó descuento", precio, precio, mercancia);
-        //}
+//        }
         jTableAgregar();
     }
     /**
