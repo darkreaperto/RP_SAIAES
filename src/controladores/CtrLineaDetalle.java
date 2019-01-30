@@ -6,6 +6,7 @@
 package controladores;
 
 import java.util.ArrayList;
+import logica.negocio.Impuesto;
 import logica.negocio.LineaDetalle;
 import modelos.MdlLineaDetalle;
 
@@ -37,7 +38,7 @@ public class CtrLineaDetalle {
     
     /**
      * Llama el método que inserta un nuevo registro 'exoneración' en la BD
-     * @param codigoImpuesto codigo del tipo de impuesto indicado por hacienda
+     * @param impuesto codigo de impuesto para la bd
      * @param numLinea consecutivo que enumera la linea de detalle
      * @param tipoCodProducto tipo de codigo de producto (indicado por hacienda)
      * @param codProducto codigo del producto asignado por el aserradero
@@ -53,13 +54,13 @@ public class CtrLineaDetalle {
      * @param mercancia si el producto es una mercancia o un servicio
      * @return verdadero si se crea exitosamente la linea de detalle
      */
-    public boolean crearLineaDetalle(String codigoImpuesto, int numLinea, 
+    public boolean crearLineaDetalle(Impuesto impuesto, int numLinea, 
             String tipoCodProducto, String codProducto, double cantidadLinea, 
             String unidadMedida, String detalleLinea, double precioLinea, 
             double totalLinea, double descuentoLinea, String natDescuento, 
             double subtotal, double montoTotalLinea, boolean mercancia) {
         
-        return mdlLineaDetalle.crearLineaDetalle(codigoImpuesto, numLinea, 
+        return mdlLineaDetalle.crearLineaDetalle(impuesto, numLinea, 
                 tipoCodProducto, codProducto, cantidadLinea, unidadMedida,
                 detalleLinea, precioLinea, totalLinea, descuentoLinea, 
                 natDescuento, subtotal, montoTotalLinea, mercancia);

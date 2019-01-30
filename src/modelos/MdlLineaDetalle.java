@@ -6,10 +6,12 @@
 package modelos;
 
 import controladores.CtrConexion;
+import controladores.CtrImpuesto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import logica.negocio.Impuesto;
 import logica.servicios.Mensaje;
 import util.TipoContacto;
 
@@ -19,6 +21,7 @@ import util.TipoContacto;
  */
 public class MdlLineaDetalle {
     private static CtrConexion conexion;
+    private static CtrImpuesto ctrImpuesto;
     private static String procedimiento;
     private static ResultSet resultado;
     private static Mensaje msgError;
@@ -29,11 +32,12 @@ public class MdlLineaDetalle {
     public MdlLineaDetalle() {
         conexion = new CtrConexion();
         msgError = new Mensaje();
+        ctrImpuesto = new CtrImpuesto();
     }   
     
     /**
      * Inserta una nueva linea de detalle en la BD.
-     * @param codigoImpuesto codigo del tipo de impuesto indicado por hacienda
+     * @param impuesto codigo del impuesto para la bd
      * @param numLinea consecutivo que enumera la linea de detalle
      * @param tipoCodProducto tipo de codigo de producto (indicado por hacienda)
      * @param codProducto codigo del producto asignado por el aserradero
@@ -49,14 +53,17 @@ public class MdlLineaDetalle {
      * @param mercancia si el producto es mercancia o servicio
      * @return verdadero si se crea exitosamente la linea de detalle
      */
-    public boolean crearLineaDetalle(String codigoImpuesto, int numLinea, String tipoCodProducto, 
+    public boolean crearLineaDetalle(Impuesto impuesto, int numLinea, String tipoCodProducto, 
             String codProducto, double cantidadLinea, String unidadMedida,
             String detalleLinea, double precioLinea, double totalLinea,
             double descuentoLinea, String natDescuento, double subtotal,
             double montoTotalLinea, boolean mercancia) {
-
+        
+        int indiceImpuesto = ctrImpuesto.crearImpuesto(impuesto.getCodigoImpuesto(), 
+                impuesto.getTarifaImpuesto(), impuesto.getMontoImpuesto());
+        
         ArrayList<Object> params = new ArrayList<>();
-        params.add(codigoImpuesto);
+        params.add(indiceImpuesto);
         params.add(numLinea);
         params.add(tipoCodProducto);
         params.add(codProducto);

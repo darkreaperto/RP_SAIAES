@@ -198,7 +198,7 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
     public boolean verificarExoneracion() {
         boolean exito = false;
         try {
-            double prctCompra = Double.valueOf(txtPorcentajeCompra.getText());
+            double prctCompra = Integer.valueOf(txtPorcentajeCompra.getText());
 
             if(!txtPorcentajeCompra.getText().trim().isEmpty() && 
                     !txtNombreInstitucion.getText().trim().isEmpty() && 
@@ -220,7 +220,34 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
         }
         return exito;
     }
-    
+    /**
+     * Calcula y retorna el monto que se exonerará del impuesto.
+     * @return monto que se exonerará del impuesto.
+     */
+    public double calcularExoneracion() {
+        int porcentCompra;
+        double valorExonerar = 0.0;
+        try{
+            if(!txtImpuesto.getText().isEmpty()) {
+                porcentCompra = Integer.valueOf(txtPorcentajeCompra.getText())/100;
+                valorExonerar = calcularImpuesto() * porcentCompra;
+                
+            } else {
+                msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                        TipoMensaje.EMPTY_TEXT_FIELD);
+            }
+        } catch (NumberFormatException ex) {
+            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                    TipoMensaje.WRONG_DECIMAL_NUMBER);
+            System.out.println("Number exception: " + ex);
+        } catch (Exception ex) {
+            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+                    TipoMensaje.SOMETHING_WENT_WRONG);
+            System.out.println("Exception: " + ex);
+        } finally {
+            return valorExonerar;
+        }
+    }
     /**
      * Crea la exoneración con el monto de impuesto especificado.
      * @return la exoneración creada
@@ -230,7 +257,7 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
         String institucion = txtNombreInstitucion.getText();
         
         Exoneracion exoneracion = new Exoneracion(tipoDocExoneracion(), numDoc, 
-                institucion, noow(), Double.valueOf(txtImpuesto.getText()), 
+                institucion, noow(), calcularExoneracion(), 
                 Integer.valueOf(txtPorcentajeCompra.getText()));
         
         return exoneracion;

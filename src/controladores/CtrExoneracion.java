@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.sql.Timestamp;
 import logica.negocio.Exoneracion;
+import logica.negocio.Impuesto;
 import modelos.MdlExoneracion;
 
 /**
@@ -48,10 +49,10 @@ public class CtrExoneracion {
      * @param porcentajeCompra porcentaje de la compra autorizada o exoneración
      * @return verdadero si el impuesto se crea exitosamente
      */
-    public boolean crearExoneracion(int codigoImpuesto, String tipoDocumento, 
+    public boolean crearExoneracion(Impuesto impuesto, String tipoDocumento, 
             String numDocumento, String institucion, Date fechaEmision,
             double montoImpuesto, int porcentajeCompra) {
-        return mdlExoneracion.crearExoneración(codigoImpuesto, tipoDocumento, 
+        return mdlExoneracion.crearExoneración(impuesto, tipoDocumento, 
                 numDocumento, institucion, fechaEmision, montoImpuesto, 
                 porcentajeCompra);
     }

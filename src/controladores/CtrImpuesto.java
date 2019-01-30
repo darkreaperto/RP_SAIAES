@@ -43,14 +43,21 @@ public class CtrImpuesto {
      * producto
      * @return verdadero si el impuesto se crea exitosamente
      */
-    public boolean crearImpuesto(String codigoImpuesto, double tarifaImpuesto, 
+//    public boolean crearImpuesto(String codigoImpuesto, double tarifaImpuesto, 
+//            double montoImpuesto) {
+//
+//        return mdlImpuesto.crearImpuesto(codigoImpuesto, tarifaImpuesto, 
+//                montoImpuesto);
+//    }
+    
+     public int crearImpuesto(String codigoImpuesto, double tarifaImpuesto, 
             double montoImpuesto) {
 
         return mdlImpuesto.crearImpuesto(codigoImpuesto, tarifaImpuesto, 
                 montoImpuesto);
     }
     
-    public int getCodImpuesto() {
-        return mdlImpuesto.getCodImpuesto();
-    }
+//    public int getCodImpuesto() {
+//        return mdlImpuesto.getCodImpuesto();
+//    }
 }
