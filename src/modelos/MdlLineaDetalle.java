@@ -6,11 +6,13 @@
 package modelos;
 
 import controladores.CtrConexion;
+import controladores.CtrExoneracion;
 import controladores.CtrImpuesto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
 import logica.negocio.Impuesto;
 import logica.servicios.Mensaje;
 import util.TipoContacto;
@@ -22,6 +24,7 @@ import util.TipoContacto;
 public class MdlLineaDetalle {
     private static CtrConexion conexion;
     private static CtrImpuesto ctrImpuesto;
+    private static CtrExoneracion ctrExoneracion;
     private static String procedimiento;
     private static ResultSet resultado;
     private static Mensaje msgError;
@@ -33,6 +36,7 @@ public class MdlLineaDetalle {
         conexion = new CtrConexion();
         msgError = new Mensaje();
         ctrImpuesto = new CtrImpuesto();
+        ctrExoneracion = new CtrExoneracion();
     }   
     
     /**
@@ -53,14 +57,27 @@ public class MdlLineaDetalle {
      * @param mercancia si el producto es mercancia o servicio
      * @return verdadero si se crea exitosamente la linea de detalle
      */
-    public boolean crearLineaDetalle(Impuesto impuesto, int numLinea, String tipoCodProducto, 
-            String codProducto, double cantidadLinea, String unidadMedida,
-            String detalleLinea, double precioLinea, double totalLinea,
-            double descuentoLinea, String natDescuento, double subtotal,
-            double montoTotalLinea, boolean mercancia) {
+    public boolean crearLineaDetalle(Impuesto impuesto, int numLinea, 
+            String tipoCodProducto, String codProducto, double cantidadLinea, 
+            String unidadMedida, String detalleLinea, double precioLinea, 
+            double totalLinea, double descuentoLinea, String natDescuento, 
+            double subtotal, double montoTotalLinea, boolean mercancia) {
         
         int indiceImpuesto = ctrImpuesto.crearImpuesto(impuesto.getCodigoImpuesto(), 
                 impuesto.getTarifaImpuesto(), impuesto.getMontoImpuesto());
+        
+        if(impuesto.getExoneracion() != null) {
+            
+            String tipoDoc = impuesto.getExoneracion().getTipoDocumento();
+            String numDoc = impuesto.getExoneracion().getNumeroDocumento();
+            String institucion = impuesto.getExoneracion().getNombreInstitucion();
+            Date fecha = impuesto.getExoneracion().getFechaEmision();
+            double montoImpuesto = impuesto.getExoneracion().getMontoImpuesto();
+            double porcentCompra = impuesto.getExoneracion().getPorcentajeCompra();
+            
+            ctrExoneracion.crearExoneracion(indiceImpuesto, tipoDoc,
+                    numDoc, institucion, fecha, montoImpuesto, porcentCompra);            
+        }
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(indiceImpuesto);

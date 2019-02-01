@@ -151,7 +151,7 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
 //                ctrImpuesto.crearImpuesto(codImpuestosHac(), 
 //                        Double.valueOf(txtImpuesto.getText())/100, 
 //                        calcularImpuesto());
-                this.dispose();
+//                this.dispose();
             } else {
                 msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
                     TipoMensaje.TAX_MISSING);
@@ -225,12 +225,13 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
      * @return monto que se exonerará del impuesto.
      */
     public double calcularExoneracion() {
-        int porcentCompra;
+        double porcentCompra;
         double valorExonerar = 0.0;
         try{
             if(!txtImpuesto.getText().isEmpty()) {
-                porcentCompra = Integer.valueOf(txtPorcentajeCompra.getText())/100;
+                porcentCompra = Double.valueOf(txtPorcentajeCompra.getText())/100;
                 valorExonerar = calcularImpuesto() * porcentCompra;
+                System.out.println("calcIMp Exone: " + calcularImpuesto() + " PORCENT " + porcentCompra);
                 
             } else {
                 msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
@@ -258,7 +259,7 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
         
         Exoneracion exoneracion = new Exoneracion(tipoDocExoneracion(), numDoc, 
                 institucion, noow(), calcularExoneracion(), 
-                Integer.valueOf(txtPorcentajeCompra.getText()));
+                Double.valueOf(txtPorcentajeCompra.getText())/100);
         
         return exoneracion;
     }
@@ -464,6 +465,12 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
         lblTextPorcentCompra.setToolTipText("");
         lblTextPorcentCompra.setOpaque(true);
 
+        txtPorcentajeCompra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPorcentajeCompraKeyReleased(evt);
+            }
+        });
+
         lblMontoImpExonerado.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.SystemColor.activeCaption));
         lblMontoImpExonerado.setOpaque(true);
 
@@ -608,8 +615,8 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
         
         if (imp != null) {
             ifrmFacturacion.impuesto = imp;
+            this.dispose();
         }
-        this.dispose();
     }//GEN-LAST:event_btnAceptarImpExActionPerformed
 
     private void txtImpuestoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtImpuestoKeyReleased
@@ -631,6 +638,17 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
            pnlExoneracion.setVisible(false);
         }
     }//GEN-LAST:event_ckbExonerarActionPerformed
+
+    private void txtPorcentajeCompraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPorcentajeCompraKeyReleased
+        double valor = 0;
+        try {
+            valor = calcularExoneracion();
+            lblMontoImpExonerado.setText(String.valueOf(valor));
+        } catch (NumberFormatException ex) {
+            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, TipoMensaje.WRONG_DECIMAL_NUMBER);
+            System.out.println("Number exception: " + ex);
+        }
+    }//GEN-LAST:event_txtPorcentajeCompraKeyReleased
 
     /**
      * @param args the command line arguments
