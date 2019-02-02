@@ -9,6 +9,7 @@ import controladores.CtrConexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import logica.negocio.Consecutivo;
 import logica.negocio.Madera;
 import logica.servicios.Mensaje;
 
@@ -23,6 +24,8 @@ public class MdlFactura {
     private static ResultSet resultado;
     private static Mensaje msgError;
     ArrayList<Madera> productos;
+    private static ArrayList<Consecutivo> consecutivos;
+    
 
     /**
      * Constructor de clase modelo de factura.
@@ -76,6 +79,45 @@ public class MdlFactura {
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
+        }
+    }
+    
+    /**
+     * Llena una lista con todos los consecutivos de comprobantes almacenados 
+     * en la BD.
+     * @return lista de consecutivos.
+     */
+    public ArrayList<Consecutivo> obtenerConsecutivos() {
+        consecutivos = new ArrayList<>();
+
+        try {
+            procedimiento = "pc_obtener_consecutivos()";
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento);
+
+            String cod;
+            String codComprob;
+            String tipoComprob;
+            int consecutivo;
+
+            while (resultado.next()) {
+                cod = resultado.getString("cod_Consecutivos");
+                codComprob = resultado.getString("codComprob_Consecutivos");
+                tipoComprob = resultado.getString("tipoComprob_Consecutivos");
+                consecutivo = resultado.getInt("consecutivo_Consecutivos");
+
+                Consecutivo conse = new Consecutivo(cod, codComprob, 
+                        tipoComprob, consecutivo);
+
+                if (!consecutivos.contains(conse)) {
+                    consecutivos.add(conse);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return consecutivos;
         }
     }
     
