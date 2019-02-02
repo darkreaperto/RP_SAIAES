@@ -5,13 +5,7 @@
  */
 package controladores;
 
-import java.util.ArrayList;
-import logica.negocio.FacEncabezado;
-import logica.negocio.FacNormativa;
-import logica.negocio.FacReferencia;
-import logica.negocio.FacResumen;
 import logica.negocio.Factura;
-import logica.negocio.Madera;
 import modelos.MdlFactura;
 
 /**
@@ -21,14 +15,12 @@ import modelos.MdlFactura;
 public class CtrFactura {
     private static CtrFactura instancia = null;
     MdlFactura mdlFactura;
-    Factura Factura;
-    ArrayList <Factura> Facturaes;
+    Factura factura;
 
     /**
      * Constructor del controlador de línea de detalle, inicializa variables.
      */
     public CtrFactura() {
-        Facturaes = new ArrayList<>();
         mdlFactura = new MdlFactura();
     }
     
