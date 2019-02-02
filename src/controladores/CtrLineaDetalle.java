@@ -52,9 +52,9 @@ public class CtrLineaDetalle {
      * @param subtotal total de la venta menos el descuento
      * @param montoTotalLinea monto toal de la venta, sumando los impuestos
      * @param mercancia si el producto es una mercancia o un servicio
-     * @return verdadero si se crea exitosamente la linea de detalle
+     * @return el código de la linea creada
      */
-    public boolean crearLineaDetalle(Impuesto impuesto, int numLinea, 
+    public int crearLineaDetalle(Impuesto impuesto, int numLinea, 
             String tipoCodProducto, String codProducto, double cantidadLinea, 
             String unidadMedida, String detalleLinea, double precioLinea, 
             double totalLinea, double descuentoLinea, String natDescuento, 

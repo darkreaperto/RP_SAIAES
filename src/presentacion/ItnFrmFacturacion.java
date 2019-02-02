@@ -591,6 +591,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     
     public void emitirFactura() {
         factura.setResumen(prepararResumen());
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1294,10 +1295,10 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             lblCantExistencia.setText(String.valueOf(prod.getUnidades()));
             lblPrecioUnit.setText(String.valueOf(prod.getPrecioXvara()));
         }
-        
     }//GEN-LAST:event_lsEscogerProdValueChanged
 
     private void btnFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturarActionPerformed
+        
         crearLinea();
         
     }//GEN-LAST:event_btnFacturarActionPerformed

@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Factura {
     
+    private String codFactura;
     //Encabezado
     private FacEncabezado encabezado;
     //Linea de pedido
@@ -43,10 +44,11 @@ public class Factura {
      * @param normativa información de normativa de la factura
      * @param mecanSeguridad mecanismo de seguridad de la factura
      */
-    public Factura(FacEncabezado encabezado, ArrayList<LineaDetalle> lineasDetalle, 
+    public Factura(String codFactura, FacEncabezado encabezado, ArrayList<LineaDetalle> lineasDetalle, 
             FacResumen resumen, FacReferencia infoReferencia, 
             FacNormativa normativa, FacSeguridad mecanSeguridad) {
         
+        this.codFactura = codFactura;
         this.encabezado = encabezado;
         this.lineasDetalle = lineasDetalle;
         this.resumen = resumen;
@@ -56,19 +58,34 @@ public class Factura {
     }
 
     /**
-     * Obtener el encabezado de la factura.
-     * @return the encabezado
+     * Obtener el codigo de la bd para la factura.
+     * @return the codigo
      */
-    public FacEncabezado getEncabezado() {
-        return encabezado;
+    public String getCodFactura() {
+        return codFactura;
     }
-
+    
+    /**
+     * Establecer el codigo de la bd para la factura.
+     * @param codFactura the encabezado to set
+     */
+    public void setEncabezado(String codFactura) {
+        this.codFactura = codFactura;
+    }
     /**
      * Establecer el encabezado de la factura.
      * @param encabezado the encabezado to set
      */
     public void setEncabezado(FacEncabezado encabezado) {
         this.encabezado = encabezado;
+    }
+    
+    /**
+     * Obtener el encabezado de la factura.
+     * @return the encabezado
+     */
+    public FacEncabezado getEncabezado() {
+        return encabezado;
     }
 
     /**

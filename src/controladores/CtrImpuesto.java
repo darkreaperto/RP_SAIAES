@@ -50,7 +50,7 @@ public class CtrImpuesto {
 //                montoImpuesto);
 //    }
     
-     public int crearImpuesto(String codigoImpuesto, double tarifaImpuesto, 
+    public int crearImpuesto(String codigoImpuesto, double tarifaImpuesto, 
             double montoImpuesto) {
 
         return mdlImpuesto.crearImpuesto(codigoImpuesto, tarifaImpuesto, 
