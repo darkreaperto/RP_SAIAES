@@ -6,10 +6,14 @@
 package modelos;
 
 import controladores.CtrConexion;
+import controladores.CtrExoneracion;
+import controladores.CtrImpuesto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
+import logica.negocio.Impuesto;
 import logica.servicios.Mensaje;
 import util.TipoContacto;
 
@@ -19,6 +23,8 @@ import util.TipoContacto;
  */
 public class MdlLineaDetalle {
     private static CtrConexion conexion;
+    private static CtrImpuesto ctrImpuesto;
+    private static CtrExoneracion ctrExoneracion;
     private static String procedimiento;
     private static ResultSet resultado;
     private static Mensaje msgError;
@@ -29,11 +35,13 @@ public class MdlLineaDetalle {
     public MdlLineaDetalle() {
         conexion = new CtrConexion();
         msgError = new Mensaje();
+        ctrImpuesto = new CtrImpuesto();
+        ctrExoneracion = new CtrExoneracion();
     }   
     
     /**
      * Inserta una nueva linea de detalle en la BD.
-     * @param codigoImpuesto codigo del tipo de impuesto indicado por hacienda
+     * @param impuesto codigo del impuesto para la bd
      * @param numLinea consecutivo que enumera la linea de detalle
      * @param tipoCodProducto tipo de codigo de producto (indicado por hacienda)
      * @param codProducto codigo del producto asignado por el aserradero
@@ -47,17 +55,34 @@ public class MdlLineaDetalle {
      * @param subtotal total de la venta menos el descuento
      * @param montoTotalLinea monto toal de la venta, sumando los impuestos
      * @param mercancia si el producto es mercancia o servicio
-     * @param exoneracion si se realiza o no exoneración (nulo si no se da exoneración)
-     * @return verdadero si se crea exitosamente la linea de detalle
+     * @return el código de la linea creada
      */
-    public boolean crearLineaDetalle(String codigoImpuesto, int numLinea, String tipoCodProducto, 
-            String codProducto, double cantidadLinea, String unidadMedida,
-            String detalleLinea, double precioLinea, double totalLinea,
-            double descuentoLinea, String natDescuento, double subtotal,
-            double montoTotalLinea, boolean mercancia) {
-
+    public int crearLineaDetalle(Impuesto impuesto, int numLinea, 
+            String tipoCodProducto, String codProducto, double cantidadLinea, 
+            String unidadMedida, String detalleLinea, double precioLinea, 
+            double totalLinea, double descuentoLinea, String natDescuento, 
+            double subtotal, double montoTotalLinea, boolean mercancia) {
+        
+        //obtener el indice de impuesto
+        int indiceImpuesto = ctrImpuesto.crearImpuesto(impuesto.getCodigoImpuesto(), 
+                impuesto.getTarifaImpuesto(), impuesto.getMontoImpuesto());
+        
+        //Si tiene exoneración, la inserta en la base
+        if(impuesto.getExoneracion() != null) {
+            
+            String tipoDoc = impuesto.getExoneracion().getTipoDocumento();
+            String numDoc = impuesto.getExoneracion().getNumeroDocumento();
+            String institucion = impuesto.getExoneracion().getNombreInstitucion();
+            Date fecha = impuesto.getExoneracion().getFechaEmision();
+            double montoImpuesto = impuesto.getExoneracion().getMontoImpuesto();
+            double porcentCompra = impuesto.getExoneracion().getPorcentajeCompra();
+            
+            ctrExoneracion.crearExoneracion(indiceImpuesto, tipoDoc,
+                    numDoc, institucion, fecha, montoImpuesto, porcentCompra);            
+        }
+        
         ArrayList<Object> params = new ArrayList<>();
-        params.add(codigoImpuesto);
+        params.add(indiceImpuesto);
         params.add(numLinea);
         params.add(tipoCodProducto);
         params.add(codProducto);
@@ -71,30 +96,19 @@ public class MdlLineaDetalle {
         params.add(subtotal);
         params.add(montoTotalLinea);
         params.add(mercancia);
-        //params.add(exoneracion);
         
-//        `codigoImpuesto` VARCHAR(2), 
-//        `tarifaImpuesto` DOUBLE(4,2), 
-//        `montoImpuesto` DOUBLE(18,5), 
-//        `numLinea` INT(11),
-//        `tipoCodProducto` VARCHAR(2),
-//        `codProducto` VARCHAR(20),
-//        `cantidadLinea` DOUBLE(16,3), 
-//        `unidadMedidaLinea` VARCHAR(15),
-//        `detalleLinea` VARCHAR(160),
-//        `precioLinea` DOUBLE(18,5), 
-//        `totalLinea` DOUBLE(18,5),
-//        `descuentoLinea` DOUBLE(18,5),
-//        `natDescuentoLinea` VARCHAR(80),
-//        `subtotalLinea` DOUBLE(18,5),
-//        `montoTotalLinea` DOUBLE(18,5),
-//        `exoneracion` VARCHAR(3)
         boolean creacionExitosa = true;
+        int indice = 0;
         try {
             procedimiento = "pc_crear_linea_detalle(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            
+            //obtener el índice de la fila insertada
+            while (resultado.next()) {
+                indice = resultado.getInt("@indice");
+            }
             
             System.out.println(resultado);
         } catch (SQLException ex) {
@@ -104,7 +118,7 @@ public class MdlLineaDetalle {
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
         } finally {
             conexion.cerrarConexion();
-            return creacionExitosa;
+            return indice;
         }
     }
 }

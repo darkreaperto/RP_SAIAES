@@ -19,6 +19,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
+import logica.negocio.FacEncabezado;
+import logica.negocio.FacResumen;
+import logica.negocio.Factura;
 import logica.negocio.Impuesto;
 import logica.negocio.LineaDetalle;
 import logica.negocio.Madera;
@@ -50,8 +53,9 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     //private static Madera selectedProd;// = new Madera();
     private static ArrayList<Object> totales;
     private static double precioSinImpuesto = 0.0;
-    private static ArrayList<LineaDetalle> lineas = new ArrayList<>();
+    //private static ArrayList<LineaDetalle> lineas = new ArrayList<>();
     public Impuesto impuesto;
+    public Factura factura;
     public boolean exonerado = false;
     
 
@@ -74,6 +78,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         ctrImpuesto = new CtrImpuesto();
         ctrLineaDetalle = new CtrLineaDetalle();
         msg = new Mensaje();
+        factura = new Factura();
         
         //ctrFactura.crearFacResumen("CRC", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
@@ -190,7 +195,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }
     
     /**
-     * Verifica si un ítem de la lista(en la interfaz) está
+     * Verifica si un ítem de la lista (en la interfaz) está
      * seleccionado, luego llama el método escoger producto utilizando el código
      * del ítem seleccionado.
      * @return codigo del producto seleccionado.
@@ -205,6 +210,49 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         return null;
     }
     
+//    /**
+//     * Realiza los cálculos correspondientes referentes al precio total de la
+//     * venta y el subtotal; además obtiene la cantidad restante 
+//     * en inventario del producto seleccionado para actualizar la bd.
+//     * @param cantTotal total de unidades del produto existentes en inventario.
+//     * @param cantSolicitada cantidad de unidades del producto solicitada por el
+//     * comprador.
+//     * @param precio precio unitario del producto.
+//     * @param descuento monto de descuento (en caso de aplicarse).
+//     * @return Lista con los totales resultantes trans hacer los calculos
+//     * correspondientes.
+//     */
+//    public ArrayList calcularTotales(int cantTotal, int cantSolicitada,
+//            double precio, double descuento) {
+//        
+//        totales = new ArrayList<>();
+//        try {
+//            //Si la cantidad solicitada no excede la existente en inventario
+//            if (cantTotal >= cantSolicitada) {
+//                double precioTotal = precio * cantSolicitada;
+//                int cantRestante = cantTotal - cantSolicitada;
+//                double subtotal = precioTotal - descuento;
+//
+//                totales.add(precioTotal);
+//                precioSinImpuesto = precioTotal;
+//                System.out.println("PRECIO SIN: " + precioSinImpuesto);
+//                totales.add(cantRestante);
+//                totales.add(subtotal);
+//            } else {
+//                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+//                        TipoMensaje.PRODUCT_AMOUNT_EXCEEDED);
+//            }
+//            System.out.println("0: "+totales.get(0));
+//            System.out.println("1: "+totales.get(1));
+//            System.out.println("2: "+totales.get(2));
+//        } catch(Exception ex) {
+//            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+//                        TipoMensaje.TOTALS_CALCULATION_FAILURE);
+//        } finally {
+//            return totales;
+//        }
+//    }
+    
     /**
      * Obtener los datos pertinentes del producto para realizar los calculos 
      * para la venta.
@@ -216,73 +264,56 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         //si se obtuvo toda la información del producto seleccionado
         if (prodSelected!=null) {
             try {
-                int cantTotal = prodSelected.getUnidades();//total de productos en inventario
                 int cantSolicitada = Integer.valueOf(
                         txtCantidad.getText().trim());
                 double precio = prodSelected.getPrecioXvara(); //precio unitario
                 double descuento = 0.0;
-                calcularTotales(cantTotal, cantSolicitada, precio, descuento);           
+                
+                precioSinImpuesto = precio * cantSolicitada;        
                 abrirVentanaImpuesto();
 
-                //Sumar impuestos al precioXcantidad del producto
-                double precioConImpuesto = Double.valueOf(totales.get(0).toString())
-                        + impuesto.getMontoImpuesto();
-                
-                //En caso de estar exonerado no se realiza la suma;
-//                if(exonerado) {
-//                   precioConImpuesto =  Double.valueOf(totales.get(0).toString());
-//                   montoImpuesto = 0.0;
-//                }
+                if (impuesto != null) {
+                    agregarLinea(prodSelected, cantSolicitada, precio, descuento);
 
-                //si los totales se obtuvieron con éxito
-                if(!totales.isEmpty()) {
-                    agregarLinea(prodSelected, cantSolicitada, precio, 
-                            descuento, precioConImpuesto);
+                    jTableAgregar();
+                    calcularSubtotalTotal();
+                    limpiarCampos();
                 }
+                
             } catch (NumberFormatException ex) {
                 msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
                     TipoMensaje.NUMBER_FORMAT_EXCEPTION);
                 System.out.println("Number exception: " + ex);
             }
-            jTableAgregar();
+            
+        } else {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.EMPTY_TEXT_FIELD);
         }
-        
     }
     
     /**
      * Agrega una linea de detalle como objeto y a la base de datos.
      * @param prodSelected producto seleccionado en la interfaz
      * @param cantSolicitada cantidad solicitada por el cliente
-     * @param precio precio unitario del producto solicitado
+     * @param precioUni precio unitario del producto solicitado
      * @param descuento descuento del producto
-     * @param precioConImpuesto precio más el impuesto del producto
      */
     public void agregarLinea(Madera prodSelected, int cantSolicitada, 
-            double precio, double descuento, double precioConImpuesto) {
+            double precioUni, double descuento) {
         
-        int numLinea = lineas.size() + 1; 
+        int numLinea = factura.getLineasDetalle().size() + 1; 
         String detalle = prodSelected.getTipoProducto() + ": " + 
                 prodSelected.getDescTipoMadera() + " " + 
                 prodSelected.getMedidas();
-        //Crea objeto líneaDetalle
+        
         LineaDetalle linea = new LineaDetalle(numLinea, "04", 
-        prodSelected.getCodProducto(), cantSolicitada, 
-        "unidades", detalle, precio, 
-        Double.valueOf(totales.get(0).toString()),
-        descuento, "No se realizó descuento", 
-        Double.valueOf(totales.get(2).toString()),
-        impuesto, precioConImpuesto, true, false);
+                prodSelected.getCodProducto(), cantSolicitada, 
+                "unidades", detalle, precioUni,
+                descuento, "No se realizó descuento",
+                impuesto, true);
 
-        lineas.add(linea); //Agregarlos a la tabla en interfaz
-        //Crea líneaDetalle en la base de datos
-        ctrLineaDetalle.crearLineaDetalle(
-                String.valueOf(ctrImpuesto.getCodImpuesto()), 
-                numLinea, "04", prodSelected.getCodProducto(),
-                cantSolicitada, "unidades", detalle, precio, 
-                getPrecioSinImpuesto(), descuento,
-                "No se realizó descuento", 
-                Double.valueOf(totales.get(0).toString()), 
-                precioConImpuesto, true);
+        factura.getLineasDetalle().add(linea); 
         
         //Limpiar variables globales
         impuesto = null;
@@ -290,135 +321,119 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }
     
     /**
+     * Verifica que la información ingresada sea correcta para crear la línea
+     * de detalle.
+     */
+    public void prepararLineaVarios() {
+        
+        String descripcion = txtDescripcionVarios.getText().trim();
+        String precio = txtPrecioVarios.getText().trim();
+        boolean mercancia = rbMercancia.isSelected();
+        
+        if (!descripcion.isEmpty() && validarPrecio(precio)) {
+            
+            precioSinImpuesto = Double.valueOf(precio);
+            abrirVentanaImpuesto();
+            
+            agregarLineaVarios(descripcion, Double.parseDouble(precio), 
+                    impuesto, mercancia);
+            
+            jTableAgregar();
+            calcularSubtotalTotal();
+            limpiarCampos();
+        } else {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.EMPTY_TEXT_FIELD);
+        }
+    }
+    
+    /**
      * Agrega una linea de detalle "varios" (producto no definido, 
      * como transporte o cepillados) como objeto y a la base de datos.
      * @param descripcion descripción del producto o servicio a vender
      * @param precio precio total de producto o servicio
+     * @param imp impuesto de la linea
      * @param mercancia true si se trata de mercancia o false si es un servicio
-     * @param exonerado
      */
     public void agregarLineaVarios(String descripcion, double precio, 
-            boolean mercancia, boolean exonerado) {
+            Impuesto imp, boolean mercancia) {
         
-        //if (descripcion != null && facVarios[1] != null) {
-            int numLinea = lineas.size() + 1;
-//            LineaDetalle linea = new LineaDetalle(numLinea, "04", "99", 1,
-//                    "unidades", descripcion, precio, precio, 0.0, 
-//                    "No se realizó descuento", precio, "1", precio, mercancia,
-//                    exonerado);
-//            
-//            lineas.add(linea);
-//            
-            ctrLineaDetalle.crearLineaDetalle("1",numLinea, "04", "99", 1, 
-                        "unidades", descripcion, precio, precio, 0.0, 
-                        "No se realizó descuento", precio, precio, mercancia);
-        //}
-        jTableAgregar();
-    }
-    /**
-     * Prepara los totales de mercancia y servicio del resumen 
-     */
-    public void prepararResumen() {
-        
-        double totalServ = 0;
-        double totalServEx = 0;
-        double totalMerc = 0;
-        double totalMercEx = 0;
-        double totalGrav  = 0;
-        double totalEx = 0; 
-        double totalVenta  = 0;
-        double totalDescuentos = 0;
-        double totalVentaNeta = 0;
-        double totalImpuesto = 0;
-        double totalComprob = 0;
-        
-        for(int i = 0; i < lineas.size(); i++) {
+        int numLinea = factura.getLineasDetalle().size() + 1;
+        LineaDetalle linea = new LineaDetalle(numLinea, "04", "99", 1,
+                "unidades", descripcion, precio, 0.0, 
+                "No se realizó descuento", imp, mercancia);
+
+        factura.getLineasDetalle().add(linea);
             
-            if(lineas.get(i).isMercancia()) {
-                totalMerc += lineas.get(i).getMontoTotalLinea();
-            } else {
-                totalServ += lineas.get(i).getMontoTotalLinea();
-            }
-        }
+        //Limpiar variables globales
+        impuesto = null;
+        precioSinImpuesto = 0;
+        
     }
     
-    public void agregarResumen(double totalServ, double totalServEx, 
-            double totalMerc, double totalMercEx, double totalGrav, 
-            double totalEx, double totalVenta, double totalDescuentos, 
-            double totalVentaNeta, double totalImpuesto, double totalComprob) {
-        
-        ctrFactura.crearFacResumen("CRC", 1, totalServ, totalServEx,totalMerc, 
-                totalMercEx, totalGrav, totalEx, totalVenta, totalDescuentos, 
-                totalVentaNeta, totalImpuesto, totalComprob);
+    /**
+     * Validar si el precio ingresado es un número decimal válido.
+     * @param precio precio a revisar
+     * @return true si cumple, false si no
+     */
+    private boolean validarPrecio(String precio) {
+        boolean exito = false;
+        try {
+            double prec = Double.parseDouble(precio);
+            if (prec > 0) {
+                exito = true;
+            }
+        } catch (NumberFormatException ex) {
+            System.out.println(ex.toString());
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        } finally {
+            return exito;
+        }
     }
+  
+    /**
+     * Calcular el subtotal y el total acumulados de todas as líneas y mostrarlo 
+     * en la interfaz.
+     */
+    private void calcularSubtotalTotal() {
+        
+       double subtotal = 0;
+       double total = 0;
+       
+       for (LineaDetalle l: factura.getLineasDetalle()) {
+           subtotal += l.getSubtotal();
+           total += l.getMontoTotalLinea();
+       }
+       
+       lblSubtotal.setText(String.valueOf(subtotal));
+       lblTotal.setText(String.valueOf(total));
+    }
+    
     /**
      * Agregar productos a la tabla en la interfaz para mostrar las lineas.
      */
     public void jTableAgregar() {
-        System.out.println("LINEAS SIZE: "+ lineas.size());
+        System.out.println("LINEAS SIZE: "+ factura.getLineasDetalle().size());
         
         Object[] row = new Object[7];
         DefaultTableModel model = (DefaultTableModel) tblLineaPedido.getModel();
         model.setRowCount(0);
         model.setColumnCount(7);
             
-        for (int i = 0; i<lineas.size(); i++) {
+        for (int i = 0; i<factura.getLineasDetalle().size(); i++) {
 
-            row[0] = lineas.get(i).getDetalle();
-            row[1] = lineas.get(i).getUnidadMedida(); 
-            row[2] = lineas.get(i).getCantidad();
-            row[3] = lineas.get(i).getPrecioUnitario();
-            row[4] = lineas.get(i).getImpuesto().getMontoImpuesto();
-            row[5] = lineas.get(i).getSubtotal();
-            row[6] = lineas.get(i).getMontoTotalLinea();
+            row[0] = factura.getLineasDetalle().get(i).getDetalle();
+            row[1] = factura.getLineasDetalle().get(i).getUnidadMedida(); 
+            row[2] = factura.getLineasDetalle().get(i).getCantidad();
+            row[3] = factura.getLineasDetalle().get(i).getPrecioUnitario();
+            row[4] = factura.getLineasDetalle().get(i).getImpuesto().getMontoImpuesto();
+            row[5] = factura.getLineasDetalle().get(i).getSubtotal();
+            row[6] = factura.getLineasDetalle().get(i).getMontoTotalLinea();
 
             model.addRow(row);
             
         }
-    }
-    
-    /**
-     * Realiza los cálculos correspondientes referentes al precio total de la
-     * venta y el subtotal; además obtiene la cantidad restante 
-     * en inventario del producto seleccionado para actualizar la bd.
-     * @param cantTotal total de unidades del produto existentes en inventario.
-     * @param cantSolicitada cantidad de unidades del producto solicitada por el
-     * comprador.
-     * @param precio precio unitario del producto.
-     * @param descuento monto de descuento (en caso de aplicarse).
-     * @return Lista con los totales resultantes trans hacer los calculos
-     * correspondientes.
-     */
-    public ArrayList calcularTotales(int cantTotal, int cantSolicitada,
-            double precio, double descuento) {
-        
-        totales = new ArrayList<>();
-        try {
-            //Si la cantidad solicitada no excede la existente en inventario
-            if (cantTotal >= cantSolicitada) {
-                double precioTotal = precio * cantSolicitada;
-                int cantRestante = cantTotal - cantSolicitada;
-                double subtotal = precioTotal - descuento;
-
-                totales.add(precioTotal);
-                precioSinImpuesto = precioTotal;
-                System.out.println("PRECIO SIN: " + precioSinImpuesto);
-                totales.add(cantRestante);
-                totales.add(subtotal);
-            } else {
-                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                        TipoMensaje.PRODUCT_AMOUNT_EXCEEDED);
-            }
-            System.out.println("0: "+totales.get(0));
-            System.out.println("1: "+totales.get(1));
-            System.out.println("2: "+totales.get(2));
-        } catch(Exception ex) {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                        TipoMensaje.TOTALS_CALCULATION_FAILURE);
-        } finally {
-            return totales;
-        }
-        
     }
     
     /**
@@ -433,25 +448,120 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
      * Limpiar los campos de la interfaz de facturación.
      */
    public void limpiarCampos() {
-       txtProducto.setText("Código del producto...");
-       txtCantidad.setText("Cantidad en unidades...");
-       lsEscogerProd.clearSelection();
+       if (pnlAgregarProd.isVisible()) {
+            txtProducto.setText("Código del producto...");
+            txtCantidad.setText("Cantidad en unidades...");
+            lblCantExistencia.setText("");
+            lblPrecioUnit.setText("");
+            lsEscogerProd.clearSelection();
+        } else {
+            txtDescripcionVarios.setText("");
+            txtPrecioVarios.setText("");
+            rbMercancia.setSelected(true);
+        }
+       
+    }
+    
+   /**
+    * Realiza la inserción en la base de datos de todas las lineas de detalle 
+    * actuales a facturar.
+    */
+   public void crearLinea() {
+        for(LineaDetalle li : factura.getLineasDetalle()) {
+            ctrLineaDetalle.crearLineaDetalle(li.getImpuesto(), 
+                    li.getNumeroLinea(), li.getTipoCodProducto(), 
+                    li.getCodigoProducto(), li.getCantidad(),
+                    li.getUnidadMedida(), li.getDetalle(), 
+                    li.getPrecioUnitario(), li.getTotal(), 
+                    li.getDescuento(), li.getNaturalezaDescuento(), 
+                    li.getSubtotal(), li.getMontoTotalLinea(), 
+                    li.isMercancia());
+        }
+        
+        jTableAgregar();
     }
    
-   private boolean validarPrecioVarios(String precio) {
-        boolean exito = false;
-        try {
-            double prec = Double.parseDouble(precio);
-            if (prec > 0) {
-                exito = true;
+//   public FacEncabezado preparaEncab() {
+//       
+//       String clave;
+//       String consecutivo;
+//       
+//       FacEncabezado encab = new FacEncabezado(, title, TITLE_PROPERTY, 
+//               fechaEmision, title, title, title, title, title, title, title, 
+//               HEIGHT, WHEN_FOCUSED, TITLE_PROPERTY, title, title, title, title)
+//       return
+//   }
+   /**
+    * Prepara/obtiene los datos de totales/montos para el resumen.
+    */
+    public FacResumen prepararResumen() {
+        
+        double totalServ = 0;
+        double totalServEx = 0;
+        double totalMerc = 0;
+        double totalMercEx = 0;
+        double totalGrav  = 0;
+        double totalEx = 0; 
+        double totalVenta  = 0;
+        double totalDescuentos = 0;
+        double totalVentaNeta = 0;
+        double totalImpuesto = 0;
+        double totalComprob = 0;
+        
+        for(LineaDetalle l: factura.getLineasDetalle()) {
+            
+            if (l.getImpuesto() != null) {
+                totalImpuesto += l.getImpuesto().getMontoImpuesto();
             }
-        } catch (NumberFormatException ex) {
-            System.out.println(ex.toString());
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        } finally {
-            return exito;
+            if(l.isMercancia()) {
+                totalMerc += l.getTotal();
+            } else {
+                totalServ += l.getTotal();
+            }
         }
+        
+        totalGrav = totalMerc + totalServ;
+        totalEx = totalMercEx + totalServEx;
+        totalVenta = totalGrav + totalEx;
+        totalVentaNeta = totalVenta - totalDescuentos;
+        totalComprob = totalVentaNeta + totalImpuesto;
+        
+        return agregarResumen(totalServ, totalServEx, totalMerc, totalMercEx, 
+                totalGrav, totalEx, totalVenta, totalDescuentos, totalVentaNeta, 
+                totalImpuesto, totalComprob);
+        
+    }
+    
+    /**
+     * Crea un objeto resumen con la información/datos correspondientes.
+     * @param totalServ
+     * @param totalServEx
+     * @param totalMerc
+     * @param totalMercEx
+     * @param totalGrav
+     * @param totalEx
+     * @param totalVenta
+     * @param totalDescuentos
+     * @param totalVentaNeta
+     * @param totalImpuesto
+     * @param totalComprob 
+     * @return  
+     */
+    public FacResumen agregarResumen(double totalServ, double totalServEx, 
+            double totalMerc, double totalMercEx, double totalGrav, 
+            double totalEx, double totalVenta, double totalDescuentos, 
+            double totalVentaNeta, double totalImpuesto, double totalComprob) {
+        
+        FacResumen resumen = new FacResumen("CRC", 1, totalServ, totalServEx, 
+                totalMerc, totalMercEx, totalGrav, totalEx, totalVenta, 
+                totalDescuentos, totalVentaNeta, totalImpuesto, totalComprob);
+        
+        return resumen;
+    }
+    
+    public void emitirFactura() {
+        factura.setResumen(prepararResumen());
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -467,11 +577,11 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         lblPrecioVarios = new javax.swing.JLabel();
         txtDescripcionVarios = new javax.swing.JTextField();
         txtPrecioVarios = new javax.swing.JTextField();
-        btnAgregarVarios1 = new javax.swing.JButton();
         pnlClasificacionProductos = new javax.swing.JPanel();
-        rbMercancía = new javax.swing.JRadioButton();
+        rbMercancia = new javax.swing.JRadioButton();
         rbServicio = new javax.swing.JRadioButton();
         btnAgregarVarios2 = new javax.swing.JButton();
+        bgClasifProducto = new javax.swing.ButtonGroup();
         pnl_modFactura = new javax.swing.JPanel();
         pnlInfoCliente = new javax.swing.JPanel();
         lblMostrarNombreCl = new javax.swing.JLabel();
@@ -518,17 +628,12 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 
         lblPrecioVarios.setText("Precio:");
 
-        btnAgregarVarios1.setText("Agregar");
-        btnAgregarVarios1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarVarios1ActionPerformed(evt);
-            }
-        });
-
         pnlClasificacionProductos.setBorder(javax.swing.BorderFactory.createTitledBorder("Clasificación:"));
 
-        rbMercancía.setText("Mercancía");
+        bgClasifProducto.add(rbMercancia);
+        rbMercancia.setText("Mercancía");
 
+        bgClasifProducto.add(rbServicio);
         rbServicio.setSelected(true);
         rbServicio.setText("Servicio");
 
@@ -542,21 +647,21 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 .addGap(90, 90, 90))
             .addGroup(pnlClasificacionProductosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rbMercancía)
+                .addComponent(rbMercancia)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlClasificacionProductosLayout.setVerticalGroup(
             pnlClasificacionProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlClasificacionProductosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rbMercancía)
+                .addComponent(rbMercancia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbServicio)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnAgregarVarios2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btnAgregarVarios2.setText("<--");
+        btnAgregarVarios2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/return_back.png"))); // NOI18N
         btnAgregarVarios2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarVarios2ActionPerformed(evt);
@@ -569,25 +674,18 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFacVariosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnAgregarVarios2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlClasificacionProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAgregarVarios2)
                     .addGroup(pnlFacVariosLayout.createSequentialGroup()
-                        .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlFacVariosLayout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addComponent(lblPrecioVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFacVariosLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblDescripcionVarios)))
+                        .addComponent(pnlClasificacionProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblDescripcionVarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPrecioVarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDescripcionVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPrecioVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnlFacVariosLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAgregarVarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtPrecioVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         pnlFacVariosLayout.setVerticalGroup(
@@ -604,10 +702,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                             .addComponent(lblPrecioVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPrecioVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(pnlClasificacionProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregarVarios2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregarVarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(btnAgregarVarios2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -756,6 +852,11 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         lblTotal.setBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.shadow")));
 
         btnFacturar.setText("Emitir Factura");
+        btnFacturar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFacturarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlTotalesLayout = new javax.swing.GroupLayout(pnlTotales);
         pnlTotales.setLayout(pnlTotalesLayout);
@@ -851,6 +952,11 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 
         lsEscogerProd.setForeground(new java.awt.Color(102, 102, 102));
         lsEscogerProd.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lsEscogerProd.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lsEscogerProdValueChanged(evt);
+            }
+        });
         scpnlList.setViewportView(lsEscogerProd);
 
         btnAddProduct1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/f_crearProducto.png"))); // NOI18N
@@ -898,17 +1004,17 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(21, 21, 21)
-                .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAgregarProdLayout.createSequentialGroup()
-                        .addComponent(lblTextExistencias, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTextExistencias, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTextPrecioUnit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCantExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlAgregarProdLayout.createSequentialGroup()
-                        .addComponent(lblTextPrecioUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPrecioUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPrecioUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCantExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnAgregarVarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pnlAgregarProdLayout.setVerticalGroup(
             pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -957,7 +1063,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                     .addGroup(pnl_modFacturaLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 1194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_modFacturaLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1007,7 +1113,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                                     .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(ftClienteFac, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtClienteFac, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addComponent(pnlInfoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlInfoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1134,49 +1240,45 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAgregarVariosActionPerformed
 
     private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
-        prepararLinea();
-        limpiarCampos();
-    }//GEN-LAST:event_btnAddProductActionPerformed
-
-    private void btnAgregarVarios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVarios1ActionPerformed
-        String descripcion = txtDescripcionVarios.getText();
-        String precio = txtPrecioVarios.getText().trim();
-
-        if (!descripcion.isEmpty() && validarPrecioVarios(precio)) {
-            boolean mercancia = rbMercancía.isSelected();
-            //boolean exonerar = ckb
-            agregarLineaVarios(descripcion,
-                Double.parseDouble(precio), mercancia, true);
+        if (pnlAgregarProd.isVisible()) {
+            prepararLinea();
         } else {
-            //NO SE INGRESARON BIEN LOS DATOS
+            prepararLineaVarios();
         }
-
-        //System.out.println(txtDescripcionVarios.getText() + " " + txtPrecioVarios.getText());
-        //        boolean agregado = agregarVarios(descripcion, precio);
-        //        if(agregado) {
-            //            txtDescripcionVarios.setText("");
-            //            txtPrecioVarios.setText("");
-            //        }
-    }//GEN-LAST:event_btnAgregarVarios1ActionPerformed
+    }//GEN-LAST:event_btnAddProductActionPerformed
 
     private void btnAgregarVarios2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVarios2ActionPerformed
         int x = pnlFacVarios.getX();
         int y = pnlFacVarios.getY();
         int h = pnlFacVarios.getHeight();
         pnlAgregarProd.setVisible(true);
-        pnlAgregarProd.setBounds(x, y, 667, h);
+        pnlAgregarProd.setBounds(x, y, 680, h);
         pnl_modFactura.add(pnlAgregarProd);
         pnlFacVarios.setVisible(false);
 //        txtProducto.requestFocus();
 //        txtProducto.selectAll();
     }//GEN-LAST:event_btnAgregarVarios2ActionPerformed
 
+    private void lsEscogerProdValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lsEscogerProdValueChanged
+        Madera prod = verificarSeleccionLista();
+        if(prod != null) {
+            lblCantExistencia.setText(String.valueOf(prod.getUnidades()));
+            lblPrecioUnit.setText(String.valueOf(prod.getPrecioXvara()));
+        }
+    }//GEN-LAST:event_lsEscogerProdValueChanged
+
+    private void btnFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturarActionPerformed
+        
+        crearLinea();
+        
+    }//GEN-LAST:event_btnFacturarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup bgClasifProducto;
     private javax.swing.JButton btnAddImpuesto;
     private javax.swing.JButton btnAddProduct;
     private javax.swing.JButton btnAddProduct1;
     private javax.swing.JButton btnAgregarVarios;
-    private javax.swing.JButton btnAgregarVarios1;
     private javax.swing.JButton btnAgregarVarios2;
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnBusquedaAv;
@@ -1211,7 +1313,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnlInfoCliente;
     private javax.swing.JPanel pnlTotales;
     private javax.swing.JPanel pnl_modFactura;
-    private javax.swing.JRadioButton rbMercancía;
+    private javax.swing.JRadioButton rbMercancia;
     private javax.swing.JRadioButton rbServicio;
     private javax.swing.JScrollPane scpnlList;
     private javax.swing.JScrollPane scpnlTblLineaPedido;

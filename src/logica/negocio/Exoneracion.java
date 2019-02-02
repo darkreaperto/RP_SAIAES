@@ -18,7 +18,7 @@ public class Exoneracion {
     private String nombreInstitucion;
     private Date fechaEmision;
     private double montoImpuesto;
-    private int porcentajeCompra; //porcentaje de la compra autorizada o exoneración
+    private double porcentajeCompra; //porcentaje de la compra autorizada o exoneración
 
     /**
      * Constructor vacío de clase Exoneración.
@@ -38,13 +38,13 @@ public class Exoneracion {
      */
     public Exoneracion(String tipoDocumento, 
             String numeroDocumento, String nombreInstitucion, Date fechaEmision, 
-            double montoImpuesto, int porcentajeCompra) {
+            double montoImpuesto, double porcentajeCompra) {
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
         this.nombreInstitucion = nombreInstitucion;
         this.fechaEmision = fechaEmision;
         this.montoImpuesto = montoImpuesto;
-        this.porcentajeCompra = porcentajeCompra;
+        this.porcentajeCompra = porcentajeCompra * 100;
     }
 
     /**
@@ -91,7 +91,7 @@ public class Exoneracion {
      * Establecer porcentaje de exoneración del documento.
      * @param porcentajeCompra porcentaje de exoneración
      */
-    public void setPorcentajeCompra(int porcentajeCompra) {
+    public void setPorcentajeCompra(double porcentajeCompra) {
         this.porcentajeCompra = porcentajeCompra;
     }
 
@@ -139,7 +139,7 @@ public class Exoneracion {
      * Obtener el porcentaje de exoneración
      * @return porcentaje de exoneración
      */
-    public int getPorcentajeCompra() {
+    public double getPorcentajeCompra() {
         return porcentajeCompra;
     }
     

@@ -215,14 +215,14 @@ public class DlgFacVarios extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarVariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVariosActionPerformed
-        String descripcion = txtDescripcionVarios.getText();
+        
+        String descripcion = txtDescripcionVarios.getText().trim();
         String precio = txtPrecioVarios.getText().trim();
+        boolean mercancia = rbMercancía.isSelected();
         
         if (!descripcion.isEmpty() && validarPrecio(precio)) {
-            boolean mercancia = rbMercancía.isSelected();
-            //boolean exonerar = ckb
             ifrmFacturacion.agregarLineaVarios(descripcion, 
-                    Double.parseDouble(precio), mercancia, true);
+                    Double.parseDouble(precio), mercancia);
         } else {
             //NO SE INGRESARON BIEN LOS DATOS
         }

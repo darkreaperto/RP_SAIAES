@@ -440,6 +440,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtPorcentajeCompra">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPorcentajeCompraKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblMontoImpExonerado">
               <Properties>

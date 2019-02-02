@@ -36,7 +36,7 @@ public class Impuesto {
             double tarifaImpuesto, double montoImpuesto, Exoneracion exoneracion) {
         this.codImpuesto = codImpuesto;
         this.codigoImpuesto = codigoImpuesto;
-        this.tarifaImpuesto = tarifaImpuesto;
+        this.tarifaImpuesto = tarifaImpuesto * 100;
         this.montoImpuesto = montoImpuesto;
         this.exoneracion = exoneracion;
     }
