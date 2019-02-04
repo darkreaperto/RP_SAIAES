@@ -166,14 +166,14 @@ public class MdlFactura {
         boolean creacionExitosa = true;
         int indice = 0;
         try {
-            procedimiento = "pc_crear_factura(?, ?, ?, ?)";
+            procedimiento = "pc_crear_factura(?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
             
             //obtener el índice de la factura insertada
             while (resultado.next()) {
-                indice = resultado.getInt("@indice");
+                indice = resultado.getInt("@indiceFac");
             }
             
             //Crear una linea de detalle en la bd por cada una encontrada 

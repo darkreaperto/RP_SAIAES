@@ -107,7 +107,7 @@ public class MdlLineaDetalle {
             
             //obtener el índice de la fila insertada
             while (resultado.next()) {
-                indice = resultado.getInt("@indice");
+                indice = resultado.getInt("@indiceLD");
             }
             
             System.out.println(resultado);
