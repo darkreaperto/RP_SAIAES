@@ -7,6 +7,7 @@ package presentacion;
 
 import controladores.CtrAcceso;
 import controladores.CtrCliente;
+import controladores.CtrDireccion;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -16,6 +17,7 @@ import logica.negocio.Cliente;
 import logica.negocio.Contacto;
 import logica.servicios.Mensaje;
 import logica.servicios.Regex;
+import logica.servicios.DirFiltro;
 import util.Estado;
 import util.TipoContacto;
 import util.TipoMensaje;
@@ -28,6 +30,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     
     private static ItnFrmCliente instancia = null;
     private static CtrCliente controlador;
+    private static CtrDireccion ctrDireccion;
     private static CtrAcceso sesion;
     private static Mensaje msg;
     private static ArrayList<Cliente> clientes;
@@ -49,6 +52,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         initComponents();
         //Inicializar variables
         controlador = CtrCliente.getInstancia();
+        ctrDireccion = CtrDireccion.getInstancia();
         
         ItnFrmCliente.clientes = clientes;
         ItnFrmCliente.sesion = sesionAcc;
@@ -59,6 +63,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         //telefonos.add(txt_crear_telefono);
         cargarTablas();
         msg = new Mensaje();
+        
+//        ctrDireccion.filtrarDireccion("C", "5");
     }
     
     /**
@@ -131,16 +137,16 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         tbl_crear = new javax.swing.JTable();
         btnCrearCliente = new javax.swing.JButton();
         lbl_crear_provincia = new javax.swing.JLabel();
-        txt_crear_provincia = new javax.swing.JTextField();
         lbl_crear_canton = new javax.swing.JLabel();
         lbl_crear_distrito = new javax.swing.JLabel();
         lbl_crear_barrio = new javax.swing.JLabel();
-        txt_crear_canton = new javax.swing.JTextField();
-        txt_crear_distrito = new javax.swing.JTextField();
-        txt_crear_barrio = new javax.swing.JTextField();
         lbl_crear_barrio1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        cbxProvincia = new javax.swing.JComboBox<>();
+        cbxCanton = new javax.swing.JComboBox<>();
+        cbxDistrito = new javax.swing.JComboBox<>();
+        cbxBarrio = new javax.swing.JComboBox<>();
         pnl_actualizar = new javax.swing.JPanel();
         spnl_editar_clientes = new javax.swing.JScrollPane();
         tbl_editar = new javax.swing.JTable();
@@ -535,19 +541,19 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                                         .addComponent(lbl_crear_provincia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txt_crear_provincia, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(cbxProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                                         .addComponent(lbl_crear_canton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txt_crear_canton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(cbxCanton, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                                         .addComponent(lbl_crear_distrito, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txt_crear_distrito, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(cbxDistrito, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                                         .addComponent(lbl_crear_barrio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txt_crear_barrio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(cbxBarrio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(46, 46, 46)
                                 .addComponent(pnlCrearContactoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -584,20 +590,20 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                             .addComponent(pnl_crear_creditoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_crear_provincia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_crear_provincia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbl_crear_provincia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_crear_canton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_crear_canton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbxCanton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_crear_distrito, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_crear_distrito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbxDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_crear_barrio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_crear_barrio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbxBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl_crear_barrio1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1238,6 +1244,9 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         tabla.removeColumn(tabla.getColumnModel().getColumn(8));
     }
     
+    public void cargarDireccion() {
+        
+    }
     /**
      * Crea un nuevo cliente en la BD con la información enviada por parámetro.
      * @param nombre nombre del cliente
@@ -1903,6 +1912,10 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditarGuardarCorreo;
     private javax.swing.JButton btnEditarGuardarTel;
     private javax.swing.JButton btn_deshabilitar;
+    private javax.swing.JComboBox<DirFiltro> cbxBarrio;
+    private javax.swing.JComboBox<DirFiltro> cbxCanton;
+    private javax.swing.JComboBox<DirFiltro> cbxDistrito;
+    private javax.swing.JComboBox<DirFiltro> cbxProvincia;
     private javax.swing.JMenuItem itEditar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1988,12 +2001,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_agregarTelefono;
     private javax.swing.JTextField txt_crear_apellidoCliente1;
     private javax.swing.JTextField txt_crear_apellidoCliente2;
-    private javax.swing.JTextField txt_crear_barrio;
-    private javax.swing.JTextField txt_crear_canton;
     private javax.swing.JTextField txt_crear_cedulaCliente;
-    private javax.swing.JTextField txt_crear_distrito;
     private javax.swing.JTextField txt_crear_limiteCliente;
     private javax.swing.JTextField txt_crear_nombreCliente;
-    private javax.swing.JTextField txt_crear_provincia;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,6 +7,7 @@ package controladores;
 
 import java.util.ArrayList;
 import logica.negocio.Direccion;
+import logica.servicios.DirFiltro;
 import modelos.MdlDireccion;
 
 /**
@@ -61,5 +62,14 @@ public class CtrDireccion {
      */
     public Direccion consultarDireccion(String param) {
         return mdlDireccion.consultarDireccion(param);
+    }
+    
+    /**
+     * Buscar contacto enviando por parámetro el criterio de búsqueda.
+     * @param param Parametros para consultar contacto en la base de datos
+     * @return lista de contactos
+     */
+    public DirFiltro filtrarDireccion(String campo, String codigo) {
+        return mdlDireccion.filtrarDireccion(campo, codigo);
     }
 }
