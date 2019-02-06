@@ -220,12 +220,12 @@ public class DlgFacVarios extends javax.swing.JDialog {
         String precio = txtPrecioVarios.getText().trim();
         boolean mercancia = rbMercancía.isSelected();
         
-        if (!descripcion.isEmpty() && validarPrecio(precio)) {
-            ifrmFacturacion.agregarLineaVarios(descripcion, 
-                    Double.parseDouble(precio), mercancia);
-        } else {
-            //NO SE INGRESARON BIEN LOS DATOS
-        }
+//        if (!descripcion.isEmpty() && validarPrecio(precio)) {
+//            ifrmFacturacion.agregarLineaVarios(descripcion, 
+//                    Double.parseDouble(precio), mercancia);
+//        } else {
+//            //NO SE INGRESARON BIEN LOS DATOS
+//        }
         
         //System.out.println(txtDescripcionVarios.getText() + " " + txtPrecioVarios.getText());
 //        boolean agregado = agregarVarios(descripcion, precio);

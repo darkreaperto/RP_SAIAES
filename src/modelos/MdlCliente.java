@@ -7,12 +7,14 @@ package modelos;
 
 import controladores.CtrConexion;
 import controladores.CtrContacto;
+import controladores.CtrDireccion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import logica.negocio.Cliente;
 import logica.negocio.Contacto;
+import logica.negocio.Direccion;
 import logica.servicios.AESEncrypt;
 import logica.servicios.Mensaje;
 import util.Estado;
@@ -38,7 +40,7 @@ public class MdlCliente {
     private static Mensaje msgError;
     /** Controlador de contacto. */
     private static CtrContacto ctrContacto;
-    
+    private static CtrDireccion ctrDireccion;
     /**
      * Constructor de clase modelo de cliente.
      */
@@ -48,11 +50,11 @@ public class MdlCliente {
         crypter.addKey("SAI");
         msgError = new Mensaje();
         ctrContacto = CtrContacto.getInstancia();
+        ctrDireccion = CtrDireccion.getInstancia();
     }
 
     /**
      * Llena una lista con todos los clientes almacenados en la BD.
-     *
      * @return lista de clientes.
      */
     public ArrayList<Cliente> obtenerClientes() {
@@ -70,9 +72,11 @@ public class MdlCliente {
             String cedulaPersona;
             float limiteCredPersona;
             boolean aprobarCredPersona;
+            String codDireccion;
             String codCliente;
             String estadoCliente;
             ArrayList<Contacto> contactos;
+            Direccion dirPersona;
 
             while (resultado.next()) {
                 
@@ -82,19 +86,19 @@ public class MdlCliente {
                 apellido2Persona = resultado.getString("apellido2_Personas");
                 cedulaPersona = resultado.getString("ced_Personas");
                 limiteCredPersona = resultado.getFloat("limCred_Personas");
-                
                 aprobarCredPersona = resultado.getInt("aprobCred_Personas") == 1;
+                codDireccion = resultado.getString("codDireccion_Personas");
                 codCliente = resultado.getString("cod_Clientes");
                 estadoCliente = resultado.getString("estado_Clientes");
-                
                 contactos = ctrContacto.consultarContactos(codPersona);
+                dirPersona = ctrDireccion.consultarDireccion(codDireccion);
                 
                 Cliente usuario
                         = new Cliente(codPersona, nombrePersona, 
                                 apellido1Persona, apellido2Persona, 
                                 cedulaPersona, limiteCredPersona, 
-                                aprobarCredPersona, contactos, codCliente, 
-                                estadoCliente);
+                                aprobarCredPersona, dirPersona, contactos, 
+                                codCliente, estadoCliente);
 
                 if (!clientes.contains(usuario)) {
                     clientes.add(usuario);
@@ -304,7 +308,9 @@ public class MdlCliente {
             float limiteCred;
             boolean aprobarCred;
             String codCliente;
+            String codDireccion;
             String estadoCliente;
+            Direccion direccion;
 
             while (resultado.next()) {
                 codPersona = resultado.getString("cod_Personas");
@@ -314,14 +320,17 @@ public class MdlCliente {
                 cedula = resultado.getString("ced_Personas");
                 limiteCred = resultado.getFloat("limCred_Personas");
                 aprobarCred = resultado.getInt("aprobCred_Personas") == 1;
+                codDireccion = resultado.getString("codDireccion_Personas");
                 codCliente = resultado.getString("cod_Clientes");
                 estadoCliente = resultado.getString("estado_Clientes");
 
                 ArrayList<Contacto> contactos = ctrContacto.consultarContactos(codPersona);
+                direccion = ctrDireccion.consultarDireccion(codDireccion);
+                
                 Cliente cliente
                         = new Cliente(codPersona, nombre, apellido1, apellido2, 
-                                cedula, limiteCred, aprobarCred, contactos, 
-                                codCliente, estadoCliente);
+                                cedula, limiteCred, aprobarCred, direccion,
+                                contactos, codCliente, estadoCliente);
 
                 if (!clientes.contains(cliente)) {
                     clientes.add(cliente);

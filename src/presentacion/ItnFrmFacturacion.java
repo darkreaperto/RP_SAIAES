@@ -13,12 +13,14 @@ import controladores.CtrLineaDetalle;
 import controladores.CtrMadera;
 import java.awt.Container;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
+import logica.negocio.Consecutivo;
 import logica.negocio.FacEncabezado;
 import logica.negocio.FacResumen;
 import logica.negocio.Factura;
@@ -50,6 +52,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     private static Mensaje msg;
     private static ArrayList<Madera> listaProd;
     private static ArrayList<Cliente> listaClientes;
+    private static ArrayList<Consecutivo> consecutivos;
     //private static Madera selectedProd;// = new Madera();
     private static ArrayList<Object> totales;
     private static double precioSinImpuesto = 0.0;
@@ -313,7 +316,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 descuento, "No se realizó descuento",
                 impuesto, true);
 
-        factura.getLineasDetalle().add(linea); 
+        //Agregar las lineas creadas a la lista de lineas en Factura 
+        factura.getLineasDetalle().add(linea);
         
         //Limpiar variables globales
         impuesto = null;
@@ -480,19 +484,46 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         
         jTableAgregar();
     }
-   
-//   public FacEncabezado preparaEncab() {
-//       
-//       String clave;
-//       String consecutivo;
-//       
-//       FacEncabezado encab = new FacEncabezado(, title, TITLE_PROPERTY, 
-//               fechaEmision, title, title, title, title, title, title, title, 
-//               HEIGHT, WHEN_FOCUSED, TITLE_PROPERTY, title, title, title, title)
-//       return
-//   }
-   /**
+    
+    /**
+     * Preparar la información del encabezado y retornarlo.
+     * @return el encabezado de la factura
+     */
+    public FacEncabezado preparaEncab() {
+        
+        consecutivos = ctrFactura.obtenerConsecutivos();
+       
+       String codigoFac = "1";
+       String clave = "";
+       String numeroConsecutivo = "";
+       Date fechaEmision = new Date();
+       String nombreEmisor = "";
+       String tipoIdentEm = "";
+       String numeroIdentEm = "";
+       String provinciaEm = "";
+       String cantonEm = "";
+       String distritoEm = "";
+       String otrasSenasEm = "";
+       int codigoPaisEm = 0;
+       int numTelefonoEm = 0;
+       String correoElectronicoEm = "";
+       String codReceptor = "";
+       String condicionVenta = "";
+       String plazoCredito = "";
+       String medioPago = "";
+       
+       FacEncabezado encab = new FacEncabezado(codigoFac, clave, 
+               numeroConsecutivo, fechaEmision, nombreEmisor, tipoIdentEm, 
+               numeroIdentEm, provinciaEm, cantonEm, distritoEm, otrasSenasEm, 
+               codigoPaisEm, numTelefonoEm, correoElectronicoEm, codReceptor, 
+               condicionVenta, plazoCredito, medioPago);
+       
+       return encab;
+    }
+    
+    /**
     * Prepara/obtiene los datos de totales/montos para el resumen.
+    * @return el resumen de la factura
     */
     public FacResumen prepararResumen() {
         
@@ -560,8 +591,11 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }
     
     public void emitirFactura() {
+        System.out.println(factura.getLineasDetalle().size());       
         factura.setResumen(prepararResumen());
-        
+        factura.setEncabezado(preparaEncab());
+        factura.setInfoReferencia(null);       
+        ctrFactura.crearFactura(factura);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1268,9 +1302,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_lsEscogerProdValueChanged
 
     private void btnFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturarActionPerformed
-        
-        crearLinea();
-        
+        emitirFactura();
     }//GEN-LAST:event_btnFacturarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

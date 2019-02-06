@@ -104,15 +104,15 @@ public class DlgFacExoneracion extends javax.swing.JDialog {
         try{
             if(!lblMontoImpuesto.getText().isEmpty() && 
                     !txtPorcentajeCompra.getText().isEmpty()) {
-                if(ctrImpuesto.getCodImpuesto() != 0) {
-                    controlador.crearExoneracion(ctrImpuesto.getCodImpuesto(),
-                        tipoDocExoneracion(), "00", lblAserradero.getText(),
-                        noow(), Double.valueOf(lblMontoImpuesto.getText()), 
-                        Integer.valueOf(txtPorcentajeCompra.getText()));
-                } else {
-                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                        TipoMensaje.TAX_CODE_MISSING);
-                }                
+//                if(ctrImpuesto.getCodImpuesto() != 0) {
+//                    controlador.crearExoneracion(ctrImpuesto.getCodImpuesto(),
+//                        tipoDocExoneracion(), "00", lblAserradero.getText(),
+//                        noow(), Double.valueOf(lblMontoImpuesto.getText()), 
+//                        Integer.valueOf(txtPorcentajeCompra.getText()));
+//                } else {
+//                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+//                        TipoMensaje.TAX_CODE_MISSING);
+//                }                
             } else {
                 msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
                         TipoMensaje.EMPTY_TEXT_FIELD);

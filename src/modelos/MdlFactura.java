@@ -10,6 +10,7 @@ import controladores.CtrFactura;
 import controladores.CtrLineaDetalle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import logica.negocio.FacEncabezado;
 import logica.negocio.FacNormativa;
@@ -17,6 +18,7 @@ import logica.negocio.FacReferencia;
 import logica.negocio.FacResumen;
 import logica.negocio.Factura;
 import logica.negocio.LineaDetalle;
+import logica.negocio.Consecutivo;
 import logica.negocio.Madera;
 import logica.servicios.Mensaje;
 
@@ -33,6 +35,8 @@ public class MdlFactura {
     private static ResultSet resultado;
     private static Mensaje msgError;
     ArrayList<Madera> productos;
+    private static ArrayList<Consecutivo> consecutivos;
+    
 
     /**
      * Constructor de clase modelo de factura.
@@ -40,6 +44,7 @@ public class MdlFactura {
     public MdlFactura() {
         conexion = new CtrConexion();
         msgError = new Mensaje();
+        ctrLineaDetalle = new CtrLineaDetalle();
     }
     
     public int crearResumen(String codigoMoneda, double tipoCambio, 
@@ -157,25 +162,31 @@ public class MdlFactura {
         ArrayList<Object> params = new ArrayList<>();
         params.add(indEncab);
         params.add(indResumen);
-        params.add(indReferencia);
         params.add(indNormativa);
+        params.add(indReferencia);
+        params.add(Types.BIGINT);
 
         boolean creacionExitosa = true;
         int indice = 0;
         try {
-            procedimiento = "pc_crear_factura(?, ?, ?, ?)";
+            procedimiento = "pc_crear_factura(?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
             
             //obtener el índice de la factura insertada
             while (resultado.next()) {
-                indice = resultado.getInt("@indice");
+                indice = resultado.getInt("@indiceFac");
             }
             
             //Crear una linea de detalle en la bd por cada una encontrada 
             //en la lista de lineas
-            for(LineaDetalle linea : fac.getLineasDetalle()) {
+            System.out.println("IndiceFac: " + indice);
+            System.out.println("Lista Size: " + fac.getLineasDetalle().size());
+            for(int i = 0; i < fac.getLineasDetalle().size(); i++) {
+                
+                LineaDetalle linea = fac.getLineasDetalle().get(i);
+                System.out.println("ITERATOR: "+ i);
                 //obtener el indice de linea
                 int indiceLinea = ctrLineaDetalle.crearLineaDetalle(
                         linea.getImpuesto(),
@@ -188,6 +199,7 @@ public class MdlFactura {
                         linea.isMercancia());
                 
                 crearLineaxFactura(indiceLinea, indice);
+                System.out.println("FINAL");
             }
                        
             System.out.println(resultado);
@@ -235,4 +247,44 @@ public class MdlFactura {
             return creacionExitosa;
         }
     }
+    
+    /**
+     * Llena una lista con todos los consecutivos de comprobantes almacenados 
+     * en la BD.
+     * @return lista de consecutivos.
+     */
+    public ArrayList<Consecutivo> obtenerConsecutivos() {
+        consecutivos = new ArrayList<>();
+
+        try {
+            procedimiento = "pc_obtener_consecutivos()";
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento);
+
+            String cod;
+            String codComprob;
+            String tipoComprob;
+            int consecutivo;
+
+            while (resultado.next()) {
+                cod = resultado.getString("cod_Consecutivos");
+                codComprob = resultado.getString("codComprob_Consecutivos");
+                tipoComprob = resultado.getString("tipoComprob_Consecutivos");
+                consecutivo = resultado.getInt("consecutivo_Consecutivos");
+
+                Consecutivo conse = new Consecutivo(cod, codComprob, 
+                        tipoComprob, consecutivo);
+
+                if (!consecutivos.contains(conse)) {
+                    consecutivos.add(conse);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return consecutivos;
+        }
+    }
+    
 }

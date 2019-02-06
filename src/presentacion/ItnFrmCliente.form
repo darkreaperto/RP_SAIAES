@@ -246,25 +246,59 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="spnl_crear_clientes" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="lbl_crear_nombreCliente" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_cedulaCliente" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                              <Component id="txt_crear_nombreCliente" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
-                                              <Component id="pnl_crear_creditoCliente" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txt_crear_cedulaCliente" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
+                                      <Component id="spnl_crear_clientes" pref="1145" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                      <Component id="lbl_crear_apellidoCliente2" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                      <Component id="lbl_crear_apellidoCliente1" alignment="0" pref="100" max="32767" attributes="0"/>
+                                                      <Component id="lbl_crear_nombreCliente" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="lbl_crear_cedulaCliente" alignment="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="txt_crear_nombreCliente" alignment="0" pref="190" max="32767" attributes="0"/>
+                                                      <Component id="txt_crear_cedulaCliente" max="32767" attributes="0"/>
+                                                      <Component id="txt_crear_apellidoCliente1" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="txt_crear_apellidoCliente2" alignment="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="pnl_crear_creditoCliente" min="-2" pref="138" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="lbl_crear_limiteCliente" min="-2" pref="127" max="-2" attributes="0"/>
+                                                      <Component id="txt_crear_limiteCliente" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
                                           </Group>
-                                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txt_crear_apellidoCliente2" alignment="0" min="-2" pref="294" max="-2" attributes="0"/>
-                                              <Component id="txt_crear_limiteCliente" alignment="0" min="-2" pref="294" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_apellidoCliente1" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_apellidoCliente2" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_limiteCliente" alignment="0" min="-2" pref="202" max="-2" attributes="0"/>
-                                              <Component id="txt_crear_apellidoCliente1" alignment="0" min="-2" pref="294" max="-2" attributes="0"/>
+                                              <Component id="lbl_crear_barrio1" min="-2" pref="100" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="lbl_crear_provincia" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="txt_crear_provincia" min="-2" pref="190" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="lbl_crear_canton" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="txt_crear_canton" min="-2" pref="190" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="lbl_crear_distrito" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="txt_crear_distrito" min="-2" pref="190" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="lbl_crear_barrio" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="txt_crear_barrio" min="-2" pref="190" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="jScrollPane3" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="51" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                                           <Component id="pnlCrearContactoCliente" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -277,39 +311,70 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace pref="21" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbl_crear_cedulaCliente" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txt_crear_cedulaCliente" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lbl_crear_nombreCliente" min="-2" pref="26" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txt_crear_nombreCliente" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                  <Component id="pnl_crear_creditoCliente" min="-2" max="-2" attributes="0"/>
-                              </Group>
                               <Component id="pnlCrearContactoCliente" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbl_crear_apellidoCliente1" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lbl_crear_cedulaCliente" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="txt_crear_cedulaCliente" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txt_crear_apellidoCliente1" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lbl_crear_nombreCliente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                      <Component id="txt_crear_nombreCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lbl_crear_apellidoCliente2" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                  <Component id="txt_crear_apellidoCliente2" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                  <Component id="lbl_crear_limiteCliente" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lbl_crear_apellidoCliente1" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="txt_crear_apellidoCliente1" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txt_crear_limiteCliente" min="-2" pref="29" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lbl_crear_apellidoCliente2" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="txt_crear_apellidoCliente2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="lbl_crear_limiteCliente" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="txt_crear_limiteCliente" min="-2" pref="29" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="pnl_crear_creditoCliente" min="-2" pref="108" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="txt_crear_provincia" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="lbl_crear_provincia" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lbl_crear_canton" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="txt_crear_canton" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lbl_crear_distrito" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="txt_crear_distrito" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lbl_crear_barrio" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="txt_crear_barrio" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lbl_crear_barrio1" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jScrollPane3" min="-2" pref="78" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="spnl_crear_clientes" min="-2" pref="243" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="spnl_crear_clientes" min="-2" pref="242" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnCrearCliente" min="-2" pref="35" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -356,19 +421,17 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="rbCrearSinCredito" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="rbCrearCredito" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="rbCrearCreditoLim" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="rbCrearCredito" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rbCrearCreditoLim" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="rbCrearSinCredito" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -376,13 +439,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="rbCrearCredito" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rbCrearCreditoLim" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="rbCrearCredito" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="rbCrearCreditoLim" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="rbCrearSinCredito" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -426,7 +487,7 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="lbl_crear_limiteCliente">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="L&#xed;mite de cr&#xe9;dito:"/>
+                    <Property name="text" type="java.lang.String" value="L&#xed;mite Cr&#xe9;dito:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txt_crear_limiteCliente">
@@ -745,6 +806,63 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrearClienteActionPerformed"/>
                   </Events>
                 </Component>
+                <Component class="javax.swing.JLabel" name="lbl_crear_provincia">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Provincia:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txt_crear_provincia">
+                </Component>
+                <Component class="javax.swing.JLabel" name="lbl_crear_canton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Cant&#xf3;n:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lbl_crear_distrito">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Distrito:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lbl_crear_barrio">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Barrio:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txt_crear_canton">
+                </Component>
+                <Component class="javax.swing.JTextField" name="txt_crear_distrito">
+                </Component>
+                <Component class="javax.swing.JTextField" name="txt_crear_barrio">
+                </Component>
+                <Component class="javax.swing.JLabel" name="lbl_crear_barrio1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Otras se&#xf1;as:"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+                  <Properties>
+                    <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+                    <Property name="autoscrolls" type="boolean" value="true"/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextArea" name="jTextArea1">
+                      <Properties>
+                        <Property name="columns" type="int" value="3"/>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Arial" size="13" style="0"/>
+                        </Property>
+                        <Property name="lineWrap" type="boolean" value="true"/>
+                        <Property name="rows" type="int" value="3"/>
+                        <Property name="wrapStyleWord" type="boolean" value="true"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="pnl_actualizar">

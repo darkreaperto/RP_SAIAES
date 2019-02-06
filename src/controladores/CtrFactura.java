@@ -5,6 +5,8 @@
  */
 package controladores;
 
+import java.util.ArrayList;
+import logica.negocio.Consecutivo;
 import logica.negocio.Factura;
 import modelos.MdlFactura;
 
@@ -13,6 +15,7 @@ import modelos.MdlFactura;
  * @author aoihanabi
  */
 public class CtrFactura {
+    
     private static CtrFactura instancia = null;
     MdlFactura mdlFactura;
     Factura factura;
@@ -30,7 +33,8 @@ public class CtrFactura {
      */
     public static CtrFactura getInstancia() {
         return  instancia == null ? new CtrFactura() : instancia;
-    }    
+    }
+    
     public int crearResumen(String codigoMoneda, double tipoCambio, 
             double totalServGravados, double totalSerExentos, 
             double totalMercanciasGravadas, double totalMercanciasExentas, 
@@ -44,6 +48,15 @@ public class CtrFactura {
                 totalDescuentos, totalVentaNeta, totalImpuesto, 
                 totalComprobante);
         
+    }
+    
+    /**
+     * Llena una lista con todos los consecutivos de comprobantes almacenados 
+     * en la BD.
+     * @return lista de consecutivos.
+     */
+    public ArrayList<Consecutivo> obtenerConsecutivos() {
+        return mdlFactura.obtenerConsecutivos();
     }
     
     /**

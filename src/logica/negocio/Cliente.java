@@ -31,17 +31,18 @@ public class Cliente extends Persona {
      * @param cedula Cédula de persona.
      * @param limiteCredito Limite credito de persona.
      * @param aprobarCredito Si aprobar credito de persona.
+     * @param dir dirección de la persona
      * @param contacto Lista contactos de persona.
      * @param codCliente Codigo de cliente.
      * @param estado Estado de persona.
      */
     public Cliente(String codigo, String nombre, String apellido1, 
             String apellido2, String cedula, float limiteCredito,
-            boolean aprobarCredito, ArrayList<Contacto> contacto, 
+            boolean aprobarCredito, Direccion dir, ArrayList<Contacto> contacto, 
             String codCliente, String estado) {
         
-        super(codigo, nombre, apellido1, apellido2, cedula, limiteCredito,
-                aprobarCredito, contacto, estado);
+        super(codigo, nombre, apellido1, apellido2, cedula, limiteCredito, 
+                aprobarCredito, dir, contacto, estado);
         this.codCliente = codCliente;
     }
 

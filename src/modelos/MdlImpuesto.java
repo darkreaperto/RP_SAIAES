@@ -81,6 +81,7 @@ public class MdlImpuesto {
      */
     public int crearImpuesto(String codigoImpuesto, double tarifaImpuesto, 
             double montoImpuesto) {
+        
         ArrayList<Object> params = new ArrayList<>();
         params.add(codigoImpuesto);
         params.add(tarifaImpuesto);
