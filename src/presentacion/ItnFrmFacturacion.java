@@ -338,7 +338,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 descuento, "No se realizó descuento",
                 impuesto, true);
 
-        factura.getLineasDetalle().add(linea); 
+        //Agregar las lineas creadas a la lista de lineas en Factura 
+        factura.getLineasDetalle().add(linea);
         
         //Limpiar variables globales
         impuesto = null;
@@ -701,8 +702,11 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }
     
     public void emitirFactura() {
+        System.out.println(factura.getLineasDetalle().size());       
         factura.setResumen(prepararResumen());
-        
+        factura.setEncabezado(preparaEncabezado("01"));
+        factura.setInfoReferencia(null);       
+        ctrFactura.crearFactura(factura);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1409,9 +1413,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_lsEscogerProdValueChanged
 
     private void btnFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturarActionPerformed
-        
-        crearLinea();
-        
+        emitirFactura();
     }//GEN-LAST:event_btnFacturarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

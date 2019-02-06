@@ -10,7 +10,7 @@ import util.TipoContacto;
 
 /**
  * Instancia los contactos con sus atributos.
- * @author ahoihanabi
+ * @author aoihanabi
  */
 public class Contacto {
     

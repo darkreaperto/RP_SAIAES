@@ -8,6 +8,7 @@ package controladores;
 import java.util.ArrayList;
 import logica.negocio.Cliente;
 import logica.negocio.Contacto;
+import logica.negocio.Direccion;
 import modelos.MdlCliente;
 import util.Estado;
 import util.TipoContacto;
@@ -39,16 +40,17 @@ public class CtrCliente {
      * @param cedula Cédula de persona.
      * @param limiteCredito Limite credito de persona.
      * @param aprobarCredito Si aprobar credito de persona.
+     * @param dir direccion de la persona.
      * @param contacto Lista contactos de persona.
      * @param codCliente Codigo de cliente.
      * @param estado Estado de persona.
      */
     public CtrCliente(String codigo, String nombre, String apellido1, 
             String apellido2, String cedula, float limiteCredito,
-            boolean aprobarCredito, ArrayList<Contacto> contacto, 
+            boolean aprobarCredito, Direccion dir, ArrayList<Contacto> contacto, 
             String codCliente, String estado) {
         cliente = new Cliente(codigo, nombre,apellido1, apellido2, cedula, 
-                limiteCredito, aprobarCredito, contacto, codCliente, estado);
+                limiteCredito, aprobarCredito, dir, contacto, codCliente, estado);
     }
     
     /**

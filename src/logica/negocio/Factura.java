@@ -37,6 +37,7 @@ public class Factura {
     
     /**
      * Constructor de clase de factura, inicializa variables.
+     * @param codFactura codigo de bd para la factura
      * @param encabezado encabezado de la factura
      * @param lineasDetalle lineas de detalle (lista de productos a facturar)
      * @param resumen resumen de la factura

@@ -6,13 +6,8 @@
 package controladores;
 
 import java.util.ArrayList;
-import logica.negocio.FacEncabezado;
-import logica.negocio.FacNormativa;
-import logica.negocio.FacReferencia;
-import logica.negocio.FacResumen;
 import logica.negocio.Consecutivo;
 import logica.negocio.Factura;
-import logica.negocio.Madera;
 import modelos.MdlFactura;
 
 /**

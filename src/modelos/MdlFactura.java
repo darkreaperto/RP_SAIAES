@@ -10,6 +10,7 @@ import controladores.CtrFactura;
 import controladores.CtrLineaDetalle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import logica.negocio.FacEncabezado;
 import logica.negocio.FacNormativa;
@@ -43,6 +44,7 @@ public class MdlFactura {
     public MdlFactura() {
         conexion = new CtrConexion();
         msgError = new Mensaje();
+        ctrLineaDetalle = new CtrLineaDetalle();
     }
     
     public int crearResumen(String codigoMoneda, double tipoCambio, 
@@ -160,8 +162,9 @@ public class MdlFactura {
         ArrayList<Object> params = new ArrayList<>();
         params.add(indEncab);
         params.add(indResumen);
-        params.add(indReferencia);
         params.add(indNormativa);
+        params.add(indReferencia);
+        params.add(Types.BIGINT);
 
         boolean creacionExitosa = true;
         int indice = 0;
@@ -178,7 +181,12 @@ public class MdlFactura {
             
             //Crear una linea de detalle en la bd por cada una encontrada 
             //en la lista de lineas
-            for(LineaDetalle linea : fac.getLineasDetalle()) {
+            System.out.println("IndiceFac: " + indice);
+            System.out.println("Lista Size: " + fac.getLineasDetalle().size());
+            for(int i = 0; i < fac.getLineasDetalle().size(); i++) {
+                
+                LineaDetalle linea = fac.getLineasDetalle().get(i);
+                System.out.println("ITERATOR: "+ i);
                 //obtener el indice de linea
                 int indiceLinea = ctrLineaDetalle.crearLineaDetalle(
                         linea.getImpuesto(),
@@ -191,6 +199,7 @@ public class MdlFactura {
                         linea.isMercancia());
                 
                 crearLineaxFactura(indiceLinea, indice);
+                System.out.println("FINAL");
             }
                        
             System.out.println(resultado);

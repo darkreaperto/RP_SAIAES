@@ -21,6 +21,7 @@ public class Persona {
     private String cedula;
     private float limiteCredito;
     private boolean aprobarCredito;
+    private Direccion dir;
     private ArrayList<Contacto> contactos;
     private Estado estado;
     
@@ -39,12 +40,14 @@ public class Persona {
      * @param cedula cedula persona.
      * @param limiteCredito limite credito persona.
      * @param aprobarCredito aprobar credito persona.
+     * @param dir codigo de la direccion de la persona.
      * @param contactos contactos persona.
      * @param estado Estado de persona.
      */
     public Persona(String codigo, String nombre, String apellido1, 
             String apellido2, String cedula, float limiteCredito,
-            boolean aprobarCredito, ArrayList<Contacto> contactos, String estado) {
+            boolean aprobarCredito, Direccion dir,
+            ArrayList<Contacto> contactos, String estado) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -52,6 +55,7 @@ public class Persona {
         this.cedula = cedula;
         this.limiteCredito = limiteCredito;
         this.aprobarCredito = aprobarCredito;
+        this.dir = dir;
         this.contactos = contactos;
         this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
     }
@@ -167,6 +171,22 @@ public class Persona {
         this.aprobarCredito = aprobarCredito;
     }
 
+    /**
+     * Obtener direccion de persona.
+     * @return La dirección
+     */
+    public Direccion getDireccion () {
+        return dir;
+    }
+
+    /**
+     * Establecer direccion de persona
+     * @param dir la direccion
+     */
+    public void setDireccion(Direccion dir) {
+        this.dir = dir;
+    }
+    
     /**
      * Obtener lista de contactos de persona.
      * @return La lista de contacto.

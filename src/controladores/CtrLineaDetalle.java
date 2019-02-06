@@ -7,7 +7,6 @@ package controladores;
 
 import java.util.ArrayList;
 import logica.negocio.Impuesto;
-import logica.negocio.LineaDetalle;
 import modelos.MdlLineaDetalle;
 
 /**
@@ -17,14 +16,11 @@ import modelos.MdlLineaDetalle;
 public class CtrLineaDetalle {
     private static CtrLineaDetalle instancia = null;
     MdlLineaDetalle mdlLineaDetalle;
-    LineaDetalle lineaDetalle;
-    ArrayList <LineaDetalle> lineasDetalle;
 
     /**
      * Constructor del controlador de línea de detalle, inicializa variables.
      */
     public CtrLineaDetalle() {
-        lineasDetalle = new ArrayList<>();
         mdlLineaDetalle = new MdlLineaDetalle();
     }
     
