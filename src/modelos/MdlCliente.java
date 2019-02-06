@@ -41,6 +41,7 @@ public class MdlCliente {
     /** Controlador de contacto. */
     private static CtrContacto ctrContacto;
     private static CtrDireccion ctrDireccion;
+    
     /**
      * Constructor de clase modelo de cliente.
      */
