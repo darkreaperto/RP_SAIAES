@@ -7,12 +7,14 @@ package modelos;
 
 import controladores.CtrConexion;
 import controladores.CtrContacto;
+import controladores.CtrDireccion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import logica.negocio.Cliente;
 import logica.negocio.Contacto;
+import logica.negocio.Direccion;
 import logica.negocio.Proveedor;
 import logica.servicios.Mensaje;
 import util.TipoContacto;
@@ -34,6 +36,8 @@ public class MdlProveedor {
     private static Mensaje msgError;
     /** Controlador de contacto. */
     private static CtrContacto ctrContacto;
+    /** Controlador de direccion. */
+    private static CtrDireccion ctrDireccion;
     
     /**
      * Constructor de clase modelo de proveedor.
@@ -42,6 +46,7 @@ public class MdlProveedor {
         conexion = new CtrConexion();
         msgError = new Mensaje();
         ctrContacto = CtrContacto.getInstancia();
+        ctrDireccion = CtrDireccion.getInstancia();
     }
 
     /**
@@ -63,8 +68,10 @@ public class MdlProveedor {
             String apellido2Persona;
             String cedulaPersona;
             String codProveedor;
+            String codDireccion;
             String estadoProveedor;
             ArrayList<Contacto> contactos;
+            Direccion direccion;
 
             while (resultado.next()) {
                 
@@ -74,14 +81,16 @@ public class MdlProveedor {
                 apellido2Persona = resultado.getString("apellido2_Personas");
                 cedulaPersona = resultado.getString("ced_Personas");
                 codProveedor = resultado.getString("cod_Proveedores");
+                codDireccion = resultado.getString("codDireccion_Personas");
                 estadoProveedor = resultado.getString("estado_Proveedores");
                 
                 contactos = ctrContacto.consultarContactos(codPersona);
+                direccion = ctrDireccion.consultarDireccion(codDireccion);
                 
                 Proveedor proveedor
                         = new Proveedor(codPersona, nombrePersona, 
                                 apellido1Persona, apellido2Persona, 
-                                cedulaPersona, contactos, codProveedor, 
+                                cedulaPersona, direccion, contactos, codProveedor, 
                                 estadoProveedor);
 
                 if (!proveedores.contains(proveedor)) {
@@ -293,7 +302,9 @@ public class MdlProveedor {
             String apellido2;
             String cedula;
             String codCliente;
+            String codDireccion;
             String estadoCliente;
+            Direccion direccion;
 
             while (resultado.next()) {
                 codPersona = resultado.getString("cod_Personas");
@@ -302,12 +313,16 @@ public class MdlProveedor {
                 apellido2 = resultado.getString("apellido2_Personas");
                 cedula = resultado.getString("ced_Personas");
                 codCliente = resultado.getString("cod_Proveedores");
+                codDireccion = resultado.getString("codDireccion_Personas");
                 estadoCliente = resultado.getString("estado_Proveedores");
 
                 ArrayList<Contacto> contactos = ctrContacto.consultarContactos(codPersona);
+                direccion = ctrDireccion.consultarDireccion(codDireccion);
+                
                 Proveedor proveedor
                         = new Proveedor(codPersona, nombre, apellido1, apellido2, 
-                                cedula, contactos, codCliente, estadoCliente);
+                                cedula, direccion, contactos, codCliente, 
+                                estadoCliente);
 
                 if (!proveedores.contains(proveedor)) {
                     proveedores.add(proveedor);

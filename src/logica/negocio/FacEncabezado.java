@@ -27,7 +27,7 @@ public class FacEncabezado {
     private int codigoPaisEm;
     private int numTelefonoEm;
     private String correoElectronicoEm;
-    private String codReceptor;
+    private Cliente receptor;
     private String condicionVenta;
     private String plazoCredito; 
     private String medioPago;
@@ -55,7 +55,7 @@ public class FacEncabezado {
      * @param codigoPaisEm código de país del emisor (506).
      * @param numTelefonoEm número telefónico del emisor .
      * @param correoElectronicoEm correo electrónico del emisor.
-     * @param codReceptor codigo del cliente que recibe la factura.
+     * @param receptor objeto Cliente con toda la información que recibe la factura.
      * @param condicionVenta condición de venta (crédito, contado).
      * @param plazoCredito plazo para crédito.
      * @param medioPago medio de págo de factura (efectivo, tarjeta, cheque, etc). 
@@ -65,7 +65,7 @@ public class FacEncabezado {
             Date fechaEmision, String nombreEmisor, String tipoIdentEm, 
             String numeroIdentEm, String provinciaEm, String cantonEm, 
             String distritoEm, String otrasSenasEm, int codigoPaisEm, 
-            int numTelefonoEm, String correoElectronicoEm, String codReceptor, 
+            int numTelefonoEm, String correoElectronicoEm, Cliente receptor, 
             String condicionVenta, String plazoCredito, String medioPago) {
         
         this.codigoFac = codigoFac;
@@ -82,7 +82,7 @@ public class FacEncabezado {
         this.codigoPaisEm = codigoPaisEm;
         this.numTelefonoEm = numTelefonoEm;
         this.correoElectronicoEm = correoElectronicoEm;
-        this.codReceptor = codReceptor;
+        this.receptor = receptor;
         this.condicionVenta = condicionVenta;
         this.plazoCredito = plazoCredito;
         this.medioPago = medioPago;
@@ -201,11 +201,11 @@ public class FacEncabezado {
     }
 
     /**
-     * Establecer código de cliente que recibirá la factura
-     * @param codReceptor código cliente receptor de factura
+     * Establecer rl cliente que recibirá la factura
+     * @param receptor cliente receptor de factura
      */
-    public void setCodReceptor(String codReceptor) {
-        this.codReceptor = codReceptor;
+    public void setReceptor(Cliente receptor) {
+        this.receptor = receptor;
     }
 
     /**
@@ -348,8 +348,8 @@ public class FacEncabezado {
      * Obtener cliente receptor de la facutura
      * @return cliente al que se le realiza la factura
      */
-    public String getReceptor() {
-        return codReceptor;
+    public Cliente getReceptor() {
+        return receptor;
     }
 
     /**

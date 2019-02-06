@@ -7,13 +7,17 @@ package presentacion;
 
 import controladores.CtrAcceso;
 import controladores.CtrCliente;
+import controladores.CtrEmisor;
 import controladores.CtrFactura;
 import controladores.CtrImpuesto;
 import controladores.CtrLineaDetalle;
 import controladores.CtrMadera;
 import java.awt.Container;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
+import java.util.TimeZone;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -21,6 +25,8 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
 import logica.negocio.Consecutivo;
+import logica.negocio.Contacto;
+import logica.negocio.Emisor;
 import logica.negocio.FacEncabezado;
 import logica.negocio.FacResumen;
 import logica.negocio.Factura;
@@ -28,6 +34,7 @@ import logica.negocio.Impuesto;
 import logica.negocio.LineaDetalle;
 import logica.negocio.Madera;
 import logica.servicios.Mensaje;
+import util.TipoContacto;
 import util.TipoMensaje;
 
 /**
@@ -45,6 +52,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     private static CtrMadera ctrInventario = new CtrMadera();
     private static CtrCliente ctrCliente = new CtrCliente();
     private static CtrImpuesto ctrImpuesto;
+    private static CtrEmisor ctrEmisor;
     private static CtrLineaDetalle ctrLineaDetalle;
     private static FrmPrincipal ventanaPrincipal;
     private static ItnFrmCliente modCliente;
@@ -59,6 +67,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     //private static ArrayList<LineaDetalle> lineas = new ArrayList<>();
     public Impuesto impuesto;
     public Factura factura;
+    private Emisor emisor;
     public boolean exonerado = false;
     
 
@@ -80,10 +89,12 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         //lblUsuarioFac.setText(sesionAcc.getUsuario().getNombre());
         ctrImpuesto = new CtrImpuesto();
         ctrLineaDetalle = new CtrLineaDetalle();
+        ctrEmisor = CtrEmisor.getInstancia();
         msg = new Mensaje();
         factura = new Factura();
         
         //ctrFactura.crearFacResumen("CRC", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        preparaEncabezado("01");
     }
 
     /**
@@ -109,6 +120,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
      * @param codBusq código de clasificación/especificación de búsqueda
      */
     public void llenarListaProductos(String paramProd, int codBusq) {
+        
         listaProd = new ArrayList<>();
         DefaultListModel<Madera> mProductos = new DefaultListModel<>();
         listaProd = ctrInventario.busqAvzProductos(paramProd, codBusq);
@@ -137,21 +149,31 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         }
         //System.out.println(listaProd);
         lsEscogerCli.setModel(mClientes);
-        String cli = "ESTIMADO CLIENTE";
+        Cliente cli = new Cliente();
+        cli.setNombre("ESTIMADO CLIENTE");
 
         for (Cliente c : listaCli) {
             System.out.println("CED " + c.getCedula());
             if (c.getCedula().equals(p)) {
-                cli = c.toString();
+                cli = c;
                 break;
             }
         }
-        txtClienteFac.setText(cli);
-        lblClienteNom.setText(cli);
-        if (!cli.equals("ESTIMADO CLIENTE")) {
-            lblMostrarNombreCl.setText(cli);
+        
+        txtClienteFac.setText(cli.toString());
+        lblClienteNom.setText(cli.toString());
+        if (!cli.getNombre().equals("ESTIMADO CLIENTE")) {
+            lblMostrarNombreCl.setText(cli.toString());
+            lblMostrarCedulaCl.setText(cli.getCedula());
+            lblMostrarCreditoCl.setText(String.valueOf(cli.isAprobarCredito()));
+            
+            //CAMBIAR FORMA DE MOTRAR CORREO Y TELEFONO DEL CLIENTE?
+//            lblMostrarTelefonoCl.setText(cli.getContactos());
+//            lblMostrarCorreoCl.setText(p);
         } else {
-            lblMostrarNombreCl.setText("");
+            lblMostrarNombreCl.setText("Nombre del Cliente");
+            lblMostrarCedulaCl.setText("Cédula del Cliente");
+            lblMostrarCreditoCl.setText("Crédito");
         }
     }
 
@@ -484,41 +506,130 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         
         jTableAgregar();
     }
+   
+    private String formatearConsecutivo(String tipoComprob, int consec) {
+        
+        String casaMatriz = "001";
+        String terminal = "00001";
+        
+        return casaMatriz + terminal + tipoComprob + 
+                String.format("%010d", consec);
+    }
+    
+    private String formatearClave(String numId, String consec, String sit) {
+        
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-06:00"));
+                
+        String codPais = "506";
+        String dia = String.format("%02d", cal.get(Calendar.DAY_OF_MONTH));
+        String mes = String.format("%02d", cal.get(Calendar.MONTH)+1);
+        String anno = String.valueOf(cal.get(Calendar.YEAR)).substring(2, 4);
+        //codigo random (no importa si se repite, el punto es que no sea predecible)
+        Random r = new Random();
+        String codSeg = String.format("%08d", 1+r.nextInt(99999999));
+        
+        return codPais + dia + mes + anno + 
+                String.format("%012d", Integer.valueOf(numId)) + 
+                consec + sit + codSeg;
+    }
     
     /**
      * Preparar la información del encabezado y retornarlo.
+     * @param codComprob código de tipo de comprobante
      * @return el encabezado de la factura
      */
-    public FacEncabezado preparaEncab() {
+    public FacEncabezado preparaEncabezado(String codComprob) {
         
+        emisor = ctrEmisor.obtenerEmisor();
         consecutivos = ctrFactura.obtenerConsecutivos();
+        
+        String codigoFac = "1";
+        String clave = "";
+        String numeroConsecutivo = "";
+        Date fechaEmision = new Date();
+        String nombreEmisor = emisor.getNombre();
+        String tipoIdentEm = emisor.getTipoId();
+        String numeroIdentEm = emisor.getNumId();
+        
+        System.out.println(nombreEmisor);
+        System.out.println(tipoIdentEm);
+        System.out.println(numeroIdentEm);
+        
+        //DIRECCIONS
+        String provinciaEm = "";
+        String cantonEm = "";
+        String distritoEm = "";
+        String otrasSenasEm = "";
+        int codigoPaisEm = emisor.getCodPais();
+        int numTelefonoEm = emisor.getNumTel();
+        String correoElectronicoEm = emisor.getCorreoElec();
+        Cliente receptor = new Cliente();
+        String condicionVenta = "";
+        String plazoCredito = "";
+        String medioPago = "";
+        
+        System.out.println("----- INICIO CONSECUTIVOS -----");
+        for (Consecutivo c: consecutivos) {
+            System.out.println("Código: "+c.getCod());
+            System.out.println("Código comprob.: "+c.getCodComprob());
+            System.out.println("Tipo comprob.: "+c.getTipoComprob());
+            System.out.println("Consec.: "+c.getConsecutivo());
+            
+            if (c.getCodComprob().equals(codComprob)) {
+                //Se formatea el consecutivo con largo = 10
+                numeroConsecutivo = formatearConsecutivo("01", c.getConsecutivo());
+                clave = formatearClave("116210768", numeroConsecutivo, "1");
+                System.out.println(clave);
+            }
+        }
+        System.out.println("----- FIN CONSECUTIVOS -----");
        
-       String codigoFac = "1";
-       String clave = "";
-       String numeroConsecutivo = "";
-       Date fechaEmision = new Date();
-       String nombreEmisor = "";
-       String tipoIdentEm = "";
-       String numeroIdentEm = "";
-       String provinciaEm = "";
-       String cantonEm = "";
-       String distritoEm = "";
-       String otrasSenasEm = "";
-       int codigoPaisEm = 0;
-       int numTelefonoEm = 0;
-       String correoElectronicoEm = "";
-       String codReceptor = "";
-       String condicionVenta = "";
-       String plazoCredito = "";
-       String medioPago = "";
+        
        
-       FacEncabezado encab = new FacEncabezado(codigoFac, clave, 
+        return crearEncabezado(codigoFac, clave, numeroConsecutivo, 
+                fechaEmision, nombreEmisor, tipoIdentEm, numeroIdentEm, 
+                provinciaEm, cantonEm, distritoEm, otrasSenasEm, codigoPaisEm, 
+                numTelefonoEm, correoElectronicoEm, receptor, condicionVenta, 
+                plazoCredito, medioPago);
+    }
+    
+    /**
+     * Crea el objeto Encabezado y lo retorna.
+     * @param codigoFac código de la factura
+     * @param clave clave numérica de la factura
+     * @param numeroConsecutivo número consecutivo de la factura
+     * @param fechaEmision fecha de emisión de la factura
+     * @param nombreEmisor nombre del emisor de la factura
+     * @param tipoIdentEm tipo de identificación del emisor
+     * @param numeroIdentEm número de identiifcación del emisor
+     * @param provinciaEm provincia de ubicación del emisor
+     * @param cantonEm cantón de ubicación del emisor
+     * @param distritoEm distrito de ubicación del emisor
+     * @param otrasSenasEm otras señas de ubicación del emisor
+     * @param codigoPaisEm códio de país del emisor
+     * @param numTelefonoEm número telefónico del emisor
+     * @param correoElectronicoEm correo electrónico del emisor
+     * @param receptor receptor/cliente
+     * @param condicionVenta condición de la venta
+     * @param plazoCredito plazo del crédito de la venta
+     * @param medioPago medio de pago
+     * @return el encabezado creado
+     */
+    private FacEncabezado crearEncabezado(String codigoFac, String clave, 
+               String numeroConsecutivo, Date fechaEmision, String nombreEmisor, 
+               String tipoIdentEm, String numeroIdentEm, String provinciaEm, 
+               String cantonEm, String distritoEm, String otrasSenasEm, 
+               int codigoPaisEm, int numTelefonoEm, 
+               String correoElectronicoEm, Cliente receptor, 
+               String condicionVenta, String plazoCredito, String medioPago) {
+        
+        FacEncabezado encab = new FacEncabezado(codigoFac, clave, 
                numeroConsecutivo, fechaEmision, nombreEmisor, tipoIdentEm, 
                numeroIdentEm, provinciaEm, cantonEm, distritoEm, otrasSenasEm, 
-               codigoPaisEm, numTelefonoEm, correoElectronicoEm, codReceptor, 
+               codigoPaisEm, numTelefonoEm, correoElectronicoEm, receptor, 
                condicionVenta, plazoCredito, medioPago);
-       
-       return encab;
+        
+        return encab;
     }
     
     /**
@@ -593,7 +704,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     public void emitirFactura() {
         System.out.println(factura.getLineasDetalle().size());       
         factura.setResumen(prepararResumen());
-        factura.setEncabezado(preparaEncab());
+        factura.setEncabezado(preparaEncabezado("01"));
         factura.setInfoReferencia(null);       
         ctrFactura.crearFactura(factura);
     }
