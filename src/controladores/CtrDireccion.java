@@ -17,12 +17,12 @@ public class CtrDireccion {
     private static CtrDireccion instancia = null;
     Direccion direccion;
     MdlDireccion mdlDireccion;
-    ArrayList <Direccion> direcciones;
+//    ArrayList <Direccion> direcciones;
     /**
      * Constructor del controlador de usuario, inicializa variables.
      */
     public CtrDireccion() {
-        direcciones = new ArrayList<>();
+//        direcciones = new ArrayList<>();
         mdlDireccion = new MdlDireccion();
     }
     /**
@@ -36,6 +36,7 @@ public class CtrDireccion {
      * @param nomDistrito nombre de distrito para la BD.
      * @param codBarrio codigo de barrio para la BD.
      * @param nomBarrio nombre de barrio para la BD.
+     * @param otrasSenas
      */
     public CtrDireccion(int codigo, String codProvincia, String nomProvincia, 
             String codCanton, String nomCanton, String codDistrito, 

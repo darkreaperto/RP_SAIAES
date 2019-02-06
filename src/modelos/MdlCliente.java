@@ -90,6 +90,7 @@ public class MdlCliente {
                 codDireccion = resultado.getString("codDireccion_Personas");
                 codCliente = resultado.getString("cod_Clientes");
                 estadoCliente = resultado.getString("estado_Clientes");
+                
                 contactos = ctrContacto.consultarContactos(codPersona);
                 dirPersona = ctrDireccion.consultarDireccion(codDireccion);
                 

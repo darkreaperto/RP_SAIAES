@@ -21,14 +21,14 @@ public class MdlDireccion {
     private static CtrConexion conexion;
     private static ResultSet resultado;
     private static Mensaje msgError;
-    private static CtrDireccion ctrDireccion;
+//    private static CtrDireccion ctrDireccion;
     private static Direccion direccion;
     private static String procedimiento;
     
     public MdlDireccion() {
         conexion = new CtrConexion();
         msgError = new Mensaje();
-        ctrDireccion = CtrDireccion.getInstancia();
+        //ctrDireccion = CtrDireccion.getInstancia();
     }
     
     /**

@@ -216,11 +216,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de crédito", "Contactos", "Cod. Cliente", "Codigo"
+                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de crédito", "Contactos", "Dirección", "Cod. Cliente", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -228,6 +228,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         });
         tbListadoCliente.setComponentPopupMenu(menuEmergente);
+        tbListadoCliente.setRowHeight(20);
         tbListadoCliente.getTableHeader().setReorderingAllowed(false);
         scpnlTblListadoCliente.setViewportView(tbListadoCliente);
 
@@ -1150,10 +1151,10 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
      * @param estado Indica si el cliente está o no inactivo
      */
     public void cargarClientesJTable(JTable tabla, boolean estado) {
-        Object[] row = new Object[9];
+        Object[] row = new Object[10];
         model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0);
-        model.setColumnCount(9);
+        model.setColumnCount(10);
         int i = 0;
         for (Cliente c: clientes) {
 
@@ -1176,9 +1177,16 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 texto += "</body></html>";
                 row[6] = texto;
                 
+                String dir = "<html><body>" +
+                        c.getDireccion().getNomProvincia() + ",<br>" +
+                        c.getDireccion().getNomCanton() + ",<br>" +
+                        c.getDireccion().getNomDistrito() + ",<br>" +
+                        c.getDireccion().getNomBarrio() 
+                        + "</body></html>";
                 
-                row[7] = c.getCodCliente(); //codigo de cliente
-                row[8] = c.getCodigo(); //codigo de persona
+                row[7] = dir;
+                row[8] = c.getCodCliente(); //codigo de cliente
+                row[9] = c.getCodigo(); //codigo de persona
                 
                 model.addRow(row);
                 
@@ -1206,8 +1214,16 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 texto += "</body></html>";
                 row[6] = texto;
                 
-                row[7] = c.getCodCliente(); //codigo de cliente
-                row[8] = c.getCodigo(); //codigo de persona
+                String dir = "<html><body>" +
+                        c.getDireccion().getNomProvincia() + ",<br>" +
+                        c.getDireccion().getNomCanton() + ",<br>" +
+                        c.getDireccion().getNomDistrito() + ",<br>" +
+                        c.getDireccion().getNomBarrio() 
+                        + "</body></html>";
+                
+                row[7] = dir;
+                row[8] = c.getCodCliente(); //codigo de cliente
+                row[9] = c.getCodigo(); //codigo de persona
                 
                 model.addRow(row);
                 
@@ -1218,8 +1234,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         }
         
-        tabla.removeColumn(tabla.getColumnModel().getColumn(7));
-        tabla.removeColumn(tabla.getColumnModel().getColumn(7));
+        tabla.removeColumn(tabla.getColumnModel().getColumn(8));
+        tabla.removeColumn(tabla.getColumnModel().getColumn(8));
     }
     
     /**
