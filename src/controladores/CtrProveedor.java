@@ -7,6 +7,7 @@ package controladores;
 
 import java.util.ArrayList;
 import logica.negocio.Contacto;
+import logica.negocio.Direccion;
 import logica.negocio.Proveedor;
 import modelos.MdlProveedor;
 import util.Estado;
@@ -39,16 +40,18 @@ public class CtrProveedor {
      * @param cedula Cédula de persona.
      * @param limiteCredito Limite credito de persona.
      * @param aprobarCredito Si aprobar credito de persona.
+     * @param dir Dirección de la persona.
      * @param contacto Lista contactos de persona.
      * @param codCliente Codigo de proveedor.
      * @param estado Estado de persona.
      */
     public CtrProveedor(String codigo, String nombre, String apellido1, 
             String apellido2, String cedula, float limiteCredito,
-            boolean aprobarCredito, ArrayList<Contacto> contacto, 
+            boolean aprobarCredito, Direccion dir, ArrayList<Contacto> contacto, 
             String codCliente, String estado) {
+        
         proveedor = new Proveedor(codigo, nombre,apellido1, apellido2, cedula, 
-                contacto, codCliente, estado);
+                dir, contacto, codCliente, estado);
     }
     
     /**
