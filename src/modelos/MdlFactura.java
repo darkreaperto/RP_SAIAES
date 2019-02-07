@@ -287,4 +287,23 @@ public class MdlFactura {
         }
     }
     
+    public boolean tomarConsecutivo(String codComprob) {
+        
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(codComprob);
+        
+        boolean exito = false;
+        try {
+            procedimiento = "pc_tomar_consecutivo(?)";
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento);
+
+            exito = true;
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return exito;
+        }
+    }
 }

@@ -37,8 +37,8 @@ public class Proveedor extends Persona {
             String apellido2, String cedula, Direccion dir, 
             ArrayList<Contacto> contactos, String codProveedor, String estado) {
         
-        super(codigo, nombre, apellido1, apellido2, cedula, 0, false, dir, contactos, 
-                estado);
+        super(codigo, nombre, apellido1, apellido2, cedula, 0, false, dir, 
+                contactos, estado);
         this.codProveedor = codProveedor;
     }
     
