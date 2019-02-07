@@ -1648,6 +1648,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCrearClienteActionPerformed
 
     private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
+        
         try {
             model = (DefaultTableModel) tbl_editar.getModel();
             int indiceFila = tbl_editar.getSelectedRow();
@@ -1682,15 +1683,17 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                     limiteCred, credito, codPersona, cP, cC, cD, cB, 
                     txaEditarOtrasSenas.getText().trim(), codDir);
             
+            limpiarCampos("EDITAR");
+            
         } catch (ArrayIndexOutOfBoundsException ex) {
             ex.printStackTrace();
         } catch (NullPointerException ex) {
             ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            
         }
-        
-        limpiarCampos("EDITAR");
     }//GEN-LAST:event_btnEditarClienteActionPerformed
 
     private void tblClientesActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesActivosMouseClicked
