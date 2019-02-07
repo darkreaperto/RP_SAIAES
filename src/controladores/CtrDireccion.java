@@ -79,4 +79,9 @@ public class CtrDireccion {
         return mdlDireccion.crearDireccion(codProv, codCanton, codDistrito, 
                 codBarrio, senas);
     }
+    public boolean actualizarDireccion(String codP, String codC, 
+            String codD, String codB, String senas, int codDir) {
+        return mdlDireccion.actualizarDireccion(codP, codC, codD, codB, senas, 
+                codDir);
+    }
 }

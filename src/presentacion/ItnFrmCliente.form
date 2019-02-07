@@ -927,7 +927,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="spnl_editar_clientes" alignment="1" pref="1191" max="32767" attributes="0"/>
+                      <Component id="spnl_editar_clientes" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -945,8 +945,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="tbEditarContactoClientes" min="-2" pref="204" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="tbEditarContactoClientes" min="-2" pref="215" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="spnl_editar_clientes" min="-2" pref="250" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnEditarCliente" min="-2" pref="35" max="-2" attributes="0"/>
@@ -1076,7 +1076,7 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Component id="lblEditarApellidoCliente" alignment="0" pref="100" max="32767" attributes="0"/>
@@ -1091,51 +1091,90 @@
                                           <Component id="txtEditarPrimerApellido" alignment="0" max="32767" attributes="0"/>
                                           <Component id="txtEditarSegundoApellido" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="494" max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="lblEditarProvincia" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Component id="lblEditarDistrito" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Component id="lblEditarCanton" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Component id="lblEditarBarrio" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="cbxEditarProvincia" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                                          <Component id="cbxEditarDistrito" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                                          <Component id="cbxEditarCanton" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                                          <Component id="cbxEditarBarrio" alignment="1" min="-2" pref="190" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblEditarOtrasSenas" min="-2" pref="130" max="-2" attributes="0"/>
+                                          <Component id="txaEditarOtrasSenas" min="-2" pref="260" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace pref="29" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="pnlEditarCreditoCliente" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblEditarLimiteCliente" min="-2" pref="202" max="-2" attributes="0"/>
-                                          <Component id="txtEditarLimiteCliente" alignment="0" min="-2" pref="288" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="txtEditarLimiteCliente" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="lblEditarLimiteCliente" alignment="0" pref="134" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="lblEditarCedulaCliente" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                                   <Component id="txtEditarCedulaCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="lblEditarProvincia" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="cbxEditarProvincia" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="lblEditarOtrasSenas" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="lblEditarNombreCliente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                                   <Component id="txtEditarNombreCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="lblEditarCanton" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                                  <Component id="cbxEditarCanton" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="lblEditarApellidoCliente" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                                  <Component id="txtEditarPrimerApellido" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="lblEditarDistrito" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="lblEditarApellidoCliente" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                                      <Component id="txtEditarPrimerApellido" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                                      <Component id="cbxEditarDistrito" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="lblEditarSegundoApellido" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                                   <Component id="txtEditarSegundoApellido" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="lblEditarBarrio" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="cbxEditarBarrio" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="pnlEditarCreditoCliente" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="lblEditarLimiteCliente" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="txtEditarLimiteCliente" min="-2" pref="29" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="txaEditarOtrasSenas" min="-2" pref="106" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                                  <Component id="pnlEditarCreditoCliente" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="lblEditarLimiteCliente" min="-2" pref="24" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
-                                      <EmptySpace pref="24" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="txtEditarLimiteCliente" min="-2" pref="29" max="-2" attributes="0"/>
+                                      <EmptySpace pref="14" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1171,14 +1210,15 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="rbEditarCredito" min="-2" pref="87" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="20" max="32767" attributes="0"/>
-                                                  <Component id="rbEditarCreditoLim" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
                                                   <Component id="rbEditarSinCredito" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="32767" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="rbEditarCredito" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
+                                                      <Component id="rbEditarCreditoLim" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -1188,12 +1228,11 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="rbEditarCredito" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="rbEditarCreditoLim" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="rbEditarCredito" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="rbEditarSinCredito" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="rbEditarCreditoLim" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1256,6 +1295,77 @@
                             <Component class="javax.swing.JTextField" name="txtEditarLimiteCliente">
                               <Properties>
                                 <Property name="editable" type="boolean" value="false"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="lblEditarProvincia">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Provincia:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="lblEditarCanton">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Cant&#xf3;n:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="lblEditarDistrito">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Distrito:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="lblEditarBarrio">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Barrio:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="cbxEditarProvincia">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="0"/>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;DirFiltro&gt;"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="cbxEditarCanton">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="0"/>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;DirFiltro&gt;"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="cbxEditarDistrito">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="0"/>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;DirFiltro&gt;"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="cbxEditarBarrio">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="0"/>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;DirFiltro&gt;"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="lblEditarOtrasSenas">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Otras se&#xf1;as:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextArea" name="txaEditarOtrasSenas">
+                              <Properties>
+                                <Property name="columns" type="int" value="20"/>
+                                <Property name="rows" type="int" value="5"/>
                               </Properties>
                             </Component>
                           </SubComponents>
@@ -1340,7 +1450,7 @@
                                               <Component id="scpnlEditarListaCorreo" alignment="0" min="-2" pref="408" max="-2" attributes="0"/>
                                               <Component id="lblEditarCorreo" min="-2" pref="187" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="102" max="32767" attributes="0"/>
+                                          <EmptySpace pref="108" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1376,7 +1486,7 @@
                                                   </Group>
                                               </Group>
                                           </Group>
-                                          <EmptySpace pref="35" max="32767" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jSeparator1" max="32767" attributes="0"/>

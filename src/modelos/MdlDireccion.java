@@ -171,6 +171,34 @@ public class MdlDireccion {
             return indice;
         }
     }
+    
+    public boolean actualizarDireccion(String codP, String codC, 
+            String codD, String codB, String senas, int codDir) {
+        
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(codP);
+        params.add(codC);
+        params.add(codD);
+        params.add(codB);
+        params.add(senas);
+        params.add(codDir);
+
+        boolean creacionExitosa = false;
+        try {
+            procedimiento = "pc_actualizar_direccion(?, ?, ?, ?, ?, ?)";
+
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            creacionExitosa = true;
+
+        } catch (SQLException ex) {
+            creacionExitosa = false;
+            System.err.println(ex);
+        } finally {
+            conexion.cerrarConexion();
+            return creacionExitosa;
+        }
+    }
     /**
      * Llena una lista con todos los clientes almacenados en la BD.
      * @return lista de clientes.
