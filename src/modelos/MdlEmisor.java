@@ -69,6 +69,7 @@ public class MdlEmisor {
             }
         } catch (SQLException ex) {
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return emi;

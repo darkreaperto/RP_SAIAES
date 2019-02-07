@@ -77,6 +77,7 @@ public class MdlDireccion {
                                 idBarrio, nomBarrio, otrasSenas);
             }
         } catch (SQLException ex) {
+            ex.printStackTrace();
             System.err.println(ex);
         } finally {
             conexion.cerrarConexion();
@@ -120,6 +121,7 @@ public class MdlDireccion {
                 dirfil.add(df);
             }
         } catch (SQLException ex) {
+            ex.printStackTrace();
             System.err.println(ex);
         } finally {
             conexion.cerrarConexion();
@@ -162,6 +164,7 @@ public class MdlDireccion {
             System.out.println(indice);
 
         } catch (SQLException ex) {
+            ex.printStackTrace();
             System.err.println(ex);            
             creacionExitosa = false;
             System.out.println("ERROR SQL " + ex.getErrorCode());
@@ -193,12 +196,14 @@ public class MdlDireccion {
 
         } catch (SQLException ex) {
             creacionExitosa = false;
+            ex.printStackTrace();
             System.err.println(ex);
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
         }
     }
+    
     /**
      * Llena una lista con todos los clientes almacenados en la BD.
      * @return lista de clientes.
@@ -249,6 +254,7 @@ public class MdlDireccion {
 //                }
 //            }
 //        } catch (SQLException ex) {
+//            ex.printStackTrace();
 //            System.err.println(ex);
 //        } finally {
 //            conexion.cerrarConexion();

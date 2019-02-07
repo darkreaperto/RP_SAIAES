@@ -1548,30 +1548,42 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         lsTelefonos.setModel(mTelefonos);
         lsCorreos.setModel(mCorreos);
     }
-    private void escogeProv(JComboBox combo) {
-        String codP = cbxProvincia.getItemAt(
-                cbxProvincia.getSelectedIndex()).getCodigo();
-        cargarDirJCombo("C", codP, "", "", combo);
-    }
-    private void escogeCanton(JComboBox combo) {
-        if(cbxCanton.getItemCount() > 0) {
-            String codP = cbxProvincia.getItemAt(
-                cbxProvincia.getSelectedIndex()).getCodigo();
-            String codC = cbxCanton.getItemAt(
-                cbxCanton.getSelectedIndex()).getCodigo();
-            cargarDirJCombo("D", codP, codC, "", combo);
+    
+    private void selectDir(JComboBox cbxCargar, JComboBox<DirFiltro> cbxP, 
+            JComboBox<DirFiltro> cbxC, JComboBox<DirFiltro> cbxD, String p) {
+        
+        String codP = "";
+        String codC = "";
+        String codD = "";
+        
+        if (p.equals("C")) {
+            codP = cbxP.getItemAt(
+                cbxP.getSelectedIndex()).getCodigo();
+        } else if (p.equals("D")) {
+            if(cbxC.getItemCount() > 0) {
+                codP = cbxP.getItemAt(
+                        cbxP.getSelectedIndex()).getCodigo();
+                codC = cbxC.getItemAt(
+                        cbxC.getSelectedIndex()).getCodigo();
+            }
+        } else if (p.equals("B")) {        
+            if(cbxD.getItemCount() > 0) {
+                codP = cbxP.getItemAt(
+                        cbxP.getSelectedIndex()).getCodigo();
+                codC = cbxC.getItemAt(
+                        cbxC.getSelectedIndex()).getCodigo();
+                codD = cbxD.getItemAt(
+                        cbxD.getSelectedIndex()).getCodigo();
+            }
         }
+        cargarDirJCombo(p, codP, codC, codD, cbxCargar);
+    }
+    
+    private void escogeCanton(JComboBox combo) {
+        
     }
     private void escogeDistrito(JComboBox combo) {
-        if(cbxDistrito.getItemCount() > 0) {
-            String codP = cbxProvincia.getItemAt(
-                cbxProvincia.getSelectedIndex()).getCodigo();
-            String codC = cbxCanton.getItemAt(
-                cbxCanton.getSelectedIndex()).getCodigo();
-            String codD = cbxDistrito.getItemAt(
-                cbxDistrito.getSelectedIndex()).getCodigo();
-            cargarDirJCombo("B", codP, codC, codD, combo);
-        }
+        
     }
     private void btnCrearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearClienteActionPerformed
         ArrayList<ArrayList<Object>> contactos = new ArrayList<>();
@@ -1650,6 +1662,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                     txtEditarCedulaCliente.getText().trim(), 
                     limiteCred, credito, codPersona, cP, cC, cD, cB, 
                     txtaOtrasSenas.getText(), codDir);
+            
         } catch (ArrayIndexOutOfBoundsException ex) {
             ex.printStackTrace();
         } catch (NullPointerException ex) {
@@ -2096,16 +2109,15 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_rbEditarSinCreditoActionPerformed
 
     private void cbxProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProvinciaActionPerformed
-        escogeProv(cbxCanton);
+        selectDir(cbxCanton, cbxProvincia, cbxCanton, cbxDistrito, "C");
     }//GEN-LAST:event_cbxProvinciaActionPerformed
     
     private void cbxCantonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCantonActionPerformed
-        escogeCanton(cbxDistrito);
+        selectDir(cbxDistrito, cbxProvincia, cbxCanton, cbxDistrito, "D");
     }//GEN-LAST:event_cbxCantonActionPerformed
 
     private void cbxDistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDistritoActionPerformed
-        escogeDistrito(cbxBarrio);
-        
+        selectDir(cbxBarrio, cbxProvincia, cbxCanton, cbxDistrito, "B");
     }//GEN-LAST:event_cbxDistritoActionPerformed
 
     private void cbxProvinciaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxProvinciaItemStateChanged

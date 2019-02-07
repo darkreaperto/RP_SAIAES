@@ -64,8 +64,8 @@ public class MdlAcceso {
                     go = false;
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
         }

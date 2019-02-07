@@ -84,7 +84,8 @@ public class MdlFactura {
             }
             System.out.println(resultado);
         } catch (SQLException ex) {
-            System.err.println(ex);            
+            System.err.println(ex);     
+            ex.printStackTrace();
             creacionExitosa = false;
             System.out.println("ERROR SQL " + ex.getErrorCode());
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
@@ -126,7 +127,8 @@ public class MdlFactura {
             }
             System.out.println(resultado);
         } catch (SQLException ex) {
-            System.err.println(ex);            
+            System.err.println(ex);    
+            ex.printStackTrace();
             creacionExitosa = false;
             System.out.println("ERROR SQL " + ex.getErrorCode());
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
@@ -204,7 +206,8 @@ public class MdlFactura {
                        
             System.out.println(resultado);
         } catch (SQLException ex) {
-            System.err.println(ex);            
+            System.err.println(ex); 
+            ex.printStackTrace();
             creacionExitosa = false;
             System.out.println("ERROR SQL " + ex.getErrorCode());
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
@@ -238,7 +241,8 @@ public class MdlFactura {
                                    
             System.out.println(resultado);
         } catch (SQLException ex) {
-            System.err.println(ex);            
+            System.err.println(ex);  
+            ex.printStackTrace();
             creacionExitosa = false;
             System.out.println("ERROR SQL " + ex.getErrorCode());
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
@@ -281,6 +285,7 @@ public class MdlFactura {
             }
         } catch (SQLException ex) {
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return consecutivos;
@@ -301,6 +306,7 @@ public class MdlFactura {
             exito = true;
         } catch (SQLException ex) {
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return exito;

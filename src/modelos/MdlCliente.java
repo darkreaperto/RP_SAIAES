@@ -108,6 +108,7 @@ public class MdlCliente {
             }
         } catch (SQLException ex) {
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return clientes;
@@ -177,7 +178,8 @@ public class MdlCliente {
             
             System.out.println(resultado);
         } catch (SQLException ex) {
-            System.err.println(ex);            
+            System.err.println(ex);   
+            ex.printStackTrace();
             creacionExitosa = false;
             System.out.println("ERROR SQL " + ex.getErrorCode());
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
@@ -233,6 +235,7 @@ public class MdlCliente {
         } catch (SQLException ex) {
             creacionExitosa = false;
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
@@ -260,6 +263,7 @@ public class MdlCliente {
         } catch (SQLException ex) {
             creacionExitosa = false;
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
@@ -287,6 +291,7 @@ public class MdlCliente {
         } catch (SQLException ex) {
             creacionExitosa = false;
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
@@ -347,6 +352,7 @@ public class MdlCliente {
             }
         } catch (SQLException ex) {
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return clientes;
@@ -356,6 +362,7 @@ public class MdlCliente {
     public void agregarCliente(String nombre, String apellido1, 
             String apellido2, String cedula, float limiteCred, 
             boolean aprobarCred, ArrayList<Contacto> contactos) {
+        
     }
     
     public ArrayList<Cliente> getClientes() {

@@ -63,6 +63,7 @@ public class MdlTipoMadera {
             }
         } catch (SQLException ex) {
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return tipos;

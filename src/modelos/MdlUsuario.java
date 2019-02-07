@@ -79,6 +79,7 @@ public class MdlUsuario {
             }
         } catch (SQLException ex) {
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return usuarios;
@@ -115,7 +116,8 @@ public class MdlUsuario {
             System.out.println(resultado);
 
         } catch (SQLException ex) {
-            System.err.println(ex);            
+            System.err.println(ex); 
+            ex.printStackTrace();
             creacionExitosa = false;
             System.out.println("ERROR SQL " + ex.getErrorCode());
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
@@ -148,6 +150,7 @@ public class MdlUsuario {
 
         } catch (SQLException ex) {
             creacionExitosa = false;
+            ex.printStackTrace();
             //msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
             System.err.println(ex);
         } finally {
@@ -191,6 +194,7 @@ public class MdlUsuario {
         } catch (SQLException ex) {
             creacionExitosa = false;
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
@@ -240,6 +244,7 @@ public class MdlUsuario {
             }
         } catch (SQLException ex) {
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return usuarios;

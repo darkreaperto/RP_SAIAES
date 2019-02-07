@@ -66,7 +66,10 @@ public class CtrDireccion {
     
     /**
      * Buscar contacto enviando por parámetro el criterio de búsqueda.
-     * @param param Parametros para consultar contacto en la base de datos
+     * @param campo
+     * @param codP
+     * @param codC
+     * @param codD
      * @return lista de contactos
      */
     public ArrayList<DirFiltro> filtrarDireccion(String campo, String codP, 

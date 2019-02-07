@@ -61,6 +61,7 @@ public class MdlTipoProducto {
             }
         } catch (SQLException ex) {
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return tipos;

@@ -99,6 +99,7 @@ public class MdlProveedor {
             }
         } catch (SQLException ex) {
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return proveedores;
@@ -156,7 +157,8 @@ public class MdlProveedor {
             //creacionExitosa = true;
             System.out.println(resultado);
         } catch (SQLException ex) {
-            System.err.println(ex);            
+            System.err.println(ex);      
+            ex.printStackTrace();
             creacionExitosa = false;
             System.out.println("ERROR SQL " + ex.getErrorCode());
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
@@ -217,6 +219,7 @@ public class MdlProveedor {
         } catch (SQLException ex) {
             creacionExitosa = false;
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
@@ -244,6 +247,7 @@ public class MdlProveedor {
         } catch (SQLException ex) {
             creacionExitosa = false;
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
@@ -272,6 +276,7 @@ public class MdlProveedor {
         } catch (SQLException ex) {
             creacionExitosa = false;
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
@@ -330,6 +335,7 @@ public class MdlProveedor {
             }
         } catch (SQLException ex) {
             System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
             return proveedores;
