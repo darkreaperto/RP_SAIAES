@@ -86,15 +86,16 @@ public class CtrCliente {
      * @param cedula cédula de identificación del cliente
      * @param limiteCred cantidad límite de crédito del cliente
      * @param aprobarCred aprobación al crédito del cliente
+     * @param dir
      * @param contactos contactos (teléfonos y correos) del cliente
      * @return verdadero si el cliente se crea existosamente
      */
     public boolean crearCliente(String nombre, String apellido1, 
             String apellido2, String cedula, double limiteCred, 
-            boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
+            boolean aprobarCred, Direccion dir, ArrayList<ArrayList<Object>> contactos) {
 
         return mdlCliente.crearCliente(nombre, apellido1, apellido2, cedula, 
-                limiteCred, aprobarCred, contactos);
+                limiteCred, aprobarCred, dir, contactos);
     }
     
     /**
