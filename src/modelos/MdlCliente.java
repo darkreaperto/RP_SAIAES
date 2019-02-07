@@ -126,13 +126,19 @@ public class MdlCliente {
      * @param cedula
      * @param limiteCred
      * @param aprobarCred
+     * @param dir
      * @param contactos
      * @return 
      */
     public boolean crearCliente(String nombre, String apellido1, 
             String apellido2, String cedula, double limiteCred, 
-            boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
+            boolean aprobarCred, Direccion dir, ArrayList<ArrayList<Object>> contactos) {
 
+        int codDireccion = ctrDireccion.crearDireccion(dir.getCodProvincia(), 
+                dir.getCodCanton(), dir.getCodDistrito(), dir.getCodBarrio(), 
+                dir.getOtrasSenas());
+        
+        System.out.println("CODDIR: "+codDireccion);
         ArrayList<Object> params = new ArrayList<>();
         params.add(nombre);
         params.add(apellido1);
@@ -141,11 +147,12 @@ public class MdlCliente {
         params.add(limiteCred);
         int aprobar = aprobarCred ? 1 : 0;
         params.add(aprobar);
+        params.add(codDireccion);
         params.add(Types.BIGINT);
 
         boolean creacionExitosa = true;
         try {
-            procedimiento = "pc_crear_cliente(?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_crear_cliente(?, ?, ?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);

@@ -69,7 +69,14 @@ public class CtrDireccion {
      * @param param Parametros para consultar contacto en la base de datos
      * @return lista de contactos
      */
-    public DirFiltro filtrarDireccion(String campo, String codigo) {
-        return mdlDireccion.filtrarDireccion(campo, codigo);
+    public ArrayList<DirFiltro> filtrarDireccion(String campo, String codP, 
+            String codC, String codD) {
+        return mdlDireccion.filtrarDireccion(campo, codP, codC, codD);
+    }
+    
+    public int crearDireccion(String codProv, String codCanton, 
+            String codDistrito, String codBarrio, String senas) {
+        return mdlDireccion.crearDireccion(codProv, codCanton, codDistrito, 
+                codBarrio, senas);
     }
 }

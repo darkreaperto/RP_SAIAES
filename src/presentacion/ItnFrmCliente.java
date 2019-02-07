@@ -10,11 +10,13 @@ import controladores.CtrCliente;
 import controladores.CtrDireccion;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
 import logica.negocio.Contacto;
+import logica.negocio.Direccion;
 import logica.servicios.Mensaje;
 import logica.servicios.Regex;
 import logica.servicios.DirFiltro;
@@ -65,6 +67,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         msg = new Mensaje();
         
 //        ctrDireccion.filtrarDireccion("C", "5");
+        cargarDireccion("P", "", "", "", cbxProvincia);
     }
     
     /**
@@ -142,7 +145,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         lbl_crear_barrio = new javax.swing.JLabel();
         lbl_crear_barrio1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtaOtrasSenas = new javax.swing.JTextArea();
         cbxProvincia = new javax.swing.JComboBox<>();
         cbxCanton = new javax.swing.JComboBox<>();
         cbxDistrito = new javax.swing.JComboBox<>();
@@ -495,12 +498,40 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane3.setAutoscrolls(true);
 
-        jTextArea1.setColumns(3);
-        jTextArea1.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(3);
-        jTextArea1.setWrapStyleWord(true);
-        jScrollPane3.setViewportView(jTextArea1);
+        txtaOtrasSenas.setColumns(3);
+        txtaOtrasSenas.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        txtaOtrasSenas.setLineWrap(true);
+        txtaOtrasSenas.setRows(3);
+        txtaOtrasSenas.setWrapStyleWord(true);
+        jScrollPane3.setViewportView(txtaOtrasSenas);
+
+        cbxProvincia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxProvinciaItemStateChanged(evt);
+            }
+        });
+        cbxProvincia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxProvinciaActionPerformed(evt);
+            }
+        });
+
+        cbxCanton.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxCantonItemStateChanged(evt);
+            }
+        });
+        cbxCanton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCantonActionPerformed(evt);
+            }
+        });
+
+        cbxDistrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxDistritoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_agregarLayout = new javax.swing.GroupLayout(pnl_agregar);
         pnl_agregar.setLayout(pnl_agregarLayout);
@@ -514,7 +545,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(spnl_crear_clientes, javax.swing.GroupLayout.DEFAULT_SIZE, 1145, Short.MAX_VALUE)
+                            .addComponent(spnl_crear_clientes, javax.swing.GroupLayout.DEFAULT_SIZE, 1149, Short.MAX_VALUE)
                             .addGroup(pnl_agregarLayout.createSequentialGroup()
                                 .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnl_agregarLayout.createSequentialGroup()
@@ -535,7 +566,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lbl_crear_limiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txt_crear_limiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(58, 58, 58)
                                 .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lbl_crear_barrio1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(pnl_agregarLayout.createSequentialGroup()
@@ -1244,8 +1275,16 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         tabla.removeColumn(tabla.getColumnModel().getColumn(8));
     }
     
-    public void cargarDireccion() {
+    public void cargarDireccion(String campo, String codP, String codC, 
+            String codD, JComboBox combo) {
         
+        combo.removeAllItems();
+        
+        ArrayList<DirFiltro> listaLugares = ctrDireccion.filtrarDireccion(campo,
+                codP, codC, codD);
+        for(int i = 0; i < listaLugares.size(); i++) {
+            combo.addItem(listaLugares.get(i));
+        }
     }
     /**
      * Crea un nuevo cliente en la BD con la información enviada por parámetro.
@@ -1259,9 +1298,14 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
      */
     private void agregarCliente(String nombre, String apellido1, 
             String apellido2, String cedula, String limiteCred, 
-            boolean aprobarCred, ArrayList<ArrayList<Object>> contactos) {
+            boolean aprobarCred, String codProv, String nomProv, 
+            String codCanton, String nomCanton, String codDistrito, 
+            String nomDistrito, String codBarrio, String nomBarrio, String senas, 
+            ArrayList<ArrayList<Object>> contactos) {
           
-        if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
+        if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty() &&
+              !codProv.isEmpty() && !codCanton.isEmpty() && 
+              !codDistrito.isEmpty() && !codBarrio.isEmpty()) {
 //            if (verificacion.validaNombre(nombre) && 
 //                    verificacion.validaNombre(apellido1) && 
 //                    verificacion.validaNombre(apellido2)) {
@@ -1271,8 +1315,13 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                     limiteCredito = Double.valueOf(limiteCred);
                     System.out.println(limiteCredito);
                     
+                    Direccion dir = new Direccion(1, codProv, nomProv, 
+                            codCanton, nomCanton, codDistrito, nomDistrito, 
+                            codBarrio, nomBarrio, senas);
+                    
                     boolean creado = controlador.crearCliente(nombre, apellido1, 
-                            apellido2, cedula, limiteCredito, aprobarCred, contactos);
+                            apellido2, cedula, limiteCredito, aprobarCred, dir,
+                            contactos);
                     
                     if (creado) {
                         msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
@@ -1425,11 +1474,23 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         String limiteCred = txt_crear_limiteCliente.getText().trim().isEmpty() ? 
                 "0" : txt_crear_limiteCliente.getText().trim();
         
+        // Obtener infor de la dirección
+        String cP = String.valueOf(cbxProvincia.getItemAt(cbxProvincia.getSelectedIndex()).getCodigo());
+        String nP = String.valueOf(cbxProvincia.getItemAt(cbxProvincia.getSelectedIndex()).getNombre());
+        String cC = String.valueOf(cbxCanton.getItemAt(cbxCanton.getSelectedIndex()).getCodigo());
+        String nC = String.valueOf(cbxCanton.getItemAt(cbxCanton.getSelectedIndex()).getNombre());
+        String cD = String.valueOf(cbxDistrito.getItemAt(cbxDistrito.getSelectedIndex()).getCodigo());
+        String nD = String.valueOf(cbxDistrito.getItemAt(cbxDistrito.getSelectedIndex()).getNombre());
+        String cB = String.valueOf(cbxBarrio.getItemAt(cbxBarrio.getSelectedIndex()).getCodigo());
+        String nB = String.valueOf(cbxBarrio.getItemAt(cbxBarrio.getSelectedIndex()).getNombre());
+        String senas = txtaOtrasSenas.getText();
+        
         agregarCliente(txt_crear_nombreCliente.getText().trim(), 
                 txt_crear_apellidoCliente1.getText().trim(), 
                 txt_crear_apellidoCliente2.getText().trim(), 
                 txt_crear_cedulaCliente.getText().trim(), 
-                limiteCred, credito, contactos);
+                limiteCred, credito, cP, nP, cC, nC, cD, nD, cB, nB, senas, 
+                contactos);
         
         limpiarCampos("CREAR");
     }//GEN-LAST:event_btnCrearClienteActionPerformed
@@ -1898,6 +1959,44 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_rbEditarSinCreditoActionPerformed
 
+    private void cbxProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProvinciaActionPerformed
+        String codP = cbxProvincia.getItemAt(
+                cbxProvincia.getSelectedIndex()).getCodigo();
+        cargarDireccion("C", codP, "", "", cbxCanton);
+    }//GEN-LAST:event_cbxProvinciaActionPerformed
+
+    private void cbxCantonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCantonActionPerformed
+        if(cbxCanton.getItemCount() > 0) {
+            String codP = cbxProvincia.getItemAt(
+                cbxProvincia.getSelectedIndex()).getCodigo();
+            String codC = cbxCanton.getItemAt(
+                cbxCanton.getSelectedIndex()).getCodigo();
+            cargarDireccion("D", codP, codC, "", cbxDistrito);
+        }
+    }//GEN-LAST:event_cbxCantonActionPerformed
+
+    private void cbxDistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDistritoActionPerformed
+        if(cbxDistrito.getItemCount() > 0) {
+            String codP = cbxProvincia.getItemAt(
+                cbxProvincia.getSelectedIndex()).getCodigo();
+            String codC = cbxCanton.getItemAt(
+                cbxCanton.getSelectedIndex()).getCodigo();
+            String codD = cbxDistrito.getItemAt(
+                cbxDistrito.getSelectedIndex()).getCodigo();
+            cargarDireccion("B", codP, codC, codD, cbxBarrio);
+        }
+    }//GEN-LAST:event_cbxDistritoActionPerformed
+
+    private void cbxProvinciaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxProvinciaItemStateChanged
+        
+    }//GEN-LAST:event_cbxProvinciaItemStateChanged
+
+    private void cbxCantonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxCantonItemStateChanged
+        
+        
+        
+    }//GEN-LAST:event_cbxCantonItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crearCredito;
@@ -1921,7 +2020,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblCrearTelefono;
     private javax.swing.JLabel lblDeshabSelectCliente;
     private javax.swing.JLabel lblEditarApellidoCliente;
@@ -2004,5 +2102,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_crear_cedulaCliente;
     private javax.swing.JTextField txt_crear_limiteCliente;
     private javax.swing.JTextField txt_crear_nombreCliente;
+    private javax.swing.JTextArea txtaOtrasSenas;
     // End of variables declaration//GEN-END:variables
 }

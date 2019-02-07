@@ -84,15 +84,18 @@ public class MdlDireccion {
         }
     }
     
-    public DirFiltro filtrarDireccion(String campo, String codigo) {
+    public ArrayList<DirFiltro> filtrarDireccion(String campo, String codProv, 
+            String codCanton, String codDis) {
         
-        DirFiltro dirfil = new DirFiltro();
+        ArrayList<DirFiltro> dirfil = new ArrayList<>();
         ArrayList<Object> params = new ArrayList<>();
         params.add(campo);
-        params.add(codigo);
+        params.add(codProv);
+        params.add(codCanton);
+        params.add(codDis);
         
         try {
-            procedimiento = "pc_filtrar_direccion(?, ?)";
+            procedimiento = "pc_filtrar_direccion(?, ?, ?, ?)";
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
 
@@ -107,17 +110,19 @@ public class MdlDireccion {
                     codLugar = resultado.getString("idCanton");
                     nomLugar = resultado.getString("nombreCanton");
                 } else if (campo.equals("D")) {
+                    codLugar = resultado.getString("idDistrito");
+                    nomLugar = resultado.getString("nombreDistrito");    
+                }else if (campo.equals("B")) {
                     codLugar = resultado.getString("idBarrio");
                     nomLugar = resultado.getString("nombreBarrio");
                 }
-                dirfil = new DirFiltro(codLugar, nomLugar);
+                DirFiltro df = new DirFiltro(codLugar, nomLugar);
+                dirfil.add(df);
             }
         } catch (SQLException ex) {
             System.err.println(ex);
         } finally {
             conexion.cerrarConexion();
-            System.out.println(dirfil.getCodigo());
-            System.out.println(dirfil.getNombre());
             return dirfil;
         }
     }
@@ -130,7 +135,7 @@ public class MdlDireccion {
      * @param senas otras señas
      * @return true si inserta la direccion.
      */
-    public boolean crearDireccion(String codProv, String codCanton, 
+    public int crearDireccion(String codProv, String codCanton, 
             String codDistrito, String codBarrio, String senas) {
 
         ArrayList<Object> params = new ArrayList<>();
@@ -141,13 +146,20 @@ public class MdlDireccion {
         params.add(senas);        
 
         boolean creacionExitosa = true;
+        int indice = 0;
         try {
             procedimiento = "pc_crear_direccion(?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            
+            //obtener el índice de la fila insertada
+            while (resultado.next()) {
+                indice = resultado.getInt("@indice");
+            }
             //creacionExitosa = true;
             System.out.println(resultado);
+            System.out.println(indice);
 
         } catch (SQLException ex) {
             System.err.println(ex);            
@@ -156,7 +168,7 @@ public class MdlDireccion {
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
         } finally {
             conexion.cerrarConexion();
-            return creacionExitosa;
+            return indice;
         }
     }
     /**
