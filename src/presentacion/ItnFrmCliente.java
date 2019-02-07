@@ -559,7 +559,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(lbl_crear_apellidoCliente2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                                            .addComponent(lbl_crear_apellidoCliente1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                            .addComponent(lbl_crear_apellidoCliente1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
                                             .addComponent(lbl_crear_nombreCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(lbl_crear_cedulaCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -772,6 +772,24 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         lblEditarBarrio.setText("Barrio:");
 
+        cbxEditarProvincia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxEditarProvinciaActionPerformed(evt);
+            }
+        });
+
+        cbxEditarCanton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxEditarCantonActionPerformed(evt);
+            }
+        });
+
+        cbxEditarDistrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxEditarDistritoActionPerformed(evt);
+            }
+        });
+
         lblEditarOtrasSenas.setText("Otras señas:");
 
         txaEditarOtrasSenas.setColumns(20);
@@ -784,7 +802,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEditarTelefonoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblEditarApellidoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(lblEditarApellidoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
                     .addComponent(lblEditarNombreCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblEditarCedulaCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblEditarSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
@@ -1651,17 +1669,18 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
             
             // Obtener infor de la dirección
-            String cP = String.valueOf(cbxProvincia.getItemAt(cbxProvincia.getSelectedIndex()).getCodigo());
-            String cC = String.valueOf(cbxCanton.getItemAt(cbxCanton.getSelectedIndex()).getCodigo());
-            String cD = String.valueOf(cbxDistrito.getItemAt(cbxDistrito.getSelectedIndex()).getCodigo());
-            String cB = String.valueOf(cbxBarrio.getItemAt(cbxBarrio.getSelectedIndex()).getCodigo());
+            String cP = cbxEditarProvincia.getItemAt(cbxEditarProvincia.getSelectedIndex()).getCodigo();
+            String cC = cbxEditarCanton.getItemAt(cbxEditarCanton.getSelectedIndex()).getCodigo();
+            String cD = cbxEditarDistrito.getItemAt(cbxEditarDistrito.getSelectedIndex()).getCodigo();
+            String cB = cbxEditarBarrio.getItemAt(cbxEditarBarrio.getSelectedIndex()).getCodigo();
+            
             
             actualizarCliente(txtEditarNombreCliente.getText().trim(), 
                     txtEditarPrimerApellido.getText().trim(), 
                     txtEditarSegundoApellido.getText().trim(), 
                     txtEditarCedulaCliente.getText().trim(), 
                     limiteCred, credito, codPersona, cP, cC, cD, cB, 
-                    txtaOtrasSenas.getText(), codDir);
+                    txaEditarOtrasSenas.getText().trim(), codDir);
             
         } catch (ArrayIndexOutOfBoundsException ex) {
             ex.printStackTrace();
@@ -2129,6 +2148,21 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_cbxCantonItemStateChanged
+
+    private void cbxEditarProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEditarProvinciaActionPerformed
+        selectDir(cbxEditarCanton, cbxEditarProvincia, cbxEditarCanton, 
+                cbxEditarDistrito, "C");
+    }//GEN-LAST:event_cbxEditarProvinciaActionPerformed
+
+    private void cbxEditarCantonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEditarCantonActionPerformed
+        selectDir(cbxEditarDistrito, cbxEditarProvincia, cbxEditarCanton, 
+                cbxEditarDistrito, "D");
+    }//GEN-LAST:event_cbxEditarCantonActionPerformed
+
+    private void cbxEditarDistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEditarDistritoActionPerformed
+        selectDir(cbxEditarBarrio, cbxEditarProvincia, cbxEditarCanton, 
+                cbxEditarDistrito, "B");
+    }//GEN-LAST:event_cbxEditarDistritoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
