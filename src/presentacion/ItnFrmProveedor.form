@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="bg_Habilitar">
     </Component>
@@ -132,18 +132,24 @@
                     <Component class="javax.swing.JTable" name="tbListadoProveedor">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="7" rowCount="0">
+                          <Table columnCount="8" rowCount="0">
                             <Column editable="false" title="C&#xe9;dula" type="java.lang.Object"/>
                             <Column editable="false" title="Primer Apellido" type="java.lang.Object"/>
                             <Column editable="false" title="Segundo Apellido" type="java.lang.Object"/>
                             <Column editable="false" title="Nombre" type="java.lang.Object"/>
                             <Column editable="false" title="Contactos" type="java.lang.Object"/>
+                            <Column editable="false" title="Direcci&#xf3;n" type="java.lang.Object"/>
                             <Column editable="false" title="Cod. Proveedor" type="java.lang.Object"/>
                             <Column editable="false" title="Codigo" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -204,65 +210,133 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="btnCrearProveedor" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="spnl_crear_proveedores" alignment="1" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="lbl_crear_nombreProveedor" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_cedulaProveedor" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                              <Component id="txt_crear_nombreProveedor" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
-                                              <Component id="txt_crear_cedulaProveedor" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
+                                      <Component id="spnl_crear_proveedores" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="lbl_crear_nombreProveedor" alignment="0" pref="100" max="32767" attributes="0"/>
+                                              <Component id="lbl_crear_cedulaProveedor" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="lbl_crear_apellido1Proveedor" pref="0" max="32767" attributes="0"/>
+                                              <Component id="lbl_crear_apellido2Proveedor" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="txt_crear_apellido1Proveedor" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                                                      <Component id="txt_crear_apellido2Proveedor" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="lbl_crear_otrasSenas" max="32767" attributes="0"/>
+                                                      <Group type="102" attributes="0">
+                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                              <Component id="lbl_crear_barrio" max="32767" attributes="0"/>
+                                                              <Component id="lbl_crear_distrito" pref="100" max="32767" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                              <Component id="cbxDistrito" pref="188" max="32767" attributes="0"/>
+                                                              <Component id="cbxBarrio" max="32767" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                      </Group>
+                                                      <Component id="scpnlCrearOtrasSenas" alignment="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="txt_crear_cedulaProveedor" min="-2" pref="190" max="-2" attributes="0"/>
+                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                          <Component id="lbl_crear_provincia" min="-2" pref="100" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="txt_crear_nombreProveedor" min="-2" pref="190" max="-2" attributes="0"/>
+                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                          <Component id="lbl_crear_canton" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="cbxCanton" pref="188" max="32767" attributes="0"/>
+                                                      <Component id="cbxProvincia" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              </Group>
                                           </Group>
                                           <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txt_crear_apellido2Proveedor" alignment="0" min="-2" pref="294" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_apellido1Proveedor" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                              <Component id="lbl_crear_apellido2Proveedor" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
-                                              <Component id="txt_crear_apellido1Proveedor" alignment="0" min="-2" pref="294" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace pref="42" max="32767" attributes="0"/>
                                           <Component id="pnlCrearContactoProveedor" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="229" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbl_crear_cedulaProveedor" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txt_crear_cedulaProveedor" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lbl_crear_nombreProveedor" min="-2" pref="26" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txt_crear_nombreProveedor" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
                               <Component id="pnlCrearContactoProveedor" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbl_crear_apellido1Proveedor" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lbl_crear_cedulaProveedor" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="txt_crear_cedulaProveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="lbl_crear_provincia" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="cbxProvincia" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txt_crear_apellido1Proveedor" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="lbl_crear_nombreProveedor" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="txt_crear_nombreProveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="lbl_crear_apellido1Proveedor" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                              <Component id="txt_crear_apellido1Proveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="lbl_crear_apellido2Proveedor" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                              <Component id="txt_crear_apellido2Proveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="cbxCanton" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lbl_crear_canton" min="-2" pref="25" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="cbxDistrito" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lbl_crear_distrito" min="-2" pref="25" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="lbl_crear_barrio" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                                              <Component id="cbxBarrio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                          <Component id="lbl_crear_otrasSenas" min="-2" pref="25" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lbl_crear_apellido2Proveedor" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                  <Component id="txt_crear_apellido2Proveedor" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="scpnlCrearOtrasSenas" min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="spnl_crear_proveedores" pref="267" max="32767" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="spnl_crear_proveedores" pref="238" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnCrearProveedor" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -534,18 +608,24 @@
                     <Component class="javax.swing.JTable" name="tbl_crear">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="7" rowCount="0">
+                          <Table columnCount="8" rowCount="0">
                             <Column editable="false" title="C&#xe9;dula" type="java.lang.Object"/>
                             <Column editable="false" title="Primer Apellido" type="java.lang.Object"/>
                             <Column editable="false" title="Segundo Apellido" type="java.lang.Object"/>
                             <Column editable="false" title="Nombre" type="java.lang.Object"/>
                             <Column editable="false" title="Contactos" type="java.lang.Object"/>
+                            <Column editable="false" title="Direcci&#xf3;n" type="java.lang.Object"/>
                             <Column editable="false" title="Cod. Proveedor" type="java.lang.Object"/>
                             <Column editable="false" title="Codigo" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -598,6 +678,83 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrearProveedorActionPerformed"/>
                   </Events>
                 </Component>
+                <Component class="javax.swing.JLabel" name="lbl_crear_canton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Cant&#xf3;n: "/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lbl_crear_provincia">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Provincia: "/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lbl_crear_distrito">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Distrito: "/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lbl_crear_barrio">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Barrio: "/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lbl_crear_otrasSenas">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Otras se&#xf1;as: "/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cbxProvincia">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cbxCanton">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cbxDistrito">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cbxBarrio">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="scpnlCrearOtrasSenas">
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextArea" name="txaCrearOtrasSenas">
+                      <Properties>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="rows" type="int" value="5"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="pnl_actualizar">
@@ -648,18 +805,24 @@
                     <Component class="javax.swing.JTable" name="tbl_editar">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="7" rowCount="0">
+                          <Table columnCount="8" rowCount="0">
                             <Column editable="false" title="C&#xe9;dula" type="java.lang.Object"/>
                             <Column editable="false" title="Primer Apellido" type="java.lang.Object"/>
                             <Column editable="false" title="Segundo Apellido" type="java.lang.Object"/>
                             <Column editable="false" title="Nombre" type="java.lang.Object"/>
                             <Column editable="false" title="Contactos" type="java.lang.Object"/>
+                            <Column editable="false" title="Direcci&#xf3;n" type="java.lang.Object"/>
                             <Column editable="false" title="Cod. Proveedor" type="java.lang.Object"/>
                             <Column editable="false" title="Codigo" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -751,59 +914,102 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="lblEditarCedulaProveedor" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                          <Component id="txtEditarCedulaProveedor" alignment="0" pref="280" max="32767" attributes="0"/>
-                                          <Component id="lblEditarNombreProveedor" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                          <Component id="txtEditarNombreProveedor" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="lblEditarApellidoProveedor" alignment="0" pref="0" max="32767" attributes="0"/>
+                                              <Component id="lblEditarNombreProveedor" alignment="0" pref="100" max="32767" attributes="0"/>
+                                              <Component id="lblEditarSegundoProveedor" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="lblEditarCedulaProveedor" alignment="0" pref="100" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="108" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="lblEditarApellidoProveedor" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                          <Component id="txtEditarAp1Proveedor" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="lblEditarSegundoProveedor" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
-                                          <Component id="txtEditarAp2Proveedor" alignment="0" min="-2" pref="280" max="-2" attributes="0"/>
+                                          <Component id="txtEditarCedulaProveedor" pref="190" max="32767" attributes="0"/>
+                                          <Component id="txtEditarNombreProveedor" max="32767" attributes="0"/>
+                                          <Component id="txtEditarAp1Proveedor" max="32767" attributes="0"/>
+                                          <Component id="txtEditarAp2Proveedor" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="553" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="lblEditarProvincia" min="-2" pref="100" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="cbxEditarProvincia" min="-2" pref="190" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="lblEditarOtrasSenas" min="-2" pref="300" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="lblEditarDistrito" min="-2" pref="100" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="cbxEditarDistrito" min="-2" pref="190" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="lblEditarCanton" min="-2" pref="100" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="cbxEditarCanton" min="-2" pref="190" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="lblEditarBarrio" min="-2" pref="100" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="cbxEditarBarrio" min="-2" pref="190" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="scpnlEditarOtrasSenas" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace pref="303" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="lblEditarProvincia" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="txtEditarCedulaProveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="cbxEditarProvincia" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblEditarOtrasSenas" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="lblEditarCedulaProveedor" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                              <Component id="lblEditarCedulaProveedor" min="-2" pref="25" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                              <Component id="txtEditarCedulaProveedor" min="-2" pref="30" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                              <Component id="lblEditarApellidoProveedor" min="-2" pref="25" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="txtEditarAp1Proveedor" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="lblEditarNombreProveedor" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                                  <Component id="txtEditarNombreProveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="lblEditarCanton" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                                  <Component id="cbxEditarCanton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="lblEditarApellidoProveedor" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                                  <Component id="txtEditarAp1Proveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="lblEditarDistrito" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                                  <Component id="cbxEditarDistrito" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="lblEditarSegundoProveedor" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                                  <Component id="lblEditarNombreProveedor" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="txtEditarNombreProveedor" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                                                  <Component id="txtEditarAp2Proveedor" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="txtEditarAp2Proveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="lblEditarBarrio" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                                  <Component id="cbxEditarBarrio" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
+                                          <Component id="scpnlEditarOtrasSenas" min="-2" pref="100" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="23" max="32767" attributes="0"/>
+                                      <EmptySpace pref="42" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
                           </Layout>
                           <SubComponents>
-                            <Component class="javax.swing.JLabel" name="lblEditarCedulaProveedor">
+                            <Component class="javax.swing.JLabel" name="lblEditarProvincia">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="C&#xe9;dula:"/>
+                                <Property name="text" type="java.lang.String" value="Provincia:"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="lblEditarNombreProveedor">
@@ -829,6 +1035,83 @@
                             </Component>
                             <Component class="javax.swing.JTextField" name="txtEditarAp2Proveedor">
                             </Component>
+                            <Component class="javax.swing.JLabel" name="lblEditarCedulaProveedor">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="C&#xe9;dula:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="lblEditarDistrito">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Distrito:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="lblEditarCanton">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Cant&#xf3;n:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="lblEditarBarrio">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Barrio:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="cbxEditarProvincia">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="0"/>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="cbxEditarCanton">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="0"/>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="cbxEditarDistrito">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="0"/>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="cbxEditarBarrio">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="0"/>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="lblEditarOtrasSenas">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Otras se&#xf1;as:"/>
+                              </Properties>
+                            </Component>
+                            <Container class="javax.swing.JScrollPane" name="scpnlEditarOtrasSenas">
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <SubComponents>
+                                <Component class="javax.swing.JTextArea" name="txaEditarOtrasSenas">
+                                  <Properties>
+                                    <Property name="columns" type="int" value="20"/>
+                                    <Property name="rows" type="int" value="5"/>
+                                  </Properties>
+                                </Component>
+                              </SubComponents>
+                            </Container>
                           </SubComponents>
                         </Container>
                       </SubComponents>
@@ -1154,18 +1437,24 @@
                         <Component class="javax.swing.JTable" name="tblProveedoresActivos">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="7" rowCount="0">
+                              <Table columnCount="8" rowCount="0">
                                 <Column editable="false" title="C&#xe9;dula" type="java.lang.Object"/>
                                 <Column editable="false" title="Primer Apellido" type="java.lang.Object"/>
                                 <Column editable="false" title="Segundo Apellido" type="java.lang.Object"/>
                                 <Column editable="false" title="Nombre" type="java.lang.Object"/>
                                 <Column editable="false" title="Contacto" type="java.lang.Object"/>
+                                <Column editable="false" title="Direcci&#xf3;n" type="java.lang.Object"/>
                                 <Column editable="false" title="Cod. Cliente" type="java.lang.Object"/>
                                 <Column editable="false" title="Codigo" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>

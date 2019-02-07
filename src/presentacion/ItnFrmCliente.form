@@ -348,13 +348,13 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="txt_crear_limiteCliente" min="-2" pref="29" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="pnl_crear_creditoCliente" min="-2" pref="108" max="-2" attributes="0"/>
+                                      <Component id="pnl_crear_creditoCliente" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lbl_crear_provincia" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                      <Component id="cbxProvincia" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="cbxProvincia" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -449,7 +449,7 @@
                               <Component id="rbCrearCredito" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="rbCrearCreditoLim" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="9" max="32767" attributes="0"/>
                               <Component id="rbCrearSinCredito" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
