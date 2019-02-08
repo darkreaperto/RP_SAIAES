@@ -1459,7 +1459,7 @@
                                               <Component id="scpnlEditarListaCorreo" alignment="0" min="-2" pref="408" max="-2" attributes="0"/>
                                               <Component id="lblEditarCorreo" min="-2" pref="187" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="108" max="32767" attributes="0"/>
+                                          <EmptySpace pref="117" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>

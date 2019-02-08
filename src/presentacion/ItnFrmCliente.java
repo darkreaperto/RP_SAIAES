@@ -9,9 +9,11 @@ import controladores.CtrAcceso;
 import controladores.CtrCliente;
 import controladores.CtrDireccion;
 import java.util.ArrayList;
+import javafx.scene.control.RadioButton;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
@@ -559,7 +561,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(lbl_crear_apellidoCliente2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                                            .addComponent(lbl_crear_apellidoCliente1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
+                                            .addComponent(lbl_crear_apellidoCliente1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                                             .addComponent(lbl_crear_nombreCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(lbl_crear_cedulaCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -802,7 +804,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEditarTelefonoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblEditarApellidoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(lblEditarApellidoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                     .addComponent(lblEditarNombreCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblEditarCedulaCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblEditarSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
@@ -962,7 +964,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                         .addComponent(btnEditarCancelCorreo))
                     .addComponent(scpnlEditarListaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEditarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         pnlEditarContactoClienteLayout.setVerticalGroup(
             pnlEditarContactoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1235,6 +1237,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 txt_crear_nombreCliente.setText("");
                 lsCrearTelefonos.removeAll();
                 lsCrearCorreos.removeAll();
+                cbxProvincia.setSelectedIndex(0);
+                cbxCanton.setSelectedIndex(0);
+                cbxDistrito.setSelectedIndex(0);
+                cbxBarrio.setSelectedIndex(0);
+                txtaOtrasSenas.setText("");
                 break;
             case "EDITAR":
                 txtEditarPrimerApellido.setText("");
@@ -1242,8 +1249,15 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 txtEditarCedulaCliente.setText("");
                 txtEditarLimiteCliente.setText("");
                 txtEditarNombreCliente.setText("");
+                txtEditarCorreoCliente.setText("");
+                txtEditarTelefono.setText("");
                 lsTelefonos.removeAll();
                 lsCorreos.removeAll();
+                cbxEditarProvincia.setSelectedIndex(0);
+                cbxEditarCanton.setSelectedIndex(0);
+                cbxEditarDistrito.setSelectedIndex(0);
+                cbxEditarBarrio.setSelectedIndex(0);
+                txaEditarOtrasSenas.setText("");
                 break;
             default:
                 throw new AssertionError();
@@ -1375,43 +1389,37 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty() &&
               !codProv.isEmpty() && !codCanton.isEmpty() && 
               !codDistrito.isEmpty() && !codBarrio.isEmpty()) {
-//            if (verificacion.validaNombre(nombre) && 
-//                    verificacion.validaNombre(apellido1) && 
-//                    verificacion.validaNombre(apellido2)) {
 
-                double limiteCredito;
-                try {
-                    limiteCredito = Double.valueOf(limiteCred);
-                    System.out.println(limiteCredito);
-                    
-                    Direccion dir = new Direccion(1, codProv, nomProv, 
-                            codCanton, nomCanton, codDistrito, nomDistrito, 
-                            codBarrio, nomBarrio, senas);
-                    
-                    boolean creado = controlador.crearCliente(nombre, apellido1, 
-                            apellido2, cedula, limiteCredito, aprobarCred, dir,
-                            contactos);
-                    
-                    if (creado) {
-                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                        TipoMensaje.CUSTOMER_INSERTION_SUCCESS);
-                        
-                        cargarTablas();
-                    } else {
-                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                        TipoMensaje.CUSTOMER_INSERTION_FAILURE);
-                    }
-                } catch (NumberFormatException ex) {
+            double limiteCredito;
+            try {
+                limiteCredito = Double.valueOf(limiteCred);
+                System.out.println(limiteCredito);
+
+                Direccion dir = new Direccion(1, codProv, nomProv, 
+                        codCanton, nomCanton, codDistrito, nomDistrito, 
+                        codBarrio, nomBarrio, senas);//Direccion para el cliente
+
+                boolean creado = controlador.crearCliente(nombre, apellido1, 
+                        apellido2, cedula, limiteCredito, aprobarCred, dir,
+                        contactos);
+
+                if (creado) {
+                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                    TipoMensaje.CUSTOMER_INSERTION_SUCCESS);
+
+                    limpiarCampos("CREAR");
+                    cargarTablas();
+                } else {
                     msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                    TipoMensaje.NUMBER_FORMAT_EXCEPTION);
-                } catch (Exception ex) {
-                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                    TipoMensaje.SOMETHING_WENT_WRONG);
+                    TipoMensaje.CUSTOMER_INSERTION_FAILURE);
                 }
-//            } else {
-//                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-//                    TipoMensaje.WRONG_CUSTOMER_FIELDS);
-//            }
+            } catch (NumberFormatException ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                TipoMensaje.NUMBER_FORMAT_EXCEPTION);
+            } catch (Exception ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                TipoMensaje.SOMETHING_WENT_WRONG);
+            }
         } else {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                     TipoMensaje.EMPTY_CUSTOMER_FIELDS);
@@ -1434,110 +1442,86 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             String cd, String cb, String senas, int codDir) {
         
         if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
-//            if (verificacion.validaNombre(nombre) && 
-//                    verificacion.validaNombre(apellido1) && 
-//                    verificacion.validaNombre(apellido2)) {
 
-                double limiteCredito;
-                try {
-                    limiteCredito = Double.valueOf(limiteCred);
-                    boolean actualiDir = ctrDireccion.actualizarDireccion(cp, cc, 
-                            cd, cb, senas, codDir);
-                    boolean actualizado = controlador.actualizarCliente(nombre, 
-                            apellido1, apellido2, cedula, limiteCredito, 
-                            aprobarCred, codPersona);
+            double limiteCredito;
+            try {
+                limiteCredito = Double.valueOf(limiteCred);
+                boolean actualiDir = ctrDireccion.actualizarDireccion(cp, cc, 
+                        cd, cb, senas, codDir);
+                boolean actualizado = controlador.actualizarCliente(nombre, 
+                        apellido1, apellido2, cedula, limiteCredito, 
+                        aprobarCred, codPersona);
+
+                if (actualizado && actualiDir) {
+                    System.out.println("Yay!");
+                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                        TipoMensaje.CUSTOMER_UPDATE_SUCCESS);
                     
-                    if (actualizado && actualiDir) {
-                        System.out.println("Yay!");
-                        cargarTablas();
-                        
-                        txtEditarCedulaCliente.setText("");
-                        txtEditarCorreoCliente.setText("");
-                        txtEditarLimiteCliente.setText("");
-                        txtEditarNombreCliente.setText("");
-                        txtEditarPrimerApellido.setText("");
-                        txtEditarSegundoApellido.setText("");
-                        txtEditarTelefono.setText("");
-                        
-                        lsCorreos.setModel(new DefaultListModel());
-                        lsCorreos.setModel(new DefaultListModel());
-                    } else {
-                        System.out.println("Yaq!");
-                    }
-                } catch (NumberFormatException ex) {
-                    System.err.println(ex);
-                } catch (Exception ex) {
-                    System.err.println(ex);
+                    cargarTablas();
+                    limpiarCampos("EDITAR");
+                    
+                    lsCorreos.setModel(new DefaultListModel());
+                    lsCorreos.setModel(new DefaultListModel());
+                } else {
+                    System.out.println("Yaq!");
+                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                        TipoMensaje.CUSTOMER_UPDATE_FAILURE);
                 }
-            } else {
-
+            } catch (NumberFormatException ex) {
+                System.err.println(ex);
+            } catch (Exception ex) {
+                System.err.println(ex);
             }
-//        } else {
-//            
-//        }
+        } else {
+            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                        TipoMensaje.EMPTY_TEXT_FIELD);
+        }
     }
     
     /**
-     * Carga los campos elementos de Editar clientes cuando se selecciona uno
-     * @param cliente información del cliente a cargar
+     * Cargar la dirección del cliente seleccionado
+     * @param cliente cliente seleccionado en JTable
      */
-    private void cargarEditarCliente(Cliente cliente) {
-        txtEditarCedulaCliente.setText(cliente.getCedula());
-        txtEditarNombreCliente.setText(cliente.getNombre());
-        txtEditarPrimerApellido.setText(cliente.getApellido1());
-        txtEditarSegundoApellido.setText(cliente.getApellido2());
-        
-        if (cliente.isAprobarCredito()) {
-            if (cliente.getLimiteCredito() > 0.0) {
-                rbEditarCreditoLim.setSelected(true);
-                txtEditarLimiteCliente.setText(String.valueOf(cliente.getLimiteCredito()));
-                txtEditarLimiteCliente.setEditable(true);
-            } else {
-                rbEditarCredito.setSelected(true);
-                txtEditarLimiteCliente.setText(String.valueOf(cliente.getLimiteCredito()));
-            }
-            System.out.println(cliente.getLimiteCredito());
-        } else {
-            rbEditarSinCredito.setSelected(true);
-            txtEditarLimiteCliente.setText("");
-        }
-        
+    private void cargarEditDirCliente(Cliente cliente) {
+        //Cargar dirección del cliente
         String iP = cliente.getDireccion().getCodProvincia();
         String iC = cliente.getDireccion().getCodCanton();
         String iD = cliente.getDireccion().getCodDistrito();
         String iB = cliente.getDireccion().getCodBarrio();
         String oS = cliente.getDireccion().getOtrasSenas();
-              
+        //PROVINCIA
         cargarDirJCombo("P", "", "", "", cbxEditarProvincia);
         for (int i=0; i<cbxEditarProvincia.getItemCount(); i++) {
             if (cbxEditarProvincia.getItemAt(i).getCodigo().equals(iP)) {
                 cbxEditarProvincia.setSelectedIndex(i);
             }
         }
+        // codigo de provincia seleccionada
+        String codP = cbxEditarProvincia.getItemAt(
+                cbxEditarProvincia.getSelectedIndex()).getCodigo();
         
-        String codP = cbxEditarProvincia.getItemAt(cbxEditarProvincia.getSelectedIndex()).getCodigo();
-        
+        //CANTON
         cargarDirJCombo("C", codP, "", "", cbxEditarCanton);
         for (int i=0; i<cbxEditarCanton.getItemCount(); i++) {
             if (cbxEditarCanton.getItemAt(i).getCodigo().equals(iC)) {
                 cbxEditarCanton.setSelectedIndex(i);
             }
         }
+        // codigo del cantón seleccionado
+        String codC = cbxEditarCanton.getItemAt(
+                cbxEditarCanton.getSelectedIndex()).getCodigo();
         
-        //codP = cbxEditarProvincia.getItemAt(cbxEditarProvincia.getSelectedIndex()).getCodigo();
-        String codC = cbxEditarCanton.getItemAt(cbxEditarCanton.getSelectedIndex()).getCodigo();
-        
+        //DISTRITO
         cargarDirJCombo("D", codP, codC, "", cbxEditarDistrito);
         for (int i=0; i<cbxEditarDistrito.getItemCount(); i++) {
             if (cbxEditarDistrito.getItemAt(i).getCodigo().equals(iD)) {
                 cbxEditarDistrito.setSelectedIndex(i);
             }
         }
+        String codD = cbxEditarDistrito.getItemAt(
+                cbxEditarDistrito.getSelectedIndex()).getCodigo();
         
-        //codP = cbxEditarProvincia.getItemAt(cbxEditarProvincia.getSelectedIndex()).getCodigo();
-        //codC = cbxEditarCanton.getItemAt(cbxEditarCanton.getSelectedIndex()).getCodigo();
-        String codD = cbxEditarDistrito.getItemAt(cbxEditarDistrito.getSelectedIndex()).getCodigo();
-        
+        //BARRIO
         cargarDirJCombo("B", codP, codC, codD, cbxEditarBarrio);
         for (int i=0; i<cbxEditarBarrio.getItemCount(); i++) {
             if (cbxEditarBarrio.getItemAt(i).getCodigo().equals(iB)) {
@@ -1546,7 +1530,12 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
         
         txaEditarOtrasSenas.setText(oS);
-        
+    }
+    /**
+     * Cargar la los contactos del cliente seleccionado
+     * @param cliente cliente seleccionado en JTable
+     */
+    private void cargarEditContactoCliente(Cliente cliente) {
         editarTelefonos = new ArrayList<>();
         editarCorreos = new ArrayList<>();
         DefaultListModel<String> mTelefonos = new DefaultListModel<>();
@@ -1566,7 +1555,47 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         lsTelefonos.setModel(mTelefonos);
         lsCorreos.setModel(mCorreos);
     }
+    /**
+     * Carga los campos elementos de Editar clientes cuando se selecciona uno 
+     * de la JTable
+     * @param cliente información del cliente a cargar
+     */
+    private void cargarEditarCliente(Cliente cliente) {
+        txtEditarCedulaCliente.setText(cliente.getCedula());
+        txtEditarNombreCliente.setText(cliente.getNombre());
+        txtEditarPrimerApellido.setText(cliente.getApellido1());
+        txtEditarSegundoApellido.setText(cliente.getApellido2());
+        //Cargar crédito
+        if (cliente.isAprobarCredito()) {
+            if (cliente.getLimiteCredito() > 0.0) {
+                rbEditarCreditoLim.setSelected(true);
+                txtEditarLimiteCliente.setText(
+                        String.valueOf(cliente.getLimiteCredito()));
+                txtEditarLimiteCliente.setEditable(true);
+            } else {
+                rbEditarCredito.setSelected(true);
+                txtEditarLimiteCliente.setText(
+                        String.valueOf(cliente.getLimiteCredito()));
+            }
+            System.out.println(cliente.getLimiteCredito());
+        } else {
+            rbEditarSinCredito.setSelected(true);
+            txtEditarLimiteCliente.setText("");
+        }
+        
+        cargarEditDirCliente(cliente);
+        
+        cargarEditContactoCliente(cliente);
+    }
     
+    /**
+     * Carga los combos de dirección de acuerdo al lugar seleccionado anteriormente
+     * @param cbxCargar Combo a cargar
+     * @param cbxP combo de provincia
+     * @param cbxC combo de cantón
+     * @param cbxD combo de distrito
+     * @param p inicial del combo a cargar
+     */
     private void selectDir(JComboBox cbxCargar, JComboBox<DirFiltro> cbxP, 
             JComboBox<DirFiltro> cbxC, JComboBox<DirFiltro> cbxD, String p) {
         
@@ -1596,14 +1625,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
         cargarDirJCombo(p, codP, codC, codD, cbxCargar);
     }
-    
-    private void escogeCanton(JComboBox combo) {
-        
-    }
-    private void escogeDistrito(JComboBox combo) {
-        
-    }
-    private void btnCrearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearClienteActionPerformed
+    /**
+     * Obtiene de la interfaz toda la información necesaria para 
+     * crear el cliente. 
+     */
+    private void prepararCrearCliente() {
         ArrayList<ArrayList<Object>> contactos = new ArrayList<>();
         ArrayList<Object> correo;
         for (int i=0; i<lsCrearCorreos.getModel().getSize(); i++) {
@@ -1643,12 +1669,12 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 txt_crear_cedulaCliente.getText().trim(), 
                 limiteCred, credito, cP, nP, cC, nC, cD, nD, cB, nB, senas, 
                 contactos);
-        
-        limpiarCampos("CREAR");
-    }//GEN-LAST:event_btnCrearClienteActionPerformed
-
-    private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
-        
+    }
+    /**
+     * Obtiene de la interfaz toda la información necesaria para 
+     * editar el cliente. 
+     */
+    private void prepararEditarCliente() {
         try {
             model = (DefaultTableModel) tbl_editar.getModel();
             int indiceFila = tbl_editar.getSelectedRow();
@@ -1660,7 +1686,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                     "0.0" : txtEditarLimiteCliente.getText().trim();
             
             String codPersona = (String) model.getValueAt(indiceFila, 8);
-            System.out.println("CODIGO PER: "+codPersona);
+            System.out.println("CODIGO PER EDITAR CLIENTE: "+codPersona);
             
             int codDir = 0;
             for (int i = 0; i < clientes.size(); i++) {
@@ -1694,12 +1720,14 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         } finally {
             
         }
-    }//GEN-LAST:event_btnEditarClienteActionPerformed
-
-    private void tblClientesActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesActivosMouseClicked
+    }
+    
+    private void selecClientePorEstado(JTable tabla, 
+            JRadioButton rbD, JRadioButton rbH) {
+        //CLIENTES ACTIVOS MOUSE
         try {
-            model = (DefaultTableModel) tblClientesActivos.getModel();
-            int selectedRowIndex = tblClientesActivos.getSelectedRow();
+            model = (DefaultTableModel) tabla.getModel();
+            int selectedRowIndex = tabla.getSelectedRow();
             String cedula
             = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
 
@@ -1708,9 +1736,9 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                     //Si el codigo coincide
                     if (clientes.get(i).getEstado().equals(Estado.Activo)) {
                         //Verifica el tipo de estado
-                        rbDeshabDeshabCliente.setSelected(true);
+                        rbD.setSelected(true);
                     } else {
-                        rbDeshabHabilitarCliente.setSelected(true);
+                        rbH.setSelected(true);
                     }
                 }
             }
@@ -1720,86 +1748,42 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         catch (Exception ex) {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
         }
+    }
+    private void btnCrearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearClienteActionPerformed
+        prepararCrearCliente();        
+    }//GEN-LAST:event_btnCrearClienteActionPerformed
+
+    private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
+        prepararEditarCliente();
+    }//GEN-LAST:event_btnEditarClienteActionPerformed
+
+    private void tblClientesActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesActivosMouseClicked
+        selecClientePorEstado(tblClientesActivos, rbDeshabDeshabCliente, 
+                    rbDeshabHabilitarCliente);
     }//GEN-LAST:event_tblClientesActivosMouseClicked
 
     private void tblClientesActivosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblClientesActivosKeyReleased
-        try {
-            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
-                model = (DefaultTableModel) tblClientesActivos.getModel();
-                int selectedRowIndex = tblClientesActivos.getSelectedRow();
-                String cedula
-                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-                for (int i = 0; i < clientes.size(); i++) {
-                    if (clientes.get(i).getCedula().equals(cedula)) {
-                        //Si el codigo coincide
-                        if (clientes.get(i).getEstado().equals(Estado.Activo)) {
-                            //Verifica el tipo de estado
-                            rbDeshabDeshabCliente.setSelected(true);
-                        } else {
-                            rbDeshabHabilitarCliente.setSelected(true);
-                        }
-                    }
-                }
-            }
-        } catch (Exception ex) {
-
+        if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+            selecClientePorEstado(tblClientesActivos, rbDeshabDeshabCliente, 
+                rbDeshabHabilitarCliente);
         }
     }//GEN-LAST:event_tblClientesActivosKeyReleased
 
     private void tblClientesInactivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesInactivosMouseClicked
-        try {
-            model = (DefaultTableModel) tblClientesInactivos.getModel();
-            int selectedRowIndex = tblClientesInactivos.getSelectedRow();
-            String cedula
-            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-            for (int i = 0; i < clientes.size(); i++) {
-                if (clientes.get(i).getCedula().equals(cedula)) {
-                    //Si el codigo coincide
-                    if (clientes.get(i).getEstado().equals(Estado.Deshabilitado)) {
-                        //Verifica el tipo de estado
-                        rbDeshabHabilitarCliente.setSelected(true);
-                    } else {
-                        rbDeshabDeshabCliente.setSelected(true);
-                    }
-                }
-            }
-        } catch (NullPointerException ex){
-            
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            
-        } catch (Exception ex) {
-
-        }
+        selecClientePorEstado(tblClientesInactivos, rbDeshabDeshabCliente, 
+                rbDeshabHabilitarCliente);
     }//GEN-LAST:event_tblClientesInactivosMouseClicked
 
     private void tblClientesInactivosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblClientesInactivosKeyReleased
-        try {
-            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
-                model = (DefaultTableModel) tblClientesInactivos.getModel();
-                int selectedRowIndex = tblClientesInactivos.getSelectedRow();
-                String cedula
-                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-                for (int i = 0; i < clientes.size(); i++) {
-                    if (clientes.get(i).getCedula().equals(cedula)) {
-                        if (clientes.get(i).getEstado().equals(Estado.Deshabilitado)) {
-                            rbDeshabHabilitarCliente.setSelected(true);
-                        } else {
-                            rbDeshabDeshabCliente.setSelected(true);
-                        }
-                    }
-                }
-            }
-        } catch (Exception ex) {
-
+        if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+            selecClientePorEstado(tblClientesInactivos, rbDeshabDeshabCliente,
+                    rbDeshabHabilitarCliente);
         }
+        
     }//GEN-LAST:event_tblClientesInactivosKeyReleased
 
     private void btn_deshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deshabilitarActionPerformed
         try {
-            
             model = tbDeshab.getSelectedIndex() == 0 ? 
                     (DefaultTableModel) tblClientesActivos.getModel() : 
                     (DefaultTableModel) tblClientesInactivos.getModel();
@@ -1809,7 +1793,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                     tblClientesInactivos.getSelectedRow();
             
             Estado estado
-                    = rbDeshabHabilitarCliente.isSelected() ? Estado.Activo : Estado.Deshabilitado;
+                    = rbDeshabHabilitarCliente.isSelected() ? Estado.Activo : 
+                    Estado.Deshabilitado;
             
             if (estado.equals(Estado.Deshabilitado)) {
                 controlador.inactivarCliente(model.getValueAt(selectedRowIndex, 0).toString());
@@ -1827,7 +1812,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
 
     private void btnEditarGuardarTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarTelActionPerformed
         String telefono = txtEditarTelefono.getText().trim();
-        
         try {
             if (verificacion.validaTelefono(telefono)) {// && !editarTelefonos.contains(telefono)) {
                 

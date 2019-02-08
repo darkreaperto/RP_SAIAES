@@ -28,6 +28,10 @@ public enum TipoMensaje {
     CONFIRM_RESET_PASSWORD_CANCEL,
     
     CUSTOMER_INSERTION_FAILURE,
+    
+    CUSTOMER_UPDATE_FAILURE,
+    
+    CUSTOMER_UPDATE_SUCCESS,
     /** Identificador del mensaje: exito en la inserción de cliente. */
     CUSTOMER_INSERTION_SUCCESS,
     /** Identificador del mensaje: fallo de acceso. */

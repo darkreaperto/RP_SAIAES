@@ -46,6 +46,12 @@ public class Mensaje {
             case CUSTOMER_INSERTION_FAILURE:
                 msg = "Ha ocurrido un error en la creación del cliente";
                 break;
+            case CUSTOMER_UPDATE_SUCCESS:
+                msg = "Edición del cliente exitosa";
+                break;
+            case CUSTOMER_UPDATE_FAILURE:
+                msg = "Ha ocurrido un error en la edición del cliente";
+                break;
             case EMAIL_SYNTAX_FAILURE:
                 msg = "El correo electrónico ingresado no es admitido";
                 break;
