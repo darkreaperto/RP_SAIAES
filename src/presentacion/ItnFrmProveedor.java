@@ -1075,6 +1075,29 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         tabla.removeColumn(tabla.getColumnModel().getColumn(5));
     }
     
+    private void prepararProveedor(String nombre, String apellido1, 
+            String apellido2, String cedula) {
+        
+        ArrayList<ArrayList<Object>> contactos = new ArrayList<>();
+        ArrayList<Object> correo;
+        for (int i=0; i<lsCrearCorreos.getModel().getSize(); i++) {
+            correo = new ArrayList<>();
+            correo.add(TipoContacto.CORREO);
+            correo.add(lsCrearCorreos.getModel().getElementAt(i));
+            contactos.add(correo);
+        }
+
+        ArrayList<Object> telefono;
+        for (int i=0; i<lsCrearTelefonos.getModel().getSize(); i++) {
+            telefono = new ArrayList<>();
+            telefono.add(TipoContacto.TELEFONO);
+            telefono.add(lsCrearTelefonos.getModel().getElementAt(i));
+            contactos.add(telefono);
+        }
+
+        agregarProveedor(nombre, apellido1, apellido2, cedula, contactos);
+    }
+    
     private void agregarProveedor(String nombre, String apellido1, 
             String apellido2, String cedula,
             ArrayList<ArrayList<Object>> contactos) {
@@ -1503,27 +1526,10 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_deshabilitarActionPerformed
 
     private void btnCrearProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProveedorActionPerformed
-        ArrayList<ArrayList<Object>> contactos = new ArrayList<>();
-        ArrayList<Object> correo;
-        for (int i=0; i<lsCrearCorreos.getModel().getSize(); i++) {
-            correo = new ArrayList<>();
-            correo.add(TipoContacto.CORREO);
-            correo.add(lsCrearCorreos.getModel().getElementAt(i));
-            contactos.add(correo);
-        }
-
-        ArrayList<Object> telefono;
-        for (int i=0; i<lsCrearTelefonos.getModel().getSize(); i++) {
-            telefono = new ArrayList<>();
-            telefono.add(TipoContacto.TELEFONO);
-            telefono.add(lsCrearTelefonos.getModel().getElementAt(i));
-            contactos.add(telefono);
-        }
-
-        agregarProveedor(txt_crear_nombreProveedor.getText().trim(),
+        prepararProveedor(txt_crear_nombreProveedor.getText().trim(),
             txt_crear_apellido1Proveedor.getText().trim(),
             txt_crear_apellido2Proveedor.getText().trim(),
-            txt_crear_cedulaProveedor.getText().trim(), contactos);
+            txt_crear_cedulaProveedor.getText().trim());
     }//GEN-LAST:event_btnCrearProveedorActionPerformed
 
     private void btnAgregarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCorreoActionPerformed

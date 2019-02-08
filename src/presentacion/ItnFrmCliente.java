@@ -1700,12 +1700,16 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                     limiteCred, credito, codPersona, cP, cC, cD, cB, 
                     txaEditarOtrasSenas.getText().trim(), codDir);
             
+            limpiarCampos("EDITAR");
+            
         } catch (ArrayIndexOutOfBoundsException ex) {
             ex.printStackTrace();
         } catch (NullPointerException ex) {
             ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            
         }
     }
     
