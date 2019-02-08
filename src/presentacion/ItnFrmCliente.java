@@ -9,7 +9,6 @@ import controladores.CtrAcceso;
 import controladores.CtrCliente;
 import controladores.CtrDireccion;
 import java.util.ArrayList;
-import javafx.scene.control.RadioButton;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -620,9 +619,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                                 .addComponent(txt_crear_limiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(pnl_crear_creditoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnl_agregarLayout.createSequentialGroup()
-                        .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lbl_crear_provincia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnl_agregarLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(cbxProvincia)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_crear_canton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1741,6 +1742,265 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
         }
     }
+    
+    private void activarInactivarCliente() {
+        
+        try {
+            model = tbDeshab.getSelectedIndex() == 0 ? 
+                    (DefaultTableModel) tblClientesActivos.getModel() : 
+                    (DefaultTableModel) tblClientesInactivos.getModel();
+
+            int selectedRowIndex = tbDeshab.getSelectedIndex() == 0 ? 
+                    tblClientesActivos.getSelectedRow() : 
+                    tblClientesInactivos.getSelectedRow();
+
+            Estado estado
+                    = rbDeshabHabilitarCliente.isSelected() ? Estado.Activo : 
+                    Estado.Deshabilitado;
+
+            if (estado.equals(Estado.Deshabilitado)) {
+                controlador.inactivarCliente(
+                        model.getValueAt(selectedRowIndex, 0).toString());
+            } else {
+                controlador.activarCliente(
+                        model.getValueAt(selectedRowIndex, 0).toString());
+            }
+            //Actualizar tablas
+            cargarTablas();
+        } catch (Exception e) {
+            e.printStackTrace();
+//            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+//                    TipoMensaje.ANY_ROW_SELECTED);
+        }
+    }
+    private void listarClientes() {
+        clientes = controlador.consultarClientes(txtListadoCliente.getText().trim());
+        cargarClientesJTable(tbListadoCliente, true);
+    }
+    private void guardarEditContacto(boolean tel) {
+        if(tel) {
+            String telefono = txtEditarTelefono.getText().trim();
+            try {
+                if (verificacion.validaTelefono(telefono)) {
+
+                    int indice = tbl_editar.getSelectedRow();
+                    String cedula = 
+                        tbl_editar.getModel().getValueAt(indice, 0).toString();
+                    for (Cliente c: clientes) {
+                        if (c.getCedula().equals(cedula)) {
+                            controlador.crearContacto(
+                                TipoContacto.TELEFONO, telefono, c.getCodigo());
+                            editarTelefonos = new ArrayList<>();
+                            
+                            for (Contacto ct: controlador.obtenerContactos(
+                                    c.getCodigo())) {
+                                if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
+                                    editarTelefonos.add(ct);
+                                    DefaultListModel<String> m = 
+                                            new DefaultListModel<>();
+                                    
+                                    for (int i=0; i<editarTelefonos.size(); i++) {
+                                        m.addElement(
+                                            editarTelefonos.get(i).getInfo());
+                                    }
+                                    lsTelefonos.setModel(m);
+                                    txtEditarTelefono.setText("");
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.PHONE_SYNTAX_FAILURE);
+                }
+            }catch (NullPointerException ex) {
+
+            } catch (Exception ex) {
+
+            } finally {
+                cargarTablas();
+            }
+        } else {
+            String correo = txtEditarCorreoCliente.getText().trim();
+            int indice = 0;
+            try {
+                if (verificacion.validaEmail(correo)) {
+                    indice = tbl_editar.getSelectedRow();
+                    String cedula = 
+                        tbl_editar.getModel().getValueAt(indice, 0).toString();
+                    for (Cliente c: clientes) {
+                        if (c.getCedula().equals(cedula)) {
+                            controlador.crearContacto(TipoContacto.CORREO, 
+                                    correo, c.getCodigo());
+                            editarCorreos = new ArrayList<>();
+                            
+                            for (Contacto ct: controlador.obtenerContactos(
+                                    c.getCodigo())) {
+                                if (ct.getTipo().equals(TipoContacto.CORREO)) {
+                                    editarCorreos.add(ct);
+                                    DefaultListModel<String> m = 
+                                            new DefaultListModel<>();
+                                    for (int i=0; i<editarCorreos.size(); i++) {
+                                        m.addElement(
+                                                editarCorreos.get(i).getInfo());
+                                    }
+                                    lsCorreos.setModel(m);
+                                    txtEditarCorreoCliente.setText("");
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.EMAIL_SYNTAX_FAILURE);
+                }
+            } catch (NullPointerException ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+            } catch (Exception ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, null);
+            } finally {
+                cargarTablas();
+                tbl_editar.setRowSelectionInterval(indice, indice);
+            }
+        }
+    }
+    
+    private void cancelEditContacto(boolean tel) {
+        if(tel) {
+            try {
+                int indice = lsTelefonos.getSelectedIndex();            
+                controlador.inactivarContacto(
+                        editarTelefonos.get(indice).getCodigo());
+                editarTelefonos.remove(indice);
+
+                DefaultListModel<String> m = new DefaultListModel<>();
+                for (int i=0; i<editarTelefonos.size(); i++) {
+                    m.addElement(editarTelefonos.get(i).getInfo());
+                }
+                lsTelefonos.setModel(m);
+            } catch(NullPointerException ex) {
+                System.out.println("Cancel editar telefono: null pointer");
+                ex.printStackTrace();
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                System.out.println("Cancel editar telefono: index out of bounds");
+                ex.printStackTrace();
+            } catch (Exception ex) {
+                System.out.println("Cancel editar telefono: exception");
+                ex.printStackTrace();
+            } finally {
+                cargarTablas();
+            }
+        } else {
+            int indice = 0;
+            try {
+                indice = lsCorreos.getSelectedIndex();
+                controlador.inactivarContacto(editarCorreos.get(indice).getCodigo());
+                editarCorreos.remove(indice);
+
+                DefaultListModel<String> m = new DefaultListModel<>();
+                for (int i=0; i<editarCorreos.size(); i++) {
+                    m.addElement(editarCorreos.get(i).getInfo());
+                }
+                lsCorreos.setModel(m);
+            } catch(NullPointerException ex) {
+                System.out.println("Cancel editar correo: null pointer ");
+                ex.printStackTrace();
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                System.out.println("Cancel editar correo: index out of bounds");
+                ex.printStackTrace();
+            } catch (Exception ex) {
+                System.out.println("Cancel editar correo: exception");
+                ex.printStackTrace();
+            } finally {
+                cargarTablas();
+                tbl_editar.setRowSelectionInterval(indice, indice);
+            }
+        }
+    }
+    
+    private void guardarAgregarContacto(boolean tel) {
+        if(tel) {
+            String telefono = txt_agregarTelefono.getText().trim();
+            if (verificacion.validaTelefono(telefono) && 
+                    !crearTelefonos.contains(telefono)) {
+                crearTelefonos.add(telefono);
+                DefaultListModel<String> m = new DefaultListModel<>();
+                for (int i=0; i<crearTelefonos.size(); i++) {
+                    m.addElement(crearTelefonos.get(i));
+                }
+                lsCrearTelefonos.setModel(m);
+            } else {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.PHONE_SYNTAX_FAILURE);
+            }
+            txt_agregarTelefono.setText("");
+        } else {
+            String correo = txt_agregarCorreo.getText().trim();
+            if (verificacion.validaEmail(correo) 
+                    && !crearCorreos.contains(correo)) {
+                crearCorreos.add(correo);
+                DefaultListModel<String> m = new DefaultListModel<>();
+                for (int i=0; i<crearCorreos.size(); i++) {
+                    m.addElement(crearCorreos.get(i));
+                }
+                lsCrearCorreos.setModel(m);
+            } else {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.EMAIL_SYNTAX_FAILURE);
+            }
+            txt_agregarCorreo.setText("");
+        }
+        
+    }
+    
+    private void habilitarCampoCredito (boolean editable, String valor, boolean crear) {
+        
+        if(crear) {
+            txt_crear_limiteCliente.setText(valor);
+            txt_crear_limiteCliente.setEditable(editable);
+        } else {
+            if (editable) {
+                try {
+                    model = (DefaultTableModel) tbl_editar.getModel();
+                    int selectedRowIndex = tbl_editar.getSelectedRow();
+                    String cedula
+                    = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+
+                    for (int i = 0; i < clientes.size(); i++) {
+                        if (clientes.get(i).getCedula().equals(cedula)) {
+                            valor = String.valueOf(clientes.get(i).getLimiteCredito());
+                        }
+                    }                
+                } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+                    ex.printStackTrace();
+                }
+                catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+            txtEditarLimiteCliente.setText(valor);
+            txtEditarLimiteCliente.setEditable(editable);
+        }
+    }
+    
+    private void selectClienteEditar() {
+        try {
+           model = (DefaultTableModel) tbl_editar.getModel();
+           int selectedRowIndex = tbl_editar.getSelectedRow();
+           String cedula
+           = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+           for (int i = 0; i < clientes.size(); i++) {
+               if (clientes.get(i).getCedula().equals(cedula)) {
+                   cargarEditarCliente(clientes.get(i));
+               }
+           }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     private void btnCrearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearClienteActionPerformed
         prepararCrearCliente();        
     }//GEN-LAST:event_btnCrearClienteActionPerformed
@@ -1775,244 +2035,59 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblClientesInactivosKeyReleased
 
     private void btn_deshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deshabilitarActionPerformed
-        try {
-            model = tbDeshab.getSelectedIndex() == 0 ? 
-                    (DefaultTableModel) tblClientesActivos.getModel() : 
-                    (DefaultTableModel) tblClientesInactivos.getModel();
-            
-            int selectedRowIndex = tbDeshab.getSelectedIndex() == 0 ? 
-                    tblClientesActivos.getSelectedRow() : 
-                    tblClientesInactivos.getSelectedRow();
-            
-            Estado estado
-                    = rbDeshabHabilitarCliente.isSelected() ? Estado.Activo : 
-                    Estado.Deshabilitado;
-            
-            if (estado.equals(Estado.Deshabilitado)) {
-                controlador.inactivarCliente(model.getValueAt(selectedRowIndex, 0).toString());
-            } else {
-                controlador.activarCliente(model.getValueAt(selectedRowIndex, 0).toString());
-            }
-            //Actualizar
-            cargarTablas();
-        } catch (Exception e) {
-            e.printStackTrace();
-//            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-//                    TipoMensaje.ANY_ROW_SELECTED);
-        }
+        activarInactivarCliente();
     }//GEN-LAST:event_btn_deshabilitarActionPerformed
 
     private void btnEditarGuardarTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarTelActionPerformed
-        String telefono = txtEditarTelefono.getText().trim();
-        try {
-            if (verificacion.validaTelefono(telefono)) {// && !editarTelefonos.contains(telefono)) {
-                
-                int indice = tbl_editar.getSelectedRow();
-                String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
-                for (Cliente c: clientes) {
-                    if (c.getCedula().equals(cedula)) {
-                        controlador.crearContacto(TipoContacto.TELEFONO, telefono, c.getCodigo());
-                        editarTelefonos = new ArrayList<>();
-                        for (Contacto ct: controlador.obtenerContactos(c.getCodigo())) {
-                            if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
-                                editarTelefonos.add(ct);
-                                
-                                DefaultListModel<String> m = new DefaultListModel<>();
-                                for (int i=0; i<editarTelefonos.size(); i++) {
-                                    m.addElement(editarTelefonos.get(i).getInfo());
-                                }
-                                lsTelefonos.setModel(m);
-                                txtEditarTelefono.setText("");
-                            }
-                        }
-                    }
-                }
-            } else {
-                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                        TipoMensaje.PHONE_SYNTAX_FAILURE);
-            }
-        }catch (NullPointerException ex) {
-            
-        } catch (Exception ex) {
-                
-        } finally {
-            cargarTablas();
-        }
+        guardarEditContacto(true);
     }//GEN-LAST:event_btnEditarGuardarTelActionPerformed
 
     private void txtListadoClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtListadoClienteKeyReleased
-        clientes = controlador.consultarClientes(txtListadoCliente.getText().trim());
-        cargarClientesJTable(tbListadoCliente, true);
+        listarClientes();
     }//GEN-LAST:event_txtListadoClienteKeyReleased
 
     private void btnEditarCancelTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelTelActionPerformed
-        try {
-            int indice = lsTelefonos.getSelectedIndex();            
-            controlador.inactivarContacto(editarTelefonos.get(indice).getCodigo());
-            editarTelefonos.remove(indice);
-            
-            DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<editarTelefonos.size(); i++) {
-                m.addElement(editarTelefonos.get(i).getInfo());
-            }
-            lsTelefonos.setModel(m);
-        } catch(NullPointerException ex) {
-            
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            
-        } catch (Exception ex) {
-            
-        } finally {
-            cargarTablas();
-        }
+        cancelEditContacto(true);
     }//GEN-LAST:event_btnEditarCancelTelActionPerformed
 
     private void btnEditarGuardarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarCorreoActionPerformed
         //msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, null);
-        String correo = txtEditarCorreoCliente.getText().trim();
-        int indice = 0;
-        try {
-            if (verificacion.validaEmail(correo)) {
-            
-                indice = tbl_editar.getSelectedRow();
-                String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
-                for (Cliente c: clientes) {
-                    if (c.getCedula().equals(cedula)) {
-                        controlador.crearContacto(TipoContacto.CORREO, correo, c.getCodigo());
-                        editarCorreos = new ArrayList<>();
-                        for (Contacto ct: controlador.obtenerContactos(c.getCodigo())) {
-                            if (ct.getTipo().equals(TipoContacto.CORREO)) {
-                                editarCorreos.add(ct);
-                                
-                                DefaultListModel<String> m = new DefaultListModel<>();
-                                for (int i=0; i<editarCorreos.size(); i++) {
-                                    m.addElement(editarCorreos.get(i).getInfo());
-                                }
-                                lsCorreos.setModel(m);
-                                txtEditarCorreoCliente.setText("");
-                            }
-                        }
-                    }
-                }
-            } else {
-                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                        TipoMensaje.EMAIL_SYNTAX_FAILURE);
-            }
-        } catch (NullPointerException ex) {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
-        } catch (Exception ex) {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, null);
-        } finally {
-            cargarTablas();
-            tbl_editar.setRowSelectionInterval(indice, indice);
-        }
+        guardarEditContacto(false);
     }//GEN-LAST:event_btnEditarGuardarCorreoActionPerformed
 
     private void btnEditarCancelCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelCorreoActionPerformed
-        int indice = 0;
-        try {
-            indice = lsCorreos.getSelectedIndex();
-            controlador.inactivarContacto(editarCorreos.get(indice).getCodigo());
-            editarCorreos.remove(indice);
-            
-            DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<editarCorreos.size(); i++) {
-                m.addElement(editarCorreos.get(i).getInfo());
-            }
-            lsCorreos.setModel(m);
-        } catch(NullPointerException ex) {
-            
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            
-        } catch (Exception ex) {
-            
-        } finally {
-            cargarTablas();
-            tbl_editar.setRowSelectionInterval(indice, indice);
-        }
+        cancelEditContacto(false);
+        
     }//GEN-LAST:event_btnEditarCancelCorreoActionPerformed
 
     private void btnAgregarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCorreoActionPerformed
-        String correo = txt_agregarCorreo.getText().trim();
-        
-        if (verificacion.validaEmail(correo) && !crearCorreos.contains(correo)) {
-            crearCorreos.add(correo);
-            DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<crearCorreos.size(); i++) {
-                m.addElement(crearCorreos.get(i));
-            }
-            lsCrearCorreos.setModel(m);
-        } else {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                    TipoMensaje.EMAIL_SYNTAX_FAILURE);
-        }
-        txt_agregarCorreo.setText("");
+        guardarAgregarContacto(false);
     }//GEN-LAST:event_btnAgregarCorreoActionPerformed
 
     private void btnAgregarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTelefonoActionPerformed
-        String telefono = txt_agregarTelefono.getText().trim();
+        guardarAgregarContacto(true);
         
-        if (verificacion.validaTelefono(telefono) && !crearTelefonos.contains(telefono)) {
-            crearTelefonos.add(telefono);
-            DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<crearTelefonos.size(); i++) {
-                m.addElement(crearTelefonos.get(i));
-            }
-            lsCrearTelefonos.setModel(m);
-        } else {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                    TipoMensaje.PHONE_SYNTAX_FAILURE);
-        }
-        
-        txt_agregarTelefono.setText("");
     }//GEN-LAST:event_btnAgregarTelefonoActionPerformed
 
     private void rbCrearCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCrearCreditoActionPerformed
-        txt_crear_limiteCliente.setText("0");
-        txt_crear_limiteCliente.setEditable(false);
+        habilitarCampoCredito(false, "0", true);
     }//GEN-LAST:event_rbCrearCreditoActionPerformed
 
     private void rbCrearCreditoLimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCrearCreditoLimActionPerformed
-        txt_crear_limiteCliente.setText("");
-        txt_crear_limiteCliente.setEditable(true);
+        habilitarCampoCredito(true, "", true);
     }//GEN-LAST:event_rbCrearCreditoLimActionPerformed
 
     private void rbCrearSinCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCrearSinCreditoActionPerformed
-        txt_crear_limiteCliente.setText("");
-        txt_crear_limiteCliente.setEditable(false);
+        habilitarCampoCredito(false, "", true);
     }//GEN-LAST:event_rbCrearSinCreditoActionPerformed
 
     private void tbl_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_editarMouseClicked
-        try {
-            model = (DefaultTableModel) tbl_editar.getModel();
-            int selectedRowIndex = tbl_editar.getSelectedRow();
-            String cedula
-            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-            for (int i = 0; i < clientes.size(); i++) {
-                if (clientes.get(i).getCedula().equals(cedula)) {
-                    cargarEditarCliente(clientes.get(i));
-                }
-            }
-        } catch (Exception ex) {
-
-        }
+       selectClienteEditar();
     }//GEN-LAST:event_tbl_editarMouseClicked
 
     private void tbl_editarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_editarKeyReleased
-        try {
-            model = (DefaultTableModel) tbl_editar.getModel();
-            int selectedRowIndex = tbl_editar.getSelectedRow();
-            String cedula
-            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-            for (int i = 0; i < clientes.size(); i++) {
-                if (clientes.get(i).getCedula().equals(cedula)) {
-                    cargarEditarCliente(clientes.get(i));
-                }
-            }
-        } catch (Exception ex) {
-
+        if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+            selectClienteEditar();
         }
     }//GEN-LAST:event_tbl_editarKeyReleased
 
@@ -2031,79 +2106,27 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             tb_modCliente.setSelectedIndex(2);
         } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
             ex.printStackTrace();
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.ANY_ROW_SELECTED);
         }
         catch (Exception ex) {
             ex.printStackTrace();
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.SOMETHING_WENT_WRONG);
         }
     }//GEN-LAST:event_itEditarActionPerformed
 
     private void rbEditarCreditoLimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEditarCreditoLimActionPerformed
-        try {
-            model = (DefaultTableModel) tbl_editar.getModel();
-            int selectedRowIndex = tbl_editar.getSelectedRow();
-            String cedula
-            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-            float limCred = 0;
-            for (int i = 0; i < clientes.size(); i++) {
-                if (clientes.get(i).getCedula().equals(cedula)) {
-                    limCred = clientes.get(i).getLimiteCredito();
-                }
-            }
-            
-            txtEditarLimiteCliente.setText(String.valueOf(limCred));
-            txtEditarLimiteCliente.setEditable(true);
-        } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
-            ex.printStackTrace();
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
-        }
+        habilitarCampoCredito(true, "", false);
+        
     }//GEN-LAST:event_rbEditarCreditoLimActionPerformed
 
     private void rbEditarCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEditarCreditoActionPerformed
-        try {
-            model = (DefaultTableModel) tbl_editar.getModel();
-            int selectedRowIndex = tbl_editar.getSelectedRow();
-            
-            String cedula
-            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-            
-            txtEditarLimiteCliente.setText("0.0");
-            txtEditarLimiteCliente.setEditable(false);
-            
-        } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
-            ex.printStackTrace();
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
-        }
+        habilitarCampoCredito(false, "0.0", false);
     }//GEN-LAST:event_rbEditarCreditoActionPerformed
 
     private void rbEditarSinCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEditarSinCreditoActionPerformed
-        try {
-            model = (DefaultTableModel) tbl_editar.getModel();
-            int selectedRowIndex = tbl_editar.getSelectedRow();
-            
-            String cedula
-            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-            
-            txtEditarLimiteCliente.setText("");
-            txtEditarLimiteCliente.setEditable(false);
-        } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
-            ex.printStackTrace();
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
-        }
+        habilitarCampoCredito(false, "", false);
     }//GEN-LAST:event_rbEditarSinCreditoActionPerformed
 
     private void cbxProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProvinciaActionPerformed
