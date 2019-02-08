@@ -19,6 +19,7 @@ public class Emisor {
     private int codPais;
     private int numTel;
     private String correoElec;
+    private Direccion dir;
     
     /**
      * Constructor vacío de la clase Emisor.
@@ -37,9 +38,11 @@ public class Emisor {
      * @param codPais código de país del teléfono del emisor
      * @param numTel número de teléfono del emisor
      * @param correoElec correo electrónico del emisor
+     * @param dir direccion del emisor
      */
     public Emisor(String cod, String nombre, String tipoId, String numId, 
-            String nomComercial, int codPais, int numTel, String correoElec) {
+            String nomComercial, int codPais, int numTel, String correoElec,
+            Direccion dir) {
         
         this.cod = cod;
         this.nombre = nombre;
@@ -49,6 +52,7 @@ public class Emisor {
         this.codPais = codPais;
         this.numTel = numTel;
         this.correoElec = correoElec;
+        this.dir = dir;
     }
 
     /**
@@ -177,5 +181,21 @@ public class Emisor {
      */
     public void setCorreoElec(String correoElec) {
         this.correoElec = correoElec;
+    }
+    
+    /**
+     * Obtener direccion del emisor.
+     * @return La dirección
+     */
+    public Direccion getDireccion () {
+        return dir;
+    }
+
+    /**
+     * Establecer direccion del emisor
+     * @param dir la direccion
+     */
+    public void setDireccion(Direccion dir) {
+        this.dir = dir;
     }
 }

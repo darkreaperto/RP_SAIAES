@@ -29,7 +29,7 @@ import util.TipoMensaje;
  * Inicializa la ventana que contiene la información de los clientes.
  * @author ahoihanabi
  */
-public class ItnFrmCliente extends javax.swing.JInternalFrame {
+public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     
     private static ItnFrmCliente instancia = null;
     private static CtrCliente controlador;
@@ -43,9 +43,9 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private static ArrayList<Contacto> editarCorreos;
     private static DefaultTableModel model;
     private final Regex verificacion;
-    
     private int masTelefono = 1;
     private int masCorreo = 1;
+    
     /**
      * Instancia un nuevo formulario interno de clientes.
      * @param sesionAcc Usuario en sesión actual 
@@ -63,15 +63,13 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         crearTelefonos = new ArrayList<>();
         verificacion = new Regex();
         msg = new Mensaje();
-        //correos.add(txt_crear_correo);
-        //telefonos.add(txt_crear_telefono);
+        
         cargarTablas();
         cargarDirJCombo("P", "", "", "", cbxProvincia);
     }
     
     /**
      * Retorna la única instancia de la clase.
-     *
      * @param sesionAcc Usuario en sesión actual.
      * @param clientes Lista de clientes en la base de datos.
      * @return instancia.
@@ -1205,7 +1203,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
      * con la información de los clientes.
      */
     public void cargarTablas() {
-        //usuarios.clear();
         clientes = controlador.obtenerClientes();
         cargarClientesJTable(tbListadoCliente, true);
         cargarClientesJTable(tbl_crear, true);
@@ -1215,8 +1212,9 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }
     
     /**
-     * Limpia los elementos en la interfaz.
-     * @param panel
+     * Limpia los elementos en la interfaz ya sea para la pestaña de agregar 
+     * o la de editar.
+     * @param panel El nombre del panel en que se encuentra el usuario.
      */
     public void limpiarCampos(String panel) {
         switch (panel.toUpperCase()) {
@@ -1256,7 +1254,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }
     
     /**
-     * Carga/llena una de la interfaz con la información de 
+     * Carga/llena la tabla de la interfaz indicada con la información de 
      * los clientes.
      * @param tabla Tabla a llenar
      * @param estado Indica si el cliente está o no inactivo
@@ -1349,6 +1347,15 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         tabla.removeColumn(tabla.getColumnModel().getColumn(8));
     }
     
+    /**
+     * Carga las ubicaciones en los combobox de dirección según la selección en
+     * el combo anterior
+     * @param campo identificador de campo (provincia, canton, distrito)
+     * @param codP codigo de provincia seleccionada
+     * @param codC codido de canton seleccionado
+     * @param codD codigo del distrito seleccionado
+     * @param combo combo box a cargar
+     */
     public void cargarDirJCombo(String campo, String codP, String codC, 
             String codD, JComboBox combo) {
         
@@ -1360,6 +1367,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             combo.addItem(listaLugares.get(i));
         }
     }
+    
     /**
      * Crea un nuevo cliente en la BD con la información enviada por parámetro.
      * @param nombre nombre del cliente
@@ -1522,6 +1530,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         
         txaEditarOtrasSenas.setText(oS);
     }
+    
     /**
      * Cargar la los contactos del cliente seleccionado
      * @param cliente cliente seleccionado en JTable
@@ -1546,8 +1555,9 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         lsTelefonos.setModel(mTelefonos);
         lsCorreos.setModel(mCorreos);
     }
+    
     /**
-     * Carga los campos elementos de Editar clientes cuando se selecciona uno 
+     * Carga los campos de Editar clientes cuando se selecciona uno 
      * de la JTable
      * @param cliente información del cliente a cargar
      */
@@ -1580,7 +1590,8 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }
     
     /**
-     * Carga los combos de dirección de acuerdo al lugar seleccionado anteriormente
+     * Carga los combos de dirección de acuerdo al lugar seleccionado en el 
+     * combo anterior
      * @param cbxCargar Combo a cargar
      * @param cbxP combo de provincia
      * @param cbxC combo de cantón
@@ -1616,6 +1627,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
         cargarDirJCombo(p, codP, codC, codD, cbxCargar);
     }
+    
     /**
      * Obtiene de la interfaz toda la información necesaria para 
      * crear el cliente. 
@@ -1644,14 +1656,22 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 "0" : txt_crear_limiteCliente.getText().trim();
         
         // Obtener infor de la dirección
-        String cP = String.valueOf(cbxProvincia.getItemAt(cbxProvincia.getSelectedIndex()).getCodigo());
-        String nP = String.valueOf(cbxProvincia.getItemAt(cbxProvincia.getSelectedIndex()).getNombre());
-        String cC = String.valueOf(cbxCanton.getItemAt(cbxCanton.getSelectedIndex()).getCodigo());
-        String nC = String.valueOf(cbxCanton.getItemAt(cbxCanton.getSelectedIndex()).getNombre());
-        String cD = String.valueOf(cbxDistrito.getItemAt(cbxDistrito.getSelectedIndex()).getCodigo());
-        String nD = String.valueOf(cbxDistrito.getItemAt(cbxDistrito.getSelectedIndex()).getNombre());
-        String cB = String.valueOf(cbxBarrio.getItemAt(cbxBarrio.getSelectedIndex()).getCodigo());
-        String nB = String.valueOf(cbxBarrio.getItemAt(cbxBarrio.getSelectedIndex()).getNombre());
+        String cP = String.valueOf(cbxProvincia.getItemAt(
+                cbxProvincia.getSelectedIndex()).getCodigo());
+        String nP = String.valueOf(cbxProvincia.getItemAt(
+                cbxProvincia.getSelectedIndex()).getNombre());
+        String cC = String.valueOf(cbxCanton.getItemAt(
+                cbxCanton.getSelectedIndex()).getCodigo());
+        String nC = String.valueOf(cbxCanton.getItemAt(
+                cbxCanton.getSelectedIndex()).getNombre());
+        String cD = String.valueOf(cbxDistrito.getItemAt(
+                cbxDistrito.getSelectedIndex()).getCodigo());
+        String nD = String.valueOf(cbxDistrito.getItemAt(
+                cbxDistrito.getSelectedIndex()).getNombre());
+        String cB = String.valueOf(cbxBarrio.getItemAt(
+                cbxBarrio.getSelectedIndex()).getCodigo());
+        String nB = String.valueOf(cbxBarrio.getItemAt(
+                cbxBarrio.getSelectedIndex()).getNombre());
         String senas = txtaOtrasSenas.getText();
         
         agregarCliente(txt_crear_nombreCliente.getText().trim(), 
@@ -1661,6 +1681,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 limiteCred, credito, cP, nP, cC, nC, cD, nD, cB, nB, senas, 
                 contactos);
     }
+    
     /**
      * Obtiene de la interfaz toda la información necesaria para 
      * editar el cliente. 
@@ -1687,11 +1708,14 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
             
             // Obtener infor de la dirección
-            String cP = cbxEditarProvincia.getItemAt(cbxEditarProvincia.getSelectedIndex()).getCodigo();
-            String cC = cbxEditarCanton.getItemAt(cbxEditarCanton.getSelectedIndex()).getCodigo();
-            String cD = cbxEditarDistrito.getItemAt(cbxEditarDistrito.getSelectedIndex()).getCodigo();
-            String cB = cbxEditarBarrio.getItemAt(cbxEditarBarrio.getSelectedIndex()).getCodigo();
-            
+            String cP = cbxEditarProvincia.getItemAt(
+                    cbxEditarProvincia.getSelectedIndex()).getCodigo();
+            String cC = cbxEditarCanton.getItemAt(
+                    cbxEditarCanton.getSelectedIndex()).getCodigo();
+            String cD = cbxEditarDistrito.getItemAt(
+                    cbxEditarDistrito.getSelectedIndex()).getCodigo();
+            String cB = cbxEditarBarrio.getItemAt(
+                    cbxEditarBarrio.getSelectedIndex()).getCodigo();
             
             actualizarCliente(txtEditarNombreCliente.getText().trim(), 
                     txtEditarPrimerApellido.getText().trim(), 
@@ -1699,8 +1723,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                     txtEditarCedulaCliente.getText().trim(), 
                     limiteCred, credito, codPersona, cP, cC, cD, cB, 
                     txaEditarOtrasSenas.getText().trim(), codDir);
-            
-            limpiarCampos("EDITAR");
             
         } catch (ArrayIndexOutOfBoundsException ex) {
             ex.printStackTrace();
@@ -1713,9 +1735,15 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
     }
     
-    private void selecClientePorEstado(JTable tabla, 
-            JRadioButton rbD, JRadioButton rbH) {
-        //CLIENTES ACTIVOS MOUSE
+    /**
+     * Selecciona el radiobutton(habilitado/deshabilitado) correspondiente 
+     * cuando se selecciona un cliente activo o inactivo.
+     * @param tabla tabla de clientes activos o inactivos 
+     * @param rbD radiobutton deshabilitado
+     * @param rbH radiobutton habilitado
+     */
+    private void selecClientePorEstado(JTable tabla, JRadioButton rbD, 
+            JRadioButton rbH) {
         try {
             model = (DefaultTableModel) tabla.getModel();
             int selectedRowIndex = tabla.getSelectedRow();
@@ -1734,15 +1762,22 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.ANY_ROW_SELECTED);
+            ex.printStackTrace();
         }
         catch (Exception ex) {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.SOMETHING_WENT_WRONG);
+            ex.printStackTrace();
         }
     }
     
+    /**
+     * Activa o inactiva un cliente dependiendo de cuál radiobutton esté 
+     * seleccionado cuando se guardan los cambios.
+     */
     private void activarInactivarCliente() {
-        
         try {
             model = tbDeshab.getSelectedIndex() == 0 ? 
                     (DefaultTableModel) tblClientesActivos.getModel() : 
@@ -1766,15 +1801,24 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             //Actualizar tablas
             cargarTablas();
         } catch (Exception e) {
-            e.printStackTrace();
-//            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-//                    TipoMensaje.ANY_ROW_SELECTED);
+            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+                    TipoMensaje.ANY_ROW_SELECTED);
+            e.printStackTrace();          
         }
     }
-    private void listarClientes() {
-        clientes = controlador.consultarClientes(txtListadoCliente.getText().trim());
+    
+    /**
+     * Muestra la lista de clientes filtrada según se indique en el criterio.
+     */
+    private void listarClientes(String criterio) {
+        clientes = controlador.consultarClientes(criterio);
         cargarClientesJTable(tbListadoCliente, true);
     }
+    
+    /**
+     * Edición de cliente: guardar el contacto (correo o telefono)
+     * @param tel verdadero si es el telefono, falso si es un correo.
+     */
     private void guardarEditContacto(boolean tel) {
         if(tel) {
             String telefono = txtEditarTelefono.getText().trim();
@@ -1812,9 +1856,9 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                             TipoMensaje.PHONE_SYNTAX_FAILURE);
                 }
             }catch (NullPointerException ex) {
-
+                ex.printStackTrace();
             } catch (Exception ex) {
-
+                ex.printStackTrace();
             } finally {
                 cargarTablas();
             }
@@ -1863,6 +1907,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
     }
     
+    /**
+     * Edición del cliente: eliminar un contacto seleccionado en la lista de 
+     * contactos.
+     * @param tel verdadero si es un teléfono, falso si es un correo.
+     */
     private void cancelEditContacto(boolean tel) {
         if(tel) {
             try {
@@ -1916,7 +1965,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
     }
     
-    private void guardarAgregarContacto(boolean tel) {
+    /**
+     * Crear cliente: guardar/agregar un nuevo contacto
+     * @param tel verdadero si es un teléfono, falso si es un correo.
+     */
+    private void agregarContacto(boolean tel) {
         if(tel) {
             String telefono = txt_agregarTelefono.getText().trim();
             if (verificacion.validaTelefono(telefono) && 
@@ -1951,6 +2004,13 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         
     }
     
+    /**
+     * Habilita/deshabilita el campo de texto que indica el límite de crédito 
+     * según corresponda cuando se selecciona un radiobutton de crédito.
+     * @param editable habilita la edición para el campo de texto límite de crédito.
+     * @param valor valor a ingresar en el campo de texto 
+     * @param crear verdadero si es para crear o para editar.
+     */
     private void habilitarCampoCredito (boolean editable, String valor, boolean crear) {
         
         if(crear) {
@@ -1982,6 +2042,10 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
     }
     
+    /**
+     * Cargar editar la información del cliente seleccionado en la tabla de 
+     * editar.
+     */
     private void selectClienteEditar() {
         try {
            model = (DefaultTableModel) tbl_editar.getModel();
@@ -2041,7 +2105,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarGuardarTelActionPerformed
 
     private void txtListadoClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtListadoClienteKeyReleased
-        listarClientes();
+        listarClientes(txtListadoCliente.getText().trim());
     }//GEN-LAST:event_txtListadoClienteKeyReleased
 
     private void btnEditarCancelTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelTelActionPerformed
@@ -2059,11 +2123,11 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarCancelCorreoActionPerformed
 
     private void btnAgregarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCorreoActionPerformed
-        guardarAgregarContacto(false);
+        agregarContacto(false);
     }//GEN-LAST:event_btnAgregarCorreoActionPerformed
 
     private void btnAgregarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTelefonoActionPerformed
-        guardarAgregarContacto(true);
+        agregarContacto(true);
         
     }//GEN-LAST:event_btnAgregarTelefonoActionPerformed
 
