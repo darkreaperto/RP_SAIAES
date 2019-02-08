@@ -1663,6 +1663,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                 limiteCred, credito, cP, nP, cC, nC, cD, nD, cB, nB, senas, 
                 contactos);
     }
+    
     /**
      * Obtiene de la interfaz toda la información necesaria para 
      * editar el cliente. 

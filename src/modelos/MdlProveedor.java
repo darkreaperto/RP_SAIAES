@@ -198,17 +198,13 @@ public class MdlProveedor {
      * @param apellido1
      * @param apellido2
      * @param cedula
-     * @param limiteCred
-     * @param aprobarCred
-     * @param contactos
-     * @param estado
      * @param codPersona
-     * @param codigo
+     * @param dir
      * @return 
      */
     
     public boolean actualizarProveedor(String nombre, String apellido1, 
-            String apellido2, String cedula, String codPersona) {
+            String apellido2, String cedula, String codPersona, Direccion dir) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(nombre);
@@ -219,6 +215,11 @@ public class MdlProveedor {
 
         boolean creacionExitosa = false;
         try {
+            
+            ctrDireccion.actualizarDireccion(dir.getCodProvincia(), 
+                    dir.getCodCanton(), dir.getCodDistrito(), 
+                    dir.getCodBarrio(), dir.getOtrasSenas(), dir.getCodigo());
+            
             procedimiento = "pc_actualizar_proveedor(?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();

@@ -124,13 +124,14 @@ public class CtrProveedor {
      * @param apellido2 segundo apellido del proveedor
      * @param cedula cédula del proveedor
      * @param codPersona codigo de persona
+     * @param dir dirección de la persona
      * @return verdadero si actualiza el proveedor exitosamente
      */
     public boolean actualizarProveedor(String nombre, String apellido1, 
-            String apellido2, String cedula, String codPersona) {
+            String apellido2, String cedula, String codPersona, Direccion dir) {
         
         return mdlProveedor.actualizarProveedor(nombre, apellido1, apellido2, 
-                cedula, codPersona);
+                cedula, codPersona, dir);
     }
     
     /**

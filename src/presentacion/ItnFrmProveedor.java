@@ -42,8 +42,10 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     private static ArrayList<Contacto> editarCorreos;
     private static DefaultTableModel model;
     private final Regex verificacion;
+
     /**
      * Creates new form ItnFrmProveedor.
+     *
      * @param sesionAcc usuario en sesión
      * @param proveedores lista de proveedores obtenida desde la bd.
      */
@@ -52,18 +54,18 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         //Inicializar variables
         controlador = CtrProveedor.getInstancia();
         ctrDireccion = CtrDireccion.getInstancia();
-        
+
         ItnFrmProveedor.proveedores = proveedores;
         ItnFrmProveedor.sesion = sesionAcc;
         crearCorreos = new ArrayList<>();
         crearTelefonos = new ArrayList<>();
         verificacion = new Regex();
         msg = new Mensaje();
-        
+
         cargarTablas();
         cargarDirJCombo("P", "", "", "", cbxProvincia);
     }
-    
+
     /**
      * Retorna la única instancia de la clase.
      *
@@ -603,6 +605,24 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
         lblEditarBarrio.setText("Barrio:");
 
+        cbxEditarProvincia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxEditarProvinciaActionPerformed(evt);
+            }
+        });
+
+        cbxEditarCanton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxEditarCantonActionPerformed(evt);
+            }
+        });
+
+        cbxEditarDistrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxEditarDistritoActionPerformed(evt);
+            }
+        });
+
         lblEditarOtrasSenas.setText("Otras señas:");
 
         txaEditarOtrasSenas.setColumns(20);
@@ -1014,10 +1034,10 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     /**
-     * Para todas las tablas en la interfaz, llama el método que carga una tabla 
-     * con la información de los clientes.
+     * Para todas las tablas en la interfaz, llama el método que carga una tabla
+     * con la información de los proveedores.
      */
-    public void cargarTablas() {
+    public final void cargarTablas() {
         proveedores = controlador.obtenerProveedores();
         cargarProveedorJTable(tbListadoProveedor, true);
         cargarProveedorJTable(tbl_crear, true);
@@ -1025,109 +1045,128 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         cargarProveedorJTable(tblProveedoresActivos, true);
         cargarProveedorJTable(tblProveedoresInactivos, false);
     }
-    
+
     /**
-     * Carga/llena una de la interfaz con la información de 
-     * los clientes.
+     * Carga/llena una de la interfaz con la información de los proveedores.
+     *
      * @param tabla Tabla a llenar
-     * @param estado Indica si el cliente está o no inactivo
+     * @param estado Indica si el proveedor está o no inactivo
      */
     public void cargarProveedorJTable(JTable tabla, boolean estado) {
-        Object[] row = new Object[7];
+        Object[] row = new Object[8];
         model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0);
-        model.setColumnCount(7);
+        model.setColumnCount(8);
         int i = 0;
-        for (Proveedor pv: proveedores) {
+        for (Proveedor pv : proveedores) {
 
             if (pv.getEstado().equals(Estado.Activo) && estado) {
-                
+
                 row[0] = pv.getCedula();
-                row[1] = pv.getApellido1(); 
+                row[1] = pv.getApellido1();
                 row[2] = pv.getApellido2();
                 row[3] = pv.getNombre();
-                               
+
                 ArrayList<Contacto> contactos = pv.getContactos();
-                
+
                 String texto = "<html><body>";
-                for (Contacto ct: contactos) {
+                for (Contacto ct : contactos) {
                     String tipo = ct.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
                     texto += tipo + " " + ct.getInfo() + "<br>";
                 }
                 texto += "</body></html>";
                 row[4] = texto;
-                
-                
-                row[5] = pv.getCodProveedor(); //codigo de proveedor
-                row[6] = pv.getCodigo(); //codigo de persona
-                
+
+                String dir = "<html><body>"
+                        + pv.getDireccion().getNomProvincia() + ",<br>"
+                        + pv.getDireccion().getNomCanton() + ",<br>"
+                        + pv.getDireccion().getNomDistrito() + ",<br>"
+                        + pv.getDireccion().getNomBarrio()
+                        + "</body></html>";
+
+                row[5] = dir;
+                row[6] = pv.getCodProveedor(); //codigo de proveedor
+                row[7] = pv.getCodigo(); //codigo de persona
+
                 model.addRow(row);
-                
-                tabla.setRowHeight(i, contactos.size() > 0 ? 
-                        contactos.size()*20 : tabla.getRowHeight(i));
-                
+
+                tabla.setRowHeight(i, contactos.size() > 3
+                        ? tabla.getRowHeight(i) * contactos.size()
+                        : tabla.getRowHeight(i) * 4);
+
                 i++;
             }
             if (pv.getEstado().equals(Estado.Deshabilitado) && !estado) {
-                
+
                 row[0] = pv.getCedula();
-                row[1] = pv.getApellido1(); 
+                row[1] = pv.getApellido1();
                 row[2] = pv.getApellido2();
                 row[3] = pv.getNombre();
-                                
+
                 ArrayList<Contacto> contactos = pv.getContactos();
-                
+
                 String texto = "<html><body>";
-                for (Contacto ct: contactos) {
+                for (Contacto ct : contactos) {
                     String tipo = ct.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
                     texto += tipo + " " + ct.getInfo() + "<br>";
                 }
                 texto += "</body></html>";
                 row[4] = texto;
-                
-                row[5] = pv.getCodProveedor(); //codigo de proveedor
-                row[6] = pv.getCodigo(); //codigo de persona
-                
+
+                String dir = "<html><body>"
+                        + pv.getDireccion().getNomProvincia() + ",<br>"
+                        + pv.getDireccion().getNomCanton() + ",<br>"
+                        + pv.getDireccion().getNomDistrito() + ",<br>"
+                        + pv.getDireccion().getNomBarrio()
+                        + "</body></html>";
+
+                row[5] = dir;
+
+                row[6] = pv.getCodProveedor(); //codigo de proveedor
+                row[7] = pv.getCodigo(); //codigo de persona
+
                 model.addRow(row);
-                
-                tabla.setRowHeight(i, contactos.size() > 0 ? 
-                        contactos.size()*20 : tabla.getRowHeight(i));
-                
+
+                tabla.setRowHeight(i, contactos.size() > 3
+                        ? tabla.getRowHeight(i) * contactos.size()
+                        : tabla.getRowHeight(i) * 4);
+
                 i++;
             }
         }
-        
-        tabla.removeColumn(tabla.getColumnModel().getColumn(5));
-        tabla.removeColumn(tabla.getColumnModel().getColumn(5));
+
+        tabla.removeColumn(tabla.getColumnModel().getColumn(6));
+        tabla.removeColumn(tabla.getColumnModel().getColumn(6));
     }
-    
+
     /**
-     * Carga los combos de dirección de acuerdo al lugar seleccionado anteriormente
+     * Carga los combos de dirección de acuerdo al lugar seleccionado
+     * anteriormente.
      * @param cbxCargar Combo a cargar
      * @param cbxP combo de provincia
      * @param cbxC combo de cantón
      * @param cbxD combo de distrito
      * @param p inicial del combo a cargar
      */
-    private void selectDir(JComboBox cbxCargar, JComboBox<DirFiltro> cbxP, 
+    private void selectDir(JComboBox cbxCargar, JComboBox<DirFiltro> cbxP,
             JComboBox<DirFiltro> cbxC, JComboBox<DirFiltro> cbxD, String p) {
-        
+
         String codP = "";
         String codC = "";
         String codD = "";
-        
+
         if (p.equals("C")) {
             codP = cbxP.getItemAt(
-                cbxP.getSelectedIndex()).getCodigo();
+                    cbxP.getSelectedIndex()).getCodigo();
         } else if (p.equals("D")) {
-            if(cbxC.getItemCount() > 0) {
+            if (cbxC.getItemCount() > 0) {
                 codP = cbxP.getItemAt(
                         cbxP.getSelectedIndex()).getCodigo();
                 codC = cbxC.getItemAt(
                         cbxC.getSelectedIndex()).getCodigo();
             }
-        } else if (p.equals("B")) {        
-            if(cbxD.getItemCount() > 0) {
+        } else if (p.equals("B")) {
+            if (cbxD.getItemCount() > 0) {
                 codP = cbxP.getItemAt(
                         cbxP.getSelectedIndex()).getCodigo();
                 codC = cbxC.getItemAt(
@@ -1139,20 +1178,28 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         cargarDirJCombo(p, codP, codC, codD, cbxCargar);
     }
     
-    public void cargarDirJCombo(String campo, String codP, String codC, 
+    /**
+     * 
+     * @param campo
+     * @param codP
+     * @param codC
+     * @param codD
+     * @param combo 
+     */
+    public final void cargarDirJCombo(String campo, String codP, String codC,
             String codD, JComboBox combo) {
-        
+
         combo.removeAllItems();
-        
+
         ArrayList<DirFiltro> listaLugares = ctrDireccion.filtrarDireccion(campo,
                 codP, codC, codD);
-        for(int i = 0; i < listaLugares.size(); i++) {
+        for (int i = 0; i < listaLugares.size(); i++) {
             combo.addItem(listaLugares.get(i));
         }
     }
-    
-    public Direccion prepararDireccion() {
-        
+
+    public Direccion prepararDireccion(boolean editar, int codDir) {
+
         String cP = cbxProvincia.getItemAt(cbxProvincia.getSelectedIndex()).getCodigo();
         String nP = cbxProvincia.getItemAt(cbxProvincia.getSelectedIndex()).getNombre();
         String cC = cbxCanton.getItemAt(cbxCanton.getSelectedIndex()).getCodigo();
@@ -1162,16 +1209,28 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         String cB = cbxBarrio.getItemAt(cbxBarrio.getSelectedIndex()).getCodigo();
         String nB = cbxBarrio.getItemAt(cbxBarrio.getSelectedIndex()).getNombre();
         String senas = txaOtrasSenas.getText();
-        
-        return new Direccion(1, cP, nP, cC, nC, cD, nD, cB, nB, senas);
+
+        if (editar) {
+            cP = cbxEditarProvincia.getItemAt(cbxEditarProvincia.getSelectedIndex()).getCodigo();
+            nP = cbxEditarProvincia.getItemAt(cbxEditarProvincia.getSelectedIndex()).getNombre();
+            cC = cbxEditarCanton.getItemAt(cbxEditarCanton.getSelectedIndex()).getCodigo();
+            nC = cbxEditarCanton.getItemAt(cbxEditarCanton.getSelectedIndex()).getNombre();
+            cD = cbxEditarDistrito.getItemAt(cbxEditarDistrito.getSelectedIndex()).getCodigo();
+            nD = cbxEditarDistrito.getItemAt(cbxEditarDistrito.getSelectedIndex()).getNombre();
+            cB = cbxEditarBarrio.getItemAt(cbxEditarBarrio.getSelectedIndex()).getCodigo();
+            nB = cbxEditarBarrio.getItemAt(cbxEditarBarrio.getSelectedIndex()).getNombre();
+            senas = txaEditarOtrasSenas.getText();
+        }
+
+        return new Direccion(codDir, cP, nP, cC, nC, cD, nD, cB, nB, senas);
     }
-    
-    private void prepararProveedor(String nombre, String apellido1, 
+
+    private void prepararProveedor(String nombre, String apellido1,
             String apellido2, String cedula) {
-        
+
         ArrayList<ArrayList<Object>> contactos = new ArrayList<>();
         ArrayList<Object> correo;
-        for (int i=0; i<lsCrearCorreos.getModel().getSize(); i++) {
+        for (int i = 0; i < lsCrearCorreos.getModel().getSize(); i++) {
             correo = new ArrayList<>();
             correo.add(TipoContacto.CORREO);
             correo.add(lsCrearCorreos.getModel().getElementAt(i));
@@ -1179,98 +1238,135 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         }
 
         ArrayList<Object> telefono;
-        for (int i=0; i<lsCrearTelefonos.getModel().getSize(); i++) {
+        for (int i = 0; i < lsCrearTelefonos.getModel().getSize(); i++) {
             telefono = new ArrayList<>();
             telefono.add(TipoContacto.TELEFONO);
             telefono.add(lsCrearTelefonos.getModel().getElementAt(i));
             contactos.add(telefono);
         }
 
-        agregarProveedor(nombre, apellido1, apellido2, cedula, 
-                prepararDireccion(), contactos);
+        agregarProveedor(nombre, apellido1, apellido2, cedula,
+                prepararDireccion(false, 1), contactos);
     }
-    
-    private void agregarProveedor(String nombre, String apellido1, 
-            String apellido2, String cedula, Direccion dir, 
+
+    private void agregarProveedor(String nombre, String apellido1,
+            String apellido2, String cedula, Direccion dir,
             ArrayList<ArrayList<Object>> contactos) {
-          
+
         if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
 //            if (verificacion.validaNombre(nombre) && 
 //                    verificacion.validaNombre(apellido1) && 
 //                    verificacion.validaNombre(apellido2)) {
 
-                try {                    
-                    boolean creado = controlador.crearProveedor(nombre, apellido1, 
-                            apellido2, cedula, dir, contactos);
-                    
-                    if (creado) {
-                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                        TipoMensaje.CUSTOMER_INSERTION_SUCCESS);
-                        
-                        cargarTablas();
-                    } else {
-                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                        TipoMensaje.CUSTOMER_INSERTION_FAILURE);
-                    }
-                } catch (NumberFormatException ex) {
-                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                    TipoMensaje.NUMBER_FORMAT_EXCEPTION);
-                } catch (Exception ex) {
-                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                    TipoMensaje.SOMETHING_WENT_WRONG);
+            try {
+                boolean creado = controlador.crearProveedor(nombre, apellido1,
+                        apellido2, cedula, dir, contactos);
+
+                if (creado) {
+                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+                            TipoMensaje.CUSTOMER_INSERTION_SUCCESS);
+
+                    cargarTablas();
+                } else {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                            TipoMensaje.CUSTOMER_INSERTION_FAILURE);
                 }
+            } catch (NumberFormatException ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                        TipoMensaje.NUMBER_FORMAT_EXCEPTION);
+            } catch (Exception ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                        TipoMensaje.SOMETHING_WENT_WRONG);
+            }
 //            } else {
 //                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
 //                    TipoMensaje.WRONG_CUSTOMER_FIELDS);
 //            }
         } else {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
                     TipoMensaje.EMPTY_CUSTOMER_FIELDS);
         }
     }
-    
-    private void actualizarProveedor(String nombre, String apellido1, 
-            String apellido2, String cedula, String codPersona) {
-        
+
+    /**
+     * Obtiene de la interfaz toda la información necesaria para editar el
+     * proveedor.
+     */
+    private void prepararEditarProveedor() {
+        try {
+            model = (DefaultTableModel) tbl_editar.getModel();
+            int indiceFila = tbl_editar.getSelectedRow();
+
+            String codPersona = (String) model.getValueAt(indiceFila, 7);
+            System.out.println("CODIGO PER EDITAR PROV: " + codPersona);
+
+            int codDir = 0;
+            for (int i = 0; i < proveedores.size(); i++) {
+                if (proveedores.get(i).getCodigo().equals(codPersona)) {
+                    codDir = proveedores.get(i).getDireccion().getCodigo();
+                }
+            }
+
+            actualizarProveedor(txtEditarNombreProveedor.getText().trim(),
+                    txtEditarAp1Proveedor.getText().trim(),
+                    txtEditarAp2Proveedor.getText().trim(),
+                    txtEditarCedulaProveedor.getText().trim(), codPersona,
+                    prepararDireccion(true, codDir));
+
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            ex.printStackTrace();
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+
+        }
+    }
+
+    private void actualizarProveedor(String nombre, String apellido1,
+            String apellido2, String cedula, String codPersona, Direccion dir) {
+
         if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
 //            if (verificacion.validaNombre(nombre) && 
 //                    verificacion.validaNombre(apellido1) && 
 //                    verificacion.validaNombre(apellido2)) {
 
-                try {
-                    boolean actualizado = controlador.actualizarProveedor(
-                            nombre, apellido1, apellido2, cedula, codPersona);
+            try {
+                boolean actualizado = controlador.actualizarProveedor(
+                        nombre, apellido1, apellido2, cedula, codPersona, dir);
 
-                    if (actualizado) {
-                        System.out.println("Yay!");
-                        cargarTablas();
-                        
-                        txtEditarCedulaProveedor.setText("");
-                        txtEditarCorreoProveedor.setText("");
-                        txtEditarNombreProveedor.setText("");
-                        txtEditarAp1Proveedor.setText("");
-                        txtEditarAp2Proveedor.setText("");
-                        txtEditarTelefono.setText("");
-                        
-                        lsCorreos.setModel(new DefaultListModel());
-                        lsCorreos.setModel(new DefaultListModel());
-                    } else {
-                        System.out.println("Yaq!");
-                    }
-                } catch (NumberFormatException ex) {
-                    System.err.println(ex);
-                } catch (Exception ex) {
-                    System.err.println(ex);
+                if (actualizado) {
+                    System.out.println("Yay!");
+                    cargarTablas();
+
+                    txtEditarCedulaProveedor.setText("");
+                    txtEditarCorreoProveedor.setText("");
+                    txtEditarNombreProveedor.setText("");
+                    txtEditarAp1Proveedor.setText("");
+                    txtEditarAp2Proveedor.setText("");
+                    txtEditarTelefono.setText("");
+
+                    lsCorreos.setModel(new DefaultListModel());
+                    lsCorreos.setModel(new DefaultListModel());
+                } else {
+                    System.out.println("Yaq!");
                 }
-            } else {
-
+            } catch (NumberFormatException ex) {
+                System.err.println(ex);
+            } catch (Exception ex) {
+                System.err.println(ex);
             }
+        } else {
+
+        }
 //        } else {
 //            
 //        }
     }
-    
-    private void cargarEditarCliente(Proveedor proveedor) {
+
+    private void cargarEditarProveedor(Proveedor proveedor) {
+
         txtEditarCedulaProveedor.setText(proveedor.getCedula());
         txtEditarNombreProveedor.setText(proveedor.getNombre());
         txtEditarAp1Proveedor.setText(proveedor.getApellido1());
@@ -1280,8 +1376,8 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         editarCorreos = new ArrayList<>();
         DefaultListModel<String> mTelefonos = new DefaultListModel<>();
         DefaultListModel<String> mCorreos = new DefaultListModel<>();
-        
-        for (Contacto ct: proveedor.getContactos()) {
+
+        for (Contacto ct : proveedor.getContactos()) {
             if (ct.getTipo().equals(TipoContacto.CORREO)) {
                 editarCorreos.add(ct);
                 mCorreos.addElement(ct.getInfo());
@@ -1294,68 +1390,100 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         }
         lsTelefonos.setModel(mTelefonos);
         lsCorreos.setModel(mCorreos);
+
+        cargarEditDirProveedor(proveedor);
     }
-    
-    
+
+    /**
+     * Cargar la dirección del proveedor seleccionado
+     *
+     * @param proveedor proveedor seleccionado en JTable
+     */
+    private void cargarEditDirProveedor(Proveedor proveedor) {
+        //Cargar dirección del proveedor
+        String iP = proveedor.getDireccion().getCodProvincia();
+        String iC = proveedor.getDireccion().getCodCanton();
+        String iD = proveedor.getDireccion().getCodDistrito();
+        String iB = proveedor.getDireccion().getCodBarrio();
+        String oS = proveedor.getDireccion().getOtrasSenas();
+
+        //PROVINCIA
+        cargarDirJCombo("P", "", "", "", cbxEditarProvincia);
+        for (int i = 0; i < cbxEditarProvincia.getItemCount(); i++) {
+            if (cbxEditarProvincia.getItemAt(i).getCodigo().equals(iP)) {
+                cbxEditarProvincia.setSelectedIndex(i);
+            }
+        }
+        //codigo de provincia seleccionada
+        String codP = cbxEditarProvincia.getItemAt(
+                cbxEditarProvincia.getSelectedIndex()).getCodigo();
+
+        //CANTON
+        cargarDirJCombo("C", codP, "", "", cbxEditarCanton);
+        for (int i = 0; i < cbxEditarCanton.getItemCount(); i++) {
+            if (cbxEditarCanton.getItemAt(i).getCodigo().equals(iC)) {
+                cbxEditarCanton.setSelectedIndex(i);
+            }
+        }
+        // codigo del cantón seleccionado
+        String codC = cbxEditarCanton.getItemAt(
+                cbxEditarCanton.getSelectedIndex()).getCodigo();
+
+        //DISTRITO
+        cargarDirJCombo("D", codP, codC, "", cbxEditarDistrito);
+        for (int i = 0; i < cbxEditarDistrito.getItemCount(); i++) {
+            if (cbxEditarDistrito.getItemAt(i).getCodigo().equals(iD)) {
+                cbxEditarDistrito.setSelectedIndex(i);
+            }
+        }
+        String codD = cbxEditarDistrito.getItemAt(
+                cbxEditarDistrito.getSelectedIndex()).getCodigo();
+
+        //BARRIO
+        cargarDirJCombo("B", codP, codC, codD, cbxEditarBarrio);
+        for (int i = 0; i < cbxEditarBarrio.getItemCount(); i++) {
+            if (cbxEditarBarrio.getItemAt(i).getCodigo().equals(iB)) {
+                cbxEditarBarrio.setSelectedIndex(i);
+            }
+        }
+
+        txaEditarOtrasSenas.setText(oS);
+    }
+
+    private void selectProveedorEditar() {
+        try {
+            model = (DefaultTableModel) tbl_editar.getModel();
+            int selectedRowIndex = tbl_editar.getSelectedRow();
+            String cedula
+                    = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+            for (int i = 0; i < proveedores.size(); i++) {
+                if (proveedores.get(i).getCedula().equals(cedula)) {
+                    cargarEditarProveedor(proveedores.get(i));
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private void txtListadoProveedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtListadoProveedorKeyReleased
         proveedores = controlador.consultarProveedor(txtListadoProveedor.getText().trim());
         cargarProveedorJTable(tbListadoProveedor, true);
     }//GEN-LAST:event_txtListadoProveedorKeyReleased
 
     private void tbl_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_editarMouseClicked
-        try {
-            model = (DefaultTableModel) tbl_editar.getModel();
-            int selectedRowIndex = tbl_editar.getSelectedRow();
-            String cedula
-            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-            for (int i = 0; i < proveedores.size(); i++) {
-                if (proveedores.get(i).getCedula().equals(cedula)) {
-                    cargarEditarCliente(proveedores.get(i));
-                }
-            }
-        } catch (Exception ex) {
-
-        }
+        selectProveedorEditar();
     }//GEN-LAST:event_tbl_editarMouseClicked
 
     private void tbl_editarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_editarKeyReleased
-        try {
-            model = (DefaultTableModel) tbl_editar.getModel();
-            int selectedRowIndex = tbl_editar.getSelectedRow();
-            String cedula
-            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-            for (int i = 0; i < proveedores.size(); i++) {
-                if (proveedores.get(i).getCedula().equals(cedula)) {
-                    cargarEditarCliente(proveedores.get(i));
-                    System.out.println(proveedores.get(i).getCedula());
-                }
-            }
-        } catch (Exception ex) {
-
+        if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+            selectProveedorEditar();
         }
     }//GEN-LAST:event_tbl_editarKeyReleased
 
     private void btnEditarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProveedorActionPerformed
-        try {
-            model = (DefaultTableModel) tbl_editar.getModel();
-            int indiceFila = tbl_editar.getSelectedRow();
-
-            String codPersona = (String) model.getValueAt(indiceFila, 6);
-            System.out.println("CODIGO PER: "+codPersona);
-
-            actualizarProveedor(txtEditarNombreProveedor.getText().trim(),
-                txtEditarAp1Proveedor.getText().trim(),
-                txtEditarAp2Proveedor.getText().trim(),
-                txtEditarCedulaProveedor.getText().trim(), codPersona);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            ex.printStackTrace();
-        } catch (NullPointerException ex) {
-            ex.printStackTrace();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        prepararEditarProveedor();
     }//GEN-LAST:event_btnEditarProveedorActionPerformed
 
     private void btnEditarGuardarTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarTelActionPerformed
@@ -1366,11 +1494,11 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
                 indice = tbl_editar.getSelectedRow();
                 String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
-                for (Proveedor pv: proveedores) {
+                for (Proveedor pv : proveedores) {
                     if (pv.getCedula().equals(cedula)) {
                         controlador.crearContacto(TipoContacto.TELEFONO, telefono, pv.getCodigo());
                         editarTelefonos = new ArrayList<>();
-                        for (Contacto ct: controlador.obtenerContactos(pv.getCodigo())) {
+                        for (Contacto ct : controlador.obtenerContactos(pv.getCodigo())) {
                             if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
                                 editarTelefonos.add(ct);
                             }
@@ -1379,9 +1507,9 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 }
             } else {
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                    TipoMensaje.PHONE_SYNTAX_FAILURE);
+                        TipoMensaje.PHONE_SYNTAX_FAILURE);
             }
-        }catch (NullPointerException ex) {
+        } catch (NullPointerException ex) {
 
         } catch (Exception ex) {
 
@@ -1391,7 +1519,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         }
 
         DefaultListModel<String> m = new DefaultListModel<>();
-        for (int i=0; i<editarTelefonos.size(); i++) {
+        for (int i = 0; i < editarTelefonos.size(); i++) {
             m.addElement(editarTelefonos.get(i).getInfo());
         }
         lsTelefonos.setModel(m);
@@ -1407,11 +1535,11 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             editarTelefonos.remove(indice);
 
             DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<editarTelefonos.size(); i++) {
+            for (int i = 0; i < editarTelefonos.size(); i++) {
                 m.addElement(editarTelefonos.get(i).getInfo());
             }
             lsTelefonos.setModel(m);
-        } catch(NullPointerException ex) {
+        } catch (NullPointerException ex) {
 
         } catch (ArrayIndexOutOfBoundsException ex) {
 
@@ -1432,16 +1560,16 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
                 indice = tbl_editar.getSelectedRow();
                 String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
-                for (Proveedor pv: proveedores) {
+                for (Proveedor pv : proveedores) {
                     if (pv.getCedula().equals(cedula)) {
                         controlador.crearContacto(TipoContacto.CORREO, correo, pv.getCodigo());
                         editarCorreos = new ArrayList<>();
-                        for (Contacto ct: controlador.obtenerContactos(pv.getCodigo())) {
+                        for (Contacto ct : controlador.obtenerContactos(pv.getCodigo())) {
                             if (ct.getTipo().equals(TipoContacto.CORREO)) {
                                 editarCorreos.add(ct);
 
                                 DefaultListModel<String> m = new DefaultListModel<>();
-                                for (int i=0; i<editarCorreos.size(); i++) {
+                                for (int i = 0; i < editarCorreos.size(); i++) {
                                     m.addElement(editarCorreos.get(i).getInfo());
                                 }
                                 lsCorreos.setModel(m);
@@ -1452,7 +1580,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 }
             } else {
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                    TipoMensaje.EMAIL_SYNTAX_FAILURE);
+                        TipoMensaje.EMAIL_SYNTAX_FAILURE);
             }
         } catch (NullPointerException ex) {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
@@ -1472,11 +1600,11 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             editarCorreos.remove(indice);
 
             DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<editarCorreos.size(); i++) {
+            for (int i = 0; i < editarCorreos.size(); i++) {
                 m.addElement(editarCorreos.get(i).getInfo());
             }
             lsCorreos.setModel(m);
-        } catch(NullPointerException ex) {
+        } catch (NullPointerException ex) {
 
         } catch (ArrayIndexOutOfBoundsException ex) {
 
@@ -1493,7 +1621,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             model = (DefaultTableModel) tblProveedoresActivos.getModel();
             int selectedRowIndex = tblProveedoresActivos.getSelectedRow();
             String cedula
-            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+                    = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
 
             for (int i = 0; i < proveedores.size(); i++) {
                 if (proveedores.get(i).getCedula().equals(cedula)) {
@@ -1508,8 +1636,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             }
         } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
         }
     }//GEN-LAST:event_tblProveedoresActivosMouseClicked
@@ -1520,7 +1647,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 model = (DefaultTableModel) tblProveedoresActivos.getModel();
                 int selectedRowIndex = tblProveedoresActivos.getSelectedRow();
                 String cedula
-                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+                        = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
 
                 for (int i = 0; i < proveedores.size(); i++) {
                     if (proveedores.get(i).getCedula().equals(cedula)) {
@@ -1544,7 +1671,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             model = (DefaultTableModel) tblProveedoresInactivos.getModel();
             int selectedRowIndex = tblProveedoresInactivos.getSelectedRow();
             String cedula
-            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+                    = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
 
             for (int i = 0; i < proveedores.size(); i++) {
                 if (proveedores.get(i).getCedula().equals(cedula)) {
@@ -1557,7 +1684,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                     }
                 }
             }
-        } catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
 
         } catch (ArrayIndexOutOfBoundsException ex) {
 
@@ -1572,7 +1699,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 model = (DefaultTableModel) tblProveedoresInactivos.getModel();
                 int selectedRowIndex = tblProveedoresInactivos.getSelectedRow();
                 String cedula
-                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+                        = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
 
                 for (int i = 0; i < proveedores.size(); i++) {
                     if (proveedores.get(i).getCedula().equals(cedula)) {
@@ -1592,16 +1719,16 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     private void btn_deshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deshabilitarActionPerformed
         try {
 
-            model = tbDeshab.getSelectedIndex() == 0 ?
-            (DefaultTableModel) tblProveedoresActivos.getModel() :
-            (DefaultTableModel) tblProveedoresInactivos.getModel();
+            model = tbDeshab.getSelectedIndex() == 0
+                    ? (DefaultTableModel) tblProveedoresActivos.getModel()
+                    : (DefaultTableModel) tblProveedoresInactivos.getModel();
 
-            int selectedRowIndex = tbDeshab.getSelectedIndex() == 0 ?
-            tblProveedoresActivos.getSelectedRow() :
-            tblProveedoresInactivos.getSelectedRow();
+            int selectedRowIndex = tbDeshab.getSelectedIndex() == 0
+                    ? tblProveedoresActivos.getSelectedRow()
+                    : tblProveedoresInactivos.getSelectedRow();
 
             Estado estado
-            = rbDeshabHabilitarProveedor.isSelected() ? Estado.Activo : Estado.Deshabilitado;
+                    = rbDeshabHabilitarProveedor.isSelected() ? Estado.Activo : Estado.Deshabilitado;
 
             if (estado.equals(Estado.Deshabilitado)) {
                 controlador.inactivarProveedor(model.getValueAt(selectedRowIndex, 0).toString());
@@ -1613,15 +1740,15 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             e.printStackTrace();
             //            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-                //                    TipoMensaje.ANY_ROW_SELECTED);
+            //                    TipoMensaje.ANY_ROW_SELECTED);
         }
     }//GEN-LAST:event_btn_deshabilitarActionPerformed
 
     private void btnCrearProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProveedorActionPerformed
         prepararProveedor(txt_crear_nombreProveedor.getText().trim(),
-            txt_crear_apellido1Proveedor.getText().trim(),
-            txt_crear_apellido2Proveedor.getText().trim(),
-            txt_crear_cedulaProveedor.getText().trim());
+                txt_crear_apellido1Proveedor.getText().trim(),
+                txt_crear_apellido2Proveedor.getText().trim(),
+                txt_crear_cedulaProveedor.getText().trim());
     }//GEN-LAST:event_btnCrearProveedorActionPerformed
 
     private void btnAgregarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCorreoActionPerformed
@@ -1630,13 +1757,13 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         if (verificacion.validaEmail(correo) && !crearCorreos.contains(correo)) {
             crearCorreos.add(correo);
             DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<crearCorreos.size(); i++) {
+            for (int i = 0; i < crearCorreos.size(); i++) {
                 m.addElement(crearCorreos.get(i));
             }
             lsCrearCorreos.setModel(m);
         } else {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                TipoMensaje.EMAIL_SYNTAX_FAILURE);
+                    TipoMensaje.EMAIL_SYNTAX_FAILURE);
         }
     }//GEN-LAST:event_btnAgregarCorreoActionPerformed
 
@@ -1646,13 +1773,13 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         if (verificacion.validaTelefono(telefono) && !crearTelefonos.contains(telefono)) {
             crearTelefonos.add(telefono);
             DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<crearTelefonos.size(); i++) {
+            for (int i = 0; i < crearTelefonos.size(); i++) {
                 m.addElement(crearTelefonos.get(i));
             }
             lsCrearTelefonos.setModel(m);
         } else {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                TipoMensaje.PHONE_SYNTAX_FAILURE);
+                    TipoMensaje.PHONE_SYNTAX_FAILURE);
         }
     }//GEN-LAST:event_btnAgregarTelefonoActionPerformed
 
@@ -1672,6 +1799,21 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         selectDir(cbxBarrio, cbxProvincia, cbxCanton, cbxDistrito, "B");
     }//GEN-LAST:event_cbxDistritoActionPerformed
 
+    private void cbxEditarProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEditarProvinciaActionPerformed
+        selectDir(cbxEditarCanton, cbxEditarProvincia, cbxEditarCanton,
+                cbxEditarDistrito, "C");
+    }//GEN-LAST:event_cbxEditarProvinciaActionPerformed
+
+    private void cbxEditarCantonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEditarCantonActionPerformed
+        selectDir(cbxEditarDistrito, cbxEditarProvincia, cbxEditarCanton,
+                cbxEditarDistrito, "D");
+    }//GEN-LAST:event_cbxEditarCantonActionPerformed
+
+    private void cbxEditarDistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEditarDistritoActionPerformed
+        selectDir(cbxEditarBarrio, cbxEditarProvincia, cbxEditarCanton,
+                cbxEditarDistrito, "B");
+    }//GEN-LAST:event_cbxEditarDistritoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_Habilitar;
@@ -1687,10 +1829,10 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<DirFiltro> cbxBarrio;
     private javax.swing.JComboBox<DirFiltro> cbxCanton;
     private javax.swing.JComboBox<DirFiltro> cbxDistrito;
-    private javax.swing.JComboBox<String> cbxEditarBarrio;
-    private javax.swing.JComboBox<String> cbxEditarCanton;
-    private javax.swing.JComboBox<String> cbxEditarDistrito;
-    private javax.swing.JComboBox<String> cbxEditarProvincia;
+    private javax.swing.JComboBox<DirFiltro> cbxEditarBarrio;
+    private javax.swing.JComboBox<DirFiltro> cbxEditarCanton;
+    private javax.swing.JComboBox<DirFiltro> cbxEditarDistrito;
+    private javax.swing.JComboBox<DirFiltro> cbxEditarProvincia;
     private javax.swing.JComboBox<DirFiltro> cbxProvincia;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblCrearTelefono;
