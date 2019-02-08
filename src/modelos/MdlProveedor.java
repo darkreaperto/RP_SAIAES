@@ -116,22 +116,31 @@ public class MdlProveedor {
      * @param apellido1 apellido 1 del proveedor
      * @param apellido2 apellido 2 del proveedor
      * @param cedula cedula del proveedor
+     * @param dir información de dirección del proveedor
      * @param contactos contactos del proveedor
      * @return True si agrega el proveedor exitosamente
      */
     public boolean crearProveedor(String nombre, String apellido1, 
-            String apellido2, String cedula,ArrayList<ArrayList<Object>> contactos) {
-
+            String apellido2, String cedula, Direccion dir, 
+            ArrayList<ArrayList<Object>> contactos) {
+        
+        int codDireccion = ctrDireccion.crearDireccion(dir.getCodProvincia(), 
+                dir.getCodCanton(), dir.getCodDistrito(), dir.getCodBarrio(), 
+                dir.getOtrasSenas());
+        
+        System.out.println("CODDIR: "+codDireccion);
+        
         ArrayList<Object> params = new ArrayList<>();
         params.add(nombre);
         params.add(apellido1);
         params.add(apellido2);
         params.add(cedula);
+        params.add(codDireccion);
         params.add(Types.BIGINT);
 
         boolean creacionExitosa = true;
         try {
-            procedimiento = "pc_crear_proveedor(?, ?, ?, ?, ?)";
+            procedimiento = "pc_crear_proveedor(?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);

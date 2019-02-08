@@ -515,22 +515,12 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         txtaOtrasSenas.setWrapStyleWord(true);
         jScrollPane3.setViewportView(txtaOtrasSenas);
 
-        cbxProvincia.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbxProvinciaItemStateChanged(evt);
-            }
-        });
         cbxProvincia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxProvinciaActionPerformed(evt);
             }
         });
 
-        cbxCanton.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbxCantonItemStateChanged(evt);
-            }
-        });
         cbxCanton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxCantonActionPerformed(evt);
@@ -561,7 +551,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
                                     .addGroup(pnl_agregarLayout.createSequentialGroup()
                                         .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(lbl_crear_apellidoCliente2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                                            .addComponent(lbl_crear_apellidoCliente1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                            .addComponent(lbl_crear_apellidoCliente1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
                                             .addComponent(lbl_crear_nombreCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(lbl_crear_cedulaCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -804,7 +794,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEditarTelefonoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblEditarApellidoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(lblEditarApellidoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
                     .addComponent(lblEditarNombreCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblEditarCedulaCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblEditarSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
@@ -1369,6 +1359,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
             combo.addItem(listaLugares.get(i));
         }
     }
+    
     /**
      * Crea un nuevo cliente en la BD con la información enviada por parámetro.
      * @param nombre nombre del cliente
@@ -1625,6 +1616,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
         cargarDirJCombo(p, codP, codC, codD, cbxCargar);
     }
+    
     /**
      * Obtiene de la interfaz toda la información necesaria para 
      * crear el cliente. 
@@ -2125,16 +2117,6 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
     private void cbxDistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDistritoActionPerformed
         selectDir(cbxBarrio, cbxProvincia, cbxCanton, cbxDistrito, "B");
     }//GEN-LAST:event_cbxDistritoActionPerformed
-
-    private void cbxProvinciaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxProvinciaItemStateChanged
-        
-    }//GEN-LAST:event_cbxProvinciaItemStateChanged
-
-    private void cbxCantonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxCantonItemStateChanged
-        
-        
-        
-    }//GEN-LAST:event_cbxCantonItemStateChanged
 
     private void cbxEditarProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEditarProvinciaActionPerformed
         selectDir(cbxEditarCanton, cbxEditarProvincia, cbxEditarCanton, 

@@ -85,15 +85,16 @@ public class CtrProveedor {
      * @param apellido1 primer apellido del proveedor
      * @param apellido2 segundo apellido del proveedor
      * @param cedula cedula del proveedor
+     * @param dir información de dirección del proveedor
      * @param contactos lista de contactos del proveedor
      * @return 
      */
     public boolean crearProveedor(String nombre, String apellido1, 
-            String apellido2, String cedula, 
+            String apellido2, String cedula, Direccion dir, 
             ArrayList<ArrayList<Object>> contactos) {
 
         return mdlProveedor.crearProveedor(nombre, apellido1, apellido2, 
-                cedula, contactos);
+                cedula, dir, contactos);
     }
     
     /**

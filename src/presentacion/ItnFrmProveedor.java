@@ -6,16 +6,20 @@
 package presentacion;
 
 import controladores.CtrAcceso;
+import controladores.CtrDireccion;
 import controladores.CtrProveedor;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Contacto;
+import logica.negocio.Direccion;
 import logica.negocio.Proveedor;
 import logica.servicios.Mensaje;
 import logica.servicios.Regex;
+import logica.servicios.DirFiltro;
 import util.Estado;
 import util.TipoContacto;
 import util.TipoMensaje;
@@ -28,6 +32,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
     private static ItnFrmProveedor instancia = null;
     private static CtrProveedor controlador;
+    private static CtrDireccion ctrDireccion;
     private static CtrAcceso sesion;
     private static Mensaje msg;
     private static ArrayList<Proveedor> proveedores;
@@ -46,14 +51,17 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         initComponents();
         //Inicializar variables
         controlador = CtrProveedor.getInstancia();
+        ctrDireccion = CtrDireccion.getInstancia();
         
         ItnFrmProveedor.proveedores = proveedores;
         ItnFrmProveedor.sesion = sesionAcc;
         crearCorreos = new ArrayList<>();
         crearTelefonos = new ArrayList<>();
-        verificacion = new Regex();        
-        cargarTablas();
+        verificacion = new Regex();
         msg = new Mensaje();
+        
+        cargarTablas();
+        cargarDirJCombo("P", "", "", "", cbxProvincia);
     }
     
     /**
@@ -125,7 +133,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         cbxDistrito = new javax.swing.JComboBox<>();
         cbxBarrio = new javax.swing.JComboBox<>();
         scpnlCrearOtrasSenas = new javax.swing.JScrollPane();
-        txaCrearOtrasSenas = new javax.swing.JTextArea();
+        txaOtrasSenas = new javax.swing.JTextArea();
         pnl_actualizar = new javax.swing.JPanel();
         spnl_editar_proveedor = new javax.swing.JScrollPane();
         tbl_editar = new javax.swing.JTable();
@@ -406,9 +414,27 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
         lbl_crear_otrasSenas.setText("Otras señas: ");
 
-        txaCrearOtrasSenas.setColumns(20);
-        txaCrearOtrasSenas.setRows(5);
-        scpnlCrearOtrasSenas.setViewportView(txaCrearOtrasSenas);
+        cbxProvincia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxProvinciaActionPerformed(evt);
+            }
+        });
+
+        cbxCanton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCantonActionPerformed(evt);
+            }
+        });
+
+        cbxDistrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxDistritoActionPerformed(evt);
+            }
+        });
+
+        txaOtrasSenas.setColumns(20);
+        txaOtrasSenas.setRows(5);
+        scpnlCrearOtrasSenas.setViewportView(txaOtrasSenas);
 
         javax.swing.GroupLayout pnl_agregarLayout = new javax.swing.GroupLayout(pnl_agregar);
         pnl_agregar.setLayout(pnl_agregarLayout);
@@ -1075,6 +1101,71 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         tabla.removeColumn(tabla.getColumnModel().getColumn(5));
     }
     
+    /**
+     * Carga los combos de dirección de acuerdo al lugar seleccionado anteriormente
+     * @param cbxCargar Combo a cargar
+     * @param cbxP combo de provincia
+     * @param cbxC combo de cantón
+     * @param cbxD combo de distrito
+     * @param p inicial del combo a cargar
+     */
+    private void selectDir(JComboBox cbxCargar, JComboBox<DirFiltro> cbxP, 
+            JComboBox<DirFiltro> cbxC, JComboBox<DirFiltro> cbxD, String p) {
+        
+        String codP = "";
+        String codC = "";
+        String codD = "";
+        
+        if (p.equals("C")) {
+            codP = cbxP.getItemAt(
+                cbxP.getSelectedIndex()).getCodigo();
+        } else if (p.equals("D")) {
+            if(cbxC.getItemCount() > 0) {
+                codP = cbxP.getItemAt(
+                        cbxP.getSelectedIndex()).getCodigo();
+                codC = cbxC.getItemAt(
+                        cbxC.getSelectedIndex()).getCodigo();
+            }
+        } else if (p.equals("B")) {        
+            if(cbxD.getItemCount() > 0) {
+                codP = cbxP.getItemAt(
+                        cbxP.getSelectedIndex()).getCodigo();
+                codC = cbxC.getItemAt(
+                        cbxC.getSelectedIndex()).getCodigo();
+                codD = cbxD.getItemAt(
+                        cbxD.getSelectedIndex()).getCodigo();
+            }
+        }
+        cargarDirJCombo(p, codP, codC, codD, cbxCargar);
+    }
+    
+    public void cargarDirJCombo(String campo, String codP, String codC, 
+            String codD, JComboBox combo) {
+        
+        combo.removeAllItems();
+        
+        ArrayList<DirFiltro> listaLugares = ctrDireccion.filtrarDireccion(campo,
+                codP, codC, codD);
+        for(int i = 0; i < listaLugares.size(); i++) {
+            combo.addItem(listaLugares.get(i));
+        }
+    }
+    
+    public Direccion prepararDireccion() {
+        
+        String cP = cbxProvincia.getItemAt(cbxProvincia.getSelectedIndex()).getCodigo();
+        String nP = cbxProvincia.getItemAt(cbxProvincia.getSelectedIndex()).getNombre();
+        String cC = cbxCanton.getItemAt(cbxCanton.getSelectedIndex()).getCodigo();
+        String nC = cbxCanton.getItemAt(cbxCanton.getSelectedIndex()).getNombre();
+        String cD = cbxDistrito.getItemAt(cbxDistrito.getSelectedIndex()).getCodigo();
+        String nD = cbxDistrito.getItemAt(cbxDistrito.getSelectedIndex()).getNombre();
+        String cB = cbxBarrio.getItemAt(cbxBarrio.getSelectedIndex()).getCodigo();
+        String nB = cbxBarrio.getItemAt(cbxBarrio.getSelectedIndex()).getNombre();
+        String senas = txaOtrasSenas.getText();
+        
+        return new Direccion(1, cP, nP, cC, nC, cD, nD, cB, nB, senas);
+    }
+    
     private void prepararProveedor(String nombre, String apellido1, 
             String apellido2, String cedula) {
         
@@ -1095,11 +1186,12 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             contactos.add(telefono);
         }
 
-        agregarProveedor(nombre, apellido1, apellido2, cedula, contactos);
+        agregarProveedor(nombre, apellido1, apellido2, cedula, 
+                prepararDireccion(), contactos);
     }
     
     private void agregarProveedor(String nombre, String apellido1, 
-            String apellido2, String cedula,
+            String apellido2, String cedula, Direccion dir, 
             ArrayList<ArrayList<Object>> contactos) {
           
         if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
@@ -1109,7 +1201,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
                 try {                    
                     boolean creado = controlador.crearProveedor(nombre, apellido1, 
-                            apellido2, cedula, contactos);
+                            apellido2, cedula, dir, contactos);
                     
                     if (creado) {
                         msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
@@ -1568,6 +1660,18 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_crear_cedulaProveedorActionPerformed
 
+    private void cbxProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProvinciaActionPerformed
+        selectDir(cbxCanton, cbxProvincia, cbxCanton, cbxDistrito, "C");
+    }//GEN-LAST:event_cbxProvinciaActionPerformed
+
+    private void cbxCantonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCantonActionPerformed
+        selectDir(cbxDistrito, cbxProvincia, cbxCanton, cbxDistrito, "D");
+    }//GEN-LAST:event_cbxCantonActionPerformed
+
+    private void cbxDistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDistritoActionPerformed
+        selectDir(cbxBarrio, cbxProvincia, cbxCanton, cbxDistrito, "B");
+    }//GEN-LAST:event_cbxDistritoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_Habilitar;
@@ -1580,14 +1684,14 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditarGuardarTel;
     private javax.swing.JButton btnEditarProveedor;
     private javax.swing.JButton btn_deshabilitar;
-    private javax.swing.JComboBox<String> cbxBarrio;
-    private javax.swing.JComboBox<String> cbxCanton;
-    private javax.swing.JComboBox<String> cbxDistrito;
+    private javax.swing.JComboBox<DirFiltro> cbxBarrio;
+    private javax.swing.JComboBox<DirFiltro> cbxCanton;
+    private javax.swing.JComboBox<DirFiltro> cbxDistrito;
     private javax.swing.JComboBox<String> cbxEditarBarrio;
     private javax.swing.JComboBox<String> cbxEditarCanton;
     private javax.swing.JComboBox<String> cbxEditarDistrito;
     private javax.swing.JComboBox<String> cbxEditarProvincia;
-    private javax.swing.JComboBox<String> cbxProvincia;
+    private javax.swing.JComboBox<DirFiltro> cbxProvincia;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblCrearTelefono;
     private javax.swing.JLabel lblDeshabSelectProveedor;
@@ -1654,8 +1758,8 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblProveedoresInactivos;
     private javax.swing.JTable tbl_crear;
     private javax.swing.JTable tbl_editar;
-    private javax.swing.JTextArea txaCrearOtrasSenas;
     private javax.swing.JTextArea txaEditarOtrasSenas;
+    private javax.swing.JTextArea txaOtrasSenas;
     private javax.swing.JTextField txtEditarAp1Proveedor;
     private javax.swing.JTextField txtEditarAp2Proveedor;
     private javax.swing.JTextField txtEditarCedulaProveedor;
