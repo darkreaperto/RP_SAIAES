@@ -20,7 +20,7 @@ public class Regex {
     private Matcher matcher;
 
     private static final String EMAIL_REGEX
-            = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
+            = "\\s*\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*\\s*"; //= "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
     private static final String PASSWORD_REGEX
             = "(?=.*[a-z])(?=.*[0-9]).(?=\\S+$).{6,16}"; //(?=.*[A-Z])Mayuscula
     private static final String USERNAME_REGEX

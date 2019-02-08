@@ -6,8 +6,10 @@
 package modelos;
 
 import controladores.CtrConexion;
+import controladores.CtrDireccion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import logica.negocio.Direccion;
 import logica.negocio.Emisor;
 import logica.servicios.Mensaje;
 
@@ -18,6 +20,7 @@ import logica.servicios.Mensaje;
 public class MdlEmisor {
     
     private static CtrConexion conexion;
+    private static CtrDireccion ctrDireccion;
     private static String procedimiento;
     private static ResultSet resultado;
     private static Mensaje msgError;
@@ -28,6 +31,7 @@ public class MdlEmisor {
      */
     public MdlEmisor() {
         conexion = new CtrConexion();
+        ctrDireccion = new CtrDireccion();
         msgError = new Mensaje();
     }
     
@@ -52,6 +56,7 @@ public class MdlEmisor {
             int codPais;
             int numTel;
             String correoElec;
+            int codDireccion;
 
             while (resultado.next()) {
                 cod = resultado.getString("cod_Emisor");
@@ -62,9 +67,13 @@ public class MdlEmisor {
                 codPais = resultado.getInt("codPaisTel_Emisor");
                 numTel = resultado.getInt("numTel_Emisor");
                 correoElec = resultado.getString("correoElec_Emisor");
+                codDireccion = resultado.getInt("codDireccion_Emisor");
+                
+                Direccion dir = ctrDireccion.consultarDireccion(
+                        String.valueOf(codDireccion));
 
                 emi = new Emisor(cod, nombre, tipoId, numId, nomComercial, 
-                        codPais, numTel, correoElec);
+                        codPais, numTel, correoElec, dir);
 
             }
         } catch (SQLException ex) {

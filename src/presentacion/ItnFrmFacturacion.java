@@ -556,10 +556,10 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         System.out.println(numeroIdentEm);
         
         //DIRECCIONS
-        String provinciaEm = "";
-        String cantonEm = "";
-        String distritoEm = "";
-        String otrasSenasEm = "";
+        String provinciaEm = emisor.getDireccion().getCodProvincia();
+        String cantonEm = emisor.getDireccion().getCodCanton();
+        String distritoEm = emisor.getDireccion().getCodBarrio();
+        String otrasSenasEm = emisor.getDireccion().getOtrasSenas();
         int codigoPaisEm = emisor.getCodPais();
         int numTelefonoEm = emisor.getNumTel();
         String correoElectronicoEm = emisor.getCorreoElec();

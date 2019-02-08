@@ -37,7 +37,6 @@ public class CtrEmisor {
      * @return el emisor
      */
     public Emisor obtenerEmisor() {
-        
         return mdlEmisor.obtenerEmisor();
     }
     
