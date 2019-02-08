@@ -1778,6 +1778,7 @@ public class ItnFrmCliente extends javax.swing.JInternalFrame {
         clientes = controlador.consultarClientes(txtListadoCliente.getText().trim());
         cargarClientesJTable(tbListadoCliente, true);
     }
+    
     private void guardarEditContacto(boolean tel) {
         if(tel) {
             String telefono = txtEditarTelefono.getText().trim();
