@@ -501,17 +501,12 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         pnlCrearDireccion.setBounds(831, 12, 334, 235);
 
         pnlCrearInfoBase.setBorder(javax.swing.BorderFactory.createTitledBorder("Información básica"));
-        pnlCrearInfoBase.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_crear_cedulaProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_crear_cedulaProveedorActionPerformed(evt);
             }
         });
-        pnlCrearInfoBase.add(txt_crear_cedulaProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 29, 190, 30));
-        pnlCrearInfoBase.add(txt_crear_nombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 65, 190, 30));
-        pnlCrearInfoBase.add(txt_crear_apellido1Proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 101, 190, 30));
-        pnlCrearInfoBase.add(txt_crear_apellido2Proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 143, 190, 30));
 
         ckbAgregarDireccion.setText("Agregar dirección");
         ckbAgregarDireccion.addActionListener(new java.awt.event.ActionListener() {
@@ -519,19 +514,73 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 ckbAgregarDireccionActionPerformed(evt);
             }
         });
-        pnlCrearInfoBase.add(ckbAgregarDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 200, -1, -1));
 
         lbl_crear_apellido1Proveedor.setText("Primer Apellido:");
-        pnlCrearInfoBase.add(lbl_crear_apellido1Proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 103, 100, 25));
 
         lbl_crear_nombreProveedor.setText("Nombre:");
-        pnlCrearInfoBase.add(lbl_crear_nombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 66, 100, 26));
 
         lbl_crear_cedulaProveedor.setText("Cédula:");
-        pnlCrearInfoBase.add(lbl_crear_cedulaProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 31, 100, 25));
 
         lbl_crear_apellido2Proveedor.setText("Segundo Apellido:");
-        pnlCrearInfoBase.add(lbl_crear_apellido2Proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 145, 100, 25));
+
+        javax.swing.GroupLayout pnlCrearInfoBaseLayout = new javax.swing.GroupLayout(pnlCrearInfoBase);
+        pnlCrearInfoBase.setLayout(pnlCrearInfoBaseLayout);
+        pnlCrearInfoBaseLayout.setHorizontalGroup(
+            pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCrearInfoBaseLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lbl_crear_cedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txt_crear_cedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlCrearInfoBaseLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lbl_crear_nombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txt_crear_nombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlCrearInfoBaseLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lbl_crear_apellido1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txt_crear_apellido1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlCrearInfoBaseLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lbl_crear_apellido2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txt_crear_apellido2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlCrearInfoBaseLayout.createSequentialGroup()
+                .addGap(170, 170, 170)
+                .addComponent(ckbAgregarDireccion))
+        );
+        pnlCrearInfoBaseLayout.setVerticalGroup(
+            pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCrearInfoBaseLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlCrearInfoBaseLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(lbl_crear_cedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_crear_cedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlCrearInfoBaseLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(lbl_crear_nombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_crear_nombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlCrearInfoBaseLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(lbl_crear_apellido1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_crear_apellido1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlCrearInfoBaseLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(lbl_crear_apellido2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_crear_apellido2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(ckbAgregarDireccion))
+        );
 
         pnl_agregar.add(pnlCrearInfoBase);
         pnlCrearInfoBase.setBounds(12, 12, 337, 235);
@@ -1194,11 +1243,11 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     
     /**
      * Preparar la información de la dirección.
-     * @param editar panel editar?
+     * @param pnlEditar ¿es panel editar?
      * @param codDir código de dirección
-     * @return 
+     * @return la dirección
      */
-    public Direccion prepararDireccion(boolean editar, int codDir) {
+    public Direccion prepararDireccion(boolean pnlEditar, int codDir) {
 
         String cP = cbxProvincia.getItemAt(cbxProvincia.getSelectedIndex()).getCodigo();
         String nP = cbxProvincia.getItemAt(cbxProvincia.getSelectedIndex()).getNombre();
@@ -1210,7 +1259,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         String nB = cbxBarrio.getItemAt(cbxBarrio.getSelectedIndex()).getNombre();
         String senas = txaOtrasSenas.getText();
 
-        if (editar) {
+        if (pnlEditar) {
             cP = cbxEditarProvincia.getItemAt(cbxEditarProvincia.getSelectedIndex()).getCodigo();
             nP = cbxEditarProvincia.getItemAt(cbxEditarProvincia.getSelectedIndex()).getNombre();
             cC = cbxEditarCanton.getItemAt(cbxEditarCanton.getSelectedIndex()).getCodigo();
@@ -1222,7 +1271,8 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             senas = txaEditarOtrasSenas.getText();
         }
 
-        return new Direccion(codDir, cP, nP, cC, nC, cD, nD, cB, nB, senas);
+        return ckbAgregarDireccion.isSelected() ? 
+                new Direccion(codDir, cP, nP, cC, nC, cD, nD, cB, nB, senas) : null;
     }
     
     /**
