@@ -6,16 +6,22 @@
 package presentacion;
 
 import controladores.CtrAcceso;
+import controladores.CtrDireccion;
 import controladores.CtrProveedor;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Contacto;
+import logica.negocio.Direccion;
 import logica.negocio.Proveedor;
 import logica.servicios.Mensaje;
 import logica.servicios.Regex;
+import logica.servicios.DirFiltro;
 import util.Estado;
 import util.TipoContacto;
 import util.TipoMensaje;
@@ -28,6 +34,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
     private static ItnFrmProveedor instancia = null;
     private static CtrProveedor controlador;
+    private static CtrDireccion ctrDireccion;
     private static CtrAcceso sesion;
     private static Mensaje msg;
     private static ArrayList<Proveedor> proveedores;
@@ -37,8 +44,10 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     private static ArrayList<Contacto> editarCorreos;
     private static DefaultTableModel model;
     private final Regex verificacion;
+
     /**
      * Creates new form ItnFrmProveedor.
+     *
      * @param sesionAcc usuario en sesión
      * @param proveedores lista de proveedores obtenida desde la bd.
      */
@@ -46,16 +55,20 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         initComponents();
         //Inicializar variables
         controlador = CtrProveedor.getInstancia();
-        
+        ctrDireccion = CtrDireccion.getInstancia();
+
         ItnFrmProveedor.proveedores = proveedores;
         ItnFrmProveedor.sesion = sesionAcc;
         crearCorreos = new ArrayList<>();
         crearTelefonos = new ArrayList<>();
-        verificacion = new Regex();        
-        cargarTablas();
+        verificacion = new Regex();
         msg = new Mensaje();
+
+        cargarTablas();
+        cargarDirJCombo("P", "", "", "", cbxProvincia);
+        pnlCrearDireccion.setVisible(false);
     }
-    
+
     /**
      * Retorna la única instancia de la clase.
      *
@@ -89,14 +102,6 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         scpnlTblListadoProveedor = new javax.swing.JScrollPane();
         tbListadoProveedor = new javax.swing.JTable();
         pnl_agregar = new javax.swing.JPanel();
-        lbl_crear_cedulaProveedor = new javax.swing.JLabel();
-        lbl_crear_nombreProveedor = new javax.swing.JLabel();
-        lbl_crear_apellido1Proveedor = new javax.swing.JLabel();
-        lbl_crear_apellido2Proveedor = new javax.swing.JLabel();
-        txt_crear_cedulaProveedor = new javax.swing.JTextField();
-        txt_crear_nombreProveedor = new javax.swing.JTextField();
-        txt_crear_apellido1Proveedor = new javax.swing.JTextField();
-        txt_crear_apellido2Proveedor = new javax.swing.JTextField();
         pnlCrearContactoProveedor = new javax.swing.JPanel();
         tbCrearContactoProveedores = new javax.swing.JTabbedPane();
         scpnlProveedoresCrearTelefono = new javax.swing.JScrollPane();
@@ -115,17 +120,28 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         spnl_crear_proveedores = new javax.swing.JScrollPane();
         tbl_crear = new javax.swing.JTable();
         btnCrearProveedor = new javax.swing.JButton();
-        lbl_crear_canton = new javax.swing.JLabel();
-        lbl_crear_provincia = new javax.swing.JLabel();
-        lbl_crear_distrito = new javax.swing.JLabel();
-        lbl_crear_barrio = new javax.swing.JLabel();
-        lbl_crear_otrasSenas = new javax.swing.JLabel();
-        cbxProvincia = new javax.swing.JComboBox<>();
-        cbxCanton = new javax.swing.JComboBox<>();
+        pnlCrearDireccion = new javax.swing.JPanel();
         cbxDistrito = new javax.swing.JComboBox<>();
         cbxBarrio = new javax.swing.JComboBox<>();
+        cbxProvincia = new javax.swing.JComboBox<>();
         scpnlCrearOtrasSenas = new javax.swing.JScrollPane();
-        txaCrearOtrasSenas = new javax.swing.JTextArea();
+        txaOtrasSenas = new javax.swing.JTextArea();
+        cbxCanton = new javax.swing.JComboBox<>();
+        lbl_crear_distrito = new javax.swing.JLabel();
+        lbl_crear_otrasSenas = new javax.swing.JLabel();
+        lbl_crear_canton = new javax.swing.JLabel();
+        lbl_crear_barrio = new javax.swing.JLabel();
+        lbl_crear_provincia = new javax.swing.JLabel();
+        pnlCrearInfoBase = new javax.swing.JPanel();
+        txt_crear_cedulaProveedor = new javax.swing.JTextField();
+        txt_crear_nombreProveedor = new javax.swing.JTextField();
+        txt_crear_apellido1Proveedor = new javax.swing.JTextField();
+        txt_crear_apellido2Proveedor = new javax.swing.JTextField();
+        ckbAgregarDireccion = new javax.swing.JCheckBox();
+        lbl_crear_apellido1Proveedor = new javax.swing.JLabel();
+        lbl_crear_nombreProveedor = new javax.swing.JLabel();
+        lbl_crear_cedulaProveedor = new javax.swing.JLabel();
+        lbl_crear_apellido2Proveedor = new javax.swing.JLabel();
         pnl_actualizar = new javax.swing.JPanel();
         spnl_editar_proveedor = new javax.swing.JScrollPane();
         tbl_editar = new javax.swing.JTable();
@@ -243,19 +259,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
         tb_modProveedor.addTab("Listado proveedores", pnl_listado);
 
-        lbl_crear_cedulaProveedor.setText("Cédula:");
-
-        lbl_crear_nombreProveedor.setText("Nombre:");
-
-        lbl_crear_apellido1Proveedor.setText("Primer Apellido:");
-
-        lbl_crear_apellido2Proveedor.setText("Segundo Apellido:");
-
-        txt_crear_cedulaProveedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_crear_cedulaProveedorActionPerformed(evt);
-            }
-        });
+        pnl_agregar.setLayout(null);
 
         pnlCrearContactoProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder("Contacto:"));
         pnlCrearContactoProveedor.setAutoscrolls(true);
@@ -359,16 +363,20 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         pnlCrearContactoProveedor.setLayout(pnlCrearContactoProveedorLayout);
         pnlCrearContactoProveedorLayout.setHorizontalGroup(
             pnlCrearContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlCrearContactoProveedorLayout.createSequentialGroup()
-                .addComponent(tbCrearContactoProveedores)
-                .addGap(10, 10, 10))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearContactoProveedorLayout.createSequentialGroup()
+                .addComponent(tbCrearContactoProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         pnlCrearContactoProveedorLayout.setVerticalGroup(
             pnlCrearContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCrearContactoProveedorLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(tbCrearContactoProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        pnl_agregar.add(pnlCrearContactoProveedor);
+        pnlCrearContactoProveedor.setBounds(360, 10, 454, 235);
 
         tbl_crear.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -389,132 +397,144 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         tbl_crear.getTableHeader().setReorderingAllowed(false);
         spnl_crear_proveedores.setViewportView(tbl_crear);
 
+        pnl_agregar.add(spnl_crear_proveedores);
+        spnl_crear_proveedores.setBounds(12, 259, 1153, 267);
+
         btnCrearProveedor.setText("Crear Proveedor");
         btnCrearProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearProveedorActionPerformed(evt);
             }
         });
+        pnl_agregar.add(btnCrearProveedor);
+        btnCrearProveedor.setBounds(1015, 532, 150, 35);
 
-        lbl_crear_canton.setText("Cantón: ");
+        pnlCrearDireccion.setBorder(javax.swing.BorderFactory.createTitledBorder("Dirección"));
 
-        lbl_crear_provincia.setText("Provincia: ");
+        cbxDistrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxDistritoActionPerformed(evt);
+            }
+        });
+
+        cbxProvincia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxProvinciaActionPerformed(evt);
+            }
+        });
+
+        txaOtrasSenas.setColumns(20);
+        txaOtrasSenas.setLineWrap(true);
+        txaOtrasSenas.setRows(3);
+        txaOtrasSenas.setWrapStyleWord(true);
+        scpnlCrearOtrasSenas.setViewportView(txaOtrasSenas);
+
+        cbxCanton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCantonActionPerformed(evt);
+            }
+        });
 
         lbl_crear_distrito.setText("Distrito: ");
 
-        lbl_crear_barrio.setText("Barrio: ");
-
         lbl_crear_otrasSenas.setText("Otras señas: ");
 
-        txaCrearOtrasSenas.setColumns(20);
-        txaCrearOtrasSenas.setRows(5);
-        scpnlCrearOtrasSenas.setViewportView(txaCrearOtrasSenas);
+        lbl_crear_canton.setText("Cantón: ");
 
-        javax.swing.GroupLayout pnl_agregarLayout = new javax.swing.GroupLayout(pnl_agregar);
-        pnl_agregar.setLayout(pnl_agregarLayout);
-        pnl_agregarLayout.setHorizontalGroup(
-            pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_agregarLayout.createSequentialGroup()
-                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnl_agregarLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCrearProveedor))
-                    .addGroup(pnl_agregarLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(spnl_crear_proveedores)
-                            .addGroup(pnl_agregarLayout.createSequentialGroup()
-                                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(lbl_crear_nombreProveedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                    .addComponent(lbl_crear_cedulaProveedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lbl_crear_apellido1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                                    .addComponent(lbl_crear_apellido2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnl_agregarLayout.createSequentialGroup()
-                                        .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txt_crear_apellido1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txt_crear_apellido2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lbl_crear_otrasSenas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGroup(pnl_agregarLayout.createSequentialGroup()
-                                                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(lbl_crear_barrio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(lbl_crear_distrito, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(cbxDistrito, 0, 188, Short.MAX_VALUE)
-                                                    .addComponent(cbxBarrio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                            .addComponent(scpnlCrearOtrasSenas)))
-                                    .addGroup(pnl_agregarLayout.createSequentialGroup()
-                                        .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(pnl_agregarLayout.createSequentialGroup()
-                                                .addComponent(txt_crear_cedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(lbl_crear_provincia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(pnl_agregarLayout.createSequentialGroup()
-                                                .addComponent(txt_crear_nombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(lbl_crear_canton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(cbxCanton, 0, 188, Short.MAX_VALUE)
-                                            .addComponent(cbxProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(50, 50, 50)
-                                .addComponent(pnlCrearContactoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(229, 229, 229))
-        );
-        pnl_agregarLayout.setVerticalGroup(
-            pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_agregarLayout.createSequentialGroup()
+        lbl_crear_barrio.setText("Barrio: ");
+
+        lbl_crear_provincia.setText("Provincia: ");
+
+        javax.swing.GroupLayout pnlCrearDireccionLayout = new javax.swing.GroupLayout(pnlCrearDireccion);
+        pnlCrearDireccion.setLayout(pnlCrearDireccionLayout);
+        pnlCrearDireccionLayout.setHorizontalGroup(
+            pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCrearDireccionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlCrearContactoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnl_agregarLayout.createSequentialGroup()
-                        .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_crear_cedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_crear_cedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_crear_provincia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_crear_otrasSenas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlCrearDireccionLayout.createSequentialGroup()
+                        .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbl_crear_barrio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbl_crear_distrito, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnl_agregarLayout.createSequentialGroup()
-                                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lbl_crear_nombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_crear_nombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lbl_crear_apellido1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_crear_apellido1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lbl_crear_apellido2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_crear_apellido2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(pnl_agregarLayout.createSequentialGroup()
-                                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbxCanton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_crear_canton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbxDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_crear_distrito, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(pnl_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_crear_barrio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbxBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(4, 4, 4)
-                                .addComponent(lbl_crear_otrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbxDistrito, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbxBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(scpnlCrearOtrasSenas)
+                    .addGroup(pnlCrearDireccionLayout.createSequentialGroup()
+                        .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbl_crear_provincia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_crear_canton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scpnlCrearOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(spnl_crear_proveedores, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCrearProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbxCanton, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbxProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
+        pnlCrearDireccionLayout.setVerticalGroup(
+            pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearDireccionLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_crear_provincia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbxCanton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_crear_canton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbxDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_crear_distrito, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_crear_barrio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addComponent(lbl_crear_otrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scpnlCrearOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pnl_agregar.add(pnlCrearDireccion);
+        pnlCrearDireccion.setBounds(831, 12, 334, 235);
+
+        pnlCrearInfoBase.setBorder(javax.swing.BorderFactory.createTitledBorder("Información básica"));
+        pnlCrearInfoBase.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txt_crear_cedulaProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_crear_cedulaProveedorActionPerformed(evt);
+            }
+        });
+        pnlCrearInfoBase.add(txt_crear_cedulaProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 29, 190, 30));
+        pnlCrearInfoBase.add(txt_crear_nombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 65, 190, 30));
+        pnlCrearInfoBase.add(txt_crear_apellido1Proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 101, 190, 30));
+        pnlCrearInfoBase.add(txt_crear_apellido2Proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 143, 190, 30));
+
+        ckbAgregarDireccion.setText("Agregar dirección");
+        ckbAgregarDireccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckbAgregarDireccionActionPerformed(evt);
+            }
+        });
+        pnlCrearInfoBase.add(ckbAgregarDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 200, -1, -1));
+
+        lbl_crear_apellido1Proveedor.setText("Primer Apellido:");
+        pnlCrearInfoBase.add(lbl_crear_apellido1Proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 103, 100, 25));
+
+        lbl_crear_nombreProveedor.setText("Nombre:");
+        pnlCrearInfoBase.add(lbl_crear_nombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 66, 100, 26));
+
+        lbl_crear_cedulaProveedor.setText("Cédula:");
+        pnlCrearInfoBase.add(lbl_crear_cedulaProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 31, 100, 25));
+
+        lbl_crear_apellido2Proveedor.setText("Segundo Apellido:");
+        pnlCrearInfoBase.add(lbl_crear_apellido2Proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 145, 100, 25));
+
+        pnl_agregar.add(pnlCrearInfoBase);
+        pnlCrearInfoBase.setBounds(12, 12, 337, 235);
 
         tb_modProveedor.addTab("Agregar proveedor", pnl_agregar);
 
@@ -577,10 +597,30 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
         lblEditarBarrio.setText("Barrio:");
 
+        cbxEditarProvincia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxEditarProvinciaActionPerformed(evt);
+            }
+        });
+
+        cbxEditarCanton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxEditarCantonActionPerformed(evt);
+            }
+        });
+
+        cbxEditarDistrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxEditarDistritoActionPerformed(evt);
+            }
+        });
+
         lblEditarOtrasSenas.setText("Otras señas:");
 
         txaEditarOtrasSenas.setColumns(20);
-        txaEditarOtrasSenas.setRows(5);
+        txaEditarOtrasSenas.setLineWrap(true);
+        txaEditarOtrasSenas.setRows(3);
+        txaEditarOtrasSenas.setWrapStyleWord(true);
         scpnlEditarOtrasSenas.setViewportView(txaEditarOtrasSenas);
 
         javax.swing.GroupLayout pnlEditarTelefonoLayout = new javax.swing.GroupLayout(pnlEditarTelefono);
@@ -988,10 +1028,10 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     /**
-     * Para todas las tablas en la interfaz, llama el método que carga una tabla 
-     * con la información de los clientes.
+     * Para todas las tablas en la interfaz, llama el método que carga una tabla
+     * con la información de los proveedores.
      */
-    public void cargarTablas() {
+    public final void cargarTablas() {
         proveedores = controlador.obtenerProveedores();
         cargarProveedorJTable(tbListadoProveedor, true);
         cargarProveedorJTable(tbl_crear, true);
@@ -999,88 +1039,205 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         cargarProveedorJTable(tblProveedoresActivos, true);
         cargarProveedorJTable(tblProveedoresInactivos, false);
     }
-    
+
     /**
-     * Carga/llena una de la interfaz con la información de 
-     * los clientes.
+     * Carga/llena una de la interfaz con la información de los proveedores.
+     *
      * @param tabla Tabla a llenar
-     * @param estado Indica si el cliente está o no inactivo
+     * @param estado Indica si el proveedor está o no inactivo
      */
     public void cargarProveedorJTable(JTable tabla, boolean estado) {
-        Object[] row = new Object[7];
+        Object[] row = new Object[8];
         model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0);
-        model.setColumnCount(7);
+        model.setColumnCount(8);
         int i = 0;
-        for (Proveedor pv: proveedores) {
+        for (Proveedor pv : proveedores) {
 
             if (pv.getEstado().equals(Estado.Activo) && estado) {
-                
+
                 row[0] = pv.getCedula();
-                row[1] = pv.getApellido1(); 
+                row[1] = pv.getApellido1();
                 row[2] = pv.getApellido2();
                 row[3] = pv.getNombre();
-                               
+
                 ArrayList<Contacto> contactos = pv.getContactos();
-                
+
                 String texto = "<html><body>";
-                for (Contacto ct: contactos) {
+                for (Contacto ct : contactos) {
                     String tipo = ct.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
                     texto += tipo + " " + ct.getInfo() + "<br>";
                 }
                 texto += "</body></html>";
                 row[4] = texto;
-                
-                
-                row[5] = pv.getCodProveedor(); //codigo de proveedor
-                row[6] = pv.getCodigo(); //codigo de persona
-                
+
+                String dir = "<html><body>"
+                        + pv.getDireccion().getNomProvincia() + ",<br>"
+                        + pv.getDireccion().getNomCanton() + ",<br>"
+                        + pv.getDireccion().getNomDistrito() + ",<br>"
+                        + pv.getDireccion().getNomBarrio()
+                        + "</body></html>";
+
+                row[5] = dir;
+                row[6] = pv.getCodProveedor(); //codigo de proveedor
+                row[7] = pv.getCodigo(); //codigo de persona
+
                 model.addRow(row);
-                
-                tabla.setRowHeight(i, contactos.size() > 0 ? 
-                        contactos.size()*20 : tabla.getRowHeight(i));
-                
+
+                tabla.setRowHeight(i, contactos.size() > 3
+                        ? tabla.getRowHeight(i) * contactos.size()
+                        : tabla.getRowHeight(i) * 4);
+
                 i++;
             }
             if (pv.getEstado().equals(Estado.Deshabilitado) && !estado) {
-                
+
                 row[0] = pv.getCedula();
-                row[1] = pv.getApellido1(); 
+                row[1] = pv.getApellido1();
                 row[2] = pv.getApellido2();
                 row[3] = pv.getNombre();
-                                
+
                 ArrayList<Contacto> contactos = pv.getContactos();
-                
+
                 String texto = "<html><body>";
-                for (Contacto ct: contactos) {
+                for (Contacto ct : contactos) {
                     String tipo = ct.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
                     texto += tipo + " " + ct.getInfo() + "<br>";
                 }
                 texto += "</body></html>";
                 row[4] = texto;
-                
-                row[5] = pv.getCodProveedor(); //codigo de proveedor
-                row[6] = pv.getCodigo(); //codigo de persona
-                
+
+                String dir = "<html><body>"
+                        + pv.getDireccion().getNomProvincia() + ",<br>"
+                        + pv.getDireccion().getNomCanton() + ",<br>"
+                        + pv.getDireccion().getNomDistrito() + ",<br>"
+                        + pv.getDireccion().getNomBarrio()
+                        + "</body></html>";
+
+                row[5] = dir;
+
+                row[6] = pv.getCodProveedor(); //codigo de proveedor
+                row[7] = pv.getCodigo(); //codigo de persona
+
                 model.addRow(row);
-                
-                tabla.setRowHeight(i, contactos.size() > 0 ? 
-                        contactos.size()*20 : tabla.getRowHeight(i));
-                
+
+                tabla.setRowHeight(i, contactos.size() > 3
+                        ? tabla.getRowHeight(i) * contactos.size()
+                        : tabla.getRowHeight(i) * 4);
+
                 i++;
             }
         }
-        
-        tabla.removeColumn(tabla.getColumnModel().getColumn(5));
-        tabla.removeColumn(tabla.getColumnModel().getColumn(5));
+
+        tabla.removeColumn(tabla.getColumnModel().getColumn(6));
+        tabla.removeColumn(tabla.getColumnModel().getColumn(6));
+    }
+
+    /**
+     * Carga los combos de dirección de acuerdo al lugar seleccionado
+     * anteriormente.
+     * @param cbxCargar Combo a cargar
+     * @param cbxP combo de provincia
+     * @param cbxC combo de cantón
+     * @param cbxD combo de distrito
+     * @param p inicial del combo a cargar
+     */
+    private void selectDir(JComboBox cbxCargar, JComboBox<DirFiltro> cbxP,
+            JComboBox<DirFiltro> cbxC, JComboBox<DirFiltro> cbxD, String p) {
+
+        String codP = "";
+        String codC = "";
+        String codD = "";
+
+        if (p.equals("C")) {
+            codP = cbxP.getItemAt(
+                    cbxP.getSelectedIndex()).getCodigo();
+        } else if (p.equals("D")) {
+            if (cbxC.getItemCount() > 0) {
+                codP = cbxP.getItemAt(
+                        cbxP.getSelectedIndex()).getCodigo();
+                codC = cbxC.getItemAt(
+                        cbxC.getSelectedIndex()).getCodigo();
+            }
+        } else if (p.equals("B")) {
+            if (cbxD.getItemCount() > 0) {
+                codP = cbxP.getItemAt(
+                        cbxP.getSelectedIndex()).getCodigo();
+                codC = cbxC.getItemAt(
+                        cbxC.getSelectedIndex()).getCodigo();
+                codD = cbxD.getItemAt(
+                        cbxD.getSelectedIndex()).getCodigo();
+            }
+        }
+        cargarDirJCombo(p, codP, codC, codD, cbxCargar);
     }
     
-    private void prepararProveedor(String nombre, String apellido1, 
+    /**
+     * Cargar los combos con los lugares de dirección.
+     * @param campo identificador de campo (provincia, cantón, distritio, barrio)
+     * @param codP código de provincia
+     * @param codC código de cantón
+     * @param codD código de didtrito
+     * @param combo combo que se cargará
+     */
+    public final void cargarDirJCombo(String campo, String codP, String codC,
+            String codD, JComboBox combo) {
+
+        combo.removeAllItems();
+
+        ArrayList<DirFiltro> listaLugares = ctrDireccion.filtrarDireccion(campo,
+                codP, codC, codD);
+        for (int i = 0; i < listaLugares.size(); i++) {
+            combo.addItem(listaLugares.get(i));
+        }
+    }
+    
+    /**
+     * Preparar la información de la dirección.
+     * @param editar panel editar?
+     * @param codDir código de dirección
+     * @return 
+     */
+    public Direccion prepararDireccion(boolean editar, int codDir) {
+
+        String cP = cbxProvincia.getItemAt(cbxProvincia.getSelectedIndex()).getCodigo();
+        String nP = cbxProvincia.getItemAt(cbxProvincia.getSelectedIndex()).getNombre();
+        String cC = cbxCanton.getItemAt(cbxCanton.getSelectedIndex()).getCodigo();
+        String nC = cbxCanton.getItemAt(cbxCanton.getSelectedIndex()).getNombre();
+        String cD = cbxDistrito.getItemAt(cbxDistrito.getSelectedIndex()).getCodigo();
+        String nD = cbxDistrito.getItemAt(cbxDistrito.getSelectedIndex()).getNombre();
+        String cB = cbxBarrio.getItemAt(cbxBarrio.getSelectedIndex()).getCodigo();
+        String nB = cbxBarrio.getItemAt(cbxBarrio.getSelectedIndex()).getNombre();
+        String senas = txaOtrasSenas.getText();
+
+        if (editar) {
+            cP = cbxEditarProvincia.getItemAt(cbxEditarProvincia.getSelectedIndex()).getCodigo();
+            nP = cbxEditarProvincia.getItemAt(cbxEditarProvincia.getSelectedIndex()).getNombre();
+            cC = cbxEditarCanton.getItemAt(cbxEditarCanton.getSelectedIndex()).getCodigo();
+            nC = cbxEditarCanton.getItemAt(cbxEditarCanton.getSelectedIndex()).getNombre();
+            cD = cbxEditarDistrito.getItemAt(cbxEditarDistrito.getSelectedIndex()).getCodigo();
+            nD = cbxEditarDistrito.getItemAt(cbxEditarDistrito.getSelectedIndex()).getNombre();
+            cB = cbxEditarBarrio.getItemAt(cbxEditarBarrio.getSelectedIndex()).getCodigo();
+            nB = cbxEditarBarrio.getItemAt(cbxEditarBarrio.getSelectedIndex()).getNombre();
+            senas = txaEditarOtrasSenas.getText();
+        }
+
+        return new Direccion(codDir, cP, nP, cC, nC, cD, nD, cB, nB, senas);
+    }
+    
+    /**
+     * Preparar la información suministrada del proveedor.
+     * @param nombre nombre del proveedor
+     * @param apellido1 primer apellido del proveedor
+     * @param apellido2 segundo apellido del proveedor
+     * @param cedula número de cédula del proveedor
+     */
+    private void prepararProveedor(String nombre, String apellido1,
             String apellido2, String cedula) {
-        
+
         ArrayList<ArrayList<Object>> contactos = new ArrayList<>();
         ArrayList<Object> correo;
-        for (int i=0; i<lsCrearCorreos.getModel().getSize(); i++) {
+        for (int i = 0; i < lsCrearCorreos.getModel().getSize(); i++) {
             correo = new ArrayList<>();
             correo.add(TipoContacto.CORREO);
             correo.add(lsCrearCorreos.getModel().getElementAt(i));
@@ -1088,97 +1245,164 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         }
 
         ArrayList<Object> telefono;
-        for (int i=0; i<lsCrearTelefonos.getModel().getSize(); i++) {
+        for (int i = 0; i < lsCrearTelefonos.getModel().getSize(); i++) {
             telefono = new ArrayList<>();
             telefono.add(TipoContacto.TELEFONO);
             telefono.add(lsCrearTelefonos.getModel().getElementAt(i));
             contactos.add(telefono);
         }
-
-        agregarProveedor(nombre, apellido1, apellido2, cedula, contactos);
+        
+        //enviar la información del proveedor para crear
+        agregarProveedor(nombre, apellido1, apellido2, cedula,
+                prepararDireccion(false, 1), contactos);
     }
     
-    private void agregarProveedor(String nombre, String apellido1, 
-            String apellido2, String cedula,
+    /**
+     * Verificar la información suministrada y crear el proveedor.
+     * @param nombre nombre del proveedor
+     * @param apellido1 primer apellido del proveedor
+     * @param apellido2 segundo apellido del proveedor
+     * @param cedula número de cédula del proveedor
+     * @param dir dirección del proveedor
+     * @param contactos lista de contactos
+     */
+    private void agregarProveedor(String nombre, String apellido1,
+            String apellido2, String cedula, Direccion dir,
             ArrayList<ArrayList<Object>> contactos) {
-          
+
         if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
 //            if (verificacion.validaNombre(nombre) && 
 //                    verificacion.validaNombre(apellido1) && 
 //                    verificacion.validaNombre(apellido2)) {
 
-                try {                    
-                    boolean creado = controlador.crearProveedor(nombre, apellido1, 
-                            apellido2, cedula, contactos);
-                    
-                    if (creado) {
-                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                        TipoMensaje.CUSTOMER_INSERTION_SUCCESS);
-                        
-                        cargarTablas();
-                    } else {
-                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                        TipoMensaje.CUSTOMER_INSERTION_FAILURE);
-                    }
-                } catch (NumberFormatException ex) {
-                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                    TipoMensaje.NUMBER_FORMAT_EXCEPTION);
-                } catch (Exception ex) {
-                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
-                    TipoMensaje.SOMETHING_WENT_WRONG);
+            try {
+                boolean creado = controlador.crearProveedor(nombre, apellido1,
+                        apellido2, cedula, dir, contactos);
+
+                if (creado) {
+                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+                            TipoMensaje.CUSTOMER_INSERTION_SUCCESS);
+
+                    cargarTablas();
+                } else {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                            TipoMensaje.CUSTOMER_INSERTION_FAILURE);
                 }
+            } catch (NumberFormatException ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                        TipoMensaje.NUMBER_FORMAT_EXCEPTION);
+            } catch (Exception ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                        TipoMensaje.SOMETHING_WENT_WRONG);
+            }
 //            } else {
 //                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
 //                    TipoMensaje.WRONG_CUSTOMER_FIELDS);
 //            }
         } else {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
                     TipoMensaje.EMPTY_CUSTOMER_FIELDS);
         }
     }
+
+    /**
+     * Obtiene de la interfaz toda la información necesaria para editar el
+     * proveedor.
+     */
+    private void prepararEditarProveedor() {
+        try {
+            model = (DefaultTableModel) tbl_editar.getModel();
+            int indiceFila = tbl_editar.getSelectedRow();
+
+            String codPersona = (String) model.getValueAt(indiceFila, 7);
+            System.out.println("CODIGO PER EDITAR PROV: " + codPersona);
+
+            int codDir = 0;
+            for (int i = 0; i < proveedores.size(); i++) {
+                if (proveedores.get(i).getCodigo().equals(codPersona)) {
+                    codDir = proveedores.get(i).getDireccion().getCodigo();
+                }
+            }
+
+            actualizarProveedor(txtEditarNombreProveedor.getText().trim(),
+                    txtEditarAp1Proveedor.getText().trim(),
+                    txtEditarAp2Proveedor.getText().trim(),
+                    txtEditarCedulaProveedor.getText().trim(), codPersona,
+                    prepararDireccion(true, codDir));
+
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            ex.printStackTrace();
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+
+        }
+    }
     
-    private void actualizarProveedor(String nombre, String apellido1, 
-            String apellido2, String cedula, String codPersona) {
-        
+    /**
+     * Verifica la nueva información ingresada y actualiza la información del 
+     * proveedor.
+     * @param nombre
+     * @param apellido1
+     * @param apellido2
+     * @param cedula
+     * @param codPersona
+     * @param dir 
+     */
+    private void actualizarProveedor(String nombre, String apellido1,
+            String apellido2, String cedula, String codPersona, Direccion dir) {
+
         if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
 //            if (verificacion.validaNombre(nombre) && 
 //                    verificacion.validaNombre(apellido1) && 
 //                    verificacion.validaNombre(apellido2)) {
 
-                try {
-                    boolean actualizado = controlador.actualizarProveedor(
-                            nombre, apellido1, apellido2, cedula, codPersona);
+            try {
+                boolean actualizado = controlador.actualizarProveedor(
+                        nombre, apellido1, apellido2, cedula, codPersona, dir);
 
-                    if (actualizado) {
-                        System.out.println("Yay!");
-                        cargarTablas();
-                        
-                        txtEditarCedulaProveedor.setText("");
-                        txtEditarCorreoProveedor.setText("");
-                        txtEditarNombreProveedor.setText("");
-                        txtEditarAp1Proveedor.setText("");
-                        txtEditarAp2Proveedor.setText("");
-                        txtEditarTelefono.setText("");
-                        
-                        lsCorreos.setModel(new DefaultListModel());
-                        lsCorreos.setModel(new DefaultListModel());
-                    } else {
-                        System.out.println("Yaq!");
-                    }
-                } catch (NumberFormatException ex) {
-                    System.err.println(ex);
-                } catch (Exception ex) {
-                    System.err.println(ex);
+                if (actualizado) {
+                    System.out.println("Yay!");
+                    cargarTablas();
+                    
+                    //limpiar los campos con la información
+                    txtEditarCedulaProveedor.setText("");
+                    txtEditarCorreoProveedor.setText("");
+                    txtEditarNombreProveedor.setText("");
+                    txtEditarAp1Proveedor.setText("");
+                    txtEditarAp2Proveedor.setText("");
+                    txtEditarTelefono.setText("");
+                    txaEditarOtrasSenas.setText("");
+
+                    lsCorreos.setModel(new DefaultListModel());
+                    lsCorreos.setModel(new DefaultListModel());
+                    
+                    
+                } else {
+                    System.out.println("Yaq!");
                 }
-            } else {
-
+            } catch (NumberFormatException ex) {
+                System.err.println(ex);
+            } catch (Exception ex) {
+                System.err.println(ex);
             }
+        } else {
+
+        }
 //        } else {
 //            
 //        }
     }
-    
-    private void cargarEditarCliente(Proveedor proveedor) {
+
+    /**
+     * Carga la información del proveedor seleccionado desde la interfaz (tabla) 
+     * en los campos correspondientes para su edición.
+     * @param proveedor proveedor seleccionado
+     */
+    private void cargarEditarProveedor(Proveedor proveedor) {
+
         txtEditarCedulaProveedor.setText(proveedor.getCedula());
         txtEditarNombreProveedor.setText(proveedor.getNombre());
         txtEditarAp1Proveedor.setText(proveedor.getApellido1());
@@ -1188,8 +1412,8 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         editarCorreos = new ArrayList<>();
         DefaultListModel<String> mTelefonos = new DefaultListModel<>();
         DefaultListModel<String> mCorreos = new DefaultListModel<>();
-        
-        for (Contacto ct: proveedor.getContactos()) {
+
+        for (Contacto ct : proveedor.getContactos()) {
             if (ct.getTipo().equals(TipoContacto.CORREO)) {
                 editarCorreos.add(ct);
                 mCorreos.addElement(ct.getInfo());
@@ -1202,204 +1426,287 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         }
         lsTelefonos.setModel(mTelefonos);
         lsCorreos.setModel(mCorreos);
+
+        cargarEditDirProveedor(proveedor);
+    }
+
+    /**
+     * Cargar la dirección del proveedor seleccionado.
+     * @param proveedor proveedor seleccionado en JTable
+     */
+    private void cargarEditDirProveedor(Proveedor proveedor) {
+        //Cargar dirección del proveedor
+        String iP = proveedor.getDireccion().getCodProvincia();
+        String iC = proveedor.getDireccion().getCodCanton();
+        String iD = proveedor.getDireccion().getCodDistrito();
+        String iB = proveedor.getDireccion().getCodBarrio();
+        String oS = proveedor.getDireccion().getOtrasSenas();
+
+        //PROVINCIA
+        cargarDirJCombo("P", "", "", "", cbxEditarProvincia);
+        for (int i = 0; i < cbxEditarProvincia.getItemCount(); i++) {
+            if (cbxEditarProvincia.getItemAt(i).getCodigo().equals(iP)) {
+                cbxEditarProvincia.setSelectedIndex(i);
+            }
+        }
+        //codigo de provincia seleccionada
+        String codP = cbxEditarProvincia.getItemAt(
+                cbxEditarProvincia.getSelectedIndex()).getCodigo();
+
+        //CANTON
+        cargarDirJCombo("C", codP, "", "", cbxEditarCanton);
+        for (int i = 0; i < cbxEditarCanton.getItemCount(); i++) {
+            if (cbxEditarCanton.getItemAt(i).getCodigo().equals(iC)) {
+                cbxEditarCanton.setSelectedIndex(i);
+            }
+        }
+        // codigo del cantón seleccionado
+        String codC = cbxEditarCanton.getItemAt(
+                cbxEditarCanton.getSelectedIndex()).getCodigo();
+
+        //DISTRITO
+        cargarDirJCombo("D", codP, codC, "", cbxEditarDistrito);
+        for (int i = 0; i < cbxEditarDistrito.getItemCount(); i++) {
+            if (cbxEditarDistrito.getItemAt(i).getCodigo().equals(iD)) {
+                cbxEditarDistrito.setSelectedIndex(i);
+            }
+        }
+        String codD = cbxEditarDistrito.getItemAt(
+                cbxEditarDistrito.getSelectedIndex()).getCodigo();
+
+        //BARRIO
+        cargarDirJCombo("B", codP, codC, codD, cbxEditarBarrio);
+        for (int i = 0; i < cbxEditarBarrio.getItemCount(); i++) {
+            if (cbxEditarBarrio.getItemAt(i).getCodigo().equals(iB)) {
+                cbxEditarBarrio.setSelectedIndex(i);
+            }
+        }
+
+        txaEditarOtrasSenas.setText(oS);
+    }
+
+    /**
+     * Reacciona a los eventos de selección de la tabla con los proveedores y 
+     * obtiene la información del proveedor seleccionado.
+     */
+    private void selectProveedorEditar() {
+        try {
+            model = (DefaultTableModel) tbl_editar.getModel();
+            int selectedRowIndex = tbl_editar.getSelectedRow();
+            String cedula
+                    = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+            for (int i = 0; i < proveedores.size(); i++) {
+                if (proveedores.get(i).getCedula().equals(cedula)) {
+                    cargarEditarProveedor(proveedores.get(i));
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
     
-    
-    private void txtListadoProveedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtListadoProveedorKeyReleased
-        proveedores = controlador.consultarProveedor(txtListadoProveedor.getText().trim());
-        cargarProveedorJTable(tbListadoProveedor, true);
-    }//GEN-LAST:event_txtListadoProveedorKeyReleased
+    /**
+     * Guarda los contactos ingresados desde la pestaña de edición.
+     * @param tel ¿es teléfono (true) o correo (false)?
+     */
+    private void guardarEditContacto(boolean tel) {
+        if(tel) {
+            String telefono = txtEditarTelefono.getText().trim();
+            try {
+                if (verificacion.validaTelefono(telefono)) {
 
-    private void tbl_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_editarMouseClicked
-        try {
-            model = (DefaultTableModel) tbl_editar.getModel();
-            int selectedRowIndex = tbl_editar.getSelectedRow();
-            String cedula
-            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-            for (int i = 0; i < proveedores.size(); i++) {
-                if (proveedores.get(i).getCedula().equals(cedula)) {
-                    cargarEditarCliente(proveedores.get(i));
-                }
-            }
-        } catch (Exception ex) {
-
-        }
-    }//GEN-LAST:event_tbl_editarMouseClicked
-
-    private void tbl_editarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_editarKeyReleased
-        try {
-            model = (DefaultTableModel) tbl_editar.getModel();
-            int selectedRowIndex = tbl_editar.getSelectedRow();
-            String cedula
-            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-            for (int i = 0; i < proveedores.size(); i++) {
-                if (proveedores.get(i).getCedula().equals(cedula)) {
-                    cargarEditarCliente(proveedores.get(i));
-                    System.out.println(proveedores.get(i).getCedula());
-                }
-            }
-        } catch (Exception ex) {
-
-        }
-    }//GEN-LAST:event_tbl_editarKeyReleased
-
-    private void btnEditarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProveedorActionPerformed
-        try {
-            model = (DefaultTableModel) tbl_editar.getModel();
-            int indiceFila = tbl_editar.getSelectedRow();
-
-            String codPersona = (String) model.getValueAt(indiceFila, 6);
-            System.out.println("CODIGO PER: "+codPersona);
-
-            actualizarProveedor(txtEditarNombreProveedor.getText().trim(),
-                txtEditarAp1Proveedor.getText().trim(),
-                txtEditarAp2Proveedor.getText().trim(),
-                txtEditarCedulaProveedor.getText().trim(), codPersona);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            ex.printStackTrace();
-        } catch (NullPointerException ex) {
-            ex.printStackTrace();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_btnEditarProveedorActionPerformed
-
-    private void btnEditarGuardarTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarTelActionPerformed
-        String telefono = txtEditarTelefono.getText().trim();
-        int indice = 0;
-        try {
-            if (verificacion.validaTelefono(telefono)) {// && !editarTelefonos.contains(telefono)) {
-
-                indice = tbl_editar.getSelectedRow();
-                String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
-                for (Proveedor pv: proveedores) {
-                    if (pv.getCedula().equals(cedula)) {
-                        controlador.crearContacto(TipoContacto.TELEFONO, telefono, pv.getCodigo());
-                        editarTelefonos = new ArrayList<>();
-                        for (Contacto ct: controlador.obtenerContactos(pv.getCodigo())) {
-                            if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
-                                editarTelefonos.add(ct);
-                            }
-                        }
-                    }
-                }
-            } else {
-                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                    TipoMensaje.PHONE_SYNTAX_FAILURE);
-            }
-        }catch (NullPointerException ex) {
-
-        } catch (Exception ex) {
-
-        } finally {
-            cargarTablas();
-            tbl_editar.setRowSelectionInterval(indice, indice);
-        }
-
-        DefaultListModel<String> m = new DefaultListModel<>();
-        for (int i=0; i<editarTelefonos.size(); i++) {
-            m.addElement(editarTelefonos.get(i).getInfo());
-        }
-        lsTelefonos.setModel(m);
-        txtEditarTelefono.setText("");
-    }//GEN-LAST:event_btnEditarGuardarTelActionPerformed
-
-    private void btnEditarCancelTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelTelActionPerformed
-        int indice = 0;
-        try {
-            indice = lsTelefonos.getSelectedIndex();
-            String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
-            controlador.inactivarContacto(editarTelefonos.get(indice).getCodigo());
-            editarTelefonos.remove(indice);
-
-            DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<editarTelefonos.size(); i++) {
-                m.addElement(editarTelefonos.get(i).getInfo());
-            }
-            lsTelefonos.setModel(m);
-        } catch(NullPointerException ex) {
-
-        } catch (ArrayIndexOutOfBoundsException ex) {
-
-        } catch (Exception ex) {
-
-        } finally {
-            cargarTablas();
-            tbl_editar.setRowSelectionInterval(indice, indice);
-        }
-    }//GEN-LAST:event_btnEditarCancelTelActionPerformed
-
-    private void btnEditarGuardarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarCorreoActionPerformed
-        //msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, null);
-        String correo = txtEditarCorreoProveedor.getText().trim();
-        int indice = 0;
-        try {
-            if (verificacion.validaEmail(correo)) {
-
-                indice = tbl_editar.getSelectedRow();
-                String cedula = tbl_editar.getModel().getValueAt(indice, 0).toString();
-                for (Proveedor pv: proveedores) {
-                    if (pv.getCedula().equals(cedula)) {
-                        controlador.crearContacto(TipoContacto.CORREO, correo, pv.getCodigo());
-                        editarCorreos = new ArrayList<>();
-                        for (Contacto ct: controlador.obtenerContactos(pv.getCodigo())) {
-                            if (ct.getTipo().equals(TipoContacto.CORREO)) {
-                                editarCorreos.add(ct);
-
-                                DefaultListModel<String> m = new DefaultListModel<>();
-                                for (int i=0; i<editarCorreos.size(); i++) {
-                                    m.addElement(editarCorreos.get(i).getInfo());
+                    int indice = tbl_editar.getSelectedRow();
+                    String cedula = 
+                        tbl_editar.getModel().getValueAt(indice, 0).toString();
+                    for (Proveedor p: proveedores) {
+                        if (p.getCedula().equals(cedula)) {
+                            controlador.crearContacto(
+                                TipoContacto.TELEFONO, telefono, p.getCodigo());
+                            editarTelefonos = new ArrayList<>();
+                            
+                            for (Contacto ct: controlador.obtenerContactos(
+                                    p.getCodigo())) {
+                                if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
+                                    editarTelefonos.add(ct);
+                                    DefaultListModel<String> m = 
+                                            new DefaultListModel<>();
+                                    
+                                    for (int i=0; i<editarTelefonos.size(); i++) {
+                                        m.addElement(
+                                            editarTelefonos.get(i).getInfo());
+                                    }
+                                    lsTelefonos.setModel(m);
+                                    txtEditarTelefono.setText("");
                                 }
-                                lsCorreos.setModel(m);
-                                txtEditarCorreoProveedor.setText("");
                             }
                         }
                     }
+                } else {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.PHONE_SYNTAX_FAILURE);
                 }
+            }catch (NullPointerException ex) {
+
+            } catch (Exception ex) {
+
+            } finally {
+                cargarTablas();
+            }
+        } else {
+            String correo = txtEditarCorreoProveedor.getText().trim();
+            int indice = 0;
+            try {
+                if (verificacion.validaEmail(correo)) {
+                    indice = tbl_editar.getSelectedRow();
+                    String cedula = 
+                        tbl_editar.getModel().getValueAt(indice, 0).toString();
+                    for (Proveedor p: proveedores) {
+                        if (p.getCedula().equals(cedula)) {
+                            controlador.crearContacto(TipoContacto.CORREO, 
+                                    correo, p.getCodigo());
+                            editarCorreos = new ArrayList<>();
+                            
+                            for (Contacto ct: controlador.obtenerContactos(
+                                    p.getCodigo())) {
+                                if (ct.getTipo().equals(TipoContacto.CORREO)) {
+                                    editarCorreos.add(ct);
+                                    DefaultListModel<String> m = 
+                                            new DefaultListModel<>();
+                                    for (int i=0; i<editarCorreos.size(); i++) {
+                                        m.addElement(
+                                                editarCorreos.get(i).getInfo());
+                                    }
+                                    lsCorreos.setModel(m);
+                                    txtEditarCorreoProveedor.setText("");
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.EMAIL_SYNTAX_FAILURE);
+                }
+            } catch (NullPointerException ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+            } catch (Exception ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, null);
+            } finally {
+                cargarTablas();
+                tbl_editar.setRowSelectionInterval(indice, indice);
+            }
+        }
+    }
+    
+    /**
+     * Borra el contacto seleccionado desde la pestaña de edición.
+     * @param tel ¿es teléfono (true) o correo (false)?
+     */
+    private void cancelEditContacto(boolean tel) {
+        if(tel) {
+            try {
+                int indice = lsTelefonos.getSelectedIndex();            
+                controlador.inactivarContacto(
+                        editarTelefonos.get(indice).getCodigo());
+                editarTelefonos.remove(indice);
+
+                DefaultListModel<String> m = new DefaultListModel<>();
+                for (int i=0; i<editarTelefonos.size(); i++) {
+                    m.addElement(editarTelefonos.get(i).getInfo());
+                }
+                lsTelefonos.setModel(m);
+            } catch(NullPointerException ex) {
+                System.out.println("Cancel editar telefono: null pointer");
+                ex.printStackTrace();
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                System.out.println("Cancel editar telefono: index out of bounds");
+                ex.printStackTrace();
+            } catch (Exception ex) {
+                System.out.println("Cancel editar telefono: exception");
+                ex.printStackTrace();
+            } finally {
+                cargarTablas();
+            }
+        } else {
+            int indice = 0;
+            try {
+                indice = lsCorreos.getSelectedIndex();
+                controlador.inactivarContacto(editarCorreos.get(indice).getCodigo());
+                editarCorreos.remove(indice);
+
+                DefaultListModel<String> m = new DefaultListModel<>();
+                for (int i=0; i<editarCorreos.size(); i++) {
+                    m.addElement(editarCorreos.get(i).getInfo());
+                }
+                lsCorreos.setModel(m);
+            } catch(NullPointerException ex) {
+                System.out.println("Cancel editar correo: null pointer ");
+                ex.printStackTrace();
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                System.out.println("Cancel editar correo: index out of bounds");
+                ex.printStackTrace();
+            } catch (Exception ex) {
+                System.out.println("Cancel editar correo: exception");
+                ex.printStackTrace();
+            } finally {
+                cargarTablas();
+                tbl_editar.setRowSelectionInterval(indice, indice);
+            }
+        }
+    }
+    
+    /**
+     * Guarda la información de contacto al agregar un provedor.
+     * @param tel ¿es teléfono (true) o correo (false)?
+     */
+    private void guardarAgregarContacto(boolean tel) {
+        if(tel) {
+            String telefono = txt_agregarTelefono.getText().trim();
+            if (verificacion.validaTelefono(telefono) && 
+                    !crearTelefonos.contains(telefono)) {
+                crearTelefonos.add(telefono);
+                DefaultListModel<String> m = new DefaultListModel<>();
+                for (int i=0; i<crearTelefonos.size(); i++) {
+                    m.addElement(crearTelefonos.get(i));
+                }
+                lsCrearTelefonos.setModel(m);
             } else {
-                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                    TipoMensaje.EMAIL_SYNTAX_FAILURE);
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.PHONE_SYNTAX_FAILURE);
             }
-        } catch (NullPointerException ex) {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
-        } catch (Exception ex) {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, null);
-        } finally {
-            cargarTablas();
-            tbl_editar.setRowSelectionInterval(indice, indice);
-        }
-    }//GEN-LAST:event_btnEditarGuardarCorreoActionPerformed
-
-    private void btnEditarCancelCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelCorreoActionPerformed
-        int indice = 0;
-        try {
-            indice = lsCorreos.getSelectedIndex();
-            controlador.inactivarContacto(editarCorreos.get(indice).getCodigo());
-            editarCorreos.remove(indice);
-
-            DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<editarCorreos.size(); i++) {
-                m.addElement(editarCorreos.get(i).getInfo());
+            txt_agregarTelefono.setText("");
+        } else {
+            String correo = txt_agregarCorreo.getText().trim();
+            if (verificacion.validaEmail(correo) 
+                    && !crearCorreos.contains(correo)) {
+                crearCorreos.add(correo);
+                DefaultListModel<String> m = new DefaultListModel<>();
+                for (int i=0; i<crearCorreos.size(); i++) {
+                    m.addElement(crearCorreos.get(i));
+                }
+                lsCrearCorreos.setModel(m);
+            } else {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.EMAIL_SYNTAX_FAILURE);
             }
-            lsCorreos.setModel(m);
-        } catch(NullPointerException ex) {
-
-        } catch (ArrayIndexOutOfBoundsException ex) {
-
-        } catch (Exception ex) {
-
-        } finally {
-            cargarTablas();
-            tbl_editar.setRowSelectionInterval(indice, indice);
+            txt_agregarCorreo.setText("");
         }
-    }//GEN-LAST:event_btnEditarCancelCorreoActionPerformed
-
-    private void tblProveedoresActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedoresActivosMouseClicked
+        
+    }
+    
+    /**
+     * Marca los proveedores como activos o inactivos en la tabla 
+     * correspondiente dependiendo del estado que tengan en la BD.
+     * @param tabla tabla a cargar con proveedores
+     * @param rbD radio botón deshabilitar
+     * @param rbH  radio botón habilitar
+     */
+    private void selecProveedorPorEstado(JTable tabla, 
+            JRadioButton rbD, JRadioButton rbH) {
+        //CLIENTES ACTIVOS MOUSE
         try {
-            model = (DefaultTableModel) tblProveedoresActivos.getModel();
-            int selectedRowIndex = tblProveedoresActivos.getSelectedRow();
+            model = (DefaultTableModel) tabla.getModel();
+            int selectedRowIndex = tabla.getSelectedRow();
             String cedula
             = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
 
@@ -1408,9 +1715,9 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                     //Si el codigo coincide
                     if (proveedores.get(i).getEstado().equals(Estado.Activo)) {
                         //Verifica el tipo de estado
-                        rbDeshabDeshabProveedor.setSelected(true);
+                        rbD.setSelected(true);
                     } else {
-                        rbDeshabHabilitarProveedor.setSelected(true);
+                        rbH.setSelected(true);
                     }
                 }
             }
@@ -1420,153 +1727,181 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         catch (Exception ex) {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
         }
+    }
+    
+    /**
+     * Cambia el estado del proveedor (activo o inactivo).
+     */
+    private void activarInactivarProveedor() {
+        
+        try {
+            model = tbDeshab.getSelectedIndex() == 0 ? 
+                    (DefaultTableModel) tblProveedoresActivos.getModel() : 
+                    (DefaultTableModel) tblProveedoresInactivos.getModel();
+
+            int selectedRowIndex = tbDeshab.getSelectedIndex() == 0 ? 
+                    tblProveedoresActivos.getSelectedRow() : 
+                    tblProveedoresInactivos.getSelectedRow();
+
+            Estado estado
+                    = rbDeshabHabilitarProveedor.isSelected() ? Estado.Activo : 
+                    Estado.Deshabilitado;
+
+            if (estado.equals(Estado.Deshabilitado)) {
+                controlador.inactivarProveedor(
+                        model.getValueAt(selectedRowIndex, 0).toString());
+            } else {
+                controlador.activarProveedor(
+                        model.getValueAt(selectedRowIndex, 0).toString());
+            }
+            //Actualizar tablas
+            cargarTablas();
+        } catch (Exception e) {
+            e.printStackTrace();
+//            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+//                    TipoMensaje.ANY_ROW_SELECTED);
+        }
+    }
+    
+    private void mostrarDireccion(boolean pnlCrear, JCheckBox ckb) {
+        
+//        pnlFacVarios.setVisible(true);
+//        pnlFacVarios.setBounds(x, y, 520, h);
+//        pnl_modFactura.add(pnlFacVarios);
+//        pnlAgregarProd.setVisible(false);
+//        txtDescripcionVarios.requestFocus();
+        
+        if (pnlCrear) {
+            if (ckb.isSelected()) {
+                
+                int x = pnl_agregar.getWidth()-363;
+                int y = 10;
+                int w = 334;
+                int h = 235; 
+                
+                pnlCrearDireccion.setVisible(true);
+                pnlCrearDireccion.setBounds(x, y, w, h);
+                pnl_agregar.add(pnlCrearDireccion);
+            } else {
+                pnlCrearDireccion.setVisible(false);
+                //pnl_agregar.repaint();
+            }
+        }
+    }
+
+    private void txtListadoProveedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtListadoProveedorKeyReleased
+        proveedores = controlador.consultarProveedor(txtListadoProveedor.getText().trim());
+        cargarProveedorJTable(tbListadoProveedor, true);
+    }//GEN-LAST:event_txtListadoProveedorKeyReleased
+
+    private void tbl_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_editarMouseClicked
+        selectProveedorEditar();
+    }//GEN-LAST:event_tbl_editarMouseClicked
+
+    private void tbl_editarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_editarKeyReleased
+        if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+            selectProveedorEditar();
+        }
+    }//GEN-LAST:event_tbl_editarKeyReleased
+
+    private void btnEditarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProveedorActionPerformed
+        prepararEditarProveedor();
+    }//GEN-LAST:event_btnEditarProveedorActionPerformed
+
+    private void btnEditarGuardarTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarTelActionPerformed
+        guardarEditContacto(true);
+    }//GEN-LAST:event_btnEditarGuardarTelActionPerformed
+
+    private void btnEditarCancelTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelTelActionPerformed
+        cancelEditContacto(true);
+    }//GEN-LAST:event_btnEditarCancelTelActionPerformed
+
+    private void btnEditarGuardarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarGuardarCorreoActionPerformed
+        guardarEditContacto(false);
+    }//GEN-LAST:event_btnEditarGuardarCorreoActionPerformed
+
+    private void btnEditarCancelCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCancelCorreoActionPerformed
+        cancelEditContacto(false);
+    }//GEN-LAST:event_btnEditarCancelCorreoActionPerformed
+
+    private void tblProveedoresActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedoresActivosMouseClicked
+        selecProveedorPorEstado(tblProveedoresInactivos, rbDeshabDeshabProveedor,
+                    rbDeshabHabilitarProveedor);
     }//GEN-LAST:event_tblProveedoresActivosMouseClicked
 
     private void tblProveedoresActivosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblProveedoresActivosKeyReleased
-        try {
-            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
-                model = (DefaultTableModel) tblProveedoresActivos.getModel();
-                int selectedRowIndex = tblProveedoresActivos.getSelectedRow();
-                String cedula
-                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-                for (int i = 0; i < proveedores.size(); i++) {
-                    if (proveedores.get(i).getCedula().equals(cedula)) {
-                        //Si el codigo coincide
-                        if (proveedores.get(i).getEstado().equals(Estado.Activo)) {
-                            //Verifica el tipo de estado
-                            rbDeshabDeshabProveedor.setSelected(true);
-                        } else {
-                            rbDeshabHabilitarProveedor.setSelected(true);
-                        }
-                    }
-                }
-            }
-        } catch (Exception ex) {
-
+        if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+            selecProveedorPorEstado(tblProveedoresInactivos, rbDeshabDeshabProveedor,
+                    rbDeshabHabilitarProveedor);
         }
     }//GEN-LAST:event_tblProveedoresActivosKeyReleased
 
     private void tblProveedoresInactivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedoresInactivosMouseClicked
-        try {
-            model = (DefaultTableModel) tblProveedoresInactivos.getModel();
-            int selectedRowIndex = tblProveedoresInactivos.getSelectedRow();
-            String cedula
-            = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-            for (int i = 0; i < proveedores.size(); i++) {
-                if (proveedores.get(i).getCedula().equals(cedula)) {
-                    //Si el codigo coincide
-                    if (proveedores.get(i).getEstado().equals(Estado.Deshabilitado)) {
-                        //Verifica el tipo de estado
-                        rbDeshabHabilitarProveedor.setSelected(true);
-                    } else {
-                        rbDeshabDeshabProveedor.setSelected(true);
-                    }
-                }
-            }
-        } catch (NullPointerException ex){
-
-        } catch (ArrayIndexOutOfBoundsException ex) {
-
-        } catch (Exception ex) {
-
-        }
+        selecProveedorPorEstado(tblProveedoresInactivos, rbDeshabDeshabProveedor,
+                    rbDeshabHabilitarProveedor);
     }//GEN-LAST:event_tblProveedoresInactivosMouseClicked
 
     private void tblProveedoresInactivosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblProveedoresInactivosKeyReleased
-        try {
-            if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
-                model = (DefaultTableModel) tblProveedoresInactivos.getModel();
-                int selectedRowIndex = tblProveedoresInactivos.getSelectedRow();
-                String cedula
-                = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-                for (int i = 0; i < proveedores.size(); i++) {
-                    if (proveedores.get(i).getCedula().equals(cedula)) {
-                        if (proveedores.get(i).getEstado().equals(Estado.Deshabilitado)) {
-                            rbDeshabHabilitarProveedor.setSelected(true);
-                        } else {
-                            rbDeshabDeshabProveedor.setSelected(true);
-                        }
-                    }
-                }
-            }
-        } catch (Exception ex) {
-
+        if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
+            selecProveedorPorEstado(tblProveedoresInactivos, rbDeshabDeshabProveedor,
+                    rbDeshabHabilitarProveedor);
         }
     }//GEN-LAST:event_tblProveedoresInactivosKeyReleased
 
     private void btn_deshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deshabilitarActionPerformed
-        try {
-
-            model = tbDeshab.getSelectedIndex() == 0 ?
-            (DefaultTableModel) tblProveedoresActivos.getModel() :
-            (DefaultTableModel) tblProveedoresInactivos.getModel();
-
-            int selectedRowIndex = tbDeshab.getSelectedIndex() == 0 ?
-            tblProveedoresActivos.getSelectedRow() :
-            tblProveedoresInactivos.getSelectedRow();
-
-            Estado estado
-            = rbDeshabHabilitarProveedor.isSelected() ? Estado.Activo : Estado.Deshabilitado;
-
-            if (estado.equals(Estado.Deshabilitado)) {
-                controlador.inactivarProveedor(model.getValueAt(selectedRowIndex, 0).toString());
-            } else {
-                controlador.activarProveedor(model.getValueAt(selectedRowIndex, 0).toString());
-            }
-            //Actualizar
-            cargarTablas();
-        } catch (Exception e) {
-            e.printStackTrace();
-            //            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-                //                    TipoMensaje.ANY_ROW_SELECTED);
-        }
+        activarInactivarProveedor();
     }//GEN-LAST:event_btn_deshabilitarActionPerformed
 
     private void btnCrearProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProveedorActionPerformed
         prepararProveedor(txt_crear_nombreProveedor.getText().trim(),
-            txt_crear_apellido1Proveedor.getText().trim(),
-            txt_crear_apellido2Proveedor.getText().trim(),
-            txt_crear_cedulaProveedor.getText().trim());
+                txt_crear_apellido1Proveedor.getText().trim(),
+                txt_crear_apellido2Proveedor.getText().trim(),
+                txt_crear_cedulaProveedor.getText().trim());
     }//GEN-LAST:event_btnCrearProveedorActionPerformed
 
     private void btnAgregarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCorreoActionPerformed
-        String correo = txt_agregarCorreo.getText().trim();
-
-        if (verificacion.validaEmail(correo) && !crearCorreos.contains(correo)) {
-            crearCorreos.add(correo);
-            DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<crearCorreos.size(); i++) {
-                m.addElement(crearCorreos.get(i));
-            }
-            lsCrearCorreos.setModel(m);
-        } else {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                TipoMensaje.EMAIL_SYNTAX_FAILURE);
-        }
+        guardarAgregarContacto(false);
     }//GEN-LAST:event_btnAgregarCorreoActionPerformed
 
     private void btnAgregarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTelefonoActionPerformed
-        String telefono = txt_agregarTelefono.getText().trim();
-
-        if (verificacion.validaTelefono(telefono) && !crearTelefonos.contains(telefono)) {
-            crearTelefonos.add(telefono);
-            DefaultListModel<String> m = new DefaultListModel<>();
-            for (int i=0; i<crearTelefonos.size(); i++) {
-                m.addElement(crearTelefonos.get(i));
-            }
-            lsCrearTelefonos.setModel(m);
-        } else {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                TipoMensaje.PHONE_SYNTAX_FAILURE);
-        }
+        guardarAgregarContacto(true);
     }//GEN-LAST:event_btnAgregarTelefonoActionPerformed
 
     private void txt_crear_cedulaProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_crear_cedulaProveedorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_crear_cedulaProveedorActionPerformed
+
+    private void cbxProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProvinciaActionPerformed
+        selectDir(cbxCanton, cbxProvincia, cbxCanton, cbxDistrito, "C");
+    }//GEN-LAST:event_cbxProvinciaActionPerformed
+
+    private void cbxCantonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCantonActionPerformed
+        selectDir(cbxDistrito, cbxProvincia, cbxCanton, cbxDistrito, "D");
+    }//GEN-LAST:event_cbxCantonActionPerformed
+
+    private void cbxDistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDistritoActionPerformed
+        selectDir(cbxBarrio, cbxProvincia, cbxCanton, cbxDistrito, "B");
+    }//GEN-LAST:event_cbxDistritoActionPerformed
+
+    private void cbxEditarProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEditarProvinciaActionPerformed
+        selectDir(cbxEditarCanton, cbxEditarProvincia, cbxEditarCanton,
+                cbxEditarDistrito, "C");
+    }//GEN-LAST:event_cbxEditarProvinciaActionPerformed
+
+    private void cbxEditarCantonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEditarCantonActionPerformed
+        selectDir(cbxEditarDistrito, cbxEditarProvincia, cbxEditarCanton,
+                cbxEditarDistrito, "D");
+    }//GEN-LAST:event_cbxEditarCantonActionPerformed
+
+    private void cbxEditarDistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEditarDistritoActionPerformed
+        selectDir(cbxEditarBarrio, cbxEditarProvincia, cbxEditarCanton,
+                cbxEditarDistrito, "B");
+    }//GEN-LAST:event_cbxEditarDistritoActionPerformed
+
+    private void ckbAgregarDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbAgregarDireccionActionPerformed
+        mostrarDireccion(true, ckbAgregarDireccion);
+        System.out.println("CKB EVENT");
+    }//GEN-LAST:event_ckbAgregarDireccionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1580,14 +1915,15 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditarGuardarTel;
     private javax.swing.JButton btnEditarProveedor;
     private javax.swing.JButton btn_deshabilitar;
-    private javax.swing.JComboBox<String> cbxBarrio;
-    private javax.swing.JComboBox<String> cbxCanton;
-    private javax.swing.JComboBox<String> cbxDistrito;
-    private javax.swing.JComboBox<String> cbxEditarBarrio;
-    private javax.swing.JComboBox<String> cbxEditarCanton;
-    private javax.swing.JComboBox<String> cbxEditarDistrito;
-    private javax.swing.JComboBox<String> cbxEditarProvincia;
-    private javax.swing.JComboBox<String> cbxProvincia;
+    private javax.swing.JComboBox<DirFiltro> cbxBarrio;
+    private javax.swing.JComboBox<DirFiltro> cbxCanton;
+    private javax.swing.JComboBox<DirFiltro> cbxDistrito;
+    private javax.swing.JComboBox<DirFiltro> cbxEditarBarrio;
+    private javax.swing.JComboBox<DirFiltro> cbxEditarCanton;
+    private javax.swing.JComboBox<DirFiltro> cbxEditarDistrito;
+    private javax.swing.JComboBox<DirFiltro> cbxEditarProvincia;
+    private javax.swing.JComboBox<DirFiltro> cbxProvincia;
+    private javax.swing.JCheckBox ckbAgregarDireccion;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblCrearTelefono;
     private javax.swing.JLabel lblDeshabSelectProveedor;
@@ -1619,6 +1955,8 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     private javax.swing.JList<String> lsTelefonos;
     private javax.swing.JPanel pnlCrearContactoProveedor;
     private javax.swing.JPanel pnlCrearCorreo;
+    private javax.swing.JPanel pnlCrearDireccion;
+    private javax.swing.JPanel pnlCrearInfoBase;
     private javax.swing.JPanel pnlCrearTelefono;
     private javax.swing.JPanel pnlDeshabContainer;
     private javax.swing.JPanel pnlEditarContactoProveedor;
@@ -1654,8 +1992,8 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblProveedoresInactivos;
     private javax.swing.JTable tbl_crear;
     private javax.swing.JTable tbl_editar;
-    private javax.swing.JTextArea txaCrearOtrasSenas;
     private javax.swing.JTextArea txaEditarOtrasSenas;
+    private javax.swing.JTextArea txaOtrasSenas;
     private javax.swing.JTextField txtEditarAp1Proveedor;
     private javax.swing.JTextField txtEditarAp2Proveedor;
     private javax.swing.JTextField txtEditarCedulaProveedor;
