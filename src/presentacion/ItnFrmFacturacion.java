@@ -137,7 +137,9 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
      */
     public void llenarListaClientes(String p) {
         Cliente cli = new Cliente();
-        cli.setNombre("ESTIMADO CLIENTE");
+        cli.setNombre("ESTI");
+        cli.setApellido1("MADO");
+        cli.setApellido2("CLIENTE");
         System.out.println("Nombre del cliente: " + p);
         ArrayList<Cliente> listaCli = ctrCliente.consultarClientes(p);
         
@@ -150,15 +152,21 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             if (listaCli.get(i).getCedula().equals(p)) {
                 cli = listaCli.get(i);
                 break;
-            } else if (listaCli.get(i).getNombre().toUpperCase().contains(
-                    p.toUpperCase())) {
-                cli = listaCli.get(i);
-                cli.setNombre(listaCli.get(i).getNombre());
-                System.out.println(cli.getNombre());
-                cbxClientes.setSelectedItem(cli);
-                break;
+//            } else if (listaCli.get(i).getNombre().concat(" "+
+//                    listaCli.get(i).getApellido1()).concat(" "+
+//                            listaCli.get(i).getApellido2()).toUpperCase().
+//                    contains(p.toUpperCase())) {
+//                
+//                cli = listaCli.get(i);
+//                //cli.setNombre(listaCli.get(i).getNombre());
+//                System.out.println(cli.getNombre());
+//                cbxClientes.setSelectedItem(cli);
+//                break;
             }
         }
+        cli = listaCli.size()>0 ? listaCli.get(0) : cli;
+        System.out.println(cli.getNombre());
+        cbxClientes.setSelectedItem(cli);
         System.out.println("Cli nombre: " + cli.getNombre());
         lblClienteNom.setText(cli.getNombre());
         
@@ -232,14 +240,14 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     public void buscarCliente() {
         try {
             String cedula = ftClienteFac.getText().replace("-", "").trim();
-            String nombre = cbxClientes.getSelectedItem().toString();
+            String nombre = "";cbxClientes.getSelectedItem().toString();
             if(!nombre.isEmpty()) {
                 llenarListaClientes(nombre);
             } else {
                 llenarListaClientes(cedula);
             }
         } catch (Exception ex) {
-            msg.mostrarMensaje(JOptionPane.ERROR, TipoMensaje.EMPTY_TEXT_FIELD);
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.EMPTY_TEXT_FIELD);
             
         }
     }
@@ -1278,7 +1286,6 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                         .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pnlAgregarProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnl_modFacturaLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnAddImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -1425,6 +1432,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 
     private void cbxClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxClientesActionPerformed
         //if(cbxClientes.getItemCount()>0){
+        System.out.println("CBX ACTION PERF");
             buscarCliente();
         //}
     }//GEN-LAST:event_cbxClientesActionPerformed
@@ -1432,6 +1440,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     private void cbxClientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxClientesKeyReleased
         System.out.println(evt.getKeyCode());
         //if (evt.getKeyCode() == 10) {
+        System.out.println("CBX KEY REL");
             buscarCliente();
         //}
     }//GEN-LAST:event_cbxClientesKeyReleased
