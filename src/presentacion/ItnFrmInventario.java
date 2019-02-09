@@ -89,6 +89,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             cbxNuevoTProveedor.addItem(item);
             cbxEditarTProveedor.addItem(item);
         }
+        if(proveedores.size() >0) {
+            cbxNuevoTProveedor.setSelectedIndex(0);
+        }
+        
         
         tmaderas = ctrTipoMadera.obtenerTiposMadera();
         tmaderas.forEach((item) -> {
@@ -99,6 +103,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             cbxNuevoTmVariedad.addItem(item);
             cbxEditarTmVariedad.addItem(item);
         });
+        cbxNuevoTVariedad.setSelectedIndex(0);
         
         productos = controlador.obtenerProductos();  
         for (Madera item : productos) {
@@ -110,8 +115,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 cbxActTmCodigo.addItem(item);
             }
         }
-        cbxNuevoTProveedor.setSelectedIndex(0);
-        cbxNuevoTVariedad.setSelectedIndex(0);
+        
     }
 
     /**
@@ -140,10 +144,12 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0);
         model.setColumnCount(9);
-
+        
+        System.out.println("PROD SIZE: " + productos.size());
         for (int i = 0; i < productos.size(); i++) {
             //tipo prod- codigo- variedad- medidas- proveedor- unidades- precio- descripción
             if (productos.get(i).getEstado().equals(Estado.Activo) && estado) {
+                System.out.println("AGREGAR A TABLA");
                 row[0] = productos.get(i).getTipoProducto();
                 row[1] = productos.get(i).getCodProducto();////////
                 row[2] = productos.get(i).getDescTipoMadera();
@@ -312,6 +318,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     boolean crear = controlador.crearProducto(codProd, cTmadera,
                             medida, tipoProducto, unit, preci, descripcion,
                             cProveedor);
+                    System.out.println("CREAR: " + crear);
                     if (crear) {
                         cargarTablas();
                         cargarCombos();                        
