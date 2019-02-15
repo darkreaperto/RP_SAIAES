@@ -70,11 +70,10 @@ public class MdlDireccion {
                 idBarrio = resultado.getString("idBarrio");
                 nomBarrio = resultado.getString("nombreBarrio");
                 otrasSenas = resultado.getString("otrasSenas_Direcciones");
-
                 
-                    dir = new Direccion(codDireccion, idProvincia, 
-                                nomProvincia, idCanton, nomCanton, idDistrito, nomDistrito,
-                                idBarrio, nomBarrio, otrasSenas);
+                dir = new Direccion(codDireccion, idProvincia, 
+                        nomProvincia, idCanton, nomCanton, idDistrito,
+                        nomDistrito, idBarrio, nomBarrio, otrasSenas);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

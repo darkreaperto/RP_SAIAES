@@ -93,7 +93,12 @@ public class MdlCliente {
                 estadoCliente = resultado.getString("estado_Clientes");
                 
                 contactos = ctrContacto.consultarContactos(codPersona);
-                dirPersona = ctrDireccion.consultarDireccion(codDireccion);
+                System.out.println("HERE: " + codDireccion);
+                if(codDireccion == null) {
+                    dirPersona = null;
+                } else {
+                    dirPersona = ctrDireccion.consultarDireccion(codDireccion);
+                }
                 
                 Cliente usuario
                         = new Cliente(codPersona, nombrePersona, 
@@ -134,12 +139,16 @@ public class MdlCliente {
     public boolean crearCliente(String nombre, String apellido1, 
             String apellido2, String cedula, double limiteCred, 
             boolean aprobarCred, Direccion dir, ArrayList<ArrayList<Object>> contactos) {
-
-        int codDireccion = ctrDireccion.crearDireccion(dir.getCodProvincia(), 
+        
+        int codDireccion;
+        if(dir != null) {
+            codDireccion = ctrDireccion.crearDireccion(dir.getCodProvincia(), 
                 dir.getCodCanton(), dir.getCodDistrito(), dir.getCodBarrio(), 
                 dir.getOtrasSenas());
+        } else {
+            codDireccion = 0;
+        }
         
-        System.out.println("CODDIR: "+codDireccion);
         ArrayList<Object> params = new ArrayList<>();
         params.add(nombre);
         params.add(apellido1);
@@ -213,7 +222,7 @@ public class MdlCliente {
      */
     public boolean actualizarCliente(String nombre, String apellido1, 
             String apellido2, String cedula, double limiteCred, 
-            boolean aprobarCred, String codPersona) {
+            boolean aprobarCred, String codPersona, ) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(nombre);

@@ -24,7 +24,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
 import logica.negocio.Consecutivo;
-import logica.negocio.Contacto;
 import logica.negocio.Emisor;
 import logica.negocio.FacEncabezado;
 import logica.negocio.FacResumen;

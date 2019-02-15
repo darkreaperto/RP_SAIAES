@@ -67,6 +67,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         
         cargarTablas();
         cargarDirJCombo("P", "", "", "", cbxProvincia);
+        pnlEditarDireccion.setVisible(false);
     }
     
     /**
@@ -158,30 +159,33 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         tbEditarContactoClientes = new javax.swing.JTabbedPane();
         scpnlClientesEditarCliente = new javax.swing.JScrollPane();
         pnlEditarTelefono = new javax.swing.JPanel();
-        txtEditarCedulaCliente = new javax.swing.JTextField();
-        lblEditarCedulaCliente = new javax.swing.JLabel();
-        txtEditarNombreCliente = new javax.swing.JTextField();
-        lblEditarNombreCliente = new javax.swing.JLabel();
         pnlEditarCreditoCliente = new javax.swing.JPanel();
         rbEditarCreditoLim = new javax.swing.JRadioButton();
         rbEditarCredito = new javax.swing.JRadioButton();
         rbEditarSinCredito = new javax.swing.JRadioButton();
-        txtEditarPrimerApellido = new javax.swing.JTextField();
-        lblEditarApellidoCliente = new javax.swing.JLabel();
-        lblEditarSegundoApellido = new javax.swing.JLabel();
-        txtEditarSegundoApellido = new javax.swing.JTextField();
         lblEditarLimiteCliente = new javax.swing.JLabel();
         txtEditarLimiteCliente = new javax.swing.JTextField();
-        lblEditarProvincia = new javax.swing.JLabel();
-        lblEditarCanton = new javax.swing.JLabel();
-        lblEditarDistrito = new javax.swing.JLabel();
+        pnlInfoBasica = new javax.swing.JPanel();
+        lblEditarCedulaCliente = new javax.swing.JLabel();
+        txtEditarCedulaCliente = new javax.swing.JTextField();
+        lblEditarNombreCliente = new javax.swing.JLabel();
+        txtEditarNombreCliente = new javax.swing.JTextField();
+        lblEditarApellidoCliente = new javax.swing.JLabel();
+        txtEditarPrimerApellido = new javax.swing.JTextField();
+        lblEditarSegundoApellido = new javax.swing.JLabel();
+        txtEditarSegundoApellido = new javax.swing.JTextField();
+        ckbEditarDireccion = new javax.swing.JCheckBox();
+        pnlEditarDireccion = new javax.swing.JPanel();
         lblEditarBarrio = new javax.swing.JLabel();
-        cbxEditarProvincia = new javax.swing.JComboBox<>();
-        cbxEditarCanton = new javax.swing.JComboBox<>();
-        cbxEditarDistrito = new javax.swing.JComboBox<>();
         cbxEditarBarrio = new javax.swing.JComboBox<>();
-        lblEditarOtrasSenas = new javax.swing.JLabel();
+        cbxEditarDistrito = new javax.swing.JComboBox<>();
+        lblEditarDistrito = new javax.swing.JLabel();
+        lblEditarCanton = new javax.swing.JLabel();
+        cbxEditarCanton = new javax.swing.JComboBox<>();
+        cbxEditarProvincia = new javax.swing.JComboBox<>();
+        lblEditarProvincia = new javax.swing.JLabel();
         txaEditarOtrasSenas = new javax.swing.JTextArea();
+        lblEditarOtrasSenas = new javax.swing.JLabel();
         scpnlClientesEditarContacto = new javax.swing.JScrollPane();
         pnlEditarCorreo = new javax.swing.JPanel();
         pnlEditarContactoCliente = new javax.swing.JPanel();
@@ -540,10 +544,10 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                             .addComponent(lbl_crear_cedulaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_crear_cedulaCliente)
                             .addComponent(txt_crear_nombreCliente)
                             .addComponent(txt_crear_apellidoCliente1)
-                            .addComponent(txt_crear_apellidoCliente2)))
+                            .addComponent(txt_crear_apellidoCliente2)
+                            .addComponent(txt_crear_cedulaCliente)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearInfoBaseLayout.createSequentialGroup()
                         .addGap(0, 149, Short.MAX_VALUE)
                         .addComponent(ckbAgregarDireccion)))
@@ -624,15 +628,15 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlCrearDireccionLayout.createSequentialGroup()
-                        .addComponent(lbl_crear_canton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlCrearDireccionLayout.createSequentialGroup()
                         .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlCrearDireccionLayout.createSequentialGroup()
                                 .addComponent(lbl_crear_barrio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cbxBarrio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(cbxCanton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlCrearDireccionLayout.createSequentialGroup()
+                                .addComponent(lbl_crear_canton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbxCanton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlCrearDireccionLayout.createSequentialGroup()
                                 .addComponent(lbl_crear_provincia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -650,24 +654,22 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         pnlCrearDireccionLayout.setVerticalGroup(
             pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCrearDireccionLayout.createSequentialGroup()
-                .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lbl_crear_provincia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbxProvincia))
+                    .addComponent(cbxProvincia, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbl_crear_canton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbxCanton, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_crear_canton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxCanton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbl_crear_distrito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbxDistrito, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_crear_distrito, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_crear_barrio, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlCrearDireccionLayout.createSequentialGroup()
-                        .addComponent(cbxBarrio)
-                        .addGap(1, 1, 1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(cbxBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_crear_barrio1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -722,10 +724,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         pnlEditarTelefono.setRequestFocusEnabled(false);
 
-        lblEditarCedulaCliente.setText("Cédula:");
-
-        lblEditarNombreCliente.setText("Nombre:");
-
         pnlEditarCreditoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Crédito de Cliente:"));
 
         bg_editarCredito.add(rbEditarCreditoLim);
@@ -752,6 +750,10 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        lblEditarLimiteCliente.setText("Límite de crédito:");
+
+        txtEditarLimiteCliente.setEditable(false);
+
         javax.swing.GroupLayout pnlEditarCreditoClienteLayout = new javax.swing.GroupLayout(pnlEditarCreditoCliente);
         pnlEditarCreditoCliente.setLayout(pnlEditarCreditoClienteLayout);
         pnlEditarCreditoClienteLayout.setHorizontalGroup(
@@ -759,53 +761,97 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             .addGroup(pnlEditarCreditoClienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlEditarCreditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlEditarCreditoClienteLayout.createSequentialGroup()
-                        .addComponent(rbEditarSinCredito)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlEditarCreditoClienteLayout.createSequentialGroup()
-                        .addGroup(pnlEditarCreditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rbEditarCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rbEditarCreditoLim))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(rbEditarSinCredito)
+                    .addGroup(pnlEditarCreditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblEditarLimiteCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(rbEditarCredito, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(rbEditarCreditoLim, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtEditarLimiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlEditarCreditoClienteLayout.setVerticalGroup(
             pnlEditarCreditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEditarCreditoClienteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(rbEditarCredito)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbEditarSinCredito)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbEditarCreditoLim))
+                .addComponent(rbEditarCreditoLim)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblEditarLimiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtEditarLimiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        pnlInfoBasica.setBorder(javax.swing.BorderFactory.createTitledBorder("Información Básica"));
+
+        lblEditarCedulaCliente.setText("Cédula:");
+
+        lblEditarNombreCliente.setText("Nombre:");
 
         lblEditarApellidoCliente.setText("Primer Apellido:");
 
         lblEditarSegundoApellido.setText("Segundo Apellido:");
 
-        lblEditarLimiteCliente.setText("Límite de crédito:");
+        ckbEditarDireccion.setText("Agregar dirección");
+        ckbEditarDireccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckbEditarDireccionActionPerformed(evt);
+            }
+        });
 
-        txtEditarLimiteCliente.setEditable(false);
+        javax.swing.GroupLayout pnlInfoBasicaLayout = new javax.swing.GroupLayout(pnlInfoBasica);
+        pnlInfoBasica.setLayout(pnlInfoBasicaLayout);
+        pnlInfoBasicaLayout.setHorizontalGroup(
+            pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInfoBasicaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlInfoBasicaLayout.createSequentialGroup()
+                        .addGap(0, 153, Short.MAX_VALUE)
+                        .addComponent(ckbEditarDireccion))
+                    .addGroup(pnlInfoBasicaLayout.createSequentialGroup()
+                        .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblEditarSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(lblEditarApellidoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblEditarCedulaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblEditarNombreCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtEditarNombreCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                            .addComponent(txtEditarCedulaCliente)
+                            .addComponent(txtEditarPrimerApellido)
+                            .addComponent(txtEditarSegundoApellido))))
+                .addContainerGap())
+        );
+        pnlInfoBasicaLayout.setVerticalGroup(
+            pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlInfoBasicaLayout.createSequentialGroup()
+                .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEditarCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEditarCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEditarNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEditarNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEditarApellidoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEditarPrimerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEditarSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEditarSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, Short.MAX_VALUE)
+                .addComponent(ckbEditarDireccion)
+                .addContainerGap())
+        );
 
-        lblEditarProvincia.setText("Provincia:");
-
-        lblEditarCanton.setText("Cantón:");
-
-        lblEditarDistrito.setText("Distrito:");
+        pnlEditarDireccion.setBorder(javax.swing.BorderFactory.createTitledBorder("Dirección "));
 
         lblEditarBarrio.setText("Barrio:");
-
-        cbxEditarProvincia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxEditarProvinciaActionPerformed(evt);
-            }
-        });
-
-        cbxEditarCanton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxEditarCantonActionPerformed(evt);
-            }
-        });
 
         cbxEditarDistrito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -813,10 +859,80 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        lblEditarOtrasSenas.setText("Otras señas:");
+        lblEditarDistrito.setText("Distrito:");
+
+        lblEditarCanton.setText("Cantón:");
+
+        cbxEditarCanton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxEditarCantonActionPerformed(evt);
+            }
+        });
+
+        cbxEditarProvincia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxEditarProvinciaActionPerformed(evt);
+            }
+        });
+
+        lblEditarProvincia.setText("Provincia:");
 
         txaEditarOtrasSenas.setColumns(20);
         txaEditarOtrasSenas.setRows(5);
+
+        lblEditarOtrasSenas.setText("Otras señas:");
+
+        javax.swing.GroupLayout pnlEditarDireccionLayout = new javax.swing.GroupLayout(pnlEditarDireccion);
+        pnlEditarDireccion.setLayout(pnlEditarDireccionLayout);
+        pnlEditarDireccionLayout.setHorizontalGroup(
+            pnlEditarDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEditarDireccionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlEditarDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEditarDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblEditarDistrito, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblEditarCanton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblEditarProvincia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
+                    .addComponent(lblEditarBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlEditarDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEditarDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(cbxEditarDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbxEditarCanton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbxEditarBarrio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxEditarProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlEditarDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEditarOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txaEditarOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlEditarDireccionLayout.setVerticalGroup(
+            pnlEditarDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEditarDireccionLayout.createSequentialGroup()
+                .addGroup(pnlEditarDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEditarDireccionLayout.createSequentialGroup()
+                        .addGroup(pnlEditarDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblEditarProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxEditarProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlEditarDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblEditarCanton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxEditarCanton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlEditarDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblEditarDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxEditarDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlEditarDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblEditarBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxEditarBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlEditarDireccionLayout.createSequentialGroup()
+                        .addComponent(lblEditarOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txaEditarOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout pnlEditarTelefonoLayout = new javax.swing.GroupLayout(pnlEditarTelefono);
         pnlEditarTelefono.setLayout(pnlEditarTelefonoLayout);
@@ -824,84 +940,21 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEditarTelefonoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblEditarApellidoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(lblEditarNombreCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblEditarCedulaCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblEditarSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                .addComponent(pnlInfoBasica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtEditarCedulaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                    .addComponent(txtEditarNombreCliente)
-                    .addComponent(txtEditarPrimerApellido)
-                    .addComponent(txtEditarSegundoApellido))
-                .addGap(27, 27, 27)
-                .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblEditarProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEditarDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEditarCanton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEditarBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(pnlEditarCreditoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cbxEditarProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxEditarDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxEditarCanton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxEditarBarrio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEditarOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txaEditarOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlEditarCreditoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtEditarLimiteCliente, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblEditarLimiteCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)))
-                .addGap(27, 27, 27))
+                .addComponent(pnlEditarDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         pnlEditarTelefonoLayout.setVerticalGroup(
             pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEditarTelefonoLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlEditarTelefonoLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblEditarCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEditarCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEditarProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxEditarProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEditarOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblEditarNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEditarNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEditarCanton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxEditarCanton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEditarDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblEditarApellidoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtEditarPrimerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbxEditarDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblEditarSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEditarSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEditarBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxEditarBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(pnlEditarTelefonoLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(txaEditarOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEditarTelefonoLayout.createSequentialGroup()
-                            .addGap(17, 17, 17)
-                            .addComponent(pnlEditarCreditoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(lblEditarLimiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtEditarLimiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(pnlInfoBasica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlEditarCreditoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlEditarDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         scpnlClientesEditarCliente.setViewportView(pnlEditarTelefono);
@@ -1044,25 +1097,25 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             .addGroup(pnl_actualizarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(spnl_editar_clientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1182, Short.MAX_VALUE)
                     .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                        .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tbEditarContactoClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 1170, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnEditarCliente)))
-                        .addContainerGap())
-                    .addComponent(spnl_editar_clientes, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addComponent(tbEditarContactoClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEditarCliente)
+                .addContainerGap())
         );
         pnl_actualizarLayout.setVerticalGroup(
             pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_actualizarLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(tbEditarContactoClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbEditarContactoClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnl_editar_clientes, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(spnl_editar_clientes, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+                .addGap(8, 8, 8))
         );
 
         tb_modCliente.addTab("Editar cliente", pnl_actualizar);
@@ -1320,13 +1373,15 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 texto += "</body></html>";
                 row[6] = texto;
                 
-                String dir = "<html><body>" +
+                String dir = "Sin dirección disponible";
+                if(c.getDireccion() != null) {
+                    dir = "<html><body>" +
                         c.getDireccion().getNomProvincia() + ",<br>" +
                         c.getDireccion().getNomCanton() + ",<br>" +
                         c.getDireccion().getNomDistrito() + ",<br>" +
                         c.getDireccion().getNomBarrio() 
                         + "</body></html>";
-                
+                }
                 row[7] = dir;
                 row[8] = c.getCodCliente(); //codigo de cliente
                 row[9] = c.getCodigo(); //codigo de persona
@@ -1516,6 +1571,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
      * @param cliente cliente seleccionado en JTable
      */
     private void cargarEditDirCliente(Cliente cliente) {
+        
         //Cargar dirección del cliente
         String iP = cliente.getDireccion().getCodProvincia();
         String iC = cliente.getDireccion().getCodCanton();
@@ -1532,7 +1588,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         // codigo de provincia seleccionada
         String codP = cbxEditarProvincia.getItemAt(
                 cbxEditarProvincia.getSelectedIndex()).getCodigo();
-        
+
         //CANTON
         cargarDirJCombo("C", codP, "", "", cbxEditarCanton);
         for (int i=0; i<cbxEditarCanton.getItemCount(); i++) {
@@ -1543,7 +1599,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         // codigo del cantón seleccionado
         String codC = cbxEditarCanton.getItemAt(
                 cbxEditarCanton.getSelectedIndex()).getCodigo();
-        
+
         //DISTRITO
         cargarDirJCombo("D", codP, codC, "", cbxEditarDistrito);
         for (int i=0; i<cbxEditarDistrito.getItemCount(); i++) {
@@ -1553,7 +1609,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
         String codD = cbxEditarDistrito.getItemAt(
                 cbxEditarDistrito.getSelectedIndex()).getCodigo();
-        
+
         //BARRIO
         cargarDirJCombo("B", codP, codC, codD, cbxEditarBarrio);
         for (int i=0; i<cbxEditarBarrio.getItemCount(); i++) {
@@ -1561,8 +1617,9 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 cbxEditarBarrio.setSelectedIndex(i);
             }
         }
-        
+
         txaEditarOtrasSenas.setText(oS);
+        ckbEditarDireccion.setEnabled(false);
     }
     
     /**
@@ -1618,8 +1675,17 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             txtEditarLimiteCliente.setText("");
         }
         
-        cargarEditDirCliente(cliente);
-        
+        if(cliente.getDireccion() != null ) {
+            cargarEditDirCliente(cliente);
+            ckbEditarDireccion.setEnabled(false);
+            ckbEditarDireccion.setSelected(true);
+            pnlEditarDireccion.setVisible(true);
+        } else {
+            ckbEditarDireccion.setEnabled(true);
+            ckbEditarDireccion.setSelected(false);
+            pnlEditarDireccion.setVisible(false);
+            cargarDirJCombo("P", "", "", "", cbxEditarProvincia);
+        }
         cargarEditContactoCliente(cliente);
     }
     
@@ -1634,29 +1700,23 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
      */
     private void selectDir(JComboBox cbxCargar, JComboBox<DirFiltro> cbxP, 
             JComboBox<DirFiltro> cbxC, JComboBox<DirFiltro> cbxD, String p) {
-        
         String codP = "";
         String codC = "";
-        String codD = "";
-        
+        String codD = "";        
         if (p.equals("C")) {
-            codP = cbxP.getItemAt(
-                cbxP.getSelectedIndex()).getCodigo();
+            if (cbxP.getItemCount() > 0) {
+                codP = cbxP.getItemAt(cbxP.getSelectedIndex()).getCodigo();
+            }            
         } else if (p.equals("D")) {
             if(cbxC.getItemCount() > 0) {
-                codP = cbxP.getItemAt(
-                        cbxP.getSelectedIndex()).getCodigo();
-                codC = cbxC.getItemAt(
-                        cbxC.getSelectedIndex()).getCodigo();
+                codP = cbxP.getItemAt(cbxP.getSelectedIndex()).getCodigo();
+                codC = cbxC.getItemAt(cbxC.getSelectedIndex()).getCodigo();
             }
         } else if (p.equals("B")) {        
             if(cbxD.getItemCount() > 0) {
-                codP = cbxP.getItemAt(
-                        cbxP.getSelectedIndex()).getCodigo();
-                codC = cbxC.getItemAt(
-                        cbxC.getSelectedIndex()).getCodigo();
-                codD = cbxD.getItemAt(
-                        cbxD.getSelectedIndex()).getCodigo();
+                codP = cbxP.getItemAt(cbxP.getSelectedIndex()).getCodigo();
+                codC = cbxC.getItemAt(cbxC.getSelectedIndex()).getCodigo();
+                codD = cbxD.getItemAt(cbxD.getSelectedIndex()).getCodigo();
             }
         }
         cargarDirJCombo(p, codP, codC, codD, cbxCargar);
@@ -1737,7 +1797,9 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             int codDir = 0;
             for (int i = 0; i < clientes.size(); i++) {
                 if(clientes.get(i).getCodigo().equals(codPersona)) {
-                    codDir = clientes.get(i).getDireccion().getCodigo();
+                    if(clientes.get(i).getDireccion()!= null) {
+                        codDir = clientes.get(i).getDireccion().getCodigo();
+                    }
                 }
             }
             
@@ -2077,8 +2139,8 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     }
     
     /**
-     * Cargar editar la información del cliente seleccionado en la tabla de 
-     * editar.
+     * Cargar la información del cliente seleccionado en la tabla de 
+     * editar para editarlo en los campos de texto.
      */
     private void selectClienteEditar() {
         try {
@@ -2089,6 +2151,10 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
            for (int i = 0; i < clientes.size(); i++) {
                if (clientes.get(i).getCedula().equals(cedula)) {
+                   cbxEditarCanton.removeAllItems();
+                   cbxEditarDistrito.removeAllItems();
+                   cbxEditarBarrio.removeAllItems();
+                   txaEditarOtrasSenas.setText("");
                    cargarEditarCliente(clientes.get(i));
                }
            }
@@ -2096,13 +2162,12 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
     }
+    /**
+     * 
+     * @param pnlCrear
+     * @param ckb 
+     */
     private void mostrarDireccion(boolean pnlCrear, JCheckBox ckb) {
-        
-//        pnlFacVarios.setVisible(true);
-//        pnlFacVarios.setBounds(x, y, 520, h);
-//        pnl_modFactura.add(pnlFacVarios);
-//        pnlAgregarProd.setVisible(false);
-//        txtDescripcionVarios.requestFocus();
         
         if (pnlCrear) {
             if (ckb.isSelected()) {
@@ -2117,7 +2182,20 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 pnl_agregar.add(pnlCrearDireccion);
             } else {
                 pnlCrearDireccion.setVisible(false);
-                //pnl_agregar.repaint();
+            }
+        } else {
+            if (ckb.isSelected()) {
+                
+                int x = pnlEditarTelefono.getWidth()-590;
+                int y = 10;
+                int w = 586;
+                int h = 185; 
+                
+                pnlEditarDireccion.setVisible(true);
+                pnlEditarDireccion.setBounds(x, y, w, h);
+                pnlEditarTelefono.add(pnlEditarDireccion);
+            } else {
+                pnlEditarDireccion.setVisible(false);
             }
         }
     }
@@ -2281,6 +2359,10 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         System.out.println("CKB EVENT");
     }//GEN-LAST:event_ckbAgregarDireccionActionPerformed
 
+    private void ckbEditarDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbEditarDireccionActionPerformed
+        mostrarDireccion(false, ckbEditarDireccion);
+    }//GEN-LAST:event_ckbEditarDireccionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crearCredito;
@@ -2304,6 +2386,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<DirFiltro> cbxEditarProvincia;
     private javax.swing.JComboBox<DirFiltro> cbxProvincia;
     private javax.swing.JCheckBox ckbAgregarDireccion;
+    private javax.swing.JCheckBox ckbEditarDireccion;
     private javax.swing.JMenuItem itEditar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -2349,8 +2432,10 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnlEditarContactoCliente;
     private javax.swing.JPanel pnlEditarCorreo;
     private javax.swing.JPanel pnlEditarCreditoCliente;
+    private javax.swing.JPanel pnlEditarDireccion;
     private javax.swing.JPanel pnlEditarTelefono;
     private javax.swing.JPanel pnlHabilitar;
+    private javax.swing.JPanel pnlInfoBasica;
     private javax.swing.JPanel pnl_actualizar;
     private javax.swing.JPanel pnl_agregar;
     private javax.swing.JPanel pnl_crear_creditoCliente;

@@ -412,10 +412,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         bgDeshab = new javax.swing.ButtonGroup();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         pnl_modInventario = new javax.swing.JPanel();
         tbpnl_modInventario = new javax.swing.JTabbedPane();
         pnl_listado = new javax.swing.JPanel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         lblListadoInventario = new javax.swing.JLabel();
         txtListadoInventario = new javax.swing.JTextField();
         scpnlTblListadoInventario = new javax.swing.JScrollPane();
@@ -566,13 +566,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         rbDeshabHabilitarProducto = new javax.swing.JRadioButton();
         btn_deshabilitar = new javax.swing.JButton();
 
-        setClosable(true);
-        setIconifiable(true);
-        setTitle("Módulo de Inventario");
-        setPreferredSize(new java.awt.Dimension(1240, 670));
-
-        tbpnl_modInventario.setPreferredSize(new java.awt.Dimension(1208, 645));
-
         try {
             javax.swing.text.MaskFormatter mask = new javax.swing.text.MaskFormatter("#-####-####");
             mask.setPlaceholderCharacter('_');
@@ -586,6 +579,13 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 jFormattedTextField1ActionPerformed(evt);
             }
         });
+
+        setClosable(true);
+        setIconifiable(true);
+        setTitle("Módulo de Inventario");
+        setPreferredSize(new java.awt.Dimension(1240, 670));
+
+        tbpnl_modInventario.setPreferredSize(new java.awt.Dimension(1208, 645));
 
         lblListadoInventario.setText("Buscar producto: ");
 
@@ -621,9 +621,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 .addGap(26, 26, 26)
                 .addGroup(pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_listadoLayout.createSequentialGroup()
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pnl_listadoLayout.createSequentialGroup()
                         .addComponent(lblListadoInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtListadoInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 1017, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -633,9 +630,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         pnl_listadoLayout.setVerticalGroup(
             pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_listadoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(42, 42, 42)
                 .addGroup(pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtListadoInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblListadoInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -701,7 +696,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     .addComponent(lblNuevoAcVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNuevoAcPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxNuevoAcVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNuevoAcMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlNuevoAcerradaLayout.createSequentialGroup()
@@ -770,8 +765,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtNuevoAcUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtNuevoAcPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(scpnlNuevoAcDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(scpnlNuevoAcDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         tbNuevoTipoProd.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/inv_acerrada.png")), pnlNuevoAcerrada); // NOI18N
