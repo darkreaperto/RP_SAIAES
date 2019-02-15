@@ -635,7 +635,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         scpnl_EditarProveedor.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         pnlEditarTelefono.setRequestFocusEnabled(false);
-        pnlEditarTelefono.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlEditarTelefono.setLayout(null);
 
         pnlEditarDireccion.setBorder(javax.swing.BorderFactory.createTitledBorder("Dirección"));
 
@@ -730,7 +730,8 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlEditarTelefono.add(pnlEditarDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 12, 554, 205));
+        pnlEditarTelefono.add(pnlEditarDireccion);
+        pnlEditarDireccion.setBounds(348, 12, 554, 205);
 
         pnlEditarInfoBase.setBorder(javax.swing.BorderFactory.createTitledBorder("Información básica"));
 
@@ -808,7 +809,8 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 .addComponent(ckbEditarDireccion))
         );
 
-        pnlEditarTelefono.add(pnlEditarInfoBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, -1, -1));
+        pnlEditarTelefono.add(pnlEditarInfoBase);
+        pnlEditarInfoBase.setBounds(12, 12, 324, 205);
 
         scpnl_EditarProveedor.setViewportView(pnlEditarTelefono);
 
@@ -1442,24 +1444,31 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         try {
             model = (DefaultTableModel) tbl_editar.getModel();
             int indiceFila = tbl_editar.getSelectedRow();
+            
+            System.out.println("PROVEEDOR->EDITAR->ÍNDICE_FILA: "+indiceFila);
+            
+            if (indiceFila >= 0) {
+                String codPersona = (String) model.getValueAt(indiceFila, 7);
+                System.out.println("CODIGO PER EDITAR PROV: " + codPersona);
 
-            String codPersona = (String) model.getValueAt(indiceFila, 7);
-            System.out.println("CODIGO PER EDITAR PROV: " + codPersona);
-
-            int codDir = 0;
-            for (int i = 0; i < proveedores.size(); i++) {
-                if (proveedores.get(i).getCodigo().equals(codPersona)) {
-                    if (proveedores.get(i).getDireccion() != null) {
-                        codDir = proveedores.get(i).getDireccion().getCodigo();
+                int codDir = 0;
+                for (int i = 0; i < proveedores.size(); i++) {
+                    if (proveedores.get(i).getCodigo().equals(codPersona)) {
+                        if (proveedores.get(i).getDireccion() != null) {
+                            codDir = proveedores.get(i).getDireccion().getCodigo();
+                        }
                     }
                 }
-            }
 
-            actualizarProveedor(txtEditarNombreProveedor.getText().trim(),
-                    txtEditarAp1Proveedor.getText().trim(),
-                    txtEditarAp2Proveedor.getText().trim(),
-                    txtEditarCedulaProveedor.getText().trim(), codPersona,
-                    prepararDireccion(true, codDir));
+                actualizarProveedor(txtEditarNombreProveedor.getText().trim(),
+                        txtEditarAp1Proveedor.getText().trim(),
+                        txtEditarAp2Proveedor.getText().trim(),
+                        txtEditarCedulaProveedor.getText().trim(), codPersona,
+                        prepararDireccion(true, codDir));
+            } else {
+                System.out.println("PROVEEDOR->EDITAR->NO_FILA_SELECCIONADA");
+            }
+            
 
         } catch (ArrayIndexOutOfBoundsException ex) {
             ex.printStackTrace();
@@ -1520,7 +1529,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 System.err.println(ex);
             }
         } else {
-
+            System.out.println("PROVEEDOR->EDITAR->CAMPOS_VACÍOS");
         }
 //        } else {
 //            
@@ -1661,10 +1670,11 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     private void guardarEditContacto(boolean tel) {
         if(tel) {
             String telefono = txtEditarTelefono.getText().trim();
+            int indice = 0;
             try {
                 if (verificacion.validaTelefono(telefono)) {
 
-                    int indice = tbl_editar.getSelectedRow();
+                    indice = tbl_editar.getSelectedRow();
                     String cedula = 
                         tbl_editar.getModel().getValueAt(indice, 0).toString();
                     for (Proveedor p: proveedores) {
@@ -1694,12 +1704,21 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                     msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.PHONE_SYNTAX_FAILURE);
                 }
-            }catch (NullPointerException ex) {
-
+            } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | NullPointerException ex) {
+                
+                //Imprimir la pila de excepciones
+                for (StackTraceElement ste: ex.getStackTrace()) {
+                    System.out.println(ste);
+                }
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
             } catch (Exception ex) {
-
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
             } finally {
                 cargarTablas();
+                if (indice >= 0) {
+                    tbl_editar.setRowSelectionInterval(indice, indice);
+                }
+                
             }
         } else {
             String correo = txtEditarCorreoProveedor.getText().trim();
@@ -1735,13 +1754,16 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                     msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.EMAIL_SYNTAX_FAILURE);
                 }
-            } catch (NullPointerException ex) {
+            } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | NullPointerException ex) {
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
             } catch (Exception ex) {
-                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, null);
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
             } finally {
                 cargarTablas();
-                tbl_editar.setRowSelectionInterval(indice, indice);
+                if (indice >= 0) {
+                    tbl_editar.setRowSelectionInterval(indice, indice);
+                }
+                
             }
         }
     }
