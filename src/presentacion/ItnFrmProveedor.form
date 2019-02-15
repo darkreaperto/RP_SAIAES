@@ -983,30 +983,8 @@
                             <Property name="requestFocusEnabled" type="boolean" value="false"/>
                           </Properties>
 
-                          <Layout>
-                            <DimensionLayout dim="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="pnlEditarInfoBase" max="32767" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="pnlEditarDireccion" min="-2" pref="554" max="-2" attributes="0"/>
-                                      <EmptySpace pref="409" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                            </DimensionLayout>
-                            <DimensionLayout dim="1">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="pnlEditarDireccion" max="32767" attributes="0"/>
-                                          <Component id="pnlEditarInfoBase" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace pref="44" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                            </DimensionLayout>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+                            <Property name="useNullLayout" type="boolean" value="false"/>
                           </Layout>
                           <SubComponents>
                             <Container class="javax.swing.JPanel" name="pnlEditarDireccion">
@@ -1017,6 +995,11 @@
                                   </Border>
                                 </Property>
                               </Properties>
+                              <Constraints>
+                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                                  <AbsoluteConstraints x="348" y="12" width="554" height="205"/>
+                                </Constraint>
+                              </Constraints>
 
                               <Layout>
                                 <DimensionLayout dim="0">
@@ -1190,63 +1173,81 @@
                                   </Border>
                                 </Property>
                               </Properties>
+                              <Constraints>
+                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                                  <AbsoluteConstraints x="12" y="12" width="-1" height="-1"/>
+                                </Constraint>
+                              </Constraints>
 
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                                  <Component id="ckbEditarDireccion" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                          <Component id="lblEditarApellidoProveedor" alignment="0" pref="0" max="32767" attributes="0"/>
-                                                          <Component id="lblEditarNombreProveedor" alignment="0" max="32767" attributes="0"/>
-                                                          <Component id="lblEditarSegundoProveedor" min="-2" pref="100" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Component id="lblEditarCedulaProveedor" alignment="0" max="32767" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="txtEditarCedulaProveedor" max="32767" attributes="0"/>
-                                                      <Component id="txtEditarNombreProveedor" max="32767" attributes="0"/>
-                                                      <Component id="txtEditarAp1Proveedor" max="32767" attributes="0"/>
-                                                      <Component id="txtEditarAp2Proveedor" min="-2" pref="190" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                          <Component id="lblEditarCedulaProveedor" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                          <Component id="txtEditarCedulaProveedor" min="-2" pref="190" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                          <Component id="lblEditarNombreProveedor" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                          <Component id="txtEditarNombreProveedor" min="-2" pref="190" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                          <Component id="lblEditarApellidoProveedor" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                          <Component id="txtEditarAp1Proveedor" min="-2" pref="190" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                          <Component id="lblEditarSegundoProveedor" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                          <Component id="txtEditarAp2Proveedor" min="-2" pref="190" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="164" pref="164" max="-2" attributes="0"/>
+                                          <Component id="ckbEditarDireccion" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="txtEditarCedulaProveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="lblEditarCedulaProveedor" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                                                  <Component id="lblEditarCedulaProveedor" min="-2" pref="25" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="txtEditarCedulaProveedor" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lblEditarNombreProveedor" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                              <Component id="txtEditarNombreProveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                                                  <Component id="lblEditarNombreProveedor" min="-2" pref="26" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="txtEditarNombreProveedor" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lblEditarApellidoProveedor" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                              <Component id="txtEditarAp1Proveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                                                  <Component id="lblEditarApellidoProveedor" min="-2" pref="25" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="txtEditarAp1Proveedor" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lblEditarSegundoProveedor" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                              <Component id="txtEditarAp2Proveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                                                  <Component id="lblEditarSegundoProveedor" min="-2" pref="25" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="txtEditarAp2Proveedor" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="10" max="32767" attributes="0"/>
+                                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                                           <Component id="ckbEditarDireccion" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
