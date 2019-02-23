@@ -136,14 +136,19 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
      * @param p cedula o nombre del cliente para consultar
      */
     public void llenarListaClientes(String p) {
+        
+        cbxClientes.showPopup();
+        
         Cliente cli = new Cliente();
         cli.setNombre("ESTI");
         cli.setApellido1("MADO");
         cli.setApellido2("CLIENTE");
         System.out.println("Nombre del cliente: " + p);
+        
+        cbxClientes.removeAllItems();
+        
         ArrayList<Cliente> listaCli = ctrCliente.consultarClientes(p);
-        
-        
+        System.out.println("sizeCLi "+listaCli.size());
         for (int i = 0; i<listaCli.size(); i++) {
             cbxClientes.addItem(listaCli.get(i));
         }
@@ -240,7 +245,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     public void buscarCliente() {
         try {
             String cedula = ftClienteFac.getText().replace("-", "").trim();
-            String nombre = "";cbxClientes.getSelectedItem().toString();
+            String nombre = ""; cbxClientes.getSelectedItem().toString();
             if(!nombre.isEmpty()) {
                 llenarListaClientes(nombre);
             } else {
@@ -603,7 +608,10 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         int codigoPaisEm = emisor.getCodPais();
         int numTelefonoEm = emisor.getNumTel();
         String correoElectronicoEm = emisor.getCorreoElec();
-        Cliente receptor = new Cliente();
+        
+        //CLIENTE/RECEPTOR
+        Cliente receptor = (Cliente) cbxClientes.getSelectedItem();
+        
         String condicionVenta = "";
         String plazoCredito = "";
         String medioPago = "";
@@ -1188,6 +1196,11 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         lblUsuarioFac.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.SystemColor.activeCaption));
 
         cbxClientes.setEditable(true);
+        cbxClientes.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxClientesItemStateChanged(evt);
+            }
+        });
         cbxClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxClientesActionPerformed(evt);
@@ -1444,6 +1457,10 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             buscarCliente();
         //}
     }//GEN-LAST:event_cbxClientesKeyReleased
+
+    private void cbxClientesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxClientesItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxClientesItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgClasifProducto;
