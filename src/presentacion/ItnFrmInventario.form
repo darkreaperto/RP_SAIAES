@@ -57,19 +57,19 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="tbpnl_modInventario" min="-2" max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="tbpnl_modInventario" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="32" max="32767" attributes="0"/>
-                  <Component id="tbpnl_modInventario" min="-2" pref="554" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="tbpnl_modInventario" pref="589" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -247,10 +247,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="tbNuevoTipoProd" min="-2" pref="210" max="-2" attributes="0"/>
+                          <Component id="tbNuevoTipoProd" min="-2" pref="199" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="scpnlTbNuevo" pref="254" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="scpnlTbNuevo" min="-2" pref="225" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnNuevo" min="-2" pref="33" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -295,31 +295,37 @@
                                       <Component id="txtNuevoAcPrecio" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
                                       <Component id="cbxNuevoAcVariedad" min="-2" pref="295" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="99" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblNuevoAcMedidas" min="-2" pref="90" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="lblNuevoAcMedVaras" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="txtNuevoAcMedVaras" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                          <Component id="lblNuevoAcMedDE" min="-2" pref="27" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="txtNuevoAcMedGrueso" min="-2" pref="40" max="-2" attributes="0"/>
-                                              <Component id="lblNuevoAcMedGrueso" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lblNuevoAcMedX" min="-2" pref="27" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="txtNuevoAcMedAncho" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
-                                              <Component id="lblNuevoAcMedAncho" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="lblNuevoAcDescripcion" min="-2" pref="130" max="-2" attributes="0"/>
+                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="txtNuevoAcMedVaras" min="-2" pref="66" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="lblNuevoAcMedDE" min="-2" pref="27" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                                  <Component id="txtNuevoAcMedGrueso" pref="54" max="32767" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="lblNuevoAcMedX" min="-2" pref="27" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="txtNuevoAcMedAncho" min="-2" pref="60" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
-                                      <Component id="lblNuevoAcDescripcion" min="-2" pref="130" max="-2" attributes="0"/>
-                                      <Component id="scpnlNuevoAcDescripcion" min="-2" pref="280" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="lblNuevoAcMedidas" min="-2" pref="90" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="scpnlNuevoAcDescripcion" alignment="1" min="-2" pref="280" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -328,7 +334,7 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="lblNuevoAcMedidas" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -339,46 +345,27 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="txtNuevoAcMedVaras" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                                      <Component id="lblNuevoAcMedDE" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                                      <Component id="cbxNuevoAcVariedad" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="lblNuevoAcMedVaras" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="txtNuevoAcMedAncho" min="-2" pref="30" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="3" attributes="0">
-                                                          <Component id="lblNuevoAcMedAncho" alignment="3" max="32767" attributes="0"/>
-                                                          <Component id="lblNuevoAcMedGrueso" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Group type="103" groupAlignment="3" attributes="0">
-                                                          <Component id="txtNuevoAcMedGrueso" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                                          <Component id="lblNuevoAcMedX" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lblNuevoAcDescripcion" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                                           <Component id="txtNuevoAcCodigo" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="lblNuevoAcUnidades" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                               <Component id="lblNuevoAcPrecio" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txtNuevoAcMedGrueso" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="lblNuevoAcMedX" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="txtNuevoAcMedAncho" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="lblNuevoAcMedDE" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="txtNuevoAcMedVaras" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="lblNuevoAcDescripcion" pref="30" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="cbxNuevoAcVariedad" min="-2" pref="31" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -386,9 +373,9 @@
                                           <Component id="txtNuevoAcUnidades" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                           <Component id="txtNuevoAcPrecio" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="scpnlNuevoAcDescripcion" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
+                                      <Component id="scpnlNuevoAcDescripcion" min="-2" pref="53" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="17" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -427,7 +414,7 @@
                         <Component class="javax.swing.JLabel" name="lblNuevoAcMedDE">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="12" style="0"/>
+                              <Font name="Dialog" size="14" style="1"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
                             <Property name="text" type="java.lang.String" value="de"/>
@@ -436,46 +423,28 @@
                         <Component class="javax.swing.JLabel" name="lblNuevoAcMedX">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="12" style="0"/>
+                              <Font name="Dialog" size="14" style="1"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
                             <Property name="text" type="java.lang.String" value="x"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="lblNuevoAcMedAncho">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="12" style="0"/>
-                            </Property>
-                            <Property name="horizontalAlignment" type="int" value="0"/>
-                            <Property name="text" type="java.lang.String" value="Ancho"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="lblNuevoAcMedGrueso">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="12" style="0"/>
-                            </Property>
-                            <Property name="horizontalAlignment" type="int" value="0"/>
-                            <Property name="text" type="java.lang.String" value="Grueso"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="lblNuevoAcMedVaras">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="12" style="0"/>
-                            </Property>
-                            <Property name="horizontalAlignment" type="int" value="0"/>
-                            <Property name="text" type="java.lang.String" value="Varas"/>
-                          </Properties>
-                        </Component>
                         <Component class="javax.swing.JTextField" name="txtNuevoAcCodigo">
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNuevoAcMedVaras">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Varas&quot;, txtNuevoAcMedVaras);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
+                          </AuxValues>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNuevoAcMedAncho">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Ancho&quot;, txtNuevoAcMedAncho);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
+                          </AuxValues>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNuevoAcMedGrueso">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Grueso&quot;, txtNuevoAcMedGrueso);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
+                          </AuxValues>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNuevoAcUnidades">
                         </Component>
@@ -519,99 +488,6 @@
                           </JTabbedPaneConstraints>
                         </Constraint>
                       </Constraints>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="lblNuevoTCodigo" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
-                                      <Component id="lblNuevoTProveedor" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
-                                      <Component id="txtNuevoTCodigo" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="cbxNuevoTProveedor" max="32767" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCrearProveedor" min="-2" pref="33" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace pref="102" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="lblNuevoTDescripcion" min="-2" pref="120" max="-2" attributes="0"/>
-                                          <EmptySpace pref="557" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="scpnlNuevoTDescripcion" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="lblNuevoTVariedadMadera" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                              <Component id="cbxNuevoTVariedad" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace pref="92" max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="lblNuevoTMedidas" min="-2" pref="86" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="txtNuevoTMedPulgadas" min="-2" pref="128" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="lblNuevoAcMedPulgadas" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="lblNuevoTVariedadMadera" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="cbxNuevoTVariedad" min="-2" pref="31" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="txtNuevoTMedPulgadas" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                                      <Component id="lblNuevoAcMedPulgadas" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <Component id="lblNuevoTMedidas" min="-2" pref="30" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="lblNuevoTCodigo" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtNuevoTCodigo" min="-2" pref="30" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                          <Component id="lblNuevoTDescripcion" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="scpnlNuevoTDescripcion" min="-2" pref="60" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="lblNuevoTProveedor" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="cbxNuevoTProveedor" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                                              <Component id="btnCrearProveedor" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
                       <SubComponents>
                         <Component class="javax.swing.JLabel" name="lblNuevoTCodigo">
                           <Properties>
@@ -755,7 +631,7 @@
                                   <Component id="lblNuevoTmNombre" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtNuevoTmNombre" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace pref="32" max="32767" attributes="0"/>
+                                  <EmptySpace pref="21" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -2277,7 +2153,7 @@
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                   <Component id="lblDeshabSelectInventario" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="tbDeshab" pref="402" max="32767" attributes="0"/>
+                                  <Component id="tbDeshab" pref="398" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="pnlDeshabContainer" min="-2" max="-2" attributes="0"/>
                               </Group>
