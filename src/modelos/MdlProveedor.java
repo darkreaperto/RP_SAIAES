@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import logica.negocio.Cliente;
 import logica.negocio.Contacto;
 import logica.negocio.Direccion;
 import logica.negocio.Proveedor;
@@ -85,7 +84,17 @@ public class MdlProveedor {
                 estadoProveedor = resultado.getString("estado_Proveedores");
                 
                 contactos = ctrContacto.consultarContactos(codPersona);
-                direccion = ctrDireccion.consultarDireccion(codDireccion);
+                //verificar existencia de la dirección
+                //Sin dirección: codDireccion = 0
+                System.out.println("COD DIR FROM PV DB " + codDireccion);
+                direccion = codDireccion == null ? null: 
+                        ctrDireccion.consultarDireccion(codDireccion);
+                
+                if (direccion == null) {
+                    System.out.println("DIR IS NULL FROM DB");
+                } else {
+                    System.out.println("DIR IS NOT NULL FROM DB");
+                }
                 
                 Proveedor proveedor
                         = new Proveedor(codPersona, nombrePersona, 
@@ -124,9 +133,12 @@ public class MdlProveedor {
             String apellido2, String cedula, Direccion dir, 
             ArrayList<ArrayList<Object>> contactos) {
         
-        int codDireccion = ctrDireccion.crearDireccion(dir.getCodProvincia(), 
-                dir.getCodCanton(), dir.getCodDistrito(), dir.getCodBarrio(), 
-                dir.getOtrasSenas());
+        int codDireccion = 0;
+        if (dir != null) {
+            codDireccion = ctrDireccion.crearDireccion(dir.getCodProvincia(), 
+                    dir.getCodCanton(), dir.getCodDistrito(), dir.getCodBarrio(), 
+                    dir.getOtrasSenas());
+        }
         
         System.out.println("CODDIR: "+codDireccion);
         
@@ -188,6 +200,11 @@ public class MdlProveedor {
         return ctrContacto.crearContacto(info, codPersona, tipo);
     }
     
+    /**
+     * 
+     * @param codigo
+     * @return 
+     */
     public boolean inactivarContacto(String codigo) {
         return ctrContacto.inactivarContacto(codigo);
     }
@@ -201,8 +218,7 @@ public class MdlProveedor {
      * @param codPersona
      * @param dir
      * @return 
-     */
-    
+     */    
     public boolean actualizarProveedor(String nombre, String apellido1, 
             String apellido2, String cedula, String codPersona, Direccion dir) {
         
@@ -214,11 +230,20 @@ public class MdlProveedor {
         params.add(codPersona);
 
         boolean creacionExitosa = false;
-        try {
-            
-            ctrDireccion.actualizarDireccion(dir.getCodProvincia(), 
-                    dir.getCodCanton(), dir.getCodDistrito(), 
-                    dir.getCodBarrio(), dir.getOtrasSenas(), dir.getCodigo());
+        try {  
+            int codDir = 0;
+            if (dir != null) {
+                if (dir.getCodigo() == 0) {
+                    codDir = ctrDireccion.crearDireccion(dir.getCodProvincia(), 
+                            dir.getCodCanton(), dir.getCodDistrito(), 
+                            dir.getCodBarrio(), dir.getOtrasSenas());
+                } else {
+                    ctrDireccion.actualizarDireccion(dir.getCodProvincia(), 
+                            dir.getCodCanton(), dir.getCodDistrito(), 
+                            dir.getCodBarrio(), dir.getOtrasSenas(), dir.getCodigo());
+                }
+            }
+            params.add(codDir);
             
             procedimiento = "pc_actualizar_proveedor(?, ?, ?, ?, ?)";
 

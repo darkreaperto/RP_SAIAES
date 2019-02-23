@@ -66,6 +66,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
         cargarTablas();
         cargarDirJCombo("P", "", "", "", cbxProvincia);
+        cargarDirJCombo("P", "", "", "", cbxEditarProvincia);
         pnlCrearDireccion.setVisible(false);
         //pnlEditarDireccion.setVisible(false);
     }
@@ -634,6 +635,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         scpnl_EditarProveedor.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         pnlEditarTelefono.setRequestFocusEnabled(false);
+        pnlEditarTelefono.setLayout(null);
 
         pnlEditarDireccion.setBorder(javax.swing.BorderFactory.createTitledBorder("Dirección"));
 
@@ -699,8 +701,8 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cbxEditarBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(scpnlEditarOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(scpnlEditarOtrasSenas)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         pnlEditarDireccionLayout.setVerticalGroup(
             pnlEditarDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -725,8 +727,11 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                             .addComponent(lblEditarBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbxEditarBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(scpnlEditarOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
+
+        pnlEditarTelefono.add(pnlEditarDireccion);
+        pnlEditarDireccion.setBounds(348, 12, 554, 205);
 
         pnlEditarInfoBase.setBorder(javax.swing.BorderFactory.createTitledBorder("Información básica"));
 
@@ -749,70 +754,63 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         pnlEditarInfoBase.setLayout(pnlEditarInfoBaseLayout);
         pnlEditarInfoBaseLayout.setHorizontalGroup(
             pnlEditarInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEditarInfoBaseLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlEditarInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlEditarInfoBaseLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(ckbEditarDireccion))
-                    .addGroup(pnlEditarInfoBaseLayout.createSequentialGroup()
-                        .addGroup(pnlEditarInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlEditarInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lblEditarApellidoProveedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                                .addComponent(lblEditarNombreProveedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblEditarSegundoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblEditarCedulaProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlEditarInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtEditarCedulaProveedor)
-                            .addComponent(txtEditarNombreProveedor)
-                            .addComponent(txtEditarAp1Proveedor)
-                            .addComponent(txtEditarAp2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+            .addGroup(pnlEditarInfoBaseLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lblEditarCedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(txtEditarCedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlEditarInfoBaseLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lblEditarNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(txtEditarNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlEditarInfoBaseLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lblEditarApellidoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(txtEditarAp1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlEditarInfoBaseLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lblEditarSegundoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(txtEditarAp2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlEditarInfoBaseLayout.createSequentialGroup()
+                .addGap(164, 164, 164)
+                .addComponent(ckbEditarDireccion))
         );
         pnlEditarInfoBaseLayout.setVerticalGroup(
             pnlEditarInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEditarInfoBaseLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlEditarInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEditarCedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEditarCedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEditarInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEditarNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addGroup(pnlEditarInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEditarInfoBaseLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(lblEditarCedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEditarCedulaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(pnlEditarInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEditarInfoBaseLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(lblEditarNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtEditarNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEditarInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEditarApellidoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addGroup(pnlEditarInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEditarInfoBaseLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(lblEditarApellidoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtEditarAp1Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEditarInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEditarSegundoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addGroup(pnlEditarInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEditarInfoBaseLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(lblEditarSegundoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtEditarAp2Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addComponent(ckbEditarDireccion))
         );
 
-        javax.swing.GroupLayout pnlEditarTelefonoLayout = new javax.swing.GroupLayout(pnlEditarTelefono);
-        pnlEditarTelefono.setLayout(pnlEditarTelefonoLayout);
-        pnlEditarTelefonoLayout.setHorizontalGroup(
-            pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlEditarTelefonoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlEditarInfoBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnlEditarDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(409, Short.MAX_VALUE))
-        );
-        pnlEditarTelefonoLayout.setVerticalGroup(
-            pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlEditarTelefonoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlEditarDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlEditarInfoBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(44, Short.MAX_VALUE))
-        );
+        pnlEditarTelefono.add(pnlEditarInfoBase);
+        pnlEditarInfoBase.setBounds(12, 12, 326, 210);
 
         scpnl_EditarProveedor.setViewportView(pnlEditarTelefono);
 
@@ -1183,13 +1181,17 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 }
                 texto += "</body></html>";
                 row[4] = texto;
-
-                String dir = "<html><body>"
+                
+                String dir = pv.getDireccion() != null ?
+                        //si hay dirección
+                        "<html><body>"
                         + pv.getDireccion().getNomProvincia() + ",<br>"
                         + pv.getDireccion().getNomCanton() + ",<br>"
                         + pv.getDireccion().getNomDistrito() + ",<br>"
                         + pv.getDireccion().getNomBarrio()
-                        + "</body></html>";
+                        + "</body></html>" : 
+                        //si no hay dirección
+                        "Sin dirección disponible";
 
                 row[5] = dir;
                 row[6] = pv.getCodProveedor(); //codigo de proveedor
@@ -1220,12 +1222,16 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 texto += "</body></html>";
                 row[4] = texto;
 
-                String dir = "<html><body>"
+                String dir = pv.getDireccion() != null ?
+                        //si hay dirección
+                        "<html><body>"
                         + pv.getDireccion().getNomProvincia() + ",<br>"
                         + pv.getDireccion().getNomCanton() + ",<br>"
                         + pv.getDireccion().getNomDistrito() + ",<br>"
                         + pv.getDireccion().getNomBarrio()
-                        + "</body></html>";
+                        + "</body></html>" : 
+                        //si no hay dirección
+                        "Sin dirección";
 
                 row[5] = dir;
 
@@ -1247,6 +1253,153 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     }
 
     /**
+     * Cargar los combos con los lugares de dirección.
+     * @param campo identificador de campo (provincia, cantón, distritio, barrio)
+     * @param codP código de provincia
+     * @param codC código de cantón
+     * @param codD código de didtrito
+     * @param combo combo que se cargará
+     */
+    public final void cargarDirJCombo(String campo, String codP, String codC,
+            String codD, JComboBox combo) {
+
+        combo.removeAllItems();
+
+        ArrayList<DirFiltro> listaLugares = ctrDireccion.filtrarDireccion(campo,
+                codP, codC, codD);
+        for (int i = 0; i < listaLugares.size(); i++) {
+            combo.addItem(listaLugares.get(i));
+        }
+    }
+    
+    /**
+     * Carga la información del proveedor seleccionado desde la interfaz (tabla) 
+     * en los campos correspondientes para su edición.
+     * @param proveedor proveedor seleccionado
+     */
+    private void cargarEditarProveedor(Proveedor proveedor) {
+
+        txtEditarCedulaProveedor.setText(proveedor.getCedula());
+        txtEditarNombreProveedor.setText(proveedor.getNombre());
+        txtEditarAp1Proveedor.setText(proveedor.getApellido1());
+        txtEditarAp2Proveedor.setText(proveedor.getApellido2());
+        
+        //cargar contactos
+        editarTelefonos = new ArrayList<>();
+        editarCorreos = new ArrayList<>();
+        DefaultListModel<String> mTelefonos = new DefaultListModel<>();
+        DefaultListModel<String> mCorreos = new DefaultListModel<>();
+
+        for (Contacto ct : proveedor.getContactos()) {
+            //agregar correos
+            if (ct.getTipo().equals(TipoContacto.CORREO)) {
+                editarCorreos.add(ct);
+                mCorreos.addElement(ct.getInfo());
+            //agregar teléfonos
+            } else {
+                if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
+                    editarTelefonos.add(ct);
+                    mTelefonos.addElement(ct.getInfo());
+                }
+            }
+        }
+        lsTelefonos.setModel(mTelefonos);
+        lsCorreos.setModel(mCorreos);
+        
+        //cargar información de la dirección
+        //si existe una dirección
+        if (proveedor.getDireccion() != null) {
+            ckbEditarDireccion.setSelected(true);
+            ckbEditarDireccion.setEnabled(false);
+            mostrarDireccion(false, ckbEditarDireccion);
+            cargarEditDirProveedor(proveedor);
+        } else {
+            ckbEditarDireccion.setSelected(false);
+            ckbEditarDireccion.setEnabled(true);
+            pnlEditarDireccion.setVisible(false);
+            
+            //limpiar los campos en caso de haber sido llenados anteriormente
+            txaEditarOtrasSenas.setText("");
+        }
+    }
+
+    /**
+     * Cargar la dirección del proveedor seleccionado.
+     * @param proveedor proveedor seleccionado en JTable
+     */
+    private void cargarEditDirProveedor(Proveedor proveedor) {
+        //Cargar dirección del proveedor
+        String iP = proveedor.getDireccion().getCodProvincia();
+        String iC = proveedor.getDireccion().getCodCanton();
+        String iD = proveedor.getDireccion().getCodDistrito();
+        String iB = proveedor.getDireccion().getCodBarrio();
+        String oS = proveedor.getDireccion().getOtrasSenas();
+
+        //PROVINCIA
+        cargarDirJCombo("P", "", "", "", cbxEditarProvincia);
+        for (int i = 0; i < cbxEditarProvincia.getItemCount(); i++) {
+            if (cbxEditarProvincia.getItemAt(i).getCodigo().equals(iP)) {
+                cbxEditarProvincia.setSelectedIndex(i);
+            }
+        }
+        //codigo de provincia seleccionada
+        String codP = cbxEditarProvincia.getItemAt(
+                cbxEditarProvincia.getSelectedIndex()).getCodigo();
+
+        //CANTON
+        cargarDirJCombo("C", codP, "", "", cbxEditarCanton);
+        for (int i = 0; i < cbxEditarCanton.getItemCount(); i++) {
+            if (cbxEditarCanton.getItemAt(i).getCodigo().equals(iC)) {
+                cbxEditarCanton.setSelectedIndex(i);
+            }
+        }
+        // codigo del cantón seleccionado
+        String codC = cbxEditarCanton.getItemAt(
+                cbxEditarCanton.getSelectedIndex()).getCodigo();
+
+        //DISTRITO
+        cargarDirJCombo("D", codP, codC, "", cbxEditarDistrito);
+        for (int i = 0; i < cbxEditarDistrito.getItemCount(); i++) {
+            if (cbxEditarDistrito.getItemAt(i).getCodigo().equals(iD)) {
+                cbxEditarDistrito.setSelectedIndex(i);
+            }
+        }
+        String codD = cbxEditarDistrito.getItemAt(
+                cbxEditarDistrito.getSelectedIndex()).getCodigo();
+
+        //BARRIO
+        cargarDirJCombo("B", codP, codC, codD, cbxEditarBarrio);
+        for (int i = 0; i < cbxEditarBarrio.getItemCount(); i++) {
+            if (cbxEditarBarrio.getItemAt(i).getCodigo().equals(iB)) {
+                cbxEditarBarrio.setSelectedIndex(i);
+            }
+        }
+
+        txaEditarOtrasSenas.setText(oS);
+    }
+
+    /**
+     * Reacciona a los eventos de selección de la tabla con los proveedores y 
+     * obtiene la información del proveedor seleccionado.
+     */
+    private void selectProveedorEditar() {
+        try {
+            model = (DefaultTableModel) tbl_editar.getModel();
+            int selectedRowIndex = tbl_editar.getSelectedRow();
+            String cedula
+                    = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
+
+            for (int i = 0; i < proveedores.size(); i++) {
+                if (proveedores.get(i).getCedula().equals(cedula)) {
+                    cargarEditarProveedor(proveedores.get(i));
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    /**
      * Carga los combos de dirección de acuerdo al lugar seleccionado
      * anteriormente.
      * @param cbxCargar Combo a cargar
@@ -1263,8 +1416,10 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         String codD = "";
 
         if (p.equals("C")) {
-            codP = cbxP.getItemAt(
-                    cbxP.getSelectedIndex()).getCodigo();
+            if (cbxP.getItemCount() > 0) {
+                codP = cbxP.getItemAt(
+                        cbxP.getSelectedIndex()).getCodigo();
+            }
         } else if (p.equals("D")) {
             if (cbxC.getItemCount() > 0) {
                 codP = cbxP.getItemAt(
@@ -1283,26 +1438,6 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             }
         }
         cargarDirJCombo(p, codP, codC, codD, cbxCargar);
-    }
-    
-    /**
-     * Cargar los combos con los lugares de dirección.
-     * @param campo identificador de campo (provincia, cantón, distritio, barrio)
-     * @param codP código de provincia
-     * @param codC código de cantón
-     * @param codD código de didtrito
-     * @param combo combo que se cargará
-     */
-    public final void cargarDirJCombo(String campo, String codP, String codC,
-            String codD, JComboBox combo) {
-
-        combo.removeAllItems();
-
-        ArrayList<DirFiltro> listaLugares = ctrDireccion.filtrarDireccion(campo,
-                codP, codC, codD);
-        for (int i = 0; i < listaLugares.size(); i++) {
-            combo.addItem(listaLugares.get(i));
-        }
     }
     
     /**
@@ -1334,9 +1469,18 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             nB = cbxEditarBarrio.getItemAt(cbxEditarBarrio.getSelectedIndex()).getNombre();
             senas = txaEditarOtrasSenas.getText();
         }
-
-        return ckbAgregarDireccion.isSelected() ? 
-                new Direccion(codDir, cP, nP, cC, nC, cD, nD, cB, nB, senas) : null;
+        
+        //verificar el panel y el check box para retornar null o la dirección
+        //on toda la información ingresada
+        if (pnlEditar) {
+            if (ckbEditarDireccion.isSelected()) {
+                return new Direccion(codDir, cP, nP, cC, nC, cD, nD, cB, nB, senas);
+            } return null;
+        } else {
+            if (ckbAgregarDireccion.isSelected()) {
+                return new Direccion(codDir, cP, nP, cC, nC, cD, nD, cB, nB, senas);
+            } return null;
+        }
     }
     
     /**
@@ -1434,7 +1578,9 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             int codDir = 0;
             for (int i = 0; i < proveedores.size(); i++) {
                 if (proveedores.get(i).getCodigo().equals(codPersona)) {
-                    codDir = proveedores.get(i).getDireccion().getCodigo();
+                    if (proveedores.get(i).getDireccion() != null) {
+                        codDir = proveedores.get(i).getDireccion().getCodigo();
+                    }
                 }
             }
 
@@ -1469,9 +1615,6 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             String apellido2, String cedula, String codPersona, Direccion dir) {
 
         if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
-//            if (verificacion.validaNombre(nombre) && 
-//                    verificacion.validaNombre(apellido1) && 
-//                    verificacion.validaNombre(apellido2)) {
 
             try {
                 boolean actualizado = controlador.actualizarProveedor(
@@ -1505,126 +1648,8 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         } else {
 
         }
-//        } else {
-//            
-//        }
     }
 
-    /**
-     * Carga la información del proveedor seleccionado desde la interfaz (tabla) 
-     * en los campos correspondientes para su edición.
-     * @param proveedor proveedor seleccionado
-     */
-    private void cargarEditarProveedor(Proveedor proveedor) {
-
-        txtEditarCedulaProveedor.setText(proveedor.getCedula());
-        txtEditarNombreProveedor.setText(proveedor.getNombre());
-        txtEditarAp1Proveedor.setText(proveedor.getApellido1());
-        txtEditarAp2Proveedor.setText(proveedor.getApellido2());
-
-        editarTelefonos = new ArrayList<>();
-        editarCorreos = new ArrayList<>();
-        DefaultListModel<String> mTelefonos = new DefaultListModel<>();
-        DefaultListModel<String> mCorreos = new DefaultListModel<>();
-
-        for (Contacto ct : proveedor.getContactos()) {
-            if (ct.getTipo().equals(TipoContacto.CORREO)) {
-                editarCorreos.add(ct);
-                mCorreos.addElement(ct.getInfo());
-            } else {
-                if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
-                    editarTelefonos.add(ct);
-                    mTelefonos.addElement(ct.getInfo());
-                }
-            }
-        }
-        lsTelefonos.setModel(mTelefonos);
-        lsCorreos.setModel(mCorreos);
-        
-        if (proveedor.getDireccion() != null) {
-            ckbEditarDireccion.setSelected(true);
-            cargarEditDirProveedor(proveedor);
-        } else {
-            ckbEditarDireccion.setSelected(false);
-        }
-    }
-
-    /**
-     * Cargar la dirección del proveedor seleccionado.
-     * @param proveedor proveedor seleccionado en JTable
-     */
-    private void cargarEditDirProveedor(Proveedor proveedor) {
-        //Cargar dirección del proveedor
-        String iP = proveedor.getDireccion().getCodProvincia();
-        String iC = proveedor.getDireccion().getCodCanton();
-        String iD = proveedor.getDireccion().getCodDistrito();
-        String iB = proveedor.getDireccion().getCodBarrio();
-        String oS = proveedor.getDireccion().getOtrasSenas();
-
-        //PROVINCIA
-        cargarDirJCombo("P", "", "", "", cbxEditarProvincia);
-        for (int i = 0; i < cbxEditarProvincia.getItemCount(); i++) {
-            if (cbxEditarProvincia.getItemAt(i).getCodigo().equals(iP)) {
-                cbxEditarProvincia.setSelectedIndex(i);
-            }
-        }
-        //codigo de provincia seleccionada
-        String codP = cbxEditarProvincia.getItemAt(
-                cbxEditarProvincia.getSelectedIndex()).getCodigo();
-
-        //CANTON
-        cargarDirJCombo("C", codP, "", "", cbxEditarCanton);
-        for (int i = 0; i < cbxEditarCanton.getItemCount(); i++) {
-            if (cbxEditarCanton.getItemAt(i).getCodigo().equals(iC)) {
-                cbxEditarCanton.setSelectedIndex(i);
-            }
-        }
-        // codigo del cantón seleccionado
-        String codC = cbxEditarCanton.getItemAt(
-                cbxEditarCanton.getSelectedIndex()).getCodigo();
-
-        //DISTRITO
-        cargarDirJCombo("D", codP, codC, "", cbxEditarDistrito);
-        for (int i = 0; i < cbxEditarDistrito.getItemCount(); i++) {
-            if (cbxEditarDistrito.getItemAt(i).getCodigo().equals(iD)) {
-                cbxEditarDistrito.setSelectedIndex(i);
-            }
-        }
-        String codD = cbxEditarDistrito.getItemAt(
-                cbxEditarDistrito.getSelectedIndex()).getCodigo();
-
-        //BARRIO
-        cargarDirJCombo("B", codP, codC, codD, cbxEditarBarrio);
-        for (int i = 0; i < cbxEditarBarrio.getItemCount(); i++) {
-            if (cbxEditarBarrio.getItemAt(i).getCodigo().equals(iB)) {
-                cbxEditarBarrio.setSelectedIndex(i);
-            }
-        }
-
-        txaEditarOtrasSenas.setText(oS);
-    }
-
-    /**
-     * Reacciona a los eventos de selección de la tabla con los proveedores y 
-     * obtiene la información del proveedor seleccionado.
-     */
-    private void selectProveedorEditar() {
-        try {
-            model = (DefaultTableModel) tbl_editar.getModel();
-            int selectedRowIndex = tbl_editar.getSelectedRow();
-            String cedula
-                    = String.valueOf(model.getValueAt(selectedRowIndex, 0).toString());
-
-            for (int i = 0; i < proveedores.size(); i++) {
-                if (proveedores.get(i).getCedula().equals(cedula)) {
-                    cargarEditarProveedor(proveedores.get(i));
-                }
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-    
     /**
      * Guarda los contactos ingresados desde la pestaña de edición.
      * @param tel ¿es teléfono (true) o correo (false)?
@@ -1888,13 +1913,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
      * @param ckb check box agregar dirección
      */
     private void mostrarDireccion(boolean pnlCrear, JCheckBox ckb) {
-        
-//        pnlFacVarios.setVisible(true);
-//        pnlFacVarios.setBounds(x, y, 520, h);
-//        pnl_modFactura.add(pnlFacVarios);
-//        pnlAgregarProd.setVisible(false);
-//        txtDescripcionVarios.requestFocus();
-        
+                
         if (pnlCrear) {
             if (ckb.isSelected()) {
                 
@@ -1910,10 +1929,20 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 pnlCrearDireccion.setVisible(false);
                 //pnl_agregar.repaint();
             }
+        //panel editar/actualizar
         } else {
-            pnlEditarDireccion.setVisible(true);
-            pnlEditarDireccion.setBounds(500, 52, 350, 200);
-            pnl_actualizar.add(pnlEditarDireccion);
+            if (ckb.isSelected()) {
+                int x = pnlEditarInfoBase.getX() + pnlEditarInfoBase.getWidth() +12;
+                int y = 12;
+                int w = 560;
+                int h = 205; 
+                
+                pnlEditarDireccion.setVisible(true);
+                pnlEditarDireccion.setBounds(x, y, w, h);
+                //pnlEditarTelefono.add(pnlEditarDireccion);
+            } else {
+                pnlEditarDireccion.setVisible(false);
+            }
         }
     }
 

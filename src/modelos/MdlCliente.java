@@ -138,15 +138,14 @@ public class MdlCliente {
      */
     public boolean crearCliente(String nombre, String apellido1, 
             String apellido2, String cedula, double limiteCred, 
-            boolean aprobarCred, Direccion dir, ArrayList<ArrayList<Object>> contactos) {
+            boolean aprobarCred, Direccion dir, 
+            ArrayList<ArrayList<Object>> contactos) {
         
-        int codDireccion;
+        int codDireccion = 0;
         if(dir != null) {
             codDireccion = ctrDireccion.crearDireccion(dir.getCodProvincia(), 
                 dir.getCodCanton(), dir.getCodDistrito(), dir.getCodBarrio(), 
                 dir.getOtrasSenas());
-        } else {
-            codDireccion = 0;
         }
         
         ArrayList<Object> params = new ArrayList<>();
@@ -215,6 +214,7 @@ public class MdlCliente {
      * @param limiteCred
      * @param aprobarCred
      * @param contactos
+     * @param dir
      * @param estado
      * @param codPersona
      * @param codigo
@@ -222,7 +222,7 @@ public class MdlCliente {
      */
     public boolean actualizarCliente(String nombre, String apellido1, 
             String apellido2, String cedula, double limiteCred, 
-            boolean aprobarCred, String codPersona, ) {
+            boolean aprobarCred, String codPersona, Direccion dir) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(nombre);
@@ -235,7 +235,21 @@ public class MdlCliente {
 
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_actualizar_cliente(?, ?, ?, ?, ?, ?, ?)";
+            int codDir = 0;
+            if(dir != null) {
+                if(dir.getCodigo() == 0) {
+                    codDir = ctrDireccion.crearDireccion(dir.getCodProvincia(), 
+                            dir.getCodCanton(), dir.getCodDistrito(), 
+                            dir.getCodBarrio(), dir.getOtrasSenas());
+                } else {
+                    ctrDireccion.actualizarDireccion(dir.getCodProvincia(), 
+                            dir.getCodCanton(), dir.getCodDistrito(), 
+                            dir.getCodBarrio(), dir.getOtrasSenas(), 
+                            dir.getCodigo());
+                }
+            }
+            params.add(codDir);
+            procedimiento = "pc_actualizar_cliente(?, ?, ?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);

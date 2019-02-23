@@ -92,7 +92,8 @@ public class CtrCliente {
      */
     public boolean crearCliente(String nombre, String apellido1, 
             String apellido2, String cedula, double limiteCred, 
-            boolean aprobarCred, Direccion dir, ArrayList<ArrayList<Object>> contactos) {
+            boolean aprobarCred, Direccion dir, 
+            ArrayList<ArrayList<Object>> contactos) {
 
         return mdlCliente.crearCliente(nombre, apellido1, apellido2, cedula, 
                 limiteCred, aprobarCred, dir, contactos);
@@ -127,14 +128,15 @@ public class CtrCliente {
      * @param limiteCred cantidad límite de crédito del cliente
      * @param aprobarCred aprobación al crédito del cliente
      * @param codPersona codigo de persona a quien se actualiza la información
+     * @param dir
      * @return verdadero si la información se actualiza exitosamente
      */
     public boolean actualizarCliente(String nombre, String apellido1, 
             String apellido2, String cedula, double limiteCred, 
-            boolean aprobarCred, String codPersona) {
+            boolean aprobarCred, String codPersona, Direccion dir) {
         
         return mdlCliente.actualizarCliente(nombre, apellido1, apellido2, 
-                cedula, limiteCred, aprobarCred, codPersona);
+                cedula, limiteCred, aprobarCred, codPersona, dir);
     }
     
     /**

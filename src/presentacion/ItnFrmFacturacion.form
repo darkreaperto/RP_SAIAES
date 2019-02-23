@@ -825,8 +825,8 @@
                                           <Component id="lblTextClienteFac" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="ftClienteFac" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="ftClienteFac" min="-2" pref="30" max="-2" attributes="0"/>
                                           <Component id="cbxClientes" min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -841,7 +841,7 @@
                           </Group>
                           <Component id="lblTextUsuario" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="18" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
