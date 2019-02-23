@@ -230,7 +230,8 @@ public class MdlProveedor {
         params.add(codPersona);
 
         boolean creacionExitosa = false;
-        try {  
+        try {
+            
             int codDir = 0;
             if (dir != null) {
                 if (dir.getCodigo() == 0) {
@@ -243,9 +244,10 @@ public class MdlProveedor {
                             dir.getCodBarrio(), dir.getOtrasSenas(), dir.getCodigo());
                 }
             }
+            //agregar código de dirección para actualizar
             params.add(codDir);
             
-            procedimiento = "pc_actualizar_proveedor(?, ?, ?, ?, ?)";
+            procedimiento = "pc_actualizar_proveedor(?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
