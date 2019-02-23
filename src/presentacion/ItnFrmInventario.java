@@ -465,7 +465,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         cbxNuevoTVariedad = new javax.swing.JComboBox<>();
         cbxNuevoTProveedor = new javax.swing.JComboBox<>();
         txtNuevoTMedPulgadas = new javax.swing.JTextField();
-        btnCrearProveedor = new javax.swing.JButton();
         pnlNuevoTerminada = new javax.swing.JPanel();
         lblNuevoTmCodigo = new javax.swing.JLabel();
         lblNuevoTmNombre = new javax.swing.JLabel();
@@ -761,39 +760,81 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         tbNuevoTipoProd.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/inv_acerrada.png")), pnlNuevoAcerrada); // NOI18N
 
         lblNuevoTCodigo.setText("Código:");
-        pnlNuevoTroza.add(lblNuevoTCodigo);
 
         lblNuevoTVariedadMadera.setText("Variedad de madera:");
-        pnlNuevoTroza.add(lblNuevoTVariedadMadera);
 
         lblNuevoTMedidas.setText("Medidas:");
-        pnlNuevoTroza.add(lblNuevoTMedidas);
 
         lblNuevoTProveedor.setText("Proveedor:");
-        pnlNuevoTroza.add(lblNuevoTProveedor);
 
         lblNuevoTDescripcion.setText("Descripción: ");
-        pnlNuevoTroza.add(lblNuevoTDescripcion);
 
         lblNuevoAcMedPulgadas.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         lblNuevoAcMedPulgadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNuevoAcMedPulgadas.setText("pulgadas.");
-        pnlNuevoTroza.add(lblNuevoAcMedPulgadas);
-        pnlNuevoTroza.add(txtNuevoTCodigo);
 
         txtaNuevoTDescripcion.setColumns(20);
         txtaNuevoTDescripcion.setRows(5);
         scpnlNuevoTDescripcion.setViewportView(txtaNuevoTDescripcion);
 
-        pnlNuevoTroza.add(scpnlNuevoTDescripcion);
-
-        pnlNuevoTroza.add(cbxNuevoTVariedad);
-
-        pnlNuevoTroza.add(cbxNuevoTProveedor);
-        pnlNuevoTroza.add(txtNuevoTMedPulgadas);
-
-        btnCrearProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/f_crearCliente.png"))); // NOI18N
-        pnlNuevoTroza.add(btnCrearProveedor);
+        javax.swing.GroupLayout pnlNuevoTrozaLayout = new javax.swing.GroupLayout(pnlNuevoTroza);
+        pnlNuevoTroza.setLayout(pnlNuevoTrozaLayout);
+        pnlNuevoTrozaLayout.setHorizontalGroup(
+            pnlNuevoTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNuevoTrozaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlNuevoTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNuevoTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNuevoTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlNuevoTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlNuevoTrozaLayout.createSequentialGroup()
+                            .addComponent(lblNuevoTProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                            .addGap(194, 194, 194))
+                        .addComponent(cbxNuevoTProveedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(61, 61, 61)
+                .addGroup(pnlNuevoTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlNuevoTrozaLayout.createSequentialGroup()
+                        .addGroup(pnlNuevoTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(scpnlNuevoTDescripcion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                            .addComponent(cbxNuevoTVariedad, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(151, 151, 151)
+                        .addGroup(pnlNuevoTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblNuevoTMedidas, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                            .addComponent(txtNuevoTMedPulgadas))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNuevoAcMedPulgadas, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNuevoTVariedadMadera, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNuevoTDescripcion))
+                .addContainerGap(65, Short.MAX_VALUE))
+        );
+        pnlNuevoTrozaLayout.setVerticalGroup(
+            pnlNuevoTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNuevoTrozaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlNuevoTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNuevoTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNuevoTVariedadMadera, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNuevoTMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlNuevoTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNuevoTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxNuevoTVariedad)
+                    .addComponent(txtNuevoTMedPulgadas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNuevoAcMedPulgadas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlNuevoTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNuevoTProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNuevoTDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlNuevoTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlNuevoTrozaLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(cbxNuevoTProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNuevoTrozaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(scpnlNuevoTDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))))
+        );
 
         tbNuevoTipoProd.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/inv_troza.png")), pnlNuevoTroza); // NOI18N
 
@@ -2035,7 +2076,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnActualizarAserrada;
     private javax.swing.JButton btnActualizarTerminada;
     private javax.swing.JButton btnActualizarTroza;
-    private javax.swing.JButton btnCrearProveedor;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btn_deshabilitar;
