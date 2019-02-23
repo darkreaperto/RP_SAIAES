@@ -528,8 +528,12 @@
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="lblNuevoTCodigo" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
                                       <Component id="lblNuevoTProveedor" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
-                                      <Component id="cbxNuevoTProveedor" pref="295" max="32767" attributes="0"/>
-                                      <Component id="txtNuevoTCodigo" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtNuevoTCodigo" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="cbxNuevoTProveedor" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="btnCrearProveedor" min="-2" pref="33" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace pref="102" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -597,7 +601,10 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="lblNuevoTProveedor" min="-2" pref="30" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="cbxNuevoTProveedor" min="-2" pref="33" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="cbxNuevoTProveedor" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                                              <Component id="btnCrearProveedor" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
@@ -678,6 +685,13 @@
                           </AuxValues>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNuevoTMedPulgadas">
+                        </Component>
+                        <Component class="javax.swing.JButton" name="btnCrearProveedor">
+                          <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/recursos/f_crearCliente.png"/>
+                            </Property>
+                          </Properties>
                         </Component>
                       </SubComponents>
                     </Container>

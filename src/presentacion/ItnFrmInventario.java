@@ -456,6 +456,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         cbxNuevoTVariedad = new javax.swing.JComboBox<>();
         cbxNuevoTProveedor = new javax.swing.JComboBox<>();
         txtNuevoTMedPulgadas = new javax.swing.JTextField();
+        btnCrearProveedor = new javax.swing.JButton();
         pnlNuevoTerminada = new javax.swing.JPanel();
         lblNuevoTmCodigo = new javax.swing.JLabel();
         lblNuevoTmNombre = new javax.swing.JLabel();
@@ -789,6 +790,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         txtaNuevoTDescripcion.setRows(5);
         scpnlNuevoTDescripcion.setViewportView(txtaNuevoTDescripcion);
 
+        btnCrearProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/f_crearCliente.png"))); // NOI18N
+
         javax.swing.GroupLayout pnlNuevoTrozaLayout = new javax.swing.GroupLayout(pnlNuevoTroza);
         pnlNuevoTroza.setLayout(pnlNuevoTrozaLayout);
         pnlNuevoTrozaLayout.setHorizontalGroup(
@@ -798,8 +801,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 .addGroup(pnlNuevoTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblNuevoTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNuevoTProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxNuevoTProveedor, 0, 295, Short.MAX_VALUE)
-                    .addComponent(txtNuevoTCodigo))
+                    .addComponent(txtNuevoTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNuevoTrozaLayout.createSequentialGroup()
+                        .addComponent(cbxNuevoTProveedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCrearProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addGroup(pnlNuevoTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlNuevoTrozaLayout.createSequentialGroup()
@@ -850,7 +856,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     .addGroup(pnlNuevoTrozaLayout.createSequentialGroup()
                         .addComponent(lblNuevoTProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxNuevoTProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnlNuevoTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbxNuevoTProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCrearProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -2094,6 +2102,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnActualizarAserrada;
     private javax.swing.JButton btnActualizarTerminada;
     private javax.swing.JButton btnActualizarTroza;
+    private javax.swing.JButton btnCrearProveedor;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btn_deshabilitar;

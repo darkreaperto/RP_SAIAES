@@ -13,6 +13,8 @@ import controladores.CtrImpuesto;
 import controladores.CtrLineaDetalle;
 import controladores.CtrMadera;
 import java.awt.Container;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -1367,8 +1369,37 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ftClienteFacKeyReleased
 
     private void btnBusquedaAvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaAvActionPerformed
+        
         dialogBusqueda = new DlgFacBusqueda(this, true);
+        
+//        dialogBusqueda.addWindowListener(new WindowAdapter() {
+//
+//            @Override
+//            public void windowClosed(WindowEvent e) {
+//                System.out.println("CLOSED");
+//            }
+//        });
+        
         dialogBusqueda.setVisible(true);
+        
+        //Obtener el producto seleccionado en búsqueda avnzada, si hay
+        Madera prod = dialogBusqueda.obtenerProducto();
+        System.out.println(prod);
+        
+        lsEscogerProd.clearSelection();//limpiar la selección de la lista
+        //Si la búsqueda avnzada devuelve un producto se llena la lista
+        if (prod != null) {
+            //cargar el producto en la lista
+            llenarListaProductos(prod.getCodProducto(), 5);
+            
+            //Si solo hay un elemento en la lista de productos, se selecciona
+            if (lsEscogerProd.getComponentCount() == 1) {
+                lsEscogerProd.setSelectedIndex(0);
+            }
+        }
+        
+        
+        
     }//GEN-LAST:event_btnBusquedaAvActionPerformed
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
