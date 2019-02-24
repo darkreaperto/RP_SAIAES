@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlCliente.java</file>
-            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmProveedor.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmInventario.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmFacturacion.java</file>
-            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrCliente.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmCliente.java</file>
-            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrProveedor.java</file>
-            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlProveedor.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/util/TextPrompt.java</file>
         </group>
     </open-files>
 </project-private>

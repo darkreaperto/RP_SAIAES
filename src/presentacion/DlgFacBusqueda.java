@@ -33,7 +33,7 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
     public DlgFacBusqueda(ItnFrmFacturacion parent,/*java.awt.Frame parent,*/
             boolean modal) {
         //super(parent, modal);
-        this.ifrmFacturacion = parent;
+        DlgFacBusqueda.ifrmFacturacion = parent;
         this.setModal(modal);
         initComponents();
         setLocationRelativeTo(this);
@@ -92,6 +92,29 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
         
         tabla.removeColumn(tabla.getColumnModel().getColumn(8));
     }
+    
+    /**
+     * 
+     */
+    public Madera obtenerProducto() {
+        Madera prod = null;
+        
+        int row = tbListadoProd.getSelectedRow();
+        model = (DefaultTableModel) tbListadoProd.getModel();
+        
+        if (row >= 0) {
+            String cod = (String) model.getValueAt(row, 8);
+            for (Madera p: productos) {
+                if (p.getCodigo().equals(cod)) {
+                    prod = p;
+                    break;
+                }
+            }
+        }
+        
+        return prod;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -154,6 +177,11 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
 
         btnBuscarProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/busqueda.png"))); // NOI18N
         btnBuscarProd.setText("Buscar");
+        btnBuscarProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarProdActionPerformed(evt);
+            }
+        });
 
         pnlFiltroProd.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Especificación de búsqueda:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 13))); // NOI18N
 
@@ -281,12 +309,17 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarBusquedaActionPerformed
 
     private void btnAceptarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarBusquedaActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        obtenerProducto();//enviar el producto seleccionado a facturación
     }//GEN-LAST:event_btnAceptarBusquedaActionPerformed
 
     private void txtBusquedaProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusquedaProdKeyReleased
         filtrarBusqueda();
     }//GEN-LAST:event_txtBusquedaProdKeyReleased
+
+    private void btnBuscarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarProdActionPerformed
 
     /**
      * @param args the command line arguments
