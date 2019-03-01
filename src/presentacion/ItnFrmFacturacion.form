@@ -354,6 +354,8 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="pnlAgregarProd" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
+                                  <Component id="btnBorrarLinea" min="-2" pref="63" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnAddImpuesto" min="-2" pref="63" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnAddProduct" min="-2" pref="63" max="-2" attributes="0"/>
@@ -376,6 +378,7 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="btnAddImpuesto" min="-2" pref="60" max="-2" attributes="0"/>
                               <Component id="btnAddProduct" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="btnBorrarLinea" min="-2" pref="60" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="pnlSelectCliente" max="32767" attributes="0"/>
@@ -947,6 +950,17 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="btnBorrarLinea">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/recursos/delete.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Agregar impuesto"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarLineaActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
