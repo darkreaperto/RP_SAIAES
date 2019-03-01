@@ -835,6 +835,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         btnCrearCliente = new javax.swing.JButton();
         btnBuscarCliente = new javax.swing.JButton();
         txtNomCliente = new javax.swing.JTextField();
+        btnBorrarLinea = new javax.swing.JButton();
 
         pnlFacVarios.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Producto"));
 
@@ -1311,6 +1312,14 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 .addGap(50, 50, 50))
         );
 
+        btnBorrarLinea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/delete.png"))); // NOI18N
+        btnBorrarLinea.setToolTipText("Agregar impuesto");
+        btnBorrarLinea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarLineaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnl_modFacturaLayout = new javax.swing.GroupLayout(pnl_modFactura);
         pnl_modFactura.setLayout(pnl_modFacturaLayout);
         pnl_modFacturaLayout.setHorizontalGroup(
@@ -1329,6 +1338,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                         .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pnlAgregarProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modFacturaLayout.createSequentialGroup()
+                                .addComponent(btnBorrarLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAddImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -1344,7 +1355,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnAddImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBorrarLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(pnlSelectCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scpnlTblLineaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
@@ -1532,6 +1544,10 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtNomClienteKeyReleased
 
+    private void btnBorrarLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarLineaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBorrarLineaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgClasifProducto;
     private javax.swing.JButton btnAddImpuesto;
@@ -1539,6 +1555,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAddProduct1;
     private javax.swing.JButton btnAgregarVarios;
     private javax.swing.JButton btnAgregarVarios2;
+    private javax.swing.JButton btnBorrarLinea;
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnBusquedaAv;
     private javax.swing.JButton btnCrearCliente;
