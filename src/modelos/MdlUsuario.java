@@ -201,6 +201,32 @@ public class MdlUsuario {
         }
     }
 
+    public boolean actualizarRolUsuario(String nombre,
+            Rol rol) {
+        
+        int codRol = rol.equals(Rol.Administrador) ? 1 : 2;
+
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(nombre);
+        params.add(codRol);
+
+        boolean creacionExitosa = false;
+        try {
+            procedimiento = "pc_actualizar_us_rol(?, ?)";
+
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            creacionExitosa = true;
+
+        } catch (SQLException ex) {
+            creacionExitosa = false;
+            System.err.println(ex);
+            ex.printStackTrace();
+        } finally {
+            conexion.cerrarConexion();
+            return creacionExitosa;
+        }
+    }
     /**
      * Buscar usuario enviando por parámetro el criterio de búsqueda.
      * @param param Parametros para consultar usuario en la base de datos
