@@ -1133,19 +1133,16 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         try {
             model = (DefaultTableModel) tbl_actPermisos.getModel();
             int selectedRowIndex = tbl_actPermisos.getSelectedRow();
-            String codigo
-                    = String.valueOf(model.getValueAt(selectedRowIndex, 0));
             Rol rol
                     = rb_actPermi_Admin.isSelected() ? Rol.Administrador : Rol.Estándar;
-
-            controlador.actualizarUsuario(
-                    String.valueOf(model.getValueAt(selectedRowIndex, 1)),
-                    String.valueOf(model.getValueAt(selectedRowIndex, 2)),
-                    String.valueOf(model.getValueAt(selectedRowIndex, 3)),
-                    rol, Estado.Activo, codigo);
+            System.out.println("rol:"+rol.toString());
+            controlador.actualizarRolUsuario(
+                    String.valueOf(model.getValueAt(selectedRowIndex, 0)),
+                    rol);
             //Actualizar
             cargarTablas();
         } catch (Exception e) {
+            e.printStackTrace();
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                     TipoMensaje.ANY_ROW_SELECTED);
         }

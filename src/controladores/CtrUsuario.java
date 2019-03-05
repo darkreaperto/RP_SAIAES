@@ -225,7 +225,15 @@ public class CtrUsuario {
             Rol rol, Estado estado, String codigo) {
         return mdlUsuario.actualizarUsuario(nombre, contra, correo, rol, estado, codigo);
     }
-    
+    /**
+     * Llama método que actualiza toda la información del usuario en la BD.
+     * @param nombre Nombre de usuario.
+     * @param rol Rol de usuario.
+     * @return 
+     */
+    public boolean actualizarRolUsuario( String nombre, Rol rol) {
+        return mdlUsuario.actualizarRolUsuario(nombre, rol);
+    }
     /**
      * Llama el método que actualiza únicamente la contraseña en la BD.
      * @param nombre Nombre de usuario.
