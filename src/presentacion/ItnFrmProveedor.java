@@ -743,6 +743,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
         lblEditarSegundoProveedor.setText("Segundo Apellido:");
 
+        ckbEditarDireccion.setSelected(true);
         ckbEditarDireccion.setText("Agregar dirección");
         ckbEditarDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -810,7 +811,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         );
 
         pnlEditarTelefono.add(pnlEditarInfoBase);
-        pnlEditarInfoBase.setBounds(12, 12, 324, 205);
+        pnlEditarInfoBase.setBounds(12, 12, 326, 210);
 
         scpnl_EditarProveedor.setViewportView(pnlEditarTelefono);
 
