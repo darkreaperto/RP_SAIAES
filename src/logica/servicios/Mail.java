@@ -74,8 +74,8 @@ public class Mail {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.timeout", "2000");    
-        props.put("mail.smtp.connectiontimeout", "2000");
+        props.put("mail.smtp.timeout", "30000");
+        props.put("mail.smtp.connectiontimeout", "30000");
         
         System.out.println("Props-end");
 
