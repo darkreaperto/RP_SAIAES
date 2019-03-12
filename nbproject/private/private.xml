@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/aoihanabi/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmFacturacion.java</file>
-            <file>file:/home/aoihanabi/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmProveedor.java</file>
-            <file>file:/home/aoihanabi/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmInventario.java</file>
-            <file>file:/home/aoihanabi/NetBeansProjects/RP_SAIAES/src/presentacion/DlgFacBusqueda.java</file>
-            <file>file:/home/aoihanabi/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmCliente.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmInventario.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmUsuario.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmFacturacion.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmProveedor.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmCliente.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmAccesoUsuario.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1472,7 +1472,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         int y = pnlAgregarProd.getY();
         int h = pnlAgregarProd.getHeight();
         pnlFacVarios.setVisible(true);
-        pnlFacVarios.setBounds(x, y, 520, h);
+        pnlFacVarios.setBounds(x, y, 350, h);
         pnl_modFactura.add(pnlFacVarios);
         pnlAgregarProd.setVisible(false);
         txtDescripcionVarios.requestFocus();
