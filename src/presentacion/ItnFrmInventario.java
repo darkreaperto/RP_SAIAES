@@ -790,6 +790,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         scpnlNuevoTDescripcion.setViewportView(txtaNuevoTDescripcion);
 
         btnCrearProv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/f_crearCliente.png"))); // NOI18N
+        btnCrearProv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearProvActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlNuevoTrozaLayout = new javax.swing.GroupLayout(pnlNuevoTroza);
         pnlNuevoTroza.setLayout(pnlNuevoTrozaLayout);
@@ -2087,6 +2092,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private void txtNuevoAcMedGruesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNuevoAcMedGruesoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNuevoAcMedGruesoActionPerformed
+
+    private void btnCrearProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProvActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCrearProvActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

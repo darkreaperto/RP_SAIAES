@@ -801,6 +801,7 @@
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="ckbAgregarDireccion">
                       <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="Agregar direcci&#xf3;n"/>
                       </Properties>
                       <Events>

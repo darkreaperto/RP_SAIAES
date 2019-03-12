@@ -67,8 +67,8 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         cargarTablas();
         cargarDirJCombo("P", "", "", "", cbxProvincia);
         cargarDirJCombo("P", "", "", "", cbxEditarProvincia);
-        pnlCrearDireccion.setVisible(false);
-        //pnlEditarDireccion.setVisible(false);
+        //pnlCrearDireccion.setVisible(false);
+        pnlEditarDireccion.setVisible(false);
     }
 
     /**
@@ -381,7 +381,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         );
 
         pnl_agregar.add(pnlCrearContactoProveedor);
-        pnlCrearContactoProveedor.setBounds(370, 10, 445, 235);
+        pnlCrearContactoProveedor.setBounds(370, 10, 454, 235);
 
         tbl_crear.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -412,7 +412,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             }
         });
         pnl_agregar.add(btnCrearProveedor);
-        btnCrearProveedor.setBounds(1015, 532, 127, 35);
+        btnCrearProveedor.setBounds(1015, 532, 150, 35);
 
         pnlCrearDireccion.setBorder(javax.swing.BorderFactory.createTitledBorder("Dirección"));
 
@@ -504,7 +504,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         );
 
         pnl_agregar.add(pnlCrearDireccion);
-        pnlCrearDireccion.setBounds(831, 12, 329, 250);
+        pnlCrearDireccion.setBounds(831, 12, 334, 250);
 
         pnlCrearInfoBase.setBorder(javax.swing.BorderFactory.createTitledBorder("Información básica"));
 
@@ -514,6 +514,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             }
         });
 
+        ckbAgregarDireccion.setSelected(true);
         ckbAgregarDireccion.setText("Agregar dirección");
         ckbAgregarDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -731,7 +732,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         );
 
         pnlEditarTelefono.add(pnlEditarDireccion);
-        pnlEditarDireccion.setBounds(348, 12, 554, 205);
+        pnlEditarDireccion.setBounds(348, 12, 587, 200);
 
         pnlEditarInfoBase.setBorder(javax.swing.BorderFactory.createTitledBorder("Información básica"));
 
@@ -811,7 +812,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         );
 
         pnlEditarTelefono.add(pnlEditarInfoBase);
-        pnlEditarInfoBase.setBounds(12, 12, 326, 210);
+        pnlEditarInfoBase.setBounds(12, 12, 324, 205);
 
         scpnl_EditarProveedor.setViewportView(pnlEditarTelefono);
 
