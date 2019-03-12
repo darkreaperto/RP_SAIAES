@@ -817,7 +817,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         lsEscogerProd = new javax.swing.JList<>();
         btnAddProduct1 = new javax.swing.JButton();
         txtCantidad = new javax.swing.JTextField();
-        placeholder = new TextPrompt("Cantidad en unidades...", txtCantidad);
+        placeholder = new TextPrompt("Cantidad en varas...", txtCantidad);
         placeholder.changeAlpha(0.75f);
         placeholder.changeStyle(Font.ITALIC);
         lblTextExistencias = new javax.swing.JLabel();

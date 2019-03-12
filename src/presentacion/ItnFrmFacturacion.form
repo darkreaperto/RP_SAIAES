@@ -728,7 +728,7 @@
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCantidadFocusGained"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Cantidad en unidades...&quot;, txtCantidad);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Cantidad en varas...&quot;, txtCantidad);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTextExistencias">
