@@ -108,18 +108,18 @@ public class CtrMadera {
      * @param codTipoMadera codigo del tipo de madera del producto
      * @param medida medidas del producto
      * @param tipoProducto descripcion de cual es el tipo de producto
-     * @param unidades cantidad de unidades que entran
+     * @param varas cantidad de varas que entran
      * @param precio precio por vara del producto
      * @param descripcion detalle del producto (opcional)
      * @param codProveedor codigo del proveedor
      * @return verdadero si inserta el producto.
      */
     public boolean crearProducto(String codProd, int codTipoMadera, 
-            String medida, String tipoProducto, int unidades, double precio, 
+            String medida, String tipoProducto, double varas, double precio, 
             String descripcion, int codProveedor) {
         
         return mdlMadera.crearProducto(codProd, codTipoMadera, medida, 
-                tipoProducto, unidades, precio, descripcion, codProveedor);
+                tipoProducto, varas, precio, descripcion, codProveedor);
     }
     
     /**
