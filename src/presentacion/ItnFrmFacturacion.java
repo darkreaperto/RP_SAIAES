@@ -221,7 +221,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     public void eliminarProducto(String paramProd) {
         
         int filaSelect = tblLineaPedido.getSelectedRow();
-        listaProd.remove(listaProd.get(filaSelect));
+        listaProd.remove(listaProd.indexOf(filaSelect));
         
 //        DefaultListModel<Madera> mProductos = new DefaultListModel<>();
 //        listaProd = ctrInventario.busqAvzProductos(paramProd, codBusq);
