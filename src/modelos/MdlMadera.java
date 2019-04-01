@@ -225,21 +225,21 @@ public class MdlMadera {
      * @param codTipoMadera codigo del tipo de madera del producto
      * @param medida medidas del producto
      * @param tipoProducto descripcion de cual es el tipo de producto
-     * @param unidades cantidad de unidades que entran
+     * @param varas cantidad de varas que entran
      * @param precio precio por vara del producto
      * @param descripcion detalle del producto (opcional)
      * @param codProveedor codigo del proveedor
      * @return true si inserta el usuario.
      */
     public boolean crearProducto(String codProd, int codTipoMadera, 
-            String medida, String tipoProducto, int unidades, double precio, 
+            String medida, String tipoProducto, double varas, double precio, 
             String descripcion, int codProveedor) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(codProd);
         params.add(descripcion);
         params.add(precio);
-        params.add(unidades);
+        params.add(varas);
         params.add(medida);
         params.add(codTipoMadera);
         params.add(tipoProducto);
