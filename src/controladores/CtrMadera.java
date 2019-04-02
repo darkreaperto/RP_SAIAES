@@ -34,7 +34,8 @@ public class CtrMadera {
      * @param codProducto codigo del producto (personalizado)
      * @param codTipoMadera codigo del tipo de madera
      * @param descTipoMadera descripción del tipo de madera
-     * @param medidas medidas de la madera/producto
+     * @param grueso grueso de la madera/producto
+     * @param ancho ancho de la madera/producto
      * @param tipoProducto tipo de producto (aserrada/troza/terminada)
      * @param unidades cantidad de productos en unidades
      * @param precioXvara precio del producto 
@@ -44,12 +45,13 @@ public class CtrMadera {
      * @param nomProveedor nombre del proveedor del producto(solo troza)
      */
     public CtrMadera(String codigo, String codProducto, String codTipoMadera, 
-            String descTipoMadera, String medidas, String tipoProducto, 
-            int unidades, double precioXvara, String descripcion, String estado,
-            String codProveedor, String nomProveedor) {
+            String descTipoMadera, String grueso, String ancho, 
+            String tipoProducto, int unidades, double precioXvara, 
+            String descripcion, String estado, String codProveedor, 
+            String nomProveedor) {
         madera = new Madera(codigo, codProducto, codTipoMadera, 
-                descTipoMadera, medidas, tipoProducto, unidades, precioXvara, 
-                descripcion, estado, codProveedor, nomProveedor);
+                descTipoMadera, grueso, ancho, tipoProducto, unidades, 
+                precioXvara, descripcion, estado, codProveedor, nomProveedor);
     }
     /**
      * Obtener instancia única del controlador de madera.
@@ -106,7 +108,8 @@ public class CtrMadera {
      *
      * @param codProd codigo personalizado asignado al producto
      * @param codTipoMadera codigo del tipo de madera del producto
-     * @param medida medidas del producto
+     * @param grueso grueso del producto
+     * @param ancho ancho del producto
      * @param tipoProducto descripcion de cual es el tipo de producto
      * @param varas cantidad de varas que entran
      * @param precio precio por vara del producto
@@ -115,10 +118,10 @@ public class CtrMadera {
      * @return verdadero si inserta el producto.
      */
     public boolean crearProducto(String codProd, int codTipoMadera, 
-            String medida, String tipoProducto, double varas, double precio, 
-            String descripcion, int codProveedor) {
+            String grueso, String ancho, String tipoProducto, double varas, 
+            double precio, String descripcion, int codProveedor) {
         
-        return mdlMadera.crearProducto(codProd, codTipoMadera, medida, 
+        return mdlMadera.crearProducto(codProd, codTipoMadera, grueso, ancho, 
                 tipoProducto, varas, precio, descripcion, codProveedor);
     }
     
@@ -126,7 +129,8 @@ public class CtrMadera {
      * 
      * @param codProd codigo personalizado asignado al producto
      * @param codTipoMadera codigo del tipo de madera del producto
-     * @param medidas medidas del producto
+     * @param grueso grueso del producto
+     * @param ancho ancho del producto
      * @param unidades cantidad de unidades que entran
      * @param precio precio por vara del producto
      * @param descripcion detalle del producto (opcional)
@@ -135,11 +139,11 @@ public class CtrMadera {
      * @return verdadero si actualiza el producto exitosamente
      */
     public boolean actualizarProducto(String codProd, int codTipoMadera, 
-            String medidas, int unidades, double precio, String descripcion, 
-            int codProveedor, String codigo) {
+            String grueso, String ancho, int unidades, double precio, 
+            String descripcion, int codProveedor, String codigo) {
         
-        return mdlMadera.actualizarProducto(codProd, codTipoMadera, medidas, 
-                unidades, precio, descripcion, codProveedor, codigo);
+        return mdlMadera.actualizarProducto(codProd, codTipoMadera, grueso,
+                ancho, unidades, precio, descripcion, codProveedor, codigo);
     }
     /**
      * Llama el método que inactiva un producto en la bd

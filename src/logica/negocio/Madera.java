@@ -18,7 +18,8 @@ public class Madera {
     private String codProducto;
     private String codTipoMadera;
     private String descTipoMadera;
-    private String medidas;
+    private String grueso;
+    private String ancho;
     private String descripcion;    
     private String codProveedor;
     private String nomProveedor;
@@ -48,14 +49,16 @@ public class Madera {
      * @param nomProveedor nombre del proveedor.
      */
     public Madera(String codigo, String codProducto, String codTipoMadera, 
-            String descTipoMadera, String medidas, String tipoProducto,
-            int unidades, double precioXvara, String descripcion, String estado,
-            String codProveedor, String nomProveedor) {
+            String descTipoMadera, String grueso, String ancho, 
+            String tipoProducto, int unidades, double precioXvara, 
+            String descripcion, String estado, String codProveedor, 
+            String nomProveedor) {
         this.codigo = codigo;
         this.codProducto = codProducto;
         this.codTipoMadera = codTipoMadera;
         this.descTipoMadera = descTipoMadera;
-        this.medidas = medidas;
+        this.grueso = grueso;
+        this.ancho = ancho;
         this.tipoProducto = tipoProducto;
         this.unidades = unidades;
         this.precioXvara = precioXvara;
@@ -130,19 +133,34 @@ public class Madera {
     }
     
     /**
-     * Obtener las medidas.
-     * @return las medidas
-     */
-    public String getMedidas() {
-        return medidas;
+     * Obtener las grueso
+     * @return las grueso     */
+    public String getGrueso() {
+        return grueso;
     }
     
     /**
-     * Establecer medidas de producto
-     * @param medidas las medidas.
+     * Establecer grueso de producto
+     * @param grueso el grueso.
      */
-    public void setMedidas(String medidas) {
-        this.medidas = medidas;
+    public void setGrueso(String grueso) {
+        this.grueso = grueso;
+    }
+    
+    /**
+     * Obtener las ancho.
+     * @return las ancho
+     */
+    public String getAncho() {
+        return ancho;
+    }
+    
+    /**
+     * Establecer ancho de producto
+     * @param ancho las ancho.
+     */
+    public void setAncho(String ancho) {
+        this.ancho = ancho;
     }
     
     /**
@@ -261,6 +279,6 @@ public class Madera {
     @Override
     public String toString()
     {
-     return codProducto +": " + descTipoMadera + " " + medidas;
+     return codProducto +": " + descTipoMadera + " " + grueso + " " + ancho;
     }
 }
