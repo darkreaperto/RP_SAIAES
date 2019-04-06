@@ -12,7 +12,7 @@ import util.Estado;
  * @author dark-reaper
  */
 public class Madera {
-    private int unidades;
+    
     private double precioXvara;
     private String codigo;
     private String codProducto;
@@ -25,6 +25,8 @@ public class Madera {
     private String nomProveedor;
     private String tipoProducto;
     private Estado estado;
+    private double cantVaras;
+    private double pulgadas;
     
     
     /**
@@ -36,23 +38,25 @@ public class Madera {
     /**
      * Constructor de clase madera, inicializa variables.
      * @param codigo codigo producto.
-     * @param codProducto codigo especificado de producto.
+     * @param codProducto codigo especificado por el cliente.
      * @param codTipoMadera codigo del tipo de madera.
      * @param descTipoMadera descripcion del tipo de madera.
-     * @param medidas medidas del producto de acuerdo a su tipo.
+     * @param grueso grueso del producto.
+     * @param ancho ancho del producto.
      * @param tipoProducto tipo de producto(troza, acerrada, terminada).
-     * @param unidades unidades de producto.
      * @param precioXvara precio por vara del producto.
      * @param descripcion descripciones detalladas del producto.
      * @param estado Estado de producto.
      * @param codProveedor codigo del proveedor.
      * @param nomProveedor nombre del proveedor.
+     * @param cantvaras
+     * @param pulgadas
      */
     public Madera(String codigo, String codProducto, String codTipoMadera, 
             String descTipoMadera, String grueso, String ancho, 
-            String tipoProducto, int unidades, double precioXvara, 
+            String tipoProducto, double precioXvara, 
             String descripcion, String estado, String codProveedor, 
-            String nomProveedor) {
+            String nomProveedor, double cantvaras, double pulgadas) {
         this.codigo = codigo;
         this.codProducto = codProducto;
         this.codTipoMadera = codTipoMadera;
@@ -60,13 +64,13 @@ public class Madera {
         this.grueso = grueso;
         this.ancho = ancho;
         this.tipoProducto = tipoProducto;
-        this.unidades = unidades;
         this.precioXvara = precioXvara;
         this.descripcion = descripcion;
         this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
         this.codProveedor = codProveedor;
         this.nomProveedor = nomProveedor;
-        
+        this.cantVaras = cantvaras;
+        this.pulgadas = pulgadas;        
     }
 
     /**
@@ -177,23 +181,7 @@ public class Madera {
      */
     public void setTipoProducto(String tipoProducto) {
         this.tipoProducto = tipoProducto;
-    }
-    
-    /**
-     * Obtener la unidades por unidad.
-     * @return la unidades
-     */
-    public int getUnidades() {
-        return unidades;
-    }
-    
-    /**
-     * Establecer unidades de producto
-     * @param unidades la unidades
-     */
-    public void setUnidades(int unidades) {
-        this.unidades = unidades;
-    }
+    }  
     
     /**
      * Obtener el precio por vara.
@@ -270,6 +258,35 @@ public class Madera {
      */
     public void setNomProveedor(String nomProveedor) {
         this.nomProveedor = nomProveedor;
+    }
+    /**
+     * Obtener cantidad en varas del producto
+     * @return cantidad en varas del producto
+     */
+    public double getCantVaras() {
+        return cantVaras;
+    }
+    
+    /**
+     * Establecer cantidad en varas del producto
+     * @param cantVaras cantidad en varas del producto
+     */
+    public void setCantVaras(int cantVaras) {
+        this.cantVaras = cantVaras;
+    }/**
+     * Obtener la cantidad del producto en pulgadas
+     * @return la cantidad del producto en pulgadas
+     */
+    public double getPulgadas() {
+        return pulgadas;
+    }
+    
+    /**
+     * Establecer la cantidad del producto en pulgadas
+     * @param pulgadas la cantidad del producto en pulgadas
+     */
+    public void setPulgadas(int pulgadas) {
+        this.pulgadas = pulgadas;
     }
     /**
      * Sobreescritura del método toString para obtener información básica del
