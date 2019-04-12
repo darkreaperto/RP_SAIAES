@@ -298,36 +298,39 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * Preparar la información ingresada del producto para enviarlo a crear.
      */
     private void prepararProducto() {
-        String medidas;
-        String cantVaras;
+        String codProveedor;
         TipoMadera tipoMad;
+        //CREAR MADERA ASERRADA
         if (verificarTipoMadera("CREAR").equals("ASERRADA")) {
-            cantVaras = txtNuevoAcMedVaras.getText().trim();
-            medidas = txtNuevoAcMedGrueso.getText().trim() + "x"
-                    + txtNuevoAcMedAncho.getText().trim();
+            Double cantVaras = Double.valueOf(txtNuevoAcMedVaras.getText().trim());            
             tipoMad = (TipoMadera) cbxNuevoAcVariedad.getSelectedItem();
+            Double precio = Double.valueOf(txtNuevoAcPrecio.getText());
 
             boolean cprod = crearProducto(txtNuevoAcCodigo.getText().trim(),
-                    tipoMad.getCodigo(), medidas, verificarTipoMadera("CREAR"),
-                    cantVaras,
-                    txtNuevoAcPrecio.getText().trim(),
-                    txtaNuevoAcDescripcion.getText().trim(), "0");
+                    txtaNuevoAcDescripcion.getText().trim(), precio, cantVaras, 
+                    txtNuevoAcMedGrueso.getText().trim(),
+                    txtNuevoAcMedAncho.getText().trim(),
+                    0.0, Integer.valueOf(tipoMad.getCodigo()), 
+                    verificarTipoMadera("CREAR"), 0);
             if(cprod) {
                 limpiarCampos("Crear","ASERRADA");
             }
+        //CREAR MADERA TROZA
         } else if (verificarTipoMadera("CREAR").equals("TROZA")) {
 
-            medidas = txtNuevoTMedPulgadas.getText().trim() + " pulgadas";
+            Double pulgadas = Double.valueOf(txtNuevoTMedPulgadas.getText().trim());
             tipoMad = (TipoMadera) cbxNuevoTVariedad.getSelectedItem();
             Proveedor pv = (Proveedor) cbxNuevoTProveedor.getSelectedItem();
 
             boolean cprod = crearProducto(txtNuevoTCodigo.getText(),
-                    tipoMad.getCodigo(), medidas, verificarTipoMadera("CREAR"), "0", "0",
                     txtaNuevoTDescripcion.getText().trim(),
-                    pv.getCodProveedor());
+                    0, 0, "0", "0", pulgadas, Integer.valueOf(tipoMad.getCodigo()), 
+                    verificarTipoMadera("CREAR"), 
+                    Integer.valueOf(pv.getCodProveedor()));
             if(cprod) {
                 limpiarCampos("Crear","TROZA");
             }
+        //CREAR MADERA TEMRINADA
         } else if (verificarTipoMadera("CREAR").equals("TERMINADA")) {
 
             tipoMad = (TipoMadera) cbxNuevoTmVariedad.getSelectedItem();
@@ -355,47 +358,42 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * @param codProveedor código del proveedor par la troza (si existe)
      * @return 
      */
-    private boolean crearProducto(String codProd, String codTipoMadera, 
-            String medida, String tipoProducto, String cantVaras, String precio, 
-            String descripcion, String codProveedor) {
+    private boolean crearProducto(String codProd, String descripcion, 
+            double precio, double cantVaras, String grueso, String ancho,
+            double pulgadas, int codTipoMadera, String tipoProducto,
+            int codProveedor) {
+        
+        String p = String.valueOf(precio);
+        String cv = String.valueOf(cantVaras);
+        String pg = String.valueOf(pulgadas);
+        String cdTpM = String.valueOf(codTipoMadera);
+        String cdP = String.valueOf(codProveedor);
         
         //Campos no están vacíos
-        if (!codProd.isEmpty() && !medida.isEmpty() && !codTipoMadera.isEmpty() 
-                && !tipoProducto.isEmpty() && !cantVaras.isEmpty() && !precio.isEmpty() 
-                && !codProveedor.isEmpty()) {
+        if (!codProd.isEmpty() && descripcion.isEmpty() && !p.isEmpty() &&
+                !cv.isEmpty() && !grueso.isEmpty() && !ancho.isEmpty() &&
+                !pg.isEmpty() && !cdTpM.isEmpty() && 
+                !tipoProducto.isEmpty() && !cdP.isEmpty()) {
                         
             //Verificar precio
-            if (verificacion.validaPrecio(precio)) {
-                
-                //Verificar numeros enteros
-                /*if (verificacion.validaEnteros(unidades) && 
-                        verificacion.validaEnteros(codTipoMadera)) {
-                    */
-                    double preci = Double.valueOf(precio);
-                    double varas = Integer.valueOf(cantVaras);
-                    int cTmadera = Integer.valueOf(codTipoMadera);
-                    int cProveedor = Integer.valueOf(codProveedor);
-                   
-                    System.out.println("AGREGANDO PRODUCTO, PLEASE WAIT... "+ preci);
-                    boolean crear = controlador.crearProducto(codProd, cTmadera,
-                            medida, tipoProducto, varas, preci, descripcion,
-                            cProveedor);
-                    System.out.println("CREAR: " + crear);
-                    if (crear) {
-                        cargarTablas();
-                        cargarCombos();                        
-                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-                                TipoMensaje.PRODUCT_INSERTION_SUCCESS);                        
-                        return true;
-                    } else {
-                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                                TipoMensaje.PRODUCT_INSERTION_FAILURE);                        
-                    }
-                /*} else {
-                    msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
-                            TipoMensaje.UNITQUANTITY_SYNTAX_FAILURE);
-//                    txtCrearCantidad.requestFocus();
-                }*/
+            if (verificacion.validaPrecio(p)) {
+                                   
+                System.out.println("AGREGANDO PRODUCTO, PLEASE WAIT... ");
+                boolean crear = controlador.crearProducto(codProd, descripcion,
+                        precio, cantVaras, grueso, ancho, pulgadas,
+                        codTipoMadera, tipoProducto, codProveedor);
+                System.out.println("CREAR: " + crear);
+
+                if (crear) {
+                    cargarTablas();
+                    cargarCombos();                        
+                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+                            TipoMensaje.PRODUCT_INSERTION_SUCCESS);                        
+                    return true;
+                } else {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                            TipoMensaje.PRODUCT_INSERTION_FAILURE);                        
+                }
             } else {
                 msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                         TipoMensaje.PRICE_SYNTAX_FAILURE);
@@ -844,11 +842,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         scpnlNuevoTDescripcion.setViewportView(txtaNuevoTDescripcion);
 
         btnCrearProv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/f_crearCliente.png"))); // NOI18N
-        btnCrearProv.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearProvActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnlNuevoTrozaLayout = new javax.swing.GroupLayout(pnlNuevoTroza);
         pnlNuevoTroza.setLayout(pnlNuevoTrozaLayout);
@@ -2097,10 +2090,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private void txtNuevoAcMedGruesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNuevoAcMedGruesoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNuevoAcMedGruesoActionPerformed
-
-    private void btnCrearProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProvActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCrearProvActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

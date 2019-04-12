@@ -622,9 +622,6 @@
                               <Image iconType="3" name="/recursos/f_crearCliente.png"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrearProvActionPerformed"/>
-                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
