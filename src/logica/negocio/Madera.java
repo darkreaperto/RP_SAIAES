@@ -12,17 +12,18 @@ import util.Estado;
  * @author dark-reaper
  */
 public class Madera {
-    private int unidades;
-    private double precioXvara;
+    
+    
     private String codigo;
     private String codProducto;
+    private String codOrigen;
     private String codTipoMadera;
     private String descTipoMadera;
+    private double cantVaras;
     private String grueso;
     private String ancho;
-    private String descripcion;    
-    private String codProveedor;
-    private String nomProveedor;
+    private double precioXvara;
+    private String descripcion;  
     private String tipoProducto;
     private Estado estado;
     
@@ -36,37 +37,33 @@ public class Madera {
     /**
      * Constructor de clase madera, inicializa variables.
      * @param codigo codigo producto.
-     * @param codProducto codigo especificado de producto.
+     * @param codProducto codigo especificado por el cliente.
+     * @param codOrigen codigo de la madera que dio origen a la actual.
      * @param codTipoMadera codigo del tipo de madera.
      * @param descTipoMadera descripcion del tipo de madera.
-     * @param medidas medidas del producto de acuerdo a su tipo.
+     * @param grueso grueso del producto.
+     * @param ancho ancho del producto.
      * @param tipoProducto tipo de producto(troza, acerrada, terminada).
-     * @param unidades unidades de producto.
      * @param precioXvara precio por vara del producto.
      * @param descripcion descripciones detalladas del producto.
      * @param estado Estado de producto.
-     * @param codProveedor codigo del proveedor.
-     * @param nomProveedor nombre del proveedor.
+     * @param cantvaras Producto en existencia medido en varas.
      */
-    public Madera(String codigo, String codProducto, String codTipoMadera, 
-            String descTipoMadera, String grueso, String ancho, 
-            String tipoProducto, int unidades, double precioXvara, 
-            String descripcion, String estado, String codProveedor, 
-            String nomProveedor) {
+    public Madera(String codigo, String codProducto, String codOrigen, 
+            String descripcion, double precioXvara, double cantvaras,
+            String grueso, String ancho, String codTipoMadera, 
+            String descTipoMadera, String tipoProducto,  String estado) {
         this.codigo = codigo;
         this.codProducto = codProducto;
         this.codTipoMadera = codTipoMadera;
         this.descTipoMadera = descTipoMadera;
+        this.cantVaras = cantvaras; 
         this.grueso = grueso;
         this.ancho = ancho;
         this.tipoProducto = tipoProducto;
-        this.unidades = unidades;
         this.precioXvara = precioXvara;
         this.descripcion = descripcion;
-        this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
-        this.codProveedor = codProveedor;
-        this.nomProveedor = nomProveedor;
-        
+        this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;         
     }
 
     /**
@@ -133,6 +130,21 @@ public class Madera {
     }
     
     /**
+     * Obtener cantidad en varas de la madera
+     * @return cantidad en varas de la madera
+     */
+    public double getCantVaras() {
+        return cantVaras;
+    }
+    /***
+     * Establecer cantidad en varas de la madera
+     * @param cantVaras cantidad en varas de la madera
+     */
+    public void setCantVaras(double cantVaras) {
+        this.cantVaras = cantVaras;
+    }
+    
+    /**
      * Obtener las grueso
      * @return las grueso     */
     public String getGrueso() {
@@ -164,38 +176,6 @@ public class Madera {
     }
     
     /**
-     * Obtener el tipo de producto.
-     * @return tipo de producto
-     */
-    public String getTipoProducto() {
-        return tipoProducto;
-    }
-    
-    /**
-     * Establecer el tipo de producto.
-     * @param tipoProducto tipo de producto
-     */
-    public void setTipoProducto(String tipoProducto) {
-        this.tipoProducto = tipoProducto;
-    }
-    
-    /**
-     * Obtener la unidades por unidad.
-     * @return la unidades
-     */
-    public int getUnidades() {
-        return unidades;
-    }
-    
-    /**
-     * Establecer unidades de producto
-     * @param unidades la unidades
-     */
-    public void setUnidades(int unidades) {
-        this.unidades = unidades;
-    }
-    
-    /**
      * Obtener el precio por vara.
      * @return el precio por vara
      */
@@ -210,6 +190,22 @@ public class Madera {
     public void setPrecioXvara(double precioXvara) {
         this.precioXvara = precioXvara;
     }
+    
+    /**
+     * Obtener el tipo de producto.
+     * @return tipo de producto
+     */
+    public String getTipoProducto() {
+        return tipoProducto;
+    }
+    
+    /**
+     * Establecer el tipo de producto.
+     * @param tipoProducto tipo de producto
+     */
+    public void setTipoProducto(String tipoProducto) {
+        this.tipoProducto = tipoProducto;
+    }  
     
     /**
      * Obtener la descripción.
@@ -243,34 +239,6 @@ public class Madera {
         this.estado = estado;
     }
     
-    /**
-     * Obtener el codigo del proveedor.
-     * @return El codigo del proveedor
-     */
-    public String getCodProveedor() {
-        return codProveedor;
-    }
-    /**
-     * Establecer el codigo del proveedor
-     * @param codProveedor El codigo del proveedor
-     */
-    public void setCodProveedor(String codProveedor) {
-        this.codProveedor = codProveedor;
-    }
-    /**
-     * Obtener el nombre del proveedor.
-     * @return El nombre del proveedor
-     */
-    public String getNomProveedor() {
-        return nomProveedor;
-    }
-    /**
-     * Establecer el nombre del proveedor
-     * @param nomProveedor El nombre del proveedor
-     */
-    public void setNomProveedor(String nomProveedor) {
-        this.nomProveedor = nomProveedor;
-    }
     /**
      * Sobreescritura del método toString para obtener información básica del
      * producto/madera

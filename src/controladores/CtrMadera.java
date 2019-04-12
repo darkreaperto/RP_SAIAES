@@ -8,6 +8,7 @@ package controladores;
 import java.util.ArrayList;
 import logica.negocio.Madera;
 import modelos.MdlMadera;
+import util.Estado;
 
 /**
  * Controlador de la clase Madera.
@@ -31,27 +32,27 @@ public class CtrMadera {
      * Constructor de controlador de madera, crea un objeto madera con
      * sus parámetros.
      * @param codigo codigo de madera
+     * @param codOrigen codigo de la madera que dio origen a la actual.
      * @param codProducto codigo del producto (personalizado)
      * @param codTipoMadera codigo del tipo de madera
      * @param descTipoMadera descripción del tipo de madera
      * @param grueso grueso de la madera/producto
      * @param ancho ancho de la madera/producto
      * @param tipoProducto tipo de producto (aserrada/troza/terminada)
-     * @param unidades cantidad de productos en unidades
      * @param precioXvara precio del producto 
      * @param descripcion detalles que describen el producto
      * @param estado estado activo o inactivo del producto
-     * @param codProveedor codigo del proveedor del producto(solo troza)
-     * @param nomProveedor nombre del proveedor del producto(solo troza)
+     * @param cantVaras cantidad del producto en varas
+     * 
      */
-    public CtrMadera(String codigo, String codProducto, String codTipoMadera, 
-            String descTipoMadera, String grueso, String ancho, 
-            String tipoProducto, int unidades, double precioXvara, 
-            String descripcion, String estado, String codProveedor, 
-            String nomProveedor) {
-        madera = new Madera(codigo, codProducto, codTipoMadera, 
-                descTipoMadera, grueso, ancho, tipoProducto, unidades, 
-                precioXvara, descripcion, estado, codProveedor, nomProveedor);
+    public CtrMadera(String codigo, String codProducto, String codOrigen, 
+            String descripcion, double precioXvara, double cantVaras,
+            String grueso, String ancho, String codTipoMadera, 
+            String descTipoMadera, String tipoProducto, String estado) {
+        
+        madera = new Madera(codigo, codProducto, codOrigen, descripcion,
+                precioXvara, cantVaras, grueso, ancho, codTipoMadera, 
+            descTipoMadera,tipoProducto, estado);
     }
     /**
      * Obtener instancia única del controlador de madera.
@@ -77,10 +78,10 @@ public class CtrMadera {
     public ArrayList<Madera> getListaProductos() {
         if(productos == null || productos.isEmpty()) {
             productos = obtenerProductos();
-            System.out.println("I'M EMPTY");
+            System.out.println("CtrMadera says: I'M EMPTY");
             return obtenerProductos();
         } else {
-            System.out.println("I was empty");
+            System.out.println("CtrMadera says: I was empty");
             return productos;
         }
     }
@@ -109,20 +110,20 @@ public class CtrMadera {
      * @param codProd codigo personalizado asignado al producto
      * @param codTipoMadera codigo del tipo de madera del producto
      * @param grueso grueso del producto
+     * @param cantVaras cantidad de varas que entran del producto
      * @param ancho ancho del producto
      * @param tipoProducto descripcion de cual es el tipo de producto
-     * @param varas cantidad de varas que entran
      * @param precio precio por vara del producto
      * @param descripcion detalle del producto (opcional)
-     * @param codProveedor codigo del proveedor
      * @return verdadero si inserta el producto.
      */
-    public boolean crearProducto(String codProd, int codTipoMadera, 
-            String grueso, String ancho, String tipoProducto, double varas, 
-            double precio, String descripcion, int codProveedor) {
+    public boolean crearProducto(String codProd, String codOrigen, 
+            String descripcion, double precio, double cantVaras,
+            String grueso, String ancho, String codTipoMadera, 
+            String tipoProducto) {
         
-        return mdlMadera.crearProducto(codProd, codTipoMadera, grueso, ancho, 
-                tipoProducto, varas, precio, descripcion, codProveedor);
+        return mdlMadera.crearProducto(codProd, codOrigen, descripcion, precio, 
+                cantVaras, grueso, ancho, codTipoMadera, tipoProducto);
     }
     
     /**
@@ -130,20 +131,23 @@ public class CtrMadera {
      * @param codProd codigo personalizado asignado al producto
      * @param codTipoMadera codigo del tipo de madera del producto
      * @param grueso grueso del producto
+     * @param cantVaras cantidad del producto en varas
      * @param ancho ancho del producto
-     * @param unidades cantidad de unidades que entran
      * @param precio precio por vara del producto
+     * @param pulgadas cantidad del producto en pulgadas (si es troza)
      * @param descripcion detalle del producto (opcional)
      * @param codProveedor codigo del proveedor
      * @param codigo codigo de madera
      * @return verdadero si actualiza el producto exitosamente
      */
-    public boolean actualizarProducto(String codProd, int codTipoMadera, 
-            String grueso, String ancho, int unidades, double precio, 
-            String descripcion, int codProveedor, String codigo) {
+    public boolean actualizarProducto(String codProd, String codOrigen, 
+            String descripcion, double precio, double cantVaras,
+            String grueso, String ancho, String codTipoMadera, 
+            String tipoProducto, String codigo) {
         
-        return mdlMadera.actualizarProducto(codProd, codTipoMadera, grueso,
-                ancho, unidades, precio, descripcion, codProveedor, codigo);
+        return mdlMadera.actualizarProducto(codProd, codOrigen, descripcion, 
+                precio, cantVaras,grueso,ancho, codTipoMadera, tipoProducto,
+                codigo);
     }
     /**
      * Llama el método que inactiva un producto en la bd
