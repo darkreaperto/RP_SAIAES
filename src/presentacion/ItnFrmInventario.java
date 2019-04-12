@@ -157,7 +157,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 row[0] = productos.get(i).getTipoProducto();
                 row[1] = productos.get(i).getCodProducto();////////
                 row[2] = productos.get(i).getDescTipoMadera();
-                row[3] = productos.get(i).getMedidas();
+                row[3] = productos.get(i).getGrueso() + "x" + productos.get(i).getAncho();
                 row[4] = productos.get(i).getNomProveedor();//getCodProveedor() == null ? "No aplica" : productos.get(i).getCodProveedor();
                 row[5] = productos.get(i).getUnidades() <= 0 ? 
                         "No aplica" : productos.get(i).getUnidades();
@@ -172,7 +172,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 row[0] = productos.get(i).getTipoProducto();
                 row[1] = productos.get(i).getCodProducto();////////
                 row[2] = productos.get(i).getDescTipoMadera();
-                row[3] = productos.get(i).getMedidas();
+                row[3] = productos.get(i).getGrueso() + "x" + productos.get(i).getAncho();
                 row[4] = productos.get(i).getNomProveedor();//getCodProveedor() == null ? "No aplica" : productos.get(i).getCodProveedor();
                 row[5] = productos.get(i).getUnidades() <= 0 ? 
                         "No aplica" : productos.get(i).getUnidades();
@@ -299,17 +299,18 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * Preparar la información ingresada del producto para enviarlo a crear.
      */
     private void prepararProducto() {
-        String medidas;
+        String grueso;
+        String ancho;
         String cantVaras;
         TipoMadera tipoMad;
         if (verificarTipoMadera("CREAR").equals("ASERRADA")) {
             cantVaras = txtNuevoAcMedVaras.getText().trim();
-            medidas = txtNuevoAcMedGrueso.getText().trim() + "x"
-                    + txtNuevoAcMedAncho.getText().trim();
+            grueso = txtNuevoAcMedGrueso.getText().trim();
+            ancho = txtNuevoAcMedAncho.getText().trim();
             tipoMad = (TipoMadera) cbxNuevoAcVariedad.getSelectedItem();
 
             boolean cprod = crearProducto(txtNuevoAcCodigo.getText().trim(),
-                    tipoMad.getCodigo(), medidas, verificarTipoMadera("CREAR"),
+                    tipoMad.getCodigo(), grueso, ancho, verificarTipoMadera("CREAR"),
                     cantVaras,
                     txtNuevoAcPrecio.getText().trim(),
                     txtaNuevoAcDescripcion.getText().trim(), "0");
@@ -357,12 +358,13 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * @return 
      */
     private boolean crearProducto(String codProd, String codTipoMadera, 
-            String medida, String tipoProducto, String cantVaras, String precio, 
-            String descripcion, String codProveedor) {
+            String grueso, String ancho, String tipoProducto, String cantVaras, 
+            String precio, String descripcion, String codProveedor) {
         
         //Campos no están vacíos
-        if (!codProd.isEmpty() && !medida.isEmpty() && !codTipoMadera.isEmpty() 
-                && !tipoProducto.isEmpty() && !cantVaras.isEmpty() && !precio.isEmpty() 
+        if (!codProd.isEmpty() && !grueso.isEmpty() && !ancho.isEmpty() && 
+                !codTipoMadera.isEmpty() && !tipoProducto.isEmpty() && 
+                !cantVaras.isEmpty() && !precio.isEmpty() 
                 && !codProveedor.isEmpty()) {
                         
             //Verificar precio
@@ -376,18 +378,21 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     double varas = Integer.valueOf(cantVaras);
                     int cTmadera = Integer.valueOf(codTipoMadera);
                     int cProveedor = Integer.valueOf(codProveedor);
+                    
+                    
                    
                     System.out.println("AGREGANDO PRODUCTO, PLEASE WAIT... "+ preci);
                     boolean crear = controlador.crearProducto(codProd, cTmadera,
-                            medida, tipoProducto, varas, preci, descripcion,
+                            grueso, tipoProducto, varas, preci, descripcion,
                             cProveedor);
                     System.out.println("CREAR: " + crear);
+                    
                     if (crear) {
                         cargarTablas();
                         cargarCombos();                        
                         msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                                 TipoMensaje.PRODUCT_INSERTION_SUCCESS);                        
-                        return true;
+                        //return true;
                     } else {
                         msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
                                 TipoMensaje.PRODUCT_INSERTION_FAILURE);                        
@@ -407,7 +412,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
                     TipoMensaje.EMPTY_TEXT_FIELD);
         }
-        return false;
+        //return false;
     }
     
     /**
@@ -777,10 +782,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                         .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlNuevoAcerradaLayout.createSequentialGroup()
                                 .addComponent(txtNuevoAcMedGrueso, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblNuevoAcMedX, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtNuevoAcMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtNuevoAcMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(scpnlNuevoAcDescripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNuevoAcerradaLayout.createSequentialGroup()
@@ -838,6 +843,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         txtaNuevoTDescripcion.setColumns(20);
         txtaNuevoTDescripcion.setRows(5);
         scpnlNuevoTDescripcion.setViewportView(txtaNuevoTDescripcion);
+
+        cbxNuevoTVariedad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Amarillón", "Cedro", "Eucalipto", "Pino" }));
+
+        cbxNuevoTProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Juan", "Rodolfo", "Perineo" }));
 
         btnCrearProv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/f_crearCliente.png"))); // NOI18N
         btnCrearProv.addActionListener(new java.awt.event.ActionListener() {
