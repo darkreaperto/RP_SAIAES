@@ -50,12 +50,10 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
                 cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 1);
             } else if (rbDescripProd.isSelected()) {
                 cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 2);
-            } else if(rbProveedorProd.isSelected()) {
-                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 3);
             } else if(rbTipoProd.isSelected()) {
-                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 4);
+                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 3);
             } else if(rbCodigoProd.isSelected()) {
-                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 5);
+                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 4);
             }
         } catch (Exception e) {
             msg.mostrarMensaje(ERROR, TipoMensaje.ANY_ROW_SELECTED);
@@ -72,29 +70,28 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
         productos = ctrInventario.busqAvzProductos(paramProd, codBusq);
         model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0);
-        model.setColumnCount(9);
+        model.setColumnCount(7);
 
         for (int i = 0; i < productos.size(); i++) {
-            //tipo prod- codigo- variedad- medidas- proveedor- unidades- precio- descripción
-            row[0] = productos.get(i).getTipoProducto();
-            row[1] = productos.get(i).getCodProducto();////////
-            row[2] = productos.get(i).getDescTipoMadera();
-            row[3] = productos.get(i).getMedidas();
-            row[4] = productos.get(i).getNomProveedor();//getCodProveedor() == null ? "No aplica" : productos.get(i).getCodProveedor();
-            row[5] = productos.get(i).getUnidades() <= 0 ? 
-                    "No aplica" : productos.get(i).getUnidades();
-            row[6] = productos.get(i).getPrecioXvara();
-            row[7] = productos.get(i).getDescripcion();                
-            row[8] = productos.get(i).getCodigo();
+            //codigo- tipoProducto- variedad- medidas- cantvaras- precio- descripción- codigo bd
+            row[0] = productos.get(i).getCodProducto();
+            row[1] = productos.get(i).getTipoProducto();////////
+            row[2] = productos.get(i).getDescTipoMadera();//variedad
+            row[3] = productos.get(i).getGrueso() + " x " + 
+                    productos.get(i).getAncho();
+            row[4] = productos.get(i).getCantVaras();
+            row[5] = productos.get(i).getPrecioXvara();
+            row[6] = productos.get(i).getDescripcion();                
+            row[7] = productos.get(i).getCodigo();
                 
             model.addRow(row);            
         }
         
-        tabla.removeColumn(tabla.getColumnModel().getColumn(8));
+        tabla.removeColumn(tabla.getColumnModel().getColumn(7));
     }
     
     /**
-     * 
+     * Seleccionar el producto a enviar
      */
     public Madera obtenerProducto() {
         Madera prod = null;
@@ -137,7 +134,6 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
         rbVariedadProd = new javax.swing.JRadioButton();
         rbMedidasProd = new javax.swing.JRadioButton();
         rbDescripProd = new javax.swing.JRadioButton();
-        rbProveedorProd = new javax.swing.JRadioButton();
         btnAceptarBusqueda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -155,11 +151,11 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Tipo de Producto", "Código", "Variedad Madera", "Medidas", "Proveedor", "Unidades", "Precio", "Descripcion", "Codigo"
+                "Código", "Tipo de Producto", "Variedad Madera", "Medidas", "Cantidad varas", "Precio", "Descripcion", "Codigo bd"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -201,9 +197,6 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
         bgCriterioBusqueda.add(rbDescripProd);
         rbDescripProd.setText("Descripción");
 
-        bgCriterioBusqueda.add(rbProveedorProd);
-        rbProveedorProd.setText("Proveedor");
-
         javax.swing.GroupLayout pnlFiltroProdLayout = new javax.swing.GroupLayout(pnlFiltroProd);
         pnlFiltroProd.setLayout(pnlFiltroProdLayout);
         pnlFiltroProdLayout.setHorizontalGroup(
@@ -215,8 +208,7 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
                     .addComponent(rbTipoProd)
                     .addComponent(rbMedidasProd)
                     .addComponent(rbCodigoProd)
-                    .addComponent(rbDescripProd, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rbProveedorProd))
+                    .addComponent(rbDescripProd, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         pnlFiltroProdLayout.setVerticalGroup(
@@ -229,12 +221,10 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rbDescripProd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbProveedorProd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rbTipoProd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rbCodigoProd)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         btnAceptarBusqueda.setText("Aceptar");
@@ -373,7 +363,6 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
     private javax.swing.JRadioButton rbCodigoProd;
     private javax.swing.JRadioButton rbDescripProd;
     private javax.swing.JRadioButton rbMedidasProd;
-    private javax.swing.JRadioButton rbProveedorProd;
     private javax.swing.JRadioButton rbTipoProd;
     private javax.swing.JRadioButton rbVariedadProd;
     private javax.swing.JScrollPane scpnlTblListadoProd;

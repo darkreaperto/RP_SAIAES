@@ -162,19 +162,18 @@ public class MdlTroza {
             String descripcion, String codProveedor, String nomProveedor) {
         
         ArrayList<Object> params = new ArrayList<>();
-        params.add(codProd);
-        params.add(codOrigen);
-        params.add(descripcion);
-        params.add(precio);
-        params.add(cantVaras);
-        params.add(grueso);
-        params.add(ancho);
+        params.add(codInterno);
         params.add(codTipoMadera);
+        params.add(descTipoMadera);
+        params.add(pulgadas);
         params.add(tipoProducto);
+        params.add(descripcion);
+        params.add(codProveedor);
+        params.add(nomProveedor);
 
         boolean creacionExitosa = true;
         try {
-            procedimiento = "pc_crear_producto(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_crear_troza(?, ?, ?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
@@ -193,25 +192,38 @@ public class MdlTroza {
         }
     }
     
-    public boolean actualizarProducto(String codProd, String codOrigen, 
-            String descripcion, double precio, double cantVaras,
-            String grueso, String ancho, String codTipoMadera,
-            String tipoProducto, String codigo) {
+    /**
+     * Actualiza los diferentes atributos de la troza y los almacena en la BD
+     * @param codInterno codigo de la troza para uso interno del sistema
+     * @param codTipoMadera codigo del tipo de madera (variedad)
+     * @param descTipoMadera nombre del tipo de madera
+     * @param pulgadas cantidad de troza en pulgadas
+     * @param tipoProducto TROZA duh
+     * @param descripcion descripción de la troza
+     * @param codProveedor codigo del proveedor de la troza
+     * @param nomProveedor nombre del proveedor de la troza
+     * @param codigo codigo de la bd
+     * @return verdadero si fue actualizada correctamente
+     */
+    public boolean actualizarTroza(String codInterno, String codTipoMadera, 
+            String descTipoMadera, double pulgadas, String tipoProducto, 
+            String descripcion, String codProveedor, String nomProveedor,
+            String codigo) {
         
         ArrayList<Object> params = new ArrayList<>();
-        params.add(codProd);
-        params.add(codOrigen);
-        params.add(descripcion);
-        params.add(precio);
-        params.add(cantVaras);
-        params.add(grueso);
-        params.add(ancho);
+        params.add(codInterno);
         params.add(codTipoMadera);
+        params.add(descTipoMadera);
+        params.add(pulgadas);
+        params.add(tipoProducto);
+        params.add(descripcion);
+        params.add(codProveedor);
+        params.add(nomProveedor);
         params.add(codigo);
 
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_actualizar_producto(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_actualizar_troza(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
@@ -227,14 +239,14 @@ public class MdlTroza {
         }
     }
     
-    public boolean inactivarProducto(String codigo) {
+    public boolean inactivarTroza(String codigo) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(codigo);
         
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_inactivar_producto(?)";
+            procedimiento = "pc_inactivar_troza(?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
@@ -250,14 +262,14 @@ public class MdlTroza {
         }
     }
     
-    public boolean activarProducto(String codigo) {
+    public boolean activarTroza(String codigo) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(codigo);
         
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_activar_producto(?)";
+            procedimiento = "pc_activar_troza(?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
@@ -273,16 +285,17 @@ public class MdlTroza {
         }
     }
     
-    public boolean actualizarInventario(string tipoProd, int unidades, String codigo) {
+    public boolean actualizarRegMadera(String tipoProd, double pulgadas,
+            String codigo) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(tipoProd);
-        params.add(unidades);
+        params.add(pulgadas);
         params.add(codigo);
         
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_actualizar_inventario(?, ?, ?)";
+            procedimiento = "pc_actualizar_reg_madera(?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
