@@ -25,20 +25,18 @@ public class Proveedor extends Persona {
      * Constructor de clase proveedor, con parámetros.
      * @param codigo Código de persona.
      * @param nombre Nombre de persona.
-     * @param apellido1 Apellido 1 de persona.
-     * @param apellido2 Apellido 2 de persona.
      * @param cedula Cédula de persona.
+     * @param tipoCed El tipo de cédula de la persona (física o jurídica).
      * @param dir Direccón de la persona.
      * @param contactos Lista contactos de persona.
      * @param codProveedor Codigo de proveedor
      * @param estado Estado de persona.
      */
-    public Proveedor(String codigo, String nombre, String apellido1, 
-            String apellido2, String cedula, Direccion dir, 
-            ArrayList<Contacto> contactos, String codProveedor, String estado) {
+    public Proveedor(String codigo, String nombre, String cedula, String tipoCed, 
+            Direccion dir, ArrayList<Contacto> contactos, String codProveedor, 
+            String estado) {
         
-        super(codigo, nombre, apellido1, apellido2, cedula, 0, false, dir, 
-                contactos, estado);
+        super(codigo, nombre, cedula, tipoCed, dir, contactos, estado);
         this.codProveedor = codProveedor;
     }
     
@@ -63,8 +61,7 @@ public class Proveedor extends Persona {
      * @return información básica del producto/madera
      */
     @Override
-    public String toString()
-    {
-     return this.getApellido1() +" "+this.getNombre();
+    public String toString(){
+     return this.getCedula() + ":_" + this.getNombre();
     }
 }
