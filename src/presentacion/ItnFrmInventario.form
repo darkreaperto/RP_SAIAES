@@ -240,10 +240,10 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="tbActualizarTipoProd" min="-2" pref="455" max="-2" attributes="0"/>
-                          <EmptySpace pref="73" max="32767" attributes="0"/>
+                          <Component id="tbActualizarTipoProd" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -274,59 +274,88 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="txtActAcIngresa" max="32767" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lblActAcIngresaUNID" min="-2" pref="45" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="scpnlTblAcActualizar" min="-2" pref="1085" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="scpnltxtaActAcDetalle" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                              <Component id="lblActAcDetalle" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                              <Component id="lblActAcOp" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                              <Component id="cbxActAcOp" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="txtActAcBuscTrz" min="-2" pref="343" max="-2" attributes="0"/>
+                                              <Component id="spActAsSelTrz" min="-2" pref="343" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="txtActAcIngresa" min="-2" pref="154" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="lblActAsVaras" min="-2" pref="45" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="lblActAcIngresa" min="-2" pref="203" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="txtActAcSalenPulg" min="-2" pref="130" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="lblActAsPulg" min="-2" pref="69" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="lblActAcSalen" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
+                                              <Component id="btnActualizarAserrada" min="-2" pref="230" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <Component id="lblActAcIngresa" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="scpnltxtaActAcDetalle" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lblActAcDetalle" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lblActAcCodigo" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="btnActualizarAserrada" pref="230" max="32767" attributes="0"/>
-                                      <Component id="cbxActAcCodigo" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                                  <Component id="scpnlTblAcActualizar" min="-2" pref="800" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lblActAcDetalle" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="txtActAcBuscTrz" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="lblActAcIngresa" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="lblActAcCodigo" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="cbxActAcCodigo" min="-2" pref="31" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Component id="lblActAcDetalle" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="scpnltxtaActAcDetalle" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Component id="lblActAcIngresa" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="txtActAcIngresa" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="lblActAcIngresaUNID" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="lblActAsVaras" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="100" max="32767" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="lblActAcSalen" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="lblActAsPulg" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="txtActAcSalenPulg" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="btnActualizarAserrada" min="-2" pref="31" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="scpnlTblAcActualizar" pref="0" max="32767" attributes="0"/>
+                                      <Component id="spActAsSelTrz" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="scpnltxtaActAcDetalle" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="lblActAcOp" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="cbxActAcOp" min="-2" pref="31" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
+                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="scpnlTblAcActualizar" pref="253" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="lblActAcCodigo">
+                        <Component class="javax.swing.JLabel" name="lblActAcOp">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
+                            <Property name="text" type="java.lang.String" value="Operaci&#xf3;n"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="lblActAcIngresa">
@@ -339,7 +368,7 @@
                             <Property name="text" type="java.lang.String" value="Detalle:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="lblActAcIngresaUNID">
+                        <Component class="javax.swing.JLabel" name="lblActAsVaras">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Dialog" size="12" style="0"/>
@@ -347,16 +376,6 @@
                             <Property name="horizontalAlignment" type="int" value="0"/>
                             <Property name="text" type="java.lang.String" value="varas."/>
                           </Properties>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="cbxActAcCodigo">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="0"/>
-                            </Property>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Madera&gt;"/>
-                          </AuxValues>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtActAcIngresa">
                         </Component>
@@ -469,6 +488,59 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarAserradaActionPerformed"/>
                           </Events>
                         </Component>
+                        <Component class="javax.swing.JComboBox" name="cbxActAcOp">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                              <StringArray count="2">
+                                <StringItem index="0" value="SUMAR"/>
+                                <StringItem index="1" value="RESTAR"/>
+                              </StringArray>
+                            </Property>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxActAcOpActionPerformed"/>
+                          </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Madera&gt;"/>
+                          </AuxValues>
+                        </Component>
+                        <Container class="javax.swing.JScrollPane" name="spActAsSelTrz">
+                          <AuxValues>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                          </AuxValues>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JList" name="lsActAsSelTrz">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                                  <StringArray count="0"/>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                              </AuxValues>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Component class="javax.swing.JTextField" name="txtActAcBuscTrz">
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="lblActAcSalen">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Sale:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="txtActAcSalenPulg">
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="lblActAsPulg">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Dialog" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="0"/>
+                            <Property name="text" type="java.lang.String" value="pulgadas."/>
+                          </Properties>
+                        </Component>
                       </SubComponents>
                     </Container>
                     <Container class="javax.swing.JPanel" name="pnlActualizarTerminada">
@@ -489,83 +561,91 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="txtActTmIngresa" min="-2" pref="180" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lblActTmIngresaUNID" pref="46" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="scpnlTblTmActualizar" min="-2" pref="1085" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="scpnltxtaActAcDetalle1" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                              <Component id="lblActTmDetalle" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                              <Component id="lblActTmOp" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                              <Component id="cbxActTmOp" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="txtActTmBuscAs" alignment="0" min="-2" pref="343" max="-2" attributes="0"/>
+                                              <Component id="spActTmSelAs" alignment="0" min="-2" pref="343" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="txtActTmIngresa" min="-2" pref="154" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="lblActTmInVaras" min="-2" pref="45" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="lblActTmIngresa" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="txtActTmSalenVaras" min="-2" pref="154" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="lblActAcSalVaras" min="-2" pref="45" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="lblActTmSalen" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
+                                              <Component id="btnActualizarTerminada" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <Component id="lblActTmIngresa" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="scpnltxtaActTmDetalle" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lblActTmDetalle" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="cbxActTmCodigo" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lblActTmNombre" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="btnActualizarTerminada" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                                  <Component id="scpnlTblTmActualizar" min="-2" pref="800" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="lblActTmNombre" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="cbxActTmCodigo" min="-2" pref="31" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Component id="lblActTmDetalle" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="scpnltxtaActTmDetalle" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Component id="lblActTmIngresa" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lblActTmDetalle" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="txtActTmBuscAs" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="lblActTmIngresa" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="txtActTmIngresa" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="lblActTmIngresaUNID" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="lblActTmInVaras" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="lblActTmSalen" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="lblActAcSalVaras" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="txtActTmSalenVaras" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="btnActualizarTerminada" min="-2" pref="31" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="scpnlTblTmActualizar" pref="419" max="32767" attributes="0"/>
+                                      <Component id="spActTmSelAs" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="scpnltxtaActAcDetalle1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="lblActTmOp" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="cbxActTmOp" min="-2" pref="31" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
+                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="scpnlTblTmActualizar" pref="253" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="lblActTmNombre">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Nombre:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="lblActTmIngresaUNID">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="12" style="0"/>
-                            </Property>
-                            <Property name="horizontalAlignment" type="int" value="0"/>
-                            <Property name="text" type="java.lang.String" value="varas."/>
-                          </Properties>
-                        </Component>
                         <Component class="javax.swing.JLabel" name="lblActTmDetalle">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Detalle:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="lblActTmIngresa">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Ingresa:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="txtActTmIngresa">
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="scpnltxtaActTmDetalle">
+                        <Container class="javax.swing.JScrollPane" name="scpnltxtaActAcDetalle1">
                           <AuxValues>
                             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                           </AuxValues>
@@ -578,7 +658,7 @@
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="ee" green="ee" red="ee" type="rgb"/>
                                 </Property>
-                                <Property name="columns" type="int" value="20"/>
+                                <Property name="columns" type="int" value="5"/>
                                 <Property name="rows" type="int" value="3"/>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -591,6 +671,88 @@
                             </Component>
                           </SubComponents>
                         </Container>
+                        <Component class="javax.swing.JLabel" name="lblActTmOp">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Operaci&#xf3;n"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="cbxActTmOp">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                              <StringArray count="2">
+                                <StringItem index="0" value="SUMAR"/>
+                                <StringItem index="1" value="RESTAR"/>
+                              </StringArray>
+                            </Property>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxActTmOpActionPerformed"/>
+                          </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Madera&gt;"/>
+                          </AuxValues>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="txtActTmBuscAs">
+                        </Component>
+                        <Container class="javax.swing.JScrollPane" name="spActTmSelAs">
+                          <AuxValues>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                          </AuxValues>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JList" name="lsActTmSelAs">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                                  <StringArray count="0"/>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                              </AuxValues>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Component class="javax.swing.JLabel" name="lblActTmIngresa">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Ingresa:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="txtActTmIngresa">
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="lblActTmInVaras">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Dialog" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="0"/>
+                            <Property name="text" type="java.lang.String" value="varas."/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="txtActTmSalenVaras">
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="lblActTmSalen">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Sale:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="btnActualizarTerminada">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Actualizar Inventario"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarTerminadaActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="lblActAcSalVaras">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Dialog" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="0"/>
+                            <Property name="text" type="java.lang.String" value="varas."/>
+                          </Properties>
+                        </Component>
                         <Container class="javax.swing.JScrollPane" name="scpnlTblTmActualizar">
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
@@ -598,12 +760,13 @@
                             <Component class="javax.swing.JTable" name="tbActTerminada">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="8" rowCount="0">
+                                  <Table columnCount="9" rowCount="0">
                                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                                     <Column editable="false" title="Tipo de producto" type="java.lang.Object"/>
                                     <Column editable="false" title="Variedad de madera" type="java.lang.Object"/>
+                                    <Column editable="false" title="Medidas" type="java.lang.Object"/>
                                     <Column editable="false" title="Cantidad varas" type="java.lang.Object"/>
-                                    <Column editable="false" title="Precio" type="java.lang.Object"/>
+                                    <Column editable="false" title="Precio por vara" type="java.lang.Object"/>
                                     <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
                                     <Column editable="false" title="Origen" type="java.lang.Object"/>
                                     <Column editable="false" title="Codigo bd" type="java.lang.Object"/>
@@ -611,6 +774,11 @@
                                 </Property>
                                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                                   <TableColumnModel selectionModel="0">
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
                                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                       <Title/>
                                       <Editor/>
@@ -660,24 +828,6 @@
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JComboBox" name="cbxActTmCodigo">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="0"/>
-                            </Property>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Madera&gt;"/>
-                          </AuxValues>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="btnActualizarTerminada">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Actualizar Inventario"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarTerminadaActionPerformed"/>
-                          </Events>
-                        </Component>
                       </SubComponents>
                     </Container>
                     <Container class="javax.swing.JPanel" name="pnlActualizarTroza">
@@ -698,49 +848,59 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="lblActTCodigo" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="cbxActTCodigo" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="txtActTIngresa" max="32767" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lblActTIngresaPULG" min="-2" pref="65" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="scpnlTblTActualizar" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="scpnltxtaActAcDetalle2" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                              <Component id="lblActTDetalle" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                              <Component id="lblActTOp" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                              <Component id="cbxActTOp" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="443" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="txtActTIngresa" min="-2" pref="154" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="lblActTVaras" min="-2" pref="45" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="lblActTIngresa" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
+                                              <Component id="btnActualizarTroza" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="0" pref="182" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="lblActTIngresa" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="scpnltxtaActTDetalle" alignment="0" pref="230" max="32767" attributes="0"/>
-                                      <Component id="lblActTDetalle" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="btnActualizarTroza" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                                  <Component id="scpnlTblTActualizar" min="-2" pref="800" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="lblActTCodigo" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="cbxActTCodigo" min="-2" pref="31" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Component id="lblActTDetalle" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="scpnltxtaActTDetalle" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Component id="lblActTIngresa" min="-2" pref="30" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="txtActTIngresa" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="lblActTIngresaPULG" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="lblActTVaras" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="100" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
                                           <Component id="btnActualizarTroza" min="-2" pref="31" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="scpnlTblTActualizar" pref="419" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="lblActTDetalle" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="scpnltxtaActAcDetalle2" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="lblActTOp" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="cbxActTOp" min="-2" pref="31" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="scpnlTblTActualizar" pref="257" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -748,58 +908,6 @@
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="lblActTCodigo">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="C&#xf3;digo/VariedadMadera?:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="lblActTIngresaPULG">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="12" style="0"/>
-                            </Property>
-                            <Property name="horizontalAlignment" type="int" value="0"/>
-                            <Property name="text" type="java.lang.String" value="pulgadas."/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="lblActTDetalle">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Detalle:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="lblActTIngresa">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Ingresa:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="txtActTIngresa">
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="scpnltxtaActTDetalle">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JTextArea" name="txtaActTDetalle">
-                              <Properties>
-                                <Property name="editable" type="boolean" value="false"/>
-                                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                  <Color blue="ee" green="ee" red="ee" type="rgb"/>
-                                </Property>
-                                <Property name="columns" type="int" value="20"/>
-                                <Property name="rows" type="int" value="3"/>
-                                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                                    <LineBorder>
-                                      <Color PropertyName="color" blue="99" green="8a" id="Button.darkShadow" palette="3" red="7a" type="palette"/>
-                                    </LineBorder>
-                                  </Border>
-                                </Property>
-                              </Properties>
-                            </Component>
-                          </SubComponents>
-                        </Container>
                         <Container class="javax.swing.JScrollPane" name="scpnlTblTActualizar">
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
@@ -863,15 +971,73 @@
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JComboBox" name="cbxActTCodigo">
+                        <Component class="javax.swing.JLabel" name="lblActTDetalle">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Detalle:"/>
+                          </Properties>
+                        </Component>
+                        <Container class="javax.swing.JScrollPane" name="scpnltxtaActAcDetalle2">
+                          <AuxValues>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                          </AuxValues>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JTextArea" name="txtaActTDetalle">
+                              <Properties>
+                                <Property name="editable" type="boolean" value="false"/>
+                                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="ee" green="ee" red="ee" type="rgb"/>
+                                </Property>
+                                <Property name="columns" type="int" value="5"/>
+                                <Property name="rows" type="int" value="3"/>
+                                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                                    <LineBorder>
+                                      <Color PropertyName="color" blue="99" green="8a" id="Button.darkShadow" palette="3" red="7a" type="palette"/>
+                                    </LineBorder>
+                                  </Border>
+                                </Property>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Component class="javax.swing.JLabel" name="lblActTOp">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Operaci&#xf3;n"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="cbxActTOp">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="0"/>
+                              <StringArray count="2">
+                                <StringItem index="0" value="SUMAR"/>
+                                <StringItem index="1" value="RESTAR"/>
+                              </StringArray>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxActTOpActionPerformed"/>
+                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Madera&gt;"/>
                           </AuxValues>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="lblActTIngresa">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Ingresa:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="txtActTIngresa">
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="lblActTVaras">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Dialog" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="0"/>
+                            <Property name="text" type="java.lang.String" value="varas."/>
+                          </Properties>
                         </Component>
                         <Component class="javax.swing.JButton" name="btnActualizarTroza">
                           <Properties>
@@ -995,11 +1161,13 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="lblNuevoAcMedidas" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="lblNuevoAcDescripcion" alignment="0" pref="31" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblNuevoAcDescripcion" alignment="0" pref="33" max="32767" attributes="0"/>
                                       <Component id="lblNuevoAcUnidades" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lblNuevoAcCodigo" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="lblNuevoAcMedidas" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="lblNuevoAcCodigo" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -1274,10 +1442,12 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="lblNuevoTmCodigo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="lblNuevoTmOrigen" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="lblNuevoTmVariedad" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="lblNuevoTmCodigo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="lblNuevoTmOrigen" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -1809,11 +1979,13 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="lblEditarAcCodigo" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lblEditarAcUnidade" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                      <Component id="lblEditarAcMedidas" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                      <Component id="lblEditarAcDescripcion" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="lblEditarAcUnidade" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                          <Component id="lblEditarAcMedidas" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                          <Component id="lblEditarAcDescripcion" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">

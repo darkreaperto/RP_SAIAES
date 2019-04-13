@@ -478,6 +478,18 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         }
         return false;
     }
+    
+    private void cambiarOperacion(String tab, boolean enable) {
+        switch (tab) {
+            case "ASERRADA":
+                txtActAcBuscTrz.setEnabled(enable);
+                lsActAsSelTrz.setEnabled(enable);
+                txtActAcSalenPulg.setEnabled(enable);
+                break;
+            case "TERMINADA":
+                break;
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -500,40 +512,52 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         pnl_actualizar = new javax.swing.JPanel();
         tbActualizarTipoProd = new javax.swing.JTabbedPane();
         pnlActualizarAcerrada = new javax.swing.JPanel();
-        lblActAcCodigo = new javax.swing.JLabel();
+        lblActAcOp = new javax.swing.JLabel();
         lblActAcIngresa = new javax.swing.JLabel();
         lblActAcDetalle = new javax.swing.JLabel();
-        lblActAcIngresaUNID = new javax.swing.JLabel();
-        cbxActAcCodigo = new javax.swing.JComboBox<>();
+        lblActAsVaras = new javax.swing.JLabel();
         txtActAcIngresa = new javax.swing.JTextField();
         scpnltxtaActAcDetalle = new javax.swing.JScrollPane();
         txtaActAcDetalle = new javax.swing.JTextArea();
         scpnlTblAcActualizar = new javax.swing.JScrollPane();
         tbActAserrada = new javax.swing.JTable();
         btnActualizarAserrada = new javax.swing.JButton();
+        cbxActAcOp = new javax.swing.JComboBox<>();
+        spActAsSelTrz = new javax.swing.JScrollPane();
+        lsActAsSelTrz = new javax.swing.JList<>();
+        txtActAcBuscTrz = new javax.swing.JTextField();
+        lblActAcSalen = new javax.swing.JLabel();
+        txtActAcSalenPulg = new javax.swing.JTextField();
+        lblActAsPulg = new javax.swing.JLabel();
         pnlActualizarTerminada = new javax.swing.JPanel();
-        lblActTmNombre = new javax.swing.JLabel();
-        lblActTmIngresaUNID = new javax.swing.JLabel();
         lblActTmDetalle = new javax.swing.JLabel();
+        scpnltxtaActAcDetalle1 = new javax.swing.JScrollPane();
+        txtaActTmDetalle = new javax.swing.JTextArea();
+        lblActTmOp = new javax.swing.JLabel();
+        cbxActTmOp = new javax.swing.JComboBox<>();
+        txtActTmBuscAs = new javax.swing.JTextField();
+        spActTmSelAs = new javax.swing.JScrollPane();
+        lsActTmSelAs = new javax.swing.JList<>();
         lblActTmIngresa = new javax.swing.JLabel();
         txtActTmIngresa = new javax.swing.JTextField();
-        scpnltxtaActTmDetalle = new javax.swing.JScrollPane();
-        txtaActTmDetalle = new javax.swing.JTextArea();
+        lblActTmInVaras = new javax.swing.JLabel();
+        txtActTmSalenVaras = new javax.swing.JTextField();
+        lblActTmSalen = new javax.swing.JLabel();
+        btnActualizarTerminada = new javax.swing.JButton();
+        lblActAcSalVaras = new javax.swing.JLabel();
         scpnlTblTmActualizar = new javax.swing.JScrollPane();
         tbActTerminada = new javax.swing.JTable();
-        cbxActTmCodigo = new javax.swing.JComboBox<>();
-        btnActualizarTerminada = new javax.swing.JButton();
         pnlActualizarTroza = new javax.swing.JPanel();
-        lblActTCodigo = new javax.swing.JLabel();
-        lblActTIngresaPULG = new javax.swing.JLabel();
-        lblActTDetalle = new javax.swing.JLabel();
-        lblActTIngresa = new javax.swing.JLabel();
-        txtActTIngresa = new javax.swing.JTextField();
-        scpnltxtaActTDetalle = new javax.swing.JScrollPane();
-        txtaActTDetalle = new javax.swing.JTextArea();
         scpnlTblTActualizar = new javax.swing.JScrollPane();
         tbActTroza = new javax.swing.JTable();
-        cbxActTCodigo = new javax.swing.JComboBox<>();
+        lblActTDetalle = new javax.swing.JLabel();
+        scpnltxtaActAcDetalle2 = new javax.swing.JScrollPane();
+        txtaActTDetalle = new javax.swing.JTextArea();
+        lblActTOp = new javax.swing.JLabel();
+        cbxActTOp = new javax.swing.JComboBox<>();
+        lblActTIngresa = new javax.swing.JLabel();
+        txtActTIngresa = new javax.swing.JTextField();
+        lblActTVaras = new javax.swing.JLabel();
         btnActualizarTroza = new javax.swing.JButton();
         pnl_agregarNuevo = new javax.swing.JPanel();
         tbNuevoTipoProd = new javax.swing.JTabbedPane();
@@ -748,15 +772,15 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
         tbActualizarTipoProd.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
-        lblActAcCodigo.setText("Código:");
+        lblActAcOp.setText("Operación");
 
         lblActAcIngresa.setText("Ingresa:");
 
         lblActAcDetalle.setText("Detalle:");
 
-        lblActAcIngresaUNID.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        lblActAcIngresaUNID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblActAcIngresaUNID.setText("varas.");
+        lblActAsVaras.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        lblActAsVaras.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblActAsVaras.setText("varas.");
 
         txtaActAcDetalle.setEditable(false);
         txtaActAcDetalle.setBackground(new java.awt.Color(238, 238, 238));
@@ -790,88 +814,117 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             }
         });
 
+        cbxActAcOp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SUMAR", "RESTAR" }));
+        cbxActAcOp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxActAcOpActionPerformed(evt);
+            }
+        });
+
+        spActAsSelTrz.setViewportView(lsActAsSelTrz);
+
+        lblActAcSalen.setText("Sale:");
+
+        lblActAsPulg.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        lblActAsPulg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblActAsPulg.setText("pulgadas.");
+
         javax.swing.GroupLayout pnlActualizarAcerradaLayout = new javax.swing.GroupLayout(pnlActualizarAcerrada);
         pnlActualizarAcerrada.setLayout(pnlActualizarAcerradaLayout);
         pnlActualizarAcerradaLayout.setHorizontalGroup(
             pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlActualizarAcerradaLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scpnlTblAcActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 1085, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlActualizarAcerradaLayout.createSequentialGroup()
-                        .addComponent(txtActAcIngresa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblActAcIngresaUNID, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblActAcIngresa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scpnltxtaActAcDetalle, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblActAcDetalle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblActAcCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnActualizarAserrada, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                    .addComponent(cbxActAcCodigo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(48, 48, 48)
-                .addComponent(scpnlTblAcActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addGroup(pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(scpnltxtaActAcDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblActAcDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblActAcOp, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxActAcOp, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addGroup(pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtActAcBuscTrz, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spActAsSelTrz, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addGroup(pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlActualizarAcerradaLayout.createSequentialGroup()
+                                .addComponent(txtActAcIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblActAsVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblActAcIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlActualizarAcerradaLayout.createSequentialGroup()
+                                .addComponent(txtActAcSalenPulg, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblActAsPulg, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblActAcSalen, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnActualizarAserrada, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlActualizarAcerradaLayout.setVerticalGroup(
             pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlActualizarAcerradaLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(30, 30, 30)
+                .addGroup(pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblActAcDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtActAcBuscTrz, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblActAcIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlActualizarAcerradaLayout.createSequentialGroup()
-                        .addComponent(lblActAcCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxActAcCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(lblActAcDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scpnltxtaActAcDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(lblActAcIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtActAcIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblActAcIngresaUNID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                            .addComponent(lblActAsVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblActAcSalen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblActAsPulg, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtActAcSalenPulg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnActualizarAserrada, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(scpnlTblAcActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(spActAsSelTrz)
+                    .addGroup(pnlActualizarAcerradaLayout.createSequentialGroup()
+                        .addComponent(scpnltxtaActAcDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(lblActAcOp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxActAcOp, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25)
+                .addComponent(scpnlTblAcActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         tbActualizarTipoProd.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/inv_acerrada.png")), pnlActualizarAcerrada, "Madera Acerrada"); // NOI18N
 
-        lblActTmNombre.setText("Nombre:");
-
-        lblActTmIngresaUNID.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        lblActTmIngresaUNID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblActTmIngresaUNID.setText("varas.");
-
         lblActTmDetalle.setText("Detalle:");
-
-        lblActTmIngresa.setText("Ingresa:");
 
         txtaActTmDetalle.setEditable(false);
         txtaActTmDetalle.setBackground(new java.awt.Color(238, 238, 238));
-        txtaActTmDetalle.setColumns(20);
+        txtaActTmDetalle.setColumns(5);
         txtaActTmDetalle.setRows(3);
         txtaActTmDetalle.setBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
-        scpnltxtaActTmDetalle.setViewportView(txtaActTmDetalle);
+        scpnltxtaActAcDetalle1.setViewportView(txtaActTmDetalle);
 
-        tbActTerminada.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        lblActTmOp.setText("Operación");
 
-            },
-            new String [] {
-                "Código", "Tipo de producto", "Variedad de madera", "Cantidad varas", "Precio", "Descripción", "Origen", "Codigo bd"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        cbxActTmOp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SUMAR", "RESTAR" }));
+        cbxActTmOp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxActTmOpActionPerformed(evt);
             }
         });
-        scpnlTblTmActualizar.setViewportView(tbActTerminada);
+
+        spActTmSelAs.setViewportView(lsActTmSelAs);
+
+        lblActTmIngresa.setText("Ingresa:");
+
+        lblActTmInVaras.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        lblActTmInVaras.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblActTmInVaras.setText("varas.");
+
+        lblActTmSalen.setText("Sale:");
 
         btnActualizarTerminada.setText("Actualizar Inventario");
         btnActualizarTerminada.addActionListener(new java.awt.event.ActionListener() {
@@ -880,70 +933,96 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             }
         });
 
+        lblActAcSalVaras.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        lblActAcSalVaras.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblActAcSalVaras.setText("varas.");
+
+        tbActTerminada.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Tipo de producto", "Variedad de madera", "Medidas", "Cantidad varas", "Precio por vara", "Descripción", "Origen", "Codigo bd"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scpnlTblTmActualizar.setViewportView(tbActTerminada);
+
         javax.swing.GroupLayout pnlActualizarTerminadaLayout = new javax.swing.GroupLayout(pnlActualizarTerminada);
         pnlActualizarTerminada.setLayout(pnlActualizarTerminadaLayout);
         pnlActualizarTerminadaLayout.setHorizontalGroup(
             pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlActualizarTerminadaLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlActualizarTerminadaLayout.createSequentialGroup()
-                        .addComponent(txtActTmIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblActTmIngresaUNID, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
-                    .addComponent(lblActTmIngresa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scpnltxtaActTmDetalle, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblActTmDetalle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbxActTmCodigo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblActTmNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnActualizarTerminada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(48, 48, 48)
-                .addComponent(scpnlTblTmActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scpnlTblTmActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 1085, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlActualizarTerminadaLayout.createSequentialGroup()
+                        .addGroup(pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(scpnltxtaActAcDetalle1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblActTmDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblActTmOp, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxActTmOp, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addGroup(pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtActTmBuscAs, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spActTmSelAs, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addGroup(pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlActualizarTerminadaLayout.createSequentialGroup()
+                                .addComponent(txtActTmIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblActTmInVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblActTmIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlActualizarTerminadaLayout.createSequentialGroup()
+                                .addComponent(txtActTmSalenVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblActAcSalVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblActTmSalen, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnActualizarTerminada, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlActualizarTerminadaLayout.setVerticalGroup(
             pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlActualizarTerminadaLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(30, 30, 30)
+                .addGroup(pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblActTmDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtActTmBuscAs, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblActTmIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlActualizarTerminadaLayout.createSequentialGroup()
-                        .addComponent(lblActTmNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxActTmCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(lblActTmDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scpnltxtaActTmDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(lblActTmIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtActTmIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblActTmIngresaUNID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblActTmInVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblActTmSalen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblActAcSalVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtActTmSalenVaras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnActualizarTerminada, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(scpnlTblTmActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
+                    .addComponent(spActTmSelAs)
+                    .addGroup(pnlActualizarTerminadaLayout.createSequentialGroup()
+                        .addComponent(scpnltxtaActAcDetalle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(lblActTmOp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxActTmOp, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25)
+                .addComponent(scpnlTblTmActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         tbActualizarTipoProd.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/inv_terminada.png")), pnlActualizarTerminada, "Madera Terminada"); // NOI18N
-
-        lblActTCodigo.setText("Código/VariedadMadera?:");
-
-        lblActTIngresaPULG.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        lblActTIngresaPULG.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblActTIngresaPULG.setText("pulgadas.");
-
-        lblActTDetalle.setText("Detalle:");
-
-        lblActTIngresa.setText("Ingresa:");
-
-        txtaActTDetalle.setEditable(false);
-        txtaActTDetalle.setBackground(new java.awt.Color(238, 238, 238));
-        txtaActTDetalle.setColumns(20);
-        txtaActTDetalle.setRows(3);
-        txtaActTDetalle.setBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
-        scpnltxtaActTDetalle.setViewportView(txtaActTDetalle);
 
         tbActTroza.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -963,6 +1042,30 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         });
         scpnlTblTActualizar.setViewportView(tbActTroza);
 
+        lblActTDetalle.setText("Detalle:");
+
+        txtaActTDetalle.setEditable(false);
+        txtaActTDetalle.setBackground(new java.awt.Color(238, 238, 238));
+        txtaActTDetalle.setColumns(5);
+        txtaActTDetalle.setRows(3);
+        txtaActTDetalle.setBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
+        scpnltxtaActAcDetalle2.setViewportView(txtaActTDetalle);
+
+        lblActTOp.setText("Operación");
+
+        cbxActTOp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SUMAR", "RESTAR" }));
+        cbxActTOp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxActTOpActionPerformed(evt);
+            }
+        });
+
+        lblActTIngresa.setText("Ingresa:");
+
+        lblActTVaras.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        lblActTVaras.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblActTVaras.setText("varas.");
+
         btnActualizarTroza.setText("Actualizar Inventario");
         btnActualizarTroza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -976,43 +1079,49 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             pnlActualizarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlActualizarTrozaLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(pnlActualizarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblActTCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbxActTCodigo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlActualizarTrozaLayout.createSequentialGroup()
-                        .addComponent(txtActTIngresa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblActTIngresaPULG, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblActTIngresa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scpnltxtaActTDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                    .addComponent(lblActTDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnActualizarTroza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(48, 48, 48)
-                .addComponent(scpnlTblTActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlActualizarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scpnlTblTActualizar)
+                    .addGroup(pnlActualizarTrozaLayout.createSequentialGroup()
+                        .addGroup(pnlActualizarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scpnltxtaActAcDetalle2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblActTDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblActTOp, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxActTOp, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(443, 443, 443)
+                        .addGroup(pnlActualizarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlActualizarTrozaLayout.createSequentialGroup()
+                                .addComponent(txtActTIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblActTVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblActTIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnActualizarTroza, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 182, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlActualizarTrozaLayout.setVerticalGroup(
             pnlActualizarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlActualizarTrozaLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlActualizarTrozaLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(pnlActualizarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlActualizarTrozaLayout.createSequentialGroup()
-                        .addComponent(lblActTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxActTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(lblActTDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scpnltxtaActTDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
                         .addComponent(lblActTIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlActualizarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtActTIngresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblActTIngresaPULG, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                        .addComponent(btnActualizarTroza, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(scpnlTblTActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
+                            .addComponent(lblActTVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(95, 95, 95)
+                        .addComponent(btnActualizarTroza, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlActualizarTrozaLayout.createSequentialGroup()
+                        .addComponent(lblActTDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scpnltxtaActAcDetalle2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(lblActTOp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxActTOp, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(scpnlTblTActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -1031,8 +1140,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_actualizarLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(tbActualizarTipoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addComponent(tbActualizarTipoProd)
+                .addContainerGap())
         );
 
         tbpnl_modInventario.addTab("Actualizar inventario", pnl_actualizar);
@@ -1126,11 +1235,12 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlNuevoAcerradaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNuevoAcMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNuevoAcDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNuevoAcDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(lblNuevoAcUnidades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNuevoAcCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblNuevoAcMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblNuevoAcCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlNuevoAcerradaLayout.createSequentialGroup()
@@ -1227,10 +1337,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             pnlNuevoTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlNuevoTerminadaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlNuevoTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNuevoTmCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNuevoTmOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNuevoTmVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlNuevoTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNuevoTmVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlNuevoTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblNuevoTmCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblNuevoTmOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlNuevoTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNuevoTmCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1488,11 +1599,12 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEditarAcerradaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblEditarAcCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblEditarAcUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEditarAcMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEditarAcDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblEditarAcUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblEditarAcMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblEditarAcDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlEditarAcerradaLayout.createSequentialGroup()
@@ -2024,52 +2136,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         prepararProducto();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
-    private void btnActualizarTerminadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarTerminadaActionPerformed
-        if (!txtActTmIngresa.getText().isEmpty()) {
-            if (cbxActTmCodigo.getSelectedIndex() >= 0) {
-                try {
-                    int unidades = Integer.parseInt(txtActTmIngresa.getText());
-                    String codigo = cbxActTmCodigo.getItemAt(cbxActTmCodigo.getSelectedIndex()).getCodigo();
-                    controlador.actualizarInventario("TERMINADA", unidades, codigo);
-                    cargarTablas();
-                    cargarCombos();
-                    limpiarCampos("ACTUALIZAR", "TERMINADA");
-                } catch (NumberFormatException ex) {
-                    
-                }catch (NullPointerException ex) {
-                    
-                }
-            } else {
-                
-            }
-        } else {
-            
-        }
-    }//GEN-LAST:event_btnActualizarTerminadaActionPerformed
-
-    private void btnActualizarTrozaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarTrozaActionPerformed
-        if (!txtActTIngresa.getText().isEmpty()) {
-            if (cbxActTCodigo.getSelectedIndex() >= 0) {
-                try {
-                    int unidades = Integer.parseInt(txtActTIngresa.getText());
-                    String codigo = cbxActTCodigo.getItemAt(cbxActTCodigo.getSelectedIndex()).getCodigo();
-                    controlador.actualizarInventario("TROZA", unidades, codigo);
-                    cargarTablas();
-                    cargarCombos();
-                    limpiarCampos("ACTUALIZAR", "TROZA");
-                } catch (NumberFormatException ex) {
-                    
-                }catch (NullPointerException ex) {
-                    
-                }
-            } else {
-                
-            }
-        } else {
-            
-        }
-    }//GEN-LAST:event_btnActualizarTrozaActionPerformed
-
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
             model = (DefaultTableModel) tblAcEditar.getModel();
@@ -2243,6 +2309,30 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tbProductosInactivosMouseClicked
 
+    private void cbxActAcOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxActAcOpActionPerformed
+        if (cbxActAcOp.getSelectedIndex() == 0) {
+            cambiarOperacion("ASERRADA", true);
+        } else {
+            cambiarOperacion("ASERRADA", false);
+        }
+    }//GEN-LAST:event_cbxActAcOpActionPerformed
+
+    private void cbxActTmOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxActTmOpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxActTmOpActionPerformed
+
+    private void btnActualizarTerminadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarTerminadaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActualizarTerminadaActionPerformed
+
+    private void cbxActTOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxActTOpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxActTOpActionPerformed
+
+    private void btnActualizarTrozaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarTrozaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActualizarTrozaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgDeshab;
@@ -2254,9 +2344,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btn_deshabilitar;
-    private javax.swing.JComboBox<Madera> cbxActAcCodigo;
-    private javax.swing.JComboBox<Madera> cbxActTCodigo;
-    private javax.swing.JComboBox<Madera> cbxActTmCodigo;
+    private javax.swing.JComboBox<Madera> cbxActAcOp;
+    private javax.swing.JComboBox<Madera> cbxActTOp;
+    private javax.swing.JComboBox<Madera> cbxActTmOp;
     private javax.swing.JComboBox<Object> cbxEditarAcOrigen;
     private javax.swing.JComboBox<TipoMadera> cbxEditarAcVariedad;
     private javax.swing.JComboBox<Proveedor> cbxEditarTProveedor;
@@ -2270,18 +2360,22 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<Object> cbxNuevoTmOrigen1;
     private javax.swing.JComboBox<Object> cbxNuevoTmVariedad;
     private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JLabel lblActAcCodigo;
     private javax.swing.JLabel lblActAcDetalle;
     private javax.swing.JLabel lblActAcIngresa;
-    private javax.swing.JLabel lblActAcIngresaUNID;
-    private javax.swing.JLabel lblActTCodigo;
+    private javax.swing.JLabel lblActAcOp;
+    private javax.swing.JLabel lblActAcSalVaras;
+    private javax.swing.JLabel lblActAcSalen;
+    private javax.swing.JLabel lblActAsPulg;
+    private javax.swing.JLabel lblActAsVaras;
     private javax.swing.JLabel lblActTDetalle;
     private javax.swing.JLabel lblActTIngresa;
-    private javax.swing.JLabel lblActTIngresaPULG;
+    private javax.swing.JLabel lblActTOp;
+    private javax.swing.JLabel lblActTVaras;
     private javax.swing.JLabel lblActTmDetalle;
+    private javax.swing.JLabel lblActTmInVaras;
     private javax.swing.JLabel lblActTmIngresa;
-    private javax.swing.JLabel lblActTmIngresaUNID;
-    private javax.swing.JLabel lblActTmNombre;
+    private javax.swing.JLabel lblActTmOp;
+    private javax.swing.JLabel lblActTmSalen;
     private javax.swing.JLabel lblEditarAcCodigo;
     private javax.swing.JLabel lblEditarAcDescripcion;
     private javax.swing.JLabel lblEditarAcMedX;
@@ -2321,6 +2415,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblNuevoTmPrecio;
     private javax.swing.JLabel lblNuevoTmVariedad;
     private javax.swing.JLabel lblNuevoTpulgadas;
+    private javax.swing.JList<String> lsActAsSelTrz;
+    private javax.swing.JList<String> lsActTmSelAs;
     private javax.swing.JPanel pnlActivos;
     private javax.swing.JPanel pnlActualizarAcerrada;
     private javax.swing.JPanel pnlActualizarTerminada;
@@ -2358,8 +2454,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane scpnlTblTActualizar;
     private javax.swing.JScrollPane scpnlTblTmActualizar;
     private javax.swing.JScrollPane scpnltxtaActAcDetalle;
-    private javax.swing.JScrollPane scpnltxtaActTDetalle;
-    private javax.swing.JScrollPane scpnltxtaActTmDetalle;
+    private javax.swing.JScrollPane scpnltxtaActAcDetalle1;
+    private javax.swing.JScrollPane scpnltxtaActAcDetalle2;
+    private javax.swing.JScrollPane spActAsSelTrz;
+    private javax.swing.JScrollPane spActTmSelAs;
     private javax.swing.JTable tbActAserrada;
     private javax.swing.JTable tbActTerminada;
     private javax.swing.JTable tbActTroza;
@@ -2377,9 +2475,13 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblTmAgregarInv;
     private javax.swing.JTable tblTmEditar;
     private javax.swing.JTabbedPane tbpnl_modInventario;
+    private javax.swing.JTextField txtActAcBuscTrz;
     private javax.swing.JTextField txtActAcIngresa;
+    private javax.swing.JTextField txtActAcSalenPulg;
     private javax.swing.JTextField txtActTIngresa;
+    private javax.swing.JTextField txtActTmBuscAs;
     private javax.swing.JTextField txtActTmIngresa;
+    private javax.swing.JTextField txtActTmSalenVaras;
     private javax.swing.JTextField txtBuscarActivo;
     private javax.swing.JTextField txtBuscarInactivo;
     private javax.swing.JTextField txtEditarAcCodigo;
