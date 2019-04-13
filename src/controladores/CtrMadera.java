@@ -32,8 +32,8 @@ public class CtrMadera {
      * Constructor de controlador de madera, crea un objeto madera con
      * sus parámetros.
      * @param codigo codigo de madera
-     * @param codOrigen codigo de la madera que dio origen a la actual.
      * @param codProducto codigo del producto (personalizado)
+     * @param codOrigen codigo de la madera que dio origen a la actual.
      * @param codTipoMadera codigo del tipo de madera
      * @param descTipoMadera descripción del tipo de madera
      * @param grueso grueso de la madera/producto
@@ -105,9 +105,9 @@ public class CtrMadera {
         return mdlMadera.busqAvzProductos(paramProd, codBusq);
     }
     /**
-     * Inserta un nuevo producto en la BD
-     *
+     * Inserta un nuevo producto en la BD     *
      * @param codProd codigo personalizado asignado al producto
+     * @param codOrigen codigo del producto de quien se saco el registro
      * @param codTipoMadera codigo del tipo de madera del producto
      * @param grueso grueso del producto
      * @param cantVaras cantidad de varas que entran del producto
@@ -127,18 +127,18 @@ public class CtrMadera {
     }
     
     /**
-     * 
+     * Actualiza los diferentes atributos de la madera y los almacena en la BD
      * @param codProd codigo personalizado asignado al producto
-     * @param codTipoMadera codigo del tipo de madera del producto
-     * @param grueso grueso del producto
-     * @param cantVaras cantidad del producto en varas
-     * @param ancho ancho del producto
-     * @param precio precio por vara del producto
-     * @param pulgadas cantidad del producto en pulgadas (si es troza)
+     * @param codOrigen codigo del producto de quien se saco el registro
      * @param descripcion detalle del producto (opcional)
-     * @param codProveedor codigo del proveedor
-     * @param codigo codigo de madera
-     * @return verdadero si actualiza el producto exitosamente
+     * @param precio precio por vara del producto
+     * @param cantVaras cantidad de varas que entran
+     * @param grueso grueso del producto
+     * @param ancho ancho del producto
+     * @param codTipoMadera codigo del tipo de madera del producto
+     * @param tipoProducto descripcion de cual es el tipo de producto
+     * @param codigo codigo de la bd
+     * @return true si actualiza el producto.
      */
     public boolean actualizarProducto(String codProd, String codOrigen, 
             String descripcion, double precio, double cantVaras,
@@ -174,8 +174,8 @@ public class CtrMadera {
      * @param codigo codigo de madera
      * @return verdadero si el producto se actualiza exitosamente.
      */
-    public boolean actualizarInventario(String tipoProd, int unidades, String codigo) {
+    public boolean actualizarRegMadera(String tipoProd, int unidades, String codigo) {
         
-        return mdlMadera.actualizarInventario(tipoProd, unidades, codigo);
+        return mdlMadera.actualizarRegMadera(tipoProd, unidades, codigo);
     }
 }

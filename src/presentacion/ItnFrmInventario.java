@@ -2050,7 +2050,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             pnl_modInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_modInventarioLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(tbpnl_modInventario, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+                .addComponent(tbpnl_modInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 591, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
