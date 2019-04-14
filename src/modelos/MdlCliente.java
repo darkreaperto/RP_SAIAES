@@ -17,8 +17,6 @@ import logica.negocio.Contacto;
 import logica.negocio.Direccion;
 import logica.servicios.AESEncrypt;
 import logica.servicios.Mensaje;
-import util.Estado;
-import util.TipoCedula;
 import util.TipoContacto;
 
 /**
@@ -133,7 +131,7 @@ public class MdlCliente {
      * @param contactos
      * @return 
      */
-    public boolean crearCliente(String nombre, String cedula, TipoCedula tipoCed, 
+    public boolean crearCliente(String nombre, String cedula, String tipoCed, 
             double limiteCred, boolean aprobarCred, Direccion dir, 
             ArrayList<ArrayList<Object>> contactos) {
         
@@ -147,7 +145,7 @@ public class MdlCliente {
         ArrayList<Object> params = new ArrayList<>();
         params.add(nombre);
         params.add(cedula);
-        params.add(tipoCed.toString());
+        params.add(tipoCed);
         params.add(limiteCred);
         params.add(aprobarCred);
         params.add(codDireccion);
@@ -212,13 +210,13 @@ public class MdlCliente {
      * @return 
      */
     public boolean actualizarCliente(String nombre, String cedula, 
-            TipoCedula tipoCed, double limiteCred, boolean aprobarCred, 
+            String tipoCed, double limiteCred, boolean aprobarCred, 
             Direccion dir, String codPersona, String codCliente) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(nombre);
         params.add(cedula);
-        params.add(tipoCed.toString());
+        params.add(tipoCed);
         params.add(limiteCred);
         params.add(aprobarCred);
         

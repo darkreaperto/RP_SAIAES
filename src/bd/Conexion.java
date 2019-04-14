@@ -180,7 +180,7 @@ public final class Conexion {
                 boolean temp =  (boolean) params.get(i);
                 procedimiento.setBoolean(i + 1, temp);
             } else if (params.get(i) == null) {
-                 int temp = Integer.valueOf(params.get(i).toString());
+                int temp = Integer.valueOf(params.get(i).toString());
                 procedimiento.setNull(i + 1, temp);
             } else if (params.get(i) instanceof Types) {
                 int temp = Integer.valueOf(params.get(i).toString());

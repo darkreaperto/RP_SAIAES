@@ -6,10 +6,40 @@
 package util;
 
 /**
- *
- * @author fuent
+ * Clase enumeración para los tipos de cédula.
+ * @author darkreaper
  */
 public enum TipoCedula {
-    FISICA,
-    JURIDICA
+
+    FISICA ("Física"),
+    JURIDICA ("Jurídica");
+    
+    /**
+     * Constructor and methods class.
+     */
+    String desc; //Descripción del tipo de cédula
+    private TipoCedula(String desc) {
+        this.desc = desc;
+    }
+    
+    /**
+     * Retorna todos los valores de la enumeración.
+     * @return el arreglo con los valores
+     */
+    public static String[] getValues() {
+        String[] values = new String[TipoCedula.values().length];
+        
+        int i=0;
+        for (TipoCedula tc: TipoCedula.values()) {
+            values[i] = tc.desc;
+            i++;
+        }
+        
+        return values;
+    }
+    
+    @Override
+    public String toString() {
+        return this.desc;
+    }
 }

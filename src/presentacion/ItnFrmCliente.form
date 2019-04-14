@@ -77,7 +77,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="tb_modCliente" pref="596" max="32767" attributes="0"/>
+                  <Component id="tb_modCliente" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -152,10 +152,9 @@
                     <Component class="javax.swing.JTable" name="tbListadoCliente">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="10" rowCount="0">
+                          <Table columnCount="9" rowCount="0">
                             <Column editable="false" title="C&#xe9;dula" type="java.lang.Object"/>
-                            <Column editable="false" title="Primer Apellido" type="java.lang.Object"/>
-                            <Column editable="false" title="Segundo Apellido" type="java.lang.Object"/>
+                            <Column editable="false" title="T. C&#xe9;dula" type="java.lang.Object"/>
                             <Column editable="false" title="Nombre" type="java.lang.Object"/>
                             <Column editable="false" title="Cr&#xe9;dito" type="java.lang.Object"/>
                             <Column editable="false" title="L&#xed;mite de cr&#xe9;dito" type="java.lang.Object"/>
@@ -167,11 +166,6 @@
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -248,109 +242,6 @@
                 <Property name="useNullLayout" type="boolean" value="true"/>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JPanel" name="pnl_crear_creditoCliente">
-                  <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Cr&#xe9;dito de Cliente:"/>
-                      </Border>
-                    </Property>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="351" y="13" width="-1" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="rbCrearCredito" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="rbCrearCreditoLim" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rbCrearSinCredito" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="154" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbl_crear_limiteCliente" min="-2" pref="134" max="-2" attributes="0"/>
-                                  <Component id="txt_crear_limiteCliente" min="-2" pref="169" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="rbCrearCredito" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="lbl_crear_limiteCliente" min="-2" pref="19" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txt_crear_limiteCliente" min="-2" pref="22" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="rbCrearCreditoLim" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="rbCrearSinCredito" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JRadioButton" name="rbCrearCreditoLim">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="bg_crearCredito"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Cr&#xe9;dito limitado"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbCrearCreditoLimActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JRadioButton" name="rbCrearCredito">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="bg_crearCredito"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Cr&#xe9;dito"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbCrearCreditoActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JRadioButton" name="rbCrearSinCredito">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="bg_crearCredito"/>
-                        </Property>
-                        <Property name="selected" type="boolean" value="true"/>
-                        <Property name="text" type="java.lang.String" value="Sin cr&#xe9;dito"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbCrearSinCreditoActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="lbl_crear_limiteCliente">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="L&#xed;mite Cr&#xe9;dito:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txt_crear_limiteCliente">
-                      <Properties>
-                        <Property name="editable" type="boolean" value="false"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
                 <Container class="javax.swing.JPanel" name="pnlCrearContactoCliente">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -362,7 +253,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="351" y="121" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="351" y="16" width="-1" height="270"/>
                     </Constraint>
                   </Constraints>
 
@@ -378,7 +269,10 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tbCrearContactoClientes" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="tbCrearContactoClientes" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -409,7 +303,7 @@
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jScrollPane1" pref="357" max="32767" attributes="0"/>
+                                          <Component id="jScrollPane1" pref="361" max="32767" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Component id="lbl_crear_correo1" min="-2" pref="187" max="-2" attributes="0"/>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -429,13 +323,13 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="lbl_crear_correo1" min="-2" pref="27" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane1" min="-2" pref="55" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jScrollPane1" pref="146" max="32767" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="txt_agregarCorreo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                           <Component id="btnAgregarCorreo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -598,34 +492,19 @@
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="9" rowCount="0">
                             <Column editable="false" title="C&#xe9;dula" type="java.lang.Object"/>
-                            <Column editable="false" title="Primer Apellido" type="java.lang.Object"/>
-                            <Column editable="false" title="Segundo Apellido" type="java.lang.Object"/>
+                            <Column editable="false" title="T. C&#xe9;dula" type="java.lang.Object"/>
                             <Column editable="false" title="Nombre" type="java.lang.Object"/>
                             <Column editable="false" title="Cr&#xe9;dito" type="java.lang.Object"/>
                             <Column editable="false" title="L&#xed;mite de Cr&#xe9;dito" type="java.lang.Object"/>
                             <Column editable="false" title="Contactos" type="java.lang.Object"/>
+                            <Column editable="false" title="Direcci&#xf3;n" type="java.lang.Object"/>
                             <Column editable="false" title="Cod. Cliente" type="java.lang.Object"/>
                             <Column editable="false" title="Codigo" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -635,17 +514,32 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -697,27 +591,26 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="pnl_crear_creditoCliente" pref="258" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="0" pref="149" max="32767" attributes="0"/>
+                                      <Component id="ckbAgregarDireccion" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="lbl_crear_apellidoCliente2" pref="0" max="32767" attributes="0"/>
-                                          <Component id="lbl_crear_apellidoCliente1" alignment="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="lblCrearTipoCedula" alignment="0" max="32767" attributes="0"/>
                                           <Component id="lbl_crear_nombreCliente" pref="90" max="32767" attributes="0"/>
                                           <Component id="lbl_crear_cedulaCliente" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="txt_crear_nombreCliente" max="32767" attributes="0"/>
-                                          <Component id="txt_crear_apellidoCliente1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txt_crear_apellidoCliente2" alignment="0" max="32767" attributes="0"/>
                                           <Component id="txt_crear_cedulaCliente" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="cbxCrearTipoCedula" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="149" max="32767" attributes="0"/>
-                                      <Component id="ckbAgregarDireccion" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -728,6 +621,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="lblCrearTipoCedula" pref="30" max="32767" attributes="0"/>
+                                  <Component id="cbxCrearTipoCedula" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lbl_crear_cedulaCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="txt_crear_cedulaCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -737,17 +635,9 @@
                                   <Component id="lbl_crear_nombreCliente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                   <Component id="txt_crear_nombreCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="pnl_crear_creditoCliente" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lbl_crear_apellidoCliente1" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="txt_crear_apellidoCliente1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lbl_crear_apellidoCliente2" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="txt_crear_apellidoCliente2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="ckbAgregarDireccion" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -769,20 +659,6 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txt_crear_nombreCliente">
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Primer Apellido:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txt_crear_apellidoCliente1">
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="lbl_crear_apellidoCliente2">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Segundo Apellido:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txt_crear_apellidoCliente2">
-                    </Component>
                     <Component class="javax.swing.JCheckBox" name="ckbAgregarDireccion">
                       <Properties>
                         <Property name="selected" type="boolean" value="true"/>
@@ -792,6 +668,120 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckbAgregarDireccionActionPerformed"/>
                       </Events>
                     </Component>
+                    <Component class="javax.swing.JLabel" name="lblCrearTipoCedula">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Tipo de c&#xe9;dula:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="cbxCrearTipoCedula">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;( TipoCedula.getValues() )" type="code"/>
+                        </Property>
+                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                      </AuxValues>
+                    </Component>
+                    <Container class="javax.swing.JPanel" name="pnl_crear_creditoCliente">
+                      <Properties>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                            <TitledBorder title="Cr&#xe9;dito de Cliente:"/>
+                          </Border>
+                        </Property>
+                      </Properties>
+
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="rbCrearCredito" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="rbCrearCreditoLim" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="rbCrearSinCredito" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="lbl_crear_limiteCliente" pref="134" max="32767" attributes="0"/>
+                                      <Component id="txt_crear_limiteCliente" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="rbCrearCredito" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="lbl_crear_limiteCliente" min="-2" pref="19" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="txt_crear_limiteCliente" min="-2" pref="22" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="rbCrearCreditoLim" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="rbCrearSinCredito" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
+                      <SubComponents>
+                        <Component class="javax.swing.JRadioButton" name="rbCrearCreditoLim">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="bg_crearCredito"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Cr&#xe9;dito limitado"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbCrearCreditoLimActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JRadioButton" name="rbCrearCredito">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="bg_crearCredito"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Cr&#xe9;dito"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbCrearCreditoActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JRadioButton" name="rbCrearSinCredito">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="bg_crearCredito"/>
+                            </Property>
+                            <Property name="selected" type="boolean" value="true"/>
+                            <Property name="text" type="java.lang.String" value="Sin cr&#xe9;dito"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbCrearSinCreditoActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="lbl_crear_limiteCliente">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="L&#xed;mite Cr&#xe9;dito:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="txt_crear_limiteCliente">
+                          <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="pnlCrearDireccion">
@@ -999,15 +989,14 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="spnl_editar_clientes" alignment="1" pref="1182" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="tbEditarContactoClientes" pref="0" max="32767" attributes="0"/>
+                                  <Component id="tbEditarContactoClientes" pref="1174" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="btnEditarCliente" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnEditarCliente" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1017,7 +1006,7 @@
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="tbEditarContactoClientes" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="spnl_editar_clientes" pref="250" max="32767" attributes="0"/>
+                          <Component id="spnl_editar_clientes" pref="271" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnEditarCliente" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
@@ -1035,12 +1024,12 @@
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="9" rowCount="0">
                             <Column editable="false" title="C&#xe9;dula" type="java.lang.Object"/>
-                            <Column editable="false" title="Primer Apellido" type="java.lang.Object"/>
-                            <Column editable="false" title="Segundo Apellido" type="java.lang.Object"/>
+                            <Column editable="false" title="T. C&#xe9;dula" type="java.lang.Object"/>
                             <Column editable="false" title="Nombre" type="java.lang.Object"/>
                             <Column editable="false" title="Cr&#xe9;dito" type="java.lang.Object"/>
                             <Column editable="false" title="L&#xed;mite de Cr&#xe9;dito" type="java.lang.Object"/>
                             <Column editable="false" title="Contactos" type="java.lang.Object"/>
+                            <Column editable="false" title="Direcci&#xf3;n" type="java.lang.Object"/>
                             <Column editable="false" title="Cod. Cliente" type="java.lang.Object"/>
                             <Column editable="false" title="Codigo" type="java.lang.Object"/>
                           </Table>
@@ -1156,7 +1145,7 @@
                                       <Component id="pnlEditarCreditoCliente" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="pnlEditarDireccion" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="39" max="32767" attributes="0"/>
+                                      <EmptySpace pref="48" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1277,30 +1266,35 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
+                                      <Group type="102" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <EmptySpace min="0" pref="153" max="32767" attributes="0"/>
+                                                  <EmptySpace min="0" pref="154" max="32767" attributes="0"/>
                                                   <Component id="ckbEditarDireccion" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Component id="lblEditarSegundoApellido" pref="0" max="32767" attributes="0"/>
-                                                      <Component id="lblEditarApellidoCliente" max="32767" attributes="0"/>
-                                                      <Component id="lblEditarCedulaCliente" alignment="1" max="32767" attributes="0"/>
-                                                      <Component id="lblEditarNombreCliente" alignment="0" max="32767" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" attributes="0">
+                                                          <Group type="103" groupAlignment="1" attributes="0">
+                                                              <Component id="lblEditarCedulaCliente" alignment="1" max="32767" attributes="0"/>
+                                                              <Component id="lblEditarNombreCliente" alignment="0" max="32767" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="lblEditarTipoCedula" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                                      </Group>
                                                   </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="cbxEditarTipoCedula" max="32767" attributes="0"/>
                                                       <Component id="txtEditarNombreCliente" pref="185" max="32767" attributes="0"/>
                                                       <Component id="txtEditarCedulaCliente" max="32767" attributes="0"/>
-                                                      <Component id="txtEditarPrimerApellido" max="32767" attributes="0"/>
-                                                      <Component id="txtEditarSegundoApellido" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
-                                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1312,21 +1306,16 @@
                                               <Component id="txtEditarCedulaCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="lblEditarTipoCedula" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="cbxEditarTipoCedula" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="lblEditarNombreCliente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                               <Component id="txtEditarNombreCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lblEditarApellidoCliente" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                              <Component id="txtEditarPrimerApellido" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lblEditarSegundoApellido" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                              <Component id="txtEditarSegundoApellido" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace pref="4" max="32767" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Component id="ckbEditarDireccion" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                       </Group>
@@ -1348,20 +1337,6 @@
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="txtEditarNombreCliente">
                                 </Component>
-                                <Component class="javax.swing.JLabel" name="lblEditarApellidoCliente">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="Primer Apellido:"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JTextField" name="txtEditarPrimerApellido">
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="lblEditarSegundoApellido">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="Segundo Apellido:"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JTextField" name="txtEditarSegundoApellido">
-                                </Component>
                                 <Component class="javax.swing.JCheckBox" name="ckbEditarDireccion">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Agregar direcci&#xf3;n"/>
@@ -1369,6 +1344,21 @@
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckbEditarDireccionActionPerformed"/>
                                   </Events>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="lblEditarTipoCedula">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Tipo de c&#xe9;dula:"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JComboBox" name="cbxEditarTipoCedula">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                      <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;( TipoCedula.getValues() )" type="code"/>
+                                    </Property>
+                                  </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                  </AuxValues>
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -1443,7 +1433,7 @@
                                                   <Component id="txaEditarOtrasSenas" min="-2" pref="106" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace pref="27" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1822,7 +1812,7 @@
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                   <Component id="lblDeshabSelectCliente" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="tbDeshab" pref="404" max="32767" attributes="0"/>
+                                  <Component id="tbDeshab" pref="416" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="pnlDeshabContainer" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -1858,12 +1848,12 @@
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="9" rowCount="0">
                                 <Column editable="false" title="C&#xe9;dula" type="java.lang.Object"/>
-                                <Column editable="false" title="Primer Apellido" type="java.lang.Object"/>
-                                <Column editable="false" title="Segundo Apellido" type="java.lang.Object"/>
+                                <Column editable="false" title="T. C&#xe9;dula" type="java.lang.Object"/>
                                 <Column editable="false" title="Nombre" type="java.lang.Object"/>
                                 <Column editable="false" title="Cr&#xe9;dito" type="java.lang.Object"/>
                                 <Column editable="false" title="L&#xed;mite de cr&#xe9;dito" type="java.lang.Object"/>
                                 <Column editable="false" title="Contacto" type="java.lang.Object"/>
+                                <Column editable="false" title="Direcci&#xf3;n" type="java.lang.Object"/>
                                 <Column editable="false" title="Cod. Cliente" type="java.lang.Object"/>
                                 <Column editable="false" title="Codigo" type="java.lang.Object"/>
                               </Table>
@@ -1947,12 +1937,12 @@
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="9" rowCount="0">
                                 <Column editable="false" title="C&#xe9;dula " type="java.lang.Object"/>
-                                <Column editable="false" title="Primer Apellido" type="java.lang.Object"/>
-                                <Column editable="false" title="Segundo Apellido" type="java.lang.Object"/>
+                                <Column editable="false" title="T. C&#xe9;dula" type="java.lang.Object"/>
                                 <Column editable="false" title="Nombre" type="java.lang.Object"/>
                                 <Column editable="false" title="Cr&#xe9;dito" type="java.lang.Object"/>
                                 <Column editable="false" title="L&#xed;mite de cr&#xe9;dito" type="java.lang.Object"/>
                                 <Column editable="false" title="Contacto" type="java.lang.Object"/>
+                                <Column editable="false" title="Direcci&#xf3;n" type="java.lang.Object"/>
                                 <Column editable="false" title="Cod. Cliente" type="java.lang.Object"/>
                                 <Column editable="false" title="Codigo" type="java.lang.Object"/>
                               </Table>

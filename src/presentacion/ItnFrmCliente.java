@@ -23,6 +23,7 @@ import logica.servicios.Mensaje;
 import logica.servicios.Regex;
 import logica.servicios.DirFiltro;
 import util.Estado;
+import util.TipoCedula;
 import util.TipoContacto;
 import util.TipoMensaje;
 
@@ -106,12 +107,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         scpnlTblListadoCliente = new javax.swing.JScrollPane();
         tbListadoCliente = new javax.swing.JTable();
         pnl_agregar = new javax.swing.JPanel();
-        pnl_crear_creditoCliente = new javax.swing.JPanel();
-        rbCrearCreditoLim = new javax.swing.JRadioButton();
-        rbCrearCredito = new javax.swing.JRadioButton();
-        rbCrearSinCredito = new javax.swing.JRadioButton();
-        lbl_crear_limiteCliente = new javax.swing.JLabel();
-        txt_crear_limiteCliente = new javax.swing.JTextField();
         pnlCrearContactoCliente = new javax.swing.JPanel();
         tbCrearContactoClientes = new javax.swing.JTabbedPane();
         pnlCrearCorreo1 = new javax.swing.JPanel();
@@ -135,11 +130,15 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         txt_crear_cedulaCliente = new javax.swing.JTextField();
         lbl_crear_nombreCliente = new javax.swing.JLabel();
         txt_crear_nombreCliente = new javax.swing.JTextField();
-        lbl_crear_apellidoCliente1 = new javax.swing.JLabel();
-        txt_crear_apellidoCliente1 = new javax.swing.JTextField();
-        lbl_crear_apellidoCliente2 = new javax.swing.JLabel();
-        txt_crear_apellidoCliente2 = new javax.swing.JTextField();
         ckbAgregarDireccion = new javax.swing.JCheckBox();
+        lblCrearTipoCedula = new javax.swing.JLabel();
+        cbxCrearTipoCedula = new javax.swing.JComboBox<>();
+        pnl_crear_creditoCliente = new javax.swing.JPanel();
+        rbCrearCreditoLim = new javax.swing.JRadioButton();
+        rbCrearCredito = new javax.swing.JRadioButton();
+        rbCrearSinCredito = new javax.swing.JRadioButton();
+        lbl_crear_limiteCliente = new javax.swing.JLabel();
+        txt_crear_limiteCliente = new javax.swing.JTextField();
         pnlCrearDireccion = new javax.swing.JPanel();
         lbl_crear_provincia = new javax.swing.JLabel();
         cbxProvincia = new javax.swing.JComboBox<>();
@@ -170,11 +169,9 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         txtEditarCedulaCliente = new javax.swing.JTextField();
         lblEditarNombreCliente = new javax.swing.JLabel();
         txtEditarNombreCliente = new javax.swing.JTextField();
-        lblEditarApellidoCliente = new javax.swing.JLabel();
-        txtEditarPrimerApellido = new javax.swing.JTextField();
-        lblEditarSegundoApellido = new javax.swing.JLabel();
-        txtEditarSegundoApellido = new javax.swing.JTextField();
         ckbEditarDireccion = new javax.swing.JCheckBox();
+        lblEditarTipoCedula = new javax.swing.JLabel();
+        cbxEditarTipoCedula = new javax.swing.JComboBox<>();
         pnlEditarDireccion = new javax.swing.JPanel();
         lblEditarBarrio = new javax.swing.JLabel();
         cbxEditarBarrio = new javax.swing.JComboBox<>();
@@ -240,11 +237,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de crédito", "Contactos", "Dirección", "Cod. Cliente", "Codigo"
+                "Cédula", "T. Cédula", "Nombre", "Crédito", "Límite de crédito", "Contactos", "Dirección", "Cod. Cliente", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -290,73 +287,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         pnl_agregar.setLayout(null);
 
-        pnl_crear_creditoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Crédito de Cliente:"));
-
-        bg_crearCredito.add(rbCrearCreditoLim);
-        rbCrearCreditoLim.setText("Crédito limitado");
-        rbCrearCreditoLim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbCrearCreditoLimActionPerformed(evt);
-            }
-        });
-
-        bg_crearCredito.add(rbCrearCredito);
-        rbCrearCredito.setText("Crédito");
-        rbCrearCredito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbCrearCreditoActionPerformed(evt);
-            }
-        });
-
-        bg_crearCredito.add(rbCrearSinCredito);
-        rbCrearSinCredito.setSelected(true);
-        rbCrearSinCredito.setText("Sin crédito");
-        rbCrearSinCredito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbCrearSinCreditoActionPerformed(evt);
-            }
-        });
-
-        lbl_crear_limiteCliente.setText("Límite Crédito:");
-
-        txt_crear_limiteCliente.setEditable(false);
-
-        javax.swing.GroupLayout pnl_crear_creditoClienteLayout = new javax.swing.GroupLayout(pnl_crear_creditoCliente);
-        pnl_crear_creditoCliente.setLayout(pnl_crear_creditoClienteLayout);
-        pnl_crear_creditoClienteLayout.setHorizontalGroup(
-            pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_crear_creditoClienteLayout.createSequentialGroup()
-                .addComponent(rbCrearCredito)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(pnl_crear_creditoClienteLayout.createSequentialGroup()
-                .addGroup(pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rbCrearCreditoLim)
-                    .addComponent(rbCrearSinCredito))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
-                .addGroup(pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_crear_limiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_crear_limiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-        pnl_crear_creditoClienteLayout.setVerticalGroup(
-            pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_crear_creditoClienteLayout.createSequentialGroup()
-                .addComponent(rbCrearCredito)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnl_crear_creditoClienteLayout.createSequentialGroup()
-                        .addComponent(lbl_crear_limiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_crear_limiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnl_crear_creditoClienteLayout.createSequentialGroup()
-                        .addComponent(rbCrearCreditoLim)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbCrearSinCredito))))
-        );
-
-        pnl_agregar.add(pnl_crear_creditoCliente);
-        pnl_crear_creditoCliente.setBounds(351, 13, 466, 103);
-
         pnlCrearContactoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Contacto:"));
         pnlCrearContactoCliente.setAutoscrolls(true);
 
@@ -381,7 +311,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             .addGroup(pnlCrearCorreo1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlCrearCorreo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                     .addGroup(pnlCrearCorreo1Layout.createSequentialGroup()
                         .addComponent(lbl_crear_correo1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -396,12 +326,12 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             .addGroup(pnlCrearCorreo1Layout.createSequentialGroup()
                 .addComponent(lbl_crear_correo1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlCrearCorreo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_agregarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         tbCrearContactoClientes.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/email.png")), pnlCrearCorreo1); // NOI18N
@@ -467,18 +397,20 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
         pnlCrearContactoClienteLayout.setVerticalGroup(
             pnlCrearContactoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tbCrearContactoClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(pnlCrearContactoClienteLayout.createSequentialGroup()
+                .addComponent(tbCrearContactoClientes)
+                .addContainerGap())
         );
 
         pnl_agregar.add(pnlCrearContactoCliente);
-        pnlCrearContactoCliente.setBounds(351, 121, 466, 171);
+        pnlCrearContactoCliente.setBounds(351, 16, 462, 270);
 
         tbl_crear.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de Crédito", "Contactos", "Cod. Cliente", "Codigo"
+                "Cédula", "T. Cédula", "Nombre", "Crédito", "Límite de Crédito", "Contactos", "Dirección", "Cod. Cliente", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -492,15 +424,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         tbl_crear.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbl_crear.getTableHeader().setReorderingAllowed(false);
         spnl_crear_clientes.setViewportView(tbl_crear);
-        if (tbl_crear.getColumnModel().getColumnCount() > 0) {
-            tbl_crear.getColumnModel().getColumn(0).setResizable(false);
-            tbl_crear.getColumnModel().getColumn(1).setResizable(false);
-            tbl_crear.getColumnModel().getColumn(2).setResizable(false);
-            tbl_crear.getColumnModel().getColumn(3).setResizable(false);
-            tbl_crear.getColumnModel().getColumn(5).setResizable(false);
-            tbl_crear.getColumnModel().getColumn(6).setResizable(false);
-            tbl_crear.getColumnModel().getColumn(7).setResizable(false);
-        }
 
         pnl_agregar.add(spnl_crear_clientes);
         spnl_crear_clientes.setBounds(25, 299, 1145, 218);
@@ -512,17 +435,13 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         });
         pnl_agregar.add(btnCrearCliente);
-        btnCrearCliente.setBounds(1063, 524, 107, 35);
+        btnCrearCliente.setBounds(1063, 524, 95, 35);
 
         pnlCrearInfoBase.setBorder(javax.swing.BorderFactory.createTitledBorder("Información Básica:"));
 
         lbl_crear_cedulaCliente.setText("Cédula:");
 
         lbl_crear_nombreCliente.setText("Nombre:");
-
-        lbl_crear_apellidoCliente1.setText("Primer Apellido:");
-
-        lbl_crear_apellidoCliente2.setText("Segundo Apellido:");
 
         ckbAgregarDireccion.setSelected(true);
         ckbAgregarDireccion.setText("Agregar dirección");
@@ -532,6 +451,75 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        lblCrearTipoCedula.setText("Tipo de cédula:");
+
+        cbxCrearTipoCedula.setModel(new javax.swing.DefaultComboBoxModel<>( TipoCedula.getValues() ));
+
+        pnl_crear_creditoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Crédito de Cliente:"));
+
+        bg_crearCredito.add(rbCrearCreditoLim);
+        rbCrearCreditoLim.setText("Crédito limitado");
+        rbCrearCreditoLim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbCrearCreditoLimActionPerformed(evt);
+            }
+        });
+
+        bg_crearCredito.add(rbCrearCredito);
+        rbCrearCredito.setText("Crédito");
+        rbCrearCredito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbCrearCreditoActionPerformed(evt);
+            }
+        });
+
+        bg_crearCredito.add(rbCrearSinCredito);
+        rbCrearSinCredito.setSelected(true);
+        rbCrearSinCredito.setText("Sin crédito");
+        rbCrearSinCredito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbCrearSinCreditoActionPerformed(evt);
+            }
+        });
+
+        lbl_crear_limiteCliente.setText("Límite Crédito:");
+
+        txt_crear_limiteCliente.setEditable(false);
+
+        javax.swing.GroupLayout pnl_crear_creditoClienteLayout = new javax.swing.GroupLayout(pnl_crear_creditoCliente);
+        pnl_crear_creditoCliente.setLayout(pnl_crear_creditoClienteLayout);
+        pnl_crear_creditoClienteLayout.setHorizontalGroup(
+            pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_crear_creditoClienteLayout.createSequentialGroup()
+                .addComponent(rbCrearCredito)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(pnl_crear_creditoClienteLayout.createSequentialGroup()
+                .addGroup(pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbCrearCreditoLim)
+                    .addComponent(rbCrearSinCredito))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lbl_crear_limiteCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                    .addComponent(txt_crear_limiteCliente))
+                .addGap(45, 45, 45))
+        );
+        pnl_crear_creditoClienteLayout.setVerticalGroup(
+            pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_crear_creditoClienteLayout.createSequentialGroup()
+                .addComponent(rbCrearCredito)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_crear_creditoClienteLayout.createSequentialGroup()
+                        .addComponent(lbl_crear_limiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_crear_limiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnl_crear_creditoClienteLayout.createSequentialGroup()
+                        .addComponent(rbCrearCreditoLim)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbCrearSinCredito)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout pnlCrearInfoBaseLayout = new javax.swing.GroupLayout(pnlCrearInfoBase);
         pnlCrearInfoBase.setLayout(pnlCrearInfoBaseLayout);
         pnlCrearInfoBaseLayout.setHorizontalGroup(
@@ -539,27 +527,30 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             .addGroup(pnlCrearInfoBaseLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnl_crear_creditoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 258, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearInfoBaseLayout.createSequentialGroup()
+                        .addGap(0, 149, Short.MAX_VALUE)
+                        .addComponent(ckbAgregarDireccion))
                     .addGroup(pnlCrearInfoBaseLayout.createSequentialGroup()
                         .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lbl_crear_apellidoCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(lbl_crear_apellidoCliente1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(lblCrearTipoCedula, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lbl_crear_nombreCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                             .addComponent(lbl_crear_cedulaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_crear_nombreCliente)
-                            .addComponent(txt_crear_apellidoCliente1)
-                            .addComponent(txt_crear_apellidoCliente2)
-                            .addComponent(txt_crear_cedulaCliente)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearInfoBaseLayout.createSequentialGroup()
-                        .addGap(0, 149, Short.MAX_VALUE)
-                        .addComponent(ckbAgregarDireccion)))
+                            .addComponent(txt_crear_cedulaCliente)
+                            .addComponent(cbxCrearTipoCedula, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         pnlCrearInfoBaseLayout.setVerticalGroup(
             pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCrearInfoBaseLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblCrearTipoCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(cbxCrearTipoCedula))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_crear_cedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_crear_cedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -567,21 +558,15 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_crear_nombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_crear_nombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnl_crear_creditoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_crear_apellidoCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_crear_apellidoCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_crear_apellidoCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_crear_apellidoCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ckbAgregarDireccion)
                 .addContainerGap())
         );
 
         pnl_agregar.add(pnlCrearInfoBase);
-        pnlCrearInfoBase.setBounds(25, 13, 314, 279);
+        pnlCrearInfoBase.setBounds(25, 13, 290, 279);
 
         pnlCrearDireccion.setBorder(javax.swing.BorderFactory.createTitledBorder("Dirección:"));
 
@@ -680,7 +665,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         pnl_agregar.add(pnlCrearDireccion);
-        pnlCrearDireccion.setBounds(829, 13, 341, 279);
+        pnlCrearDireccion.setBounds(829, 13, 336, 279);
 
         tb_modCliente.addTab("Agregar cliente", pnl_agregar);
 
@@ -689,7 +674,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de Crédito", "Contactos", "Cod. Cliente", "Codigo"
+                "Cédula", "T. Cédula", "Nombre", "Crédito", "Límite de Crédito", "Contactos", "Dirección", "Cod. Cliente", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -795,10 +780,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         lblEditarNombreCliente.setText("Nombre:");
 
-        lblEditarApellidoCliente.setText("Primer Apellido:");
-
-        lblEditarSegundoApellido.setText("Segundo Apellido:");
-
         ckbEditarDireccion.setText("Agregar dirección");
         ckbEditarDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -806,28 +787,34 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        lblEditarTipoCedula.setText("Tipo de cédula:");
+
+        cbxEditarTipoCedula.setModel(new javax.swing.DefaultComboBoxModel<>( TipoCedula.getValues() ));
+
         javax.swing.GroupLayout pnlInfoBasicaLayout = new javax.swing.GroupLayout(pnlInfoBasica);
         pnlInfoBasica.setLayout(pnlInfoBasicaLayout);
         pnlInfoBasicaLayout.setHorizontalGroup(
             pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInfoBasicaLayout.createSequentialGroup()
+            .addGroup(pnlInfoBasicaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlInfoBasicaLayout.createSequentialGroup()
-                        .addGap(0, 153, Short.MAX_VALUE)
+                        .addGap(0, 154, Short.MAX_VALUE)
                         .addComponent(ckbEditarDireccion))
                     .addGroup(pnlInfoBasicaLayout.createSequentialGroup()
-                        .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblEditarSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(lblEditarApellidoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblEditarCedulaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblEditarNombreCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlInfoBasicaLayout.createSequentialGroup()
+                                .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblEditarCedulaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblEditarNombreCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(pnlInfoBasicaLayout.createSequentialGroup()
+                                .addComponent(lblEditarTipoCedula)
+                                .addGap(5, 5, 5)))
                         .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbxEditarTipoCedula, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtEditarNombreCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                            .addComponent(txtEditarCedulaCliente)
-                            .addComponent(txtEditarPrimerApellido)
-                            .addComponent(txtEditarSegundoApellido))))
+                            .addComponent(txtEditarCedulaCliente))))
                 .addContainerGap())
         );
         pnlInfoBasicaLayout.setVerticalGroup(
@@ -837,18 +824,14 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                     .addComponent(lblEditarCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEditarCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblEditarTipoCedula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxEditarTipoCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEditarNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEditarNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEditarApellidoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEditarPrimerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlInfoBasicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEditarSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEditarSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ckbEditarDireccion)
                 .addContainerGap())
         );
@@ -935,7 +918,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         .addComponent(lblEditarOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txaEditarOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlEditarTelefonoLayout = new javax.swing.GroupLayout(pnlEditarTelefono);
@@ -949,7 +932,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 .addComponent(pnlEditarCreditoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlEditarDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         pnlEditarTelefonoLayout.setVerticalGroup(
             pnlEditarTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1103,12 +1086,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(spnl_editar_clientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1182, Short.MAX_VALUE)
                     .addGroup(pnl_actualizarLayout.createSequentialGroup()
-                        .addComponent(tbEditarContactoClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEditarCliente)
-                .addContainerGap())
+                        .addComponent(tbEditarContactoClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 1174, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(pnl_actualizarLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnEditarCliente))))
         );
         pnl_actualizarLayout.setVerticalGroup(
             pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1116,7 +1098,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 .addGap(35, 35, 35)
                 .addComponent(tbEditarContactoClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnl_editar_clientes, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                .addComponent(spnl_editar_clientes, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
@@ -1131,7 +1113,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cédula", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de crédito", "Contacto", "Cod. Cliente", "Codigo"
+                "Cédula", "T. Cédula", "Nombre", "Crédito", "Límite de crédito", "Contacto", "Dirección", "Cod. Cliente", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1163,7 +1145,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cédula ", "Primer Apellido", "Segundo Apellido", "Nombre", "Crédito", "Límite de crédito", "Contacto", "Cod. Cliente", "Codigo"
+                "Cédula ", "T. Cédula", "Nombre", "Crédito", "Límite de crédito", "Contacto", "Dirección", "Cod. Cliente", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1252,7 +1234,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         .addGap(35, 35, 35)
                         .addComponent(lblDeshabSelectCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tbDeshab, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                        .addComponent(tbDeshab, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pnlDeshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17))
@@ -1273,7 +1255,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             pnl_modClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_modClienteLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(tb_modCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 596, Short.MAX_VALUE)
+                .addComponent(tb_modCliente)
                 .addContainerGap())
         );
 
@@ -1311,21 +1293,20 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
      * @param estado Indica si el cliente está o no inactivo
      */
     public void cargarClientesJTable(JTable tabla, boolean estado) {
-        Object[] row = new Object[10];
+        Object[] row = new Object[9];
         model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0);
-        model.setColumnCount(10);
+        model.setColumnCount(9);
         int i = 0;
         for (Cliente c: clientes) {
 
             if (c.getEstado().equals(Estado.Activo) && estado) {
                 
                 row[0] = c.getCedula();
-                row[1] = c.getApellido1(); 
-                row[2] = c.getApellido2();
-                row[3] = c.getNombre();
-                row[4] = c.isAprobarCredito() ? "✔" : "✘";
-                row[5] = "₡ " + c.getLimiteCredito();
+                row[1] = c.getTipoCedula();
+                row[2] = c.getNombre();
+                row[3] = c.isAprobarCredito() ? "✔" : "✘";
+                row[4] = "₡ " + c.getLimiteCredito();
                 
                 ArrayList<Contacto> contactos = c.getContactos();
                 
@@ -1335,7 +1316,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                     texto += tipo + " " + ct.getInfo() + "<br>";
                 }
                 texto += "</body></html>";
-                row[6] = texto;
+                row[5] = texto;
                 
                 String dir = "Sin dirección disponible";
                 if(c.getDireccion() != null) {
@@ -1346,9 +1327,9 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         c.getDireccion().getNomBarrio() 
                         + "</body></html>";
                 }
-                row[7] = dir;
-                row[8] = c.getCodCliente(); //codigo de cliente
-                row[9] = c.getCodigo(); //codigo de persona
+                row[6] = dir;
+                row[7] = c.getCodCliente(); //codigo de cliente
+                row[8] = c.getCodigo(); //codigo de persona
                 
                 model.addRow(row);
                 
@@ -1360,11 +1341,10 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             if (c.getEstado().equals(Estado.Deshabilitado) && !estado) {
                 
                 row[0] = c.getCedula();
-                row[1] = c.getApellido1(); 
-                row[2] = c.getApellido2();
-                row[3] = c.getNombre();
-                row[4] = c.isAprobarCredito() ? "✔" : "✘";
-                row[5] = "₡ " + c.getLimiteCredito();
+                row[1] = c.getTipoCedula();
+                row[2] = c.getNombre();
+                row[3] = c.isAprobarCredito() ? "✔" : "✘";
+                row[4] = "₡ " + c.getLimiteCredito();
                 
                 ArrayList<Contacto> contactos = c.getContactos();
                 
@@ -1374,7 +1354,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                     texto += tipo + " " + ct.getInfo() + "<br>";
                 }
                 texto += "</body></html>";
-                row[6] = texto;
+                row[5] = texto;
                 
                 String dir = "Sin dirección disponible";
                 if(c.getDireccion() != null) {
@@ -1385,9 +1365,9 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         c.getDireccion().getNomBarrio() 
                         + "</body></html>";
                 }
-                row[7] = dir;
-                row[8] = c.getCodCliente(); //codigo de cliente
-                row[9] = c.getCodigo(); //codigo de persona
+                row[6] = dir;
+                row[7] = c.getCodCliente(); //codigo de cliente
+                row[8] = c.getCodigo(); //codigo de persona
                 
                 model.addRow(row);
                 
@@ -1398,8 +1378,8 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         }
         
-        tabla.removeColumn(tabla.getColumnModel().getColumn(8));
-        tabla.removeColumn(tabla.getColumnModel().getColumn(8));
+        tabla.removeColumn(tabla.getColumnModel().getColumn(7));
+        tabla.removeColumn(tabla.getColumnModel().getColumn(7));
     }
     
     /**
@@ -1512,8 +1492,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     private void cargarEditarCliente(Cliente cliente) {
         txtEditarCedulaCliente.setText(cliente.getCedula());
         txtEditarNombreCliente.setText(cliente.getNombre());
-        txtEditarPrimerApellido.setText(cliente.getApellido1());
-        txtEditarSegundoApellido.setText(cliente.getApellido2());
+        cbxEditarTipoCedula.setSelectedItem(cliente.getTipoCedula().toString());
         //Cargar crédito
         if (cliente.isAprobarCredito()) {
             if (cliente.getLimiteCredito() > 0.0) {
@@ -1558,8 +1537,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     public void limpiarCampos(String panel) {
         switch (panel.toUpperCase()) {
             case "CREAR":
-                txt_crear_apellidoCliente1.setText("");
-                txt_crear_apellidoCliente2.setText("");
+                cbxCrearTipoCedula.setSelectedIndex(0);
                 txt_crear_cedulaCliente.setText("");
                 txt_crear_limiteCliente.setText("");
                 txt_crear_nombreCliente.setText("");
@@ -1572,8 +1550,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 txtaOtrasSenas.setText("");
                 break;
             case "EDITAR":
-                txtEditarPrimerApellido.setText("");
-                txtEditarSegundoApellido.setText("");
                 txtEditarCedulaCliente.setText("");
                 txtEditarLimiteCliente.setText("");
                 txtEditarNombreCliente.setText("");
@@ -1674,20 +1650,19 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
      * @param aprobarCred si tiene o no crédito permitido
      * @param contactos contactos del cliente
      */
-    private void agregarCliente(String nombre, String apellido1, 
-            String apellido2, String cedula, String limiteCred, 
-            boolean aprobarCred, Direccion direc, 
+    private void agregarCliente(String nombre, String tipoCed, String cedula, 
+            String limiteCred, boolean aprobarCred, Direccion direc, 
             ArrayList<ArrayList<Object>> contactos) {
           
-        if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
+        if (!nombre.isEmpty()) {
 
             double limiteCredito;
             try {
                 limiteCredito = Double.valueOf(limiteCred);
                 System.out.println(limiteCredito);
 
-                boolean creado = controlador.crearCliente(nombre, apellido1, 
-                        apellido2, cedula, limiteCredito, aprobarCred, direc,
+                boolean creado = controlador.crearCliente(nombre, cedula, 
+                        tipoCed, limiteCredito, aprobarCred, direc,
                         contactos);
 
                 if (creado) {
@@ -1723,19 +1698,19 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
      * @param aprobarCred si tiene o no crédito permitido
      * @param codPersona codigo de persona para enlazar en la tabla de la BD
      */
-    private void actualizarCliente(String nombre, String apellido1, 
-            String apellido2, String cedula, String limiteCred, 
-            boolean aprobarCred, String codPersona, Direccion dir) {
+    private void actualizarCliente(String nombre, String cedula, String tipoCed, 
+            String limiteCred, boolean aprobarCred, Direccion dir, 
+            String codPersona, String codCliente) {
         
-        if (!nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty()) {
+        if (!nombre.isEmpty()) {
 
             double limiteCredito;
             try {
                 limiteCredito = Double.valueOf(limiteCred);
                 
                 boolean actualizado = controlador.actualizarCliente(nombre, 
-                        apellido1, apellido2, cedula, limiteCredito, 
-                        aprobarCred, codPersona, dir);
+                        cedula, tipoCed, limiteCredito, aprobarCred, dir, 
+                        codPersona, codCliente);
 
                 if (actualizado) {
                     System.out.println("Yay!");
@@ -1791,8 +1766,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 "0" : txt_crear_limiteCliente.getText().trim();
         
         agregarCliente(txt_crear_nombreCliente.getText().trim(), 
-                txt_crear_apellidoCliente1.getText().trim(), 
-                txt_crear_apellidoCliente2.getText().trim(), 
+                ( (TipoCedula) cbxCrearTipoCedula.getSelectedItem() ).name(),
                 txt_crear_cedulaCliente.getText().trim(), 
                 limiteCred, credito, prepararDireccion(false, 1),
                 contactos);
@@ -1856,7 +1830,10 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                     "0.0" : txtEditarLimiteCliente.getText().trim();
             
             String codPersona = (String) model.getValueAt(indiceFila, 8);
-            System.out.println("CODIGO PER EDITAR CLIENTE: "+codPersona);
+            System.out.println("CODIGO PER EDITAR PERSONA: " + codPersona);
+            
+            String codCliente = (String) model.getValueAt(indiceFila, 7);
+            System.out.println("CODIGO PER EDITAR CLIENTE: " + codCliente);
             
             int codDir = 0;
             for (int i = 0; i < clientes.size(); i++) {
@@ -1868,10 +1845,10 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
                         
             actualizarCliente(txtEditarNombreCliente.getText().trim(), 
-                    txtEditarPrimerApellido.getText().trim(), 
-                    txtEditarSegundoApellido.getText().trim(), 
                     txtEditarCedulaCliente.getText().trim(), 
-                    limiteCred, credito, codPersona, prepararDireccion(true, codDir));
+                    ( (TipoCedula) cbxEditarTipoCedula.getSelectedItem() ).name(),
+                    limiteCred, credito, prepararDireccion(true, codDir), 
+                    codPersona, codCliente);
             
         } catch (ArrayIndexOutOfBoundsException ex) {
             ex.printStackTrace();
@@ -2183,9 +2160,9 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
     }
     /**
-     * 
-     * @param pnlCrear
-     * @param ckb 
+     * Ocultar o mostrar el panel de dirección.
+     * @param pnlCrear ¿es el panel crear o editar?
+     * @param ckb objeto check box a seleccionar-deseleccionar
      */
     private void mostrarDireccion(boolean pnlCrear, JCheckBox ckb) {
         
@@ -2396,11 +2373,13 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_deshabilitar;
     private javax.swing.JComboBox<DirFiltro> cbxBarrio;
     private javax.swing.JComboBox<DirFiltro> cbxCanton;
+    private javax.swing.JComboBox<String> cbxCrearTipoCedula;
     private javax.swing.JComboBox<DirFiltro> cbxDistrito;
     private javax.swing.JComboBox<DirFiltro> cbxEditarBarrio;
     private javax.swing.JComboBox<DirFiltro> cbxEditarCanton;
     private javax.swing.JComboBox<DirFiltro> cbxEditarDistrito;
     private javax.swing.JComboBox<DirFiltro> cbxEditarProvincia;
+    private javax.swing.JComboBox<String> cbxEditarTipoCedula;
     private javax.swing.JComboBox<DirFiltro> cbxProvincia;
     private javax.swing.JCheckBox ckbAgregarDireccion;
     private javax.swing.JCheckBox ckbEditarDireccion;
@@ -2410,8 +2389,8 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblCrearTelefono;
+    private javax.swing.JLabel lblCrearTipoCedula;
     private javax.swing.JLabel lblDeshabSelectCliente;
-    private javax.swing.JLabel lblEditarApellidoCliente;
     private javax.swing.JLabel lblEditarBarrio;
     private javax.swing.JLabel lblEditarCanton;
     private javax.swing.JLabel lblEditarCedulaCliente;
@@ -2421,11 +2400,9 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblEditarNombreCliente;
     private javax.swing.JLabel lblEditarOtrasSenas;
     private javax.swing.JLabel lblEditarProvincia;
-    private javax.swing.JLabel lblEditarSegundoApellido;
     private javax.swing.JLabel lblEditarTelefono;
+    private javax.swing.JLabel lblEditarTipoCedula;
     private javax.swing.JLabel lblListadoCliente;
-    private javax.swing.JLabel lbl_crear_apellidoCliente1;
-    private javax.swing.JLabel lbl_crear_apellidoCliente2;
     private javax.swing.JLabel lbl_crear_barrio;
     private javax.swing.JLabel lbl_crear_barrio1;
     private javax.swing.JLabel lbl_crear_canton;
@@ -2490,14 +2467,10 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtEditarCorreoCliente;
     private javax.swing.JTextField txtEditarLimiteCliente;
     private javax.swing.JTextField txtEditarNombreCliente;
-    private javax.swing.JTextField txtEditarPrimerApellido;
-    private javax.swing.JTextField txtEditarSegundoApellido;
     private javax.swing.JTextField txtEditarTelefono;
     private javax.swing.JTextField txtListadoCliente;
     private javax.swing.JTextField txt_agregarCorreo;
     private javax.swing.JTextField txt_agregarTelefono;
-    private javax.swing.JTextField txt_crear_apellidoCliente1;
-    private javax.swing.JTextField txt_crear_apellidoCliente2;
     private javax.swing.JTextField txt_crear_cedulaCliente;
     private javax.swing.JTextField txt_crear_limiteCliente;
     private javax.swing.JTextField txt_crear_nombreCliente;
