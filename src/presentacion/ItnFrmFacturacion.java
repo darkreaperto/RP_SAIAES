@@ -145,9 +145,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         cbxClientes.showPopup();
         
         Cliente cli = new Cliente();
-        cli.setNombre("ESTI");
-        cli.setApellido1("MADO");
-        cli.setApellido2("CLIENTE");
+        cli.setNombre("ESTIMADO CLIENTE");
         System.out.println("Nombre del cliente: " + p);
         
         cbxClientes.removeAllItems();
@@ -184,8 +182,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 //            lblMostrarNombreCl.setText(cli.getNombre()+" "+cli.getApellido1() 
 //                    +" "+ cli.getApellido2());
             
-            lblClienteNom.setText(cli.getNombre()+" "+cli.getApellido1() 
-                    +" "+ cli.getApellido2());
+            lblClienteNom.setText(cli.getNombre());
             ftClienteFac.setText(cli.getCedula());
 //            lblMostrarCedulaCl.setText(cli.getCedula());
 //            lblMostrarCreditoCl.setText(String.valueOf(cli.isAprobarCredito()));
@@ -397,7 +394,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         int numLinea = factura.getLineasDetalle().size() + 1; 
         String detalle = prodSelected.getTipoProducto() + ": " + 
                 prodSelected.getDescTipoMadera() + " " + 
-                prodSelected.getMedidas();
+                prodSelected.getGrueso() + "x" + prodSelected.getAncho();
         
         LineaDetalle linea = new LineaDetalle(numLinea, "04", 
                 prodSelected.getCodProducto(), cantSolicitada, 
@@ -1550,7 +1547,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     private void lsEscogerProdValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lsEscogerProdValueChanged
         Madera prod = verificarSeleccionLista();
         if(prod != null) {
-            lblCantExistencia.setText(String.valueOf(prod.getUnidades()));
+            lblCantExistencia.setText(String.valueOf(prod.getCantVaras()));
             lblPrecioUnit.setText(String.valueOf(prod.getPrecioXvara()));
         }
     }//GEN-LAST:event_lsEscogerProdValueChanged
@@ -1563,8 +1560,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         if(cbxClientes.getItemCount()>0){
         System.out.println("CBX ACTION PERF");
             Cliente cl = (Cliente) cbxClientes.getSelectedItem();
-            lblClienteNom.setText(cl.getNombre() + " " + cl.getApellido1() 
-                    + " " +cl.getApellido2());
+            lblClienteNom.setText(cl.getNombre());
             ftClienteFac.setText(cl.getCedula());
         }
     }//GEN-LAST:event_cbxClientesActionPerformed
