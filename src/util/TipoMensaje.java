@@ -77,6 +77,8 @@ public enum TipoMensaje {
     PRODUCT_UPDATE_FAILURE,
     /** Identificador del mensaje: exito en la actualización del producto. */
     PRODUCT_UPDATE_SUCCESS,
+    /** Identificador del mensaje: fallo en la suma/resta de cantidad del producto. */
+    PRODUCT_SUM_RES_FAILURE,
     
     TAX_CODE_MISSING,
     

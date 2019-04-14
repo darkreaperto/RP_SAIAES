@@ -107,7 +107,6 @@ public class CtrMadera {
     /**
      * Inserta un nuevo producto en la BD     *
      * @param codProd codigo personalizado asignado al producto
-     * @param codOrigen codigo del producto de quien se saco el registro
      * @param codTipoMadera codigo del tipo de madera del producto
      * @param grueso grueso del producto
      * @param cantVaras cantidad de varas que entran del producto
@@ -117,12 +116,12 @@ public class CtrMadera {
      * @param descripcion detalle del producto (opcional)
      * @return verdadero si inserta el producto.
      */
-    public boolean crearProducto(String codProd, String codOrigen, 
+    public boolean crearProducto(String codProd,
             String descripcion, double precio, double cantVaras,
             String grueso, String ancho, String codTipoMadera, 
             String tipoProducto) {
         
-        return mdlMadera.crearProducto(codProd, codOrigen, descripcion, precio, 
+        return mdlMadera.crearProducto(codProd, descripcion, precio, 
                 cantVaras, grueso, ancho, codTipoMadera, tipoProducto);
     }
     
@@ -140,12 +139,12 @@ public class CtrMadera {
      * @param codigo codigo de la bd
      * @return true si actualiza el producto.
      */
-    public boolean actualizarProducto(String codProd, String codOrigen, 
+    public boolean actualizarProducto(String codProd, 
             String descripcion, double precio, double cantVaras,
             String grueso, String ancho, String codTipoMadera, 
             String tipoProducto, String codigo) {
         
-        return mdlMadera.actualizarProducto(codProd, codOrigen, descripcion, 
+        return mdlMadera.actualizarProducto(codProd, descripcion, 
                 precio, cantVaras,grueso,ancho, codTipoMadera, tipoProducto,
                 codigo);
     }
@@ -168,14 +167,27 @@ public class CtrMadera {
         return mdlMadera.activarProducto(codigo);
     }
     /**
-     * Llama el método que actualiza un producto ya existente en el inventario
-     * @param tipoProd tipo de producto (aserrada/troza/terminada)
-     * @param unidades cantidad en unidades del producto
+     * Llama el método que suma cantidad de un producto ya existente 
+     * en el inventario
+     * @param tipoProd tipo de producto (aserrada/terminada)
+     * @param cantVaras cantidad en varas del producto a sumar
      * @param codigo codigo de madera
      * @return verdadero si el producto se actualiza exitosamente.
      */
-    public boolean actualizarRegMadera(String tipoProd, int unidades, String codigo) {
-        
-        return mdlMadera.actualizarRegMadera(tipoProd, unidades, codigo);
+    public boolean sumarRegMadera(String tipoProd, double cantVaras, 
+            String codigo) {        
+        return mdlMadera.sumarRegMadera(tipoProd, cantVaras, codigo);
+    }
+    /**
+     * Llama el método que resta cantidad de un producto ya existente 
+     * en el inventario
+     * @param tipoProd tipo de producto (aserrada/terminada)
+     * @param cantVaras cantidad en varas del producto a sumar
+     * @param codigo codigo de madera
+     * @return verdadero si el producto se actualiza exitosamente.
+     */
+    public boolean restarRegMadera(String tipoProd, double cantVaras, 
+            String codigo) {        
+        return mdlMadera.restarRegMadera(tipoProd, cantVaras, codigo);
     }
 }

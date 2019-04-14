@@ -93,43 +93,36 @@ public class CtrTroza {
      * Inserta una nueva troza en la BD
      * @param codInterno codigo de la troza para uso interno del sistema
      * @param codTipoMadera codigo del tipo de madera (variedad)
-     * @param descTipoMadera nombre del tipo de madera
      * @param pulgadas cantidad de troza en pulgadas
      * @param tipoProducto TROZA duh
      * @param descripcion descripción de la troza
      * @param codProveedor codigo del proveedor de la troza
-     * @param nomProveedor nombre del proveedor de la troza
      * @return verdadero si fue insertada correctamente
      */
     public boolean crearTroza(String codInterno, String codTipoMadera, 
-            String descTipoMadera, double pulgadas, String tipoProducto, 
-            String descripcion, String codProveedor, String nomProveedor) {
+            double pulgadas, String tipoProducto, String descripcion, 
+            String codProveedor) {
         
-        return mdlTroza.crearTroza(codInterno, codTipoMadera, descTipoMadera,
-                pulgadas, tipoProducto, descripcion, codProveedor, nomProveedor);
+        return mdlTroza.crearTroza(codInterno, codTipoMadera,
+                pulgadas, tipoProducto, descripcion, codProveedor);
     }
     
     /**
      * Actualiza los diferentes atributos de la trocita y los almacena en la BD
      * @param codInterno codigo de la troza para uso interno del sistema
      * @param codTipoMadera codigo del tipo de madera (variedad)
-     * @param descTipoMadera nombre del tipo de madera
      * @param pulgadas cantidad de troza en pulgadas
-     * @param tipoProducto TROZA duh
      * @param descripcion descripción de la troza
      * @param codProveedor codigo del proveedor de la troza
-     * @param nomProveedor nombre del proveedor de la troza
      * @param codigo codigo de la bd
      * @return verdadero actualizada fue correctamente
      */
     public boolean actualizarTroza(String codInterno, String codTipoMadera, 
-            String descTipoMadera, double pulgadas, String tipoProducto, 
-            String descripcion, String codProveedor, String nomProveedor,
+            double pulgadas,String descripcion, String codProveedor,
             String codigo) {
         
         return mdlTroza.actualizarTroza(codInterno, codTipoMadera, 
-                descTipoMadera, pulgadas, tipoProducto, descripcion, 
-                codProveedor, nomProveedor, codigo);
+                pulgadas, descripcion, codProveedor, codigo);
     }
     /**
      * Llama el método que inactiva una troza en la bd
@@ -150,14 +143,27 @@ public class CtrTroza {
         return mdlTroza.activarTroza(codigo);
     }
     /**
-     * Llama el método que actualiza una troza ya existente en el inventario
-     * @param tipoProd tipo de producto (aserrada/troza/terminada)
-     * @param unidades cantidad en unidades del producto
-     * @param codigo codigo de trocita
-     * @return verdadero si el producto se actualiza exitosamente.
+     * Llama el método que suma cantidad de un producto ya existente 
+     * en el inventario
+     * @param tipoProd tipo de madera (aserrada, terminada)
+     * @param pulgadas cantidad de pulgadas a sumar
+     * @param codigo codigo del registro a sumar
+     * @return Verdadero si suma correctamente
      */
-    public boolean actualizarRegMadera(String tipoProd, int unidades, String codigo) {
-        
-        return mdlTroza.actualizarRegMadera(tipoProd, unidades, codigo);
+    public boolean sumarRegMadera(String tipoProd, double pulgadas, 
+            String codigo) {        
+        return mdlTroza.sumarRegMadera(tipoProd, pulgadas, codigo);
+    }
+    /**
+     * Llama el método que resta cantidad de un producto ya existente 
+     * en el inventario
+     * @param tipoProd tipo de madera (aserrada, terminada)
+     * @param pulgadas cantidad de pulgadas a sumar
+     * @param codigo codigo del registro a sumar
+     * @return Verdadero si suma correctamente
+     */
+    public boolean restarRegMadera(String tipoProd, double pulgadas, 
+            String codigo) {        
+        return mdlTroza.restarRegMadera(tipoProd, pulgadas, codigo);
     }
 }

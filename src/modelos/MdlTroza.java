@@ -149,31 +149,26 @@ public class MdlTroza {
      * Inserta una nueva troza en la BD
      * @param codInterno codigo de la troza para uso interno del sistema
      * @param codTipoMadera codigo del tipo de madera (variedad)
-     * @param descTipoMadera nombre del tipo de madera
      * @param pulgadas cantidad de troza en pulgadas
      * @param tipoProducto TROZA duh
      * @param descripcion descripción de la troza
      * @param codProveedor codigo del proveedor de la troza
-     * @param nomProveedor nombre del proveedor de la troza
      * @return verdadero si fue insertada correctamente
      */
-    public boolean crearTroza(String codInterno, String codTipoMadera, 
-            String descTipoMadera, double pulgadas, String tipoProducto, 
-            String descripcion, String codProveedor, String nomProveedor) {
+    public boolean crearTroza(String codInterno, String codTipoMadera,  double pulgadas, String tipoProducto, 
+            String descripcion, String codProveedor) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(codInterno);
         params.add(codTipoMadera);
-        params.add(descTipoMadera);
         params.add(pulgadas);
         params.add(tipoProducto);
         params.add(descripcion);
         params.add(codProveedor);
-        params.add(nomProveedor);
 
         boolean creacionExitosa = true;
         try {
-            procedimiento = "pc_crear_troza(?, ?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_crear_troza(?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
@@ -196,34 +191,27 @@ public class MdlTroza {
      * Actualiza los diferentes atributos de la troza y los almacena en la BD
      * @param codInterno codigo de la troza para uso interno del sistema
      * @param codTipoMadera codigo del tipo de madera (variedad)
-     * @param descTipoMadera nombre del tipo de madera
      * @param pulgadas cantidad de troza en pulgadas
-     * @param tipoProducto TROZA duh
      * @param descripcion descripción de la troza
      * @param codProveedor codigo del proveedor de la troza
-     * @param nomProveedor nombre del proveedor de la troza
      * @param codigo codigo de la bd
      * @return verdadero si fue actualizada correctamente
      */
     public boolean actualizarTroza(String codInterno, String codTipoMadera, 
-            String descTipoMadera, double pulgadas, String tipoProducto, 
-            String descripcion, String codProveedor, String nomProveedor,
+            double pulgadas, String descripcion, String codProveedor,
             String codigo) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(codInterno);
         params.add(codTipoMadera);
-        params.add(descTipoMadera);
         params.add(pulgadas);
-        params.add(tipoProducto);
         params.add(descripcion);
         params.add(codProveedor);
-        params.add(nomProveedor);
         params.add(codigo);
 
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_actualizar_troza(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_actualizar_troza(?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
@@ -285,7 +273,14 @@ public class MdlTroza {
         }
     }
     
-    public boolean actualizarRegMadera(String tipoProd, double pulgadas,
+    /**
+     * Modelo que accede al procedimiento de sumar cantidad de madera
+     * @param tipoProd tipo de madera (aserrada, terminada)
+     * @param pulgadas cantidad de pulgadas a sumar
+     * @param codigo codigo del registro a sumar
+     * @return Verdadero si suma correctamente
+     */
+    public boolean sumarRegMadera(String tipoProd, double pulgadas,
             String codigo) {
         
         ArrayList<Object> params = new ArrayList<>();
@@ -295,7 +290,39 @@ public class MdlTroza {
         
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_actualizar_reg_madera(?, ?, ?)";
+            procedimiento = "pc_sumar_reg_madera(?, ?, ?)";
+
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            creacionExitosa = true;
+
+        } catch (SQLException ex) {
+            creacionExitosa = false;
+            System.err.println(ex);
+            ex.printStackTrace();
+        } finally {
+            conexion.cerrarConexion();
+            return creacionExitosa;
+        }
+    }
+    /**
+     * Modelo que accede al procedimiento de restar cantidad de madera
+     * @param tipoProd tipo de madera (aserrada, terminada)
+     * @param pulgadas cantidad de pulgadas a sumar
+     * @param codigo codigo del registro a sumar
+     * @return Verdadero si suma correctamente
+     */
+    public boolean restarRegMadera(String tipoProd, double pulgadas,
+            String codigo) {
+        
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(tipoProd);
+        params.add(pulgadas);
+        params.add(codigo);
+        
+        boolean creacionExitosa = false;
+        try {
+            procedimiento = "pc_restar_reg_madera(?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);

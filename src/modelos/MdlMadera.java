@@ -222,7 +222,6 @@ public class MdlMadera {
     /**
      * Inserta un nuevo producto en la BD
      * @param codProd codigo personalizado asignado al producto
-     * @param codOrigen codigo del producto de quien se saco el registro
      * @param descripcion detalle del producto (opcional)
      * @param precio precio por vara del producto
      * @param cantVaras cantidad de varas que entran
@@ -232,13 +231,12 @@ public class MdlMadera {
      * @param tipoProducto descripcion de cual es el tipo de producto
      * @return true si inserta el producto.
      */
-    public boolean crearProducto(String codProd, String codOrigen, 
+    public boolean crearProducto(String codProd, 
             String descripcion, double precio, double cantVaras,
             String grueso, String ancho, String codTipoMadera, String tipoProducto) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(codProd);
-        params.add(codOrigen);
         params.add(descripcion);
         params.add(precio);
         params.add(cantVaras);
@@ -249,7 +247,7 @@ public class MdlMadera {
 
         boolean creacionExitosa = true;
         try {
-            procedimiento = "pc_crear_producto(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_crear_producto(?, ?, ?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
@@ -271,7 +269,6 @@ public class MdlMadera {
     /**
      * Actualiza los diferentes atributos de la madera y los almacena en la BD
      * @param codProd codigo personalizado asignado al producto
-     * @param codOrigen codigo del producto de quien se saco el registro
      * @param descripcion detalle del producto (opcional)
      * @param precio precio por vara del producto
      * @param cantVaras cantidad de varas que entran
@@ -282,14 +279,13 @@ public class MdlMadera {
      * @param codigo codigo del la bd
      * @return true si actualiza el producto.
      */
-    public boolean actualizarProducto(String codProd, String codOrigen, 
+    public boolean actualizarProducto(String codProd, 
             String descripcion, double precio, double cantVaras,
             String grueso, String ancho, String codTipoMadera,
             String tipoProducto, String codigo) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(codProd);
-        params.add(codOrigen);
         params.add(descripcion);
         params.add(precio);
         params.add(cantVaras);
@@ -300,7 +296,7 @@ public class MdlMadera {
 
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_actualizar_producto(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_actualizar_producto(?, ?, ?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
@@ -361,8 +357,14 @@ public class MdlMadera {
             return creacionExitosa;
         }
     }
-    
-    public boolean actualizarRegMadera(String tipoProd, double cantVaras,
+    /**
+     * Modelo que accede al procedimiento de sumar cantidad de madera
+     * @param tipoProd tipo de madera (aserrada, terminada)
+     * @param cantVaras cantidad de varas a sumar
+     * @param codigo codigo del registro a sumar
+     * @return Verdadero si suma correctamente
+     */
+    public boolean sumarRegMadera(String tipoProd, double cantVaras,
             String codigo) {
         
         ArrayList<Object> params = new ArrayList<>();
@@ -372,7 +374,39 @@ public class MdlMadera {
         
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_actualizar_reg_madera(?, ?, ?)";
+            procedimiento = "pc_sumar_reg_madera(?, ?, ?)";
+
+            conexion.abrirConexion();
+            resultado = conexion.ejecutarProcedimiento(procedimiento, params);
+            creacionExitosa = true;
+
+        } catch (SQLException ex) {
+            creacionExitosa = false;
+            System.err.println(ex);
+            ex.printStackTrace();
+        } finally {
+            conexion.cerrarConexion();
+            return creacionExitosa;
+        }
+    }
+    /**
+     * Modelo que accede al procedimiento de restar cantidad de madera
+     * @param tipoProd tipo de madera (aserrada, terminada)
+     * @param cantVaras cantidad de varas a sumar
+     * @param codigo codigo del registro a sumar
+     * @return Verdadero si suma correctamente
+     */
+    public boolean restarRegMadera(String tipoProd, double cantVaras,
+            String codigo) {
+        
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(tipoProd);
+        params.add(cantVaras);
+        params.add(codigo);
+        
+        boolean creacionExitosa = false;
+        try {
+            procedimiento = "pc_restar_reg_madera(?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);

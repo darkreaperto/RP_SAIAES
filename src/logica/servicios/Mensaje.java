@@ -78,7 +78,7 @@ public class Mensaje {
                 msg = "Las contraseñas no coinciden";
                 break;
             case NUMBER_FORMAT_EXCEPTION:
-                msg = "Uno de los campos de texto anteriores solo admite "
+                msg = "Uno de los campos de texto solo admite "
                         + "números, verifique los datos ingresados";
                 break;
             case PASSWORD_SYNTAX_FAILURE:
@@ -115,6 +115,10 @@ public class Mensaje {
                 break;
             case PRODUCT_UPDATE_FAILURE:
                 msg = "Ha ocurrido un error en la actualización del producto";
+                break;
+            case PRODUCT_SUM_RES_FAILURE:
+                msg = "Ha ocurrido un error en la suma o resta de inventario,"
+                        + "verifique la información ingresada e intente nuevamente.";
                 break;
             case TAX_CODE_MISSING:
                 msg = "El código del impuesto no se recuperó correctamente, "
@@ -180,6 +184,7 @@ public class Mensaje {
 
         return msg;
     }
+    
     
     /**
      * Descripción de la excepción SQL capturada.
