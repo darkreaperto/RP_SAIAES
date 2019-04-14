@@ -7,6 +7,7 @@ package logica.negocio;
 
 import java.util.ArrayList;
 import util.Estado;
+import util.TipoCedula;
 
 /**
  * Instancia la persona con sus atributos.
@@ -16,11 +17,8 @@ public class Persona {
     
     private String codigo;
     private String nombre;
-    private String apellido1;
-    private String apellido2;
     private String cedula;
-    private float limiteCredito;
-    private boolean aprobarCredito;
+    private TipoCedula tipoCed;
     private Direccion dir;
     private ArrayList<Contacto> contactos;
     private Estado estado;
@@ -35,26 +33,19 @@ public class Persona {
      * Constructor de clase persona, inicializa variables.
      * @param codigo codigo persona.
      * @param nombre nombre persona.
-     * @param apellido1 primer apellido persona.
-     * @param apellido2 segundo apellido persona.
      * @param cedula cedula persona.
-     * @param limiteCredito limite credito persona.
-     * @param aprobarCredito aprobar credito persona.
+     * @param tipoCed tipo de cédula de la persona (física o jurídica).
      * @param dir codigo de la direccion de la persona.
      * @param contactos contactos persona.
      * @param estado Estado de persona.
      */
-    public Persona(String codigo, String nombre, String apellido1, 
-            String apellido2, String cedula, float limiteCredito,
-            boolean aprobarCredito, Direccion dir,
-            ArrayList<Contacto> contactos, String estado) {
+    public Persona(String codigo, String nombre, String cedula, String tipoCed, 
+            Direccion dir, ArrayList<Contacto> contactos, String estado) {
         this.codigo = codigo;
         this.nombre = nombre;
-        this.apellido1 = apellido1;
-        this.apellido2 = apellido2;
         this.cedula = cedula;
-        this.limiteCredito = limiteCredito;
-        this.aprobarCredito = aprobarCredito;
+        this.tipoCed = tipoCed.toUpperCase().equals("FISICA") ? 
+                TipoCedula.FISICA : TipoCedula.JURIDICA;
         this.dir = dir;
         this.contactos = contactos;
         this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
@@ -92,38 +83,6 @@ public class Persona {
     }
 
     /**
-     * Obtener apellido 1 de persona.
-     * @return El apellido1
-     */
-    public String getApellido1() {
-        return apellido1;
-    }
-
-    /**
-     * Establecer apellido 1 de persona
-     * @param apellido1 el apellido1
-     */
-    public void setApellido1(String apellido1) {
-        this.apellido1 = apellido1;
-    }
-
-    /**
-     * Obtener apellido 2 de persona.
-     * @return El apellido2
-     */
-    public String getApellido2() {
-        return apellido2;
-    }
-
-    /**
-     * Establecer apellido 2 de persona
-     * @param apellido2 the apellido2 to set
-     */
-    public void setApellido2(String apellido2) {
-        this.apellido2 = apellido2;
-    }
-
-    /**
      * Obtener cédula de persona.
      * @return La cedula
      */
@@ -138,37 +97,21 @@ public class Persona {
     public void setCedula(String cedula) {
         this.cedula = cedula;
     }
-
+    
     /**
-     * Obtener límite de crédito de persona.
-     * @return El limiteCredito
+     * Obtener el tipo de cédula de la persona.
+     * @return el tipo de cédula
      */
-    public float getLimiteCredito() {
-        return limiteCredito;
+    public TipoCedula getTipoCedula() {
+        return tipoCed;
     }
 
     /**
-     * Establecer limite de crédito de persona
-     * @param limiteCredito the limiteCredito to set
+     * Establecer el tipo de cédula de la persona.
+     * @param tipoCed el tipo de cédula
      */
-    public void setLimiteCredito(float limiteCredito) {
-        this.limiteCredito = limiteCredito;
-    }
-
-    /**
-     * Obtener si el credito de persona se aprueba.
-     * @return La aprobación de credito
-     */
-    public boolean isAprobarCredito() {
-        return aprobarCredito;
-    }
-
-    /**
-     * Establecer si se aprueba credito de contactos
-     * @param aprobarCredito el aprobarCredito
-     */
-    public void setAprobarCredito(boolean aprobarCredito) {
-        this.aprobarCredito = aprobarCredito;
+    public void setTipoCedula(TipoCedula tipoCed) {
+        this.tipoCed = tipoCed;
     }
 
     /**

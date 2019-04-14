@@ -11,6 +11,7 @@ import logica.negocio.Direccion;
 import logica.negocio.Proveedor;
 import modelos.MdlProveedor;
 import util.Estado;
+import util.TipoCedula;
 import util.TipoContacto;
 
 /**
@@ -18,6 +19,7 @@ import util.TipoContacto;
  * @author aoihanabi
  */
 public class CtrProveedor {
+    
     private static CtrProveedor instancia = null;
     MdlProveedor mdlProveedor;
     Proveedor proveedor;
@@ -35,23 +37,19 @@ public class CtrProveedor {
      * Constructor del controlador de proveedor, inicializa variables.
      * @param codigo Código de persona.
      * @param nombre Nombre de persona.
-     * @param apellido1 Apellido 1 de persona.
-     * @param apellido2 Apellido 2 de persona.
      * @param cedula Cédula de persona.
-     * @param limiteCredito Limite credito de persona.
-     * @param aprobarCredito Si aprobar credito de persona.
+     * @param tipoCed Tipo de la cédula del proveedor.
      * @param dir Dirección de la persona.
-     * @param contacto Lista contactos de persona.
-     * @param codCliente Codigo de proveedor.
+     * @param contactos Lista contactos de persona.
+     * @param codProv Codigo de proveedor.
      * @param estado Estado de persona.
      */
-    public CtrProveedor(String codigo, String nombre, String apellido1, 
-            String apellido2, String cedula, float limiteCredito,
-            boolean aprobarCredito, Direccion dir, ArrayList<Contacto> contacto, 
-            String codCliente, String estado) {
+    public CtrProveedor(String codigo, String nombre, String cedula,
+            String tipoCed, Direccion dir, ArrayList<Contacto> contactos, 
+            String codProv, String estado) {
         
-        proveedor = new Proveedor(codigo, nombre,apellido1, apellido2, cedula, 
-                dir, contacto, codCliente, estado);
+        proveedor = new Proveedor(codigo, nombre, cedula, tipoCed, dir, 
+                contactos, codProv, estado);
     }
     
     /**
@@ -64,7 +62,6 @@ public class CtrProveedor {
     
     /**
      * Llena una lista con todos los proveedores almacenados en la BD.
-     *
      * @return lista de proveedores.
      */
     public ArrayList<Proveedor> obtenerProveedores() {
@@ -82,19 +79,16 @@ public class CtrProveedor {
     /**
      * Llama el método que inserta un nuevo proveedor en la BD.
      * @param nombre nombre del proveedor
-     * @param apellido1 primer apellido del proveedor
-     * @param apellido2 segundo apellido del proveedor
      * @param cedula cedula del proveedor
+     * @param tipoCed tipo de la cédula del proveedor
      * @param dir información de dirección del proveedor
      * @param contactos lista de contactos del proveedor
      * @return 
      */
-    public boolean crearProveedor(String nombre, String apellido1, 
-            String apellido2, String cedula, Direccion dir, 
-            ArrayList<ArrayList<Object>> contactos) {
+    public boolean crearProveedor(String nombre, String cedula, String tipoCed, 
+            Direccion dir, ArrayList<ArrayList<Object>> contactos) {
 
-        return mdlProveedor.crearProveedor(nombre, apellido1, apellido2, 
-                cedula, dir, contactos);
+        return mdlProveedor.crearProveedor(nombre, cedula, tipoCed, dir, contactos);
     }
     
     /**
@@ -120,18 +114,17 @@ public class CtrProveedor {
     /**
      * Actualiza toda la información del proveedor en la BD.
      * @param nombre nombre del proveedor
-     * @param apellido1 primer apellido del proveedor
-     * @param apellido2 segundo apellido del proveedor
      * @param cedula cédula del proveedor
-     * @param codPersona codigo de persona
+     * @param tipoCed tipo de la cédula del proveedor
      * @param dir dirección de la persona
+     * @param codPersona codigo de persona
      * @return verdadero si actualiza el proveedor exitosamente
      */
-    public boolean actualizarProveedor(String nombre, String apellido1, 
-            String apellido2, String cedula, String codPersona, Direccion dir) {
+    public boolean actualizarProveedor(String nombre, String cedula, 
+            String tipoCed, Direccion dir, String codPersona, String codProv) {
         
-        return mdlProveedor.actualizarProveedor(nombre, apellido1, apellido2, 
-                cedula, codPersona, dir);
+        return mdlProveedor.actualizarProveedor(nombre, cedula, tipoCed, dir, 
+                codPersona, codProv);
     }
     
     /**
@@ -196,38 +189,6 @@ public class CtrProveedor {
     }
 
     /**
-     * Obtener apellido 1 de persona.
-     * @return El apellido1
-     */
-    public String getApellido1() {
-        return proveedor.getApellido1();
-    }
-
-    /**
-     * Establecer apellido 1 de persona
-     * @param apellido1 el apellido1
-     */
-    public void setApellido1(String apellido1) {
-        proveedor.setApellido1(apellido1);
-    }
-
-    /**
-     * Obtener apellido 2 de persona.
-     * @return El apellido2
-     */
-    public String getApellido2() {
-        return proveedor.getApellido2();
-    }
-
-    /**
-     * Establecer apellido 2 de persona
-     * @param apellido2 the apellido2 to set
-     */
-    public void setApellido2(String apellido2) {
-        proveedor.setApellido2(apellido2);
-    }
-
-    /**
      * Obtener cédula de persona.
      * @return La cedula
      */
@@ -242,37 +203,21 @@ public class CtrProveedor {
     public void setCedula(String cedula) {
         proveedor.setCedula(cedula);
     }
-
+    
     /**
-     * Obtener límite de crédito de persona.
-     * @return El limiteCredito
+     * Obtener el tipo de cédula del proveedor.
+     * @return el tipo de cédula
      */
-    public float getLimiteCredito() {
-        return proveedor.getLimiteCredito();
+    public TipoCedula getTipoCedula() {
+        return proveedor.getTipoCedula();
     }
-
+    
     /**
-     * Establecer limite de crédito de persona
-     * @param limiteCredito the limiteCredito to set
+     * Establecer el tipo de cédula del proveedor.
+     * @param tipoCed el tipo de cédula a establecer
      */
-    public void setLimiteCredito(float limiteCredito) {
-        proveedor.setLimiteCredito(limiteCredito);
-    }
-
-    /**
-     * Obtener si el credito de persona se aprueba.
-     * @return La aprobación de credito
-     */
-    public boolean isAprobarCredito() {
-        return proveedor.isAprobarCredito();
-    }
-
-    /**
-     * Establecer si se aprueba credito de contactos
-     * @param aprobarCredito el aprobarCredito
-     */
-    public void setAprobarCredito(boolean aprobarCredito) {
-        proveedor.setAprobarCredito(aprobarCredito);
+    public void setTipoCedula(TipoCedula tipoCed) {
+        proveedor.setTipoCedula(tipoCed);
     }
 
     /**

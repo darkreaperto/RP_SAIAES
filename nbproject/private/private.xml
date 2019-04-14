@@ -6,11 +6,13 @@
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrTroza.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Troza.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmInventario.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/util/TipoMensaje.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrMadera.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlTroza.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlMadera.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Madera.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmFacturacion.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/servicios/Mensaje.java</file>
         </group>
     </open-files>
 </project-private>

@@ -24,6 +24,13 @@ public class Troza {
     private Estado estado;
 
     /**
+     * Constructor vacío de la clase Troza.
+     */
+    public Troza() {
+        
+    }
+    
+    /**
      * Constructor de la clase troza
      * @param codigo codigo para la bd
      * @param codInterno codigo para uso en el sistema

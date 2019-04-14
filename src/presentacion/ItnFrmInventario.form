@@ -357,7 +357,7 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtActAcEntraActionPerformed"/>
                           </Events>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Cantidad en varas&quot;, txtProducto);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Cantidad en varas&quot;, txtActAcEntra);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
                           </AuxValues>
                         </Component>
                         <Container class="javax.swing.JScrollPane" name="scpnltxtaActAcDetalle">
@@ -480,7 +480,7 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxActAcOpActionPerformed"/>
                           </Events>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Madera&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
                           </AuxValues>
                         </Component>
                         <Container class="javax.swing.JScrollPane" name="spActAsSelTrz">
@@ -504,7 +504,7 @@
                         </Container>
                         <Component class="javax.swing.JTextField" name="txtActAcBuscTrz">
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Buscar troza de origen...&quot;, txtProducto);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Buscar troza de origen...&quot;, txtActAcBuscTrz);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
                           </AuxValues>
                         </Component>
                         <Component class="javax.swing.JLabel" name="lblActAcSalen">
@@ -514,7 +514,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtActAcSalenPulg">
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Cantidad en pulgadas&quot;, txtProducto);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Cantidad en pulgadas&quot;, txtActAcSalenPulg);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
@@ -625,12 +625,12 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxActTmOpActionPerformed"/>
                           </Events>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Madera&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
                           </AuxValues>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtActTmBuscAs">
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Buscar aserrada de origen...&quot;, txtProducto);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Buscar aserrada de origen...&quot;, txtActTmBuscAs);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
                           </AuxValues>
                         </Component>
                         <Container class="javax.swing.JScrollPane" name="spActTmSelAs">
@@ -659,12 +659,12 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtActTmEntra">
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Cantidad en varas&quot;, txtProducto);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Cantidad en varas&quot;, txtActTmEntra);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
                           </AuxValues>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtActTmSalenVaras">
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Cantidad en varas...&quot;, txtProducto);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Cantidad en varas...&quot;, txtActTmSalenVaras);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
                           </AuxValues>
                         </Component>
                         <Component class="javax.swing.JLabel" name="lblActTmSalen">
@@ -941,7 +941,7 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxActTOpActionPerformed"/>
                           </Events>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Madera&gt;"/>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
                           </AuxValues>
                         </Component>
                         <Component class="javax.swing.JLabel" name="lblActTEntra">
@@ -1200,9 +1200,6 @@
                           </AuxValues>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNuevoAcMedGrueso">
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNuevoAcMedGruesoActionPerformed"/>
-                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Grueso&quot;, txtNuevoAcMedGrueso);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
                           </AuxValues>
@@ -1805,7 +1802,7 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btnEditar" min="-2" pref="175" max="-2" attributes="0"/>
+                                  <Component id="btnEditarAserrada" min="-2" pref="175" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1818,7 +1815,7 @@
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="tbEditarTipoProd" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnEditar" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="btnEditarAserrada" min="-2" pref="33" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -2355,7 +2352,7 @@
                                               <Component id="txtEditarTCodigo" alignment="0" max="32767" attributes="0"/>
                                               <Component id="lblEditarTCodigo" alignment="0" max="32767" attributes="0"/>
                                               <Component id="lblEditarTpulgadas" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
-                                              <Component id="txtEditarTpulgadas1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtEditarTPulgadas" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -2413,7 +2410,7 @@
                                                   <Component id="lblEditarTProveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtEditarTpulgadas1" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="txtEditarTPulgadas" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -2495,7 +2492,7 @@
                             <Property name="text" type="java.lang.String" value="Cantidad en pulgadas:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtEditarTpulgadas1">
+                        <Component class="javax.swing.JTextField" name="txtEditarTPulgadas">
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Pulgadas&quot;, txtNuevoTpulgadas);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
                           </AuxValues>
@@ -2576,12 +2573,12 @@
                     </Container>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="btnEditar">
+                <Component class="javax.swing.JButton" name="btnEditarAserrada">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Editar Producto"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarAserradaActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
