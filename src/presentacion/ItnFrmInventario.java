@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Madera;
 import logica.negocio.Proveedor;
@@ -125,6 +124,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private void cargarTablas() {
 
         productos = ctrMadera.obtenerProductos();
+        
         cargarJTableGeneral(tbListadoInventario, true, "troza&producto");
         cargarJTableGeneral(tbProductosActivos, true, "troza&producto");
         cargarJTableGeneral(tbProductosInactivos, false, "troza&producto");
@@ -157,7 +157,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             model.setColumnCount(9);
             //PONER PRODUCTOS
             for (int i = 0; i < productos.size(); i++) {
-                if (estado) {
+                if (estado && productos.get(i).getEstado().equals(Estado.Activo)) {
                     row[0] = productos.get(i).getCodProducto();
                     row[1] = productos.get(i).getTipoProducto();
                     row[2] = productos.get(i).getDescTipoMadera();
@@ -170,7 +170,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
                     model.addRow(row);
                 }
-                if (!estado) {
+                if (!estado && productos.get(i).getEstado().equals(Estado.Deshabilitado)) {
                     row[0] = productos.get(i).getCodProducto();
                     row[1] = productos.get(i).getTipoProducto();
                     row[2] = productos.get(i).getDescTipoMadera();
@@ -186,7 +186,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             }
             //PONER TROZAS
             for (int i = 0; i < trozas.size(); i++) {
-                if (estado) {
+                if (estado && productos.get(i).getEstado().equals(Estado.Activo)) {
                     row[0] = trozas.get(i).getCodInterno();
                     row[1] = trozas.get(i).getTipoProducto();
                     row[2] = trozas.get(i).getDescTipoMadera();
@@ -200,7 +200,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     model.addRow(row);
                 }
                 //trozas.get(i).getEstado().equals(estado) && !estado
-                if (!estado) {
+                if (!estado && productos.get(i).getEstado().equals(Estado.Deshabilitado)) {
                     row[0] = trozas.get(i).getCodInterno();
                     row[1] = trozas.get(i).getTipoProducto();
                     row[2] = trozas.get(i).getDescTipoMadera();
@@ -246,7 +246,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     public void llenarRowProductos(Object[] row, boolean estado) {
         System.out.println("llenarRowProductos PRODUCTOS SIZE: " + productos.size());
         for (int i = 0; i < productos.size(); i++) {
-            if (estado) {
+            if (estado && productos.get(i).getEstado().equals(Estado.Activo)) {
                 row[0] = productos.get(i).getCodProducto();
                 row[1] = productos.get(i).getTipoProducto();
                 row[2] = productos.get(i).getDescTipoMadera();
@@ -258,7 +258,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 
                 model.addRow(row);
             }
-            if (!estado) {
+            if (!estado && productos.get(i).getEstado().equals(Estado.Deshabilitado)) {
                 row[0] = productos.get(i).getCodProducto();
                 row[1] = productos.get(i).getTipoProducto();
                 row[2] = productos.get(i).getDescTipoMadera();
@@ -282,7 +282,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     public void llenarRowTroza(Object[] row, boolean estado) {
         System.out.println("cargarJTableGeneral TROZAS SIZE: " + trozas.size());
         for (int i = 0; i < trozas.size(); i++) {
-            if (estado) {
+            if (estado && productos.get(i).getEstado().equals(Estado.Activo)) {
                 row[0] = trozas.get(i).getCodInterno();
                 row[1] = trozas.get(i).getTipoProducto();
                 row[2] = trozas.get(i).getDescTipoMadera();   
@@ -294,7 +294,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 model.addRow(row);
             }
             //trozas.get(i).getEstado().equals(estado) && !estado
-            if (!estado) {
+            if (!estado && productos.get(i).getEstado().equals(Estado.Deshabilitado)) {
                 row[0] = trozas.get(i).getCodInterno();
                 row[1] = trozas.get(i).getTipoProducto();
                 row[2] = trozas.get(i).getDescTipoMadera();
@@ -727,11 +727,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             TipoMensaje.PRODUCT_INSERTION_SUCCESS
                     );
                     limpiarCampos("Crear","ASERRADA");
-                } else {
-                    msg.mostrarMensaje(
-                            JOptionPane.ERROR_MESSAGE, 
-                            TipoMensaje.PRODUCT_INSERTION_FAILURE
-                    );
                 }
                 break;
             //CREAR MADERA TROZA
@@ -765,11 +760,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             TipoMensaje.PRODUCT_INSERTION_SUCCESS
                     );
                     limpiarCampos("Crear","TROZA");
-                } else {
-                    msg.mostrarMensaje(
-                            JOptionPane.ERROR_MESSAGE, 
-                            TipoMensaje.PRODUCT_INSERTION_FAILURE
-                    );
                 }
                 break;
             //CREAR MADERA TERMINADA
@@ -803,11 +793,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             TipoMensaje.PRODUCT_INSERTION_SUCCESS
                     );
                     limpiarCampos("Crear","TERMINADA");
-                } else {
-                    msg.mostrarMensaje(
-                            JOptionPane.ERROR_MESSAGE, 
-                            TipoMensaje.PRODUCT_INSERTION_FAILURE
-                    );
                 }
                 break;
             } default:
@@ -831,14 +816,14 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     tblEditarAserrada.getSelectedRow() : 
                     tblEditarTerminada.getSelectedRow();
             
-            System.out.println(tblEditarAserrada.getValueAt(indiceFila, 7));
-            System.out.println(tblEditarTerminada.getValueAt(indiceFila, 7));// # indiceFila, 6
+            //System.out.println(tblEditarAserrada.getValueAt(indiceFila, 7));
+            //System.out.println(tblEditarTerminada.getValueAt(indiceFila, 6));// # indiceFila, 6
             
             String codigo = tipo.equals("ASERRADA") ? 
-                    (String) model.getValueAt(indiceFila, 8) : 
-                    (String) model.getValueAt(indiceFila, 7);
+                    (String) model.getValueAt(indiceFila, 7) : 
+                    (String) model.getValueAt(indiceFila, 6);
             
-            Madera prod = new Madera();
+            Madera prod = null;
             for (Madera p: productos) {
                 if (p.getCodigo().equals(codigo)) {
                     prod = p;
@@ -847,7 +832,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             }
             System.out.println("----------");
             System.out.println("Inventario -> Editar -> Tabla editar -> MouseClicked");
-            if (prod.getTipoProducto().equals("ASERRADA")) {
+            if (prod != null && prod.getTipoProducto().equals("ASERRADA")) {
                 
                 txtEditarAcVaras.setText(String.valueOf(prod.getCantVaras()));
                 txtEditarAcPrecio.setText(String.valueOf(prod.getPrecioXvara()));
@@ -865,7 +850,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 //Seleccionar la pestaña para Aserrada (0)
                 tbEditarTipoProd.setSelectedIndex(0);
                 
-            } else if (prod.getTipoProducto().equals("TERMINADA")) {
+            } else if (prod != null && prod.getTipoProducto().equals("TERMINADA")) {
 
                 for (int i=0; i<cbxEditarTmVariedad.getItemCount(); i++) {
                     if (cbxEditarTmVariedad.getItemAt(i).getDescripcion().equals(prod.getDescTipoMadera())) {
@@ -878,8 +863,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 txtEditarTmNombre.setText(prod.getDescripcion());
                 txtEditarTmCantVaras.setText(String.valueOf(prod.getCantVaras()));
                 
-                //Seleccionar la pestaña para Terminada (2)
-                tbEditarTipoProd.setSelectedIndex(2);
+                //Seleccionar la pestaña para Terminada (1)
+                tbEditarTipoProd.setSelectedIndex(1);
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
             ex.printStackTrace();
@@ -899,11 +884,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             
             int indiceFila = tblEditarTroza.getSelectedRow();
             
-            System.out.println(tblEditarTroza.getValueAt(indiceFila, 6));
+            System.out.println(model.getValueAt(indiceFila, 6));
             
             String codigo = (String) model.getValueAt(indiceFila, 6);
             
-            Troza prod = new Troza();
+            Troza prod = null;
             for (Troza t: trozas) {
                 if (t.getCodigo().equals(codigo)) {
                     prod = t;
@@ -914,18 +899,20 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             System.out.println("----------");
             System.out.println("Inventario -> Editar -> Tabla editar -> MouseClicked");
             
-            txtEditarTPulgadas.setText(String.valueOf(prod.getPulgadas()));
-            txtaEditarTDescripcion.setText(prod.getDescripcion());
-            txtEditarTCodigo.setText(prod.getCodInterno());
-            
-            for (int i=0; i<cbxEditarTVariedad.getItemCount(); i++) {
-                if (cbxEditarTVariedad.getItemAt(i).getDescripcion().equals(prod.getDescTipoMadera())) {
-                    cbxEditarTVariedad.setSelectedIndex(i);
+            if (prod != null) {
+                txtEditarTPulgadas.setText(String.valueOf(prod.getPulgadas()));
+                txtaEditarTDescripcion.setText(prod.getDescripcion());
+                txtEditarTCodigo.setText(prod.getCodInterno());
+
+                for (int i=0; i<cbxEditarTVariedad.getItemCount(); i++) {
+                    if (cbxEditarTVariedad.getItemAt(i).getDescripcion().equals(prod.getDescTipoMadera())) {
+                        cbxEditarTVariedad.setSelectedIndex(i);
+                    }
                 }
+
+                //Seleccionar la pestaña para Troza (2)
+                tbEditarTipoProd.setSelectedIndex(2);
             }
-                
-            //Seleccionar la pestaña para Troza (1)
-            tbEditarTipoProd.setSelectedIndex(1);
             
         } catch (ArrayIndexOutOfBoundsException ex) {
             ex.printStackTrace();
@@ -1072,14 +1059,17 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * Preparar la información ingresada en la interfaz para editar un 
      * producto (Aserrada, Terminada y Troza) y luego enviarlo a actualizar.
      */
-    private void prepararEditarProducto() {
+    private void prepararEditarProducto(String tipo) {
+        
+        tipo = tipo.toUpperCase();
+        
         try {
             String grueso;
             String ancho;
             String pulgadas;
             TipoMadera tipoMad;
             
-            if (verificarTipoProducto("EDITAR").equals("ASERRADA")) {
+            if (tipo.equals("ASERRADA")) {
                 model = (DefaultTableModel) tblEditarAserrada.getModel();
                 int indiceFila = tblEditarAserrada.getSelectedRow();
                 //#revisar indice#
@@ -1098,7 +1088,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 if(aprod) {
                     limpiarCampos("Editar","ASERRADA");
                 }
-            } else if (verificarTipoProducto("EDITAR").equals("TROZA")) {
+            } else if (tipo.equals("TROZA")) {
 
                  model = (DefaultTableModel) tblEditarTroza.getModel();
                 int indiceFila = tblEditarTroza.getSelectedRow();
@@ -1115,7 +1105,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 if(aprod) {
                     limpiarCampos("Editar","TROZA");
                 }
-            } else if (verificarTipoProducto("EDITAR").equals("TERMINADA")) {
+            } else if (tipo.equals("TERMINADA")) {
                 model = (DefaultTableModel) tblEditarTerminada.getModel();
                 int indiceFila = tblEditarTerminada.getSelectedRow();
                 //#revisar indice#
@@ -1437,6 +1427,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbListadoInventario.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scpnlTblListadoInventario.setViewportView(tbListadoInventario);
 
         javax.swing.GroupLayout pnl_listadoLayout = new javax.swing.GroupLayout(pnl_listado);
@@ -1506,6 +1497,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbActAserrada.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scpnlTblAcActualizar.setViewportView(tbActAserrada);
 
         btnActualizarAserrada.setText("Actualizar Inventario");
@@ -1630,6 +1622,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbActTerminada.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scpnlTblTmActualizar.setViewportView(tbActTerminada);
 
         txtaActTmDetalle.setEditable(false);
@@ -1716,6 +1709,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbActTroza.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scpnlTblTActualizar.setViewportView(tbActTroza);
 
         lblActTDetalle.setText("Detalle de selección:");
@@ -1853,6 +1847,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblAgregarAserrada.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scpnlTbAcNuevo.setViewportView(tblAgregarAserrada);
 
         javax.swing.GroupLayout pnlNuevoAcerradaLayout = new javax.swing.GroupLayout(pnlNuevoAcerrada);
@@ -1948,17 +1943,18 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Tipo de producto", "Variedad de madera", "Cantidad varas", "Precio", "Descripción", "Origen", "Codigo"
+                "Código", "Tipo de producto", "Variedad de madera", "Cantidad varas", "Precio", "Descripción", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tblAgregarTerminada.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scpnlTbTmNuevo.setViewportView(tblAgregarTerminada);
 
         javax.swing.GroupLayout pnlNuevoTerminadaLayout = new javax.swing.GroupLayout(pnlNuevoTerminada);
@@ -2057,6 +2053,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblAgregarTroza.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scpnlTbTNuevo.setViewportView(tblAgregarTroza);
 
         javax.swing.GroupLayout pnlNuevoTrozaLayout = new javax.swing.GroupLayout(pnlNuevoTroza);
@@ -2208,27 +2205,24 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Tipo de producto", "Variedad de madera", "Medidas", "Cantidad varas", "Precio por vara", "Descripción", "Origen", "Codigo"
+                "Código", "Tipo de producto", "Variedad de madera", "Medidas", "Cantidad varas", "Precio por vara", "Descripción", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tblEditarAserrada.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblEditarAserrada.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblEditarAserradaMouseClicked(evt);
             }
         });
         scpnlTbAcEditar.setViewportView(tblEditarAserrada);
-        if (tblEditarAserrada.getColumnModel().getColumnCount() > 0) {
-            tblEditarAserrada.getColumnModel().getColumn(3).setHeaderValue("Medidas");
-            tblEditarAserrada.getColumnModel().getColumn(5).setHeaderValue("Precio por vara");
-        }
 
         btnEditarAserrada.setText("Editar Producto");
         btnEditarAserrada.addActionListener(new java.awt.event.ActionListener() {
@@ -2347,26 +2341,24 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Tipo de producto", "Variedad de madera", "Cantidad varas", "Precio ", "Descripción", "Origen", "Codigo"
+                "Código", "Tipo de producto", "Variedad de madera", "Cantidad varas", "Precio ", "Descripción", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tblEditarTerminada.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblEditarTerminada.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblEditarTerminadaMouseClicked(evt);
             }
         });
         scpnlTbTmEditar.setViewportView(tblEditarTerminada);
-        if (tblEditarTerminada.getColumnModel().getColumnCount() > 0) {
-            tblEditarTerminada.getColumnModel().getColumn(4).setHeaderValue("Precio por vara");
-        }
 
         btnEditarTerminada.setText("Editar Producto");
         btnEditarTerminada.addActionListener(new java.awt.event.ActionListener() {
@@ -2463,17 +2455,18 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Tipo de producto", "Variedad de madera", "Cantidad pulgadas", "Descripción", "Proveedor", "Origen", "Codigo"
+                "Código", "Tipo de producto", "Variedad de madera", "Cantidad pulgadas", "Descripción", "Proveedor", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tblEditarTroza.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblEditarTroza.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblEditarTrozaMouseClicked(evt);
@@ -2598,6 +2591,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbProductosActivos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbProductosActivos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbProductosActivosMouseClicked(evt);
@@ -2650,6 +2644,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbProductosInactivos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbProductosInactivos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbProductosInactivosMouseClicked(evt);
@@ -2797,16 +2792,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNuevaTrozaActionPerformed
 
     private void btnEditarAserradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAserradaActionPerformed
-        prepararEditarProducto();
+        prepararEditarProducto("ASERRADA");
     }//GEN-LAST:event_btnEditarAserradaActionPerformed
-
-    private void tblEditarAserradaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditarAserradaMouseClicked
-        cargarEditarProducto("ASERRADA");
-    }//GEN-LAST:event_tblEditarAserradaMouseClicked
-
-    private void tblEditarTerminadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditarTerminadaMouseClicked
-        cargarEditarProducto("TERMINADA");
-    }//GEN-LAST:event_tblEditarTerminadaMouseClicked
 
     private void tblEditarTrozaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditarTrozaMouseClicked
         cargarEditarTroza();
@@ -2857,11 +2844,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtActAcEntraActionPerformed
 
     private void btnEditarTerminadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarTerminadaActionPerformed
-        prepararEditarProducto();
+        prepararEditarProducto("TERMINADA");
     }//GEN-LAST:event_btnEditarTerminadaActionPerformed
 
     private void btnEditarTrozaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarTrozaActionPerformed
-        prepararEditarProducto();
+        prepararEditarProducto("TROZA");
     }//GEN-LAST:event_btnEditarTrozaActionPerformed
 
     private void btnNuevaTerminadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaTerminadaActionPerformed
@@ -2871,6 +2858,14 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private void btnNuevaAserradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaAserradaActionPerformed
         prepararCrearProducto("ASERRADA");
     }//GEN-LAST:event_btnNuevaAserradaActionPerformed
+
+    private void tblEditarTerminadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditarTerminadaMouseClicked
+        cargarEditarProducto("TERMINADA");
+    }//GEN-LAST:event_tblEditarTerminadaMouseClicked
+
+    private void tblEditarAserradaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditarAserradaMouseClicked
+        cargarEditarProducto("ASERRADA");
+    }//GEN-LAST:event_tblEditarAserradaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

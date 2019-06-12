@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+<Form version="1.6" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="bgDeshab">
     </Component>
@@ -203,6 +203,9 @@
                               <Renderer/>
                             </Column>
                           </TableColumnModel>
+                        </Property>
+                        <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                          <JTableSelectionModel selectionMode="0"/>
                         </Property>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -451,6 +454,9 @@
                                       <Renderer/>
                                     </Column>
                                   </TableColumnModel>
+                                </Property>
+                                <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                                  <JTableSelectionModel selectionMode="0"/>
                                 </Property>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -742,6 +748,9 @@
                                     </Column>
                                   </TableColumnModel>
                                 </Property>
+                                <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                                  <JTableSelectionModel selectionMode="0"/>
+                                </Property>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                                 </Property>
@@ -910,6 +919,9 @@
                                       <Renderer/>
                                     </Column>
                                   </TableColumnModel>
+                                </Property>
+                                <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                                  <JTableSelectionModel selectionMode="0"/>
                                 </Property>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -1316,6 +1328,9 @@
                                     </Column>
                                   </TableColumnModel>
                                 </Property>
+                                <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                                  <JTableSelectionModel selectionMode="0"/>
+                                </Property>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                                 </Property>
@@ -1462,14 +1477,13 @@
                             <Component class="javax.swing.JTable" name="tblAgregarTerminada">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="8" rowCount="0">
+                                  <Table columnCount="7" rowCount="0">
                                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                                     <Column editable="false" title="Tipo de producto" type="java.lang.Object"/>
                                     <Column editable="false" title="Variedad de madera" type="java.lang.Object"/>
                                     <Column editable="false" title="Cantidad varas" type="java.lang.Object"/>
                                     <Column editable="false" title="Precio" type="java.lang.Object"/>
                                     <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
-                                    <Column editable="true" title="Origen" type="java.lang.Object"/>
                                     <Column editable="false" title="Codigo" type="java.lang.Object"/>
                                   </Table>
                                 </Property>
@@ -1510,12 +1524,10 @@
                                       <Editor/>
                                       <Renderer/>
                                     </Column>
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                      <Title/>
-                                      <Editor/>
-                                      <Renderer/>
-                                    </Column>
                                   </TableColumnModel>
+                                </Property>
+                                <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                                  <JTableSelectionModel selectionMode="0"/>
                                 </Property>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -1762,6 +1774,9 @@
                                       <Renderer/>
                                     </Column>
                                   </TableColumnModel>
+                                </Property>
+                                <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                                  <JTableSelectionModel selectionMode="0"/>
                                 </Property>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -2061,7 +2076,7 @@
                             <Component class="javax.swing.JTable" name="tblEditarAserrada">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="9" rowCount="0">
+                                  <Table columnCount="8" rowCount="0">
                                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                                     <Column editable="false" title="Tipo de producto" type="java.lang.Object"/>
                                     <Column editable="false" title="Variedad de madera" type="java.lang.Object"/>
@@ -2069,7 +2084,6 @@
                                     <Column editable="false" title="Cantidad varas" type="java.lang.Object"/>
                                     <Column editable="false" title="Precio por vara" type="java.lang.Object"/>
                                     <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
-                                    <Column editable="true" title="Origen" type="java.lang.Object"/>
                                     <Column editable="false" title="Codigo" type="java.lang.Object"/>
                                   </Table>
                                 </Property>
@@ -2091,17 +2105,12 @@
                                       <Renderer/>
                                     </Column>
                                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                      <Title value="Medidas"/>
-                                      <Editor/>
-                                      <Renderer/>
-                                    </Column>
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                       <Title/>
                                       <Editor/>
                                       <Renderer/>
                                     </Column>
                                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                      <Title value="Precio por vara"/>
+                                      <Title/>
                                       <Editor/>
                                       <Renderer/>
                                     </Column>
@@ -2121,6 +2130,9 @@
                                       <Renderer/>
                                     </Column>
                                   </TableColumnModel>
+                                </Property>
+                                <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                                  <JTableSelectionModel selectionMode="0"/>
                                 </Property>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -2300,14 +2312,13 @@
                             <Component class="javax.swing.JTable" name="tblEditarTerminada">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="8" rowCount="0">
+                                  <Table columnCount="7" rowCount="0">
                                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                                     <Column editable="false" title="Tipo de producto" type="java.lang.Object"/>
                                     <Column editable="false" title="Variedad de madera" type="java.lang.Object"/>
                                     <Column editable="false" title="Cantidad varas" type="java.lang.Object"/>
                                     <Column editable="false" title="Precio " type="java.lang.Object"/>
                                     <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
-                                    <Column editable="false" title="Origen" type="java.lang.Object"/>
                                     <Column editable="false" title="Codigo" type="java.lang.Object"/>
                                   </Table>
                                 </Property>
@@ -2334,11 +2345,6 @@
                                       <Renderer/>
                                     </Column>
                                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                      <Title value="Precio por vara"/>
-                                      <Editor/>
-                                      <Renderer/>
-                                    </Column>
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                       <Title/>
                                       <Editor/>
                                       <Renderer/>
@@ -2354,6 +2360,9 @@
                                       <Renderer/>
                                     </Column>
                                   </TableColumnModel>
+                                </Property>
+                                <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                                  <JTableSelectionModel selectionMode="0"/>
                                 </Property>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -2561,14 +2570,13 @@
                             <Component class="javax.swing.JTable" name="tblEditarTroza">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="8" rowCount="0">
+                                  <Table columnCount="7" rowCount="0">
                                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                                     <Column editable="false" title="Tipo de producto" type="java.lang.Object"/>
                                     <Column editable="false" title="Variedad de madera" type="java.lang.Object"/>
                                     <Column editable="false" title="Cantidad pulgadas" type="java.lang.Object"/>
                                     <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
                                     <Column editable="false" title="Proveedor" type="java.lang.Object"/>
-                                    <Column editable="false" title="Origen" type="java.lang.Object"/>
                                     <Column editable="false" title="Codigo" type="java.lang.Object"/>
                                   </Table>
                                 </Property>
@@ -2609,12 +2617,10 @@
                                       <Editor/>
                                       <Renderer/>
                                     </Column>
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                      <Title/>
-                                      <Editor/>
-                                      <Renderer/>
-                                    </Column>
                                   </TableColumnModel>
+                                </Property>
+                                <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                                  <JTableSelectionModel selectionMode="0"/>
                                 </Property>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -2797,6 +2803,9 @@
                                     </Column>
                                   </TableColumnModel>
                                 </Property>
+                                <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                                  <JTableSelectionModel selectionMode="0"/>
+                                </Property>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                                 </Property>
@@ -2916,6 +2925,9 @@
                                       <Renderer/>
                                     </Column>
                                   </TableColumnModel>
+                                </Property>
+                                <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                                  <JTableSelectionModel selectionMode="0"/>
                                 </Property>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>

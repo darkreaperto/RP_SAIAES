@@ -62,6 +62,6 @@ public class Proveedor extends Persona {
      */
     @Override
     public String toString(){
-     return this.getCedula() + ":_" + this.getNombre();
+     return this.getCedula() + ": " + this.getNombre();
     }
 }
