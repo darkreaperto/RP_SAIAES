@@ -33,7 +33,7 @@ public final class Conexion {
      * Constructor de la clase conexión.
      */
     private Conexion() {
-
+        abrirConexion();
     }
     /**
      * Retorna la única instancia de la clase conexión.
@@ -58,11 +58,11 @@ public final class Conexion {
                     + "useJDBCCompliantTimezoneShift=true&"
                     + "useLegacyDatetimeCode=false&serverTimezone=GMT-06:00",
                     "usuario", "usuario2018");
+
+
 //                conexion = DriverManager.getConnection("jdbc:mysql://localhost/"
-//                    + "sai_aes?useSSL=false&useUnicode=true&"
-//                    + "useJDBCCompliantTimezoneShift=true&"
-//                    + "useLegacyDatetimeCode=false&serverTimezone=UTC",
-//                    "root", "root");
+//                    +"sai_aes?serverTimezone=GMT-06:00",
+//                    "usuario", "usuario2018");//serverTimezone=GMT-06:00
             conexionExitosa = true;
         } catch (SQLException ex) {
             conexionExitosa = false;
