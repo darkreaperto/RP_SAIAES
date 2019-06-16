@@ -120,13 +120,13 @@ public class MdlTroza {
                 codigo = resultado.getString("cod_Trozas");
                 codInterno = resultado.getString("codInterno_Trozas");
                 codTmadera = resultado.getString("codTipoMadera_Trozas");
-                descTmadera = resultado.getString("descTipoMadera_Trozas");
+                descTmadera = resultado.getString("desc_TipoMadera");
                 pulgadas = resultado.getDouble("pulgadas_Trozas");
                 tipoProducto = resultado.getString("tipoProducto_Trozas");
                 descripcion = resultado.getString("descripcion_Trozas");
                 codProv = resultado.getString("codProveedor_Trozas");
-                nomProv = resultado.getString("nomProveedor_Trozas");
-                estado = resultado.getString("estado_Productos");
+                nomProv = resultado.getString("nom_Proveedor");
+                estado = resultado.getString("estado_Trozas");
                 
                 Troza trocita
                         = new Troza(codigo, codInterno, codTmadera, descTmadera,

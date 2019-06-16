@@ -64,7 +64,6 @@ public class MdlMadera {
                 
                 codigo = resultado.getString("cod_Productos");
                 codProducto = resultado.getString("codProd_Productos");
-                codOrigen = resultado.getString("codParent_Productos");
                 descripcion = resultado.getString("desc_Productos");
                 precioXvara = resultado.getDouble("precioXvara_Productos");
                 cantVaras = resultado.getDouble("cantVaras_Productos");
@@ -76,7 +75,7 @@ public class MdlMadera {
                 estado = resultado.getString("estado_Productos");
                                 
                 Madera producto
-                        = new Madera(codigo, codProducto, codOrigen, descripcion,
+                        = new Madera(codigo, codProducto, descripcion,
                                 precioXvara, cantVaras, grueso, ancho, 
                                 codTipoMadera, descTipoMadera, tipoProducto, 
                                 estado);
@@ -111,7 +110,6 @@ public class MdlMadera {
 
             String codigo;
             String codProducto;
-            String codOrigen;
             String descripcion;
             double precioXvara;
             double cantVaras;
@@ -125,7 +123,6 @@ public class MdlMadera {
             while (resultado.next()) {
                 codigo = resultado.getString("cod_Productos");
                 codProducto = resultado.getString("codProd_Productos");
-                codOrigen = resultado.getString("codParent_Productos");
                 descripcion = resultado.getString("desc_Productos");
                 precioXvara = resultado.getDouble("precioXvara_Productos");                
                 cantVaras = resultado.getDouble("cantVaras_Productos");
@@ -137,7 +134,7 @@ public class MdlMadera {
                 estado = resultado.getString("estado_Productos");
                 
                 Madera producto
-                        = new Madera(codigo, codProducto, codOrigen, descripcion,
+                        = new Madera(codigo, codProducto, descripcion,
                                 precioXvara, cantVaras, grueso, ancho, 
                                 codTipoMadera, descTipoMadera, tipoProducto, 
                                 estado);
@@ -175,7 +172,6 @@ public class MdlMadera {
 
             String codigo;
             String codProducto;
-            String codOrigen;
             String descripcion;
             double precioXvara;
             double cantVaras;
@@ -189,7 +185,6 @@ public class MdlMadera {
             while (resultado.next()) {
                 codigo = resultado.getString("cod_Productos");
                 codProducto = resultado.getString("codProd_Productos");
-                codOrigen = resultado.getString("codParent_Productos");
                 descripcion = resultado.getString("desc_Productos");
                 cantVaras = resultado.getDouble("cantVaras_Productos");
                 precioXvara = resultado.getDouble("precioXvara_Productos");
@@ -202,7 +197,7 @@ public class MdlMadera {
                 
 
                 Madera producto
-                        = new Madera(codigo, codProducto, codOrigen, descripcion,
+                        = new Madera(codigo, codProducto, descripcion,
                                 precioXvara, cantVaras, grueso, ancho, 
                                 codTipoMadera, descTipoMadera, tipoProducto, 
                                 estado);

@@ -444,6 +444,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAI-AES");
+        setBackground(new java.awt.Color(153, 0, 0));
         setLocation(new java.awt.Point(0, 0));
         setUndecorated(true);
         setResizable(false);
