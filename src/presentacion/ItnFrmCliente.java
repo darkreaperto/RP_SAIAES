@@ -403,7 +403,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         pnl_agregar.add(pnlCrearContactoCliente);
-        pnlCrearContactoCliente.setBounds(351, 16, 462, 270);
+        pnlCrearContactoCliente.setBounds(351, 16, 466, 270);
 
         tbl_crear.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -435,7 +435,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         });
         pnl_agregar.add(btnCrearCliente);
-        btnCrearCliente.setBounds(1063, 524, 95, 35);
+        btnCrearCliente.setBounds(1063, 524, 107, 35);
 
         pnlCrearInfoBase.setBorder(javax.swing.BorderFactory.createTitledBorder("Información Básica:"));
 
@@ -527,7 +527,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             .addGroup(pnlCrearInfoBaseLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnl_crear_creditoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 258, Short.MAX_VALUE)
+                    .addComponent(pnl_crear_creditoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 278, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearInfoBaseLayout.createSequentialGroup()
                         .addGap(0, 149, Short.MAX_VALUE)
                         .addComponent(ckbAgregarDireccion))
@@ -566,7 +566,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         pnl_agregar.add(pnlCrearInfoBase);
-        pnlCrearInfoBase.setBounds(25, 13, 290, 279);
+        pnlCrearInfoBase.setBounds(25, 13, 314, 279);
 
         pnlCrearDireccion.setBorder(javax.swing.BorderFactory.createTitledBorder("Dirección:"));
 
@@ -665,7 +665,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         pnl_agregar.add(pnlCrearDireccion);
-        pnlCrearDireccion.setBounds(829, 13, 336, 279);
+        pnlCrearDireccion.setBounds(829, 13, 341, 279);
 
         tb_modCliente.addTab("Agregar cliente", pnl_agregar);
 

@@ -16,7 +16,6 @@ public class Madera {
     
     private String codigo;
     private String codProducto;
-    private String codOrigen;
     private String codTipoMadera;
     private String descTipoMadera;
     private double cantVaras;
@@ -38,7 +37,6 @@ public class Madera {
      * Constructor de clase madera, inicializa variables.
      * @param codigo codigo producto.
      * @param codProducto codigo especificado por el cliente.
-     * @param codOrigen codigo de la madera que dio origen a la actual.
      * @param codTipoMadera codigo del tipo de madera.
      * @param descTipoMadera descripcion del tipo de madera.
      * @param grueso grueso del producto.
@@ -49,7 +47,7 @@ public class Madera {
      * @param estado Estado de producto.
      * @param cantvaras Producto en existencia medido en varas.
      */
-    public Madera(String codigo, String codProducto, String codOrigen, 
+    public Madera(String codigo, String codProducto,
             String descripcion, double precioXvara, double cantvaras,
             String grueso, String ancho, String codTipoMadera, 
             String descTipoMadera, String tipoProducto,  String estado) {

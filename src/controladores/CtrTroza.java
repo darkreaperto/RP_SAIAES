@@ -74,10 +74,10 @@ public class CtrTroza {
     public ArrayList<Troza> getListaTrozas() {
         if(trozas == null || trozas.isEmpty()) {
             trozas = obtenerTrozas();
-            System.out.println("CtrMadera says: I'M EMPTY");
+            System.out.println("CtrTroza says: I'M EMPTY");
             return obtenerTrozas();
         } else {
-            System.out.println("CtrMadera says: I was empty");
+            System.out.println("CtrTroza says: I was empty");
             return trozas;
         }
     }

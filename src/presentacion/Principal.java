@@ -8,6 +8,7 @@ package presentacion;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import javax.swing.JRootPane;
+import javax.swing.UIManager;
 
 /**
  * Clase principal que hace visible la ventana de inicio.
@@ -21,6 +22,19 @@ public class Principal {
      */
     public static void main(String[] args) {
         
+//        try {
+//            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+//                info.getName();
+//                if ("Nimbus".equals(info.getName())) {
+//                    UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"
+//                /*UIManager.getCrossPlatformLookAndFeelClassName()*/);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         FrmPrincipal ventana = new FrmPrincipal();
         //ventana.setExtendedState(JFrame.MAXIMIZED_BOTH);
         ventana.setLocation(0, 0);

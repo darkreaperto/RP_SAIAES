@@ -33,7 +33,6 @@ public class CtrMadera {
      * sus parámetros.
      * @param codigo codigo de madera
      * @param codProducto codigo del producto (personalizado)
-     * @param codOrigen codigo de la madera que dio origen a la actual.
      * @param codTipoMadera codigo del tipo de madera
      * @param descTipoMadera descripción del tipo de madera
      * @param grueso grueso de la madera/producto
@@ -45,12 +44,12 @@ public class CtrMadera {
      * @param cantVaras cantidad del producto en varas
      * 
      */
-    public CtrMadera(String codigo, String codProducto, String codOrigen, 
+    public CtrMadera(String codigo, String codProducto, 
             String descripcion, double precioXvara, double cantVaras,
             String grueso, String ancho, String codTipoMadera, 
             String descTipoMadera, String tipoProducto, String estado) {
         
-        madera = new Madera(codigo, codProducto, codOrigen, descripcion,
+        madera = new Madera(codigo, codProducto, descripcion,
                 precioXvara, cantVaras, grueso, ancho, codTipoMadera, 
             descTipoMadera,tipoProducto, estado);
     }
