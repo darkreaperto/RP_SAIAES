@@ -8,6 +8,7 @@ package presentacion;
 import controladores.CtrAcceso;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JDesktopPane;
@@ -445,6 +446,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAI-AES");
         setBackground(new java.awt.Color(153, 0, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setIconImage(Toolkit.getDefaultToolkit().getImage("recursos/aes_logo.png"));
         setLocation(new java.awt.Point(0, 0));
         setUndecorated(true);
         setResizable(false);
