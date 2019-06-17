@@ -1283,7 +1283,6 @@
                                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lblNuevoTmNombre" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                       <Component id="lblNuevoTmCantVaras" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -1509,10 +1508,12 @@
                                               <Component id="lblNuevoTProveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="txtNuevoTpulgadas" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="cbxNuevoTProveedor" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="btnCrearProv" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="txtNuevoTpulgadas" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="cbxNuevoTProveedor" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
                                       <Component id="scpnlNuevoTDescripcion" max="32767" attributes="0"/>

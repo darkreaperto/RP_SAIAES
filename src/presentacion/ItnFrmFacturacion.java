@@ -14,6 +14,7 @@ import controladores.CtrLineaDetalle;
 import controladores.CtrMadera;
 import java.awt.Container;
 import java.awt.Font;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -127,7 +128,14 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         
         listaProd = new ArrayList<>();
         DefaultListModel<Madera> mProductos = new DefaultListModel<>();
-        listaProd = ctrInventario.busqAvzProductos(paramProd, codBusq);
+        
+        try {
+            listaProd = ctrInventario.busqAvzProductos(paramProd, codBusq);
+        } catch (SQLException ex) {
+            System.err.print("Error: SQL Exception "+ex.getMessage());
+        } catch (Exception ex) {
+            System.err.print("Error: Exception "+ex.getMessage());
+        }
 
         for (Madera m : listaProd) {
             mProductos.addElement(m);

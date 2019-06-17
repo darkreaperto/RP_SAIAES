@@ -5,6 +5,7 @@
  */
 package controladores;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.negocio.Madera;
 import modelos.MdlMadera;
@@ -100,7 +101,8 @@ public class CtrMadera {
      * @param codBusq código de clasificación/especificación de búsqueda
      * @return lista de productos.
      */
-    public ArrayList<Madera> busqAvzProductos(String paramProd, int codBusq) {
+    public ArrayList<Madera> busqAvzProductos(String paramProd, int codBusq) 
+            throws SQLException, Exception {
         return mdlMadera.busqAvzProductos(paramProd, codBusq);
     }
     /**

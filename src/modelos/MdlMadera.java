@@ -158,14 +158,15 @@ public class MdlMadera {
      * @param codBusq código de clasificación/especificación de búsqueda
      * @return lista de productos
      */
-    public ArrayList busqAvzProductos(String paramProd, int codBusq) {
+    public ArrayList busqAvzProductos(String paramProd, int codBusq) 
+            throws SQLException, Exception {
         ArrayList<Object> params = new ArrayList<>();
         params.add(paramProd);
         params.add(codBusq);
         
         productos = new ArrayList<>();
         
-        try {
+        //try {
             procedimiento = "pc_busq_avz_producto(?, ?)";
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
@@ -206,13 +207,13 @@ public class MdlMadera {
                     productos.add(producto);
                 }
             }
-        } catch (SQLException ex) {
-            System.err.println(ex);
-            ex.printStackTrace();
-        } finally {
+        //} catch (SQLException ex) {
+            //System.err.println(ex);
+            //ex.printStackTrace();
+        //} finally {
             conexion.cerrarConexion();
             return productos;
-        }
+        //}
     }
     /**
      * Inserta un nuevo producto en la BD
