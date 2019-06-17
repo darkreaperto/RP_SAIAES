@@ -498,7 +498,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 .addComponent(lbl_crear_otrasSenas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scpnlCrearOtrasSenas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addContainerGap())
         );
 
         pnl_agregar.add(pnlCrearDireccion);
