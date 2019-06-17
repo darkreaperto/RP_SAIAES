@@ -303,6 +303,8 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.ButtonGroup" name="bgMedioPago">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
@@ -365,7 +367,7 @@
                                   <Component id="pnlTotales" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnAddProduct" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
                               <Component id="btnBorrarLinea" alignment="1" min="-2" pref="63" max="-2" attributes="0"/>
@@ -627,11 +629,11 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="txtProducto" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="btnAddProduct1" min="-2" pref="48" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtProducto" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="txtCantidad" min="-2" pref="150" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnAgregarVarios" min="-2" pref="186" max="-2" attributes="0"/>
@@ -662,14 +664,16 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtProducto" pref="34" max="32767" attributes="0"/>
                           <Component id="btnAddProduct1" pref="0" max="32767" attributes="0"/>
-                          <Component id="btnAgregarVarios" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="txtCantidad" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="txtCantidad" alignment="3" pref="34" max="32767" attributes="0"/>
+                              <Component id="txtProducto" alignment="3" pref="34" max="32767" attributes="0"/>
+                              <Component id="btnAgregarVarios" alignment="3" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblCantExistencia" min="-2" pref="33" max="-2" attributes="0"/>
                                   <Component id="lblTextExistencias" min="-2" pref="33" max="-2" attributes="0"/>
@@ -680,9 +684,9 @@
                                   <Component id="lblPrecioUnit" min="-2" pref="35" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="scpnlList" min="-2" pref="75" max="-2" attributes="0"/>
+                          <Component id="scpnlList" min="-2" pref="99" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -879,6 +883,7 @@
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
                   <Format format="#-####-####" subtype="-1" type="5"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Presione &apos;Enter&apos; para buscar el cliente"/>
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ftClienteFacKeyReleased"/>
@@ -954,6 +959,9 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtNomCliente">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value="Presione &apos;Enter&apos; para buscar el cliente"/>
+              </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNomClienteKeyReleased"/>
               </Events>
@@ -1008,11 +1016,17 @@
           <SubComponents>
             <Component class="javax.swing.JRadioButton" name="rbMpagoCredito">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="bgMedioPago"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cr&#xe9;dito"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbMpagoContado">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="bgMedioPago"/>
+                </Property>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Contado"/>
               </Properties>

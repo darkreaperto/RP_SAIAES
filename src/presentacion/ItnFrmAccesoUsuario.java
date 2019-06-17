@@ -486,7 +486,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         });
 
         lbl_acc_logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_acc_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/LOGO_ASERRADERO.jpg"))); // NOI18N
+        lbl_acc_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/aes_logo.png"))); // NOI18N
 
         btn_acc_entrar.setText("Iniciar Sesión");
         btn_acc_entrar.setNextFocusableComponent(btn_acc_recup);
@@ -512,27 +512,21 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         pnl_modAccesoUsuarioLayout.setHorizontalGroup(
             pnl_modAccesoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_modAccesoUsuarioLayout.createSequentialGroup()
-                .addGroup(pnl_modAccesoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnl_modAccesoUsuarioLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(pnl_modAccesoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_NombreUsuario)
-                            .addComponent(pw_acc_password)
-                            .addGroup(pnl_modAccesoUsuarioLayout.createSequentialGroup()
-                                .addGroup(pnl_modAccesoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_acc_password)
-                                    .addComponent(lbl_acc_NombreUsuario))
-                                .addGap(111, 111, 111))))
-                    .addGroup(pnl_modAccesoUsuarioLayout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(btn_acc_recup, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modAccesoUsuarioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btn_acc_entrar)))
-                .addGap(26, 26, 26)
+                .addGap(21, 21, 21)
+                .addGroup(pnl_modAccesoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(pw_acc_password)
+                    .addComponent(txt_NombreUsuario, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_modAccesoUsuarioLayout.createSequentialGroup()
+                        .addGroup(pnl_modAccesoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_acc_password)
+                            .addComponent(lbl_acc_NombreUsuario))
+                        .addGap(111, 111, 111))
+                    .addComponent(btn_acc_entrar)
+                    .addComponent(btn_acc_recup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(lbl_acc_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lbl_acc_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnl_modAccesoUsuarioLayout.setVerticalGroup(
@@ -541,10 +535,6 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modAccesoUsuarioLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lbl_acc_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
             .addGroup(pnl_modAccesoUsuarioLayout.createSequentialGroup()
                 .addGap(101, 101, 101)
                 .addComponent(lbl_acc_NombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -558,7 +548,11 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                 .addComponent(btn_acc_entrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_acc_recup, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addGap(27, 27, 27))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modAccesoUsuarioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbl_acc_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

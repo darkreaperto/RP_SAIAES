@@ -97,7 +97,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         bg_crearCredito = new javax.swing.ButtonGroup();
         bg_crearHabilitar = new javax.swing.ButtonGroup();
         bg_editarCredito = new javax.swing.ButtonGroup();
-        menuEmergente = new javax.swing.JPopupMenu();
+        pmnMenuEmergente = new javax.swing.JPopupMenu();
         itEditar = new javax.swing.JMenuItem();
         pnl_modCliente = new javax.swing.JPanel();
         tb_modCliente = new javax.swing.JTabbedPane();
@@ -217,7 +217,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 itEditarActionPerformed(evt);
             }
         });
-        menuEmergente.add(itEditar);
+        pmnMenuEmergente.add(itEditar);
 
         setClosable(true);
         setIconifiable(true);
@@ -248,7 +248,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbListadoCliente.setComponentPopupMenu(menuEmergente);
+        tbListadoCliente.setComponentPopupMenu(pmnMenuEmergente);
         tbListadoCliente.setRowHeight(20);
         tbListadoCliente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbListadoCliente.getTableHeader().setReorderingAllowed(false);
@@ -2416,7 +2416,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JList<String> lsCrearCorreos;
     private javax.swing.JList<String> lsCrearTelefonos;
     private javax.swing.JList<String> lsTelefonos;
-    private javax.swing.JPopupMenu menuEmergente;
+    private javax.swing.JPopupMenu pmnMenuEmergente;
     private javax.swing.JPanel pnlCrearContactoCliente;
     private javax.swing.JPanel pnlCrearCorreo1;
     private javax.swing.JPanel pnlCrearDireccion;
