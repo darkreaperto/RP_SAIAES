@@ -80,7 +80,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      *
      * @param sesionAcc Usuario en sesión actual.
      * @param productos Lista de productos en la base de datos.
-     * @param trozas
+     * @param trozas Lista de trozas en la base de datos.
      * @return instancia.
      */
     public static ItnFrmInventario getInstancia(CtrAcceso sesionAcc,
@@ -804,24 +804,28 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * Cargar la información del producto seleccionado (Aserrada y Terminada).
      * @param tipo tipo de producto seleccionado (Aserrada o Terminada).
      */
-    private void cargarEditarProducto(String tipo) {
+    private void cargarEditarProducto() {
         
-        tipo = tipo.toUpperCase();        
         try {
-            model = tipo.equals("ASERRADA") ? 
-                    (DefaultTableModel) tblEditarAserrada.getModel() : 
-                    (DefaultTableModel) tblEditarTerminada.getModel();
+            model = (DefaultTableModel) tblEditarAserrada.getModel(); 
             
-            int indiceFila = tipo.equals("ASERRADA") ? 
-                    tblEditarAserrada.getSelectedRow() : 
-                    tblEditarTerminada.getSelectedRow();
+            int indiceFila = tblEditarAserrada.getSelectedRow();
+            String codigo;
             
-            //System.out.println(tblEditarAserrada.getValueAt(indiceFila, 7));
-            //System.out.println(tblEditarTerminada.getValueAt(indiceFila, 6));// # indiceFila, 6
+            if (indiceFila == -1) {
+                model = (DefaultTableModel) tblEditarTerminada.getModel();
+                indiceFila = tblEditarTerminada.getSelectedRow();
+                
+                if (indiceFila == -1) {
+                    return;
+                } else {
+                    codigo = (String) model.getValueAt(indiceFila, 6);
+                }
+            } else {
+                codigo = (String) model.getValueAt(indiceFila, 7);
+            }
             
-            String codigo = tipo.equals("ASERRADA") ? 
-                    (String) model.getValueAt(indiceFila, 7) : 
-                    (String) model.getValueAt(indiceFila, 6);
+            System.out.println("CODIGO MODEL: "+codigo);
             
             Madera prod = null;
             for (Madera p: productos) {
@@ -2778,11 +2782,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNuevaAserradaActionPerformed
 
     private void tblEditarTerminadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditarTerminadaMouseClicked
-        cargarEditarProducto("TERMINADA");
+        cargarEditarProducto();
     }//GEN-LAST:event_tblEditarTerminadaMouseClicked
 
     private void tblEditarAserradaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditarAserradaMouseClicked
-        cargarEditarProducto("ASERRADA");
+        cargarEditarProducto();
     }//GEN-LAST:event_tblEditarAserradaMouseClicked
 
 
