@@ -13,7 +13,6 @@ import util.Estado;
  */
 public class Madera {
     
-    
     private String codigo;
     private String codProducto;
     private String codTipoMadera;
@@ -243,8 +242,9 @@ public class Madera {
      * @return información básica del producto/madera
      */
     @Override
-    public String toString()
-    {
-     return codProducto +": " + descTipoMadera + " " + grueso + " " + ancho;
+    public String toString() {
+     return codProducto +": " + 
+             descTipoMadera + " de " + 
+             grueso + "x" + ancho;
     }
 }

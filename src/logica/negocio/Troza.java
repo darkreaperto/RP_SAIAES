@@ -12,6 +12,7 @@ import util.Estado;
  * @author fuent
  */
 public class Troza {    
+    
     private String codigo;
     private String codInterno;
     private String codTipoMadera;
@@ -217,5 +218,18 @@ public class Troza {
      */
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+    
+    /**
+     * Sobreescritura del método toString para obtener información básica de la
+     * troza
+     * @return información básica de la troza
+     */
+    @Override
+    public String toString() {
+        return codInterno + ": " + 
+                pulgadas + " pulgs de " + 
+                descTipoMadera + " - " + 
+                nomProveedor;
     }
 }
