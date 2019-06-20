@@ -87,7 +87,7 @@ public class CtrCliente {
      * @param cedula cédula de identificación del cliente
      * @param limiteCred cantidad límite de crédito del cliente
      * @param aprobarCred aprobación al crédito del cliente
-     * @param dir
+     * @param dir dirección física del cliente
      * @param contactos contactos (teléfonos y correos) del cliente
      * @return verdadero si el cliente se crea existosamente
      */
@@ -128,7 +128,7 @@ public class CtrCliente {
      * @param aprobarCred aprobación al crédito del cliente
      * @param codPersona codigo de persona a quien se actualiza la información
      * @param dir toda la información de la dirección del cliente
-     * @param codCliente
+     * @param codCliente códido del cliente a actualizar
      * @return verdadero si la información se actualiza exitosamente
      */
     public boolean actualizarCliente(String nombre, String cedula, 

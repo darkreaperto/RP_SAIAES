@@ -95,8 +95,8 @@ public class CtrTarea {
     /**
      * Establecer el estado de la tarea en el módulo y panel especificado.
      * @param estado el estado a establecer
-     * @param modulo
-     * @param panel
+     * @param modulo módulo de la tarea
+     * @param panel panel de la tarea
      */
     public void setEstado(EstadoTarea estado, Modulo modulo, Panel panel) {
         encontrarTarea(modulo, panel).setEstado(estado);

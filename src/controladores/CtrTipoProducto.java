@@ -29,9 +29,9 @@ public class CtrTipoProducto {
     /**
      * Constructor del controlador de tipo de producto, crea un objeto de la 
      * clase tipo de producto
-     * @param codigo
-     * @param descripcion
-     * @param estado 
+     * @param codigo código del producto
+     * @param descripcion descripción del producto
+     * @param estado estado del producto
      */
     public CtrTipoProducto(String codigo, String descripcion, String estado) {
         tipoProducto = new TipoProducto(codigo, descripcion, estado);

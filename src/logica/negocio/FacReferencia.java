@@ -32,6 +32,8 @@ public class FacReferencia {
      * @param tipoDoc tipo de documento de referencia
      * @param numero numero de referencia
      * @param fechaEmision fecha de emisión de la referencia
+     * @param codigo código del documento de referencia.
+     * @param razon razón del documento de referencia.
      */
     public FacReferencia(String tipoDoc, String numero, Date fechaEmision, 
             String codigo, String razon) {

@@ -239,7 +239,6 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 
     /**
      * Obtener la lista de productos consultados y eliminar el producto solicitado
-     * @param paramProd Datos del producto para consultar producto en la bd
      */
     public void eliminarProducto() {
 //        try {
@@ -793,18 +792,18 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     
     /**
      * Crea un objeto resumen con la información/datos correspondientes.
-     * @param totalServ
-     * @param totalServEx
-     * @param totalMerc
-     * @param totalMercEx
-     * @param totalGrav
-     * @param totalEx
-     * @param totalVenta
-     * @param totalDescuentos
-     * @param totalVentaNeta
-     * @param totalImpuesto
-     * @param totalComprob 
-     * @return  
+     * @param totalServ total de los servicios.
+     * @param totalServEx total de los servicios exentos.
+     * @param totalMerc total de las mercancìas.
+     * @param totalMercEx total de las mercancias exentas.
+     * @param totalGrav total gravado.
+     * @param totalEx total exento.
+     * @param totalVenta total de la venta.
+     * @param totalDescuentos total de descuentos.
+     * @param totalVentaNeta total de venta neta.
+     * @param totalImpuesto total de impuestos.
+     * @param totalComprob total del comprobante.
+     * @return  resumen de la factura.
      */
     public FacResumen agregarResumen(double totalServ, double totalServEx, 
             double totalMerc, double totalMercEx, double totalGrav, 

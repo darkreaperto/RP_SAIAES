@@ -81,7 +81,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      *
      * @param sesionAcc Usuario en sesión actual.
      * @param productos Lista de productos en la base de datos.
-     * @param trozas Lista de trozas en la base de datos.
      * @return instancia.
      */
     public static ItnFrmInventario getInstancia(CtrAcceso sesionAcc,
@@ -147,7 +146,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * Cargar la tabla (modelo) con los productos y trozas existentes.
      * @param tabla Nombre de la tabla a llenar
      * @param estado Estado del producto a ingresar
-     * @param tpTabla "troza&producto si la tabla aguanta ambos, troza o producto si aguanta solo uno"
+     * @param tpTabla "troza y producto si la tabla aguanta ambos, troza o producto si aguanta solo uno"
      */
     public void cargarJTableGeneral(JTable tabla, boolean estado, String tpTabla) {
         

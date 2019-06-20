@@ -100,6 +100,7 @@ public class CtrMadera {
      * @param paramProd Datos del producto para consultar usuario en la bd
      * @param codBusq código de clasificación/especificación de búsqueda
      * @return lista de productos.
+     * @throws java.sql.SQLException excepción SQL
      */
     public ArrayList<Madera> busqAvzProductos(String paramProd, int codBusq) 
             throws SQLException, Exception {
@@ -129,7 +130,6 @@ public class CtrMadera {
     /**
      * Actualiza los diferentes atributos de la madera y los almacena en la BD
      * @param codProd codigo personalizado asignado al producto
-     * @param codOrigen codigo del producto de quien se saco el registro
      * @param descripcion detalle del producto (opcional)
      * @param precio precio por vara del producto
      * @param cantVaras cantidad de varas que entran

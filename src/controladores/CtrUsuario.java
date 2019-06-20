@@ -183,7 +183,7 @@ public class CtrUsuario {
     
     /**
      * Establece estado de usuario.
-     * @param estado 
+     * @param estado estado del usuario
      */
     public void setEstado(Estado estado) {
         usuario.setEstado(estado);
@@ -192,7 +192,7 @@ public class CtrUsuario {
     /**
      * Llama el método que llena una lista con todos los usuarios almacenados 
      * en la BD.
-     * @return 
+     * @return la lista de todos los usuarios.
      */
     public ArrayList<Usuario> obtenerUsuarios() {
         return mdlUsuario.obtenerUsuarios();
@@ -217,9 +217,9 @@ public class CtrUsuario {
      * @param contra Contraseña de usuario.
      * @param correo Correo de usuario.
      * @param rol Rol de usuario.
-     * @param estado
-     * @param codigo
-     * @return 
+     * @param estado estado a actualizar.
+     * @param codigo código del cliente a actualizar.
+     * @return verdadero si la actualización fue éxitosa.
      */
     public boolean actualizarUsuario( String nombre, String contra, String correo, 
             Rol rol, Estado estado, String codigo) {
@@ -229,7 +229,7 @@ public class CtrUsuario {
      * Llama método que actualiza toda la información del usuario en la BD.
      * @param nombre Nombre de usuario.
      * @param rol Rol de usuario.
-     * @return 
+     * @return verdadero si la actualización fue éxitosa.
      */
     public boolean actualizarRolUsuario( String nombre, Rol rol) {
         return mdlUsuario.actualizarRolUsuario(nombre, rol);

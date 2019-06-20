@@ -83,7 +83,7 @@ public class CtrProveedor {
      * @param tipoCed tipo de la cédula del proveedor
      * @param dir información de dirección del proveedor
      * @param contactos lista de contactos del proveedor
-     * @return 
+     * @return verdadera si la inserción fue éxitosa
      */
     public boolean crearProveedor(String nombre, String cedula, String tipoCed, 
             Direccion dir, ArrayList<ArrayList<Object>> contactos) {
@@ -118,6 +118,7 @@ public class CtrProveedor {
      * @param tipoCed tipo de la cédula del proveedor
      * @param dir dirección de la persona
      * @param codPersona codigo de persona
+     * @param codProv código del proveedor
      * @return verdadero si actualiza el proveedor exitosamente
      */
     public boolean actualizarProveedor(String nombre, String cedula, 

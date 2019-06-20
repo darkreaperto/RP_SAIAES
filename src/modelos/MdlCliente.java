@@ -122,14 +122,14 @@ public class MdlCliente {
 
     /**
      * Inserta un nuevo cliente en la BD.
-     * @param nombre
-     * @param cedula
-     * @param tipoCed
-     * @param limiteCred
-     * @param aprobarCred
-     * @param dir
-     * @param contactos
-     * @return 
+     * @param nombre nombre del cliente.
+     * @param cedula cédula del cliente.
+     * @param tipoCed tipo de cédula del cliente.
+     * @param limiteCred límite de crédito del cliente.
+     * @param aprobarCred aprobar crédito.
+     * @param dir dirección del cliente.
+     * @param contactos contactos del cliente.
+     * @return verdadero si la inserción fue éxitosa.
      */
     public boolean crearCliente(String nombre, String cedula, String tipoCed, 
             double limiteCred, boolean aprobarCred, Direccion dir, 
@@ -199,15 +199,15 @@ public class MdlCliente {
 
     /**
      * Actualiza toda la información del cliente en la BD.
-     * @param nombre
-     * @param cedula
-     * @param tipoCed
-     * @param limiteCred
-     * @param aprobarCred
-     * @param dir
-     * @param codPersona
-     * @param codCliente
-     * @return 
+     * @param nombre nombre del cliente.
+     * @param cedula cédula del cliente.
+     * @param tipoCed tipo de cèdula del cliente.
+     * @param limiteCred lìmite de crèdito del cliente.
+     * @param aprobarCred aprobar crédito.
+     * @param dir dirección del cliente.
+     * @param codPersona código de persona.
+     * @param codCliente código del cliente.
+     * @return verdadero si la actualización fue éxitosa.
      */
     public boolean actualizarCliente(String nombre, String cedula, 
             String tipoCed, double limiteCred, boolean aprobarCred, 
@@ -260,7 +260,7 @@ public class MdlCliente {
     /**
      * Inactiva el cliente en la bd.
      * @param cedula cédula unívoca del cliente
-     * @return 
+     * @return verdadero si la inactivación fue éxitosa.
      */
     public boolean inactivarCliente(String cedula) {
         
@@ -288,7 +288,7 @@ public class MdlCliente {
     /**
      * Activa el cliente en la bd.
      * @param cedula cédula unívoca del cliente
-     * @return 
+     * @return verdadero si la activación fue éxitosa.
      */
     public boolean activarCliente(String cedula) {
         

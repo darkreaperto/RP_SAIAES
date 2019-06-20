@@ -57,7 +57,7 @@ public class Exoneracion {
 
     /**
      * Establecer número de documento de exoneración
-     * @param numeroDocumento 
+     * @param numeroDocumento número referencia del documento.
      */
     public void setNumeroDocumento(String numeroDocumento) {
         this.numeroDocumento = numeroDocumento;
@@ -73,7 +73,7 @@ public class Exoneracion {
 
     /**
      * Establecer fecha de emisión del documento de exoneración
-     * @param fechaEmision 
+     * @param fechaEmision fecha de emisión del documento.
      */
     public void setFechaEmision(Date fechaEmision) {
         this.fechaEmision = fechaEmision;

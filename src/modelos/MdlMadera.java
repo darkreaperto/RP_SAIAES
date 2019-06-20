@@ -157,6 +157,7 @@ public class MdlMadera {
      * @param paramProd Datos del producto para consultar producto en la bd
      * @param codBusq código de clasificación/especificación de búsqueda
      * @return lista de productos
+     * @throws java.sql.SQLException execpción SQL
      */
     public ArrayList busqAvzProductos(String paramProd, int codBusq) 
             throws SQLException, Exception {

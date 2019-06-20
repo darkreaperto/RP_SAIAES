@@ -38,6 +38,7 @@ public class Direccion {
      * @param nomDistrito nombre de distrito para la BD.
      * @param codBarrio codigo de barrio para la BD.
      * @param nomBarrio nombre de barrio para la BD.
+     * @param otrasSenas otras señas de la dirección.
      */
     public Direccion(int codigo, String codProvincia, String nomProvincia, 
             String codCanton, String nomCanton, String codDistrito, 
@@ -89,7 +90,7 @@ public class Direccion {
 
     /**
      * Obtener nombre de la provincia
-     * @return 
+     * @return el nombre de la provincia.
      */
     public String getNomProvincia() {
         return nomProvincia;
@@ -97,7 +98,7 @@ public class Direccion {
 
     /**
      * Establecer nombre de la provincia.
-     * @param nomProvincia 
+     * @param nomProvincia nombre de la provincia.
      */
     public void setNomProvincia(String nomProvincia) {
         this.nomProvincia = nomProvincia;
@@ -176,7 +177,7 @@ public class Direccion {
 
     /**
      * Establecer código de barrio
-     * @param codBarrio 
+     * @param codBarrio código del barrio
      */
     public void setCodBarrio(String codBarrio) {
         this.codBarrio = codBarrio;

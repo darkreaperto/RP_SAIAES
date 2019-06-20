@@ -49,15 +49,15 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
         ckbExonerar.setVisible(false);
     }
     /**
-     * 
-     * @return 
+     * Obtener el precio del producto seleccionado.
+     * @return el precio del producto seleccionado.
      */
     public double getPrecio() {
         return ifrmFacturacion.getPrecioSinImpuesto();
     }
     /**
-     * 
-     * @return 
+     * Calcular impuesto.
+     * @return el impuesto.
      */
     public double calcularImpuesto() {
         double porcentajeImpuesto;
@@ -86,7 +86,7 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
 
     /**
      * Obtiene el código del tipo de impuesto seleccionado en la interfaz.
-     * @return 
+     * @return código del tipo de impuesto.
      */
     public String codImpuestosHac() {
         String codigo = "98";
@@ -101,8 +101,8 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
     }
     
     /**
-     * 
-     * @return 
+     * Obtener el tipo de exoneración.
+     * @return tipo de exoneración.
      */
     public String tipoDocExoneracion() {
         String codigo = "99";
@@ -125,7 +125,7 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
     /**
      * Crea el impuesto con la información pertinente para ser enviado a 
      * facturación.
-     * @return 
+     * @return impuesto creado.
      */
     public Impuesto crearImpuesto() {
         
@@ -165,7 +165,7 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
     }
     /**
      * Devuelve la fecha actual.
-     * @return 
+     * @return fecha actual.
      */
     public static Timestamp noow() {
         Calendar cal = Calendar.getInstance();
@@ -194,7 +194,7 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
     /**
      * Verifica que los campos con la información de la exoneración estén 
      * correctamente ingresados.
-     * @return 
+     * @return verdadero si se puede exonerar.
      */
     public boolean verificarExoneracion() {
         boolean exito = false;

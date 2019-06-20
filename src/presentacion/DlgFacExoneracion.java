@@ -49,8 +49,8 @@ public class DlgFacExoneracion extends javax.swing.JDialog {
     }
     
     /**
-     * 
-     * @return 
+     * Obtener el tipo de exoneración seleccionada.
+     * @return tipo de exoneración.
      */
     public String tipoDocExoneracion() {
         String codigo = "99";
@@ -71,8 +71,8 @@ public class DlgFacExoneracion extends javax.swing.JDialog {
     }
     
     /**
-     * 
-     * @return 
+     * Obtener la fecha actual.
+     * @return fecha actual.
      */
     public static Timestamp noow() {
         Calendar cal = Calendar.getInstance();

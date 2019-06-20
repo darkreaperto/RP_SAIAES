@@ -37,7 +37,7 @@ public class CtrDireccion {
      * @param nomDistrito nombre de distrito para la BD.
      * @param codBarrio codigo de barrio para la BD.
      * @param nomBarrio nombre de barrio para la BD.
-     * @param otrasSenas
+     * @param otrasSenas descripción amplía de la dirección
      */
     public CtrDireccion(int codigo, String codProvincia, String nomProvincia, 
             String codCanton, String nomCanton, String codDistrito, 
@@ -66,10 +66,10 @@ public class CtrDireccion {
     
     /**
      * Buscar contacto enviando por parámetro el criterio de búsqueda.
-     * @param campo
-     * @param codP
-     * @param codC
-     * @param codD
+     * @param campo llave de búsqueda
+     * @param codP código de provincia
+     * @param codC código de cantón
+     * @param codD código de distrito
      * @return lista de contactos
      */
     public ArrayList<DirFiltro> filtrarDireccion(String campo, String codP, 

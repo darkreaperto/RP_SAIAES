@@ -1348,7 +1348,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         }
 
         tabla.removeColumn(tabla.getColumnModel().getColumn(6));
-        tabla.removeColumn(tabla.getColumnModel().getColumn(6));
+//        tabla.removeColumn(tabla.getColumnModel().getColumn(6));
     }
 
     /**

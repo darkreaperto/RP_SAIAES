@@ -66,7 +66,7 @@ public class CtrConexion {
      * entrada
      * @param procedure procedimiento a ejecutar
      * @return Resultado del procedimiento a ejecutar
-     * @throws SQLException 
+     * @throws SQLException excepción SQL
      */
     public ResultSet ejecutarProcedimiento(String procedure) throws SQLException {
         return conexion.ejecutarProcedimiento(procedure);

@@ -185,6 +185,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     /**
      * Acceder al desktopPane para tener acceso a los distintos módulos del 
      * sistema.
+     * @param frameParent componente padre.
      * @param internal Frame interno al que se desea accesar
      * @param num Número de pestaña a la que se ingresa
      */

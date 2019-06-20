@@ -196,9 +196,9 @@ public class MdlProveedor {
     }
     
     /**
-     * 
-     * @param codigo
-     * @return 
+     * Inactivar el contacto.
+     * @param codigo código del contacto.
+     * @return verdadero si la inactivación fue éxitosa.
      */
     public boolean inactivarContacto(String codigo) {
         return ctrContacto.inactivarContacto(codigo);
@@ -212,7 +212,7 @@ public class MdlProveedor {
      * @param dir objeto direcciòn con la información
      * @param codPersona código de persona a actualizar
      * @param codProv código de proveedor a actualizar
-     * @return 
+     * @return verdadero si la actualización fue éxitosa.
      */    
     public boolean actualizarProveedor(String nombre, String cedula, 
             String tipoCed, Direccion dir, String codPersona, String codProv) {
@@ -289,7 +289,7 @@ public class MdlProveedor {
     /**
      * Activa el proveedor en la bd.
      * @param cedula cédula unívoca del proveedor
-     * @return 
+     * @return verdadero si la activación fue éxitosa.
      */
     
     public boolean activarProveedor(String cedula) {

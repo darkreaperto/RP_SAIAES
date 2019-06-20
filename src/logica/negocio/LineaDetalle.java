@@ -45,10 +45,8 @@ public class LineaDetalle {
      * @param unidadMedida unidad en que se miden los productos
      * @param detalle descripción del producto/linea
      * @param precioUnitario precio de producto por unidad
-     * @param total valor del/de los producto (cantidad * precioUnitario)
      * @param descuento valor/monto de descuento
      * @param naturalezaDescuento naturaleza o razón del descuento
-     * @param subtotal total/valor de los productos menos descuento (total-descuento)
      * @param impuesto valor de impuesto gravado al producto
      * @param mercancia clasificación de producto (mercancia = true, serivicio = false)
      */
@@ -100,7 +98,7 @@ public class LineaDetalle {
 
     /**
      * Establecer código de producto
-     * @param codigoProducto 
+     * @param codigoProducto código del producto.
      */
     public void setCodigoProducto(String codigoProducto) {
         this.codigoProducto = codigoProducto;

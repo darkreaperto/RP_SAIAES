@@ -102,6 +102,7 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
     
     /**
      * Seleccionar el producto a enviar
+     * @return el producto.
      */
     public Madera obtenerProducto() {
         Madera prod = null;
