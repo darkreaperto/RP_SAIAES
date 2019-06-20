@@ -25,7 +25,9 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="btnAgregarVarios2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="549" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="351" max="-2" attributes="0"/>
+                          <Component id="btnAddProduct2" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="pnlClasificacionProductos" min="-2" pref="115" max="-2" attributes="0"/>
@@ -63,8 +65,11 @@
                       </Group>
                       <Component id="pnlClasificacionProductos" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnAgregarVarios2" min="-2" pref="33" max="-2" attributes="0"/>
+                  <EmptySpace pref="13" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="btnAgregarVarios2" alignment="1" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="btnAddProduct2" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -152,6 +157,18 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarVarios2ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnAddProduct2">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/recursos/f_add_30x30.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Agregar a la l&#xed;nea"/>
+            <Property name="toolTipText" type="java.lang.String" value="Agregar producto a la linea"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddProduct2ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -305,6 +322,17 @@
     </Container>
     <Component class="javax.swing.ButtonGroup" name="bgMedioPago">
     </Component>
+    <Component class="javax.swing.JButton" name="btnAddImpuesto">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/recursos/add_impuesto.png"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Agregar impuesto"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddImpuestoActionPerformed"/>
+      </Events>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
@@ -337,10 +365,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="pnl_modFactura" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="pnl_modFactura" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -352,61 +377,38 @@
           <Group type="103" groupAlignment="1" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <Component id="pnlSelectCliente" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="pnlAgregarProd" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="scpnlTblLineaPedido" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="pnlMpagoContainer" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="pnlTotales" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnAddProduct" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
-                              <Component id="btnBorrarLinea" alignment="1" min="-2" pref="63" max="-2" attributes="0"/>
-                              <Component id="btnAddImpuesto" alignment="1" min="-2" pref="63" max="-2" attributes="0"/>
-                              <Component id="btnBusquedaAv" alignment="1" min="-2" pref="63" max="-2" attributes="0"/>
-                          </Group>
+                      <Component id="scpnlTblLineaPedido" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="btnBorrarLinea" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="pnlTotales" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="pnlSelectCliente" max="32767" attributes="0"/>
                       <Component id="pnlAgregarProd" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="scpnlTblLineaPedido" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="btnAddProduct" min="-2" pref="60" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnBorrarLinea" min="-2" pref="60" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnAddImpuesto" min="-2" pref="60" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnBusquedaAv" min="-2" pref="59" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="scpnlTblLineaPedido" min="-2" pref="256" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="pnlTotales" max="32767" attributes="0"/>
-                      <Component id="pnlMpagoContainer" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="btnBorrarLinea" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="pnlTotales" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -502,16 +504,22 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblTextSubtotal1" min="-2" pref="100" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="rbMpagoContado" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="rbMpagoCredito" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="lblTextSubtotal" min="-2" pref="62" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblSubtotal" min="-2" pref="152" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblTextTotal" min="-2" pref="41" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblTotal" min="-2" pref="123" max="-2" attributes="0"/>
+                      <Component id="lblTotal" min="-2" pref="148" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnFacturar" min="-2" pref="132" max="-2" attributes="0"/>
+                      <Component id="btnFacturar" min="-2" pref="170" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -521,11 +529,14 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblSubtotal" max="32767" attributes="0"/>
-                          <Component id="lblTotal" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnFacturar" alignment="0" pref="43" max="32767" attributes="0"/>
-                          <Component id="lblTextTotal" max="32767" attributes="0"/>
+                          <Component id="lblSubtotal" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblTextTotal" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnFacturar" alignment="1" max="32767" attributes="0"/>
+                          <Component id="lblTotal" alignment="1" max="32767" attributes="0"/>
+                          <Component id="lblTextSubtotal1" alignment="1" max="32767" attributes="0"/>
                           <Component id="lblTextSubtotal" alignment="0" max="32767" attributes="0"/>
+                          <Component id="rbMpagoCredito" alignment="0" max="32767" attributes="0"/>
+                          <Component id="rbMpagoContado" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -574,46 +585,39 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnFacturar">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/recursos/cash-register_40x40.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Emitir Factura"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFacturarActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JRadioButton" name="rbMpagoCredito">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="bgMedioPago"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Cr&#xe9;dito"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="rbMpagoContado">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="bgMedioPago"/>
+                </Property>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Contado"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblTextSubtotal1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Medio de Pago:"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="btnAddProduct">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/recursos/f_add.png"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Agregar producto a la linea"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddProductActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnBusquedaAv">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/recursos/advanced_search.png"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBusquedaAvActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnAddImpuesto">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/recursos/add_impuesto.png"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Agregar impuesto"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddImpuestoActionPerformed"/>
-          </Events>
-        </Component>
         <Container class="javax.swing.JPanel" name="pnlAgregarProd">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -633,27 +637,27 @@
                               <Component id="btnAddProduct1" min="-2" pref="48" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtProducto" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lblTextExistencias" min="-2" pref="88" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblCantExistencia" min="-2" pref="80" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtCantidad" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnAgregarVarios" min="-2" pref="186" max="-2" attributes="0"/>
+                              <Component id="lblTextPrecioUnit" min="-2" pref="92" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="lblPrecioUnit" pref="87" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="scpnlList" pref="396" max="32767" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="lblTextExistencias" min="-2" pref="99" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                      <Component id="lblCantExistencia" min="-2" pref="80" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="lblTextPrecioUnit" min="-2" pref="100" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                      <Component id="lblPrecioUnit" min="-2" pref="80" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                          <Component id="scpnlList" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnBusquedaAv" min="-2" pref="101" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnAgregarVarios" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="txtCantidad" max="32767" attributes="0"/>
+                          <Component id="btnAddProduct" alignment="1" pref="210" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -662,31 +666,45 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnAddProduct1" pref="0" max="32767" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="txtCantidad" alignment="3" pref="34" max="32767" attributes="0"/>
-                              <Component id="txtProducto" alignment="3" pref="34" max="32767" attributes="0"/>
-                              <Component id="btnAgregarVarios" alignment="3" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="btnAddProduct1" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                              <Component id="txtProducto" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="txtCantidad" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
+                              <Component id="scpnlList" pref="0" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblCantExistencia" min="-2" pref="33" max="-2" attributes="0"/>
-                                  <Component id="lblTextExistencias" min="-2" pref="33" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblTextPrecioUnit" min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Component id="lblPrecioUnit" min="-2" pref="35" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="lblPrecioUnit" min="-2" pref="33" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblTextPrecioUnit" min="-2" pref="33" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="lblCantExistencia" max="32767" attributes="0"/>
+                                              <Component id="lblTextExistencias" pref="33" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
-                          <Component id="scpnlList" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="btnAddProduct" min="-2" pref="77" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btnBusquedaAv" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
+                                  <Component id="btnAgregarVarios" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -736,11 +754,13 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblTextPrecioUnit">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Precio Unitario"/>
+                <Property name="text" type="java.lang.String" value="Precio por vara"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblPrecioUnit">
               <Properties>
+                <Property name="toolTipText" type="java.lang.String" value="Precio por vara"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                     <LineBorder>
@@ -753,15 +773,18 @@
             <Component class="javax.swing.JButton" name="btnAgregarVarios">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/recursos/add.png"/>
+                  <Image iconType="3" name="/recursos/prod_varios_30x30.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Productos varios"/>
+                <Property name="toolTipText" type="java.lang.String" value="Agregar productos varios"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarVariosActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtProducto">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value="C&#xf3;digo del producto a buscar"/>
+              </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtProductoFocusGained"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtProductoKeyReleased"/>
@@ -773,7 +796,7 @@
             <Component class="javax.swing.JButton" name="btnAddProduct1">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/recursos/f_crearProducto.png"/>
+                  <Image iconType="3" name="/recursos/f_create_product_30.png"/>
                 </Property>
               </Properties>
               <Events>
@@ -781,12 +804,38 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtCantidad">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value="Cantidad solicitada en varas..."/>
+              </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCantidadFocusGained"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Cantidad en varas...&quot;, txtCantidad);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Cant. solicitada...&quot;, txtCantidad);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
               </AuxValues>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnAddProduct">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/recursos/f_add_40x40.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Agregar a la l&#xed;nea"/>
+                <Property name="toolTipText" type="java.lang.String" value="Agregar producto a la linea"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddProductActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnBusquedaAv">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/recursos/adv_search.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="B&#xfa;squeda avanzada de productos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBusquedaAvActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -806,19 +855,14 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="ftClienteFac" max="32767" attributes="0"/>
+                                  <Component id="lblTextClienteFac" min="-2" pref="125" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="ftClienteFac" max="32767" attributes="0"/>
-                                          <Component id="lblTextClienteFac" min="-2" pref="125" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtNomCliente" max="32767" attributes="0"/>
-                                          <Component id="lblClienteNom" pref="324" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Component id="cbxClientes" max="32767" attributes="0"/>
+                                  <Component id="txtNomCliente" max="32767" attributes="0"/>
+                                  <Component id="lblClienteNom" pref="324" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -831,6 +875,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="lblUsuarioFac" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="cbxClientes" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -848,26 +893,25 @@
                                   <Component id="lblClienteNom" pref="34" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="ftClienteFac" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="txtNomCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtNomCliente" pref="32" max="32767" attributes="0"/>
+                                  <Component id="ftClienteFac" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="cbxClientes" min="-2" pref="30" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="btnCrearCliente" min="-2" pref="34" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnBuscarCliente" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnBuscarCliente" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblUsuarioFac" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="lblTextUsuario" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cbxClientes" min="-2" pref="32" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lblUsuarioFac" max="32767" attributes="0"/>
+                          <Component id="lblTextUsuario" pref="36" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -973,66 +1017,13 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/recursos/delete.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Agregar impuesto"/>
+            <Property name="text" type="java.lang.String" value="Remover de la l&#xed;nea"/>
+            <Property name="toolTipText" type="java.lang.String" value="Remover producto de la l&#xed;nea de pedido"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarLineaActionPerformed"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JPanel" name="pnlMpagoContainer">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Medio de Pago:"/>
-              </Border>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="rbMpagoContado" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="18" max="32767" attributes="0"/>
-                      <Component id="rbMpagoCredito" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="rbMpagoContado" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="rbMpagoCredito" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JRadioButton" name="rbMpagoCredito">
-              <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="bgMedioPago"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Cr&#xe9;dito"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="rbMpagoContado">
-              <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="bgMedioPago"/>
-                </Property>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Contado"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
       </SubComponents>
     </Container>
   </SubComponents>

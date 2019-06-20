@@ -43,6 +43,9 @@ public class Mensaje {
             case CUSTOMER_INSERTION_SUCCESS:
                 msg = "La creación del cliente ha sido éxitosa";
                 break;
+            case CUSTOMER_NOT_FOUND:
+                msg = "No se encontró el cliente solicitado";
+                break;
             case CUSTOMER_INSERTION_FAILURE:
                 msg = "Ha ocurrido un error en la creación del cliente";
                 break;

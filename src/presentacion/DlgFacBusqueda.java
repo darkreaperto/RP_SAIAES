@@ -6,7 +6,11 @@
 package presentacion;
 
 import controladores.CtrMadera;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Madera;
@@ -67,7 +71,13 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
      */
     public void cargarProductosJTable(JTable tabla, String paramProd, int codBusq) {
         Object[] row = new Object[9];
-        productos = ctrInventario.busqAvzProductos(paramProd, codBusq);
+        try {
+            productos = ctrInventario.busqAvzProductos(paramProd, codBusq);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error de SQL:\n" + ex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(DlgFacBusqueda.class.getName()).log(Level.SEVERE, null, ex);
+        }
         model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0);
         model.setColumnCount(7);
@@ -83,7 +93,7 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
             row[5] = productos.get(i).getPrecioXvara();
             row[6] = productos.get(i).getDescripcion();                
             row[7] = productos.get(i).getCodigo();
-                
+            
             model.addRow(row);            
         }
         

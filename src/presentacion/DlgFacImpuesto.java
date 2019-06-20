@@ -46,6 +46,7 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
         ctrImpuesto = new CtrImpuesto();
         ctrExoneracion = new CtrExoneracion();
         pnlExoneracion.setVisible(false);
+        ckbExonerar.setVisible(false);
     }
     /**
      * 

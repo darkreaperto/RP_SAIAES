@@ -28,6 +28,8 @@ public enum TipoMensaje {
     CONFIRM_RESET_PASSWORD_CANCEL,
     
     CUSTOMER_INSERTION_FAILURE,
+    /**Identificador del mensaje: No se encontró el cliente solicitado**/
+    CUSTOMER_NOT_FOUND,
     
     CUSTOMER_UPDATE_FAILURE,
     
