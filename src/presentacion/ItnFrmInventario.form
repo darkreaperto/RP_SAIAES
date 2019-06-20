@@ -441,6 +441,7 @@
                                 <StringItem index="1" value="RESTAR"/>
                               </StringArray>
                             </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
@@ -466,6 +467,9 @@
                           </SubComponents>
                         </Container>
                         <Component class="javax.swing.JTextField" name="txtActAcBuscTrz">
+                          <Events>
+                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtActAcBuscTrzKeyReleased"/>
+                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="placeholder = new TextPrompt(&quot;Buscar troza de origen...&quot;, txtActAcBuscTrz);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
                           </AuxValues>
@@ -2838,6 +2842,7 @@
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="bgDeshab"/>
                         </Property>
+                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="Deshabilitar"/>
                       </Properties>
                     </Component>

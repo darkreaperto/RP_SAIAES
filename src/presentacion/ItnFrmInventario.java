@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Madera;
 import logica.negocio.Proveedor;
@@ -928,12 +929,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     }
     
     /**
-     * Preparar la información ingresada en la interfaz para sumar a una aserrada
-     * y restar en una troza y luego enviarlo a actualizar.
+     * Suma unidades al registro de madera aserrada seleccionado.
      */
-    private void prepararSumResAserr(){
+    private void sumarAserrada() {
         if (!txtActAcEntra.getText().isEmpty() && 
-                txtActAcSalenPulg.getText().isEmpty()) {
+                !txtActAcSalenPulg.getText().isEmpty()) {
             try {
                 double cVarasEntra = Double.valueOf(txtActAcEntra.getText());
                 double cPulgSale = Double.valueOf(txtActAcSalenPulg.getText());
@@ -944,34 +944,128 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 String codRegAserrada = 
                         (String) model.getValueAt(indiceFila, 7);
                 //Obtener código de la troza que se seleccionó en la lista
-                DefaultListModel lista = 
-                        (DefaultListModel) lsActAsSelTrz.getModel();
-                int filaLsTroza = lsActAsSelTrz.getSelectedIndex();
-                Troza trozaRestar = (Troza) lista.get(filaLsTroza);
+                ListModel lista = lsActAsSelTrz.getModel();
                 
-                boolean sumaAserrada = ctrMadera.sumarRegMadera("ASERRADA", 
-                        cVarasEntra, codRegAserrada);
-                boolean restaTroza = ctrTroza.restarRegMadera("TROZA", 
-                        cPulgSale, trozaRestar.getCodigo());
-                if(sumaAserrada && restaTroza) {
-                    cargarTablas();
-                    cargarCombos();
-                    limpiarCampos("ACTUALIZAR", "ASERRADA");
+                System.out.println("LSACTASSELTRZ DATA MODEL: ");
+                
+                if (lista != null) {
+                    int filaLsTroza = lsActAsSelTrz.getSelectedIndex();
+
+                    Troza trozaRestar = (Troza) lista.getElementAt(filaLsTroza);
+
+                    boolean sumaAserrada = ctrMadera.sumarRegMadera("ASERRADA", 
+                            cVarasEntra, codRegAserrada);
+                    boolean restaTroza = ctrTroza.restarRegMadera("TROZA", 
+                            cPulgSale, trozaRestar.getCodigo());
+                    if(sumaAserrada && restaTroza) {
+                        cargarTablas();
+                        cargarCombos();
+                        limpiarCampos("ACTUALIZAR", "ASERRADA");
+                    } else {
+                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                                TipoMensaje.PRODUCT_SUM_RES_FAILURE);
+                    }
                 } else {
                     msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.PRODUCT_SUM_RES_FAILURE);
-                }                
+                }          
             } catch (NumberFormatException ex) {
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.NUMBER_FORMAT_EXCEPTION);
-            }catch (NullPointerException ex) {
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.ANY_ROW_SELECTED);
+            } catch (NullPointerException ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.SOMETHING_WENT_WRONG);
+            } catch (Exception ex) {
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.SOMETHING_WENT_WRONG);
             }
         } else {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.EMPTY_TEXT_FIELD);
-        } 
+        }
+    }
+    
+    /**
+     * Resta unidades al registro de madera aserrada seleccionado.
+     */
+    private void restarAserrada() {
+        if (!txtActAcEntra.getText().isEmpty() && 
+                !txtActAcSalenPulg.getText().isEmpty()) {
+            try {
+                double cVarasEntra = Double.valueOf(txtActAcEntra.getText());
+                double cPulgSale = Double.valueOf(txtActAcSalenPulg.getText());
+                
+                //Obtener codigo de la madera aserrada que se seleccionó
+                model = (DefaultTableModel) tbActAserrada.getModel();
+                int indiceFila = tbActAserrada.getSelectedRow();
+                String codRegAserrada = 
+                        (String) model.getValueAt(indiceFila, 7);
+                //Obtener código de la troza que se seleccionó en la lista
+                ListModel lista = lsActAsSelTrz.getModel();
+                
+                System.out.println("LSACTASSELTRZ DATA MODEL: ");
+                
+                if (lista != null) {
+                    int filaLsTroza = lsActAsSelTrz.getSelectedIndex();
+
+                    Troza trozaRestar = (Troza) lista.getElementAt(filaLsTroza);
+
+                    boolean sumaAserrada = ctrMadera.sumarRegMadera("ASERRADA", 
+                            cVarasEntra, codRegAserrada);
+                    boolean restaTroza = ctrTroza.restarRegMadera("TROZA", 
+                            cPulgSale, trozaRestar.getCodigo());
+                    if(sumaAserrada && restaTroza) {
+                        cargarTablas();
+                        cargarCombos();
+                        limpiarCampos("ACTUALIZAR", "ASERRADA");
+                    } else {
+                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                                TipoMensaje.PRODUCT_SUM_RES_FAILURE);
+                    }
+                } else {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.PRODUCT_SUM_RES_FAILURE);
+                }          
+            } catch (NumberFormatException ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.NUMBER_FORMAT_EXCEPTION);
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.ANY_ROW_SELECTED);
+            } catch (NullPointerException ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.SOMETHING_WENT_WRONG);
+            } catch (Exception ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.SOMETHING_WENT_WRONG);
+            }
+        } else {
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.EMPTY_TEXT_FIELD);
+        }
+    }
+    
+    /**
+     * Preparar la información ingresada en la interfaz para sumar a una aserrada
+     * y restar en una troza y luego enviarlo a actualizar.
+     */
+    private void prepararSumResAserr(String operacion){
+        operacion = operacion.toUpperCase();
+        
+        switch (operacion) {
+            case "SUMAR":
+                sumarAserrada();
+                break;
+            case "RESTAR":
+                restarAserrada();
+                break;
+            default:
+                sumarAserrada();
+                break;
+        }
     }
     
     /**
@@ -1167,6 +1261,18 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     TipoMensaje.ANY_ROW_SELECTED);
         } 
     }
+    
+    private void buscarTrozaOrigen(String text) {
+        ArrayList<Troza> tempTrozas = ctrTroza.consultarTrozas(text);
+        
+        DefaultListModel<Troza> mTrozas = new DefaultListModel<>();
+        for (Troza tr: tempTrozas) {
+            mTrozas.addElement(tr);
+        }
+        
+        lsActAsSelTrz.setModel(mTrozas);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1492,8 +1598,15 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         });
 
         cbxActAcOp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SUMAR", "RESTAR" }));
+        cbxActAcOp.setEnabled(false);
 
         spActAsSelTrz.setViewportView(lsActAsSelTrz);
+
+        txtActAcBuscTrz.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtActAcBuscTrzKeyReleased(evt);
+            }
+        });
 
         lblActAcSalen.setText("Sale:");
 
@@ -2609,6 +2722,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         pnlDeshabContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Activo:"));
 
         bgDeshab.add(rbDeshabDeshabProducto);
+        rbDeshabDeshabProducto.setSelected(true);
         rbDeshabDeshabProducto.setText("Deshabilitar");
 
         bgDeshab.add(rbDeshabHabilitarProducto);
@@ -2704,7 +2818,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_deshabilitarActionPerformed
 
     private void btnActualizarAserradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarAserradaActionPerformed
-        prepararSumResAserr();
+        prepararSumResAserr(cbxActAcOp.getSelectedItem().toString());
     }//GEN-LAST:event_btnActualizarAserradaActionPerformed
 
     private void txtListadoInventarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtListadoInventarioKeyReleased
@@ -2788,6 +2902,15 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private void tblEditarAserradaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditarAserradaMouseClicked
         cargarEditarProducto();
     }//GEN-LAST:event_tblEditarAserradaMouseClicked
+
+    private void txtActAcBuscTrzKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtActAcBuscTrzKeyReleased
+        if (txtActAcBuscTrz.getText().trim().isEmpty()) {
+            System.out.println("LIST IS EMPTY!");
+            lsActAsSelTrz.setModel(new DefaultListModel());
+        } else {
+            buscarTrozaOrigen(txtActAcBuscTrz.getText().trim());
+        }
+    }//GEN-LAST:event_txtActAcBuscTrzKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
