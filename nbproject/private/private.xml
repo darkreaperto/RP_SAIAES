@@ -3,12 +3,31 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmInventario.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrTipoProducto.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Direccion.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/servicios/Mensaje.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrConexion.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmAccesoUsuario.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/DlgFacImpuesto.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrTarea.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/DlgFacBusqueda.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/util/TipoMensaje.java</file>
-            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrMadera.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Exoneracion.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrUsuario.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlMadera.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmFacturacion.java</file>
-            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/servicios/Mensaje.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/FacReferencia.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/LineaDetalle.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlCliente.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrCliente.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrProveedor.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrMadera.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/FrmPrincipal.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmProveedor.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrDireccion.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlProveedor.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/DlgFacExoneracion.java</file>
         </group>
     </open-files>
 </project-private>
