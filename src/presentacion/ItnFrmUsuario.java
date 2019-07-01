@@ -5,12 +5,18 @@
  */
 package presentacion;
 
+import bd.Procedimiento;
 import logica.servicios.Mensaje;
 import util.Estado;
 import logica.servicios.AESEncrypt;
 import controladores.CtrAcceso;
+import controladores.CtrConexion;
 import controladores.CtrUsuario;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +34,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     private static ItnFrmUsuario instancia = null;
     private static AESEncrypt crypter;
     private static Mensaje msg;
+    private static CtrConexion ctrCon;
+    private static Procedimiento proc;
     private static CtrUsuario controlador;
     private static ArrayList<Usuario> usuarios;
     private static CtrAcceso sesion;
@@ -44,6 +52,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
         initComponents();
         //Inicializar variables
         controlador = CtrUsuario.getInstancia();
+        ctrCon = new CtrConexion();
+        proc = new Procedimiento();
         crypter = new AESEncrypt();
         crypter.addKey("SAI");
         msg = new Mensaje();
@@ -75,7 +85,23 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
     public void cargarTablas() {
         //usuarios.clear();
         usuarios = controlador.obtenerUsuarios();
-        cargarUsuariosJTable(tbl_usuarioListado, true);
+        
+        try {
+            ctrCon.abrirConexion();
+            proc.cargarTabla(proc.procWithoutParam("obtener_usuarios"), tbl_usuarioListado);
+            
+            //los indices de columna a borrar se contaron tomando en 
+            //consideración que la columna anterior a ellos ya ha sido borrada
+            tbl_usuarioListado.removeColumn(tbl_usuarioListado.getColumnModel().getColumn(0));
+            tbl_usuarioListado.removeColumn(tbl_usuarioListado.getColumnModel().getColumn(1));
+            tbl_usuarioListado.removeColumn(tbl_usuarioListado.getColumnModel().getColumn(2));
+            tbl_usuarioListado.removeColumn(tbl_usuarioListado.getColumnModel().getColumn(3));
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "ERROR SQL: " + ex.getMessage());
+        }
+        
+        //cargarUsuariosJTable(tbl_usuarioListado, true);
         cargarUsuariosJTable(tbl_usuarioCreado, true);
         cargarUsuariosJTable(tbl_deshabilitar, true);
         cargarUsuariosJTable(tbl_habilitar, false);
@@ -301,6 +327,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 model.addRow(row);
             }
         }
+       
     }
 
     /**
