@@ -6,7 +6,6 @@
 package logica.negocio;
 
 import java.util.ArrayList;
-import util.Estado;
 import util.TipoCedula;
 
 /**
@@ -15,13 +14,11 @@ import util.TipoCedula;
  */
 public class Persona {
     
-    private String codigo;
-    private String nombre;
     private String cedula;
     private TipoCedula tipoCed;
+    private String nombre;
     private Direccion dir;
     private ArrayList<Contacto> contactos;
-    private Estado estado;
     
     /**
      * Constructor vacío de clase persona.
@@ -31,41 +28,22 @@ public class Persona {
     }
     /**
      * Constructor de clase persona, inicializa variables.
-     * @param codigo codigo persona.
      * @param nombre nombre persona.
      * @param cedula cedula persona.
      * @param tipoCed tipo de cédula de la persona (física o jurídica).
      * @param dir codigo de la direccion de la persona.
      * @param contactos contactos persona.
-     * @param estado Estado de persona.
      */
-    public Persona(String codigo, String nombre, String cedula, String tipoCed, 
-            Direccion dir, ArrayList<Contacto> contactos, String estado) {
-        this.codigo = codigo;
+    public Persona(String cedula, String nombre, String tipoCed, 
+            Direccion dir, ArrayList<Contacto> contactos) {
         this.nombre = nombre;
         this.cedula = cedula;
         this.tipoCed = tipoCed.toUpperCase().equals("FISICA") ? 
                 TipoCedula.FISICA : TipoCedula.JURIDICA;
         this.dir = dir;
         this.contactos = contactos;
-        this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
     }
-    /**
-     * Obtener código de persona.
-     * @return el codigo
-     */
-    public String getCodigo() {
-        return codigo;
-    }
-
-    /**
-     * Establecer código de persona
-     * @param codigo el codigo
-     */
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
+    
     /**
      * Obtener nombre de persona.
      * @return El nombre.
@@ -144,21 +122,5 @@ public class Persona {
      */
     public void setContactos(ArrayList<Contacto> contactos) {
         this.contactos = contactos;
-    }
-    
-    /**
-     * Obtener el estado.
-     * @return El estado
-     */
-    public Estado getEstado() {
-        return estado;
-    }
-
-    /**
-     * Establecer estado de persona
-     * @param estado El estado.
-     */
-    public void setEstado(Estado estado) {
-        this.estado = estado;
     }
 }

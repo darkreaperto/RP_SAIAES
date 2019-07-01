@@ -6,6 +6,7 @@
 package logica.negocio;
 
 import java.util.ArrayList;
+import util.Estado;
 
 /**
  * Instancia los clientes con sus atributos.
@@ -13,9 +14,9 @@ import java.util.ArrayList;
  */
 public class Cliente extends Persona {
     
-    private String codCliente;
     private double limiteCredito;
     private boolean aprobarCredito;
+    private Estado estado;
     
     /**
      * Constructor de clase Cliente.
@@ -26,43 +27,25 @@ public class Cliente extends Persona {
     
     /**
      * Constructor de clase cliente, con parámetros.
-     * @param codigo Código de persona.
-     * @param nombre Nombre de persona.
      * @param cedula Cédula de persona.
      * @param tipoCed El tipo decédula de la persona (física o jurídica).
+     * @param nombre Nombre de persona.
+     * @param dir dirección de la persona
      * @param limiteCredito Limite credito de persona.
      * @param aprobarCredito Si aprobar credito de persona.
-     * @param dir dirección de la persona
-     * @param contacto Lista contactos de persona.
-     * @param codCliente Codigo de cliente.
      * @param estado Estado de persona.
+     * @param contactos Lista contactos de persona.
      */
-    public Cliente(String codigo, String nombre, String cedula, String tipoCed, 
-            double limiteCredito, boolean aprobarCredito, Direccion dir, 
-            ArrayList<Contacto> contacto, String codCliente, String estado) {
+    public Cliente(String cedula, String tipoCed, String nombre, Direccion dir, 
+            double limiteCredito, boolean aprobarCredito, 
+            String estado, ArrayList<Contacto> contactos) {
         
-        super(codigo, nombre, cedula, tipoCed, dir, contacto, estado);
-        this.codCliente = codCliente;
+        super(cedula, tipoCed, nombre, dir, contactos);
         this.limiteCredito = limiteCredito;
         this.aprobarCredito = aprobarCredito;
+        this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
     }
 
-    /**
-     * Obtener codigo de cliente.
-     * @return el codigo de cliente. 
-    */
-    public String getCodCliente() {
-        return codCliente;
-    }
-
-    /**
-     * Establecer codigo de cliente.
-     * @param codCliente el codigo de cliente
-     */
-    public void setCodCliente(String codCliente) {
-        this.codCliente = codCliente;
-    }
-    
     /**
      * Obtener límite de crédito de persona.
      * @return El limiteCredito
@@ -93,6 +76,22 @@ public class Cliente extends Persona {
      */
     public void setAprobarCredito(boolean aprobarCredito) {
         this.aprobarCredito = aprobarCredito;
+    }
+    
+    /**
+     * Obtener el estado.
+     * @return El estado
+     */
+    public Estado getEstado() {
+        return estado;
+    }
+
+    /**
+     * Establecer estado de persona
+     * @param estado El estado.
+     */
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
     
     /**
