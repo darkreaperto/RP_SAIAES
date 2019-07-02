@@ -45,8 +45,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     private static ArrayList<Contacto> editarCorreos;
     private static DefaultTableModel model;
     private final Regex verificacion;
-    private int masTelefono = 1;
-    private int masCorreo = 1;
     
     /**
      * Instancia un nuevo formulario interno de clientes.
@@ -237,11 +235,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cédula", "T. Cédula", "Nombre", "Crédito", "Límite de crédito", "Contactos", "Dirección", "Cod. Cliente", "Codigo"
+                "Cédula", "T. Cédula", "Nombre", "Crédito", "Límite de crédito", "Contactos", "Dirección"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -403,18 +401,18 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         pnl_agregar.add(pnlCrearContactoCliente);
-        pnlCrearContactoCliente.setBounds(351, 16, 466, 270);
+        pnlCrearContactoCliente.setBounds(351, 16, 462, 270);
 
         tbl_crear.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cédula", "T. Cédula", "Nombre", "Crédito", "Límite de Crédito", "Contactos", "Dirección", "Cod. Cliente", "Codigo"
+                "Cédula", "T. Cédula", "Nombre", "Crédito", "Límite de Crédito", "Contactos", "Dirección"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -435,7 +433,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         });
         pnl_agregar.add(btnCrearCliente);
-        btnCrearCliente.setBounds(1063, 524, 107, 35);
+        btnCrearCliente.setBounds(1063, 524, 95, 35);
 
         pnlCrearInfoBase.setBorder(javax.swing.BorderFactory.createTitledBorder("Información Básica:"));
 
@@ -566,7 +564,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         pnl_agregar.add(pnlCrearInfoBase);
-        pnlCrearInfoBase.setBounds(25, 13, 314, 279);
+        pnlCrearInfoBase.setBounds(25, 13, 310, 279);
 
         pnlCrearDireccion.setBorder(javax.swing.BorderFactory.createTitledBorder("Dirección:"));
 
@@ -665,7 +663,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         pnl_agregar.add(pnlCrearDireccion);
-        pnlCrearDireccion.setBounds(829, 13, 341, 279);
+        pnlCrearDireccion.setBounds(829, 13, 336, 279);
 
         tb_modCliente.addTab("Agregar cliente", pnl_agregar);
 
@@ -674,11 +672,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cédula", "T. Cédula", "Nombre", "Crédito", "Límite de Crédito", "Contactos", "Dirección", "Cod. Cliente", "Codigo"
+                "Cédula", "T. Cédula", "Nombre", "Crédito", "Límite de Crédito", "Contactos", "Dirección"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1113,11 +1111,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cédula", "T. Cédula", "Nombre", "Crédito", "Límite de crédito", "Contacto", "Dirección", "Cod. Cliente", "Codigo"
+                "Cédula", "T. Cédula", "Nombre", "Crédito", "Límite de crédito", "Contacto", "Dirección"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1145,11 +1143,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cédula ", "T. Cédula", "Nombre", "Crédito", "Límite de crédito", "Contacto", "Dirección", "Cod. Cliente", "Codigo"
+                "Cédula ", "T. Cédula", "Nombre", "Crédito", "Límite de crédito", "Contacto", "Dirección"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1293,7 +1291,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
      * @param estado Indica si el cliente está o no inactivo
      */
     public void cargarClientesJTable(JTable tabla, boolean estado) {
-        Object[] row = new Object[9];
+        Object[] row = new Object[7];
         model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0);
         model.setColumnCount(9);
@@ -1328,8 +1326,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         + "</body></html>";
                 }
                 row[6] = dir;
-                row[7] = c.getCodCliente(); //codigo de cliente
-                row[8] = c.getCodigo(); //codigo de persona
                 
                 model.addRow(row);
                 
@@ -1366,8 +1362,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         + "</body></html>";
                 }
                 row[6] = dir;
-                row[7] = c.getCodCliente(); //codigo de cliente
-                row[8] = c.getCodigo(); //codigo de persona
                 
                 model.addRow(row);
                 
@@ -1377,9 +1371,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 i++;
             }
         }
-        
-        tabla.removeColumn(tabla.getColumnModel().getColumn(7));
-        tabla.removeColumn(tabla.getColumnModel().getColumn(7));
     }
     
     /**
@@ -1642,16 +1633,15 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     
     /**
      * Crea un nuevo cliente en la BD con la información enviada por parámetro.
-     * @param nombre nombre del cliente
-     * @param apellido1 primer apellido del cliente
-     * @param apellido2 segundo apellido del cliente
      * @param cedula cedula del cliente
+     * @param tipoCed tipo de cédula del cliente
+     * @param nombre nombre del cliente
      * @param limiteCred límite de crédito asignado
      * @param aprobarCred si tiene o no crédito permitido
      * @param contactos contactos del cliente
      */
-    private void agregarCliente(String nombre, String tipoCed, String cedula, 
-            String limiteCred, boolean aprobarCred, Direccion direc, 
+    private void agregarCliente(String cedula, String tipoCed, String nombre,
+            Direccion direc, String limiteCred, boolean aprobarCred, 
             ArrayList<ArrayList<Object>> contactos) {
           
         if (!nombre.isEmpty()) {
@@ -1661,9 +1651,8 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 limiteCredito = Double.valueOf(limiteCred);
                 System.out.println(limiteCredito);
 
-                boolean creado = controlador.crearCliente(nombre, cedula, 
-                        tipoCed, limiteCredito, aprobarCred, direc,
-                        contactos);
+                boolean creado = controlador.crearCliente(cedula, tipoCed, 
+                        nombre, direc, limiteCredito, aprobarCred, contactos);
 
                 if (creado) {
                     msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
@@ -1690,17 +1679,14 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     
     /**
      * Actualiza la información de los clientes.
-     * @param nombre nombre del cliente
-     * @param apellido1 primer apellido del cliente
-     * @param apellido2 segundo apellido del cliente
      * @param cedula cedula del cliente
+     * @param nombre nombre del cliente
      * @param limiteCred límite de crédito asignado 
      * @param aprobarCred si tiene o no crédito permitido
      * @param codPersona codigo de persona para enlazar en la tabla de la BD
      */
-    private void actualizarCliente(String nombre, String cedula, String tipoCed, 
-            String limiteCred, boolean aprobarCred, Direccion dir, 
-            String codPersona, String codCliente) {
+    private void actualizarCliente(String cedula, String nombre, 
+            Direccion dir, String limiteCred, boolean aprobarCred) {
         
         if (!nombre.isEmpty()) {
 
@@ -1708,9 +1694,8 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             try {
                 limiteCredito = Double.valueOf(limiteCred);
                 
-                boolean actualizado = controlador.actualizarCliente(nombre, 
-                        cedula, tipoCed, limiteCredito, aprobarCred, dir, 
-                        codPersona, codCliente);
+                boolean actualizado = controlador.actualizarCliente(cedula, 
+                        nombre, dir, limiteCredito, aprobarCred);
 
                 if (actualizado) {
                     System.out.println("Yay!");
@@ -1765,11 +1750,10 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         String limiteCred = txt_crear_limiteCliente.getText().trim().isEmpty() ? 
                 "0" : txt_crear_limiteCliente.getText().trim();
         
-        agregarCliente(txt_crear_nombreCliente.getText().trim(), 
-                ( (TipoCedula) cbxCrearTipoCedula.getSelectedItem() ).name(),
-                txt_crear_cedulaCliente.getText().trim(), 
-                limiteCred, credito, prepararDireccion(false, 1),
-                contactos);
+        agregarCliente( txt_crear_cedulaCliente.getText().trim(),
+                ( (TipoCedula) cbxCrearTipoCedula.getSelectedItem() ).name(), 
+                txt_crear_nombreCliente.getText().trim(), 
+                prepararDireccion(false, 1), limiteCred, credito, contactos);
     }
     
     /**
@@ -1829,26 +1813,21 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                     || rbEditarCredito.isSelected() ? 
                     "0.0" : txtEditarLimiteCliente.getText().trim();
             
-            String codPersona = (String) model.getValueAt(indiceFila, 8);
-            System.out.println("CODIGO PER EDITAR PERSONA: " + codPersona);
-            
-            String codCliente = (String) model.getValueAt(indiceFila, 7);
-            System.out.println("CODIGO PER EDITAR CLIENTE: " + codCliente);
+            String cedPersona = (String) model.getValueAt(indiceFila, 0);
+            System.out.println("CODIGO PER EDITAR PERSONA: " + cedPersona);
             
             int codDir = 0;
             for (int i = 0; i < clientes.size(); i++) {
-                if(clientes.get(i).getCodigo().equals(codPersona)) {
+                if(clientes.get(i).getCedula().equals(cedPersona)) {
                     if(clientes.get(i).getDireccion()!= null) {
                         codDir = clientes.get(i).getDireccion().getCodigo();
                     }
                 }
             }
                         
-            actualizarCliente(txtEditarNombreCliente.getText().trim(), 
-                    txtEditarCedulaCliente.getText().trim(), 
-                    ( (TipoCedula) cbxEditarTipoCedula.getSelectedItem() ).name(),
-                    limiteCred, credito, prepararDireccion(true, codDir), 
-                    codPersona, codCliente);
+            actualizarCliente(txtEditarCedulaCliente.getText().trim(),
+                    txtEditarNombreCliente.getText().trim(), 
+                    prepararDireccion(true, codDir), limiteCred, credito);
             
         } catch (ArrayIndexOutOfBoundsException ex) {
             ex.printStackTrace();
@@ -1957,11 +1936,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                     for (Cliente c: clientes) {
                         if (c.getCedula().equals(cedula)) {
                             controlador.crearContacto(
-                                TipoContacto.TELEFONO, telefono, c.getCodigo());
+                                telefono, c.getCedula(), TipoContacto.TELEFONO);
                             editarTelefonos = new ArrayList<>();
                             
-                            for (Contacto ct: controlador.obtenerContactos(
-                                    c.getCodigo())) {
+                            for (Contacto ct: controlador.consultarContactos(
+                                    c.getCedula())) {
                                 if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
                                     editarTelefonos.add(ct);
                                     DefaultListModel<String> m = 
@@ -1998,12 +1977,12 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         tbl_editar.getModel().getValueAt(indice, 0).toString();
                     for (Cliente c: clientes) {
                         if (c.getCedula().equals(cedula)) {
-                            controlador.crearContacto(TipoContacto.CORREO, 
-                                    correo, c.getCodigo());
+                            controlador.crearContacto(correo, c.getCedula(), 
+                                    TipoContacto.CORREO);
                             editarCorreos = new ArrayList<>();
                             
-                            for (Contacto ct: controlador.obtenerContactos(
-                                    c.getCodigo())) {
+                            for (Contacto ct: controlador.consultarContactos(
+                                    c.getCedula())) {
                                 if (ct.getTipo().equals(TipoContacto.CORREO)) {
                                     editarCorreos.add(ct);
                                     DefaultListModel<String> m = 

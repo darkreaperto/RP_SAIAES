@@ -15,8 +15,9 @@ import java.util.ArrayList;
 import logica.negocio.Cliente;
 import logica.negocio.Contacto;
 import logica.negocio.Direccion;
-import logica.servicios.AESEncrypt;
 import logica.servicios.Mensaje;
+import util.Estado;
+import util.TipoCedula;
 import util.TipoContacto;
 
 /**
@@ -28,8 +29,6 @@ public class MdlCliente {
     /** Controlador de conexión. */
     private static CtrConexion conexion;
     /** Variable para encriptar datos. */
-    private static AESEncrypt crypter;
-    /** Procedimiento a ejecutar en la base. */
     private static String procedimiento;
     /** Resultado de las consultas a la base. */
     private static ResultSet resultado;
@@ -46,8 +45,6 @@ public class MdlCliente {
      */
     public MdlCliente() {
         conexion = new CtrConexion();
-        crypter = new AESEncrypt();        
-        crypter.addKey("SAI");
         msgError = new Mensaje();
         ctrContacto = CtrContacto.getInstancia();
         ctrDireccion = CtrDireccion.getInstancia();
@@ -65,31 +62,27 @@ public class MdlCliente {
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento);
 
-            String codPersona;
-            String nombrePersona;
             String cedulaPersona;
             String tipoCedPersonas;
+            String nombrePersona;
+            String codDireccion;
+            Direccion dirPersona;
             double limiteCredPersona;
             boolean aprobarCredPersona;
-            String codDireccion;
-            String codCliente;
             String estadoCliente;
             ArrayList<Contacto> contactos;
-            Direccion dirPersona;
 
             while (resultado.next()) {
                 
-                codPersona = resultado.getString("cod_Personas");
-                nombrePersona = resultado.getString("nom_Personas");
                 cedulaPersona = resultado.getString("ced_Personas");
                 tipoCedPersonas = resultado.getString("tipoCed_Personas");
+                nombrePersona = resultado.getString("nom_Personas");
+                codDireccion = resultado.getString("codDireccion_Personas");
                 limiteCredPersona = resultado.getDouble("limCred_Clientes");
                 aprobarCredPersona = resultado.getBoolean("aprobCred_Clientes");
-                codDireccion = resultado.getString("codDireccion_Personas");
-                codCliente = resultado.getString("cod_Clientes");
                 estadoCliente = resultado.getString("estado_Clientes");
                 
-                contactos = ctrContacto.consultarContactos(codPersona);
+                contactos = ctrContacto.consultarContactos(cedulaPersona);
                 System.out.println("HERE: " + codDireccion);
                 if(codDireccion == null) {
                     dirPersona = null;
@@ -98,10 +91,9 @@ public class MdlCliente {
                 }
                 
                 Cliente cliente
-                        = new Cliente(codPersona, nombrePersona, cedulaPersona, 
-                                tipoCedPersonas, limiteCredPersona, 
-                                aprobarCredPersona, dirPersona, contactos, 
-                                codCliente, estadoCliente);
+                        = new Cliente(cedulaPersona, tipoCedPersonas, 
+                                nombrePersona, dirPersona, limiteCredPersona, 
+                                aprobarCredPersona, estadoCliente, contactos);
 
                 if (!clientes.contains(cliente)) {
                     clientes.add(cliente);
@@ -116,23 +108,19 @@ public class MdlCliente {
         }
     }
     
-    public ArrayList<Contacto> obtenerContactos(String codPersona) {
-        return ctrContacto.consultarContactos(codPersona);
-    }
-
     /**
      * Inserta un nuevo cliente en la BD.
-     * @param nombre nombre del cliente.
      * @param cedula cédula del cliente.
      * @param tipoCed tipo de cédula del cliente.
+     * @param nombre nombre del cliente.
+     * @param dir dirección del cliente.
      * @param limiteCred límite de crédito del cliente.
      * @param aprobarCred aprobar crédito.
-     * @param dir dirección del cliente.
      * @param contactos contactos del cliente.
      * @return verdadero si la inserción fue éxitosa.
      */
-    public boolean crearCliente(String nombre, String cedula, String tipoCed, 
-            double limiteCred, boolean aprobarCred, Direccion dir, 
+    public boolean crearCliente(String cedula, String tipoCed, String nombre, 
+            Direccion dir, double limiteCred, boolean aprobarCred, 
             ArrayList<ArrayList<Object>> contactos) {
         
         int codDireccion = 0;
@@ -143,12 +131,12 @@ public class MdlCliente {
         }
         
         ArrayList<Object> params = new ArrayList<>();
-        params.add(nombre);
         params.add(cedula);
         params.add(tipoCed);
+        params.add(nombre);
+        params.add(codDireccion);
         params.add(limiteCred);
         params.add(aprobarCred);
-        params.add(codDireccion);
         params.add(Types.BIGINT);
 
         boolean creacionExitosa = true;
@@ -189,38 +177,22 @@ public class MdlCliente {
         }
     }
     
-    public boolean crearContacto(TipoContacto tipo, String info, String codPersona) {
-        return ctrContacto.crearContacto(info, codPersona, tipo);
-    }
-    
-    public boolean inactivarContacto(String codigo) {
-        return ctrContacto.inactivarContacto(codigo);
-    }
-
     /**
      * Actualiza toda la información del cliente en la BD.
-     * @param nombre nombre del cliente.
      * @param cedula cédula del cliente.
-     * @param tipoCed tipo de cèdula del cliente.
+     * @param nombre nombre del cliente.
+     * @param dir dirección del cliente.
      * @param limiteCred lìmite de crèdito del cliente.
      * @param aprobarCred aprobar crédito.
-     * @param dir dirección del cliente.
-     * @param codPersona código de persona.
-     * @param codCliente código del cliente.
      * @return verdadero si la actualización fue éxitosa.
      */
-    public boolean actualizarCliente(String nombre, String cedula, 
-            String tipoCed, double limiteCred, boolean aprobarCred, 
-            Direccion dir, String codPersona, String codCliente) {
+    public boolean actualizarCliente(String cedula, String nombre, 
+            Direccion dir, double limiteCred, boolean aprobarCred) {
         
         ArrayList<Object> params = new ArrayList<>();
-        params.add(nombre);
         params.add(cedula);
-        params.add(tipoCed);
-        params.add(limiteCred);
-        params.add(aprobarCred);
+        params.add(nombre);
         
-
         boolean creacionExitosa = false;
         try {
             int codDir = 0;
@@ -237,18 +209,19 @@ public class MdlCliente {
                 }
             }
             params.add(codDir);
+            params.add(limiteCred);
+            params.add(aprobarCred);
             
-            params.add(codPersona);
-            params.add(codCliente);
-            
-            procedimiento = "pc_actualizar_cliente(?, ?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_actualizar_cliente(?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
             creacionExitosa = true;
 
         } catch (SQLException ex) {
-            creacionExitosa = false;
+            System.err.println(ex);
+            ex.printStackTrace();
+        } catch (Exception ex) {
             System.err.println(ex);
             ex.printStackTrace();
         } finally {
@@ -329,35 +302,31 @@ public class MdlCliente {
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
 
-            String codPersona;
-            String nombre;
             String cedula;
             String tipoCed;
+            String nombre;
+            String codDireccion;
+            Direccion direccion;
             double limiteCred;
             boolean aprobarCred;
-            String codDireccion;
-            String codCliente;
             String estadoCliente;
-            Direccion direccion;
 
             while (resultado.next()) {
-                codPersona = resultado.getString("cod_Personas");
-                nombre = resultado.getString("nom_Personas");
                 cedula = resultado.getString("ced_Personas");
                 tipoCed = resultado.getString("tipoCed_Personas");
+                nombre = resultado.getString("nom_Personas");
+                codDireccion = resultado.getString("codDireccion_Personas");
                 limiteCred = resultado.getFloat("limCred_Clientes");
                 aprobarCred = resultado.getInt("aprobCred_Clientes") == 1;
-                codDireccion = resultado.getString("codDireccion_Personas");
-                codCliente = resultado.getString("cod_Clientes");
                 estadoCliente = resultado.getString("estado_Clientes");
 
-                ArrayList<Contacto> contactos = ctrContacto.consultarContactos(codPersona);
+                ArrayList<Contacto> contactos = ctrContacto.consultarContactos(cedula);
                 direccion = ctrDireccion.consultarDireccion(codDireccion);
                 
                 Cliente cliente
-                        = new Cliente(codPersona, nombre, cedula, tipoCed, 
-                                limiteCred, aprobarCred, direccion,
-                                contactos, codCliente, estadoCliente);
+                        = new Cliente(cedula, tipoCed, nombre, direccion,
+                                limiteCred, aprobarCred, estadoCliente, 
+                                contactos);
 
                 if (!clientes.contains(cliente)) {
                     clientes.add(cliente);
@@ -372,11 +341,27 @@ public class MdlCliente {
         }
     }
     
-    public void agregarCliente(String nombre, String cedula, String tipoCed, 
-            double limiteCred, boolean aprobarCred, ArrayList<Contacto> contactos) {
-        
+    public boolean crearContacto(String info, String cedPersona, TipoContacto tipo) {
+        return ctrContacto.crearContacto(info, cedPersona, tipo);
     }
     
+    public boolean actualizarContacto(String info, String cedPersona, 
+            TipoContacto tipo, Estado estado, String codigo) {
+        return ctrContacto.actualizarContacto(info, cedPersona, tipo, estado, codigo);
+    }
+    
+    public ArrayList<Contacto> consultarContactos(String param) {
+        return ctrContacto.consultarContactos(param);
+    }
+    
+    public boolean inactivarContacto(String codigo) {
+        return ctrContacto.inactivarContacto(codigo);
+    }
+    
+    /**
+     * Obtener la lista de clientes en memoria.
+     * @return los clientes.
+     */
     public ArrayList<Cliente> getClientes() {
         return clientes;
     }

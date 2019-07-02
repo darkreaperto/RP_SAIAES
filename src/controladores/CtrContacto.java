@@ -50,24 +50,15 @@ public class CtrContacto {
     }
     
     /**
-     * Llama el método que llena una lista con todos los usuarios almacenados 
-     * en la BD.
-     * @return Lista de contactos obtenidos
-     */
-    public ArrayList<Contacto> obtenerUsuarios() {
-        return mdlContacto.obtenerContactos();
-    }
-    
-    /**
      * Llama el método que inserta un contacto en la BD
      * @param info información de contacto correspondiente (tel o correo)
-     * @param codPersona codigo de persona a quien pertenece el contacto
+     * @param cedPersona codigo de persona a quien pertenece el contacto
      * @param tipo tipo de contacto (tel o correo)
      * @return verdadero si el contacto se inserta exitosamente
      */
-    public boolean crearContacto(String info, String codPersona, 
+    public boolean crearContacto(String info, String cedPersona, 
             TipoContacto tipo) {
-        return mdlContacto.crearContacto(info, codPersona, tipo);
+        return mdlContacto.crearContacto(info, cedPersona, tipo);
     }
     
     /**

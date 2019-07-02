@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/fuent/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Troza.java</file>
-            <file>file:/C:/Users/fuent/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmInventario.java</file>
-            <file>file:/C:/Users/fuent/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrMadera.java</file>
-            <file>file:/C:/Users/fuent/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlMadera.java</file>
-            <file>file:/C:/Users/fuent/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Madera.java</file>
+            <file>file:/C:/Users/fuent/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Persona.java</file>
+            <file>file:/C:/Users/fuent/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlCliente.java</file>
+            <file>file:/C:/Users/fuent/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Cliente.java</file>
+            <file>file:/C:/Users/fuent/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrContacto.java</file>
+            <file>file:/C:/Users/fuent/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlContacto.java</file>
         </group>
     </open-files>
 </project-private>
