@@ -19,11 +19,11 @@ import logica.servicios.Mensaje;
 import util.TipoContacto;
 
 /**
- *
+ * Modelo de la clase Proveedor
  * @author aoihanabi
  */
 public class MdlProveedor {
-    /** Controlador de conexión. */
+    /** Controlador de la clase conexión. */
     private static CtrConexion conexion;
     /** Procedimiento a ejecutar en la base. */
     private static String procedimiento;
@@ -49,8 +49,8 @@ public class MdlProveedor {
     }
 
     /**
-     * Llena una lista con todos los proveedores almacenados en la BD.
-     * @return lista de proveedores.
+     * Llena la lista de proveedores con todos los almacenados en la BD.
+     * @return Lista de todos los proveedores en la BD.
      */
     public ArrayList<Proveedor> obtenerProveedores() {
         proveedores = new ArrayList<>();
@@ -60,45 +60,38 @@ public class MdlProveedor {
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento);
 
-            String codPersona;
+            String cedulaPersonas;
+            String tipoCedPersonas;
             String nombrePersona;
-            String cedulaPersona;
-            String tipoCed;
-            String codProveedor;
             String codDireccion;
+            Direccion dirPersona;
             String estadoProveedor;
             ArrayList<Contacto> contactos;
-            Direccion direccion;
 
             while (resultado.next()) {
                 
-                codPersona = resultado.getString("cod_Personas");
+                cedulaPersonas = resultado.getString("ced_Personas");
+                tipoCedPersonas = resultado.getString("tipoCed_Personas");
                 nombrePersona = resultado.getString("nom_Personas");
-                cedulaPersona = resultado.getString("ced_Personas");
-                tipoCed = resultado.getString("tipoCed_Personas");
-                codProveedor = resultado.getString("cod_Proveedores");
                 codDireccion = resultado.getString("codDireccion_Personas");
                 estadoProveedor = resultado.getString("estado_Proveedores");
                 
-                contactos = ctrContacto.consultarContactos(codPersona);
-                //verificar existencia de la dirección
-                //Sin dirección: codDireccion = 0
-                System.out.println("COD DIR FROM PV DB " + codDireccion);
-                direccion = codDireccion == null ? null: 
-                        ctrDireccion.consultarDireccion(codDireccion);
-                
-                if (direccion == null) {
-                    System.out.println("DIR IS NULL FROM DB");
-                    direccion = null;
+                contactos = ctrContacto.consultarContactos(cedulaPersonas);
+                System.out.println("COD DIRECCION FROM PROVEEDOR DB: " + codDireccion);
+//                direccion = codDireccion == null ? null: 
+//                        ctrDireccion.consultarDireccion(codDireccion);
+                if (codDireccion == null) {
+                    System.out.println("DIRECCION IS NULL FROM DB");
+                    dirPersona = null;
                 } else {
-                    System.out.println("DIR IS NOT NULL FROM DB");
-                    direccion = ctrDireccion.consultarDireccion(codDireccion);
+                    System.out.println("DIRECCION IS NOT NULL FROM DB");
+                    dirPersona = ctrDireccion.consultarDireccion(codDireccion);
                 }
                 
                 Proveedor proveedor
-                        = new Proveedor(codPersona, nombrePersona, 
-                                cedulaPersona, tipoCed, direccion, 
-                                contactos, codProveedor, estadoProveedor);
+                        = new Proveedor(cedulaPersonas, tipoCedPersonas,
+                                nombrePersona, dirPersona,estadoProveedor,
+                                contactos);
 
                 if (!proveedores.contains(proveedor)) {
                     proveedores.add(proveedor);
@@ -113,37 +106,33 @@ public class MdlProveedor {
         }
     }
     
-    public ArrayList<Contacto> obtenerContactos(String codPersona) {
-        return ctrContacto.consultarContactos(codPersona);
-    }
-
     /**
      * Inserta un nuevo proveedor en la BD.
-     * @param nombre nombre del proveedor
-     * @param cedula cedula del proveedor
-     * @param tipoCed tipo de cédula del proveedor
-     * @param dir información de dirección del proveedor
-     * @param contactos contactos del proveedor
+     * @param cedula Cedula del proveedor
+     * @param tipoCed Tipo de cédula del proveedor (Física o Jurídica)
+     * @param nombre Nombre completo del proveedor
+     * @param dir Objeto dirección que contiene los datos de la direccion del proveedor
+     * @param contactos Lista de contactos del proveedor
      * @return Verdadero si agrega el proveedor exitosamente
      */
-    public boolean crearProveedor(String nombre, String cedula, String tipoCed, 
+    public boolean crearProveedor(String cedula, String tipoCed, String nombre,  
             Direccion dir, ArrayList<ArrayList<Object>> contactos) {
         
-        int codDireccion = 0;
+        int codDireccion = 0; // Asigna 0 para señalar que no hay dirección
         if (dir != null) {
             codDireccion = ctrDireccion.crearDireccion(dir.getCodProvincia(), 
                     dir.getCodCanton(), dir.getCodDistrito(), dir.getCodBarrio(), 
                     dir.getOtrasSenas());
         }
         
-        System.out.println("CODDIR: "+codDireccion);
+        System.out.println("COD DIRECCION: " + codDireccion);
         
         ArrayList<Object> params = new ArrayList<>();
-        params.add(nombre);
         params.add(cedula);
         params.add(tipoCed);
+        params.add(nombre);
         params.add(codDireccion);
-        params.add(Types.BIGINT);
+        params.add(Types.BIGINT); // Estado verdadero por defecto
 
         boolean creacionExitosa = true;
         try {
@@ -158,9 +147,10 @@ public class MdlProveedor {
                 indice = resultado.getInt("@indice");
             }
             
+            //Crear un registro en la BD para cada contacto del proveedor
             for (int i = 0; i < contactos.size(); i++) {
-                TipoContacto tipo = (TipoContacto) contactos.get(i).get(0);
-                String info = contactos.get(i).get(1).toString();
+                TipoContacto tipo = (TipoContacto) contactos.get(i).get(0); //telefono o correo
+                String info = contactos.get(i).get(1).toString(); // Datos del contacto (número telefónico o direccion de correo)
                 
                 params.clear();
                 params.add(info);
@@ -169,15 +159,15 @@ public class MdlProveedor {
                 
                 ctrContacto.crearContacto(info, String.valueOf(indice), tipo);
             }
+            System.out.println("FROM CREAR PROVEEDOR: " + resultado);
             
-            //creacionExitosa = true;
-            System.out.println(resultado);
         } catch (SQLException ex) {
             System.err.println(ex);      
             ex.printStackTrace();
             creacionExitosa = false;
-            System.out.println("ERROR SQL " + ex.getErrorCode());
+            System.out.println("ERROR SQL: " + ex.getErrorCode());
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
+            
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
@@ -185,64 +175,37 @@ public class MdlProveedor {
     }
     
     /**
-     * Insertar un nuevo contacto para el proveedor.
-     * @param tipo tipo de contacto correo o telefono
-     * @param info detalle del contacto
-     * @param codPersona codigo de la persona con el contacto
-     * @return True si agrega el contacto exitosamente
-     */
-    public boolean crearContacto(TipoContacto tipo, String info, String codPersona) {
-        return ctrContacto.crearContacto(info, codPersona, tipo);
-    }
-    
-    /**
-     * Inactivar el contacto.
-     * @param codigo código del contacto.
-     * @return verdadero si la inactivación fue éxitosa.
-     */
-    public boolean inactivarContacto(String codigo) {
-        return ctrContacto.inactivarContacto(codigo);
-    }
-
-    /**
-     * Actualiza toda la información del proveedor en la BD.
-     * @param nombre el nombre del proveedor
-     * @param cedula el número de cédula del proveedor
-     * @param tipoCed tipo de cédula del proveedor
-     * @param dir objeto direcciòn con la información
-     * @param codPersona código de persona a actualizar
-     * @param codProv código de proveedor a actualizar
-     * @return verdadero si la actualización fue éxitosa.
+     * Actualiza la información del proveedor en la BD.
+     * @param nombre El nombre completo del proveedor
+     * @param dir Objeto dirección que contiene los datos de la direccion del proveedor
+     * @param cedPersona Cédula unívoca y llave primaria para identificar el proveedor
+     * @return Verdadero si la actualización fue exitosa.
      */    
-    public boolean actualizarProveedor(String nombre, String cedula, 
-            String tipoCed, Direccion dir, String codPersona, String codProv) {
+    public boolean actualizarProveedor(String nombre, Direccion dir, 
+            String cedPersona) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(nombre);
-        params.add(cedula);
-        params.add(tipoCed);
-
+        
         boolean creacionExitosa = false;
         try {
-            
-            int codDir = 0;
+            int codDir = 0; // Asigna 0 para señalar que no hay dirección
             if (dir != null) {
-                if (dir.getCodigo() == 0) {
+                if (dir.getCodigo() == 0) {//si no hay direccion anterior, crear
                     codDir = ctrDireccion.crearDireccion(dir.getCodProvincia(), 
                             dir.getCodCanton(), dir.getCodDistrito(), 
                             dir.getCodBarrio(), dir.getOtrasSenas());
-                } else {
+                } else { //si ya existía una direccion, se actualiza
                     ctrDireccion.actualizarDireccion(dir.getCodProvincia(), 
                             dir.getCodCanton(), dir.getCodDistrito(), 
-                            dir.getCodBarrio(), dir.getOtrasSenas(), dir.getCodigo());
+                            dir.getCodBarrio(), dir.getOtrasSenas(), 
+                            dir.getCodigo());
                 }
             }
             //agregar código de dirección para actualizar
             params.add(codDir);
-            
-            params.add(codPersona);
-            params.add(codProv);
-            procedimiento = "pc_actualizar_proveedor(?, ?, ?, ?, ?, ?)";
+            params.add(cedPersona);
+            procedimiento = "pc_actualizar_proveedor(?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
@@ -252,6 +215,7 @@ public class MdlProveedor {
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
+            msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
@@ -260,13 +224,13 @@ public class MdlProveedor {
     
     /**
      * Inactiva el proveedor en la bd.
-     * @param cedula cédula unívoca del proveedor
-     * @return true si inactiva el proveedor
+     * @param cedPersona Cédula unívoca y llave primaria para identificar el proveedor
+     * @return Verdadero si inactiva el proveedor
      */
-    public boolean inactivarProveedor(String cedula) {
+    public boolean inactivarProveedor(String cedPersona) {
         
         ArrayList<Object> params = new ArrayList<>();
-        params.add(cedula);
+        params.add(cedPersona);
         
         boolean creacionExitosa = false;
         try {
@@ -280,6 +244,7 @@ public class MdlProveedor {
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
+            msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
@@ -288,14 +253,13 @@ public class MdlProveedor {
     
     /**
      * Activa el proveedor en la bd.
-     * @param cedula cédula unívoca del proveedor
-     * @return verdadero si la activación fue éxitosa.
+     * @param cedPersona Cédula unívoca y llave primaria para identificar el proveedor
+     * @return Verdadero si la activación fue exitosa.
      */
-    
-    public boolean activarProveedor(String cedula) {
+    public boolean activarProveedor(String cedPersona) {
         
         ArrayList<Object> params = new ArrayList<>();
-        params.add(cedula);
+        params.add(cedPersona);
         
         boolean creacionExitosa = false;
         try {
@@ -309,20 +273,21 @@ public class MdlProveedor {
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
+            msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
+            
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
         }
     }
 
-    
     /**
      * Buscar usuario enviando por parámetro el criterio de búsqueda.
      * @param param Parametros para consultar usuario en la base de datos
      * @return lista de proveedores
      */
-    
     public ArrayList consultarProveedor(String param) {
+        
         ArrayList<Object> params = new ArrayList<>();
         params.add(param);
         
@@ -333,32 +298,29 @@ public class MdlProveedor {
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
 
-            String codPersona;
-            String nombre;
-            String cedula;
-            String tipoCed;
-            String codCliente;
+            String cedPersonas;
+            String tipoCedPersonas;
+            String nombrePersonas;
             String codDireccion;
-            String estadoCliente;
-            Direccion direccion;
+            Direccion dirPersonas;
+            String estadoProveedor;
+            
 
             while (resultado.next()) {
-                codPersona = resultado.getString("cod_Personas");
-                nombre = resultado.getString("nom_Personas");
-                cedula = resultado.getString("ced_Personas");
-                tipoCed = resultado.getString("tipoCed_Personas");
-                codCliente = resultado.getString("cod_Proveedores");
+                cedPersonas = resultado.getString("ced_Personas");
+                tipoCedPersonas = resultado.getString("tipoCed_Personas");
+                nombrePersonas = resultado.getString("nom_Personas");
                 codDireccion = resultado.getString("codDireccion_Personas");
-                estadoCliente = resultado.getString("estado_Proveedores");
+                estadoProveedor = resultado.getString("estado_Proveedores");
 
                 ArrayList<Contacto> contactos;
-                contactos = ctrContacto.consultarContactos(codPersona);
-                
-                direccion = ctrDireccion.consultarDireccion(codDireccion);
+                contactos = ctrContacto.consultarContactos(cedPersonas);
+                dirPersonas = ctrDireccion.consultarDireccion(codDireccion);
                 
                 Proveedor proveedor
-                        = new Proveedor(codPersona, nombre, cedula, tipoCed, 
-                                direccion, contactos, codCliente, estadoCliente);
+                        = new Proveedor(cedPersonas, tipoCedPersonas, 
+                                nombrePersonas, dirPersonas, estadoProveedor,
+                                contactos);
 
                 if (!proveedores.contains(proveedor)) {
                     proveedores.add(proveedor);
@@ -367,20 +329,40 @@ public class MdlProveedor {
         } catch (SQLException ex) {
             System.err.println(ex);
             ex.printStackTrace();
+            msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
+            
         } finally {
             conexion.cerrarConexion();
             return proveedores;
         }
     }
     
-    /*
-    public void agregarCliente(String nombre, String apellido1, 
-            String apellido2, String cedula, float limiteCred, 
-            boolean aprobarCred, ArrayList<Contacto> contactos) {
-    }*/
+    /**
+     * Insertar un nuevo contacto para el proveedor.
+     * @param tipo tipo de contacto correo o telefono
+     * @param info detalle del contacto (numero de telefono o direccion de correo)
+     * @param cedulaPersona codigo de la persona con el contacto
+     * @return Verdadero si agrega el contacto exitosamente
+     */
+    public boolean crearContactoProveedor (TipoContacto tipo, String info, 
+            String cedulaPersona) {
+        return ctrContacto.crearContacto(info, cedulaPersona, tipo);
+    }
     
+    /**
+     * Inactivar el contacto.
+     * @param codigo Código de BD del contacto.
+     * @return Verdadero si la inactivación fue exitosa.
+     */
+    public boolean inactivarContacto(String codigo) {
+        return ctrContacto.inactivarContacto(codigo);
+    }
+    
+    /**
+     * Obtener la lista de proveedores.
+     * @return La lista con todos los proveedores.
+     */
     public ArrayList<Proveedor> getProveedores() {
         return proveedores;
     }
-
 }

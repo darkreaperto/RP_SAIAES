@@ -33,38 +33,48 @@ import util.TipoMensaje;
  */
 public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
+    /** Instancia de esta clase para singleton. */
     private static ItnFrmProveedor instancia = null;
+    /** Instancia de la clase controlador de Proveedor. */
     private static CtrProveedor controlador;
+    /** Instancia del controlador de Direccion. */
     private static CtrDireccion ctrDireccion;
+    /** Instancia del controlador de Acceso. */
     private static CtrAcceso sesion;
+    /** Instancia de la clase Mensaje. */
     private static Mensaje msg;
+    /** Lista completa de proveedores. */
     private static ArrayList<Proveedor> proveedores;
+    /** Lista de números de teléfono a crear en la BD. */
     private static ArrayList<String> crearTelefonos;
+    /** Lista de correos electrónicos a crear en la BD. */
     private static ArrayList<String> crearCorreos;
+    /** Lista de números de teléfono a actualizar en la BD. */
     private static ArrayList<Contacto> editarTelefonos;
+    /** Lista de correos electrónicos a actualizar en la BD. */
     private static ArrayList<Contacto> editarCorreos;
+    /** Modelo utlizado para las tablas de la interfaz. */
     private static DefaultTableModel model;
+    /** Instancia de la clase Regex para verificaciones. */
     private final Regex verificacion;
 
     /**
      * Creates new form ItnFrmProveedor.
-     *
      * @param sesionAcc usuario en sesión
-     * @param proveedores lista de proveedores obtenida desde la bd.
+     * @param proveedores lista de proveedores obtenida desde la BD.
      */
     public ItnFrmProveedor(CtrAcceso sesionAcc, ArrayList<Proveedor> proveedores) {
         initComponents();
         //Inicializar variables
         controlador = CtrProveedor.getInstancia();
         ctrDireccion = CtrDireccion.getInstancia();
-
-        ItnFrmProveedor.proveedores = proveedores;
         ItnFrmProveedor.sesion = sesionAcc;
+        ItnFrmProveedor.proveedores = proveedores;
         crearCorreos = new ArrayList<>();
         crearTelefonos = new ArrayList<>();
         verificacion = new Regex();
         msg = new Mensaje();
-
+        //Cargar información en la interfaz
         cargarTablas();
         cargarDirJCombo("P", "", "", "", cbxProvincia);
         cargarDirJCombo("P", "", "", "", cbxEditarProvincia);
@@ -74,7 +84,6 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
     /**
      * Retorna la única instancia de la clase.
-     *
      * @param sesionAcc Usuario en sesión actual.
      * @param proveedores Lista de proveedores en la base de datos.
      * @return instancia de la clase de proveedores.
@@ -1294,7 +1303,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                         "Sin dirección disponible";
 
                 row[4] = dir;
-                row[5] = pv.getCodProveedor(); //codigo de proveedor
+                row[5] = pv.getCedPerProveedor(); //codigo de proveedor
                 row[6] = pv.getCodigo(); //codigo de persona
 
                 model.addRow(row);
@@ -1334,7 +1343,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
                 row[4] = dir;
 
-                row[5] = pv.getCodProveedor(); //codigo de proveedor
+                row[5] = pv.getCedPerProveedor(); //codigo de proveedor
                 row[6] = pv.getCodigo(); //codigo de persona
 
                 model.addRow(row);

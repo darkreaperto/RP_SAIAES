@@ -15,14 +15,18 @@ import util.TipoCedula;
 import util.TipoContacto;
 
 /**
- *
+ * Controlador de la clase Proveedor
  * @author aoihanabi
  */
 public class CtrProveedor {
     
+    /** Instancia de esta clase para singleton. */
     private static CtrProveedor instancia = null;
+    /** Modelo del la clase Proveedor. */
     MdlProveedor mdlProveedor;
+    /** Clase proveedor. */
     Proveedor proveedor;
+    /** Lista de proveedores. */
     ArrayList <Proveedor> proveedores;
     
     /**
@@ -35,26 +39,23 @@ public class CtrProveedor {
     
     /**
      * Constructor del controlador de proveedor, inicializa variables.
-     * @param codigo Código de persona.
-     * @param nombre Nombre de persona.
-     * @param cedula Cédula de persona.
-     * @param tipoCed Tipo de la cédula del proveedor.
-     * @param dir Dirección de la persona.
+     * @param cedula Número de cédula de persona.
+     * @param tipoCed El tipo de la cédula de la persona (Física o Júrica).
+     * @param nombre Nombre completo de la persona.
+     * @param dir Dirección física de la persona.
+     * @param estado Estado activo o deshabilitado del proveedor.
      * @param contactos Lista contactos de persona.
-     * @param codProv Codigo de proveedor.
-     * @param estado Estado de persona.
      */
-    public CtrProveedor(String codigo, String nombre, String cedula,
-            String tipoCed, Direccion dir, ArrayList<Contacto> contactos, 
-            String codProv, String estado) {
-        
-        proveedor = new Proveedor(codigo, nombre, cedula, tipoCed, dir, 
-                contactos, codProv, estado);
+    public CtrProveedor(String cedula, String tipoCed, String nombre, 
+            Direccion dir,  String estado, ArrayList<Contacto> contactos) {
+
+        proveedor = new Proveedor(cedula, tipoCed, nombre, dir, 
+                estado, contactos);
     }
     
     /**
      * Obtener instancia única del controlador de proveedor.
-     * @return Instancia única de Cliente
+     * @return Instancia única de proveedor.
      */
     public static CtrProveedor getInstancia() {
         return instancia == null ? new CtrProveedor() : instancia;
@@ -62,92 +63,56 @@ public class CtrProveedor {
     
     /**
      * Llena una lista con todos los proveedores almacenados en la BD.
-     * @return lista de proveedores.
+     * @return Lista de proveedores.
      */
     public ArrayList<Proveedor> obtenerProveedores() {
         return mdlProveedor.obtenerProveedores();
     }
-    /**
-     * Llama el método que obtiene la lista de contactos de la persona indicada
-     * @param codPersona codigo de persona
-     * @return verdadero si se obtiene la lista de contactos exitosamente.
-     */
-    public ArrayList<Contacto> obtenerContactos(String codPersona) {
-        return mdlProveedor.obtenerContactos(codPersona);
-    }
-
+    
     /**
      * Llama el método que inserta un nuevo proveedor en la BD.
-     * @param nombre nombre del proveedor
-     * @param cedula cedula del proveedor
-     * @param tipoCed tipo de la cédula del proveedor
-     * @param dir información de dirección del proveedor
-     * @param contactos lista de contactos del proveedor
-     * @return verdadera si la inserción fue éxitosa
+     * @param cedula Número de cedula del proveedor
+     * @param tipoCed El tipo de la cédula del proveedor
+     * @param nombre Nombre del proveedor
+     * @param dir Información de dirección del proveedor
+     * @param contactos Lista de contactos del proveedor
+     * @return Verdadera si la inserción fue éxitosa
      */
-    public boolean crearProveedor(String nombre, String cedula, String tipoCed, 
+    public boolean crearProveedor(String cedula, String tipoCed, String nombre,  
             Direccion dir, ArrayList<ArrayList<Object>> contactos) {
-
-        return mdlProveedor.crearProveedor(nombre, cedula, tipoCed, dir, contactos);
+        return mdlProveedor.crearProveedor(cedula, tipoCed, nombre, dir, contactos);
     }
     
-    /**
-     * Crea el contacto/s para el proveedor en la bd
-     * @param tipo tipo de contacto
-     * @param info detalle del contacto
-     * @param codPersona codigo de persona con el contacto
-     * @return true si crea el contacto exitosamente
-     */
-    public boolean crearContacto(TipoContacto tipo, String info, String codPersona) {
-        return mdlProveedor.crearContacto(tipo, info, codPersona);
-    }
-    
-    /**
-     * Llama el método que inactiva un contacto en la bd
-     * @param codigo codigo de contacto
-     * @return verdadero si inactiva el contacto eixtosamente
-     */
-    public boolean inactivarContacto(String codigo) {
-        return mdlProveedor.inactivarContacto(codigo);
-    }
-
     /**
      * Actualiza toda la información del proveedor en la BD.
-     * @param nombre nombre del proveedor
-     * @param cedula cédula del proveedor
-     * @param tipoCed tipo de la cédula del proveedor
-     * @param dir dirección de la persona
-     * @param codPersona codigo de persona
-     * @param codProv código del proveedor
-     * @return verdadero si actualiza el proveedor exitosamente
+     * @param nombre El nombre completo del proveedor
+     * @param dir Objeto dirección que contiene los datos de la direccion del proveedor
+     * @param cedPersona Cédula unívoca y llave primaria para identificar el proveedor
+     * @return Verdadero si la actualización fue exitosa.
      */
-    public boolean actualizarProveedor(String nombre, String cedula, 
-            String tipoCed, Direccion dir, String codPersona, String codProv) {
-        
-        return mdlProveedor.actualizarProveedor(nombre, cedula, tipoCed, dir, 
-                codPersona, codProv);
+    public boolean actualizarProveedor(String nombre, Direccion dir, 
+            String cedPersona) {
+        return mdlProveedor.actualizarProveedor(nombre, dir, cedPersona);
     }
     
     /**
      * Inactiva el proveedor en la bd.
-     * @param cedula cédula unívoca del proveedor
-     * @return True si lo inactivó correctamente
+     * @param cedPersona Cédula unívoca y llave primaria para identificar el proveedor
+     * @return Verdadero si inactiva el proveedor
      */
-    public boolean inactivarProveedor(String cedula) {
-        
-        return mdlProveedor.inactivarProveedor(cedula);
+    public boolean inactivarProveedor(String cedPersona) {
+        return mdlProveedor.inactivarProveedor(cedPersona);
     }
     
     /**
      * Activa el proveedor en la bd.
-     * @param cedula cédula unívoca del proveedor
-     * @return True si lo activó correctamente
+     * @param cedPersona Cédula unívoca y llave primaria para identificar el proveedor
+     * @return Verdadero si la activación fue exitosa.
      */
-    public boolean activarProveedor(String cedula) {
-        
-        return mdlProveedor.activarProveedor(cedula);
+    public boolean activarProveedor(String cedPersona) {
+        return mdlProveedor.activarProveedor(cedPersona);
     }
-
+    
     /**
      * Buscar proveedor enviando por parámetro el criterio de búsqueda.
      * @param param Parametros para consultar proveedor en la base de datos
@@ -158,31 +123,36 @@ public class CtrProveedor {
     }
     
     /**
-     * Obtener código de persona.
-     * @return el codigo
+     * Crea el contacto/s para el proveedor en la bd
+     * @param tipo tipo de contacto
+     * @param info detalle del contacto
+     * @param cedulaPersona codigo de la persona con el contacto
+     * @return true si crea el contacto exitosamente
      */
-    public String getCodigo() {
-        return proveedor.getCodigo();
+    public boolean crearContactoProveedor(TipoContacto tipo, String info, 
+            String cedulaPersona) {
+        return mdlProveedor.crearContactoProveedor(tipo, info, cedulaPersona);
     }
-
+    
     /**
-     * Establecer código de persona
-     * @param codigo el codigo
+     * Llama el método que inactiva un contacto en la bd
+     * @param codigo Codigo de BD de contacto
+     * @return Verdadero si se inactiva el contacto exitosamente
      */
-    public void setCodigo(String codigo) {
-        proveedor.setCodigo(codigo);
+    public boolean inactivarContacto(String codigo) {
+        return mdlProveedor.inactivarContacto(codigo);
     }
-
+    
     /**
-     * Obtener nombre de persona.
-     * @return El nombre.
+     * Obtener nombre completo de persona.
+     * @return El nombre completo.
      */
     public String getNombre() {
         return proveedor.getNombre();
     }
 
     /**
-     * Establecer nombre de persona
+     * Establecer nombre completo de persona
      * @param nombre the nombre to set
      */
     public void setNombre(String nombre) {
@@ -190,39 +160,39 @@ public class CtrProveedor {
     }
 
     /**
-     * Obtener cédula de persona.
-     * @return La cedula
+     * Obtener número de cédula de persona.
+     * @return El número de cédula
      */
     public String getCedula() {
         return proveedor.getCedula();
     }
 
     /**
-     * Establecer cedula de persona
-     * @param cedula la cedula
+     * Establecer el número de cédula de persona
+     * @param cedula El número de cédula
      */
     public void setCedula(String cedula) {
         proveedor.setCedula(cedula);
     }
     
     /**
-     * Obtener el tipo de cédula del proveedor.
-     * @return el tipo de cédula
+     * Obtener el tipo de cédula del la persona.
+     * @return El tipo de cédula
      */
     public TipoCedula getTipoCedula() {
         return proveedor.getTipoCedula();
     }
     
     /**
-     * Establecer el tipo de cédula del proveedor.
-     * @param tipoCed el tipo de cédula a establecer
+     * Establecer el tipo de cédula de la persona.
+     * @param tipoCed El tipo de cédula a establecer
      */
     public void setTipoCedula(TipoCedula tipoCed) {
         proveedor.setTipoCedula(tipoCed);
     }
 
     /**
-     * Obtener lista de contactos de persona.
+     * Obtener la lista de contactos de persona.
      * @return La lista de contacto.
      */
     public ArrayList<Contacto> getContactos() {
@@ -230,42 +200,26 @@ public class CtrProveedor {
     }
 
     /**
-     * Establecer lista de contactos
-     * @param contactos El contacto
+     * Establecer la lista de contactos
+     * @param contactos La lista de contactos
      */
     public void setContactos(ArrayList<Contacto> contactos) {
         proveedor.setContactos(contactos);
     }
     
     /**
-     * Obtener estado de persona.
-     * @return El estado
+     * Obtener estado de persona (activo o deshabilitado).
+     * @return El estado (activo o deshabilitado)
      */
     public Estado getEstado() {
         return proveedor.getEstado();
     }
 
     /**
-     * Establecer estado de persona
-     * @param estado el estado
+     * Establecer estado de persona (activo o deshabilitado)
+     * @param estado El estado (activo o deshabilitado)
      */
     public void setEstado(Estado estado) {
         proveedor.setEstado(estado);
     }
-    /**
-     * Obtener codigo de proveedor.
-     * @return el codigo de proveedor. 
-    */
-    public String getCodProveedor() {
-        return proveedor.getCodProveedor();
-    }
-
-    /**
-     * Establecer codigo de proveedor.
-     * @param codProveedor el codigo de proveedor
-     */
-    public void setCodProveedor(String codProveedor) {
-        proveedor.setCodProveedor(codProveedor);
-    }
-
 }

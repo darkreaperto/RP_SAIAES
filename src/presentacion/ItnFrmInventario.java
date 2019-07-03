@@ -752,7 +752,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 
                 boolean cprod = crearTroza(txtNuevoTCodigo.getText().trim(),
                         tipoMad.getCodigo(), pulgadas, tipoProduc,
-                        txtaNuevoTDescripcion.getText().trim(), pv.getCodProveedor());
+                        txtaNuevoTDescripcion.getText().trim(), pv.getCedPerProveedor());
                 
                 if(cprod) {
                     msg.mostrarMensaje(
@@ -1198,7 +1198,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 boolean aprod = actualizarTroza(
                         txtEditarTCodigo.getText().trim(), pulgadas,
                         txtaEditarTDescripcion.getText().trim(), 
-                        pv.getCodProveedor(), tipoMad, codigo);
+                        pv.getCedPerProveedor(), tipoMad, codigo);
                 if(aprod) {
                     limpiarCampos("Editar","TROZA");
                 }

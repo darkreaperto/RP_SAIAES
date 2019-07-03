@@ -5,6 +5,7 @@
  */
 package logica.negocio;
 import java.util.ArrayList;
+import util.Estado;
 
 /**
  * Instancia los proveedores con sus atributos.
@@ -12,7 +13,8 @@ import java.util.ArrayList;
  */
 public class Proveedor extends Persona {
     
-    private String codProveedor;
+    /** Estado del proveedor (activo o deshabilitado). */
+    private Estado estado;
     
     /**
      * Constructor de clase Proveedor.
@@ -23,42 +25,40 @@ public class Proveedor extends Persona {
     
     /**
      * Constructor de clase proveedor, con parámetros.
-     * @param codigo Código de persona.
-     * @param nombre Nombre de persona.
-     * @param cedula Cédula de persona.
+     * @param cedula Número de cédula de la persona.
      * @param tipoCed El tipo de cédula de la persona (física o jurídica).
-     * @param dir Direccón de la persona.
+     * @param nombre Nombre completo de la persona.
+     * @param dir Dirección física de la persona.
+     * @param estado Estado activo o deshabilitado del proveedor.
      * @param contactos Lista contactos de persona.
-     * @param codProveedor Codigo de proveedor
-     * @param estado Estado de persona.
      */
-    public Proveedor(String codigo, String nombre, String cedula, String tipoCed, 
-            Direccion dir, ArrayList<Contacto> contactos, String codProveedor, 
-            String estado) {
+    public Proveedor(String cedula, String tipoCed, String nombre, Direccion dir, 
+            String estado, ArrayList<Contacto> contactos) {
         
-        super(codigo, nombre, cedula, tipoCed, dir, contactos, estado);
-        this.codProveedor = codProveedor;
+        super(cedula, tipoCed, nombre, dir, contactos);
+        this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
     }
     
     /**
-     * Obtener codigo de proveedor.
-     * @return el codigo de proveedor. 
-    */
-    public String getCodProveedor() {
-        return codProveedor;
+     * Obtener el estado (activo o deshabilitado) de la persona.
+     * @return El estado (activo o deshabilitado).
+     */
+    public Estado getEstado() {
+        return estado;
     }
 
     /**
-     * Establecer codigo de proveedor.
-     * @param codProveedor el codigo de proveedor
+     * Establecer estado (activo o deshabilitado) de persona
+     * @param estado El estado (activo o deshabilitado).
      */
-    public void setCodProveedor(String codProveedor) {
-        this.codProveedor = codProveedor;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
+
     /**
      * Sobreescritura del método toString para obtener información básica del
      * proveedor
-     * @return información básica del producto/madera
+     * @return información básica del proveedor (Cédula: Nombre completo).
      */
     @Override
     public String toString(){
