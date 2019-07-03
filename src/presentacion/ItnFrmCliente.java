@@ -1750,8 +1750,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         String limiteCred = txt_crear_limiteCliente.getText().trim().isEmpty() ? 
                 "0" : txt_crear_limiteCliente.getText().trim();
         
+        System.out.println("CBXTIPOCEDULA OBJECT: "+cbxCrearTipoCedula.getSelectedItem());
+        System.out.println("CBXTIPOCEDULA ENUM NAME: "+TipoCedula.getEnum(cbxCrearTipoCedula.getSelectedItem().toString()));
+        
         agregarCliente( txt_crear_cedulaCliente.getText().trim(),
-                ( (TipoCedula) cbxCrearTipoCedula.getSelectedItem() ).name(), 
+                cbxCrearTipoCedula.getName(), 
                 txt_crear_nombreCliente.getText().trim(), 
                 prepararDireccion(false, 1), limiteCred, credito, contactos);
     }

@@ -26,6 +26,7 @@ public class Persona {
     public Persona() {
         
     }
+    
     /**
      * Constructor de clase persona, inicializa variables.
      * @param nombre nombre persona.
@@ -38,8 +39,7 @@ public class Persona {
             Direccion dir, ArrayList<Contacto> contactos) {
         this.nombre = nombre;
         this.cedula = cedula;
-        this.tipoCed = tipoCed.toUpperCase().equals("FISICA") ? 
-                TipoCedula.FISICA : TipoCedula.JURIDICA;
+        this.tipoCed = TipoCedula.getEnum(tipoCed);
         this.dir = dir;
         this.contactos = contactos;
     }
