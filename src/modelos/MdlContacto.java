@@ -59,9 +59,9 @@ public class MdlContacto {
         int codTipo = tipo.equals(TipoContacto.CORREO) ? 1 : 2;
         
         ArrayList<Object> params = new ArrayList<>();
-        params.add(info);
         params.add(cedPersona);
         params.add(codTipo);
+        params.add(info);
 
         boolean creacionExitosa = true;
         try {
