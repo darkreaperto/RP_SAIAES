@@ -156,9 +156,6 @@ public class MdlProveedor {
                 params.add(cedula);
                 params.add(tipo);
                 params.add(info);
-                
-                
-                
                 ctrContacto.crearContacto(cedula, tipo, info);
             }
             System.out.println("FROM CREAR PROVEEDOR: " + resultado);

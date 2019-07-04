@@ -610,6 +610,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                                 TipoContacto.TELEFONO, telefono, p.getCedula());
                             
                             editarTelefonos = new ArrayList<>();
+                            System.out.println(controlador.getContactos().size());
                             for (Contacto ct: controlador.getContactos()) {
                                 if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
                                     
@@ -630,13 +631,15 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                     msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.PHONE_SYNTAX_FAILURE);
                 }
-            } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | NullPointerException ex) {
-                //Imprimir la pila de excepciones
-                for (StackTraceElement ste: ex.getStackTrace()) {
-                    System.out.println(ste);
-                }
-                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+//            } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | NullPointerException ex) {
+//                //Imprimir la pila de excepciones
+//                for (StackTraceElement ste: ex.getStackTrace()) {
+//                    System.out.println(ste);
+//                }
+//                System.out.println(ex.getStackTrace());
+//                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
             } catch (Exception ex) {
+                ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
             } finally {
                 cargarTablas();
