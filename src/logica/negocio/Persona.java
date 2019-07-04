@@ -35,7 +35,7 @@ public class Persona {
      * @param dir codigo de la direccion de la persona.
      * @param contactos contactos persona.
      */
-    public Persona(String cedula, String nombre, String tipoCed, 
+    public Persona(String cedula, String tipoCed, String nombre, 
             Direccion dir, ArrayList<Contacto> contactos) {
         this.nombre = nombre;
         this.cedula = cedula;

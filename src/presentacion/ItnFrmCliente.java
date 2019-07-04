@@ -1294,7 +1294,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         Object[] row = new Object[7];
         model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0);
-        model.setColumnCount(9);
+        model.setColumnCount(7);
         int i = 0;
         for (Cliente c: clientes) {
 
@@ -1650,9 +1650,12 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             try {
                 limiteCredito = Double.valueOf(limiteCred);
                 System.out.println(limiteCredito);
+                
+                System.out.println("TIPOCED: "+tipoCed);
 
-                boolean creado = controlador.crearCliente(cedula, tipoCed, 
-                        nombre, direc, limiteCredito, aprobarCred, contactos);
+                boolean creado = controlador.crearCliente(cedula, 
+                        TipoCedula.getEnum(tipoCed).toString(), nombre, direc, 
+                        limiteCredito, aprobarCred, contactos);
 
                 if (creado) {
                     msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
@@ -1665,9 +1668,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                     TipoMensaje.CUSTOMER_INSERTION_FAILURE);
                 }
             } catch (NumberFormatException ex) {
+                ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                 TipoMensaje.NUMBER_FORMAT_EXCEPTION);
             } catch (Exception ex) {
+                ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                 TipoMensaje.SOMETHING_WENT_WRONG);
             }
@@ -1754,7 +1759,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         System.out.println("CBXTIPOCEDULA ENUM NAME: "+TipoCedula.getEnum(cbxCrearTipoCedula.getSelectedItem().toString()));
         
         agregarCliente( txt_crear_cedulaCliente.getText().trim(),
-                cbxCrearTipoCedula.getName(), 
+                cbxCrearTipoCedula.getSelectedItem().toString(), 
                 txt_crear_nombreCliente.getText().trim(), 
                 prepararDireccion(false, 1), limiteCred, credito, contactos);
     }
@@ -2179,7 +2184,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         }
     }
     private void btnCrearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearClienteActionPerformed
-        prepararCrearCliente();        
+        prepararCrearCliente();    
     }//GEN-LAST:event_btnCrearClienteActionPerformed
 
     private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed

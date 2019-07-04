@@ -137,38 +137,39 @@ public class MdlCliente {
         params.add(codDireccion);
         params.add(limiteCred);
         params.add(aprobarCred);
-        params.add(Types.BIGINT);
-
-        boolean creacionExitosa = true;
+        
+        boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_crear_cliente(?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_crear_cliente(?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
             
-            int indice = 0;
+            String pCedula = "";
             //obtener el índice de la fila insertada
             while (resultado.next()) {
-                indice = resultado.getInt("@indice");
+                pCedula = resultado.getString("cedula");
             }
+            
+            
             
             for (int i = 0; i < contactos.size(); i++) {
                 TipoContacto tipo = (TipoContacto) contactos.get(i).get(0);
                 String info = contactos.get(i).get(1).toString();
                 
-                params.clear();
+                /*params.clear();
                 params.add(info);
-                params.add(indice);
-                params.add(tipo);
+                params.add(pCedula);
+                params.add(tipo);*/
                 
-                ctrContacto.crearContacto(info, String.valueOf(indice), tipo);
+                ctrContacto.crearContacto(pCedula, tipo, info);
             }
             
+            creacionExitosa = true;
             System.out.println(resultado);
         } catch (SQLException ex) {
             System.err.println(ex);   
             ex.printStackTrace();
-            creacionExitosa = false;
             System.out.println("ERROR SQL " + ex.getErrorCode());
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
         } finally {
