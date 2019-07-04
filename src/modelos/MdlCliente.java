@@ -343,7 +343,7 @@ public class MdlCliente {
     }
     
     public boolean crearContacto(String info, String cedPersona, TipoContacto tipo) {
-        return ctrContacto.crearContacto(info, cedPersona, tipo);
+        return ctrContacto.crearContacto(cedPersona, tipo, info);
     }
     
     public boolean actualizarContacto(String info, String cedPersona, 
