@@ -3,13 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Cliente.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/util/TipoMensaje.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrContacto.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlContacto.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlCliente.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmProveedor.java</file>
-            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Proveedor.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/servicios/Mensaje.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/util/TipoCedula.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/presentacion/ItnFrmCliente.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/controladores/CtrProveedor.java</file>
+            <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Proveedor.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/logica/negocio/Persona.java</file>
             <file>file:/C:/Users/GOLLO/Documents/NetBeansProjects/RP_SAIAES/src/modelos/MdlProveedor.java</file>
         </group>
