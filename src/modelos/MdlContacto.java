@@ -52,16 +52,16 @@ public class MdlContacto {
      * @param tipo tipo de contacto de la persona
      * @return true si inserta el contacto.
      */
-    public boolean crearContacto(String info, String cedPersona, 
-            TipoContacto tipo) {
+    public boolean crearContacto(String cedPersona, 
+            TipoContacto tipo, String info) {
 
         //Código de tipo de contacto. 1: CORREO, 2: TELËFONO
         int codTipo = tipo.equals(TipoContacto.CORREO) ? 1 : 2;
         
         ArrayList<Object> params = new ArrayList<>();
-        params.add(info);
         params.add(cedPersona);
         params.add(codTipo);
+        params.add(info);
 
         boolean creacionExitosa = true;
         try {

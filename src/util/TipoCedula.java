@@ -11,7 +11,14 @@ package util;
  */
 public enum TipoCedula {
 
+    /**
+     *
+     */
     FISICA ("Física"),
+
+    /**
+     *
+     */
     JURIDICA ("Jurídica");
     
     /**
@@ -36,6 +43,26 @@ public enum TipoCedula {
         }
         
         return values;
+    }
+    
+    /**
+     * Retorna la enumeración correspodiente a su valor.
+     * @param value descripción de la enumeración
+     * @return la enumeración
+     */
+    public static TipoCedula getEnum(String value) {
+        switch (value.toUpperCase()) {
+            case "FÍSICA":
+                return FISICA;
+            case "FISICA":
+                return FISICA;
+            case "JURÍDICA":
+                return JURIDICA;
+            case "JURIDICA":
+                return JURIDICA;
+            default:
+                return FISICA;
+        }
     }
     
     @Override

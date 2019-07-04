@@ -125,27 +125,27 @@ public class MdlProveedor {
                     dir.getOtrasSenas());
         }
         
-        System.out.println("COD DIRECCION: " + codDireccion);
+        System.out.println("MDLPROVEEDOR->CREAR->COD DIRECCION: " + codDireccion);
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(cedula);
         params.add(tipoCed);
         params.add(nombre);
         params.add(codDireccion);
-        params.add(Types.BIGINT); // Estado verdadero por defecto
+//        params.add(Types.BIGINT); // Estado verdadero por defecto
 
         boolean creacionExitosa = true;
         try {
-            procedimiento = "pc_crear_proveedor(?, ?, ?, ?, ?)";
+            procedimiento = "pc_crear_proveedor(?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
-            
-            int indice = 0;
-            //obtener el índice de la fila insertada
-            while (resultado.next()) {
-                indice = resultado.getInt("@indice");
-            }
+//            
+//            int indice = 0;
+//            //obtener el índice de la fila insertada
+//            while (resultado.next()) {
+//                indice = resultado.getInt("@indice");
+//            }
             
             //Crear un registro en la BD para cada contacto del proveedor
             for (int i = 0; i < contactos.size(); i++) {
@@ -153,11 +153,13 @@ public class MdlProveedor {
                 String info = contactos.get(i).get(1).toString(); // Datos del contacto (número telefónico o direccion de correo)
                 
                 params.clear();
-                params.add(info);
-                params.add(indice);
+                params.add(cedula);
                 params.add(tipo);
+                params.add(info);
                 
-                ctrContacto.crearContacto(info, String.valueOf(indice), tipo);
+                
+                
+                ctrContacto.crearContacto(cedula, tipo, info);
             }
             System.out.println("FROM CREAR PROVEEDOR: " + resultado);
             
@@ -346,7 +348,7 @@ public class MdlProveedor {
      */
     public boolean crearContactoProveedor (TipoContacto tipo, String info, 
             String cedulaPersona) {
-        return ctrContacto.crearContacto(info, cedulaPersona, tipo);
+        return ctrContacto.crearContacto(cedulaPersona, tipo, info);
     }
     
     /**

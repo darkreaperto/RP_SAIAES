@@ -77,6 +77,10 @@ public class Mensaje {
             case EMPTY_USERNAME_FIELD:
                 msg = "Debe proporcionar un nombre de usuario";
                 break;
+            case LIST_HANDLER_ERROR:
+                msg = "Ocurrió un problema inesperado con la lista, \n "
+                        + "intente de nuevo por favor";
+                break;
             case MISMATCHING_PASSWORD_FIELDS:
                 msg = "Las contraseñas no coinciden";
                 break;

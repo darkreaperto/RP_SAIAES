@@ -56,9 +56,9 @@ public class CtrContacto {
      * @param tipo tipo de contacto (tel o correo)
      * @return verdadero si el contacto se inserta exitosamente
      */
-    public boolean crearContacto(String info, String cedPersona, 
-            TipoContacto tipo) {
-        return mdlContacto.crearContacto(info, cedPersona, tipo);
+    public boolean crearContacto(String cedPersona, 
+            TipoContacto tipo, String info) {
+        return mdlContacto.crearContacto(cedPersona, tipo, info);
     }
     
     /**

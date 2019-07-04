@@ -51,6 +51,8 @@ public enum TipoMensaje {
     EMPTY_PASSWORD_FIELD,
     /** Identificador del mensaje: campo de nombre de usuario vacío. */
     EMPTY_USERNAME_FIELD,
+    /** Identificador del mensaje: ArrayIndexOutOfBounds, NullPointerException, y errores relacionados con listas. */
+    LIST_HANDLER_ERROR,
     /** Identificador del mensaje: campos de contraseñas no coinciden. */
     MISMATCHING_PASSWORD_FIELDS,
     /** Identificador del mensaje: campos de número con carácteres alfanumérico. */
