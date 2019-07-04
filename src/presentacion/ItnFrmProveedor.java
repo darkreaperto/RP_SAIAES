@@ -166,7 +166,6 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 row[2] = pv.getNombre();
 
                 ArrayList<Contacto> contactos = pv.getContactos();
-
                 String texto = "<html><body>";
                 for (Contacto ct : contactos) {
                     String tipo = ct.getTipo().equals(TipoContacto.CORREO) ? "✉" : "✆";
@@ -185,7 +184,6 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                         + "</body></html>" : 
                         //si no hay dirección
                         "Sin dirección";
-
                 row[4] = dir;
 
                 model.addRow(row); // agregar al modelo
@@ -464,11 +462,11 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
     private void agregarProveedor(String cedula, String tipoCed, String nombre,  
             Direccion dir, ArrayList<ArrayList<Object>> contactos) {
 
-        System.out.println("Proveedor->Agregar->nombre: " + nombre);
-        System.out.println("Proveedor->Agregar->cedula: " + cedula);
-        System.out.println("Proveedor->Agregar->tipoCed: " + tipoCed);
-        System.out.println("Proveedor->Agregar->dir: " + dir);
-        System.out.println("Proveedor->Agregar->contactos: " + contactos.size());
+//        System.out.println("Proveedor->Agregar->nombre: " + nombre);
+//        System.out.println("Proveedor->Agregar->cedula: " + cedula);
+//        System.out.println("Proveedor->Agregar->tipoCed: " + tipoCed);
+//        System.out.println("Proveedor->Agregar->dir: " + dir);
+//        System.out.println("Proveedor->Agregar->contactos: " + contactos.size());
         
         if (!nombre.isEmpty()) {
             try {
@@ -478,6 +476,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                     msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                             TipoMensaje.CUSTOMER_INSERTION_SUCCESS);
                     cargarTablas();
+                    limpiarAgregar();
                     
                 } else {
                     msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
@@ -902,6 +901,21 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         }
     }
     
+    /**
+     * Limpia los campos de texto y demás componentes de interfaz 
+     * ubicados en la pestaña AgregarProveedor.
+     */
+    private void limpiarAgregar() {
+        cbxCrearTipoCedula.setSelectedIndex(0);
+        txt_crear_cedulaProveedor.setText("");
+        txt_crear_nombreProveedor.setText("");
+        ckbAgregarDireccion.setSelected(true);
+        lsCrearTelefonos.removeAll();
+        txt_agregarTelefono.setText("");
+        lsCrearCorreos.removeAll();
+        txt_agregarCorreo.setText("");
+        cargarDirJCombo("P", "", "", "", cbxProvincia);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
