@@ -145,11 +145,13 @@ public class MdlCliente {
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
             
+            /*System.out.println("RES CED: "+resultado.next());
+            
             String pCedula = "";
             //obtener el índice de la fila insertada
             while (resultado.next()) {
                 pCedula = resultado.getString("cedula");
-            }
+            }*/
             
             
             
@@ -162,7 +164,7 @@ public class MdlCliente {
                 params.add(pCedula);
                 params.add(tipo);*/
                 
-                ctrContacto.crearContacto(pCedula, tipo, info);
+                ctrContacto.crearContacto(cedula, tipo, info);
             }
             
             creacionExitosa = true;
