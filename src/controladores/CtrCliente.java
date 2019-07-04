@@ -146,6 +146,6 @@ public class CtrCliente {
     }
     
     public boolean inactivarContacto(String codigo) {
-        return mdlCliente.inactivarCliente(codigo);
+        return mdlCliente.inactivarContacto(codigo);
     }
 }
