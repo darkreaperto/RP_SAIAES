@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Cliente;
 import logica.negocio.Contacto;
@@ -1532,7 +1533,9 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 txt_crear_cedulaCliente.setText("");
                 txt_crear_limiteCliente.setText("");
                 txt_crear_nombreCliente.setText("");
+                lsCrearTelefonos.setModel(new DefaultListModel());
                 lsCrearTelefonos.removeAll();
+                lsCrearCorreos.setModel(new DefaultListModel());
                 lsCrearCorreos.removeAll();
                 cbxProvincia.setSelectedIndex(0);
                 cbxCanton.setSelectedIndex(0);
