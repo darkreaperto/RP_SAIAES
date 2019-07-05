@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.negocio.Contacto;
 import logica.servicios.AESEncrypt;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 import util.TipoContacto;
 import util.Estado;
@@ -78,6 +79,8 @@ public class MdlContacto {
             creacionExitosa = false;
             System.out.println("ERROR SQL " + ex.getErrorCode());
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
+            
+            Logger.registerNewError(ex);
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;

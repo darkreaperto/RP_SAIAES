@@ -6,11 +6,17 @@
 package logica.servicios;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
 
 /**
  * Almacena el log del usuario en el sistema.
@@ -18,7 +24,7 @@ import java.util.Date;
  */
 public class Logger {
     
-    private static PrintWriter pw;
+    private static PrintStream ps;
     private static StringWriter sw;
     private static File file;
     private static String fileName;
@@ -29,18 +35,20 @@ public class Logger {
     private static String date;
     private static String rootPath;
     
-    private static void setParams() {
-        rootPath = System.getProperty("user.dir");
-        dateFormat = "yyyyMM";//"yyyyMMdd";
-        timeFormat = "";//"HHmmss";
+    private static void setInitParams() {
+        rootPath = System.getProperty("user.dir");   
+    }
+    
+    public static void registerNewLog(String text) {
+        setInitParams();
         
-        formatter = new SimpleDateFormat(dateFormat+timeFormat);
+        dateFormat = "yyyyMMdd";
+        
+        formatter = new SimpleDateFormat(dateFormat);
         date = formatter.format(Calendar.getInstance().getTime());
         
         fileName = "Log_"+date+".txt";
-        filePath = rootPath + "\\" + fileName;
-        
-        System.out.println("LOG: "+filePath);
+        filePath = rootPath + "\\logs\\" + fileName;
         
         dateFormat = "yyyyMMdd";
         timeFormat = "HHmmss";
@@ -48,21 +56,41 @@ public class Logger {
         formatter = new SimpleDateFormat(dateFormat+timeFormat);
         date = formatter.format(Calendar.getInstance().getTime());
         
-        System.out.println("LOG: "+date);
-        
-        file = new File(filePath);
+        try {
+            file = new File(filePath);
+            ps = new PrintStream(file);
+            String log = date + ": " + text;
+            ps.println(log);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ps.close();
     }
     
-    public static void registerNewLog(String text) {
-        setParams();
+    public static void registerNewError(Exception ex) {
+        setInitParams();
         
+        dateFormat = "yyyyMMdd";
+        timeFormat = "HHmmss";
         
-    }
-    
-    public static void registerNewLog(Exception ex) {
-        sw = new StringWriter();
-            PrintWriter printWriter= new PrintWriter(writer);
-            exception.printStackTrace(printWriter);
+        formatter = new SimpleDateFormat(dateFormat+timeFormat);
+        date = formatter.format(Calendar.getInstance().getTime());
+        
+        fileName = "Error_"+date+".txt";
+        filePath = rootPath + "\\logs\\" + fileName;
+        
+        try {
+            file = new File(filePath);
+            ps = new PrintStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ex.printStackTrace(ps);
+        ps.close();
     }
     
     public static void registerNewLog(Exception ex, String text) {

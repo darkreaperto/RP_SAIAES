@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import logica.negocio.Cliente;
 import logica.negocio.Contacto;
 import logica.negocio.Direccion;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 import util.Estado;
 import util.TipoCedula;
@@ -159,7 +160,8 @@ public class MdlCliente {
                 TipoContacto tipo = (TipoContacto) contactos.get(i).get(0);
                 String info = contactos.get(i).get(1).toString();
                 
-                ctrContacto.crearContacto(cedula, tipo, info);
+                //ctrContacto.crearContacto(cedula, tipo, info);
+                ctrContacto.crearContacto("INUIB", tipo, info);
             }
             
             creacionExitosa = true;
@@ -169,6 +171,8 @@ public class MdlCliente {
             ex.printStackTrace();            
             System.out.println("ERROR SQL " + ex.getErrorCode());
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
+            
+            Logger.registerNewError(ex);
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;

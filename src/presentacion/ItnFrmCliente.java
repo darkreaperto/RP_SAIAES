@@ -23,6 +23,7 @@ import logica.negocio.Direccion;
 import logica.servicios.Mensaje;
 import logica.servicios.Regex;
 import logica.servicios.DirFiltro;
+import logica.servicios.Logger;
 import util.Estado;
 import util.TipoCedula;
 import util.TipoContacto;
@@ -68,6 +69,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         cargarTablas();
         cargarDirJCombo("P", "", "", "", cbxProvincia);
         pnlEditarDireccion.setVisible(false);
+        pnlCrearDireccion.setVisible(false);
     }
     
     /**
@@ -442,7 +444,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         lbl_crear_nombreCliente.setText("Nombre:");
 
-        ckbAgregarDireccion.setSelected(true);
         ckbAgregarDireccion.setText("Agregar dirección");
         ckbAgregarDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1661,6 +1662,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         limiteCredito, aprobarCred, contactos);
 
                 if (creado) {
+                    
+                    Logger.registerNewLog(
+                            msg.getTextoMensaje(
+                                    TipoMensaje.CUSTOMER_INSERTION_SUCCESS));
+                    
                     msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
                     TipoMensaje.CUSTOMER_INSERTION_SUCCESS);
 
