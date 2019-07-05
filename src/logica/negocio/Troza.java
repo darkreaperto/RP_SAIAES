@@ -20,7 +20,7 @@ public class Troza {
     private double pulgadas;
     private String tipoProducto;
     private String descripcion;  
-    private String codProveedor;
+    private String cedProveedor;
     private String nomProveedor; 
     private Estado estado;
 
@@ -40,13 +40,13 @@ public class Troza {
      * @param pulgadas cantidad de madera en pulgadas
      * @param tipoProducto TROZA
      * @param descripcion descripcion de la troza
-     * @param codProveedor codigo bd del proveedor
+     * @param cedProveedor cédula del proveedor
      * @param nomProveedor nombre del proveedor
      * @param estado estado del registro troza
      */
     public Troza(String codigo, String codInterno, String codTipoMadera, 
             String descTipoMadera, double pulgadas, String tipoProducto, 
-            String descripcion, String codProveedor, String nomProveedor, 
+            String descripcion, String cedProveedor, String nomProveedor, 
             String estado) {
         this.codigo = codigo;
         this.codInterno = codInterno;
@@ -55,7 +55,7 @@ public class Troza {
         this.pulgadas = pulgadas;
         this.tipoProducto = tipoProducto;
         this.descripcion = descripcion;
-        this.codProveedor = codProveedor;
+        this.cedProveedor = cedProveedor;
         this.nomProveedor = nomProveedor;
         this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
     }
@@ -173,19 +173,19 @@ public class Troza {
     }
 
     /**
-     * Obtener codigo del proveedor
-     * @return codigo del proveedor
+     * Obtener cédula del proveedor
+     * @return cédula del proveedor
      */
-    public String getCodProveedor() {
-        return codProveedor;
+    public String getCedProveedor() {
+        return cedProveedor;
     }
 
     /**
-     * Establecer codigo del proveedor
-     * @param codProveedor codigo del proveedor
+     * Establecer cédulao del proveedor
+     * @param cedProveedor cédula del proveedor
      */
-    public void setCodProveedor(String codProveedor) {
-        this.codProveedor = codProveedor;
+    public void setCedProveedor(String cedProveedor) {
+        this.cedProveedor = cedProveedor;
     }
 
     /**

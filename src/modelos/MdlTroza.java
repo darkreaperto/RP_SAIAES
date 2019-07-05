@@ -55,7 +55,7 @@ public class MdlTroza {
             double pulgadas;
             String tipoProducto;
             String descripcion;            
-            String codProv;
+            String cedProv;
             String nomProv;
             String estado;            
                     
@@ -68,13 +68,13 @@ public class MdlTroza {
                 pulgadas = resultado.getDouble("pulgadas_Trozas");
                 tipoProducto = resultado.getString("tipoProducto_Trozas");
                 descripcion = resultado.getString("descripcion_Trozas");
-                codProv = resultado.getString("codProveedor_Trozas");
+                cedProv = resultado.getString("cedPer_Trozas");
                 nomProv = resultado.getString("nom_Personas");
                 estado = resultado.getString("estado_Trozas");
                                 
                 Troza trocita
                         = new Troza(codigo, codInterno, codTmadera, descTmadera,
-                                pulgadas, tipoProducto, descripcion, codProv, 
+                                pulgadas, tipoProducto, descripcion, cedProv, 
                                 nomProv, estado);
 
                 if (!trozas.contains(trocita)) {
@@ -112,7 +112,7 @@ public class MdlTroza {
             double pulgadas;
             String tipoProducto;
             String descripcion;            
-            String codProv;
+            String cedProv;
             String nomProv;
             String estado;   
 
@@ -124,13 +124,13 @@ public class MdlTroza {
                 pulgadas = resultado.getDouble("pulgadas_Trozas");
                 tipoProducto = resultado.getString("tipoProducto_Trozas");
                 descripcion = resultado.getString("descripcion_Trozas");
-                codProv = resultado.getString("codProveedor_Trozas");
+                cedProv = resultado.getString("cedPer_Trozas");
                 nomProv = resultado.getString("nom_Proveedor");
                 estado = resultado.getString("estado_Trozas");
                 
                 Troza trocita
                         = new Troza(codigo, codInterno, codTmadera, descTmadera,
-                                pulgadas, tipoProducto, descripcion, codProv, 
+                                pulgadas, tipoProducto, descripcion, cedProv, 
                                 nomProv, estado);
 
                 if (!trozas.contains(trocita)) {
@@ -156,7 +156,7 @@ public class MdlTroza {
      * @return verdadero si fue insertada correctamente
      */
     public boolean crearTroza(String codInterno, String codTipoMadera,  double pulgadas, String tipoProducto, 
-            String descripcion, String codProveedor) {
+            String descripcion, String cedProveedor) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(codInterno);
@@ -164,7 +164,7 @@ public class MdlTroza {
         params.add(pulgadas);
         params.add(tipoProducto);
         params.add(descripcion);
-        params.add(codProveedor);
+        params.add(cedProveedor);
 
         boolean creacionExitosa = true;
         try {
