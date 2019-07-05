@@ -159,11 +159,6 @@ public class MdlCliente {
                 TipoContacto tipo = (TipoContacto) contactos.get(i).get(0);
                 String info = contactos.get(i).get(1).toString();
                 
-                /*params.clear();
-                params.add(info);
-                params.add(pCedula);
-                params.add(tipo);*/
-                
                 ctrContacto.crearContacto(cedula, tipo, info);
             }
             
@@ -171,7 +166,7 @@ public class MdlCliente {
             System.out.println(resultado);
         } catch (SQLException ex) {
             System.err.println(ex);   
-            ex.printStackTrace();
+            ex.printStackTrace();            
             System.out.println("ERROR SQL " + ex.getErrorCode());
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
         } finally {

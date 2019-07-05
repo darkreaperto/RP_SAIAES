@@ -37,6 +37,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JViewport;
 import logica.negocio.Cliente;
 import logica.negocio.Madera;
+import logica.servicios.Logger;
 
 /**
  * Inicializa la ventana de acceso para ingresar el usuario y contraseña.
