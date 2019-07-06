@@ -580,8 +580,8 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="txt_crear_nombreCliente" max="32767" attributes="0"/>
-                                          <Component id="txt_crear_cedulaCliente" alignment="0" max="32767" attributes="0"/>
                                           <Component id="cbxCrearTipoCedula" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="ft_crear_cedulaCliente" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
@@ -602,9 +602,9 @@
                                   <Component id="cbxCrearTipoCedula" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lbl_crear_cedulaCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="txt_crear_cedulaCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="lbl_crear_cedulaCliente" pref="30" max="32767" attributes="0"/>
+                                  <Component id="ft_crear_cedulaCliente" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -625,8 +625,6 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="C&#xe9;dula:"/>
                       </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txt_crear_cedulaCliente">
                     </Component>
                     <Component class="javax.swing.JLabel" name="lbl_crear_nombreCliente">
                       <Properties>
@@ -654,6 +652,9 @@
                           <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;( TipoCedula.getValues() )" type="code"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxCrearTipoCedulaActionPerformed"/>
+                      </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
@@ -757,6 +758,13 @@
                         </Component>
                       </SubComponents>
                     </Container>
+                    <Component class="javax.swing.JFormattedTextField" name="ft_crear_cedulaCliente">
+                      <Properties>
+                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+                          <Format format="#-####-####" subtype="-1" type="5"/>
+                        </Property>
+                      </Properties>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="pnlCrearDireccion">
@@ -1657,6 +1665,7 @@
                                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                                           <StringArray count="0"/>
                                         </Property>
+                                        <Property name="selectionMode" type="int" value="0"/>
                                       </Properties>
                                       <AuxValues>
                                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
