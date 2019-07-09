@@ -94,17 +94,15 @@ public class CtrTroza {
      * @param codInterno codigo de la troza para uso interno del sistema
      * @param codTipoMadera codigo del tipo de madera (variedad)
      * @param pulgadas cantidad de troza en pulgadas
-     * @param tipoProducto TROZA duh
      * @param descripcion descripción de la troza
-     * @param codProveedor codigo del proveedor de la troza
-     * @return verdadero si fue insertada correctamente
+     * @param cedProveedor codigo del proveedor de la troza
+     * @return Verdadero si fue insertada correctamente
      */
     public boolean crearTroza(String codInterno, String codTipoMadera, 
-            double pulgadas, String tipoProducto, String descripcion, 
-            String codProveedor) {
+            double pulgadas, String descripcion, String cedProveedor) {
         
         return mdlTroza.crearTroza(codInterno, codTipoMadera,
-                pulgadas, tipoProducto, descripcion, codProveedor);
+                pulgadas, descripcion, cedProveedor);
     }
     
     /**

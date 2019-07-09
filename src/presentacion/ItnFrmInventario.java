@@ -5,11 +5,13 @@
  */
 package presentacion;
 
+import com.sun.webkit.dom.RGBColorImpl;
 import controladores.CtrAcceso;
 import controladores.CtrMadera;
 import controladores.CtrProveedor;
 import controladores.CtrTipoMadera;
 import controladores.CtrTroza;
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -23,6 +25,7 @@ import logica.negocio.TipoMadera;
 import logica.negocio.Troza;
 import logica.servicios.Mensaje;
 import logica.servicios.Regex;
+import logica.servicios.UI;
 import util.Estado;
 import util.TextPrompt;
 import util.TipoMensaje;
@@ -49,6 +52,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private static Mensaje msg;
     private final Regex verificacion;
     private TextPrompt placeholder;
+    private final UI estilo;
 
     /**
      * Instancia un nuevo formulario interno de clientes.
@@ -71,7 +75,19 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         tmaderas = new ArrayList<>();
         verificacion = new Regex();
         msg = new Mensaje();
-        
+        estilo = new UI();
+        //Estilizar intefaz
+        estilo.estilizarTablas(tbListadoInventario);
+        estilo.estilizarTablas(tbActAserrada);
+        estilo.estilizarTablas(tbActTerminada);
+        estilo.estilizarTablas(tbActTroza);        
+        estilo.estilizarTablas(tblAgregarAserrada);
+        estilo.estilizarTablas(tblAgregarTerminada);
+        estilo.estilizarTablas(tblAgregarTroza);
+        estilo.estilizarTablas(tblEditarAserrada);
+        estilo.estilizarTablas(tblEditarTerminada);
+        estilo.estilizarTablas(tblEditarTroza);
+        //Cargar datos a la interfaz
         cargarCombos();
         cargarTablas();
     }
@@ -90,13 +106,18 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         }
         return instancia;
     }
-    
+      
     /**
      * Carga los combo box según corresponda con el tipo de madera y producto.
      */
     private void cargarCombos() {
         
-        proveedores = ctrProveedor.obtenerProveedores();  
+        //cargar todos los proveedores
+        proveedores = ctrProveedor.obtenerProveedores(); 
+        //limpiar cada combo
+        cbxNuevoTProveedor.removeAllItems();
+        cbxEditarTProveedor.removeAllItems();
+        //cargar los combos de proveedores
         for (Proveedor item : proveedores) {
             cbxNuevoTProveedor.addItem(item);
             cbxEditarTProveedor.addItem(item);
@@ -105,7 +126,16 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             cbxNuevoTProveedor.setSelectedIndex(0);
         }
         
+        //cargar tipos de madera
         tmaderas = ctrTipoMadera.obtenerTiposMadera();
+        //limpiar combos primero
+        cbxNuevoTVariedad.removeAllItems();
+        cbxEditarTVariedad.removeAllItems();
+        cbxNuevoAcVariedad.removeAllItems();
+        cbxEditarAcVariedad.removeAllItems();
+        cbxNuevoTmVariedad.removeAllItems();
+        cbxEditarTmVariedad.removeAllItems();
+        //cargar los combos
         tmaderas.forEach((item) -> {
             cbxNuevoTVariedad.addItem(item);
             cbxEditarTVariedad.addItem(item);
@@ -129,16 +159,16 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         cargarJTableGeneral(tbProductosActivos, true, "troza&producto");
         cargarJTableGeneral(tbProductosInactivos, false, "troza&producto");
         
-        cargarJTableGeneral(tbActAserrada, true, "producto");        
-        cargarJTableGeneral(tbActTerminada, true, "producto");
+        cargarJTableGeneral(tbActAserrada, true, "aserrada");        
+        cargarJTableGeneral(tbActTerminada, true, "terminada");
         cargarJTableGeneral(tbActTroza, true, "troza");
         
-        cargarJTableGeneral(tblAgregarAserrada, true,"producto");
-        cargarJTableGeneral(tblAgregarTerminada, true, "producto");
+        cargarJTableGeneral(tblAgregarAserrada, true,"aserrada");
+        cargarJTableGeneral(tblAgregarTerminada, true, "terminada");
         cargarJTableGeneral(tblAgregarTroza, true, "troza");
         
-        cargarJTableGeneral(tblEditarAserrada, true, "producto");
-        cargarJTableGeneral(tblEditarTerminada, true, "producto");
+        cargarJTableGeneral(tblEditarAserrada, true, "aserrada");
+        cargarJTableGeneral(tblEditarTerminada, true, "terminada");
         cargarJTableGeneral(tblEditarTroza, true, "troza");
     }
 
@@ -150,7 +180,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      */
     public void cargarJTableGeneral(JTable tabla, boolean estado, String tpTabla) {
         
-        if(tpTabla.equals("troza&producto")) { //Agregar ambas cosas en una tabla
+        if(tpTabla.equals("troza&producto")) {//Agregar todas en una tabla, aserrada, terminada y trozas
             Object[] row = new Object[9];
             model = (DefaultTableModel) tabla.getModel();
             model.setRowCount(0);
@@ -216,14 +246,26 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             }
             tabla.removeColumn(tabla.getColumnModel().getColumn(8));
             
-        } else if (tpTabla.equals("producto")) { //Agregar solo productos
+        } else if (tpTabla.equals("aserrada")) { //Agregar solo aserrada
+            
             Object[] row = new Object[8];
             model = (DefaultTableModel) tabla.getModel();
             model.setRowCount(0);
             model.setColumnCount(8);
             
-            llenarRowProductos(row, estado);            
+            llenarRowAserrada(row, estado);            
             tabla.removeColumn(tabla.getColumnModel().getColumn(7));
+            
+        }
+        else if (tpTabla.equals("terminada")) { //Agregar solo terminada
+            
+            Object[] row = new Object[7];
+            model = (DefaultTableModel) tabla.getModel();
+            model.setRowCount(0);
+            model.setColumnCount(7);
+            
+            llenarRowTerminada(row, estado);            
+            tabla.removeColumn(tabla.getColumnModel().getColumn(6));
             
         } else if(tpTabla.equals("troza")) { //Agregar solo troza
             Object[] row = new Object[7];
@@ -239,36 +281,75 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     /**
      * Llena cada columna del modelo de JTable, con el dato que le corresponda 
      * dependiendo del tipo de tabla, en este caso la tabla 
-     * es para productos (aserrada terminada)
+     * es para aserrada
      * @param row Fila de la tabla que se está llenando
-     * @param estado Estado de la troza/producto a ingresar
+     * @param estado Estado de la aserrada a ingresar
      */
-    public void llenarRowProductos(Object[] row, boolean estado) {
-        System.out.println("llenarRowProductos PRODUCTOS SIZE: " + productos.size());
+    public void llenarRowAserrada(Object[] row, boolean estado) {
+        System.out.println("llenarRowAserrada PRODUCTOS SIZE: " + productos.size());
         for (int i = 0; i < productos.size(); i++) {
-            if (estado && productos.get(i).getEstado().equals(Estado.Activo)) {
-                row[0] = productos.get(i).getCodProducto();
-                row[1] = productos.get(i).getTipoProducto();
-                row[2] = productos.get(i).getDescTipoMadera();
-                row[3] = productos.get(i).getGrueso() + " x " + productos.get(i).getAncho();               
-                row[4] = productos.get(i).getCantVaras();
-                row[5] = productos.get(i).getPrecioXvara();
-                row[6] = productos.get(i).getDescripcion();
-                row[7] = productos.get(i).getCodigo();
-                
-                model.addRow(row);
+            if(productos.get(i).getTipoProducto().equals("ASERRADA")) {
+                if (estado && productos.get(i).getEstado().equals(Estado.Activo)) {
+                    row[0] = productos.get(i).getCodProducto();
+                    row[1] = productos.get(i).getTipoProducto();
+                    row[2] = productos.get(i).getDescTipoMadera();
+                    row[3] = productos.get(i).getGrueso() + " x " + productos.get(i).getAncho();               
+                    row[4] = productos.get(i).getCantVaras();
+                    row[5] = productos.get(i).getPrecioXvara();
+                    row[6] = productos.get(i).getDescripcion();
+                    row[7] = productos.get(i).getCodigo();
+
+                    model.addRow(row);
+                }
+                if (!estado && productos.get(i).getEstado().equals(Estado.Deshabilitado)) {
+                    row[0] = productos.get(i).getCodProducto();
+                    row[1] = productos.get(i).getTipoProducto();
+                    row[2] = productos.get(i).getDescTipoMadera();
+                    row[3] = productos.get(i).getGrueso() + " x " + productos.get(i).getAncho();               
+                    row[4] = productos.get(i).getCantVaras();
+                    row[5] = productos.get(i).getPrecioXvara();
+                    row[6] = productos.get(i).getDescripcion();
+                    row[7] = productos.get(i).getCodigo();
+
+                    model.addRow(row);
+                }
             }
-            if (!estado && productos.get(i).getEstado().equals(Estado.Deshabilitado)) {
-                row[0] = productos.get(i).getCodProducto();
-                row[1] = productos.get(i).getTipoProducto();
-                row[2] = productos.get(i).getDescTipoMadera();
-                row[3] = productos.get(i).getGrueso() + " x " + productos.get(i).getAncho();               
-                row[4] = productos.get(i).getCantVaras();
-                row[5] = productos.get(i).getPrecioXvara();
-                row[6] = productos.get(i).getDescripcion();
-                row[7] = productos.get(i).getCodigo();
-                
-                model.addRow(row);
+        }
+    }
+    
+    /**
+     * Llena cada columna del modelo de JTable, con el dato que le corresponda 
+     * dependiendo del tipo de tabla, en este caso la tabla 
+     * es para madera terminada
+     * @param row Fila de la tabla que se está llenando
+     * @param estado Estado de la terminada a ingresar
+     */
+    public void llenarRowTerminada(Object[] row, boolean estado) {
+        System.out.println("llenarRowTerminada PRODUCTOS SIZE: " + productos.size());
+        for (int i = 0; i < productos.size(); i++) {
+            if(productos.get(i).getTipoProducto().equals("TERMINADA")) {
+                if (estado && productos.get(i).getEstado().equals(Estado.Activo)) {
+                    row[0] = productos.get(i).getCodProducto();
+                    row[1] = productos.get(i).getTipoProducto();
+                    row[2] = productos.get(i).getDescTipoMadera();              
+                    row[3] = productos.get(i).getCantVaras();
+                    row[4] = productos.get(i).getPrecioXvara();
+                    row[5] = productos.get(i).getDescripcion();
+                    row[6] = productos.get(i).getCodigo();
+
+                    model.addRow(row);
+                }
+                if (!estado && productos.get(i).getEstado().equals(Estado.Deshabilitado)) {
+                    row[0] = productos.get(i).getCodProducto();
+                    row[1] = productos.get(i).getTipoProducto();
+                    row[2] = productos.get(i).getDescTipoMadera();              
+                    row[3] = productos.get(i).getCantVaras();
+                    row[4] = productos.get(i).getPrecioXvara();
+                    row[5] = productos.get(i).getDescripcion();
+                    row[6] = productos.get(i).getCodigo();
+
+                    model.addRow(row);
+                }
             }
         }
     }
@@ -277,7 +358,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * Llena cada columna del modelo de JTable, con el dato que le corresponda 
      * dependiendo del tipo de tabla, en este caso la tabla es para troza
      * @param row Fila de la tabla que se está llenando
-     * @param estado Estado de la troza/producto a ingresar
+     * @param estado Estado de la troza a ingresar
      */
     public void llenarRowTroza(Object[] row, boolean estado) {
         System.out.println("cargarJTableGeneral TROZAS SIZE: " + trozas.size());
@@ -426,6 +507,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     txtEditarTmCodigo.setText("");
                     txtEditarTmNombre.setText("");
                     txtEditarTmPrecio.setText("");
+                    txtEditarTmCantVaras.setText("");
                     //cbxEditarTmVariedad.removeAll();
                     cargarCombos();
                     break;
@@ -468,18 +550,18 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         String p = String.valueOf(precio);
         String cv = String.valueOf(cantVaras);
         
-        System.out.println("COD PROD: " + codProd);
-        System.out.println("DESC: " + descripcion);
-        System.out.println("PRECIO: " + precio);
-        System.out.println("VARAS: " + cantVaras);
-        System.out.println("GRUESO: " + grueso);
-        System.out.println("ANCHO: " + ancho);
-        System.out.println("COD TIPO MADERA: " + codTipoMadera);
-        System.out.println("TIPO: " + tipoProducto);
+//        System.out.println("COD PROD: " + codProd);
+//        System.out.println("DESC: " + descripcion);
+//        System.out.println("PRECIO: " + precio);
+//        System.out.println("VARAS: " + cantVaras);
+//        System.out.println("GRUESO: " + grueso);
+//        System.out.println("ANCHO: " + ancho);
+//        System.out.println("COD TIPO MADERA: " + codTipoMadera);
+//        System.out.println("TIPO: " + tipoProducto);
         
         //Campos no están vacíos
-        if (!codProd.isEmpty() && !descripcion.isEmpty() && !p.isEmpty() &&
-                !cv.isEmpty() && !grueso.isEmpty() && !ancho.isEmpty() && 
+        if (!codProd.isEmpty() && !p.isEmpty() && !cv.isEmpty() && 
+                !grueso.isEmpty() && !ancho.isEmpty() && 
                 !codTipoMadera.isEmpty()) {
                         
             //Verificar precio
@@ -493,14 +575,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
                 if (crear) {
                     cargarTablas();
-                    cargarCombos();                        
-                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-                            TipoMensaje.PRODUCT_INSERTION_SUCCESS);                        
+                    cargarCombos();                                             
                     return true;
-                } else {
-                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                            TipoMensaje.PRODUCT_INSERTION_FAILURE);                        
-                }
+                } 
             } else {
                 msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                         TipoMensaje.PRICE_SYNTAX_FAILURE);
@@ -517,39 +594,31 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * @param codProd código interno del producto
      * @param codTipoMadera código del tipo de madera
      * @param medida medidas de la madera
-     * @param tipoProducto tipo de madera
      * @param cantVaras cantidad que ingresa en varas
      * @param precio precio por vara
      * @param descripcion descripción de la madera ingresada
-     * @param codProveedor código del proveedor par la troza (si existe)
+     * @param cedProveedor código del proveedor par la troza (si existe)
      * @return  Verdadero si crea la troza exitosamente
      */
     private boolean crearTroza(String codInte, String codTipoMadera, 
-            double pulgadas, String tipoProducto, String descrip, 
-            String codProveedor) {
+            double pulgadas, String descrip, String cedProveedor) {
         
         String pulg = String.valueOf(pulgadas);
         
         //Campos no están vacíos
         if (!codInte.isEmpty() && !codTipoMadera.isEmpty() && !pulg.isEmpty() && 
-                !tipoProducto.isEmpty() && !descrip.isEmpty() && 
-                !codProveedor.isEmpty()) {
+                !descrip.isEmpty() && !cedProveedor.isEmpty()) {
                         
             System.out.println("AGREGANDO TROZA, PLEASE WAIT... ");
             boolean crear = ctrTroza.crearTroza(codInte, codTipoMadera, 
-                    pulgadas, tipoProducto, descrip, codProveedor);
+                    pulgadas, descrip, cedProveedor);
             System.out.println("CREAR: " + crear);
 
             if (crear) {
                 cargarTablas();
-                cargarCombos();                        
-                msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-                        TipoMensaje.PRODUCT_INSERTION_SUCCESS);                        
+                cargarCombos();                                         
                 return true;
-            } else {
-                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                        TipoMensaje.PRODUCT_INSERTION_FAILURE);                        
-            }
+            } 
         } else {
             msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
                     TipoMensaje.EMPTY_TEXT_FIELD);
@@ -558,7 +627,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     }
     
     /**
-     * Acturaliza los atributos del producto (aserrada y terminada).
+     * Actualizar los atributos del producto (aserrada y terminada).
      * @param codProd codigo de producto personalizado
      * @param descripcion descripción del producto
      * @param precio precio por vara del producto
@@ -566,7 +635,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * @param grueso grueso del producto
      * @param ancho ancho del producto
      * @param codigo codigo bd del producto
-     * @return 
+     * @return Verdadero si el producto se actualiza exitosamente
      */                   
     private boolean actualizarProducto(String codProd, String descripcion, 
             String precio, String cantVaras, String grueso, String ancho, 
@@ -594,17 +663,15 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     if (editar) {
                         cargarTablas();
                         cargarCombos();                        
-                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-                                TipoMensaje.PRODUCT_UPDATE_SUCCESS);
                         return true;
-                    } else {
-                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                            TipoMensaje.PRODUCT_UPDATE_FAILURE);
                     }
                 } catch (NumberFormatException ex) {
-                    
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.NUMBER_FORMAT_EXCEPTION);
                     ex.printStackTrace();
                 } catch (Exception ex) {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.SOMETHING_WENT_WRONG);
                     ex.printStackTrace();
                 }
             } else {
@@ -618,40 +685,44 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         return false;
     }
     
+    
+    /**
+     * Actualizar los atributos de la troza
+     * @param codIn Codigo de la troza personalizado por la empresa
+     * @param pulgadas Cantidad de troza en pulgadas
+     * @param descripcion Detalle o descripción de la troza
+     * @param cedProveedor Cedula que identifica el proveedor
+     * @param tipoMad Variedad de madera de la Troza
+     * @param codigo Codigo bd del producto
+     * @return Verdadero si el producto se actualiza exitosamente
+     */
     private boolean actualizarTroza(String codIn, String pulgadas, 
-            String descripcion, String codProveedor, TipoMadera tipoMad, 
+            String descripcion, String cedProveedor, TipoMadera tipoMad, 
             String codigo) {
         
         //Campos no están vacíos
-        if (!codIn.isEmpty() && !descripcion.isEmpty() && !pulgadas.isEmpty() 
-                && !codigo.isEmpty()) {
+        if (!codIn.isEmpty() && !pulgadas.isEmpty() && !codigo.isEmpty()) {
                 
-                try {
-                    double pulgs = Double.valueOf(pulgadas);
-                    boolean editar = ctrTroza.actualizarTroza(codIn, 
-                            tipoMad.getCodigo(), pulgs, descripcion, 
-                            codProveedor, codigo);
+            try {
+                double pulgs = Double.valueOf(pulgadas);
+                boolean editar = ctrTroza.actualizarTroza(codIn, 
+                        tipoMad.getCodigo(), pulgs, descripcion, 
+                        cedProveedor, codigo);
 
-                    if (editar) {
-                        cargarTablas();
-                        cargarCombos();                        
-                        msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-                                TipoMensaje.PRODUCT_UPDATE_SUCCESS);
-                        return true;
-                    } else {
-                        msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                            TipoMensaje.PRODUCT_UPDATE_FAILURE);
-                    }
-                } catch (NumberFormatException ex) {
-                    
-                    ex.printStackTrace();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            //} else {
-                //msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
-                //        TipoMensaje.PRICE_SYNTAX_FAILURE);
-            //}
+                if (editar) {
+                    cargarTablas();
+                    cargarCombos();                        
+                    return true;
+                } 
+            } catch (NumberFormatException ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.NUMBER_FORMAT_EXCEPTION);
+                ex.printStackTrace();
+            } catch (Exception ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.SOMETHING_WENT_WRONG);
+                ex.printStackTrace();
+            }
         } else {
             msg.mostrarMensaje(JOptionPane.WARNING_MESSAGE,
                     TipoMensaje.EMPTY_TEXT_FIELD);
@@ -679,6 +750,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 break;
         }
     }
+    
      /**
      * Preparar la información del producto/troza ingresada en la interfaz
      * para enviarlo a crear.
@@ -727,6 +799,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             TipoMensaje.PRODUCT_INSERTION_SUCCESS
                     );
                     limpiarCampos("Crear","ASERRADA");
+                    break;
+                }else {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                            TipoMensaje.PRODUCT_INSERTION_FAILURE);                        
                 }
                 break;
             //CREAR MADERA TROZA
@@ -749,17 +825,22 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 }
                 tipoMad = (TipoMadera) cbxNuevoTVariedad.getSelectedItem();
                 Proveedor pv = (Proveedor) cbxNuevoTProveedor.getSelectedItem();
-                
+                System.out.println("INVENTARIO->prepararCrearProducto->CEDPROVEEDOR: " + pv.getCedula());
+
                 boolean cprod = crearTroza(txtNuevoTCodigo.getText().trim(),
-                        tipoMad.getCodigo(), pulgadas, tipoProduc,
+                        tipoMad.getCodigo(), pulgadas,
                         txtaNuevoTDescripcion.getText().trim(), pv.getCedula());
                 
                 if(cprod) {
                     msg.mostrarMensaje(
-                            JOptionPane.ERROR_MESSAGE, 
+                            JOptionPane.INFORMATION_MESSAGE, 
                             TipoMensaje.PRODUCT_INSERTION_SUCCESS
                     );
                     limpiarCampos("Crear","TROZA");
+                    break;
+                } else {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                            TipoMensaje.PRODUCT_INSERTION_FAILURE);                        
                 }
                 break;
             //CREAR MADERA TERMINADA
@@ -775,12 +856,14 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             TipoMensaje.NUMBER_FORMAT_EXCEPTION
                     );
                     ex.printStackTrace();
+                    break;
                 }catch (Exception ex) {
                     msg.mostrarMensaje(
                             JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.SOMETHING_WENT_WRONG
                     );
                     ex.printStackTrace();
+                    break;
                 }
                 tipoMad = (TipoMadera) cbxNuevoTmVariedad.getSelectedItem();
                 
@@ -789,10 +872,14 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                         "0", "0", tipoMad.getCodigo(), tipoProduc);
                 if(cprod) {
                     msg.mostrarMensaje(
-                            JOptionPane.ERROR_MESSAGE, 
+                            JOptionPane.INFORMATION_MESSAGE, 
                             TipoMensaje.PRODUCT_INSERTION_SUCCESS
                     );
                     limpiarCampos("Crear","TERMINADA");
+                    break;
+                } else {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                            TipoMensaje.PRODUCT_INSERTION_FAILURE);                        
                 }
                 break;
             } default:
@@ -944,9 +1031,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                         (String) model.getValueAt(indiceFila, 7);
                 //Obtener código de la troza que se seleccionó en la lista
                 ListModel lista = lsActAsSelTrz.getModel();
-                
-                System.out.println("LSACTASSELTRZ DATA MODEL: ");
-                
+                                
                 if (lista != null) {
                     int filaLsTroza = lsActAsSelTrz.getSelectedIndex();
 
@@ -1200,13 +1285,19 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                         txtaEditarTDescripcion.getText().trim(), 
                         pv.getCedula(), tipoMad, codigo);
                 if(aprod) {
+                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
+                                TipoMensaje.PRODUCT_UPDATE_SUCCESS);
                     limpiarCampos("Editar","TROZA");
+                } else {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
+                        TipoMensaje.PRODUCT_UPDATE_FAILURE);
                 }
+                
             } else if (tipo.equals("TERMINADA")) {
                 model = (DefaultTableModel) tblEditarTerminada.getModel();
                 int indiceFila = tblEditarTerminada.getSelectedRow();
                 //#revisar indice#
-                String codigo = (String) model.getValueAt(indiceFila, 7);
+                String codigo = (String) model.getValueAt(indiceFila, 6);
                 tipoMad = (TipoMadera) cbxEditarTmVariedad.getSelectedItem();
 
                 boolean aprod = actualizarProducto(txtEditarTmCodigo.getText(),
@@ -1215,6 +1306,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                         tipoMad, codigo);
                 if(aprod) {
                     limpiarCampos("Editar","TERMINADA");
+                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                            TipoMensaje.PRODUCT_UPDATE_SUCCESS);
+                } else {
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.PRODUCT_UPDATE_FAILURE);
                 }
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -1371,8 +1467,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         scpnlNuevoAcDescripcion = new javax.swing.JScrollPane();
         txtaNuevoAcDescripcion = new javax.swing.JTextArea();
         cbxNuevoAcVariedad = new javax.swing.JComboBox<>();
-        cbxNuevoAcOrigen = new javax.swing.JComboBox<>();
-        lblNuevoAcOrigen = new javax.swing.JLabel();
         scpnlTbAcNuevo = new javax.swing.JScrollPane();
         tblAgregarAserrada = new javax.swing.JTable();
         btnNuevaAserrada = new javax.swing.JButton();
@@ -1507,6 +1601,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         lblListadoInventario.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         lblListadoInventario.setText("Buscar producto: ");
 
+        txtListadoInventario.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
         txtListadoInventario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtListadoInventarioKeyReleased(evt);
@@ -1529,6 +1624,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbListadoInventario.setRowHeight(15);
         tbListadoInventario.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scpnlTblListadoInventario.setViewportView(tbListadoInventario);
 
@@ -1555,7 +1651,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     .addComponent(txtListadoInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblListadoInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(scpnlTblListadoInventario, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
+                .addComponent(scpnlTblListadoInventario, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1695,11 +1791,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Tipo de producto", "Variedad de madera", "Medidas", "Cantidad varas", "Precio por vara", "Descripción", "Codigo bd"
+                "Código", "Tipo de producto", "Variedad de madera", "Cantidad varas", "Precio por vara", "Descripción", "Codigo bd"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1900,11 +1996,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
         cbxNuevoAcVariedad.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
 
-        cbxNuevoAcOrigen.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
-
-        lblNuevoAcOrigen.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
-        lblNuevoAcOrigen.setText("Madera de origen:");
-
         tblAgregarAserrada.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         tblAgregarAserrada.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1985,14 +2076,12 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                                 .addComponent(lblNuevoAcMedX, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtNuevoAcMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cbxNuevoAcOrigen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblNuevoAcOrigen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblNuevoAcMedidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(55, 55, 55)
                         .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(scpnlNuevoAcDescripcion)
                             .addComponent(lblNuevoAcDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNuevoAcerradaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnNuevaAserrada, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2022,15 +2111,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlNuevoAcerradaLayout.createSequentialGroup()
+                                .addComponent(lblNuevoAcVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
                                 .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblNuevoAcVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblNuevoAcOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(7, 7, 7)
-                                .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(cbxNuevoAcVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtNuevoAcPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(cbxNuevoAcOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(cbxNuevoAcVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNuevoAcPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(lblNuevoAcPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(scpnlNuevoAcDescripcion))
                 .addGap(18, 18, 18)
@@ -2152,6 +2237,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
         lblNuevoTDescripcion.setText("Descripción: ");
 
+        placeholder = new TextPrompt("(Opcional)", txtaNuevoAcDescripcion);
+        placeholder.changeAlpha(0.75f);
+        placeholder.changeStyle(Font.ITALIC);
         txtaNuevoTDescripcion.setColumns(20);
         txtaNuevoTDescripcion.setRows(5);
         scpnlNuevoTDescripcion.setViewportView(txtaNuevoTDescripcion);
@@ -2948,6 +3036,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNuevaAserradaActionPerformed
 
     private void tblEditarTerminadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditarTerminadaMouseClicked
+        System.out.println("Mouse clicked FROM TBLEDITARTERMINADA");
         cargarEditarProducto();
     }//GEN-LAST:event_tblEditarTerminadaMouseClicked
 
@@ -2987,7 +3076,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<Proveedor> cbxEditarTProveedor;
     private javax.swing.JComboBox<TipoMadera> cbxEditarTVariedad;
     private javax.swing.JComboBox<TipoMadera> cbxEditarTmVariedad;
-    private javax.swing.JComboBox<Object> cbxNuevoAcOrigen;
     private javax.swing.JComboBox<Object> cbxNuevoAcVariedad;
     private javax.swing.JComboBox<Object> cbxNuevoTProveedor;
     private javax.swing.JComboBox<Object> cbxNuevoTVariedad;
@@ -3025,7 +3113,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblNuevoAcDescripcion;
     private javax.swing.JLabel lblNuevoAcMedX;
     private javax.swing.JLabel lblNuevoAcMedidas;
-    private javax.swing.JLabel lblNuevoAcOrigen;
     private javax.swing.JLabel lblNuevoAcPrecio;
     private javax.swing.JLabel lblNuevoAcUnidades;
     private javax.swing.JLabel lblNuevoAcVariedad;

@@ -59,8 +59,8 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="tb_modProveedor" pref="606" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="tb_modProveedor" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -68,6 +68,11 @@
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JTabbedPane" name="tb_modProveedor">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI" size="18" style="0"/>
+            </Property>
+          </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
@@ -85,12 +90,12 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace pref="14" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="scpnlTblListadoProveedor" min="-2" pref="1165" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="lblListadoProveedor" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Component id="txtListadoProveedor" max="32767" attributes="0"/>
+                                  <Component id="lblListadoProveedor" min="-2" pref="168" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtListadoProveedor" min="-2" pref="992" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="15" max="32767" attributes="0"/>
@@ -102,7 +107,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                                   <Component id="lblListadoProveedor" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -111,7 +116,7 @@
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="scpnlTblListadoProveedor" min="-2" pref="476" max="-2" attributes="0"/>
+                          <Component id="scpnlTblListadoProveedor" pref="506" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -120,10 +125,18 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="lblListadoProveedor">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Buscar proveedor: "/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtListadoProveedor">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="18" style="0"/>
+                    </Property>
+                  </Properties>
                   <Events>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtListadoProveedorKeyReleased"/>
                   </Events>
@@ -190,32 +203,68 @@
                 </Constraint>
               </Constraints>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-                <Property name="useNullLayout" type="boolean" value="true"/>
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="btnCrearProveedor" min="-2" pref="195" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="pnlCrearInfoBase" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="pnlCrearContactoProveedor" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="pnlCrearDireccion" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="spnl_crear_proveedores" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="pnlCrearDireccion" max="32767" attributes="0"/>
+                              <Component id="pnlCrearContactoProveedor" alignment="1" max="32767" attributes="0"/>
+                              <Component id="pnlCrearInfoBase" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="spnl_crear_proveedores" min="-2" pref="246" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnCrearProveedor" min="-2" pref="41" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
               </Layout>
               <SubComponents>
                 <Container class="javax.swing.JPanel" name="pnlCrearContactoProveedor">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Contacto:"/>
+                        <TitledBorder title="Contacto:">
+                          <Font PropertyName="font" name="Yu Gothic UI" size="18" style="0"/>
+                        </TitledBorder>
                       </Border>
                     </Property>
                     <Property name="autoscrolls" type="boolean" value="true"/>
                   </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="370" y="10" width="-1" height="235"/>
-                    </Constraint>
-                  </Constraints>
 
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="tbCrearContactoProveedores" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="tbCrearContactoProveedores" alignment="0" pref="358" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -223,7 +272,6 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="tbCrearContactoProveedores" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -264,19 +312,16 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="spnlCrearTelefonos" alignment="0" pref="363" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="lblCrearTelefono" min="-2" pref="116" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="txt_agregarTelefono" max="32767" attributes="0"/>
+                                                  <Component id="txt_agregarTelefono" min="-2" pref="212" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="btnAgregarTelefono" min="-2" pref="46" max="-2" attributes="0"/>
+                                                  <Component id="btnAgregarTelefono" min="-2" pref="51" max="-2" attributes="0"/>
                                               </Group>
+                                              <Component id="lblCrearTelefono" max="32767" attributes="0"/>
+                                              <Component id="spnlCrearTelefonos" alignment="0" max="32767" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace pref="105" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -285,13 +330,13 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="lblCrearTelefono" min="-2" pref="27" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="spnlCrearTelefonos" pref="92" max="32767" attributes="0"/>
+                                          <Component id="spnlCrearTelefonos" min="-2" pref="96" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txt_agregarTelefono" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="btnAgregarTelefono" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="btnAgregarTelefono" max="32767" attributes="0"/>
+                                              <Component id="txt_agregarTelefono" max="32767" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace pref="30" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -299,6 +344,9 @@
                               <SubComponents>
                                 <Component class="javax.swing.JLabel" name="lblCrearTelefono">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                                    </Property>
                                     <Property name="text" type="java.lang.String" value="Tel&#xe9;fono:"/>
                                   </Properties>
                                 </Component>
@@ -311,6 +359,9 @@
                                   <SubComponents>
                                     <Component class="javax.swing.JList" name="lsCrearTelefonos">
                                       <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Yu Gothic UI" size="18" style="0"/>
+                                        </Property>
                                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                                           <StringArray count="0"/>
                                         </Property>
@@ -322,9 +373,17 @@
                                   </SubComponents>
                                 </Container>
                                 <Component class="javax.swing.JTextField" name="txt_agregarTelefono">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI" size="18" style="0"/>
+                                    </Property>
+                                  </Properties>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="btnAgregarTelefono">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI" size="16" style="1"/>
+                                    </Property>
                                     <Property name="text" type="java.lang.String" value="+"/>
                                   </Properties>
                                   <Events>
@@ -352,19 +411,16 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="scpnl_crearCorreo" alignment="0" max="32767" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="lbl_crear_correo" min="-2" pref="187" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="177" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="txt_agregarCorreo" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="txt_agregarCorreo" min="-2" pref="212" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="btnAgregarCorreo" min="-2" pref="46" max="-2" attributes="0"/>
+                                              <Component id="btnAgregarCorreo" min="-2" pref="51" max="-2" attributes="0"/>
                                           </Group>
+                                          <Component id="scpnl_crearCorreo" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="lbl_crear_correo" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace pref="27" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -373,13 +429,13 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="lbl_crear_correo" min="-2" pref="27" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="scpnl_crearCorreo" pref="95" max="32767" attributes="0"/>
+                                      <Component id="scpnl_crearCorreo" min="-2" pref="96" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="txt_agregarCorreo" alignment="0" pref="30" max="32767" attributes="0"/>
-                                          <Component id="btnAgregarCorreo" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="btnAgregarCorreo" max="32767" attributes="0"/>
+                                          <Component id="txt_agregarCorreo" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace pref="32" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -387,6 +443,9 @@
                           <SubComponents>
                             <Component class="javax.swing.JLabel" name="lbl_crear_correo">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="Correo Electr&#xf3;nico:"/>
                               </Properties>
                             </Component>
@@ -413,6 +472,9 @@
                             </Component>
                             <Component class="javax.swing.JButton" name="btnAgregarCorreo">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Yu Gothic UI" size="16" style="1"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="+"/>
                               </Properties>
                               <Events>
@@ -426,11 +488,6 @@
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JScrollPane" name="spnl_crear_proveedores">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="12" y="259" width="1153" height="267"/>
-                    </Constraint>
-                  </Constraints>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
@@ -481,32 +538,16 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="btnCrearProveedor">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Crear Proveedor"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrearProveedorActionPerformed"/>
-                  </Events>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="1015" y="532" width="-1" height="35"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
                 <Container class="javax.swing.JPanel" name="pnlCrearDireccion">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Direcci&#xf3;n"/>
+                        <TitledBorder title="Direcci&#xf3;n">
+                          <Font PropertyName="font" name="Yu Gothic UI" size="18" style="0"/>
+                        </TitledBorder>
                       </Border>
                     </Property>
                   </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="831" y="12" width="-1" height="250"/>
-                    </Constraint>
-                  </Constraints>
 
                   <Layout>
                     <DimensionLayout dim="0">
@@ -515,27 +556,22 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lbl_crear_otrasSenas" max="32767" attributes="0"/>
+                                  <Component id="scpnlCrearOtrasSenas" alignment="0" pref="310" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="lbl_crear_barrio" max="32767" attributes="0"/>
-                                          <Component id="lbl_crear_distrito" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="lbl_crear_provincia" max="32767" attributes="0"/>
+                                              <Component id="lbl_crear_barrio" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="lbl_crear_canton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbl_crear_distrito" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="cbxDistrito" max="32767" attributes="0"/>
-                                          <Component id="cbxBarrio" min="-2" pref="188" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Component id="scpnlCrearOtrasSenas" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="lbl_crear_provincia" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                          <Component id="lbl_crear_canton" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="cbxBarrio" alignment="0" max="32767" attributes="0"/>
                                           <Component id="cbxCanton" max="32767" attributes="0"/>
-                                          <Component id="cbxProvincia" min="-2" pref="188" max="-2" attributes="0"/>
+                                          <Component id="cbxProvincia" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -546,31 +582,36 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lbl_crear_provincia" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="cbxProvincia" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cbxCanton" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbl_crear_canton" min="-2" pref="25" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cbxDistrito" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbl_crear_distrito" min="-2" pref="25" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbl_crear_barrio" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="cbxBarrio" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cbxProvincia" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                                      <Component id="lbl_crear_provincia" min="-2" pref="27" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="cbxCanton" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                                      <Component id="lbl_crear_canton" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="cbxDistrito" pref="30" max="32767" attributes="0"/>
+                                  <Component id="lbl_crear_distrito" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="lbl_crear_barrio" max="32767" attributes="0"/>
+                                  <Component id="cbxBarrio" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="lbl_crear_otrasSenas" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="scpnlCrearOtrasSenas" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="scpnlCrearOtrasSenas" min="-2" pref="41" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -578,6 +619,9 @@
                   <SubComponents>
                     <Component class="javax.swing.JComboBox" name="cbxDistrito">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="18" style="0"/>
+                        </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="0"/>
                         </Property>
@@ -591,23 +635,13 @@
                     </Component>
                     <Component class="javax.swing.JComboBox" name="cbxBarrio">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="18" style="0"/>
+                        </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="0"/>
                         </Property>
                       </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;DirFiltro&gt;"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="cbxProvincia">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="0"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxProvinciaActionPerformed"/>
-                      </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;DirFiltro&gt;"/>
                       </AuxValues>
@@ -619,6 +653,9 @@
                         <Component class="javax.swing.JTextArea" name="txaOtrasSenas">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Yu Gothic UI" size="18" style="0"/>
+                            </Property>
                             <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="3"/>
                             <Property name="wrapStyleWord" type="boolean" value="true"/>
@@ -628,6 +665,9 @@
                     </Container>
                     <Component class="javax.swing.JComboBox" name="cbxCanton">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="18" style="0"/>
+                        </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="0"/>
                         </Property>
@@ -641,75 +681,112 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="lbl_crear_distrito">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Distrito: "/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lbl_crear_otrasSenas">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Otras se&#xf1;as: "/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="lbl_crear_canton">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Cant&#xf3;n: "/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lbl_crear_barrio">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Barrio: "/>
                       </Properties>
                     </Component>
+                    <Component class="javax.swing.JComboBox" name="cbxProvincia">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="18" style="0"/>
+                        </Property>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="0"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxProvinciaActionPerformed"/>
+                      </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;DirFiltro&gt;"/>
+                      </AuxValues>
+                    </Component>
                     <Component class="javax.swing.JLabel" name="lbl_crear_provincia">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Provincia: "/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lbl_crear_canton">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Cant&#xf3;n: "/>
                       </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JButton" name="btnCrearProveedor">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Crear Proveedor"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrearProveedorActionPerformed"/>
+                  </Events>
+                </Component>
                 <Container class="javax.swing.JPanel" name="pnlCrearInfoBase">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Informaci&#xf3;n b&#xe1;sica"/>
+                        <TitledBorder title="Informaci&#xf3;n b&#xe1;sica">
+                          <Font PropertyName="font" name="Yu Gothic UI" size="18" style="0"/>
+                        </TitledBorder>
                       </Border>
                     </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="16" style="0"/>
+                    </Property>
                   </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="12" y="12" width="337" height="235"/>
-                    </Constraint>
-                  </Constraints>
 
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace min="170" pref="170" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="183" max="32767" attributes="0"/>
                                       <Component id="ckbAgregarDireccion" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblCrearTipoCedula" max="32767" attributes="0"/>
+                                          <Component id="lbl_crear_cedulaProveedor" max="32767" attributes="0"/>
+                                          <Component id="lbl_crear_nombreProveedor" max="32767" attributes="0"/>
+                                      </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="lbl_crear_cedulaProveedor" max="32767" attributes="0"/>
-                                          <Component id="lblCrearTipoCedula" pref="100" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txt_crear_cedulaProveedor" max="32767" attributes="0"/>
-                                          <Component id="cbxCrearTipoCedula" min="-2" pref="190" max="-2" attributes="0"/>
+                                          <Component id="cbxCrearTipoCedula" pref="215" max="32767" attributes="0"/>
+                                          <Component id="txt_crear_cedulaProveedor" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="txt_crear_nombreProveedor" alignment="1" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lbl_crear_nombreProveedor" min="-2" pref="100" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="txt_crear_nombreProveedor" min="-2" pref="190" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -717,36 +794,50 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lblCrearTipoCedula" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="cbxCrearTipoCedula" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="cbxCrearTipoCedula" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="lblCrearTipoCedula" alignment="3" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="txt_crear_cedulaProveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="lbl_crear_cedulaProveedor" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lbl_crear_nombreProveedor" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                  <Component id="txt_crear_nombreProveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbl_crear_nombreProveedor" min="-2" pref="26" max="-2" attributes="0"/>
+                                  <Component id="txt_crear_nombreProveedor" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="ckbAgregarDireccion" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JTextField" name="txt_crear_cedulaProveedor">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Yu Gothic UI" size="18" style="0"/>
+                        </Property>
+                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_crear_cedulaProveedorActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txt_crear_nombreProveedor">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Yu Gothic UI" size="18" style="0"/>
+                        </Property>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="ckbAgregarDireccion">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                        </Property>
                         <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="Agregar direcci&#xf3;n"/>
                       </Properties>
@@ -756,21 +847,33 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="lbl_crear_nombreProveedor">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Nombre:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lbl_crear_cedulaProveedor">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="C&#xe9;dula:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblCrearTipoCedula">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Tipo de c&#xe9;dula:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="cbxCrearTipoCedula">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Yu Gothic UI" size="18" style="0"/>
+                        </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;( TipoCedula.getValues() )" type="code"/>
                         </Property>
@@ -799,10 +902,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="spnl_editar_proveedor" max="32767" attributes="0"/>
-                              <Component id="tbEditarContactoProveedor" alignment="0" pref="1170" max="32767" attributes="0"/>
+                              <Component id="tbEditarContactoProveedor" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="btnEditarProveedor" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnEditarProveedor" min="-2" pref="195" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -812,13 +915,13 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="tbEditarContactoProveedor" min="-2" pref="235" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Component id="tbEditarContactoProveedor" min="-2" pref="235" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="spnl_editar_proveedor" min="-2" pref="262" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnEditarProveedor" min="-2" pref="35" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                          <Component id="btnEditarProveedor" min="-2" pref="45" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -881,6 +984,9 @@
                 </Container>
                 <Component class="javax.swing.JButton" name="btnEditarProveedor">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Guardar Cambios"/>
                   </Properties>
                   <Events>
@@ -904,7 +1010,7 @@
                           <JTabbedPaneConstraints tabName="">
                             <Property name="tabTitle" type="java.lang.String" value=""/>
                             <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/recursos/cl_ed_cliente.png"/>
+                              <Image iconType="3" name="/recursos/proveedor-45.png"/>
                             </Property>
                           </JTabbedPaneConstraints>
                         </Constraint>
@@ -917,60 +1023,76 @@
                             <Property name="requestFocusEnabled" type="boolean" value="false"/>
                           </Properties>
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-                            <Property name="useNullLayout" type="boolean" value="true"/>
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                      <Component id="pnlEditarInfoBase" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="pnlEditarDireccion" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="pnlEditarDireccion" pref="203" max="32767" attributes="0"/>
+                                          <Component id="pnlEditarInfoBase" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
                           </Layout>
                           <SubComponents>
                             <Container class="javax.swing.JPanel" name="pnlEditarDireccion">
                               <Properties>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                    <TitledBorder title="Direcci&#xf3;n"/>
+                                    <TitledBorder title="Direcci&#xf3;n">
+                                      <Font PropertyName="font" name="Yu Gothic UI" size="18" style="0"/>
+                                    </TitledBorder>
                                   </Border>
                                 </Property>
                               </Properties>
-                              <Constraints>
-                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                                  <AbsoluteConstraints x="348" y="12" width="-1" height="-1"/>
-                                </Constraint>
-                              </Constraints>
 
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="lblEditarProvincia" min="-2" pref="100" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="cbxEditarProvincia" min="-2" pref="190" max="-2" attributes="0"/>
+                                                  <Component id="cbxEditarProvincia" pref="216" max="32767" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="lblEditarBarrio" min="-2" pref="100" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="lblEditarOtrasSenas" min="-2" pref="200" max="-2" attributes="0"/>
+                                                  <Component id="cbxEditarBarrio" max="32767" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="lblEditarDistrito" min="-2" pref="100" max="-2" attributes="0"/>
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="cbxEditarDistrito" min="-2" pref="190" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="lblEditarCanton" min="-2" pref="100" max="-2" attributes="0"/>
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="cbxEditarCanton" min="-2" pref="190" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="lblEditarBarrio" min="-2" pref="100" max="-2" attributes="0"/>
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="cbxEditarBarrio" min="-2" pref="190" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="scpnlEditarOtrasSenas" max="32767" attributes="0"/>
+                                                  <Component id="lblEditarCanton" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="cbxEditarCanton" max="32767" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="lblEditarDistrito" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="cbxEditarDistrito" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace pref="16" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="scpnlEditarOtrasSenas" pref="300" max="32767" attributes="0"/>
+                                              <Component id="lblEditarOtrasSenas" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -981,11 +1103,11 @@
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="lblEditarProvincia" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                               <Component id="cbxEditarProvincia" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lblEditarOtrasSenas" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                              <Component id="lblEditarOtrasSenas" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Group type="102" attributes="0">
                                                   <Group type="103" groupAlignment="3" attributes="0">
                                                       <Component id="lblEditarCanton" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                                       <Component id="cbxEditarCanton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1001,9 +1123,9 @@
                                                       <Component id="cbxEditarBarrio" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
-                                              <Component id="scpnlEditarOtrasSenas" min="-2" pref="100" max="-2" attributes="0"/>
+                                              <Component id="scpnlEditarOtrasSenas" max="32767" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="35" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1011,6 +1133,9 @@
                               <SubComponents>
                                 <Component class="javax.swing.JComboBox" name="cbxEditarDistrito">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI" size="18" style="0"/>
+                                    </Property>
                                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                       <StringArray count="0"/>
                                     </Property>
@@ -1024,11 +1149,17 @@
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="lblEditarDistrito">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                                    </Property>
                                     <Property name="text" type="java.lang.String" value="Distrito:"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JComboBox" name="cbxEditarBarrio">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI" size="18" style="0"/>
+                                    </Property>
                                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                       <StringArray count="0"/>
                                     </Property>
@@ -1039,11 +1170,17 @@
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="lblEditarBarrio">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                                    </Property>
                                     <Property name="text" type="java.lang.String" value="Barrio:"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="lblEditarCanton">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                                    </Property>
                                     <Property name="text" type="java.lang.String" value="Cant&#xf3;n:"/>
                                   </Properties>
                                 </Component>
@@ -1054,6 +1191,9 @@
                                     <Component class="javax.swing.JTextArea" name="txaEditarOtrasSenas">
                                       <Properties>
                                         <Property name="columns" type="int" value="20"/>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Yu Gothic UI" size="18" style="0"/>
+                                        </Property>
                                         <Property name="lineWrap" type="boolean" value="true"/>
                                         <Property name="rows" type="int" value="3"/>
                                         <Property name="wrapStyleWord" type="boolean" value="true"/>
@@ -1063,6 +1203,9 @@
                                 </Container>
                                 <Component class="javax.swing.JComboBox" name="cbxEditarProvincia">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI" size="18" style="0"/>
+                                    </Property>
                                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                       <StringArray count="0"/>
                                     </Property>
@@ -1076,16 +1219,25 @@
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="lblEditarProvincia">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                                    </Property>
                                     <Property name="text" type="java.lang.String" value="Provincia:"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="lblEditarOtrasSenas">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                                    </Property>
                                     <Property name="text" type="java.lang.String" value="Otras se&#xf1;as:"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JComboBox" name="cbxEditarCanton">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI" size="18" style="0"/>
+                                    </Property>
                                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                       <StringArray count="0"/>
                                     </Property>
@@ -1103,57 +1255,33 @@
                               <Properties>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                    <TitledBorder title="Informaci&#xf3;n b&#xe1;sica"/>
+                                    <TitledBorder title="Informaci&#xf3;n b&#xe1;sica">
+                                      <Font PropertyName="font" name="Yu Gothic UI" size="18" style="0"/>
+                                    </TitledBorder>
                                   </Border>
                                 </Property>
                               </Properties>
-                              <Constraints>
-                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                                  <AbsoluteConstraints x="12" y="12" width="-1" height="-1"/>
-                                </Constraint>
-                              </Constraints>
 
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="0" pref="144" max="32767" attributes="0"/>
+                                                  <Component id="ckbEditarDireccion" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                               <Group type="102" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" attributes="0">
-                                                          <EmptySpace min="164" pref="164" max="-2" attributes="0"/>
-                                                          <Component id="ckbEditarDireccion" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                              <Group type="102" alignment="0" attributes="0">
-                                                                  <EmptySpace max="-2" attributes="0"/>
-                                                                  <Component id="lblEditarTipoCedula" max="32767" attributes="0"/>
-                                                              </Group>
-                                                              <Group type="102" attributes="0">
-                                                                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                                                                  <Component id="lblEditarCedulaProveedor" min="-2" pref="100" max="-2" attributes="0"/>
-                                                              </Group>
-                                                          </Group>
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Group type="102" attributes="0">
-                                                                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                                                                  <Component id="txtEditarCedulaProveedor" min="-2" pref="190" max="-2" attributes="0"/>
-                                                              </Group>
-                                                              <Group type="102" alignment="1" attributes="0">
-                                                                  <EmptySpace max="-2" attributes="0"/>
-                                                                  <Component id="cbxEditarTipoCedula" min="-2" pref="190" max="-2" attributes="0"/>
-                                                              </Group>
-                                                          </Group>
-                                                      </Group>
+                                                      <Component id="lblEditarCedulaProveedor" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
+                                                      <Component id="lblEditarNombreProveedor" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                                  <Component id="lblEditarNombreProveedor" min="-2" pref="100" max="-2" attributes="0"/>
-                                                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                                                  <Component id="txtEditarNombreProveedor" min="-2" pref="190" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="txtEditarNombreProveedor" max="32767" attributes="0"/>
+                                                      <Component id="txtEditarCedulaProveedor" max="32767" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -1162,30 +1290,20 @@
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                                                  <Component id="lblEditarCedulaProveedor" min="-2" pref="25" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="txtEditarCedulaProveedor" min="-2" pref="30" max="-2" attributes="0"/>
-                                          </Group>
+                                      <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lblEditarTipoCedula" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="cbxEditarTipoCedula" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="txtEditarCedulaProveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="lblEditarCedulaProveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
-                                                  <Component id="lblEditarNombreProveedor" min="-2" pref="26" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="txtEditarNombreProveedor" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txtEditarNombreProveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="lblEditarNombreProveedor" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Component id="ckbEditarDireccion" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1193,41 +1311,47 @@
                               <SubComponents>
                                 <Component class="javax.swing.JLabel" name="lblEditarNombreProveedor">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                                    </Property>
                                     <Property name="text" type="java.lang.String" value="Nombre:"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="txtEditarCedulaProveedor">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI" size="18" style="0"/>
+                                    </Property>
+                                    <Property name="toolTipText" type="java.lang.String" value="No se puede editar, agregue un proveedor nuevo si lo necesita"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="lblEditarCedulaProveedor">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                                    </Property>
                                     <Property name="text" type="java.lang.String" value="C&#xe9;dula:"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="txtEditarNombreProveedor">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI" size="18" style="0"/>
+                                    </Property>
+                                  </Properties>
                                 </Component>
                                 <Component class="javax.swing.JCheckBox" name="ckbEditarDireccion">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                                    </Property>
                                     <Property name="selected" type="boolean" value="true"/>
                                     <Property name="text" type="java.lang.String" value="Agregar direcci&#xf3;n"/>
                                   </Properties>
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckbEditarDireccionActionPerformed"/>
                                   </Events>
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="lblEditarTipoCedula">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="Tipo de c&#xe9;dula:"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JComboBox" name="cbxEditarTipoCedula">
-                                  <Properties>
-                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                      <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;( TipoCedula.getValues() )" type="code"/>
-                                    </Property>
-                                  </Properties>
-                                  <AuxValues>
-                                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                                  </AuxValues>
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -1244,7 +1368,7 @@
                           <JTabbedPaneConstraints tabName="">
                             <Property name="tabTitle" type="java.lang.String" value=""/>
                             <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/recursos/cl_ed_contacto.png"/>
+                              <Image iconType="3" name="/recursos/contactos-45.png"/>
                             </Property>
                           </JTabbedPaneConstraints>
                         </Constraint>
@@ -1258,8 +1382,8 @@
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="pnlEditarContactoProveedor" max="32767" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="pnlEditarContactoProveedor" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="54" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1267,7 +1391,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="pnlEditarContactoProveedor" max="32767" attributes="0"/>
-                                      <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1277,7 +1401,9 @@
                               <Properties>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                    <TitledBorder title="Contacto:"/>
+                                    <TitledBorder title="Contacto:">
+                                      <Font PropertyName="font" name="Yu Gothic UI" size="18" style="0"/>
+                                    </TitledBorder>
                                   </Border>
                                 </Property>
                                 <Property name="autoscrolls" type="boolean" value="true"/>
@@ -1288,84 +1414,97 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="lblEditarTelefono" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="txtEditarTelefono" min="-2" pref="280" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="lblEditarTelefono" min="-2" pref="116" max="-2" attributes="0"/>
+                                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                      </Group>
+                                                      <Component id="txtEditarTelefono" max="32767" attributes="0"/>
+                                                  </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="btnEditarGuardarTel" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="btnEditarCancelTel" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="btnEditarGuardarTel" min="-2" pref="74" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="scpnlEditarListaTelef" alignment="0" min="-2" pref="408" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="scpnlEditarListaTelef" min="-2" pref="448" max="-2" attributes="0"/>
+                                                      <Component id="btnEditarCancelTel" min="-2" pref="77" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
-                                          <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                                           <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="txtEditarCorreoProveedor" min="-2" pref="280" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="btnEditarGuardarCorreo" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="btnEditarCancelCorreo" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="scpnlEditarListaCorreo" alignment="0" min="-2" pref="408" max="-2" attributes="0"/>
                                               <Component id="lblEditarCorreo" alignment="0" min="-2" pref="187" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="scpnlEditarListaCorreo" min="-2" pref="446" max="-2" attributes="0"/>
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="txtEditarCorreoProveedor" min="-2" pref="283" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="btnEditarGuardarCorreo" min="-2" pref="72" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="btnEditarCancelCorreo" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
                                           </Group>
-                                          <EmptySpace pref="102" max="32767" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
                                                   <Component id="lblEditarCorreo" min="-2" pref="27" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="scpnlEditarListaCorreo" min="-2" pref="73" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                                          <Component id="txtEditarCorreoProveedor" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                                          <Component id="btnEditarGuardarCorreo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Component id="btnEditarCancelCorreo" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="btnEditarCancelCorreo" pref="0" max="32767" attributes="0"/>
+                                                      <Component id="btnEditarGuardarCorreo" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                      <Component id="txtEditarCorreoProveedor" alignment="0" pref="45" max="32767" attributes="0"/>
                                                   </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="scpnlEditarListaCorreo" min="-2" pref="84" max="-2" attributes="0"/>
                                               </Group>
-                                              <Group type="102" alignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
                                                   <Component id="lblEditarTelefono" min="-2" pref="27" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                                                  <Component id="scpnlEditarListaTelef" min="-2" pref="73" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                                          <Component id="txtEditarTelefono" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                                          <Component id="btnEditarGuardarTel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Component id="btnEditarCancelTel" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="btnEditarCancelTel" pref="0" max="32767" attributes="0"/>
+                                                      <Component id="btnEditarGuardarTel" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                      <Component id="txtEditarTelefono" alignment="0" pref="45" max="32767" attributes="0"/>
                                                   </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="scpnlEditarListaTelef" min="-2" pref="84" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace pref="41" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jSeparator1" max="32767" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jSeparator1" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                               </Layout>
                               <SubComponents>
                                 <Component class="javax.swing.JLabel" name="lblEditarTelefono">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                                    </Property>
                                     <Property name="text" type="java.lang.String" value="Tel&#xe9;fono:"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="lblEditarCorreo">
                                   <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                                    </Property>
                                     <Property name="text" type="java.lang.String" value="Correo Electr&#xf3;nico:"/>
                                   </Properties>
                                 </Component>
@@ -1378,6 +1517,9 @@
                                   <SubComponents>
                                     <Component class="javax.swing.JList" name="lsTelefonos">
                                       <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Yu Gothic UI" size="18" style="0"/>
+                                        </Property>
                                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                                           <StringArray count="0"/>
                                         </Property>
@@ -1389,12 +1531,18 @@
                                   </SubComponents>
                                 </Container>
                                 <Component class="javax.swing.JTextField" name="txtEditarTelefono">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI" size="18" style="0"/>
+                                    </Property>
+                                  </Properties>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="btnEditarGuardarTel">
                                   <Properties>
                                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                      <Image iconType="3" name="/recursos/save.png"/>
+                                      <Image iconType="3" name="/recursos/save-45.png"/>
                                     </Property>
+                                    <Property name="toolTipText" type="java.lang.String" value="Digite el n&#xfa;mero de telefono en el campo de texto para guardarlo"/>
                                     <Property name="horizontalAlignment" type="int" value="2"/>
                                   </Properties>
                                   <Events>
@@ -1404,8 +1552,9 @@
                                 <Component class="javax.swing.JButton" name="btnEditarCancelTel">
                                   <Properties>
                                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                      <Image iconType="3" name="/recursos/cancel.png"/>
+                                      <Image iconType="3" name="/recursos/trash-can-45.png"/>
                                     </Property>
+                                    <Property name="toolTipText" type="java.lang.String" value="Seleccione un n&#xfa;mero de la lista para eliminarlo"/>
                                     <Property name="horizontalAlignment" type="int" value="2"/>
                                   </Properties>
                                   <Events>
@@ -1418,7 +1567,7 @@
                                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                       <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                                         <LineBorder>
-                                          <Color PropertyName="color" blue="ff" green="99" red="99" type="rgb"/>
+                                          <Color PropertyName="color" blue="1d" green="24" red="a3" type="rgb"/>
                                         </LineBorder>
                                       </Border>
                                     </Property>
@@ -1433,6 +1582,9 @@
                                   <SubComponents>
                                     <Component class="javax.swing.JList" name="lsCorreos">
                                       <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Yu Gothic UI" size="18" style="0"/>
+                                        </Property>
                                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                                           <StringArray count="0"/>
                                         </Property>
@@ -1446,11 +1598,16 @@
                                   </SubComponents>
                                 </Container>
                                 <Component class="javax.swing.JTextField" name="txtEditarCorreoProveedor">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Yu Gothic UI" size="18" style="0"/>
+                                    </Property>
+                                  </Properties>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="btnEditarGuardarCorreo">
                                   <Properties>
                                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                      <Image iconType="3" name="/recursos/save.png"/>
+                                      <Image iconType="3" name="/recursos/save-45.png"/>
                                     </Property>
                                     <Property name="horizontalAlignment" type="int" value="2"/>
                                   </Properties>
@@ -1461,7 +1618,7 @@
                                 <Component class="javax.swing.JButton" name="btnEditarCancelCorreo">
                                   <Properties>
                                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                      <Image iconType="3" name="/recursos/cancel.png"/>
+                                      <Image iconType="3" name="/recursos/trash-can-45.png"/>
                                     </Property>
                                     <Property name="horizontalAlignment" type="int" value="2"/>
                                   </Properties>
@@ -1494,16 +1651,17 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblDeshabSelectProveedor" min="-2" pref="200" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="970" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="tbDeshab" alignment="1" max="32767" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                                  <Component id="pnlDeshabContainer" min="-2" max="-2" attributes="0"/>
+                              <Component id="tbDeshab" pref="1170" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblDeshabSelectProveedor" min="-2" pref="200" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                          <Component id="pnlDeshabContainer" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btn_deshabilitar" min="-2" pref="175" max="-2" attributes="0"/>
+                                  <Component id="btn_deshabilitar" min="-2" pref="195" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1513,16 +1671,16 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btn_deshabilitar" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="btn_deshabilitar" min="-2" pref="43" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
                                   <Component id="lblDeshabSelectProveedor" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="tbDeshab" pref="426" max="32767" attributes="0"/>
+                                  <Component id="tbDeshab" pref="434" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="pnlDeshabContainer" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -1535,10 +1693,18 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="lblDeshabSelectProveedor">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="18" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Seleccionar Proveedor:"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JTabbedPane" name="tbDeshab">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                    </Property>
+                  </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                   <SubComponents>
@@ -1672,7 +1838,9 @@
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Activo:"/>
+                        <TitledBorder title="Activo:">
+                          <Font PropertyName="font" name="Yu Gothic UI" size="18" style="0"/>
+                        </TitledBorder>
                       </Border>
                     </Property>
                   </Properties>
@@ -1681,8 +1849,9 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="rbDeshabHabilitarProveedor" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="53" max="32767" attributes="0"/>
+                              <EmptySpace pref="61" max="32767" attributes="0"/>
                               <Component id="rbDeshabDeshabProveedor" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -1691,11 +1860,11 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="rbDeshabHabilitarProveedor" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="rbDeshabDeshabProveedor" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1706,6 +1875,9 @@
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="bg_Habilitar"/>
                         </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                        </Property>
                         <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="Deshabilitar"/>
                       </Properties>
@@ -1715,6 +1887,9 @@
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="bg_Habilitar"/>
                         </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Habilitar"/>
                       </Properties>
                     </Component>
@@ -1722,6 +1897,9 @@
                 </Container>
                 <Component class="javax.swing.JButton" name="btn_deshabilitar">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Guardar Cambios"/>
                   </Properties>
                   <Events>

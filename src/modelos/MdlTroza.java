@@ -150,25 +150,23 @@ public class MdlTroza {
      * @param codInterno codigo de la troza para uso interno del sistema
      * @param codTipoMadera codigo del tipo de madera (variedad)
      * @param pulgadas cantidad de troza en pulgadas
-     * @param tipoProducto TROZA duh
      * @param descripcion descripción de la troza
-     * @param codProveedor codigo del proveedor de la troza
+     * @param cedProveedor codigo del proveedor de la troza
      * @return verdadero si fue insertada correctamente
      */
-    public boolean crearTroza(String codInterno, String codTipoMadera,  double pulgadas, String tipoProducto, 
-            String descripcion, String cedProveedor) {
+    public boolean crearTroza(String codInterno, String codTipoMadera,  
+            double pulgadas, String descripcion, String cedProveedor) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(codInterno);
         params.add(codTipoMadera);
         params.add(pulgadas);
-        params.add(tipoProducto);
         params.add(descripcion);
         params.add(cedProveedor);
 
         boolean creacionExitosa = true;
         try {
-            procedimiento = "pc_crear_troza(?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_crear_troza(?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);

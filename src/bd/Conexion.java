@@ -82,7 +82,7 @@ public final class Conexion {
             }
             
             exito = true;
-            System.out.println("Conexion realizada");
+//            System.out.println("Conexion realizada");
         
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -116,9 +116,9 @@ public final class Conexion {
         setSSL(ssl);
         setPUBLICKEY(publickey);
         
-        System.out.println("from Conexion->setRequiredParams");
-        System.out.println("server: " + getSERVER() +"\nbd: " + getBD() + 
-                "\ntimezone: " + getTIMEZONE() + "\nssl:" + getSSL() +"\npublickey: " + getPUBLICKEY());
+//        System.out.println("from Conexion->setRequiredParams");
+//        System.out.println("server: " + getSERVER() +"\nbd: " + getBD() + 
+//                "\ntimezone: " + getTIMEZONE() + "\nssl:" + getSSL() +"\npublickey: " + getPUBLICKEY());
     }
     
     private String buildOptionalParams() {
@@ -130,10 +130,10 @@ public final class Conexion {
             
             String oneParam = paramsOpt.get(i);
             pruebaPOptional += ("&"+oneParam);
-            System.out.println(pruebaPOptional);
+//            System.out.println(pruebaPOptional);
         }
-        System.out.println("from Conexion->sendOptionalParams");            
-        System.out.println(pruebaPOptional);
+//        System.out.println("from Conexion->sendOptionalParams");            
+//        System.out.println(pruebaPOptional);
         return pruebaPOptional;
     }
     
@@ -150,8 +150,8 @@ public final class Conexion {
                         +getBD()+"?"+"useSSL="+getSSL()+"&serverTimezone="+getTIMEZONE()+"&allowPublicKeyRetrieval=" + getPUBLICKEY();
             }
             stringCon += buildOptionalParams();
-            System.out.println("from Conexion->setRequiredParams");
-            System.out.println("stringCon: " + stringCon);
+//            System.out.println("from Conexion->setRequiredParams");
+//            System.out.println("stringCon: " + stringCon);
         } else {
             if(getPORT().isEmpty()) {
                 pruebaCon = "jdbc:mysql://" + getSERVER()+"/"
@@ -161,8 +161,8 @@ public final class Conexion {
                         +getBD()+"?"+"useSSL="+getSSL()+"&serverTimezone="+getTIMEZONE()+"&allowPublicKeyRetrieval=" + getPUBLICKEY();
             }
             pruebaCon += buildOptionalParams(); 
-            System.out.println("from Conexion->setRequiredParams");
-            System.out.println("pruebaCon: " + pruebaCon);
+//            System.out.println("from Conexion->setRequiredParams");
+//            System.out.println("pruebaCon: " + pruebaCon);
         }
         
         return prueba ? pruebaCon : stringCon;
@@ -177,7 +177,7 @@ public final class Conexion {
                     getUSER(), getPASS())) {
                 exito = true;
             }
-            System.out.println("Prueba: Conexion realizada");
+//            System.out.println("Prueba: Conexion realizada");
         
         } catch (SQLException ex) {
              System.out.println(ex.getMessage());
@@ -316,7 +316,7 @@ public final class Conexion {
         }
         resultado = procedimiento.executeQuery();
         
-        System.out.println("from Conexion class: RESULTADO? " + resultado);
+//        System.out.println("from Conexion class: RESULTADO? " + resultado);
         return resultado;
     }
     
