@@ -92,7 +92,7 @@ public class MdlProveedor {
                         = new Proveedor(cedulaPersonas, tipoCedPersonas,
                                 nombrePersona, dirPersona,estadoProveedor,
                                 contactos);
-
+                
                 if (!proveedores.contains(proveedor)) {
                     proveedores.add(proveedor);
                 }

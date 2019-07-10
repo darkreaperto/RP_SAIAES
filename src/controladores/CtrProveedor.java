@@ -48,7 +48,7 @@ public class CtrProveedor {
      */
     public CtrProveedor(String cedula, String tipoCed, String nombre, 
             Direccion dir,  String estado, ArrayList<Contacto> contactos) {
-
+        
         proveedor = new Proveedor(cedula, tipoCed, nombre, dir, 
                 estado, contactos);
     }

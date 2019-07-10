@@ -17,12 +17,14 @@ import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 import logica.negocio.Cliente;
 import logica.negocio.Contacto;
 import logica.negocio.Direccion;
 import logica.servicios.Mensaje;
 import logica.servicios.Regex;
 import logica.servicios.DirFiltro;
+import logica.servicios.Logger;
 import util.Estado;
 import util.TipoCedula;
 import util.TipoContacto;
@@ -68,6 +70,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         cargarTablas();
         cargarDirJCombo("P", "", "", "", cbxProvincia);
         pnlEditarDireccion.setVisible(false);
+        pnlCrearDireccion.setVisible(false);
     }
     
     /**
@@ -126,7 +129,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         btnCrearCliente = new javax.swing.JButton();
         pnlCrearInfoBase = new javax.swing.JPanel();
         lbl_crear_cedulaCliente = new javax.swing.JLabel();
-        txt_crear_cedulaCliente = new javax.swing.JTextField();
         lbl_crear_nombreCliente = new javax.swing.JLabel();
         txt_crear_nombreCliente = new javax.swing.JTextField();
         ckbAgregarDireccion = new javax.swing.JCheckBox();
@@ -138,6 +140,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         rbCrearSinCredito = new javax.swing.JRadioButton();
         lbl_crear_limiteCliente = new javax.swing.JLabel();
         txt_crear_limiteCliente = new javax.swing.JTextField();
+        ft_crear_cedulaCliente = new javax.swing.JFormattedTextField();
         pnlCrearDireccion = new javax.swing.JPanel();
         lbl_crear_provincia = new javax.swing.JLabel();
         cbxProvincia = new javax.swing.JComboBox<>();
@@ -442,7 +445,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         lbl_crear_nombreCliente.setText("Nombre:");
 
-        ckbAgregarDireccion.setSelected(true);
         ckbAgregarDireccion.setText("Agregar dirección");
         ckbAgregarDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -453,6 +455,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         lblCrearTipoCedula.setText("Tipo de cédula:");
 
         cbxCrearTipoCedula.setModel(new javax.swing.DefaultComboBoxModel<>( TipoCedula.getValues() ));
+        cbxCrearTipoCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCrearTipoCedulaActionPerformed(evt);
+            }
+        });
 
         pnl_crear_creditoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Crédito de Cliente:"));
 
@@ -519,6 +526,12 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        try {
+            ft_crear_cedulaCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#-####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout pnlCrearInfoBaseLayout = new javax.swing.GroupLayout(pnlCrearInfoBase);
         pnlCrearInfoBase.setLayout(pnlCrearInfoBaseLayout);
         pnlCrearInfoBaseLayout.setHorizontalGroup(
@@ -535,8 +548,8 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_crear_nombreCliente)
-                            .addComponent(txt_crear_cedulaCliente)
-                            .addComponent(cbxCrearTipoCedula, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(cbxCrearTipoCedula, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ft_crear_cedulaCliente)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearInfoBaseLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(ckbAgregarDireccion)))
@@ -550,9 +563,9 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                     .addComponent(lblCrearTipoCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(cbxCrearTipoCedula))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_crear_cedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_crear_cedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lbl_crear_cedulaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(ft_crear_cedulaCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlCrearInfoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_crear_nombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -967,6 +980,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255)));
 
+        lsTelefonos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scpnlEditarListaTelef.setViewportView(lsTelefonos);
 
         btnEditarCancelTel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/cancel.png"))); // NOI18N
@@ -1530,7 +1544,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         switch (panel.toUpperCase()) {
             case "CREAR":
                 cbxCrearTipoCedula.setSelectedIndex(0);
-                txt_crear_cedulaCliente.setText("");
+                ft_crear_cedulaCliente.setText("");
                 txt_crear_limiteCliente.setText("");
                 txt_crear_nombreCliente.setText("");
                 lsCrearTelefonos.setModel(new DefaultListModel());
@@ -1661,6 +1675,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         limiteCredito, aprobarCred, contactos);
 
                 if (creado) {
+                    
+                    Logger.registerNewLog(
+                            msg.getTextoMensaje(
+                                    TipoMensaje.CUSTOMER_INSERTION_SUCCESS));
+                    
                     msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
                     TipoMensaje.CUSTOMER_INSERTION_SUCCESS);
 
@@ -1761,7 +1780,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         System.out.println("CBXTIPOCEDULA OBJECT: "+cbxCrearTipoCedula.getSelectedItem());
         System.out.println("CBXTIPOCEDULA ENUM NAME: "+TipoCedula.getEnum(cbxCrearTipoCedula.getSelectedItem().toString()));
         
-        agregarCliente( txt_crear_cedulaCliente.getText().trim(),
+        agregarCliente(ft_crear_cedulaCliente.getText().replace("-", "").trim(),
                 cbxCrearTipoCedula.getSelectedItem().toString(), 
                 txt_crear_nombreCliente.getText().trim(), 
                 prepararDireccion(false, 1), limiteCred, credito, contactos);
@@ -2347,6 +2366,33 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         mostrarDireccion(false, ckbEditarDireccion);
     }//GEN-LAST:event_ckbEditarDireccionActionPerformed
 
+    private void cbxCrearTipoCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCrearTipoCedulaActionPerformed
+        TipoCedula tc = TipoCedula.getEnum(cbxCrearTipoCedula.getSelectedItem().toString());
+        ft_crear_cedulaCliente.setText("");
+        
+        if (tc.equals(TipoCedula.FISICA)) {
+            try {
+                MaskFormatter formatter = new MaskFormatter("#-####-####");
+                formatter.setPlaceholderCharacter('_');
+        
+                ft_crear_cedulaCliente.setFormatterFactory(
+                        new javax.swing.text.DefaultFormatterFactory(formatter));
+            } catch (java.text.ParseException ex) {
+                ex.printStackTrace();
+            }
+        } else if (tc.equals(TipoCedula.JURIDICA)) {
+            try {
+                MaskFormatter formatter = new MaskFormatter("#-###-######");
+                formatter.setPlaceholderCharacter('_');
+                
+                ft_crear_cedulaCliente.setFormatterFactory(
+                        new javax.swing.text.DefaultFormatterFactory(formatter));
+            } catch (java.text.ParseException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_cbxCrearTipoCedulaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crearCredito;
@@ -2373,6 +2419,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<DirFiltro> cbxProvincia;
     private javax.swing.JCheckBox ckbAgregarDireccion;
     private javax.swing.JCheckBox ckbEditarDireccion;
+    private javax.swing.JFormattedTextField ft_crear_cedulaCliente;
     private javax.swing.JMenuItem itEditar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -2461,7 +2508,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtListadoCliente;
     private javax.swing.JTextField txt_agregarCorreo;
     private javax.swing.JTextField txt_agregarTelefono;
-    private javax.swing.JTextField txt_crear_cedulaCliente;
     private javax.swing.JTextField txt_crear_limiteCliente;
     private javax.swing.JTextField txt_crear_nombreCliente;
     private javax.swing.JTextArea txtaOtrasSenas;

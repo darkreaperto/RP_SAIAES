@@ -830,6 +830,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+            ex.printStackTrace();
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
         }
         catch (Exception ex) {

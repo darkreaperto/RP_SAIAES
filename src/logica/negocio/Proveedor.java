@@ -36,6 +36,7 @@ public class Proveedor extends Persona {
             String estado, ArrayList<Contacto> contactos) {
         
         super(cedula, tipoCed, nombre, dir, contactos);
+        
         this.estado = estado.equals("A") ? Estado.Activo : Estado.Deshabilitado;
     }
     

@@ -18,7 +18,7 @@ public class Persona {
     private TipoCedula tipoCed;
     private String nombre;
     private Direccion dir;
-    private ArrayList<Contacto> contactos;
+    private ArrayList<Contacto> contactos = new ArrayList<>();
     
     /**
      * Constructor vacío de clase persona.
@@ -37,6 +37,7 @@ public class Persona {
      */
     public Persona(String cedula, String tipoCed, String nombre, 
             Direccion dir, ArrayList<Contacto> contactos) {
+        
         this.nombre = nombre;
         this.cedula = cedula;
         this.tipoCed = TipoCedula.getEnum(tipoCed);

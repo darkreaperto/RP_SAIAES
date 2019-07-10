@@ -226,6 +226,10 @@ public class Mensaje {
         JOptionPane.showMessageDialog(null, obtenerMensaje(msg),
                 "ADVERTENCIA", tipo);
     }
+    
+    public String getTextoMensaje(TipoMensaje mensaje) {
+        return obtenerMensaje(mensaje);
+    }
 
     /**
      * Muestra en pantalla un dialogo con todos sus elementos pasados por
