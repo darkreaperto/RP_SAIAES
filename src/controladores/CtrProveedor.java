@@ -144,6 +144,15 @@ public class CtrProveedor {
     }
     
     /**
+     * Llama el método que consulta registros de contactos en la bd
+     * @param param Criterio de búsqueda con que se compara en la bd
+     * @return Lista de contactos que coinciden con el criterio
+     */
+    public ArrayList<Contacto> consultarContactos(String param) {
+        return mdlProveedor.consultarContactos(param);
+    }
+    
+    /**
      * Obtener nombre completo de persona.
      * @return El nombre completo.
      */

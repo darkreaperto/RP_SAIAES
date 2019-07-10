@@ -125,7 +125,6 @@ public class MdlProveedor {
                     dir.getOtrasSenas());
         }
         
-        System.out.println("MDLPROVEEDOR->CREAR->COD DIRECCION: " + codDireccion);
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(cedula);
@@ -355,6 +354,15 @@ public class MdlProveedor {
      */
     public boolean inactivarContacto(String codigo) {
         return ctrContacto.inactivarContacto(codigo);
+    }
+    
+    /**
+     * Consultar registros de contactos en la bd
+     * @param param Criterio de búsqueda con que se compara en la bd
+     * @return Lista de contactos que coinciden con el criterio
+     */
+    public ArrayList<Contacto> consultarContactos(String param) {
+        return ctrContacto.consultarContactos(param);
     }
     
     /**

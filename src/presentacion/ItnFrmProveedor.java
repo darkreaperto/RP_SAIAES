@@ -120,6 +120,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         cargarProveedorJTable(tbl_editar, true);
         cargarProveedorJTable(tblProveedoresActivos, true);
         cargarProveedorJTable(tblProveedoresInactivos, false);
+        System.out.println("cargar tablas: proveedor 0 contactos "+proveedores.get(0).getContactos().size());//proveedores.get(1).getContactos().size();
     }
 
     /**
@@ -473,12 +474,6 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
      */
     private void agregarProveedor(String cedula, String tipoCed, String nombre,  
             Direccion dir, ArrayList<ArrayList<Object>> contactos) {
-
-//        System.out.println("Proveedor->Agregar->nombre: " + nombre);
-//        System.out.println("Proveedor->Agregar->cedula: " + cedula);
-//        System.out.println("Proveedor->Agregar->tipoCed: " + tipoCed);
-//        System.out.println("Proveedor->Agregar->dir: " + dir);
-//        System.out.println("Proveedor->Agregar->contactos: " + contactos.size());
         
         if (!nombre.isEmpty()) {
             try {
@@ -486,13 +481,13 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                         nombre, dir, contactos);
                 if (creado) {
                     msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
-                            TipoMensaje.CUSTOMER_INSERTION_SUCCESS);
+                            TipoMensaje.SUPPLIER_INSERTION_SUCCESS);
                     cargarTablas();
                     limpiarAgregar();
                     
                 } else {
                     msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                            TipoMensaje.CUSTOMER_INSERTION_FAILURE);
+                            TipoMensaje.SUPPLIER_INSERTION_FAILURE);
                 }
             } catch (NumberFormatException ex) {
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
@@ -504,7 +499,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             }
         } else {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-                    TipoMensaje.EMPTY_CUSTOMER_FIELDS);
+                    TipoMensaje.EMPTY_TEXT_FIELD);
         }
     }
 
@@ -517,11 +512,10 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             model = (DefaultTableModel) tbl_editar.getModel();
             int indiceFila = tbl_editar.getSelectedRow();
             
-            System.out.println("PROVEEDOR->PREP-ACTUALIZAR->ÍNDICE_FILA: "+indiceFila);
-            
+            //System.out.println("PROVEEDOR->PREP-ACTUALIZAR->ÍNDICE_FILA: "+indiceFila);
             if (indiceFila >= 0) {
                 String cedPersona = (String) model.getValueAt(indiceFila, 0);
-                System.out.println("CEDULA PER EDITAR PROV: " + cedPersona);
+                //System.out.println("CEDULA EDITAR PROV: " + cedPersona);
 
                 int codDir = 0;
                 for (int i = 0; i < proveedores.size(); i++) {
@@ -534,7 +528,9 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 actualizarProveedor(txtEditarNombreProveedor.getText().trim(),
                         prepararDireccion(true, codDir), cedPersona);
             } else {
-                System.out.println("PROVEEDOR->PREP-ACTUALIZAR->NO_FILA_SELECCIONADA");
+                //System.out.println("PROVEEDOR->PREP-ACTUALIZAR->NO_FILA_SELECCIONADA");
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.ANY_ROW_SELECTED);
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
             ex.printStackTrace();
@@ -558,9 +554,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
      * @param cedula Cédula (llave primaria) para identificar el proveedor.
      * @param dir Objeto dirección con la información.
      */
-    private void actualizarProveedor(String nombre, Direccion dir, 
-            String cedula) {
-        
+    private void actualizarProveedor(String nombre, Direccion dir, String cedula) {
         if (!nombre.isEmpty()) {
             try {
                 boolean actualizado = controlador.actualizarProveedor(
@@ -575,9 +569,14 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                     txtEditarTelefono.setText("");
                     txaEditarOtrasSenas.setText("");
                     lsCorreos.setModel(new DefaultListModel());
-                    lsCorreos.setModel(new DefaultListModel());
+                    lsTelefonos.setModel(new DefaultListModel());
+                    cargarDirJCombo("P", "", "", "", cbxEditarProvincia);
+                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                            TipoMensaje.SUPPLIER_UPDATE_SUCCESS);
                 } else {
-                    System.out.println("PROVEEDOR->ACTUALIZAR->actualizado: FALSO!");
+                    //System.out.println("PROVEEDOR->ACTUALIZAR->actualizado: FALSO!");
+                    msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.SUPPLIER_UPDATE_FAILURE);
                 }
             } catch (NumberFormatException ex) {
                 System.err.println(ex);
@@ -589,7 +588,9 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                         TipoMensaje.SOMETHING_WENT_WRONG);
             }
         } else {
-            System.out.println("PROVEEDOR->EDITAR->CAMPOS_VACÍOS");
+            msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                    TipoMensaje.EMPTY_TEXT_FIELD);
+            //System.out.println("PROVEEDOR->EDITAR->CAMPOS_VACÍOS");
         }
     }
 
@@ -607,40 +608,36 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                     indice = tbl_editar.getSelectedRow();
                     String cedula = 
                         tbl_editar.getModel().getValueAt(indice, 0).toString();
+                    
+                    //proveedores = controlador.obtenerProveedores();
                     for (Proveedor p: proveedores) {
                         if (p.getCedula().equals(cedula)) {
                             controlador.crearContactoProveedor(
                                 TipoContacto.TELEFONO, telefono, p.getCedula());
-                            
                             editarTelefonos = new ArrayList<>();
-                            System.out.println("Proveedor->Editar->GuardarContacto: " + controlador.getContactos().size());
-                            for (Contacto ct: controlador.getContactos()) {
+                            
+                            for (Contacto ct: controlador.consultarContactos(cedula)) { //controlador.getContactos()
                                 if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
                                     
                                     editarTelefonos.add(ct);
-                                    DefaultListModel<String> m = 
-                                            new DefaultListModel<>();
-                                    for (int i=0; i<editarTelefonos.size(); i++) {
-                                        m.addElement(
-                                            editarTelefonos.get(i).getInfo());
-                                    }
-                                    lsTelefonos.setModel(m);
-                                    txtEditarTelefono.setText("");
                                 }
+                            }//System.out.println("agregar al modelo: " + editarTelefonos.size());
+                            
+                            DefaultListModel<String> mTelefonos = 
+                                            new DefaultListModel<>();
+                            for (int i=0; i<editarTelefonos.size(); i++) {
+
+                                mTelefonos.addElement(
+                                    editarTelefonos.get(i).getInfo());
                             }
+                            lsTelefonos.setModel(mTelefonos);
+                            txtEditarTelefono.setText("");
                         }
                     }
                 } else {
                     msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.PHONE_SYNTAX_FAILURE);
                 }
-//            } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | NullPointerException ex) {
-//                //Imprimir la pila de excepciones
-//                for (StackTraceElement ste: ex.getStackTrace()) {
-//                    System.out.println(ste);
-//                }
-//                System.out.println(ex.getStackTrace());
-//                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
             } catch (Exception ex) {
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
@@ -664,7 +661,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                                     TipoContacto.CORREO, correo, p.getCedula());
                             editarCorreos = new ArrayList<>();
                             
-                            for (Contacto ct: controlador.getContactos()) {
+                            for (Contacto ct: controlador.consultarContactos(cedula)) {
                                 if (ct.getTipo().equals(TipoContacto.CORREO)) {
                                     
                                     editarCorreos.add(ct);
@@ -684,10 +681,13 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                     msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.EMAIL_SYNTAX_FAILURE);
                 }
-            } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | NullPointerException ex) {
-                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+            } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException 
+                    | NullPointerException ex) {
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.ANY_ROW_SELECTED);
             } catch (Exception ex) {
-                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.SOMETHING_WENT_WRONG);
             } finally {
                 cargarTablas();
                 if (indice >= 0) {
@@ -718,20 +718,24 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 lsTelefonos.setModel(m);
                 
             } catch(NullPointerException ex) {
-                System.out.println("Cancel editar telefono: null pointer");
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.LIST_HANDLER_ERROR);
                 ex.printStackTrace();
                 
             } catch (ArrayIndexOutOfBoundsException ex) {
-                System.out.println("Cancel editar telefono: index out of bounds");
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.LIST_HANDLER_ERROR);
                 ex.printStackTrace();
                 
             } catch (Exception ex) {
-                System.out.println("Cancel editar telefono: exception");
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.SOMETHING_WENT_WRONG);
                 ex.printStackTrace();
                 
             } finally {
                 cargarTablas();
-                tbl_editar.setRowSelectionInterval(indiceProveedor, indiceProveedor);// mantener activa la seleccion del proveedor editado
+                // mantener activa la seleccion del proveedor editado
+                tbl_editar.setRowSelectionInterval(indiceProveedor, indiceProveedor);
             }
         } else {
             int indice = 0;
@@ -746,14 +750,20 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 }
                 lsCorreos.setModel(m);
             } catch(NullPointerException ex) {
-                System.out.println("Cancel editar correo: null pointer ");
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.LIST_HANDLER_ERROR);
                 ex.printStackTrace();
+                
             } catch (ArrayIndexOutOfBoundsException ex) {
-                System.out.println("Cancel editar correo: index out of bounds");
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.LIST_HANDLER_ERROR);
                 ex.printStackTrace();
+                
             } catch (Exception ex) {
-                System.out.println("Cancel editar correo: exception");
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                        TipoMensaje.SOMETHING_WENT_WRONG);
                 ex.printStackTrace();
+                
             } finally {
                 cargarTablas();
                 tbl_editar.setRowSelectionInterval(indice, indice);
@@ -831,10 +841,12 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             }
         } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
             ex.printStackTrace();
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.ANY_ROW_SELECTED);
         }
         catch (Exception ex) {
-            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.SOMETHING_WENT_WRONG);
         }
     }
     
@@ -1762,14 +1774,14 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                             .addComponent(txtEditarTelefono))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditarGuardarTel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(168, 168, 168))
+                        .addGap(147, 147, 147))
                     .addGroup(pnlEditarContactoProveedorLayout.createSequentialGroup()
                         .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(scpnlEditarListaTelef, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEditarCancelTel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(84, 84, 84)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(58, 58, 58)
                 .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblEditarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlEditarContactoProveedorLayout.createSequentialGroup()
@@ -1788,27 +1800,28 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEditarContactoProveedorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlEditarContactoProveedorLayout.createSequentialGroup()
-                        .addComponent(lblEditarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnEditarCancelCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(btnEditarGuardarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(txtEditarCorreoProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scpnlEditarListaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlEditarContactoProveedorLayout.createSequentialGroup()
-                        .addComponent(lblEditarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnEditarCancelTel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(btnEditarGuardarTel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(txtEditarTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scpnlEditarListaTelef, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jSeparator1)
+                .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1)
+                    .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlEditarContactoProveedorLayout.createSequentialGroup()
+                            .addComponent(lblEditarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnEditarCancelCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(btnEditarGuardarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(txtEditarCorreoProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(scpnlEditarListaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlEditarContactoProveedorLayout.createSequentialGroup()
+                            .addComponent(lblEditarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(7, 7, 7)
+                            .addGroup(pnlEditarContactoProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnEditarCancelTel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(btnEditarGuardarTel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(txtEditarTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(scpnlEditarListaTelef, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlEditarCorreoLayout = new javax.swing.GroupLayout(pnlEditarCorreo);
@@ -1816,8 +1829,9 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         pnlEditarCorreoLayout.setHorizontalGroup(
             pnlEditarCorreoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEditarCorreoLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(pnlEditarContactoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 54, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         pnlEditarCorreoLayout.setVerticalGroup(
             pnlEditarCorreoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2049,13 +2063,13 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
 
     private void tblProveedoresActivosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblProveedoresActivosKeyReleased
         if (evt.getKeyCode() == 38 || evt.getKeyCode() == 40) {
-            selecProveedorPorEstado(tblProveedoresInactivos, rbDeshabDeshabProveedor,
+            selecProveedorPorEstado(tblProveedoresActivos, rbDeshabDeshabProveedor,
                 rbDeshabHabilitarProveedor);
         }
     }//GEN-LAST:event_tblProveedoresActivosKeyReleased
 
     private void tblProveedoresActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedoresActivosMouseClicked
-        selecProveedorPorEstado(tblProveedoresInactivos, rbDeshabDeshabProveedor,
+        selecProveedorPorEstado(tblProveedoresActivos, rbDeshabDeshabProveedor,
             rbDeshabHabilitarProveedor);
     }//GEN-LAST:event_tblProveedoresActivosMouseClicked
 

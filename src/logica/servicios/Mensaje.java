@@ -108,6 +108,21 @@ public class Mensaje {
                         + "\nRevise el correo asociado al nombre de usuario "
                         + "\ningresado para obtener el código de recuperación";
                 break;
+            case SUPPLIER_INSERTION_SUCCESS:
+                msg = "La creación del proveedor ha sido éxitosa";
+                break;
+            case SUPPLIER_NOT_FOUND:
+                msg = "No se encontró el proveedor solicitado";
+                break;
+            case SUPPLIER_INSERTION_FAILURE:
+                msg = "Ha ocurrido un error en la creación del proveedor";
+                break;
+            case SUPPLIER_UPDATE_SUCCESS:
+                msg = "Edición del proveedor exitosa";
+                break;
+            case SUPPLIER_UPDATE_FAILURE:
+                msg = "Ha ocurrido un error en la edición del proveedor";
+                break;
             case PRICE_SYNTAX_FAILURE:
                 msg = "Precio ingresado no es correcto";
                 break;
