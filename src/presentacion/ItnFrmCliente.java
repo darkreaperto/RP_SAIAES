@@ -250,6 +250,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbListadoCliente.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tbListadoCliente.setComponentPopupMenu(pmnMenuEmergente);
         tbListadoCliente.setRowHeight(20);
         tbListadoCliente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -527,7 +528,9 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         try {
-            ft_crear_cedulaCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#-####-####")));
+            javax.swing.text.MaskFormatter formatter = new javax.swing.text.MaskFormatter("#-####-####");
+            formatter.setPlaceholderCharacter('_');
+            ft_crear_cedulaCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(formatter));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -790,6 +793,8 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         lblEditarCedulaCliente.setText("Cédula:");
 
+        txtEditarCedulaCliente.setEditable(false);
+
         lblEditarNombreCliente.setText("Nombre:");
 
         ckbEditarDireccion.setText("Agregar dirección");
@@ -992,7 +997,6 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         });
 
         lsCorreos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lsCorreos.setLayoutOrientation(javax.swing.JList.VERTICAL_WRAP);
         scpnlEditarListaCorreo.setViewportView(lsCorreos);
 
         btnEditarGuardarCorreo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save.png"))); // NOI18N
@@ -1017,7 +1021,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             pnlEditarContactoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEditarContactoClienteLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addGroup(pnlEditarContactoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlEditarContactoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblEditarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlEditarContactoClienteLayout.createSequentialGroup()
                         .addComponent(txtEditarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1026,7 +1030,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditarCancelTel))
                     .addComponent(scpnlEditarListaTelef, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(79, 79, 79)
+                .addGap(87, 87, 87)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addGroup(pnlEditarContactoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1036,9 +1040,9 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         .addComponent(btnEditarGuardarCorreo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditarCancelCorreo))
-                    .addComponent(scpnlEditarListaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEditarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(117, Short.MAX_VALUE))
+                    .addComponent(lblEditarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scpnlEditarListaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(529, Short.MAX_VALUE))
         );
         pnlEditarContactoClienteLayout.setVerticalGroup(
             pnlEditarContactoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1048,24 +1052,24 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                     .addGroup(pnlEditarContactoClienteLayout.createSequentialGroup()
                         .addComponent(lblEditarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scpnlEditarListaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlEditarContactoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlEditarContactoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtEditarCorreoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnEditarGuardarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnEditarCancelCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnEditarCancelCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scpnlEditarListaCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlEditarContactoClienteLayout.createSequentialGroup()
                         .addComponent(lblEditarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
-                        .addComponent(scpnlEditarListaTelef, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlEditarContactoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlEditarContactoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtEditarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnEditarGuardarTel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnEditarCancelTel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnEditarCancelTel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scpnlEditarListaTelef, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
             .addGroup(pnlEditarContactoClienteLayout.createSequentialGroup()
                 .addComponent(jSeparator1)
                 .addContainerGap())
@@ -1957,18 +1961,20 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     private void guardarEditContacto(boolean tel) {
         if(tel) {
             String telefono = txtEditarTelefono.getText().trim();
+            int indice = 0;
             try {
                 if (verificacion.validaTelefono(telefono)) {
 
-                    int indice = tbl_editar.getSelectedRow();
+                    indice = tbl_editar.getSelectedRow();
                     String cedula = 
                         tbl_editar.getModel().getValueAt(indice, 0).toString();
+                    
                     for (Cliente c: clientes) {
                         if (c.getCedula().equals(cedula)) {
                             controlador.crearContacto(
                                 telefono, c.getCedula(), TipoContacto.TELEFONO);
-                            editarTelefonos = new ArrayList<>();
                             
+                            editarTelefonos = new ArrayList<>();                            
                             for (Contacto ct: controlador.consultarContactos(
                                     c.getCedula())) {
                                 if (ct.getTipo().equals(TipoContacto.TELEFONO)) {
@@ -1992,10 +1998,13 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 }
             }catch (NullPointerException ex) {
                 ex.printStackTrace();
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
             } catch (Exception ex) {
                 ex.printStackTrace();
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
             } finally {
                 cargarTablas();
+                tbl_editar.setRowSelectionInterval(indice, indice);
             }
         } else {
             String correo = txtEditarCorreoCliente.getText().trim();
@@ -2005,12 +2014,13 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                     indice = tbl_editar.getSelectedRow();
                     String cedula = 
                         tbl_editar.getModel().getValueAt(indice, 0).toString();
+                    
                     for (Cliente c: clientes) {
                         if (c.getCedula().equals(cedula)) {
                             controlador.crearContacto(correo, c.getCedula(), 
                                     TipoContacto.CORREO);
-                            editarCorreos = new ArrayList<>();
                             
+                            editarCorreos = new ArrayList<>();
                             for (Contacto ct: controlador.consultarContactos(
                                     c.getCedula())) {
                                 if (ct.getTipo().equals(TipoContacto.CORREO)) {
@@ -2032,9 +2042,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                             TipoMensaje.EMAIL_SYNTAX_FAILURE);
                 }
             } catch (NullPointerException ex) {
+                ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
             } catch (Exception ex) {
-                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, null);
+                ex.printStackTrace();
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
             } finally {
                 cargarTablas();
                 tbl_editar.setRowSelectionInterval(indice, indice);
