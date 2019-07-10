@@ -162,6 +162,7 @@
                             <Column editable="false" title="Direcci&#xf3;n" type="java.lang.Object"/>
                           </Table>
                         </Property>
+                        <Property name="autoResizeMode" type="int" value="4"/>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
@@ -632,6 +633,9 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txt_crear_nombreCliente">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="ckbAgregarDireccion">
                       <Properties>
@@ -760,8 +764,8 @@
                     </Container>
                     <Component class="javax.swing.JFormattedTextField" name="ft_crear_cedulaCliente">
                       <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="#-####-####" subtype="-1" type="5"/>
+                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" preCode="try {&#xa;javax.swing.text.MaskFormatter formatter = new javax.swing.text.MaskFormatter(&quot;#-####-####&quot;);&#xa;formatter.setPlaceholderCharacter(&apos;_&apos;);" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+                          <Connection code="new javax.swing.text.DefaultFormatterFactory(formatter)" type="code"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -1300,6 +1304,9 @@
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="txtEditarCedulaCliente">
+                                  <Properties>
+                                    <Property name="editable" type="boolean" value="false"/>
+                                  </Properties>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="lblEditarNombreCliente">
                                   <Properties>
@@ -1549,7 +1556,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="lblEditarTelefono" min="-2" pref="116" max="-2" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="txtEditarTelefono" min="-2" pref="280" max="-2" attributes="0"/>
@@ -1558,23 +1565,23 @@
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="btnEditarCancelTel" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="scpnlEditarListaTelef" alignment="0" min="-2" pref="408" max="-2" attributes="0"/>
+                                              <Component id="scpnlEditarListaTelef" min="-2" pref="408" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                                           <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
                                                   <Component id="txtEditarCorreoCliente" min="-2" pref="280" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="btnEditarGuardarCorreo" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="btnEditarCancelCorreo" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="scpnlEditarListaCorreo" alignment="0" min="-2" pref="408" max="-2" attributes="0"/>
                                               <Component id="lblEditarCorreo" min="-2" pref="187" max="-2" attributes="0"/>
+                                              <Component id="scpnlEditarListaCorreo" min="-2" pref="408" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="117" max="32767" attributes="0"/>
+                                          <EmptySpace pref="529" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1586,8 +1593,6 @@
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="lblEditarCorreo" min="-2" pref="27" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="scpnlEditarListaCorreo" min="-2" pref="73" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="1" attributes="0">
                                                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                                           <Component id="txtEditarCorreoCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -1595,12 +1600,12 @@
                                                       </Group>
                                                       <Component id="btnEditarCancelCorreo" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
                                                   </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="scpnlEditarListaCorreo" min="-2" pref="73" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
                                                   <Component id="lblEditarTelefono" min="-2" pref="27" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                                                  <Component id="scpnlEditarListaTelef" min="-2" pref="73" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="1" attributes="0">
                                                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                                           <Component id="txtEditarTelefono" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -1608,9 +1613,11 @@
                                                       </Group>
                                                       <Component id="btnEditarCancelTel" min="-2" pref="31" max="-2" attributes="0"/>
                                                   </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="scpnlEditarListaTelef" min="-2" pref="73" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace pref="25" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jSeparator1" max="32767" attributes="0"/>
@@ -1699,7 +1706,6 @@
                                           <StringArray count="0"/>
                                         </Property>
                                         <Property name="selectionMode" type="int" value="0"/>
-                                        <Property name="layoutOrientation" type="int" value="1"/>
                                       </Properties>
                                       <AuxValues>
                                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
