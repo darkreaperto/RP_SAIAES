@@ -2377,6 +2377,10 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         
                 ft_crear_cedulaCliente.setFormatterFactory(
                         new javax.swing.text.DefaultFormatterFactory(formatter));
+                
+                //Sin esto no permite ingresar nuevo texto cuando se cambia
+                //la máscara y ya se ha ingresado texto
+                ft_crear_cedulaCliente.setValue(null);
             } catch (java.text.ParseException ex) {
                 ex.printStackTrace();
             }
@@ -2387,6 +2391,10 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 
                 ft_crear_cedulaCliente.setFormatterFactory(
                         new javax.swing.text.DefaultFormatterFactory(formatter));
+                
+                //Sin esto no permite ingresar nuevo texto cuando se cambia
+                //la máscara y ya se ha ingresado texto
+                ft_crear_cedulaCliente.setValue(null);
             } catch (java.text.ParseException ex) {
                 ex.printStackTrace();
             }
