@@ -90,6 +90,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         //Cargar datos a la interfaz
         cargarCombos();
         cargarTablas();
+        cargarListas();
     }
 
     /**
@@ -145,6 +146,15 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             cbxEditarTmVariedad.addItem(item);
         });
         cbxNuevoTVariedad.setSelectedIndex(0);
+    }
+    
+    /**
+     * Lleas las listas para seleccionar los registros origen en la pestaña de 
+     * actualizar inventario.
+     */
+    private void cargarListas() {
+        buscarTrozaOrigen("");
+        buscarAserradaOrigen("");
     }
 
     /**
@@ -1080,14 +1090,14 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         if (!txtActTmEntra.getText().isEmpty() && 
                 !txtActTmSalenVaras.getText().isEmpty()) {
             try {
-                double cVarasEntra = Double.valueOf(txtActAcEntra.getText());
+                double cVarasEntra = Double.valueOf(txtActTmEntra.getText());
                 double cVarasSale = Double.valueOf(txtActTmSalenVaras.getText());
                 
                 //Obtener codigo de la madera aserrada que se seleccionó
                 model = (DefaultTableModel) tbActTerminada.getModel();
                 int indiceFila = tbActTerminada.getSelectedRow();
                 String codRegTermi = 
-                        (String) model.getValueAt(indiceFila, 7);
+                        (String) model.getValueAt(indiceFila, 6);
                 //Obtener código de la troza que se seleccionó en la lista
                 DefaultListModel lista = 
                         (DefaultListModel) lsActTmSelAs.getModel();
@@ -1107,9 +1117,19 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             TipoMensaje.PRODUCT_SUM_RES_FAILURE);
                 }                
             } catch (NumberFormatException ex) {
+                ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.NUMBER_FORMAT_EXCEPTION);
-            }catch (NullPointerException ex) {
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                ex.printStackTrace();
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.ANY_ROW_SELECTED);
+            } catch (NullPointerException ex) {
+                ex.printStackTrace();
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.ANY_ROW_SELECTED);
+            } catch (Exception ex) {
+                ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.SOMETHING_WENT_WRONG);
             }
@@ -1146,9 +1166,19 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             TipoMensaje.PRODUCT_SUM_RES_FAILURE);
                 }                
             } catch (NumberFormatException ex) {
+                ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.NUMBER_FORMAT_EXCEPTION);
-            }catch (NullPointerException ex) {
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                ex.printStackTrace();
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.ANY_ROW_SELECTED);
+            } catch (NullPointerException ex) {
+                ex.printStackTrace();
+                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                            TipoMensaje.ANY_ROW_SELECTED);
+            } catch (Exception ex) {
+                ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.SOMETHING_WENT_WRONG);
             }
@@ -1277,15 +1307,39 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         } 
     }
     
+    /**
+     * Busca los registros de troza que coinciden con el parámetro ingresado.
+     * @param text llave de búsqueda.
+     */
     private void buscarTrozaOrigen(String text) {
         ArrayList<Troza> tempTrozas = ctrTroza.consultarTrozas(text);
         
         DefaultListModel<Troza> mTrozas = new DefaultListModel<>();
         for (Troza tr: tempTrozas) {
-            mTrozas.addElement(tr);
+            if (tr.getEstado().equals(Estado.Activo)) {
+                mTrozas.addElement(tr);
+            }
         }
         
         lsActAsSelTrz.setModel(mTrozas);
+    }
+    
+    /**
+     * Busca los registros de madera que coinciden con el parámetro ingresado.
+     * @param text llave de búsqueda.
+     */
+    private void buscarAserradaOrigen(String text) {
+        ArrayList<Madera> tempProds = ctrMadera.consultarProductos(text);
+        
+        DefaultListModel<Madera> mProds = new DefaultListModel<>();
+        for (Madera p: tempProds) {
+            if (p.getTipoProducto().equals("ASERRADA") && 
+                    p.getEstado().equals(Estado.Activo)) {
+                mProds.addElement(p);
+            }
+        }
+        
+        lsActTmSelAs.setModel(mProds);
     }
     
     /**
@@ -1727,14 +1781,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlActualizarAcerradaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlActualizarAcerradaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnActualizarAserrada, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlActualizarAcerradaLayout.createSequentialGroup()
-                        .addComponent(pnSeleccionarRegAserrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(pnSeleccionarRegAserrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizarAserrada, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(980, 980, 980))
         );
         pnlActualizarAcerradaLayout.setVerticalGroup(
@@ -1744,11 +1795,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 .addGroup(pnlActualizarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlActualizarAcerradaLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 266, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
+                        .addComponent(btnActualizarAserrada, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pnSeleccionarRegAserrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(btnActualizarAserrada, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(63, 63, 63))
         );
 
         tbActualizarTipoProd.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/inv_acerrada.png")), pnlActualizarAcerrada, "Madera Acerrada"); // NOI18N
@@ -1828,6 +1878,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         lblActAcOp3.setText("Seleccione la madera de origen:");
 
         txtActTmBuscAs.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        txtActTmBuscAs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtActTmBuscAsKeyReleased(evt);
+            }
+        });
 
         lsActTmSelAs.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         spActTmSelAs.setViewportView(lsActTmSelAs);
@@ -1876,13 +1931,15 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             .addGroup(pnlActualizarTerminadaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlActualizarTerminadaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnActualizarTerminada, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlActualizarTerminadaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlActualizarTerminadaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnActualizarTerminada, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         pnlActualizarTerminadaLayout.setVerticalGroup(
             pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1891,11 +1948,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 .addGroup(pnlActualizarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlActualizarTerminadaLayout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 277, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
+                        .addComponent(btnActualizarTerminada, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(btnActualizarTerminada, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(63, 63, 63))
         );
 
         tbActualizarTipoProd.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/inv_terminada.png")), pnlActualizarTerminada, "Madera Terminada"); // NOI18N
@@ -1920,8 +1976,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         scpnlTblTActualizar.setViewportView(tbActTroza);
 
         lblActTEntra.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
-        lblActTEntra.setText("Entra");
+        lblActTEntra.setText("Entra:");
 
+        placeholder = new TextPrompt("Pulgadas", txtActTEntra);
+        placeholder.changeAlpha(0.75f);
+        placeholder.changeStyle(Font.ITALIC);
         txtActTEntra.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         btnActualizarTroza.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
@@ -1943,17 +2002,15 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(pnlActualizarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scpnlTblTActualizar)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlActualizarTrozaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnActualizarTroza, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlActualizarTrozaLayout.createSequentialGroup()
-                        .addGroup(pnlActualizarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlActualizarTrozaLayout.createSequentialGroup()
-                                .addComponent(lblActTEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtActTEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblActAcOp4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 638, Short.MAX_VALUE)))
+                        .addComponent(lblActAcOp4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlActualizarTrozaLayout.createSequentialGroup()
+                        .addComponent(lblActTEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtActTEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 388, Short.MAX_VALUE)
+                        .addComponent(btnActualizarTroza, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlActualizarTrozaLayout.setVerticalGroup(
@@ -1966,10 +2023,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlActualizarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtActTEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblActTEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnActualizarTroza, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(lblActTEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizarTroza, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(59, 59, 59))
         );
 
         tbActualizarTipoProd.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/inv_troza.png")), pnlActualizarTroza, "Madera en Troza"); // NOI18N
@@ -2094,38 +2150,36 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlNuevoAcerradaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(scpnlTbAcNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 1084, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlNuevoAcerradaLayout.createSequentialGroup()
-                        .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblNuevoAcCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblNuevoAcVariedad, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                            .addComponent(cbxNuevoAcVariedad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtNuevoAcCodigo))
-                        .addGap(55, 55, 55)
-                        .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblNuevoAcPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblNuevoAcUnidades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtNuevoAcMedVaras)
-                            .addComponent(txtNuevoAcPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(55, 55, 55)
-                        .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(pnlNuevoAcerradaLayout.createSequentialGroup()
-                                .addComponent(txtNuevoAcMedGrueso, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblNuevoAcMedX, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNuevoAcMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblNuevoAcMedidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(55, 55, 55)
-                        .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scpnlNuevoAcDescripcion)
-                            .addComponent(lblNuevoAcDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(18, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNuevoAcerradaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnNuevaAserrada, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnNuevaAserrada, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(scpnlTbAcNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 1084, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlNuevoAcerradaLayout.createSequentialGroup()
+                            .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblNuevoAcCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblNuevoAcVariedad, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                                .addComponent(cbxNuevoAcVariedad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtNuevoAcCodigo))
+                            .addGap(55, 55, 55)
+                            .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblNuevoAcPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblNuevoAcUnidades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtNuevoAcMedVaras)
+                                .addComponent(txtNuevoAcPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(55, 55, 55)
+                            .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(pnlNuevoAcerradaLayout.createSequentialGroup()
+                                    .addComponent(txtNuevoAcMedGrueso, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblNuevoAcMedX, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtNuevoAcMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblNuevoAcMedidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(55, 55, 55)
+                            .addGroup(pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(scpnlNuevoAcDescripcion)
+                                .addComponent(lblNuevoAcDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         pnlNuevoAcerradaLayout.setVerticalGroup(
             pnlNuevoAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3077,17 +3131,21 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblEditarAserradaMouseClicked
 
     private void txtActAcBuscTrzKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtActAcBuscTrzKeyReleased
-        if (txtActAcBuscTrz.getText().trim().isEmpty()) {
-            System.out.println("LIST IS EMPTY!");
-            lsActAsSelTrz.setModel(new DefaultListModel());
-        } else {
+        //if (txtActAcBuscTrz.getText().trim().isEmpty()) {
+            //System.out.println("LIST IS EMPTY!");
+            //lsActAsSelTrz.setModel(new DefaultListModel());
+        //} else {
             buscarTrozaOrigen(txtActAcBuscTrz.getText().trim());
-        }
+        //}
     }//GEN-LAST:event_txtActAcBuscTrzKeyReleased
 
     private void btnListarProductosRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarProductosRefrescarActionPerformed
         cargarTablas();
     }//GEN-LAST:event_btnListarProductosRefrescarActionPerformed
+
+    private void txtActTmBuscAsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtActTmBuscAsKeyReleased
+        buscarAserradaOrigen(txtActTmBuscAs.getText().trim());
+    }//GEN-LAST:event_txtActTmBuscAsKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
