@@ -69,6 +69,16 @@ public enum TipoMensaje {
     SEND_CONFIRMATION_EMAIL_FAILURE,
     /** Identificador del mensaje: éxito al enviar correo de confirmación. */
     SEND_CONFIRMATION_EMAIL_SUCCESS,
+    /**Identificador del mensaje: No se encontró el cliente solicitado. **/
+    SUPPLIER_INSERTION_FAILURE,
+    /**Identificador del mensaje: No se encontró el cliente solicitado. **/
+    SUPPLIER_NOT_FOUND,
+    /** Identificador del mensaje: falló la edición del proveedor. */
+    SUPPLIER_UPDATE_FAILURE,
+    /** Identificador del mensaje: exito en la actualización del proveedor. */
+    SUPPLIER_UPDATE_SUCCESS,
+    /** Identificador del mensaje: exito en la inserción del proveedor. */
+    SUPPLIER_INSERTION_SUCCESS,
     /** Identificador del mensaje: precio ingresado no es correcto. */
     PRICE_SYNTAX_FAILURE,
     
