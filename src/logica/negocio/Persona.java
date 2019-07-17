@@ -28,6 +28,16 @@ public class Persona {
     }
     
     /**
+     * Constructor sobreccargado de clase persona.
+     * @param cedula cédula de persona.
+     * @param nombre nombre de la persona.
+     */
+    public Persona(String cedula, String nombre) {
+        this.nombre = nombre;
+        this.cedula = cedula;
+    }
+    
+    /**
      * Constructor de clase persona, inicializa variables.
      * @param nombre nombre persona.
      * @param cedula cedula persona.

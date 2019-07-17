@@ -188,28 +188,25 @@ public class MdlTroza {
     /**
      * Actualiza los diferentes atributos de la troza y los almacena en la BD
      * @param codInterno codigo de la troza para uso interno del sistema
-     * @param codTipoMadera codigo del tipo de madera (variedad)
      * @param pulgadas cantidad de troza en pulgadas
      * @param descripcion descripción de la troza
-     * @param codProveedor codigo del proveedor de la troza
+     * @param cedProveedor cédula del proveedor de la troza
      * @param codigo codigo de la bd
      * @return verdadero si fue actualizada correctamente
      */
-    public boolean actualizarTroza(String codInterno, String codTipoMadera, 
-            double pulgadas, String descripcion, String codProveedor,
-            String codigo) {
+    public boolean actualizarTroza(String codInterno, double pulgadas, 
+            String descripcion, String cedProveedor, String codigo) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(codInterno);
-        params.add(codTipoMadera);
         params.add(pulgadas);
         params.add(descripcion);
-        params.add(codProveedor);
+        params.add(cedProveedor);
         params.add(codigo);
 
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_actualizar_troza(?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_actualizar_troza(?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);
