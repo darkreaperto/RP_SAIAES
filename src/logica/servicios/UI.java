@@ -23,8 +23,8 @@ public class UI {
      * @param tabla el nombre de la tabla de la interfaz que se estilizará.
      */
     public void estilizarTablas(JTable tabla) {
-        Font bigBoldFont = new Font("Yu Gothic IU", Font.BOLD, 16);
-        Font bigPlainFont = new Font("Yu Gothic IU", Font.PLAIN, 16);
+        Font bigBoldFont = new Font("Yu Gothic IU", Font.BOLD, 18);
+        Font bigPlainFont = new Font("Yu Gothic IU", Font.PLAIN, 18);
         Color ferguson = new Color(163, 36, 29);
         //HEADER
         tabla.getTableHeader().setFont(bigBoldFont);

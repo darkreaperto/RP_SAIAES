@@ -184,26 +184,40 @@ public class MdlFactura {
             //Crear una linea de detalle en la bd por cada una encontrada 
             //en la lista de lineas
             System.out.println("IndiceFac: " + indice);
-            System.out.println("Lista Size: " + fac.getLineasDetalle().size());
+            System.out.println("MdlFactura->CrearFactura->CantidadLineasDetalle: " + fac.getLineasDetalle().size());
             for(int i = 0; i < fac.getLineasDetalle().size(); i++) {
                 
                 LineaDetalle linea = fac.getLineasDetalle().get(i);
                 System.out.println("ITERATOR: "+ i);
                 //obtener el indice de linea
-                int indiceLinea = ctrLineaDetalle.crearLineaDetalle(
-                        linea.getImpuesto(),
-                        linea.getNumeroLinea(), linea.getTipoCodProducto(), 
-                        linea.getCodigoProducto(), linea.getCantidad(), 
-                        linea.getUnidadMedida(), linea.getDetalle(), 
-                        linea.getPrecioUnitario(), linea.getTotal(), 
-                        linea.getDescuento(), linea.getNaturalezaDescuento(), 
-                        linea.getSubtotal(), linea.getMontoTotalLinea(), 
-                        linea.isMercancia());
-                
+                int indiceLinea;
+                //verifica si se trata de un producto vario o de inventario para
+                //saber de qué objeto obtener el código bd para agregarlo.
+                if(linea.isProdVario()) {
+                    System.out.println("MdlFactura->crearlineadeProdVario: " + linea.getVarios().getCodigo());
+                    System.out.println("MdlFactura->crearlineadeProdVario: " + linea.getVarios().getPrecio());
+                    System.out.println("MdlFactura->crearlineadeProdVario: " + linea.getVarios().getDescripcion());
+                    indiceLinea = ctrLineaDetalle.crearLineaDetalle(
+                        linea.getNumeroLinea(), linea.getVarios().getCodigo(),
+                        linea.getCantSolicitada(), linea.getDetalle(), 
+                        linea.getVarios().getPrecio(), linea.isMercancia(), 
+                        linea.getImpuesto(), linea.getDescuento(), 
+                        linea.getSubtotal(), linea.getTotal(), 
+                        linea.getMontoTotalLinea());
+                    System.out.println("IndiceLinea(para varios): " + indiceLinea);
+                } else {
+                    indiceLinea = ctrLineaDetalle.crearLineaDetalle(
+                        linea.getNumeroLinea(), linea.getProducto().getCodigo(),
+                        linea.getCantSolicitada(), linea.getDetalle(),
+                        linea.getProducto().getPrecioXvara(), linea.isMercancia(),
+                        linea.getImpuesto(), linea.getDescuento(),
+                        linea.getSubtotal(), linea.getTotal(),
+                        linea.getMontoTotalLinea());
+                    System.out.println("IndiceLinea(para madera): " + indiceLinea);
+                }
+                System.out.println("IndiceLinea: " + indiceLinea);
                 crearLineaxFactura(indiceLinea, indice);
-                System.out.println("FINAL");
-            }
-                       
+            }      
             System.out.println(resultado);
         } catch (SQLException ex) {
             System.err.println(ex); 

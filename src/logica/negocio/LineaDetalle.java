@@ -12,72 +12,83 @@ package logica.negocio;
  */
 public class LineaDetalle {
     
-    private String codLDetalle; //código de bd para línea de pedido
     private int numeroLinea;//consecutivo de línea
-    private String tipoCodProducto; //04 cod interno?
-    private String codigoProducto;
-    private int cantidad;
-    private String unidadMedida; //es unidades, buscar codigo para unidades y poner estático?
+    private Madera producto;// = new Madera();
+    private Varios varios; //= new Varios();
+    private double cantSolicitada;
     private String detalle;
-    private double precioUnitario;
-    private double total; //(cantidad*preciounitario)
-    private double descuento;
-    private String naturalezaDescuento;
-    private double subtotal; //(total-descuentos)
-    private Impuesto impuesto;//objeto impuesto
-    private double montoTotalLinea;
     //Adicional clasificación de producto
     private boolean mercancia;
+    private Impuesto impuesto;//objeto impuesto
+    private double descuento;
+    private double subtotal; //(total-descuentos)
+    private double total; //(cantidad*preciounitario)
+    private double montoTotalLinea;
+    private boolean isProdVario;
 
+    
+    
     /**
      * Constructor vacío de clase LíneaDetalle.
      */
     public LineaDetalle() {
         
     }
-    
-    /**
-     * Constructor de clase LineaPedido, inicializa variables.
-     * @param numeroLinea número consecutivo en línea de pedido
-     * @param tipoCodProducto tipo codigo de producto
-     * @param codigoProducto codigo del producto
-     * @param cantidad cantidad de productos para la linea
-     * @param unidadMedida unidad en que se miden los productos
-     * @param detalle descripción del producto/linea
-     * @param precioUnitario precio de producto por unidad
-     * @param descuento valor/monto de descuento
-     * @param naturalezaDescuento naturaleza o razón del descuento
-     * @param impuesto valor de impuesto gravado al producto
-     * @param mercancia clasificación de producto (mercancia = true, serivicio = false)
-     */
-    public LineaDetalle(int numeroLinea, String tipoCodProducto, 
-            String codigoProducto, int cantidad, String unidadMedida, 
-            String detalle, double precioUnitario, double descuento, 
-            String naturalezaDescuento,
-            Impuesto impuesto, boolean mercancia) {
-        
-        this.numeroLinea = numeroLinea;
-        this.tipoCodProducto = tipoCodProducto;
-        this.codigoProducto = codigoProducto;
-        this.cantidad = cantidad;
-        this.unidadMedida = unidadMedida;
-        this.detalle = detalle;
-        this.precioUnitario = precioUnitario;
-        this.total = cantidad * precioUnitario;
-        this.descuento = descuento;
-        this.naturalezaDescuento = naturalezaDescuento;
-        this.subtotal = this.total - descuento;
-        this.impuesto = impuesto;
-        this.montoTotalLinea = this.subtotal + impuesto.getMontoImpuesto();
-        this.mercancia = mercancia;
-    }
 
     /**
-     * Establecer código de linea de detalle para BD
-     * @param codLDetalle codigo de linea de detalle para la bd
+     * Constructor de clase LineaDetalle, inicializa las variables requeridas 
+     * incluyendo el objeto Madera para obtener los datos de productos de madera.
+     * @param producto
+     * @param numeroLinea número consecutivo en línea de pedido
+     * @param cantSolicitada cantidad de productos para la linea
+     * @param detalle descripción del producto/linea
+     * @param descuento valor/monto de descuento
+     * @param impuesto valor de impuesto gravado al producto
+     * @param isProdVario identifica si se trata de un producto vario o un 
+     * producto de madera (prodVario = true, prodMadera = false)
      */
-    public void setCodLDetalle(String codLDetalle) {
-        this.codLDetalle = codLDetalle;
+    public LineaDetalle(int numeroLinea, Madera producto, double cantSolicitada, 
+            String detalle, Impuesto impuesto, double descuento) {
+        
+        this.producto = producto;
+        this.numeroLinea = numeroLinea;
+        this.cantSolicitada = cantSolicitada;
+        this.detalle = detalle;
+        this.mercancia = true;
+        this.impuesto = impuesto;
+        this.descuento = descuento;
+        this.total = cantSolicitada * producto.getPrecioXvara();
+        this.subtotal = this.total - descuento;
+        this.montoTotalLinea = this.subtotal + impuesto.getMontoImpuesto();
+        this.isProdVario = false;
+        this.varios = new Varios();
+    }
+    
+    /**
+     * Constructor de clase LineaDetalle, inicializa las variables requeridas 
+     * incluyendo el objeto Varios para obtener los datos de productos varios 
+     * que no estén incluidos en el inventario del sistema.
+     * @param prodVario producto de tipo varios (no son una madera específica)
+     * @param numeroLinea número consecutivo en línea de pedido
+     * @param descuento valor/monto de descuento
+     * @param impuesto valor de impuesto gravado al producto
+     * @param mercancia clasificación de producto (mercancia = true, servicio = false)
+     * @param isProdVario identifica si se trata de un producto vario o un 
+     * producto de madera (mercancia = true, servicio = false)
+     */
+    public LineaDetalle(int numeroLinea, Varios prodVario,
+            Impuesto impuesto, double descuento, boolean mercancia) {
+        
+        this.varios = prodVario;
+        this.numeroLinea = numeroLinea;
+        this.mercancia = true;
+        this.impuesto = impuesto;
+        this.descuento = descuento;
+        this.total = prodVario.getPrecio();
+        this.subtotal = this.total - descuento;
+        this.montoTotalLinea = this.subtotal + impuesto.getMontoImpuesto();
+        this.isProdVario = true;
+        this.producto = new Madera();
     }
 
     /**
@@ -89,35 +100,11 @@ public class LineaDetalle {
     }
 
     /**
-     * Establecer tipo de código de producto
-     * @param tipoCodProducto tipo de código de producto linea detalle
-     */
-    public void setTipoCodProducto(String tipoCodProducto) {
-        this.tipoCodProducto = tipoCodProducto;
-    }
-
-    /**
-     * Establecer código de producto
-     * @param codigoProducto código del producto.
-     */
-    public void setCodigoProducto(String codigoProducto) {
-        this.codigoProducto = codigoProducto;
-    }
-
-    /**
      * Establecer cantidad de producto a facturar
-     * @param cantidad cantidad de productos a facturar
+     * @param cantSolicitada cantidad de productos a facturar
      */
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    /**
-     * Establecer unidad en que se mide el producto
-     * @param unidadMedida unidad de medida
-     */
-    public void setUnidadMedida(String unidadMedida) {
-        this.unidadMedida = unidadMedida;
+    public void setCantSolicitada(int cantSolicitada) {
+        this.cantSolicitada = cantSolicitada;
     }
 
     /**
@@ -126,14 +113,6 @@ public class LineaDetalle {
      */
     public void setDetalle(String detalle) {
         this.detalle = detalle;
-    }
-
-    /**
-     * Establecer precio del producto por unidad
-     * @param precioUnitario precio de cada producto
-     */
-    public void setPrecioUnitario(double precioUnitario) {
-        this.precioUnitario = precioUnitario;
     }
 
     /**
@@ -151,13 +130,7 @@ public class LineaDetalle {
     public void setDescuento(double descuento) {
         this.descuento = descuento;
     }
-    /**
-     * Establecer la naturaleza del descuento
-     * @param naturalezaDescuento cantidad de productos por el precio unitario
-     */
-    public void setNaturalezaDescuento (String naturalezaDescuento) {
-        this.naturalezaDescuento = naturalezaDescuento;
-    }
+    
     /**
      * Establecer subtotal de la factura
      * @param subtotal subtotal de factura
@@ -191,14 +164,6 @@ public class LineaDetalle {
     }
 
     /**
-     * Obtener el codigo (bd) de la línea de detalle.
-     * @return código de línea de detalle (bd)
-     */
-    public String getCodLDetalle() {
-        return codLDetalle;
-    }
-
-    /**
      * Obtener el número consecutivo en la línea de detalle.
      * @return número consecutivo en línea
      */
@@ -207,37 +172,13 @@ public class LineaDetalle {
     }
 
     /**
-     * Obtener el tipo de código del producto.
-     * @return tipo de código del producto
-     */
-    public String getTipoCodProducto() {
-        return tipoCodProducto;
-    }
-
-    /**
-     * Obtener el código del producto.
-     * @return código de producto
-     */
-    public String getCodigoProducto() {
-        return codigoProducto;
-    }
-
-    /**
      * Obtener la cantidad de productos a facturar.
      * @return cantidad de productos
      */
-    public int getCantidad() {
-        return cantidad;
+    public double getCantSolicitada() {
+        return cantSolicitada;
     }
-
-    /**
-     * Obtener la unidad de medida.
-     * @return unidad de medida utilizada
-     */
-    public String getUnidadMedida() {
-        return unidadMedida;
-    }
-
+    
     /**
      * Obtener el detalle o descripción del producto.
      * @return detalle/descripción del producto
@@ -245,15 +186,7 @@ public class LineaDetalle {
     public String getDetalle() {
         return detalle;
     }
-
-    /**
-     * Obtener el precio por unidad del producto.
-     * @return precio unitario del producto
-     */
-    public double getPrecioUnitario() {
-        return precioUnitario;
-    }
-
+    
     /**
      * Obtener el valor total (cantidad de producto por su precio) del producto.
      * @return valor total por el producto
@@ -268,14 +201,6 @@ public class LineaDetalle {
      */
     public double getDescuento() {
         return descuento;
-    }
-    
-    /**
-     * Obtener la naturaleza del descuento del producto.
-     * @return naturaleza de descuento del producto
-     */
-    public String getNaturalezaDescuento() {
-        return naturalezaDescuento;
     }
 
     /**
@@ -310,4 +235,33 @@ public class LineaDetalle {
         return mercancia;
     }
     
+    public Madera getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Madera producto) {
+        this.producto = producto;
+    }
+
+    public Varios getVarios() {
+        return varios;
+    }
+
+    public void setVarios(Varios varios) {
+        this.varios = varios;
+    }
+    
+    /**
+     * Obtener si la linea se trata de un producto vario o un producto 
+     * en inventario.
+     * @return Verdadero si es producto vario, o falso si es producto de madera 
+     * disponible en el inventario
+     */
+    public boolean isProdVario() {
+        return isProdVario;
+    }
+
+    public void setIsProdVario(boolean isProdVario) {
+        this.isProdVario = isProdVario;
+    }
 }
