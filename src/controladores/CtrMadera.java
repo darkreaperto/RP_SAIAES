@@ -135,19 +135,15 @@ public class CtrMadera {
      * @param cantVaras cantidad de varas que entran
      * @param grueso grueso del producto
      * @param ancho ancho del producto
-     * @param codTipoMadera codigo del tipo de madera del producto
-     * @param tipoProducto descripcion de cual es el tipo de producto
      * @param codigo codigo de la bd
      * @return true si actualiza el producto.
      */
-    public boolean actualizarProducto(String codProd, 
-            String descripcion, double precio, double cantVaras,
-            String grueso, String ancho, String codTipoMadera, 
-            String tipoProducto, String codigo) {
+    public boolean actualizarProducto(String codProd, String descripcion, 
+            double precio, double cantVaras, String grueso, String ancho, 
+            String codigo) {
         
-        return mdlMadera.actualizarProducto(codProd, descripcion, 
-                precio, cantVaras,grueso,ancho, codTipoMadera, tipoProducto,
-                codigo);
+        return mdlMadera.actualizarProducto(codProd, descripcion, precio, 
+                cantVaras, grueso, ancho, codigo);
     }
     /**
      * Llama el método que inactiva un producto en la bd

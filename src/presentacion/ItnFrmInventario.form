@@ -356,13 +356,15 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="scpnlTblAcActualizar" pref="700" max="32767" attributes="0"/>
                                           <Group type="102" attributes="0">
-                                              <Component id="lblActAcOp" min="-2" pref="250" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="lblActAcOp" min="-2" pref="250" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="lblActAcEntra" min="-2" pref="90" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="txtActAcEntra" min="-2" pref="222" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="lblActAcEntra" min="-2" pref="90" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtActAcEntra" min="-2" pref="222" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -1991,10 +1993,8 @@
                                       <Component id="scpnlTbAcEditar" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="lblEditarAcVariedad" alignment="0" pref="210" max="32767" attributes="0"/>
                                               <Component id="txtEditarAcCodigo" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="lblEditarAcCodigo" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="cbxEditarAcVariedad" max="32767" attributes="0"/>
+                                              <Component id="lblEditarAcCodigo" alignment="0" pref="210" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="55" pref="55" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -2004,27 +2004,24 @@
                                               <Component id="txtEditarAcPrecio" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                                                  <Component id="txtEditarAcMedGrueso" min="-2" pref="76" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="197" max="-2" attributes="0"/>
+                                              </Group>
                                               <Group type="102" alignment="1" attributes="0">
                                                   <EmptySpace min="55" pref="55" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="1" attributes="0">
                                                       <Component id="lblEditarAcMedidas" min="-2" pref="210" max="-2" attributes="0"/>
-                                                      <Component id="cbxEditarAcOrigen" alignment="1" min="-2" pref="208" max="-2" attributes="0"/>
                                                       <Group type="102" alignment="1" attributes="0">
                                                           <Component id="lblEditarAcMedX" min="-2" pref="45" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
                                                           <Component id="txtEditarAcMedAncho" min="-2" pref="77" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="txtEditarAcMedGrueso" min="-2" pref="76" max="-2" attributes="0"/>
-                                                      <Component id="lblEditarAcOrigen" min="-2" pref="208" max="-2" attributes="0"/>
-                                                  </Group>
+                                                  <EmptySpace min="65" pref="65" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace min="65" pref="65" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="lblEditarAcDescripcion" max="32767" attributes="0"/>
                                               <Component id="scpnlEditarAcDescripcion" pref="255" max="32767" attributes="0"/>
@@ -2059,31 +2056,19 @@
                                               <Component id="txtEditarAcVaras" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lblEditarAcVariedad" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                              <Component id="lblEditarAcPrecio" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="lblEditarAcPrecio" min="-2" pref="31" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="cbxEditarAcVariedad" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                              <Component id="txtEditarAcPrecio" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="txtEditarAcPrecio" min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="txtEditarAcMedGrueso" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="lblEditarAcMedX" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="txtEditarAcMedAncho" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lblEditarAcOrigen" min="-2" pref="31" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="cbxEditarAcOrigen" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="txtEditarAcMedGrueso" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="lblEditarAcMedX" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="txtEditarAcMedAncho" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="scpnlEditarAcDescripcion" alignment="0" min="-2" pref="107" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="scpnlTbAcEditar" pref="286" max="32767" attributes="0"/>
+                                  <Component id="scpnlTbAcEditar" pref="294" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnEditarAserrada" min="-2" pref="40" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -2095,11 +2080,6 @@
                         <Component class="javax.swing.JLabel" name="lblEditarAcCodigo">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="lblEditarAcVariedad">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Variedad de madera:"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="lblEditarAcMedidas">
@@ -2141,16 +2121,6 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtEditarAcPrecio">
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="cbxEditarAcVariedad">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="0"/>
-                            </Property>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;TipoMadera&gt;"/>
-                          </AuxValues>
-                        </Component>
                         <Container class="javax.swing.JScrollPane" name="scpnlEditarAcDescripcion">
                           <AuxValues>
                             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -2166,21 +2136,6 @@
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JComboBox" name="cbxEditarAcOrigen">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="0"/>
-                            </Property>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
-                          </AuxValues>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="lblEditarAcOrigen">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Madera de origen:"/>
-                          </Properties>
-                        </Component>
                         <Container class="javax.swing.JScrollPane" name="scpnlTbAcEditar">
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
@@ -2297,17 +2252,11 @@
                                           </Group>
                                           <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="0" pref="391" max="32767" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="lblEditarTmVariedad" min="-2" pref="190" max="-2" attributes="0"/>
-                                                      <Component id="cbxEditarTmVariedad" min="-2" pref="295" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace pref="96" max="32767" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                       <Component id="lblEditarTmPrecio" min="-2" pref="65" max="-2" attributes="0"/>
-                                                      <Component id="txtEditarTmPrecio" pref="280" max="32767" attributes="0"/>
-                                                      <Component id="cbxNuevoTmOrigen1" alignment="0" pref="280" max="32767" attributes="0"/>
-                                                      <Component id="lblNuevoTmOrigen1" pref="280" max="32767" attributes="0"/>
+                                                      <Component id="txtEditarTmPrecio" min="-2" pref="280" max="-2" attributes="0"/>
                                                       <Component id="btnEditarTerminada" alignment="1" min="-2" pref="230" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
@@ -2326,17 +2275,9 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="lblEditarTmCodigo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="lblEditarTmVariedad" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="lblNuevoTmOrigen1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="lblEditarTmCodigo" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtEditarTmCodigo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="cbxEditarTmVariedad" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                      <Component id="cbxNuevoTmOrigen1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="txtEditarTmCodigo" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lblEditarTmNombre" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -2350,7 +2291,7 @@
                                       <Component id="txtEditarTmPrecio" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                                  <Component id="scpnlTbTmEditar" pref="284" max="32767" attributes="0"/>
+                                  <Component id="scpnlTbTmEditar" pref="293" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnEditarTerminada" min="-2" pref="40" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -2369,11 +2310,6 @@
                             <Property name="text" type="java.lang.String" value="Nombre:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="lblEditarTmVariedad">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Variedad de madera:"/>
-                          </Properties>
-                        </Component>
                         <Component class="javax.swing.JLabel" name="lblEditarTmPrecio">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Precio:"/>
@@ -2385,37 +2321,12 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtEditarTmPrecio">
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="cbxEditarTmVariedad">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="0"/>
-                            </Property>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;TipoMadera&gt;"/>
-                          </AuxValues>
-                        </Component>
                         <Component class="javax.swing.JLabel" name="lblEditarTmCantVaras">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Cantidad en varas:"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtEditarTmCantVaras">
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="cbxNuevoTmOrigen1">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="0"/>
-                            </Property>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
-                          </AuxValues>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="lblNuevoTmOrigen1">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Madera de origen:"/>
-                          </Properties>
                         </Component>
                         <Container class="javax.swing.JScrollPane" name="scpnlTbTmEditar">
 
@@ -2524,15 +2435,13 @@
                                                       <Component id="txtEditarTPulgadas" alignment="0" max="32767" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                      <Component id="lblEditarTProveedor" alignment="0" max="32767" attributes="0"/>
-                                                      <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" attributes="0">
                                                           <Component id="cbxEditarTProveedor" max="32767" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
                                                           <Component id="btnCrearProv1" min="-2" pref="47" max="-2" attributes="0"/>
                                                       </Group>
-                                                      <Component id="lblEditarTVariedadMadera" alignment="1" min="-2" pref="295" max="-2" attributes="0"/>
-                                                      <Component id="cbxEditarTVariedad" min="-2" pref="295" max="-2" attributes="0"/>
+                                                      <Component id="lblEditarTProveedor" max="32767" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -2571,15 +2480,9 @@
                                               <Component id="scpnlEditarTDescripcion" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="lblEditarTCodigo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                                  <Component id="lblEditarTVariedadMadera" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="lblEditarTCodigo" min="-2" pref="30" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="txtEditarTCodigo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                                  <Component id="cbxEditarTVariedad" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="txtEditarTCodigo" min="-2" pref="30" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="lblEditarTpulgadas" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -2591,7 +2494,7 @@
                                       </Group>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="scpnlTbTEditar" pref="289" max="32767" attributes="0"/>
+                                  <Component id="scpnlTbTEditar" pref="298" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnEditarTroza" min="-2" pref="40" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -2603,11 +2506,6 @@
                         <Component class="javax.swing.JLabel" name="lblEditarTCodigo">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="lblEditarTVariedadMadera">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Variedad de madera:"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="lblEditarTProveedor">
@@ -2638,16 +2536,6 @@
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JComboBox" name="cbxEditarTVariedad">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="0"/>
-                            </Property>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;TipoMadera&gt;"/>
-                          </AuxValues>
-                        </Component>
                         <Component class="javax.swing.JComboBox" name="cbxEditarTProveedor">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">

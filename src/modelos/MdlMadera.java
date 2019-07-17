@@ -278,8 +278,7 @@ public class MdlMadera {
      */
     public boolean actualizarProducto(String codProd, 
             String descripcion, double precio, double cantVaras,
-            String grueso, String ancho, String codTipoMadera,
-            String tipoProducto, String codigo) {
+            String grueso, String ancho, String codigo) {
         
         ArrayList<Object> params = new ArrayList<>();
         params.add(codProd);
@@ -288,12 +287,11 @@ public class MdlMadera {
         params.add(cantVaras);
         params.add(grueso);
         params.add(ancho);
-        params.add(codTipoMadera);
         params.add(codigo);
 
         boolean creacionExitosa = false;
         try {
-            procedimiento = "pc_actualizar_producto(?, ?, ?, ?, ?, ?, ?, ?)";
+            procedimiento = "pc_actualizar_producto(?, ?, ?, ?, ?, ?, ?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);

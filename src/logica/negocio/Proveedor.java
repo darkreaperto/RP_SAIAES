@@ -17,10 +17,19 @@ public class Proveedor extends Persona {
     private Estado estado;
     
     /**
-     * Constructor de clase Proveedor.
+     * Constructor vacío de clase Proveedor.
      */
     public Proveedor() {
         super();
+    }
+    
+    /**
+     * Constructor sobrecarcado de clase Proveedor.
+     * @param cedula cédula del proveedor.
+     * @param nombre nombre del proveedor.
+     */
+    public Proveedor(String cedula, String nombre) {
+        super(cedula, nombre);
     }
     
     /**

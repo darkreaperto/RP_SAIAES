@@ -108,19 +108,17 @@ public class CtrTroza {
     /**
      * Actualiza los diferentes atributos de la trocita y los almacena en la BD
      * @param codInterno codigo de la troza para uso interno del sistema
-     * @param codTipoMadera codigo del tipo de madera (variedad)
      * @param pulgadas cantidad de troza en pulgadas
      * @param descripcion descripción de la troza
-     * @param codProveedor codigo del proveedor de la troza
+     * @param cedProveedor cédula del proveedor de la troza
      * @param codigo codigo de la bd
      * @return verdadero actualizada fue correctamente
      */
-    public boolean actualizarTroza(String codInterno, String codTipoMadera, 
-            double pulgadas,String descripcion, String codProveedor,
-            String codigo) {
+    public boolean actualizarTroza(String codInterno, double pulgadas, 
+            String descripcion, String cedProveedor, String codigo) {
         
-        return mdlTroza.actualizarTroza(codInterno, codTipoMadera, 
-                pulgadas, descripcion, codProveedor, codigo);
+        return mdlTroza.actualizarTroza(codInterno, pulgadas, descripcion, 
+                cedProveedor, codigo);
     }
     /**
      * Llama el método que inactiva una troza en la bd

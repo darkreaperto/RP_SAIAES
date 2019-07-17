@@ -118,12 +118,16 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         //limpiar cada combo
         cbxNuevoTProveedor.removeAllItems();
         cbxEditarTProveedor.removeAllItems();
+        
+        cbxNuevoTProveedor.addItem(new Proveedor("0", "No aplica"));
+        cbxEditarTProveedor.addItem(new Proveedor("0", "No aplica"));
+        
         //cargar los combos de proveedores
         for (Proveedor item : proveedores) {
             cbxNuevoTProveedor.addItem(item);
             cbxEditarTProveedor.addItem(item);
         }
-        if(proveedores.size() >0) {
+        if(proveedores.size() > 0) {
             cbxNuevoTProveedor.setSelectedIndex(0);
         }
         
@@ -131,19 +135,13 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         tmaderas = ctrTipoMadera.obtenerTiposMadera();
         //limpiar combos primero
         cbxNuevoTVariedad.removeAllItems();
-        cbxEditarTVariedad.removeAllItems();
         cbxNuevoAcVariedad.removeAllItems();
-        cbxEditarAcVariedad.removeAllItems();
         cbxNuevoTmVariedad.removeAllItems();
-        cbxEditarTmVariedad.removeAllItems();
         //cargar los combos
         tmaderas.forEach((item) -> {
             cbxNuevoTVariedad.addItem(item);
-            cbxEditarTVariedad.addItem(item);
             cbxNuevoAcVariedad.addItem(item);
-            cbxEditarAcVariedad.addItem(item);
             cbxNuevoTmVariedad.addItem(item);
-            cbxEditarTmVariedad.addItem(item);
         });
         cbxNuevoTVariedad.setSelectedIndex(0);
     }
@@ -509,7 +507,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     txtEditarTCodigo.setText("");
                     txtEditarTPulgadas.setText("");
                     txtaEditarTDescripcion.setText("");
-                    cbxEditarTVariedad.removeAllItems();
                     //cbxEditarTProveedor.removeAllItems();
                     cargarCombos();
                     break;
@@ -649,7 +646,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      */                   
     private boolean actualizarProducto(String codProd, String descripcion, 
             String precio, String cantVaras, String grueso, String ancho, 
-            TipoMadera tipoMad, String codigo) {
+            String codigo) {
         
         //Campos no están vacíos
         if (!codProd.isEmpty() && !descripcion.isEmpty() && !precio.isEmpty() 
@@ -666,9 +663,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                       //      (TipoMadera) cbxEditarAcVariedad.getSelectedItem();                  
                     System.out.println("ACTUALIZANDO PRODUCTO, PLEASE WAIT... "+ preci);
                     boolean editar = ctrMadera.actualizarProducto(codProd, 
-                            descripcion, preci, cvaras, grueso, ancho, 
-                            tipoMad.getCodigo(), verificarTipoProducto("EDITAR"),
-                            codigo);
+                            descripcion, preci, cvaras, grueso, ancho, codigo);
 
                     if (editar) {
                         cargarTablas();
@@ -707,17 +702,15 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * @return Verdadero si el producto se actualiza exitosamente
      */
     private boolean actualizarTroza(String codIn, String pulgadas, 
-            String descripcion, String cedProveedor, TipoMadera tipoMad, 
-            String codigo) {
+            String descripcion, String cedProveedor, String codigo) {
         
         //Campos no están vacíos
         if (!codIn.isEmpty() && !pulgadas.isEmpty() && !codigo.isEmpty()) {
                 
             try {
                 double pulgs = Double.valueOf(pulgadas);
-                boolean editar = ctrTroza.actualizarTroza(codIn, 
-                        tipoMad.getCodigo(), pulgs, descripcion, 
-                        cedProveedor, codigo);
+                boolean editar = ctrTroza.actualizarTroza(codIn, pulgs, 
+                        descripcion, cedProveedor, codigo);
 
                 if (editar) {
                     cargarTablas();
@@ -901,30 +894,24 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
      * Cargar la información del producto seleccionado (Aserrada y Terminada).
      * @param tipo tipo de producto seleccionado (Aserrada o Terminada).
      */
-    private void cargarEditarProducto() {
+    private void cargarEditarProducto(String tipoProd) {
         
         try {
-            model = (DefaultTableModel) tblEditarAserrada.getModel(); 
+            int indiceFila = -1;
+            String codigo = "";
+            Madera prod = null;
             
-            int indiceFila = tblEditarAserrada.getSelectedRow();
-            String codigo;
-            
-            if (indiceFila == -1) {
+            if (tipoProd.toUpperCase().equals("ASERRADA")) {
+                model = (DefaultTableModel) tblEditarAserrada.getModel();
+                indiceFila = tblEditarAserrada.getSelectedRow();
+                codigo = (String) model.getValueAt(indiceFila, 7);
+            } else if (tipoProd.toUpperCase().equals("TERMINADA")) {
                 model = (DefaultTableModel) tblEditarTerminada.getModel();
                 indiceFila = tblEditarTerminada.getSelectedRow();
-                
-                if (indiceFila == -1) {
-                    return;
-                } else {
-                    codigo = (String) model.getValueAt(indiceFila, 6);
-                }
-            } else {
-                codigo = (String) model.getValueAt(indiceFila, 7);
+                codigo = (String) model.getValueAt(indiceFila, 6);
             }
             
             System.out.println("CODIGO MODEL: "+codigo);
-            
-            Madera prod = null;
             for (Madera p: productos) {
                 if (p.getCodigo().equals(codigo)) {
                     prod = p;
@@ -942,22 +929,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 txtaEditarAcDescripcion.setText(prod.getDescripcion());
                 txtEditarAcCodigo.setText(prod.getCodProducto());
                 
-                for (int i=0; i<cbxEditarAcVariedad.getItemCount(); i++) {
-                    if (cbxEditarAcVariedad.getItemAt(i).getDescripcion().equals(prod.getDescTipoMadera())) {
-                        cbxEditarAcVariedad.setSelectedIndex(i);
-                    }
-                }
-                
                 //Seleccionar la pestaña para Aserrada (0)
                 tbEditarTipoProd.setSelectedIndex(0);
                 
             } else if (prod != null && prod.getTipoProducto().equals("TERMINADA")) {
-
-                for (int i=0; i<cbxEditarTmVariedad.getItemCount(); i++) {
-                    if (cbxEditarTmVariedad.getItemAt(i).getDescripcion().equals(prod.getDescTipoMadera())) {
-                        cbxEditarTmVariedad.setSelectedIndex(i);
-                    }
-                }
 
                 txtEditarTmCodigo.setText(prod.getCodProducto());
                 txtEditarTmPrecio.setText(String.valueOf(prod.getPrecioXvara()));
@@ -1004,10 +979,17 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 txtEditarTPulgadas.setText(String.valueOf(prod.getPulgadas()));
                 txtaEditarTDescripcion.setText(prod.getDescripcion());
                 txtEditarTCodigo.setText(prod.getCodInterno());
-
-                for (int i=0; i<cbxEditarTVariedad.getItemCount(); i++) {
-                    if (cbxEditarTVariedad.getItemAt(i).getDescripcion().equals(prod.getDescTipoMadera())) {
-                        cbxEditarTVariedad.setSelectedIndex(i);
+                
+                if (prod.getCedProveedor() == null) {
+                    cbxEditarTProveedor.setSelectedIndex(0);
+                } else {
+                    for (int i=0; i<cbxEditarTProveedor.getItemCount(); i++) {
+                        
+                        String ced = cbxEditarTProveedor.getItemAt(i).getCedula();
+                        if (prod.getCedProveedor().equals(ced)) {
+                            cbxEditarTProveedor.setSelectedIndex(i);
+                            break;
+                        }
                     }
                 }
 
@@ -1199,7 +1181,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             String grueso;
             String ancho;
             String pulgadas;
-            TipoMadera tipoMad;
             
             if (tipo.equals("ASERRADA")) {
                 model = (DefaultTableModel) tblEditarAserrada.getModel();
@@ -1209,14 +1190,13 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             
                 grueso = txtEditarAcMedGrueso.getText().trim();
                 ancho = txtEditarAcMedAncho.getText().trim();
-                tipoMad = (TipoMadera) cbxEditarAcVariedad.getSelectedItem();
                 
                 boolean aprod = actualizarProducto(
                         txtEditarAcCodigo.getText().trim(),
                         txtaEditarAcDescripcion.getText().trim(),
                         txtEditarAcPrecio.getText().trim(),
                         txtEditarAcVaras.getText().trim(),
-                        grueso, ancho, tipoMad, codigo);
+                        grueso, ancho, codigo);
                 if(aprod) {
                     limpiarCampos("Editar","ASERRADA");
                 }
@@ -1227,13 +1207,12 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 //#revisar indice#
                 String codigo = (String) model.getValueAt(indiceFila, 6);
                 pulgadas = txtEditarTPulgadas.getText().trim();
-                tipoMad = (TipoMadera) cbxEditarTVariedad.getSelectedItem();
                 Proveedor pv = (Proveedor) cbxEditarTProveedor.getSelectedItem();
 
                 boolean aprod = actualizarTroza(
                         txtEditarTCodigo.getText().trim(), pulgadas,
                         txtaEditarTDescripcion.getText().trim(), 
-                        pv.getCedula(), tipoMad, codigo);
+                        pv.getCedula(), codigo);
                 if(aprod) {
                     msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                                 TipoMensaje.PRODUCT_UPDATE_SUCCESS);
@@ -1248,12 +1227,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 int indiceFila = tblEditarTerminada.getSelectedRow();
                 //#revisar indice#
                 String codigo = (String) model.getValueAt(indiceFila, 6);
-                tipoMad = (TipoMadera) cbxEditarTmVariedad.getSelectedItem();
 
                 boolean aprod = actualizarProducto(txtEditarTmCodigo.getText(),
                         txtEditarTmNombre.getText(), txtEditarTmPrecio.getText(),
-                        txtEditarTmCantVaras.getText().trim(), "0", "0",
-                        tipoMad, codigo);
+                        txtEditarTmCantVaras.getText().trim(), "0", "0", codigo);
                 if(aprod) {
                     limpiarCampos("Editar","TERMINADA");
                     msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
@@ -1485,7 +1462,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         tbEditarTipoProd = new javax.swing.JTabbedPane();
         pnlEditarAcerrada = new javax.swing.JPanel();
         lblEditarAcCodigo = new javax.swing.JLabel();
-        lblEditarAcVariedad = new javax.swing.JLabel();
         lblEditarAcMedidas = new javax.swing.JLabel();
         lblEditarAcUnidade = new javax.swing.JLabel();
         lblEditarAcPrecio = new javax.swing.JLabel();
@@ -1496,39 +1472,30 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         txtEditarAcMedGrueso = new javax.swing.JTextField();
         txtEditarAcVaras = new javax.swing.JTextField();
         txtEditarAcPrecio = new javax.swing.JTextField();
-        cbxEditarAcVariedad = new javax.swing.JComboBox<>();
         scpnlEditarAcDescripcion = new javax.swing.JScrollPane();
         txtaEditarAcDescripcion = new javax.swing.JTextArea();
-        cbxEditarAcOrigen = new javax.swing.JComboBox<>();
-        lblEditarAcOrigen = new javax.swing.JLabel();
         scpnlTbAcEditar = new javax.swing.JScrollPane();
         tblEditarAserrada = new javax.swing.JTable();
         btnEditarAserrada = new javax.swing.JButton();
         pnlEditarTerminada = new javax.swing.JPanel();
         lblEditarTmCodigo = new javax.swing.JLabel();
         lblEditarTmNombre = new javax.swing.JLabel();
-        lblEditarTmVariedad = new javax.swing.JLabel();
         lblEditarTmPrecio = new javax.swing.JLabel();
         txtEditarTmCodigo = new javax.swing.JTextField();
         txtEditarTmNombre = new javax.swing.JTextField();
         txtEditarTmPrecio = new javax.swing.JTextField();
-        cbxEditarTmVariedad = new javax.swing.JComboBox<>();
         lblEditarTmCantVaras = new javax.swing.JLabel();
         txtEditarTmCantVaras = new javax.swing.JTextField();
-        cbxNuevoTmOrigen1 = new javax.swing.JComboBox<>();
-        lblNuevoTmOrigen1 = new javax.swing.JLabel();
         scpnlTbTmEditar = new javax.swing.JScrollPane();
         tblEditarTerminada = new javax.swing.JTable();
         btnEditarTerminada = new javax.swing.JButton();
         pnlEditarTroza = new javax.swing.JPanel();
         lblEditarTCodigo = new javax.swing.JLabel();
-        lblEditarTVariedadMadera = new javax.swing.JLabel();
         lblEditarTProveedor = new javax.swing.JLabel();
         lblEditarTDescripcion = new javax.swing.JLabel();
         txtEditarTCodigo = new javax.swing.JTextField();
         scpnlEditarTDescripcion = new javax.swing.JScrollPane();
         txtaEditarTDescripcion = new javax.swing.JTextArea();
-        cbxEditarTVariedad = new javax.swing.JComboBox<>();
         cbxEditarTProveedor = new javax.swing.JComboBox<>();
         btnCrearProv1 = new javax.swing.JButton();
         lblEditarTpulgadas = new javax.swing.JLabel();
@@ -1699,12 +1666,13 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 .addGroup(pnSeleccionarRegAserradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scpnlTblAcActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
                     .addGroup(pnSeleccionarRegAserradaLayout.createSequentialGroup()
-                        .addComponent(lblActAcOp, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pnSeleccionarRegAserradaLayout.createSequentialGroup()
-                        .addComponent(lblActAcEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtActAcEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnSeleccionarRegAserradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblActAcOp, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnSeleccionarRegAserradaLayout.createSequentialGroup()
+                                .addComponent(lblActAcEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtActAcEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnSeleccionarRegAserradaLayout.setVerticalGroup(
@@ -2462,8 +2430,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
         lblEditarAcCodigo.setText("Código:");
 
-        lblEditarAcVariedad.setText("Variedad de madera:");
-
         lblEditarAcMedidas.setText("Medidas:");
 
         lblEditarAcUnidade.setText("Cantidad en varas: ");
@@ -2479,8 +2445,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         txtaEditarAcDescripcion.setColumns(20);
         txtaEditarAcDescripcion.setRows(3);
         scpnlEditarAcDescripcion.setViewportView(txtaEditarAcDescripcion);
-
-        lblEditarAcOrigen.setText("Madera de origen:");
 
         tblEditarAserrada.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -2523,10 +2487,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     .addComponent(scpnlTbAcEditar)
                     .addGroup(pnlEditarAcerradaLayout.createSequentialGroup()
                         .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lblEditarAcVariedad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                             .addComponent(txtEditarAcCodigo, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEditarAcCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxEditarAcVariedad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblEditarAcCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
                         .addGap(55, 55, 55)
                         .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtEditarAcVaras)
@@ -2534,21 +2496,19 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             .addComponent(lblEditarAcPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtEditarAcPrecio))
                         .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlEditarAcerradaLayout.createSequentialGroup()
+                                .addGap(57, 57, 57)
+                                .addComponent(txtEditarAcMedGrueso, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(197, 197, 197))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEditarAcerradaLayout.createSequentialGroup()
                                 .addGap(55, 55, 55)
                                 .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblEditarAcMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbxEditarAcOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(pnlEditarAcerradaLayout.createSequentialGroup()
                                         .addComponent(lblEditarAcMedX, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtEditarAcMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(pnlEditarAcerradaLayout.createSequentialGroup()
-                                .addGap(57, 57, 57)
-                                .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEditarAcMedGrueso, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblEditarAcOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(65, 65, 65)
+                                        .addComponent(txtEditarAcMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(65, 65, 65)))
                         .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblEditarAcDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(scpnlEditarAcDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
@@ -2574,25 +2534,16 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             .addComponent(txtEditarAcCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtEditarAcVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblEditarAcVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEditarAcPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblEditarAcPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbxEditarAcVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEditarAcPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnlEditarAcerradaLayout.createSequentialGroup()
-                        .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEditarAcMedGrueso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEditarAcMedX, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEditarAcMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblEditarAcOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxEditarAcOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtEditarAcPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlEditarAcerradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtEditarAcMedGrueso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblEditarAcMedX, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtEditarAcMedAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(scpnlEditarAcDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scpnlTbAcEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                .addComponent(scpnlTbAcEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditarAserrada, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -2604,13 +2555,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
         lblEditarTmNombre.setText("Nombre:");
 
-        lblEditarTmVariedad.setText("Variedad de madera:");
-
         lblEditarTmPrecio.setText("Precio:");
 
         lblEditarTmCantVaras.setText("Cantidad en varas:");
-
-        lblNuevoTmOrigen1.setText("Madera de origen:");
 
         tblEditarTerminada.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -2662,15 +2609,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                         .addGap(95, 95, 95)
                         .addGroup(pnlEditarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlEditarTerminadaLayout.createSequentialGroup()
+                                .addGap(0, 391, Short.MAX_VALUE)
                                 .addGroup(pnlEditarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblEditarTmVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbxEditarTmVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                                .addGroup(pnlEditarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lblEditarTmPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtEditarTmPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                                    .addComponent(cbxNuevoTmOrigen1, 0, 280, Short.MAX_VALUE)
-                                    .addComponent(lblNuevoTmOrigen1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                                    .addComponent(txtEditarTmPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnEditarTerminada, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(pnlEditarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(lblEditarTmCantVaras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2681,15 +2623,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             pnlEditarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEditarTerminadaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlEditarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEditarTmCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEditarTmVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNuevoTmOrigen1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblEditarTmCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEditarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEditarTmCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxEditarTmVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxNuevoTmOrigen1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtEditarTmCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlEditarTerminadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEditarTmNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2701,7 +2637,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     .addComponent(txtEditarTmCantVaras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEditarTmPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(scpnlTbTmEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                .addComponent(scpnlTbTmEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditarTerminada, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -2710,8 +2646,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         tbEditarTipoProd.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/inv_terminada.png")), pnlEditarTerminada); // NOI18N
 
         lblEditarTCodigo.setText("Código:");
-
-        lblEditarTVariedadMadera.setText("Variedad de madera:");
 
         lblEditarTProveedor.setText("Proveedor:");
 
@@ -2773,14 +2707,12 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                                     .addComponent(lblEditarTpulgadas, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtEditarTPulgadas))
                                 .addGap(95, 95, 95)
-                                .addGroup(pnlEditarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(lblEditarTProveedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(pnlEditarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnlEditarTrozaLayout.createSequentialGroup()
                                         .addComponent(cbxEditarTProveedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnCrearProv1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lblEditarTVariedadMadera, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbxEditarTVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblEditarTProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(96, 96, 96)
                                 .addGroup(pnlEditarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblEditarTDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2807,13 +2739,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(scpnlEditarTDescripcion))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEditarTrozaLayout.createSequentialGroup()
-                            .addGroup(pnlEditarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblEditarTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblEditarTVariedadMadera, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblEditarTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(pnlEditarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtEditarTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbxEditarTVariedad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEditarTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(pnlEditarTrozaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(lblEditarTpulgadas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2821,7 +2749,7 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtEditarTPulgadas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scpnlTbTEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                .addComponent(scpnlTbTEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditarTroza, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -3123,11 +3051,11 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
 
     private void tblEditarTerminadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditarTerminadaMouseClicked
         System.out.println("Mouse clicked FROM TBLEDITARTERMINADA");
-        cargarEditarProducto();
+        cargarEditarProducto("TERMINADA");
     }//GEN-LAST:event_tblEditarTerminadaMouseClicked
 
     private void tblEditarAserradaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditarAserradaMouseClicked
-        cargarEditarProducto();
+        cargarEditarProducto("ASERRADA");
     }//GEN-LAST:event_tblEditarAserradaMouseClicked
 
     private void txtActAcBuscTrzKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtActAcBuscTrzKeyReleased
@@ -3163,15 +3091,10 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnNuevaTerminada;
     private javax.swing.JButton btnNuevaTroza;
     private javax.swing.JButton btn_deshabilitar;
-    private javax.swing.JComboBox<Object> cbxEditarAcOrigen;
-    private javax.swing.JComboBox<TipoMadera> cbxEditarAcVariedad;
     private javax.swing.JComboBox<Proveedor> cbxEditarTProveedor;
-    private javax.swing.JComboBox<TipoMadera> cbxEditarTVariedad;
-    private javax.swing.JComboBox<TipoMadera> cbxEditarTmVariedad;
     private javax.swing.JComboBox<Object> cbxNuevoAcVariedad;
     private javax.swing.JComboBox<Object> cbxNuevoTProveedor;
     private javax.swing.JComboBox<Object> cbxNuevoTVariedad;
-    private javax.swing.JComboBox<Object> cbxNuevoTmOrigen1;
     private javax.swing.JComboBox<Object> cbxNuevoTmVariedad;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JPanel jPanel1;
@@ -3191,19 +3114,15 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblEditarAcDescripcion;
     private javax.swing.JLabel lblEditarAcMedX;
     private javax.swing.JLabel lblEditarAcMedidas;
-    private javax.swing.JLabel lblEditarAcOrigen;
     private javax.swing.JLabel lblEditarAcPrecio;
     private javax.swing.JLabel lblEditarAcUnidade;
-    private javax.swing.JLabel lblEditarAcVariedad;
     private javax.swing.JLabel lblEditarTCodigo;
     private javax.swing.JLabel lblEditarTDescripcion;
     private javax.swing.JLabel lblEditarTProveedor;
-    private javax.swing.JLabel lblEditarTVariedadMadera;
     private javax.swing.JLabel lblEditarTmCantVaras;
     private javax.swing.JLabel lblEditarTmCodigo;
     private javax.swing.JLabel lblEditarTmNombre;
     private javax.swing.JLabel lblEditarTmPrecio;
-    private javax.swing.JLabel lblEditarTmVariedad;
     private javax.swing.JLabel lblEditarTpulgadas;
     private javax.swing.JLabel lblListadoInventario;
     private javax.swing.JLabel lblNuevoAcCodigo;
@@ -3220,7 +3139,6 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblNuevoTmCantVaras;
     private javax.swing.JLabel lblNuevoTmCodigo;
     private javax.swing.JLabel lblNuevoTmNombre;
-    private javax.swing.JLabel lblNuevoTmOrigen1;
     private javax.swing.JLabel lblNuevoTmPrecio;
     private javax.swing.JLabel lblNuevoTmVariedad;
     private javax.swing.JLabel lblNuevoTpulgadas;
