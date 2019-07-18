@@ -61,7 +61,7 @@ public class LineaDetalle {
         this.subtotal = this.total - descuento;
         this.montoTotalLinea = this.subtotal + impuesto.getMontoImpuesto();
         this.isProdVario = false;
-        this.varios = new Varios();
+//        this.varios = new Varios();
     }
     
     /**
@@ -81,14 +81,16 @@ public class LineaDetalle {
         
         this.varios = prodVario;
         this.numeroLinea = numeroLinea;
-        this.mercancia = true;
+        this.cantSolicitada = 0;
+        this.detalle = "";
+        this.mercancia = mercancia;
         this.impuesto = impuesto;
         this.descuento = descuento;
         this.total = prodVario.getPrecio();
         this.subtotal = this.total - descuento;
         this.montoTotalLinea = this.subtotal + impuesto.getMontoImpuesto();
         this.isProdVario = true;
-        this.producto = new Madera();
+//        this.producto = new Madera();
     }
 
     /**

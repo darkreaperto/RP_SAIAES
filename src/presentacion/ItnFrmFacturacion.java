@@ -319,9 +319,12 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 abrirVentanaImpuesto();
 
                 if (impuesto != null) {
+//                    if() { eerror oculto
+//                        
+//                    }
                     agregarLinea(prodSelected, cantSolicitada, descuento);
 
-                    jTableAgregar(false);//producto no vario
+                    jTableAgregar();
                     calcularSubtotalTotal();
                     limpiarCampos(false);
                 }
@@ -353,10 +356,23 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 prodSelected.getGrueso() + "x" + prodSelected.getAncho();
         
         LineaDetalle linea = new LineaDetalle(numLinea, prodSelected, 
-                cantSolicitada, detalle, impuesto, descuento);
-
-        //Agregar las lineas creadas a la lista de lineas en Factura 
-        factura.getLineasDetalle().add(linea);
+            cantSolicitada, detalle, impuesto, descuento);
+        factura.agregarLinea(linea); //getLineasDetalle().add(linea);
+//        //recorrer la lista de lineas existente para verificar si el producto
+//        //ya ha sido agregado.
+//        for(int i = 0; i < factura.getLineasDetalle().size(); i++) {
+//            if(prodSelected.getCodigo().equals(
+//                    factura.getLineasDetalle().get(i).getProducto().getCodigo())) {
+//                
+//                int cantAnterior = (int) factura.getLineasDetalle().get(i).getCantSolicitada();
+//                factura.getLineasDetalle().get(i).setCantSolicitada(cantAnterior + cantSolicitada);
+//                //Agregar las lineas creadas a la lista de lineas en Factura 
+//                
+//            } else {
+//                
+//            }
+//        }
+        
         
         //Limpiar variables globales
         impuesto = null;
@@ -380,7 +396,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             Varios prodVario = new Varios("no", descripcion, Double.parseDouble(precio));
             agregarLineaVarios(prodVario, impuesto, mercancia);
             
-            jTableAgregar(true);//producto vario
+            jTableAgregar();
             calcularSubtotalTotal();
             limpiarCampos(false);
         } else {
@@ -404,7 +420,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         System.out.println("Cantidad de lineas antes es: " + factura.getLineasDetalle().size());
         LineaDetalle linea = new LineaDetalle(numLinea, varios, imp, 0.0, 
                 mercancia);
-        factura.getLineasDetalle().add(linea);
+        factura.agregarLinea(linea);//getLineasDetalle().add(linea);
         
         System.out.println("Cantidad de lineas después es: " + factura.getLineasDetalle().size());    
         System.out.println("Vario?: " + factura.getLineasDetalle().get(numLinea-1).getVarios().getPrecio());
@@ -457,7 +473,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
      * Agregar productos a la tabla en la interfaz para mostrar las lineas.
      * @param varios
      */
-    public void jTableAgregar(boolean varios) {
+    public void jTableAgregar() {
         System.out.println("LINEAS SIZE: "+ factura.getLineasDetalle().size());
         
         Object[] row = new Object[8];
@@ -471,7 +487,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             row[0] = factura.getLineasDetalle().get(i).getDetalle();
             row[1] = "unidad medida?"; 
             row[2] = factura.getLineasDetalle().get(i).getCantSolicitada();
-            if(!varios) {
+            if(!factura.getLineasDetalle().get(i).isProdVario()) {
                 System.out.println("1: " + factura.getLineasDetalle().get(i));
                 System.out.println("2: " + factura.getLineasDetalle().get(i).getProducto());
                 System.out.println("2.5: " + factura.getLineasDetalle().get(i).getProducto().getCodigo());
@@ -1255,9 +1271,9 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             .addGroup(pnlAgregarProdLayout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                    .addComponent(txtProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                    .addComponent(btnAddProduct1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtCantidad)
+                    .addComponent(txtProducto)
+                    .addComponent(btnAddProduct1, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
                 .addGap(8, 8, 8)
                 .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(scpnlList, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -1268,7 +1284,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                     .addComponent(lblTextPrecioUnit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblPrecioUnit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblTextExistencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBusquedaAv, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                    .addComponent(btnBusquedaAv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAgregarVarios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1412,8 +1428,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modFacturaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlAgregarProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlSelectCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlSelectCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlAgregarProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scpnlTblLineaPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

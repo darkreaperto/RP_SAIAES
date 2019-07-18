@@ -432,8 +432,8 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="pnlAgregarProd" max="32767" attributes="0"/>
                       <Component id="pnlSelectCliente" max="32767" attributes="0"/>
+                      <Component id="pnlAgregarProd" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="scpnlTblLineaPedido" min="-2" pref="261" max="-2" attributes="0"/>
@@ -730,9 +730,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txtCantidad" pref="41" max="32767" attributes="0"/>
-                          <Component id="txtProducto" pref="41" max="32767" attributes="0"/>
-                          <Component id="btnAddProduct1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtCantidad" max="32767" attributes="0"/>
+                          <Component id="txtProducto" max="32767" attributes="0"/>
+                          <Component id="btnAddProduct1" alignment="0" pref="41" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -745,7 +745,7 @@
                           <Component id="lblTextPrecioUnit" alignment="1" max="32767" attributes="0"/>
                           <Component id="lblPrecioUnit" max="32767" attributes="0"/>
                           <Component id="lblTextExistencias" max="32767" attributes="0"/>
-                          <Component id="btnBusquedaAv" pref="43" max="32767" attributes="0"/>
+                          <Component id="btnBusquedaAv" max="32767" attributes="0"/>
                           <Component id="btnAgregarVarios" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
