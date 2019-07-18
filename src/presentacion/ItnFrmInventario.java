@@ -33,7 +33,7 @@ import util.TipoMensaje;
 
 /**
  * Inicializa la ventana que contiene la información de los productos.
- *
+ * 
  * @author ahoihanabi
  */
 public class ItnFrmInventario extends javax.swing.JInternalFrame {
@@ -119,8 +119,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
         cbxNuevoTProveedor.removeAllItems();
         cbxEditarTProveedor.removeAllItems();
         
-        cbxNuevoTProveedor.addItem(new Proveedor("0", "No aplica"));
-        cbxEditarTProveedor.addItem(new Proveedor("0", "No aplica"));
+        cbxNuevoTProveedor.addItem(new Proveedor("0", "Sin proveedor"));
+        cbxEditarTProveedor.addItem(new Proveedor("0", "Sin proveedor"));
         
         //cargar los combos de proveedores
         for (Proveedor item : proveedores) {
