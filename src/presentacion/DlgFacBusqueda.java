@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Madera;
 import logica.servicios.Mensaje;
+import logica.servicios.UI;
 import util.Estado;
 import util.TipoMensaje;
 
@@ -28,6 +29,8 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
     private static ArrayList<Madera> productos;
     private static DefaultTableModel model;
     private static Mensaje msg;
+    /** Instancia de la clase UI. */
+    private final UI estilo;
     /**
      * Creates new form DlgFacBusqueda.
      * @param parent ventana padre de este Jdialog
@@ -41,6 +44,10 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
         this.setModal(modal);
         initComponents();
         setLocationRelativeTo(this);
+        
+        estilo = new UI();
+        //Estilizar interfaz
+        estilo.estilizarTablas(tbListadoProd);
     }
     
     /**
@@ -150,6 +157,7 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Búsqueda Avanzada");
 
+        btnCancelarBusqueda.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         btnCancelarBusqueda.setText("Cancelar");
         btnCancelarBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,12 +184,14 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
         tbListadoProd.getTableHeader().setReorderingAllowed(false);
         scpnlTblListadoProd.setViewportView(tbListadoProd);
 
+        txtBusquedaProd.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         txtBusquedaProd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBusquedaProdKeyReleased(evt);
             }
         });
 
+        btnBuscarProd.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         btnBuscarProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/busqueda.png"))); // NOI18N
         btnBuscarProd.setText("Buscar");
         btnBuscarProd.addActionListener(new java.awt.event.ActionListener() {
@@ -190,22 +200,27 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
             }
         });
 
-        pnlFiltroProd.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Especificación de búsqueda:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 13))); // NOI18N
+        pnlFiltroProd.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Especificación de búsq.:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Semibold", 1, 18))); // NOI18N
 
         bgCriterioBusqueda.add(rbTipoProd);
+        rbTipoProd.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         rbTipoProd.setText("Tipo de producto");
 
         bgCriterioBusqueda.add(rbCodigoProd);
+        rbCodigoProd.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         rbCodigoProd.setText("Código");
 
         bgCriterioBusqueda.add(rbVariedadProd);
+        rbVariedadProd.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         rbVariedadProd.setSelected(true);
         rbVariedadProd.setText("Variedad madera");
 
         bgCriterioBusqueda.add(rbMedidasProd);
+        rbMedidasProd.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         rbMedidasProd.setText("Medidas");
 
         bgCriterioBusqueda.add(rbDescripProd);
+        rbDescripProd.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         rbDescripProd.setText("Descripción");
 
         javax.swing.GroupLayout pnlFiltroProdLayout = new javax.swing.GroupLayout(pnlFiltroProd);
@@ -238,6 +253,7 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
+        btnAceptarBusqueda.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         btnAceptarBusqueda.setText("Aceptar");
         btnAceptarBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

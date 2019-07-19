@@ -396,16 +396,25 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lbl_acc_NombreUsuario">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Nombre de usuario: "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_acc_password">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Contrase&#xf1;a:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_NombreUsuario">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI" size="18" style="0"/>
+            </Property>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="pw_acc_password"/>
             </Property>
@@ -428,6 +437,9 @@
         </Component>
         <Component class="javax.swing.JPasswordField" name="pw_acc_password">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI" size="18" style="0"/>
+            </Property>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="btn_acc_entrar"/>
             </Property>
@@ -446,6 +458,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btn_acc_entrar">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Iniciar Sesi&#xf3;n"/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="btn_acc_recup"/>
@@ -457,6 +472,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btn_acc_recup">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI Semibold" size="18" style="0"/>
+            </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="8a" id="Button.darkShadow" palette="3" red="7a" type="palette"/>
             </Property>

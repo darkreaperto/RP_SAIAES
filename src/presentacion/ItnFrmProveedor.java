@@ -120,7 +120,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
         cargarProveedorJTable(tbl_editar, true);
         cargarProveedorJTable(tblProveedoresActivos, true);
         cargarProveedorJTable(tblProveedoresInactivos, false);
-        System.out.println("cargar tablas: proveedor 0 contactos "+proveedores.get(0).getContactos().size());//proveedores.get(1).getContactos().size();
+        //System.out.println("cargar tablas: proveedor 0 contactos "+proveedores.get(0).getContactos().size());//proveedores.get(1).getContactos().size();
     }
 
     /**

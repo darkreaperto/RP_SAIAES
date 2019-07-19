@@ -160,8 +160,8 @@ public class MdlCliente {
                 TipoContacto tipo = (TipoContacto) contactos.get(i).get(0);
                 String info = contactos.get(i).get(1).toString();
                 
-                //ctrContacto.crearContacto(cedula, tipo, info);
-                ctrContacto.crearContacto("INUIB", tipo, info);
+                ctrContacto.crearContacto(cedula, tipo, info);
+                //ctrContacto.crearContacto("INUIB", tipo, info);
             }
             
             creacionExitosa = true;
