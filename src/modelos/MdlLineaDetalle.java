@@ -43,31 +43,27 @@ public class MdlLineaDetalle {
      * Inserta una nueva linea de detalle en la BD.
      * @param impuesto codigo del impuesto para la bd
      * @param numLinea consecutivo que enumera la linea de detalle
-     * @param tipoCodProducto tipo de codigo de producto (indicado por hacienda)
      * @param codProducto codigo del producto asignado por el aserradero
      * @param cantidadLinea cantidad de productos a vender
-     * @param unidadMedida unidad de medida para los productos
      * @param detalleLinea descripción de la venta
      * @param precioLinea precio unitario del producto que se vende
      * @param totalLinea valor total (precio*cantidad) de la venta
      * @param descuentoLinea valor de descuento si se realiza
-     * @param natDescuento naturaleza/razón del descuento
      * @param subtotal total de la venta menos el descuento
      * @param montoTotalLinea monto toal de la venta, sumando los impuestos
      * @param mercancia si el producto es mercancia o servicio
      * @return el código de la linea creada
      */
-    public int crearLineaDetalle(Impuesto impuesto, int numLinea, 
-            String tipoCodProducto, String codProducto, double cantidadLinea, 
-            String unidadMedida, String detalleLinea, double precioLinea, 
-            double totalLinea, double descuentoLinea, String natDescuento, 
-            double subtotal, double montoTotalLinea, boolean mercancia) {
+    public int crearLineaDetalle(int numLinea, String codProducto, 
+            double cantidadLinea, String detalleLinea, double precioLinea, 
+            boolean mercancia, Impuesto impuesto, double descuentoLinea,
+            double subtotal, double totalLinea, double montoTotalLinea) {
         
-        System.out.println("Dentro de crear linea detalle");
         //obtener el indice de impuesto
         int indiceImpuesto = ctrImpuesto.crearImpuesto(impuesto.getCodigoImpuesto(), 
                 impuesto.getTarifaImpuesto(), impuesto.getMontoImpuesto());
         System.out.println("El indice de impuesto: " + indiceImpuesto);
+        
         //Si tiene exoneración, la inserta en la base
         if(impuesto.getExoneracion() != null) {
             
@@ -85,15 +81,12 @@ public class MdlLineaDetalle {
         ArrayList<Object> params = new ArrayList<>();
         params.add(indiceImpuesto);
         params.add(numLinea);
-        params.add(tipoCodProducto);
         params.add(codProducto);
         params.add(cantidadLinea);
-        params.add(unidadMedida);
         params.add(detalleLinea);
         params.add(precioLinea);
         params.add(totalLinea);
         params.add(descuentoLinea);
-        params.add(natDescuento);
         params.add(subtotal);
         params.add(montoTotalLinea);
         params.add(mercancia);
@@ -102,7 +95,7 @@ public class MdlLineaDetalle {
         boolean creacionExitosa = true;
         int indice = 0;
         try {
-            procedimiento = "pc_crear_linea_detalle(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            procedimiento = "pc_crear_linea_detalle(?,?,?,?,?,?,?,?,?,?,?,?)";
 
             conexion.abrirConexion();
             resultado = conexion.ejecutarProcedimiento(procedimiento, params);

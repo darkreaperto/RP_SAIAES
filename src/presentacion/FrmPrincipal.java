@@ -453,6 +453,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
+        dpn_principal.setBackground(new java.awt.Color(163, 36, 29));
         dpn_principal.setName("DesktopPanelPrincipal"); // NOI18N
 
         javax.swing.GroupLayout dpn_principalLayout = new javax.swing.GroupLayout(dpn_principal);
@@ -477,7 +478,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jSeparator1.setSeparatorSize(new java.awt.Dimension(15, 10));
         tlb_modulos.add(jSeparator1);
 
-        btn_facturacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_facturacion.png"))); // NOI18N
+        btn_facturacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/facturacion-60.png"))); // NOI18N
         btn_facturacion.setText(" Facturación");
         btn_facturacion.setEnabled(false);
         btn_facturacion.setFocusable(false);
@@ -493,7 +494,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jSeparator2.setSeparatorSize(new java.awt.Dimension(15, 10));
         tlb_modulos.add(jSeparator2);
 
-        btn_inventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_inventario.png"))); // NOI18N
+        btn_inventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Inventario-60.png"))); // NOI18N
         btn_inventario.setText("  Inventario  ");
         btn_inventario.setEnabled(false);
         btn_inventario.setFocusable(false);
@@ -509,7 +510,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jSeparator3.setSeparatorSize(new java.awt.Dimension(15, 10));
         tlb_modulos.add(jSeparator3);
 
-        btn_consultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_consulta.png"))); // NOI18N
+        btn_consultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/consulta-60.png"))); // NOI18N
         btn_consultas.setText("  Consultas  ");
         btn_consultas.setEnabled(false);
         btn_consultas.setFocusable(false);
@@ -525,7 +526,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jSeparator4.setSeparatorSize(new java.awt.Dimension(15, 10));
         tlb_modulos.add(jSeparator4);
 
-        btn_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_cliente.png"))); // NOI18N
+        btn_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/clientes-60.png"))); // NOI18N
         btn_clientes.setText("   Clientes    ");
         btn_clientes.setEnabled(false);
         btn_clientes.setFocusable(false);
@@ -541,7 +542,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jSeparator5.setSeparatorSize(new java.awt.Dimension(15, 10));
         tlb_modulos.add(jSeparator5);
 
-        btn_proveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_proveedor.png"))); // NOI18N
+        btn_proveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/proveedor-60.png"))); // NOI18N
         btn_proveedor.setText("Proveedores");
         btn_proveedor.setEnabled(false);
         btn_proveedor.setFocusable(false);
@@ -557,7 +558,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jSeparator7.setSeparatorSize(new java.awt.Dimension(15, 10));
         tlb_modulos.add(jSeparator7);
 
-        btn_usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/c_usuario.png"))); // NOI18N
+        btn_usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/user-60.png"))); // NOI18N
         btn_usuarios.setText("   Usuarios   ");
         btn_usuarios.setEnabled(false);
         btn_usuarios.setFocusable(false);

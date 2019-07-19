@@ -105,6 +105,9 @@ public class Factura {
         this.lineasDetalle = lineasDetalle;
     }
 
+    public void agregarLinea(LineaDetalle linea) {
+        this.lineasDetalle.add(linea);
+    }
     /**
      * Obtener el resumen de la factura.
      * @return the resumen

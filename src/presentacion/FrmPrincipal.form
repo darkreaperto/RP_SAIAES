@@ -303,6 +303,9 @@
   <SubComponents>
     <Container class="javax.swing.JDesktopPane" name="dpn_principal">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="1d" green="24" red="a3" type="rgb"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="DesktopPanelPrincipal" noResource="true"/>
       </Properties>
 
@@ -349,7 +352,7 @@
             <Component class="javax.swing.JButton" name="btn_facturacion">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/recursos/c_facturacion.png"/>
+                  <Image iconType="3" name="/recursos/facturacion-60.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value=" Facturaci&#xf3;n"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -371,7 +374,7 @@
             <Component class="javax.swing.JButton" name="btn_inventario">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/recursos/c_inventario.png"/>
+                  <Image iconType="3" name="/recursos/Inventario-60.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="  Inventario  "/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -393,7 +396,7 @@
             <Component class="javax.swing.JButton" name="btn_consultas">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/recursos/c_consulta.png"/>
+                  <Image iconType="3" name="/recursos/consulta-60.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="  Consultas  "/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -415,7 +418,7 @@
             <Component class="javax.swing.JButton" name="btn_clientes">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/recursos/c_cliente.png"/>
+                  <Image iconType="3" name="/recursos/clientes-60.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="   Clientes    "/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -437,7 +440,7 @@
             <Component class="javax.swing.JButton" name="btn_proveedor">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/recursos/c_proveedor.png"/>
+                  <Image iconType="3" name="/recursos/proveedor-60.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Proveedores"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -459,7 +462,7 @@
             <Component class="javax.swing.JButton" name="btn_usuarios">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/recursos/c_usuario.png"/>
+                  <Image iconType="3" name="/recursos/user-60.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="   Usuarios   "/>
                 <Property name="enabled" type="boolean" value="false"/>

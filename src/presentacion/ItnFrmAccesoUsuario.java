@@ -205,8 +205,8 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
      */
     public void iniciarSesion(String usuario, String clave) {
 
-        usuario = "usuario";
-        clave = "usuario2018";
+        //usuario = "usuario";
+        //clave = "usuario2018";
         
         if (!usuario.isEmpty() && clave.length() > 0) {
             //comprobar contraseña y nombre de usuario
@@ -465,10 +465,13 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
 
         pnl_modAccesoUsuario.setPreferredSize(new java.awt.Dimension(590, 280));
 
+        lbl_acc_NombreUsuario.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lbl_acc_NombreUsuario.setText("Nombre de usuario: ");
 
+        lbl_acc_password.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lbl_acc_password.setText("Contraseña:");
 
+        txt_NombreUsuario.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         txt_NombreUsuario.setNextFocusableComponent(pw_acc_password);
         txt_NombreUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -479,6 +482,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255)));
 
+        pw_acc_password.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         pw_acc_password.setNextFocusableComponent(btn_acc_entrar);
         pw_acc_password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -489,6 +493,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         lbl_acc_logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_acc_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/aes_logo.png"))); // NOI18N
 
+        btn_acc_entrar.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         btn_acc_entrar.setText("Iniciar Sesión");
         btn_acc_entrar.setNextFocusableComponent(btn_acc_recup);
         btn_acc_entrar.addActionListener(new java.awt.event.ActionListener() {
@@ -497,6 +502,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        btn_acc_recup.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         btn_acc_recup.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
         btn_acc_recup.setText("Olvidé mi contraseña");
         btn_acc_recup.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));

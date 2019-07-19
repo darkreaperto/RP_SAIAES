@@ -5,7 +5,12 @@
  */
 package logica.servicios;
 
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.plaf.OptionPaneUI;
 import util.TipoMensaje;
 
 /**
@@ -40,11 +45,15 @@ public class Mensaje {
                 msg = "¿Está seguro que desea salir de la recuperación de "
                         + "contraseña?";
                 break;
+            case CUSTOMER_IS_DISABLED:
+                msg = "El cliente solicitado está deshabilitado, \n "
+                        + "habilitelo para continuar.";
+                break;    
             case CUSTOMER_INSERTION_SUCCESS:
                 msg = "La creación del cliente ha sido éxitosa";
                 break;
             case CUSTOMER_NOT_FOUND:
-                msg = "No se encontró el cliente solicitado";
+                msg = "El cliente solicitado no existe";
                 break;
             case CUSTOMER_INSERTION_FAILURE:
                 msg = "Ha ocurrido un error en la creación del cliente";
@@ -232,12 +241,22 @@ public class Mensaje {
     /**
      * Agrega la descripción indicada al JOptionPane y lo muestra en un dialogo
      * informativo.
-     *
      * @param tipo Tipo de mensaje (informacion, error, etc)
      * @param msg Enum del tipo de mensaje
      */
     public void mostrarMensaje(int tipo, TipoMensaje msg) {
-
+        JLabel texto = new JLabel(obtenerMensaje(msg));
+        texto.setFont(new Font("Yu Gothic IU", Font.PLAIN, 18));
+        
+        UIManager.put("OptionPane.messageFont", new Font("Yu Gothic IU", Font.PLAIN, 18));
+        UIManager.put("OptionPane.buttonFont", new Font("Yu Gothic IU", Font.BOLD, 18));
+        UIManager.put("OptionPane.titleText", new Font("Yu Gothic IU", Font.BOLD, 18));
+//        UIManager.put("OptionPane.errorDialog.titlePane.background", new Color(163, 36, 29));
+//        UIManager.put("OptionPane.questionDialog.titlePane.background", new Color(163, 36, 29));
+//        UIManager.put("OptionPane.warningDialog.titlePane.background", new Color(163, 36, 29));
+        
+//        JOptionPane.showMessageDialog(null, texto,
+//                "ADVERTENCIA", tipo);
         JOptionPane.showMessageDialog(null, obtenerMensaje(msg),
                 "ADVERTENCIA", tipo);
     }

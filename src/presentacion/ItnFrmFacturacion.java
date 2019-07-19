@@ -33,7 +33,10 @@ import logica.negocio.Factura;
 import logica.negocio.Impuesto;
 import logica.negocio.LineaDetalle;
 import logica.negocio.Madera;
+import logica.negocio.Varios;
 import logica.servicios.Mensaje;
+import logica.servicios.UI;
+import util.Estado;
 import util.TipoContacto;
 import util.TipoMensaje;
 import util.TextPrompt;
@@ -71,6 +74,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     private Emisor emisor;
     private TextPrompt placeholder;
     public boolean exonerado = false;
+    private final UI estilo;
     
 
     /**
@@ -94,6 +98,9 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         ctrEmisor = CtrEmisor.getInstancia();
         msg = new Mensaje();
         factura = new Factura();
+        estilo = new UI();
+        //Estilizar interfaz
+        estilo.estilizarTablas(tblLineaPedido);
         
         //ctrFactura.crearFacResumen("CRC", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         preparaEncabezado("01");
@@ -155,29 +162,15 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         ArrayList<Cliente> listaCli = ctrCliente.consultarClientes(nomOrCed);
         System.out.println("sizeCLi "+listaCli.size());
         for (int i = 0; i<listaCli.size(); i++) {
-            cbxClientes.addItem(listaCli.get(i));
-        }
-        for (int i = 0; i<listaCli.size(); i++) {            
-            
-            if (listaCli.get(i).getCedula().equals(nomOrCed)) {
-                cli = listaCli.get(i);
-                break;
-//            } else if (listaCli.get(i).getNombre().concat(" "+
-//                    listaCli.get(i).getApellido1()).concat(" "+
-//                            listaCli.get(i).getApellido2()).toUpperCase().
-//                    contains(p.toUpperCase())) {
-//                
-//                cli = listaCli.get(i);
-//                //cli.setNombre(listaCli.get(i).getNombre());
-//                System.out.println(cli.getNombre());
-//                cbxClientes.setSelectedItem(cli);
-//                break;
+            if(listaCli.get(i).getEstado().equals(Estado.Activo)) {
+                cbxClientes.addItem(listaCli.get(i));
             }
         }
         return listaCli;
     }
+    
     /**
-     * Obtener de la lista clietes el cliente ingresado por cédula en el campo
+     * Obtener de la lista clietes, el cliente ingresado por cédula en el campo
      * de texto
      * @param p parámetro con la cedula o nombre del cliente a consultar
      */
@@ -193,80 +186,49 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         ArrayList<Cliente> listaCli = llenarComboClientes(cli, p);
         
         cli = listaCli.size()>0 ? listaCli.get(0) : cli;
-        //cuando la size sea 0 indicar que no se encontró un usuario.
+        //cuando la size sea 0 indicar que no se encontró un cliente.
         if(listaCli.size() > 0) {
             
             //cbxClientes.setSelectedItem(cli);
-            System.out.println("Cli nombre: " + cli.getNombre());
-            lblClienteNom.setText(cli.getNombre());
-
-            //ESTO ERA PARA EL PANEL QUE HABÍA CON INFO EXTRA DEL CLIENTE
-//            if (!cli.getNombre().equals("CLIENTE GENÉRICO")) {
-//    //            lblMostrarNombreCl.setText(cli.getNombre()+" "+cli.getApellido1() 
-//    //                    +" "+ cli.getApellido2());
-//
-//                lblClienteNom.setText(cli.getNombre());
-//                ftClienteFac.setText(cli.getCedula());
-//    //            lblMostrarCedulaCl.setText(cli.getCedula());
-//    //            lblMostrarCreditoCl.setText(String.valueOf(cli.isAprobarCredito()));
-//                for(int i = 0; i < cli.getContactos().size(); i++) {
-//                    TipoContacto tContacto = cli.getContactos().get(i).getTipo();
-//
-//                    if(tContacto == TipoContacto.CORREO) {
-//                        lblMostrarCorreoCl.setText(cli.getContactos().get(i).getInfo());
-//                        break;
-//                    } else {
-//                        lblMostrarTelefonoCl.setText(cli.getContactos().get(i).getInfo());
-//                        break;
-//                    }
-//                }
-//                //CAMBIAR FORMA DE MOTRAR CORREO Y TELEFONO DEL CLIENTE?
-//    //            lblMostrarTelefonoCl.setText(cli.getContactos());
-//    //            lblMostrarCorreoCl.setText(p);
-//            } else {
-//                lblMostrarNombreCl.setText("Nombre del Cliente");
-//                lblMostrarCedulaCl.setText("Cédula del Cliente");
-//                lblMostrarCreditoCl.setText("Crédito");
-//            }
+            for(int i = 0; i < listaCli.size(); i++) {
+                if(listaCli.get(i).getEstado().equals(Estado.Activo)) {
+                    System.out.println("Cli nombre: " + cli.getNombre());
+                    lblClienteNom.setText(cli.getNombre());
+                } else {
+                    txtNomCliente.setText("");
+                    llenarComboClientes(new Cliente(), "");
+                    lblClienteNom.setText("CLIENTE GENÉRICO");
+                    msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                            TipoMensaje.CUSTOMER_IS_DISABLED);
+                }    
+            }
         } else {
-            //Limpiar campos si no encuentre el cliente
-            ftClienteFac.setText("");
+            //Limpiar campos si no encuentra el cliente
             txtNomCliente.setText("");
             llenarComboClientes(new Cliente(), "");
+            lblClienteNom.setText("CLIENTE GENÉRICO");
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, TipoMensaje.CUSTOMER_NOT_FOUND);
         }
     }
 
     /**
-     * Obtener la lista de productos consultados y eliminar el producto solicitado
+     * Obtener la lista de productos consultados y eliminar el producto solicitado.
      */
     public void eliminarProducto() {
-//        try {
+        try {
             int filaSelect = tblLineaPedido.getSelectedRow();
-            System.out.println("fac -> eliminar prod() - > selected row: " + (filaSelect));
-            System.out.println("listaDetalle size: " + tblLineaPedido.getRowCount());
-            tblLineaPedido.remove(1);
-//        } catch(Exception e) {
-//            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
-//        }
-        System.out.println("listaDetalle size: " + tblLineaPedido.getRowCount());
-        
-//        for(int i = 0; i<listaProd.size(); i++) {
-//            System.out.println(listaProd.get(i).getDescripcion());
-//        }
-//        System.out.println("---------------------------------------------");
-//        listaProd.remove(filaSelect);
-//        for(int i = 0; i<listaProd.size(); i++) {
-//            System.out.println(listaProd.get(i).getDescripcion());
-//        }
-        
-//        DefaultListModel<Madera> mProductos = new DefaultListModel<>();
-//        listaProd = ctrInventario.busqAvzProductos(paramProd, codBusq);
-//        for (Madera m : listaProd) {
-//            mProductos.addElement(m);
-//        }
-//        lsEscogerProd.setModel(mProductos);
+            DefaultTableModel mdl = (DefaultTableModel) tblLineaPedido.getModel();
+            
+            factura.getLineasDetalle().remove(filaSelect);
+            mdl.removeRow(filaSelect);
+            tblLineaPedido.setModel(mdl);
+        } catch(Exception e) {
+            e.printStackTrace();
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
+                    TipoMensaje.ANY_ROW_SELECTED);
+        }
     }
+    
     /**
      * Abre el módulo de clientes, específicamente en la pestaña agregar
      * clientes para permitir el rápido acceso a la creación de un nuevo cliente.
@@ -302,19 +264,17 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     
     public void buscarCliente() {
         try {
-            String cedula = ftClienteFac.getText().replace("-", "").trim();
             String nombre = txtNomCliente.getText();
-            System.out.println("cedula " + cedula + " y nombre " + nombre);
+            System.out.println("Facturación->buscarCliente->nombre de cliente: " + nombre);
             if(!nombre.isEmpty()) {
                 llenarListaClientes(nombre);
-            } else if(!cedula.isEmpty()) {
-                llenarListaClientes(cedula);
             }
         } catch (Exception ex) {
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.EMPTY_TEXT_FIELD);
             
         }
     }
+    
     /**
      * Abre la ventana de impuestos para permitir especificarlo.
      */
@@ -339,49 +299,6 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         return null;
     }
     
-//    /**
-//     * Realiza los cálculos correspondientes referentes al precio total de la
-//     * venta y el subtotal; además obtiene la cantidad restante 
-//     * en inventario del producto seleccionado para actualizar la bd.
-//     * @param cantTotal total de unidades del produto existentes en inventario.
-//     * @param cantSolicitada cantidad de unidades del producto solicitada por el
-//     * comprador.
-//     * @param precio precio unitario del producto.
-//     * @param descuento monto de descuento (en caso de aplicarse).
-//     * @return Lista con los totales resultantes trans hacer los calculos
-//     * correspondientes.
-//     */
-//    public ArrayList calcularTotales(int cantTotal, int cantSolicitada,
-//            double precio, double descuento) {
-//        
-//        totales = new ArrayList<>();
-//        try {
-//            //Si la cantidad solicitada no excede la existente en inventario
-//            if (cantTotal >= cantSolicitada) {
-//                double precioTotal = precio * cantSolicitada;
-//                int cantRestante = cantTotal - cantSolicitada;
-//                double subtotal = precioTotal - descuento;
-//
-//                totales.add(precioTotal);
-//                precioSinImpuesto = precioTotal;
-//                System.out.println("PRECIO SIN: " + precioSinImpuesto);
-//                totales.add(cantRestante);
-//                totales.add(subtotal);
-//            } else {
-//                msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-//                        TipoMensaje.PRODUCT_AMOUNT_EXCEEDED);
-//            }
-//            System.out.println("0: "+totales.get(0));
-//            System.out.println("1: "+totales.get(1));
-//            System.out.println("2: "+totales.get(2));
-//        } catch(Exception ex) {
-//            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
-//                        TipoMensaje.TOTALS_CALCULATION_FAILURE);
-//        } finally {
-//            return totales;
-//        }
-//    }
-    
     /**
      * Obtener los datos pertinentes del producto para realizar los calculos 
      * para la venta.
@@ -402,7 +319,10 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 abrirVentanaImpuesto();
 
                 if (impuesto != null) {
-                    agregarLinea(prodSelected, cantSolicitada, precio, descuento);
+//                    if() { eerror oculto
+//                        
+//                    }
+                    agregarLinea(prodSelected, cantSolicitada, descuento);
 
                     jTableAgregar();
                     calcularSubtotalTotal();
@@ -425,25 +345,34 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
      * Agrega una linea de detalle como objeto y a la base de datos.
      * @param prodSelected producto seleccionado en la interfaz
      * @param cantSolicitada cantidad solicitada por el cliente
-     * @param precioUni precio unitario del producto solicitado
      * @param descuento descuento del producto
      */
-    public void agregarLinea(Madera prodSelected, int cantSolicitada, 
-            double precioUni, double descuento) {
+    public void agregarLinea(Madera prodSelected, int cantSolicitada,
+            double descuento) {
         
         int numLinea = factura.getLineasDetalle().size() + 1; 
         String detalle = prodSelected.getTipoProducto() + ": " + 
                 prodSelected.getDescTipoMadera() + " " + 
                 prodSelected.getGrueso() + "x" + prodSelected.getAncho();
         
-        LineaDetalle linea = new LineaDetalle(numLinea, "04", 
-                prodSelected.getCodProducto(), cantSolicitada, 
-                "unidades", detalle, precioUni,
-                descuento, "No se realizó descuento",
-                impuesto, true);
-
-        //Agregar las lineas creadas a la lista de lineas en Factura 
-        factura.getLineasDetalle().add(linea);
+        LineaDetalle linea = new LineaDetalle(numLinea, prodSelected, 
+            cantSolicitada, detalle, impuesto, descuento);
+        factura.agregarLinea(linea); //getLineasDetalle().add(linea);
+//        //recorrer la lista de lineas existente para verificar si el producto
+//        //ya ha sido agregado.
+//        for(int i = 0; i < factura.getLineasDetalle().size(); i++) {
+//            if(prodSelected.getCodigo().equals(
+//                    factura.getLineasDetalle().get(i).getProducto().getCodigo())) {
+//                
+//                int cantAnterior = (int) factura.getLineasDetalle().get(i).getCantSolicitada();
+//                factura.getLineasDetalle().get(i).setCantSolicitada(cantAnterior + cantSolicitada);
+//                //Agregar las lineas creadas a la lista de lineas en Factura 
+//                
+//            } else {
+//                
+//            }
+//        }
+        
         
         //Limpiar variables globales
         impuesto = null;
@@ -461,12 +390,11 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         boolean mercancia = rbMercancia.isSelected();
         
         if (!descripcion.isEmpty() && validarPrecio(precio)) {
-            
             precioSinImpuesto = Double.valueOf(precio);
             abrirVentanaImpuesto();
             
-            agregarLineaVarios(descripcion, Double.parseDouble(precio), 
-                    impuesto, mercancia);
+            Varios prodVario = new Varios("no", descripcion, Double.parseDouble(precio));
+            agregarLineaVarios(prodVario, impuesto, mercancia);
             
             jTableAgregar();
             calcularSubtotalTotal();
@@ -480,21 +408,22 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     /**
      * Agrega una linea de detalle "varios" (producto no definido, 
      * como transporte o cepillados) como objeto y a la base de datos.
-     * @param descripcion descripción del producto o servicio a vender
-     * @param precio precio total de producto o servicio
+     * @param varios Objeto Varios que represente un producto no definido
      * @param imp impuesto de la linea
      * @param mercancia true si se trata de mercancia o false si es un servicio
      */
-    public void agregarLineaVarios(String descripcion, double precio, 
-            Impuesto imp, boolean mercancia) {
+    public void agregarLineaVarios(Varios varios, Impuesto imp, 
+            boolean mercancia) {
         
         int numLinea = factura.getLineasDetalle().size() + 1;
-        LineaDetalle linea = new LineaDetalle(numLinea, "04", "99", 1,
-                "unidades", descripcion, precio, 0.0, 
-                "No se realizó descuento", imp, mercancia);
-
-        factura.getLineasDetalle().add(linea);
-            
+        System.out.println("agregarLineaVarios->El vario: " + varios.getDescripcion());
+        System.out.println("Cantidad de lineas antes es: " + factura.getLineasDetalle().size());
+        LineaDetalle linea = new LineaDetalle(numLinea, varios, imp, 0.0, 
+                mercancia);
+        factura.agregarLinea(linea);//getLineasDetalle().add(linea);
+        
+        System.out.println("Cantidad de lineas después es: " + factura.getLineasDetalle().size());    
+        System.out.println("Vario?: " + factura.getLineasDetalle().get(numLinea-1).getVarios().getPrecio());
         //Limpiar variables globales
         impuesto = null;
         precioSinImpuesto = 0;
@@ -542,6 +471,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     
     /**
      * Agregar productos a la tabla en la interfaz para mostrar las lineas.
+     * @param varios
      */
     public void jTableAgregar() {
         System.out.println("LINEAS SIZE: "+ factura.getLineasDetalle().size());
@@ -551,12 +481,30 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         model.setRowCount(0);
         model.setColumnCount(7);
         
+        
         for (int i = 0; i<factura.getLineasDetalle().size(); i++) {
-            
+                        
             row[0] = factura.getLineasDetalle().get(i).getDetalle();
-            row[1] = factura.getLineasDetalle().get(i).getUnidadMedida(); 
-            row[2] = factura.getLineasDetalle().get(i).getCantidad();
-            row[3] = factura.getLineasDetalle().get(i).getPrecioUnitario();
+            row[1] = "unidad medida?"; 
+            row[2] = factura.getLineasDetalle().get(i).getCantSolicitada();
+            if(!factura.getLineasDetalle().get(i).isProdVario()) {
+                System.out.println("1: " + factura.getLineasDetalle().get(i));
+                System.out.println("2: " + factura.getLineasDetalle().get(i).getProducto());
+                System.out.println("2.5: " + factura.getLineasDetalle().get(i).getProducto().getCodigo());
+                System.out.println("3: " + factura.getLineasDetalle().get(i).getProducto().getPrecioXvara());
+                                   
+                Double nadie = factura.getLineasDetalle().get(i).getProducto().getPrecioXvara();
+                row[3] = nadie;//factura.getLineasDetalle().get(i).getProducto().getPrecioXvara();
+            } else {
+                
+                System.out.println("1: " + factura.getLineasDetalle().get(i));
+                System.out.println("2: " + factura.getLineasDetalle().get(i).getVarios());
+                System.out.println("2.5: " + factura.getLineasDetalle().get(i).getVarios().getCodigo());
+                System.out.println("3: " + factura.getLineasDetalle().get(i).getVarios().getPrecio());
+//                System.out.println("Vario?: " + factura.getLineasDetalle().get(i).getVarios().getDescripcion());
+                Double nadie = factura.getLineasDetalle().get(i).getVarios().getPrecio();
+                row[3] = nadie;//factura.getLineasDetalle().get(i).getVarios().getPrecio();
+            }
             row[4] = factura.getLineasDetalle().get(i).getImpuesto().getMontoImpuesto();
             row[5] = factura.getLineasDetalle().get(i).getSubtotal();
             row[6] = factura.getLineasDetalle().get(i).getMontoTotalLinea();
@@ -580,8 +528,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
      */
    public void limpiarCampos(boolean cliente) {
        if (pnlAgregarProd.isVisible()) {
-            txtProducto.setText("Código del producto...");
-            txtCantidad.setText("Cantidad en unidades...");
+            txtProducto.setText("");
+            txtCantidad.setText("");
             lblCantExistencia.setText("");
             lblPrecioUnit.setText("");
             lsEscogerProd.clearSelection();
@@ -593,7 +541,6 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
        
        if(cliente) {
            lblClienteNom.setText("CLIENTE GENÉRICO");
-           ftClienteFac.setText("");
            txtNomCliente.setText("");
            cbxClientes.removeAllItems();
            tblLineaPedido.removeAll();
@@ -605,20 +552,20 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     * Realiza la inserción en la base de datos de todas las lineas de detalle 
     * actuales a facturar.
     */
-   public void crearLinea() {
-        for(LineaDetalle li : factura.getLineasDetalle()) {
-            ctrLineaDetalle.crearLineaDetalle(li.getImpuesto(), 
-                    li.getNumeroLinea(), li.getTipoCodProducto(), 
-                    li.getCodigoProducto(), li.getCantidad(),
-                    li.getUnidadMedida(), li.getDetalle(), 
-                    li.getPrecioUnitario(), li.getTotal(), 
-                    li.getDescuento(), li.getNaturalezaDescuento(), 
-                    li.getSubtotal(), li.getMontoTotalLinea(), 
-                    li.isMercancia());
-        }
-        
-        jTableAgregar();
-    }
+//   public void crearLinea() {
+//        for(LineaDetalle li : factura.getLineasDetalle()) {
+//            ctrLineaDetalle.crearLineaDetalle(li.getImpuesto(), 
+//                    li.getNumeroLinea(), li.getTipoCodProducto(), 
+//                    li.getCodigoProducto(), li.getCantidad(),
+//                    li.getUnidadMedida(), li.getDetalle(), 
+//                    li.getPrecioUnitario(), li.getTotal(), 
+//                    li.getDescuento(), li.getNaturalezaDescuento(), 
+//                    li.getSubtotal(), li.getMontoTotalLinea(), 
+//                    li.isMercancia());
+//        }
+//        
+//        jTableAgregar(false);
+//    }
    
     private String formatearConsecutivo(String tipoComprob, int consec) {
         
@@ -817,13 +764,33 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         return resumen;
     }
     
+    public void restarProductos() {
+        if(listaProd.size() >= 0) {
+            System.out.println("ListaProd: " + listaProd.size());
+            System.out.println("ListaDetalle: " + factura.getLineasDetalle().size());
+            for(int i = 0; i<factura.getLineasDetalle().size(); i++) {
+                
+                //si es un producto en inventario, reflejar la disminución en inventario.
+                LineaDetalle unaLinea = factura.getLineasDetalle().get(i);
+                if(!unaLinea.isProdVario()) {
+                    ctrInventario.restarRegMadera(
+                            unaLinea.getProducto().getTipoProducto(), 
+                            unaLinea.getCantSolicitada(), 
+                            unaLinea.getProducto().getCodigo());
+                }
+            }
+        }
+        llenarListaProductos("", 5);
+    }
     public void emitirFactura() {
-        System.out.println(factura.getLineasDetalle().size()); 
         factura.setResumen(prepararResumen());
         factura.setEncabezado(preparaEncabezado("01"));
-        factura.setInfoReferencia(null);       
+        factura.setInfoReferencia(null);
+        restarProductos();
         ctrFactura.crearFactura(factura);
         limpiarCampos(true);//Limpia los datos del cliente también
+        factura.setLineaDetalle(new ArrayList<>());
+        tblLineaPedido.removeAll();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -877,17 +844,16 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         txtProducto = new javax.swing.JTextField();
         placeholder = new TextPrompt("Código de producto...", txtProducto);
         placeholder.changeAlpha(0.75f);
-        placeholder.changeStyle(Font.ITALIC);
+        placeholder.setFont(new Font("Yu Gothic UI Semibold", Font.ITALIC, 16));
         btnAddProduct1 = new javax.swing.JButton();
         txtCantidad = new javax.swing.JTextField();
         placeholder = new TextPrompt("Cant. solicitada...", txtCantidad);
         placeholder.changeAlpha(0.75f);
-        placeholder.changeStyle(Font.ITALIC);
+        placeholder.setFont(new Font("Yu Gothic UI Semibold", Font.ITALIC, 16));
         btnAddProduct = new javax.swing.JButton();
         btnBusquedaAv = new javax.swing.JButton();
         pnlSelectCliente = new javax.swing.JPanel();
         lblTextClienteFac = new javax.swing.JLabel();
-        ftClienteFac = new javax.swing.JFormattedTextField();
         lblTextUsuario = new javax.swing.JLabel();
         lblUsuarioFac = new javax.swing.JLabel();
         cbxClientes = new javax.swing.JComboBox<>();
@@ -897,19 +863,27 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         txtNomCliente = new javax.swing.JTextField();
         btnBorrarLinea = new javax.swing.JButton();
 
-        pnlFacVarios.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Producto"));
+        pnlFacVarios.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Agregar Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI", 0, 18))); // NOI18N
         pnlFacVarios.setPreferredSize(new java.awt.Dimension(636, 202));
 
+        lblDescripcionVarios.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lblDescripcionVarios.setText("Descripción: ");
 
+        lblPrecioVarios.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lblPrecioVarios.setText("Precio:");
 
-        pnlClasificacionProductos.setBorder(javax.swing.BorderFactory.createTitledBorder("Clasificación:"));
+        txtDescripcionVarios.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+
+        txtPrecioVarios.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+
+        pnlClasificacionProductos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clasificación:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Semibold", 0, 18))); // NOI18N
 
         bgClasifProducto.add(rbMercancia);
+        rbMercancia.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         rbMercancia.setText("Mercancía");
 
         bgClasifProducto.add(rbServicio);
+        rbServicio.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         rbServicio.setSelected(true);
         rbServicio.setText("Servicio");
 
@@ -936,14 +910,16 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnAgregarVarios2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnAgregarVarios2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         btnAgregarVarios2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/return_back.png"))); // NOI18N
+        btnAgregarVarios2.setText("Volver");
         btnAgregarVarios2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarVarios2ActionPerformed(evt);
             }
         });
 
+        btnAddProduct2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         btnAddProduct2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/f_add_30x30.png"))); // NOI18N
         btnAddProduct2.setText("Agregar a la línea");
         btnAddProduct2.setToolTipText("Agregar producto a la linea");
@@ -962,14 +938,14 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlFacVariosLayout.createSequentialGroup()
                         .addComponent(btnAgregarVarios2)
-                        .addGap(351, 351, 351)
+                        .addGap(264, 264, 264)
                         .addComponent(btnAddProduct2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(pnlFacVariosLayout.createSequentialGroup()
-                        .addComponent(pnlClasificacionProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
+                        .addComponent(pnlClasificacionProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblDescripcionVarios, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                            .addComponent(lblDescripcionVarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblPrecioVarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -980,21 +956,23 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         pnlFacVariosLayout.setVerticalGroup(
             pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFacVariosLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
                 .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlFacVariosLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
                         .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDescripcionVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDescripcionVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtDescripcionVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDescripcionVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
                         .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPrecioVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPrecioVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(pnlClasificacionProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                            .addComponent(txtPrecioVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPrecioVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlFacVariosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(pnlClasificacionProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlFacVariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAgregarVarios2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddProduct2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAddProduct2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregarVarios2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1100,19 +1078,25 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 
         pnlTotales.setBorder(new javax.swing.border.LineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"), 1, true));
 
+        lblTextSubtotal.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lblTextSubtotal.setText("Subtotal:");
 
+        lblTextTotal.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lblTextTotal.setText("Total:");
 
+        lblSubtotal.setBackground(new java.awt.Color(255, 255, 255));
+        lblSubtotal.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         lblSubtotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblSubtotal.setToolTipText("Usuario en sesión.");
-        lblSubtotal.setBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.shadow")));
+        lblSubtotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 36, 29)));
 
-        lblTotal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblTotal.setBackground(new java.awt.Color(255, 255, 255));
+        lblTotal.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotal.setToolTipText("Usuario en sesión.");
-        lblTotal.setBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.shadow")));
+        lblTotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 36, 29)));
 
+        btnFacturar.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         btnFacturar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/cash-register_40x40.png"))); // NOI18N
         btnFacturar.setText("Emitir Factura");
         btnFacturar.addActionListener(new java.awt.event.ActionListener() {
@@ -1122,13 +1106,16 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         });
 
         bgMedioPago.add(rbMpagoCredito);
+        rbMpagoCredito.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         rbMpagoCredito.setText("Crédito");
 
         bgMedioPago.add(rbMpagoContado);
+        rbMpagoContado.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         rbMpagoContado.setSelected(true);
         rbMpagoContado.setText("Contado");
 
-        lblTextSubtotal1.setText("Medio de Pago:");
+        lblTextSubtotal1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        lblTextSubtotal1.setText("Medio de pago:");
 
         javax.swing.GroupLayout pnlTotalesLayout = new javax.swing.GroupLayout(pnlTotales);
         pnlTotales.setLayout(pnlTotalesLayout);
@@ -1136,41 +1123,42 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             pnlTotalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTotalesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTextSubtotal1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTextSubtotal1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rbMpagoContado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rbMpagoCredito)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTextSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTextSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblTextTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTextTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFacturar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnFacturar, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnlTotalesLayout.setVerticalGroup(
             pnlTotalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTotalesLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(5, 5, 5)
                 .addGroup(pnlTotalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblTextTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFacturar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblTextSubtotal1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblTextSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(rbMpagoCredito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rbMpagoContado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(rbMpagoContado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFacturar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(5, 5, 5))
         );
 
-        pnlAgregarProd.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Producto"));
+        pnlAgregarProd.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Agregar Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI", 0, 18))); // NOI18N
 
+        lsEscogerProd.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         lsEscogerProd.setForeground(new java.awt.Color(102, 102, 102));
         lsEscogerProd.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lsEscogerProd.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -1180,15 +1168,19 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         });
         scpnlList.setViewportView(lsEscogerProd);
 
+        lblTextExistencias.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lblTextExistencias.setText("Cant. en Exist.");
 
-        lblCantExistencia.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.SystemColor.activeCaption));
+        lblCantExistencia.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        lblCantExistencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 36, 29)));
 
+        lblTextPrecioUnit.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lblTextPrecioUnit.setText("Precio por vara");
         lblTextPrecioUnit.setToolTipText("");
 
+        lblPrecioUnit.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         lblPrecioUnit.setToolTipText("Precio por vara");
-        lblPrecioUnit.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.SystemColor.activeCaption));
+        lblPrecioUnit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 36, 29)));
 
         btnAgregarVarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/prod_varios_30x30.png"))); // NOI18N
         btnAgregarVarios.setToolTipText("Agregar productos varios");
@@ -1198,6 +1190,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             }
         });
 
+        txtProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         txtProducto.setToolTipText("Código del producto a buscar");
         txtProducto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -1217,6 +1210,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             }
         });
 
+        txtCantidad.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         txtCantidad.setToolTipText("Cantidad solicitada en varas...");
         txtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -1224,6 +1218,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAddProduct.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         btnAddProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/f_add_40x40.png"))); // NOI18N
         btnAddProduct.setText("Agregar a la línea");
         btnAddProduct.setToolTipText("Agregar producto a la linea");
@@ -1253,78 +1248,60 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtProducto))
                     .addGroup(pnlAgregarProdLayout.createSequentialGroup()
-                        .addComponent(lblTextExistencias, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblTextExistencias)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCantExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblTextPrecioUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblPrecioUnit, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
+                        .addComponent(lblCantExistencia, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTextPrecioUnit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblPrecioUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(scpnlList))
                 .addGap(12, 12, 12)
                 .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlAgregarProdLayout.createSequentialGroup()
                         .addComponent(btnBusquedaAv, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAgregarVarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(txtCantidad)
-                    .addComponent(btnAddProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(btnAgregarVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAddProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCantidad))
+                .addGap(0, 0, 0))
         );
         pnlAgregarProdLayout.setVerticalGroup(
             pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAgregarProdLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAddProduct1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(8, 8, 8)
+                .addGap(5, 5, 5)
                 .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlAgregarProdLayout.createSequentialGroup()
-                        .addComponent(scpnlList, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAgregarProdLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblPrecioUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlAgregarProdLayout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblTextPrecioUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(lblCantExistencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblTextExistencias, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAgregarProdLayout.createSequentialGroup()
-                        .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBusquedaAv, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgregarVarios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtCantidad)
+                    .addComponent(txtProducto)
+                    .addComponent(btnAddProduct1, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
+                .addGap(8, 8, 8)
+                .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(scpnlList, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnAddProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlAgregarProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCantExistencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTextPrecioUnit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblPrecioUnit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTextExistencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBusquedaAv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAgregarVarios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        pnlSelectCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccionar Cliente"));
+        pnlSelectCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Seleccionar Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI", 0, 18))); // NOI18N
 
+        lblTextClienteFac.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lblTextClienteFac.setText("Cliente:");
 
-        try {
-            ftClienteFac.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#-####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        ftClienteFac.setToolTipText("Presione 'Enter' para buscar el cliente");
-        ftClienteFac.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                ftClienteFacKeyReleased(evt);
-            }
-        });
-
+        lblTextUsuario.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lblTextUsuario.setText("Facturado por: ");
 
+        lblUsuarioFac.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         lblUsuarioFac.setToolTipText("Usuario en sesión.");
         lblUsuarioFac.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.SystemColor.activeCaption));
 
+        cbxClientes.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         cbxClientes.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbxClientesItemStateChanged(evt);
@@ -1341,6 +1318,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             }
         });
 
+        lblClienteNom.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         lblClienteNom.setText("CLIENTE GENÉRICO");
         lblClienteNom.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.SystemColor.activeCaption));
 
@@ -1360,6 +1338,10 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             }
         });
 
+        placeholder = new TextPrompt("Nombre del cliente", txtNomCliente);
+        placeholder.changeAlpha(0.75f);
+        placeholder.setFont(new Font("Yu Gothic UI Semibold", Font.ITALIC, 16));
+        txtNomCliente.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         txtNomCliente.setToolTipText("Presione 'Enter' para buscar el cliente");
         txtNomCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -1375,52 +1357,46 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(pnlSelectClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlSelectClienteLayout.createSequentialGroup()
-                        .addGroup(pnlSelectClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(ftClienteFac)
-                            .addComponent(lblTextClienteFac, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlSelectClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNomCliente)
-                            .addComponent(lblClienteNom, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))
+                            .addGroup(pnlSelectClienteLayout.createSequentialGroup()
+                                .addComponent(lblTextClienteFac, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblClienteNom, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNomCliente))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlSelectClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCrearCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnlSelectClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCrearCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSelectClienteLayout.createSequentialGroup()
                         .addComponent(lblTextUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblUsuarioFac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(cbxClientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         pnlSelectClienteLayout.setVerticalGroup(
             pnlSelectClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSelectClienteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlSelectClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlSelectClienteLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(pnlSelectClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblTextClienteFac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblClienteNom, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlSelectClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNomCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                            .addComponent(ftClienteFac)))
-                    .addGroup(pnlSelectClienteLayout.createSequentialGroup()
-                        .addComponent(btnCrearCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addGroup(pnlSelectClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblTextClienteFac, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCrearCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblClienteNom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlSelectClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblUsuarioFac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTextUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtNomCliente)
+                    .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlSelectClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsuarioFac, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTextUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        btnBorrarLinea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/delete.png"))); // NOI18N
+        btnBorrarLinea.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        btnBorrarLinea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/trash-can-45.png"))); // NOI18N
         btnBorrarLinea.setText("Remover de la línea");
         btnBorrarLinea.setToolTipText("Remover producto de la línea de pedido");
         btnBorrarLinea.addActionListener(new java.awt.event.ActionListener() {
@@ -1438,7 +1414,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
                 .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_modFacturaLayout.createSequentialGroup()
                         .addComponent(pnlSelectCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlAgregarProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(scpnlTblLineaPedido)
                     .addGroup(pnl_modFacturaLayout.createSequentialGroup()
@@ -1451,16 +1427,16 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modFacturaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlSelectCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlAgregarProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(scpnlTblLineaPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBorrarLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scpnlTblLineaPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBorrarLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlTotales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1496,12 +1472,6 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         txtCantidad = (JTextField) evt.getSource();
         txtCantidad.selectAll();
     }//GEN-LAST:event_txtCantidadFocusGained
-
-    private void ftClienteFacKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftClienteFacKeyReleased
-        if (evt.getKeyCode() == 10) { //enter
-           buscarCliente();
-        }
-    }//GEN-LAST:event_ftClienteFacKeyReleased
 
     private void btnBusquedaAvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaAvActionPerformed
         
@@ -1581,7 +1551,6 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAddProductActionPerformed
 
     private void btnAgregarVarios2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVarios2ActionPerformed
-
         pnlAgregarProd.setVisible(true);
         pnlAgregarProd.setBounds(585, 31, 636, 202);
         pnl_modFactura.add(pnlAgregarProd);
@@ -1605,7 +1574,6 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         System.out.println("CBX ACTION PERF");
             Cliente cl = (Cliente) cbxClientes.getSelectedItem();
             lblClienteNom.setText(cl.getNombre());
-            ftClienteFac.setText(cl.getCedula());
         }
     }//GEN-LAST:event_cbxClientesActionPerformed
    
@@ -1656,7 +1624,6 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnFacturar;
     private javax.swing.JButton btnMostrarClien;
     private javax.swing.JComboBox<Cliente> cbxClientes;
-    private javax.swing.JFormattedTextField ftClienteFac;
     private javax.swing.JLabel lblCantExistencia;
     private javax.swing.JLabel lblClienteNom;
     private javax.swing.JLabel lblDescripcionVarios;
