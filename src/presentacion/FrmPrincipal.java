@@ -460,11 +460,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         dpn_principal.setLayout(dpn_principalLayout);
         dpn_principalLayout.setHorizontalGroup(
             dpn_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1245, Short.MAX_VALUE)
+            .addGap(0, 1230, Short.MAX_VALUE)
         );
         dpn_principalLayout.setVerticalGroup(
             dpn_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 670, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         scpnlModulos.setName("ScrollPanePrincipal"); // NOI18N
@@ -472,12 +472,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         tlb_modulos.setFloatable(false);
         tlb_modulos.setOrientation(javax.swing.SwingConstants.VERTICAL);
         tlb_modulos.setRollover(true);
+        tlb_modulos.setAlignmentX(0.9F);
         tlb_modulos.setName("ToolbarBotones"); // NOI18N
-        tlb_modulos.setPreferredSize(new java.awt.Dimension(104, 707));
+        tlb_modulos.setPreferredSize(new java.awt.Dimension(50, 50));
 
-        jSeparator1.setSeparatorSize(new java.awt.Dimension(15, 10));
+        jSeparator1.setSeparatorSize(new java.awt.Dimension(15, 15));
         tlb_modulos.add(jSeparator1);
 
+        btn_facturacion.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         btn_facturacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/facturacion-60.png"))); // NOI18N
         btn_facturacion.setText(" Facturación");
         btn_facturacion.setEnabled(false);
@@ -494,6 +496,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jSeparator2.setSeparatorSize(new java.awt.Dimension(15, 10));
         tlb_modulos.add(jSeparator2);
 
+        btn_inventario.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         btn_inventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Inventario-60.png"))); // NOI18N
         btn_inventario.setText("  Inventario  ");
         btn_inventario.setEnabled(false);
@@ -510,6 +513,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jSeparator3.setSeparatorSize(new java.awt.Dimension(15, 10));
         tlb_modulos.add(jSeparator3);
 
+        btn_consultas.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         btn_consultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/consulta-60.png"))); // NOI18N
         btn_consultas.setText("  Consultas  ");
         btn_consultas.setEnabled(false);
@@ -526,6 +530,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jSeparator4.setSeparatorSize(new java.awt.Dimension(15, 10));
         tlb_modulos.add(jSeparator4);
 
+        btn_clientes.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         btn_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/clientes-60.png"))); // NOI18N
         btn_clientes.setText("   Clientes    ");
         btn_clientes.setEnabled(false);
@@ -542,6 +547,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jSeparator5.setSeparatorSize(new java.awt.Dimension(15, 10));
         tlb_modulos.add(jSeparator5);
 
+        btn_proveedor.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         btn_proveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/proveedor-60.png"))); // NOI18N
         btn_proveedor.setText("Proveedores");
         btn_proveedor.setEnabled(false);
@@ -558,6 +564,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jSeparator7.setSeparatorSize(new java.awt.Dimension(15, 10));
         tlb_modulos.add(jSeparator7);
 
+        btn_usuarios.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         btn_usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/user-60.png"))); // NOI18N
         btn_usuarios.setText("   Usuarios   ");
         btn_usuarios.setEnabled(false);
@@ -577,8 +584,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         mnbtn_archivo.setText("Archivo");
         mnbtn_archivo.setEnabled(false);
+        mnbtn_archivo.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
 
         mniCerrarSesion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        mniCerrarSesion.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniCerrarSesion.setText("Cerrar Sesión");
         mniCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -587,6 +596,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnbtn_archivo.add(mniCerrarSesion);
 
+        mniSalir.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniSalir.setText("Salir");
         mnbtn_archivo.add(mniSalir);
 
@@ -594,9 +604,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         mnbtn_modulos.setText("Módulos");
         mnbtn_modulos.setEnabled(false);
+        mnbtn_modulos.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
 
         mnClientes.setText("Clientes");
+        mnClientes.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
 
+        mniAgregarCliente.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniAgregarCliente.setText("Agregar");
         mniAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -605,6 +618,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnClientes.add(mniAgregarCliente);
 
+        mniEditarCliente.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniEditarCliente.setText("Editar");
         mniEditarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -613,6 +627,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnClientes.add(mniEditarCliente);
 
+        mniHabilitarCliente.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniHabilitarCliente.setText("Habilitar/Deshabilitar");
         mniHabilitarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -621,6 +636,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnClientes.add(mniHabilitarCliente);
 
+        mniListadoClientes.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniListadoClientes.setText("Listado de clientes");
         mniListadoClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -633,15 +649,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnbtn_modulos.add(jSeparator6);
 
         mnConsultas.setText("Consultas");
+        mnConsultas.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mnbtn_modulos.add(mnConsultas);
         mnbtn_modulos.add(jSeparator8);
 
         mnFacturacion.setText("Facturación");
+        mnFacturacion.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mnbtn_modulos.add(mnFacturacion);
         mnbtn_modulos.add(jSeparator9);
 
         mnInventario.setText("Inventario");
+        mnInventario.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
 
+        mniActualizarInventario.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniActualizarInventario.setText("Actualizar inventario");
         mniActualizarInventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -650,6 +670,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnInventario.add(mniActualizarInventario);
 
+        mniAgregarProdNuevo.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniAgregarProdNuevo.setText("Agregar nuevo");
         mniAgregarProdNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -658,6 +679,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnInventario.add(mniAgregarProdNuevo);
 
+        mniEditarProd.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniEditarProd.setText("Editar");
         mniEditarProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -666,6 +688,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnInventario.add(mniEditarProd);
 
+        mniHabilitarInventario.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniHabilitarInventario.setText("Habilitar/Deshabilitar");
         mniHabilitarInventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -674,6 +697,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnInventario.add(mniHabilitarInventario);
 
+        mniListadoProd.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniListadoProd.setText("Listado de productos");
         mniListadoProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -686,7 +710,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnbtn_modulos.add(jSeparator10);
 
         mnProveedores.setText("Proveedores");
+        mnProveedores.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
 
+        mniAgregarProveedor.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniAgregarProveedor.setText("Agregar");
         mniAgregarProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -695,6 +721,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnProveedores.add(mniAgregarProveedor);
 
+        mniEditarProveedor.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniEditarProveedor.setText("Editar");
         mniEditarProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -703,6 +730,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnProveedores.add(mniEditarProveedor);
 
+        mniHabilitarProveedor.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniHabilitarProveedor.setText("Habilitar/Deshabilitar");
         mniHabilitarProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -711,6 +739,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnProveedores.add(mniHabilitarProveedor);
 
+        mniListadoProveedores.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniListadoProveedores.setText("Listado de proveedores");
         mniListadoProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -723,7 +752,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnbtn_modulos.add(jSeparator11);
 
         mnUsuarios.setText("Usuarios");
+        mnUsuarios.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
 
+        mniActualizarInfo.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniActualizarInfo.setText("Actualizar informacion");
         mniActualizarInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -732,6 +763,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnUsuarios.add(mniActualizarInfo);
 
+        mniActualizarPermisos.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniActualizarPermisos.setText("Actualizar permisos");
         mniActualizarPermisos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -740,6 +772,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnUsuarios.add(mniActualizarPermisos);
 
+        mniAgregarUsuario.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniAgregarUsuario.setText("Agregar");
         mniAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -748,6 +781,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnUsuarios.add(mniAgregarUsuario);
 
+        mniHabilitarUsuarios.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniHabilitarUsuarios.setText("Habilitar/Deshabilitar");
         mniHabilitarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -756,6 +790,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnUsuarios.add(mniHabilitarUsuarios);
 
+        mniListadoUsuarios.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mniListadoUsuarios.setText("Listado de usuarios");
         mniListadoUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -770,6 +805,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         mnbtn_ver.setText("Ayuda");
         mnbtn_ver.setEnabled(false);
+        mnbtn_ver.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         mnb_principal.add(mnbtn_ver);
 
         setJMenuBar(mnb_principal);
@@ -779,18 +815,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(scpnlModulos, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scpnlModulos, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dpn_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(dpn_principal))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scpnlModulos)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(dpn_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(dpn_principal)
+            .addComponent(scpnlModulos, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
         );
 
         pack();
