@@ -1064,16 +1064,13 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             new String [] {
                 "Descripción", "Medida", "Cantidad", "Prec. Unidad", "Impuesto", "Subtotal", "Total", "Codigo"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        ));
+        tblLineaPedido.getTableHeader().setReorderingAllowed(false);
+        tblLineaPedido.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tblLineaPedidoPropertyChange(evt);
             }
         });
-        tblLineaPedido.getTableHeader().setReorderingAllowed(false);
         scpnlTblLineaPedido.setViewportView(tblLineaPedido);
 
         pnlTotales.setBorder(new javax.swing.border.LineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"), 1, true));
@@ -1607,6 +1604,10 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             prepararLineaVarios();
         }
     }//GEN-LAST:event_btnAddProduct2ActionPerformed
+
+    private void tblLineaPedidoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tblLineaPedidoPropertyChange
+        System.out.println("CHANGED PROPERTY");
+    }//GEN-LAST:event_tblLineaPedidoPropertyChange
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgClasifProducto;
