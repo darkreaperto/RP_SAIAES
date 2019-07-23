@@ -11,12 +11,18 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Archivo"/>
             <Property name="enabled" type="boolean" value="false"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI" size="14" style="0"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mniCerrarSesion">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+S"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cerrar Sesi&#xf3;n"/>
               </Properties>
@@ -29,6 +35,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniSalir">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
             </MenuItem>
@@ -38,15 +47,24 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="M&#xf3;dulos"/>
             <Property name="enabled" type="boolean" value="false"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI" size="14" style="0"/>
+            </Property>
           </Properties>
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="mnClientes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Clientes"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI" size="14" style="0"/>
+                </Property>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="mniAgregarCliente">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Agregar"/>
                   </Properties>
                   <Events>
@@ -55,6 +73,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniEditarCliente">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Editar"/>
                   </Properties>
                   <Events>
@@ -63,6 +84,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniHabilitarCliente">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Habilitar/Deshabilitar"/>
                   </Properties>
                   <Events>
@@ -71,6 +95,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniListadoClientes">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Listado de clientes"/>
                   </Properties>
                   <Events>
@@ -84,6 +111,9 @@
             <Menu class="javax.swing.JMenu" name="mnConsultas">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consultas"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI" size="14" style="0"/>
+                </Property>
               </Properties>
             </Menu>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator8">
@@ -91,6 +121,9 @@
             <Menu class="javax.swing.JMenu" name="mnFacturacion">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Facturaci&#xf3;n"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI" size="14" style="0"/>
+                </Property>
               </Properties>
             </Menu>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator9">
@@ -98,10 +131,16 @@
             <Menu class="javax.swing.JMenu" name="mnInventario">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Inventario"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI" size="14" style="0"/>
+                </Property>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="mniActualizarInventario">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Actualizar inventario"/>
                   </Properties>
                   <Events>
@@ -110,6 +149,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniAgregarProdNuevo">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Agregar nuevo"/>
                   </Properties>
                   <Events>
@@ -118,6 +160,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniEditarProd">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Editar"/>
                   </Properties>
                   <Events>
@@ -126,6 +171,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniHabilitarInventario">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Habilitar/Deshabilitar"/>
                   </Properties>
                   <Events>
@@ -134,6 +182,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniListadoProd">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Listado de productos"/>
                   </Properties>
                   <Events>
@@ -147,10 +198,16 @@
             <Menu class="javax.swing.JMenu" name="mnProveedores">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Proveedores"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI" size="14" style="0"/>
+                </Property>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="mniAgregarProveedor">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Agregar"/>
                   </Properties>
                   <Events>
@@ -159,6 +216,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniEditarProveedor">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Editar"/>
                   </Properties>
                   <Events>
@@ -167,6 +227,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniHabilitarProveedor">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Habilitar/Deshabilitar"/>
                   </Properties>
                   <Events>
@@ -175,6 +238,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniListadoProveedores">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Listado de proveedores"/>
                   </Properties>
                   <Events>
@@ -188,10 +254,16 @@
             <Menu class="javax.swing.JMenu" name="mnUsuarios">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Usuarios"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI" size="14" style="0"/>
+                </Property>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="mniActualizarInfo">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Actualizar informacion"/>
                   </Properties>
                   <Events>
@@ -200,6 +272,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniActualizarPermisos">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Actualizar permisos"/>
                   </Properties>
                   <Events>
@@ -208,6 +283,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniAgregarUsuario">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Agregar"/>
                   </Properties>
                   <Events>
@@ -216,6 +294,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniHabilitarUsuarios">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Habilitar/Deshabilitar"/>
                   </Properties>
                   <Events>
@@ -224,6 +305,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniListadoUsuarios">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Yu Gothic UI" size="14" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Listado de usuarios"/>
                   </Properties>
                   <Events>
@@ -238,6 +322,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ayuda"/>
             <Property name="enabled" type="boolean" value="false"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic UI" size="14" style="0"/>
+            </Property>
           </Properties>
         </Menu>
       </SubComponents>
@@ -282,21 +369,16 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Component id="scpnlModulos" min="-2" pref="112" max="-2" attributes="0"/>
+              <Component id="scpnlModulos" min="-2" pref="125" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="dpn_principal" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <Component id="dpn_principal" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="scpnlModulos" alignment="0" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="dpn_principal" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
+          <Component id="scpnlModulos" alignment="0" pref="680" max="32767" attributes="0"/>
+          <Component id="dpn_principal" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -312,12 +394,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="1245" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="1230" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="670" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -334,9 +416,10 @@
             <Property name="floatable" type="boolean" value="false"/>
             <Property name="orientation" type="int" value="1"/>
             <Property name="rollover" type="boolean" value="true"/>
+            <Property name="alignmentX" type="float" value="0.9"/>
             <Property name="name" type="java.lang.String" value="ToolbarBotones" noResource="true"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[104, 707]"/>
+              <Dimension value="[50, 50]"/>
             </Property>
           </Properties>
 
@@ -345,12 +428,15 @@
             <Component class="javax.swing.JToolBar$Separator" name="jSeparator1">
               <Properties>
                 <Property name="separatorSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[15, 10]"/>
+                  <Dimension value="[15, 15]"/>
                 </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btn_facturacion">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI Semibold" size="16" style="0"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/recursos/facturacion-60.png"/>
                 </Property>
@@ -373,6 +459,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btn_inventario">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI Semibold" size="16" style="0"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/recursos/Inventario-60.png"/>
                 </Property>
@@ -395,6 +484,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btn_consultas">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI Semibold" size="16" style="0"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/recursos/consulta-60.png"/>
                 </Property>
@@ -417,6 +509,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btn_clientes">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI Semibold" size="16" style="0"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/recursos/clientes-60.png"/>
                 </Property>
@@ -439,6 +534,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btn_proveedor">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI Semibold" size="16" style="0"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/recursos/proveedor-60.png"/>
                 </Property>
@@ -461,6 +559,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btn_usuarios">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI Semibold" size="16" style="0"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/recursos/user-60.png"/>
                 </Property>
