@@ -377,8 +377,8 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="dpn_principal" max="32767" attributes="0"/>
           <Component id="scpnlModulos" alignment="0" pref="680" max="32767" attributes="0"/>
+          <Component id="dpn_principal" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>

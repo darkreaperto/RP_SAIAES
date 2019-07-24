@@ -163,6 +163,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         rbCrearCredito = new javax.swing.JRadioButton();
         rbCrearSinCredito = new javax.swing.JRadioButton();
         txt_crear_limiteCliente = new javax.swing.JTextField();
+        btnListadoRefrescar1 = new javax.swing.JButton();
         pnl_actualizar = new javax.swing.JPanel();
         spnl_editar_clientes = new javax.swing.JScrollPane();
         tbl_editar = new javax.swing.JTable();
@@ -208,6 +209,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         txtEditarCorreoCliente = new javax.swing.JTextField();
         btnEditarGuardarCorreo = new javax.swing.JButton();
         btnEditarCancelCorreo = new javax.swing.JButton();
+        btnListadoRefrescar2 = new javax.swing.JButton();
         pnlHabilitar = new javax.swing.JPanel();
         lblDeshabSelectCliente = new javax.swing.JLabel();
         tbDeshab = new javax.swing.JTabbedPane();
@@ -219,6 +221,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         rbDeshabDeshabCliente = new javax.swing.JRadioButton();
         rbDeshabHabilitarCliente = new javax.swing.JRadioButton();
         btn_deshabilitar = new javax.swing.JButton();
+        btnListadoRefrescar3 = new javax.swing.JButton();
 
         itEditar.setText("Editar");
         itEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -231,7 +234,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setTitle("Módulo de Clientes");
-        setPreferredSize(new java.awt.Dimension(1240, 670));
+        setPreferredSize(new java.awt.Dimension(1230, 680));
 
         tb_modCliente.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
 
@@ -281,7 +284,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         pnl_listadoLayout.setHorizontalGroup(
             pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(pnl_listadoLayout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scpnlTblListadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 1165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnl_listadoLayout.createSequentialGroup()
@@ -289,7 +292,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtListadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 1020, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnListadoRefrescar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         pnl_listadoLayout.setVerticalGroup(
             pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,7 +358,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        tbCrearContactoClientes.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/email.png")), pnlCrearCorreo1); // NOI18N
+        tbCrearContactoClientes.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/envelope2-30.png")), pnlCrearCorreo1); // NOI18N
 
         scpnlClientesCrearTelefono.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -403,7 +406,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         scpnlClientesCrearTelefono.setViewportView(pnlCrearTelefono);
 
-        tbCrearContactoClientes.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/telefono.png")), scpnlClientesCrearTelefono); // NOI18N
+        tbCrearContactoClientes.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/phone-25.png")), scpnlClientesCrearTelefono); // NOI18N
 
         javax.swing.GroupLayout pnlCrearContactoClienteLayout = new javax.swing.GroupLayout(pnlCrearContactoCliente);
         pnlCrearContactoCliente.setLayout(pnlCrearContactoClienteLayout);
@@ -411,7 +414,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             pnlCrearContactoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCrearContactoClienteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tbCrearContactoClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(tbCrearContactoClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 335, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlCrearContactoClienteLayout.setVerticalGroup(
@@ -420,7 +423,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         pnl_agregar.add(pnlCrearContactoCliente);
-        pnlCrearContactoCliente.setBounds(435, 124, 371, 154);
+        pnlCrearContactoCliente.setBounds(435, 124, 371, 156);
 
         tbl_crear.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -443,7 +446,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         spnl_crear_clientes.setViewportView(tbl_crear);
 
         pnl_agregar.add(spnl_crear_clientes);
-        spnl_crear_clientes.setBounds(12, 288, 1170, 250);
+        spnl_crear_clientes.setBounds(12, 288, 1170, 240);
 
         btnCrearCliente.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         btnCrearCliente.setText("Crear Cliente");
@@ -453,7 +456,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         });
         pnl_agregar.add(btnCrearCliente);
-        btnCrearCliente.setBounds(990, 540, 195, 35);
+        btnCrearCliente.setBounds(990, 535, 195, 40);
 
         pnlCrearInfoBase.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información Básica:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI", 0, 18))); // NOI18N
 
@@ -534,7 +537,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         pnl_agregar.add(pnlCrearInfoBase);
-        pnlCrearInfoBase.setBounds(12, 13, 380, 267);
+        pnlCrearInfoBase.setBounds(12, 13, 388, 267);
 
         pnlCrearDireccion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dirección:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI", 0, 18))); // NOI18N
 
@@ -630,7 +633,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 .addGroup(pnlCrearDireccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cbxBarrio)
                     .addComponent(lbl_crear_barrio, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(lbl_crear_barrio1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -638,7 +641,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         pnl_agregar.add(pnlCrearDireccion);
-        pnlCrearDireccion.setBounds(841, 13, 336, 268);
+        pnlCrearDireccion.setBounds(841, 13, 341, 268);
 
         pnl_crear_creditoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Crédito de Cliente:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI", 0, 18))); // NOI18N
 
@@ -704,7 +707,17 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         pnl_agregar.add(pnl_crear_creditoCliente);
-        pnl_crear_creditoCliente.setBounds(435, 13, 361, 104);
+        pnl_crear_creditoCliente.setBounds(435, 13, 371, 104);
+
+        btnListadoRefrescar1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        btnListadoRefrescar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/refresh-35.png"))); // NOI18N
+        btnListadoRefrescar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListadoRefrescar1ActionPerformed(evt);
+            }
+        });
+        pnl_agregar.add(btnListadoRefrescar1);
+        btnListadoRefrescar1.setBounds(10, 540, 70, 40);
 
         tb_modCliente.addTab("Agregar cliente", pnl_agregar);
 
@@ -818,7 +831,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         pnlEditarTelefono.add(pnlEditarCreditoCliente);
-        pnlEditarCreditoCliente.setBounds(340, 10, 193, 190);
+        pnlEditarCreditoCliente.setBounds(340, 10, 201, 190);
 
         pnlInfoBasica.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información Básica", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI", 0, 18))); // NOI18N
 
@@ -878,7 +891,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         pnlEditarTelefono.add(pnlInfoBasica);
-        pnlInfoBasica.setBounds(12, 13, 315, 190);
+        pnlInfoBasica.setBounds(12, 13, 315, 193);
 
         pnlEditarDireccion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dirección ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI", 0, 18))); // NOI18N
 
@@ -975,7 +988,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
 
         pnlEditarTelefono.add(pnlEditarDireccion);
-        pnlEditarDireccion.setBounds(557, 13, 529, 190);
+        pnlEditarDireccion.setBounds(557, 13, 535, 190);
 
         scpnlClientesEditarCliente.setViewportView(pnlEditarTelefono);
 
@@ -1110,6 +1123,14 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         tbEditarContactoClientes.addTab("", new javax.swing.ImageIcon(getClass().getResource("/recursos/cl_ed_contacto.png")), scpnlClientesEditarContacto); // NOI18N
 
+        btnListadoRefrescar2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        btnListadoRefrescar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/refresh-35.png"))); // NOI18N
+        btnListadoRefrescar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListadoRefrescar2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnl_actualizarLayout = new javax.swing.GroupLayout(pnl_actualizar);
         pnl_actualizar.setLayout(pnl_actualizarLayout);
         pnl_actualizarLayout.setHorizontalGroup(
@@ -1117,10 +1138,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             .addGroup(pnl_actualizarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tbEditarContactoClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 1170, Short.MAX_VALUE)
-                    .addComponent(spnl_editar_clientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1170, Short.MAX_VALUE)
+                    .addComponent(tbEditarContactoClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 1185, Short.MAX_VALUE)
+                    .addComponent(spnl_editar_clientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1185, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_actualizarLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnListadoRefrescar2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEditarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1130,9 +1152,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(tbEditarContactoClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnl_editar_clientes, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                .addComponent(spnl_editar_clientes, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEditarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnl_actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnEditarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnListadoRefrescar2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1))
         );
 
@@ -1228,11 +1252,9 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         );
         pnlDeshabContainerLayout.setVerticalGroup(
             pnlDeshabContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDeshabContainerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlDeshabContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbDeshabHabilitarCliente)
-                    .addComponent(rbDeshabDeshabCliente)))
+            .addGroup(pnlDeshabContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rbDeshabHabilitarCliente)
+                .addComponent(rbDeshabDeshabCliente))
         );
 
         btn_deshabilitar.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
@@ -1243,21 +1265,30 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        btnListadoRefrescar3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        btnListadoRefrescar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/refresh-35.png"))); // NOI18N
+        btnListadoRefrescar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListadoRefrescar3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlHabilitarLayout = new javax.swing.GroupLayout(pnlHabilitar);
         pnlHabilitar.setLayout(pnlHabilitarLayout);
         pnlHabilitarLayout.setHorizontalGroup(
             pnlHabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHabilitarLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHabilitarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlHabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tbDeshab, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1170, Short.MAX_VALUE)
+                .addGroup(pnlHabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tbDeshab)
                     .addGroup(pnlHabilitarLayout.createSequentialGroup()
                         .addGroup(pnlHabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDeshabSelectCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlHabilitarLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
+                                .addComponent(btnListadoRefrescar3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(pnlDeshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 607, Short.MAX_VALUE)
                         .addComponent(btn_deshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1265,17 +1296,15 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             pnlHabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHabilitarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlHabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlHabilitarLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btn_deshabilitar))
-                    .addGroup(pnlHabilitarLayout.createSequentialGroup()
-                        .addComponent(lblDeshabSelectCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tbDeshab, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pnlDeshabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(17, 17, 17))
+                .addComponent(lblDeshabSelectCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tbDeshab, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlHabilitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlDeshabContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnListadoRefrescar3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_deshabilitar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         tb_modCliente.addTab("Habilitar clientes", pnlHabilitar);
@@ -1284,16 +1313,13 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         pnl_modCliente.setLayout(pnl_modClienteLayout);
         pnl_modClienteLayout.setHorizontalGroup(
             pnl_modClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modClienteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tb_modCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 1199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(tb_modCliente)
         );
         pnl_modClienteLayout.setVerticalGroup(
             pnl_modClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modClienteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tb_modCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+                .addComponent(tb_modCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 618, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2436,6 +2462,18 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnListadoRefrescarActionPerformed
 
+    private void btnListadoRefrescar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListadoRefrescar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListadoRefrescar1ActionPerformed
+
+    private void btnListadoRefrescar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListadoRefrescar2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListadoRefrescar2ActionPerformed
+
+    private void btnListadoRefrescar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListadoRefrescar3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListadoRefrescar3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_crearCredito;
@@ -2450,6 +2488,9 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditarGuardarCorreo;
     private javax.swing.JButton btnEditarGuardarTel;
     private javax.swing.JButton btnListadoRefrescar;
+    private javax.swing.JButton btnListadoRefrescar1;
+    private javax.swing.JButton btnListadoRefrescar2;
+    private javax.swing.JButton btnListadoRefrescar3;
     private javax.swing.JButton btn_deshabilitar;
     private javax.swing.JComboBox<DirFiltro> cbxBarrio;
     private javax.swing.JComboBox<DirFiltro> cbxCanton;
