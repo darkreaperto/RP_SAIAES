@@ -106,6 +106,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         preparaEncabezado("01");
         llenarListaProductos("", 5);
         llenarComboClientes(new Cliente(), "");
+        
+        lblUsuarioFac.setText(sesionAcc.getUsuario().getNombre());
     }
 
     /**
