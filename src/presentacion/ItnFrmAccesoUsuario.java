@@ -38,6 +38,7 @@ import javax.swing.JViewport;
 import logica.negocio.Cliente;
 import logica.negocio.Madera;
 import logica.servicios.Logger;
+import logica.servicios.UI;
 
 /**
  * Inicializa la ventana de acceso para ingresar el usuario y contraseña.
@@ -56,6 +57,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
     private static CtrMail mail;
     private static CtrUsuario ctrUsuario;
     private static CtrVerificacion ctrVerificacion;
+    private static UI estilo;
 
     /**
      * Instancia el formulario interno de acceso al sistema.
@@ -72,13 +74,15 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         ctrUsuario = CtrUsuario.getInstancia();
         ctrVerificacion = new CtrVerificacion();
         msg = new Mensaje();
-        
+        estilo = new UI();
         //Bloquear(no mover) el internalFrame de acceso
         BasicInternalFrameUI bif = 
                 ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI());
         for (MouseListener listener : bif.getNorthPane().getMouseListeners()) {
             bif.getNorthPane().removeMouseListener(listener);
         }
+        
+        estilo.setLogoImg(lbl_acc_logo);
     }
 
     /**
@@ -278,14 +282,18 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         btn_acc_recup = new javax.swing.JButton();
 
         pnl_recuperar_clave.setAutoscrolls(true);
-        pnl_recuperar_clave.setPreferredSize(new java.awt.Dimension(590, 385));
+        pnl_recuperar_clave.setPreferredSize(new java.awt.Dimension(590, 420));
 
+        txt_usuario_recClv.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         txt_usuario_recClv.setNextFocusableComponent(btn_confUsuario_recClv);
 
+        txt_codigoConf_recClv.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        txt_codigoConf_recClv.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 36, 29)));
         txt_codigoConf_recClv.setDisabledTextColor(new java.awt.Color(51, 51, 51));
         txt_codigoConf_recClv.setEnabled(false);
         txt_codigoConf_recClv.setNextFocusableComponent(btn_codigoConf_recClv);
 
+        btn_nuevaClave_recClv.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         btn_nuevaClave_recClv.setText("Recuperar contraseña");
         btn_nuevaClave_recClv.setEnabled(false);
         btn_nuevaClave_recClv.setNextFocusableComponent(txt_usuario_recClv);
@@ -295,6 +303,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        btn_confUsuario_recClv.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         btn_confUsuario_recClv.setText("Confirmar usuario");
         btn_confUsuario_recClv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,6 +311,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        btn_codigoConf_recClv.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         btn_codigoConf_recClv.setText("Confirmar código de recuperación");
         btn_codigoConf_recClv.setEnabled(false);
         btn_codigoConf_recClv.setNextFocusableComponent(pw_nuevaClave_recClv);
@@ -311,6 +321,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        btn_cancelar_recClv.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         btn_cancelar_recClv.setText("Cancelar");
         btn_cancelar_recClv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -318,26 +329,37 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        lblConfUsuario.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lblConfUsuario.setText("Nombre de usuario:");
 
+        lblConfUsuario1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lblConfUsuario1.setText("Correo asociado:");
 
+        lblConfUsuario2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lblConfUsuario2.setText("Código de recuperación:");
 
+        lblConfUsuario3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lblConfUsuario3.setText("Contraseña nueva:");
 
+        lblConfUsuario4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         lblConfUsuario4.setText("Confirmar contraseña:");
 
+        pw_nuevaClave_recClv.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        pw_nuevaClave_recClv.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 36, 29)));
         pw_nuevaClave_recClv.setEnabled(false);
 
+        pw_nuevaClaveConf_recClv.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        pw_nuevaClaveConf_recClv.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 36, 29)));
         pw_nuevaClaveConf_recClv.setEnabled(false);
 
+        pb_enviarCorreo.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         pb_enviarCorreo.setIndeterminate(true);
         pb_enviarCorreo.setString("Enviando correo...");
         pb_enviarCorreo.setStringPainted(true);
         pb_enviarCorreo.setVisible(false);
 
-        lbl_correo_recClv.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lbl_correo_recClv.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        lbl_correo_recClv.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 36, 29)));
 
         javax.swing.GroupLayout pnl_recuperar_claveLayout = new javax.swing.GroupLayout(pnl_recuperar_clave);
         pnl_recuperar_clave.setLayout(pnl_recuperar_claveLayout);
@@ -348,71 +370,75 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                     .addGroup(pnl_recuperar_claveLayout.createSequentialGroup()
                         .addGap(461, 461, 461)
                         .addComponent(btn_cancelar_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnl_recuperar_claveLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblConfUsuario3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblConfUsuario2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblConfUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblConfUsuario1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txt_codigoConf_recClv, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pw_nuevaClaveConf_recClv, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pb_enviarCorreo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txt_usuario_recClv)
+                            .addComponent(lbl_correo_recClv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_recuperar_claveLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_confUsuario_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_recuperar_claveLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_codigoConf_recClv, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_nuevaClave_recClv, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnl_recuperar_claveLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lblConfUsuario3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblConfUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblConfUsuario1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblConfUsuario2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                            .addComponent(lblConfUsuario4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblConfUsuario4, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(pw_nuevaClave_recClv))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_recuperar_claveLayout.createSequentialGroup()
+                        .addGap(0, 0, 0)
                         .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_usuario_recClv)
-                            .addComponent(txt_codigoConf_recClv)
-                            .addComponent(pw_nuevaClave_recClv)
-                            .addComponent(pw_nuevaClaveConf_recClv)
-                            .addComponent(pb_enviarCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl_correo_recClv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btn_codigoConf_recClv, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_nuevaClave_recClv, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         pnl_recuperar_claveLayout.setVerticalGroup(
             pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_recuperar_claveLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblConfUsuario)
-                    .addComponent(txt_usuario_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
+                .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblConfUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txt_usuario_recClv))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_confUsuario_recClv)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pb_enviarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblConfUsuario1)
-                    .addComponent(lbl_correo_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(pb_enviarCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblConfUsuario1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                    .addComponent(lbl_correo_recClv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblConfUsuario2)
-                    .addComponent(txt_codigoConf_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_codigoConf_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblConfUsuario2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_codigoConf_recClv)
                 .addGap(18, 18, 18)
-                .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblConfUsuario3)
-                    .addComponent(pw_nuevaClave_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pw_nuevaClave_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblConfUsuario4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnl_recuperar_claveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblConfUsuario4)
-                    .addComponent(pw_nuevaClaveConf_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pw_nuevaClaveConf_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblConfUsuario3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_nuevaClave_recClv)
-                .addGap(18, 18, 18)
-                .addComponent(btn_cancelar_recClv, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_cancelar_recClv)
+                .addContainerGap())
         );
 
         pnl_cargarListas.setAutoscrolls(true);
         pnl_cargarListas.setPreferredSize(new java.awt.Dimension(590, 385));
 
+        btn_salir_carLis.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         btn_salir_carLis.setText("Salir");
         btn_salir_carLis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -420,8 +446,10 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        lblConfUsuario5.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         lblConfUsuario5.setText("<html><body>\nCargando...<br>\nCargando... x2\n</body></html>");
 
+        pb_cargar.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         pb_cargar.setIndeterminate(true);
         pb_cargar.setString("Cargando...");
         pb_cargar.setStringPainted(true);
@@ -453,15 +481,15 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                     .addGroup(pnl_cargarListasLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lblConfUsuario5, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(238, 238, 238)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
                 .addComponent(btn_salir_carLis, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setIconifiable(true);
         setTitle("ACCESO A SISTEMA");
-        setPreferredSize(new java.awt.Dimension(600, 420));
+        setPreferredSize(new java.awt.Dimension(659, 420));
 
         pnl_modAccesoUsuario.setPreferredSize(new java.awt.Dimension(590, 280));
 
@@ -480,7 +508,7 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
         });
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255)));
+        jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 36, 29)));
 
         pw_acc_password.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         pw_acc_password.setNextFocusableComponent(btn_acc_entrar);
@@ -520,30 +548,24 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
             pnl_modAccesoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_modAccesoUsuarioLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(pnl_modAccesoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(pw_acc_password)
-                    .addComponent(txt_NombreUsuario, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_modAccesoUsuarioLayout.createSequentialGroup()
-                        .addGroup(pnl_modAccesoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_acc_password)
-                            .addComponent(lbl_acc_NombreUsuario))
-                        .addGap(111, 111, 111))
-                    .addComponent(btn_acc_entrar)
-                    .addComponent(btn_acc_recup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(38, 38, 38)
+                .addGroup(pnl_modAccesoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_acc_password)
+                    .addComponent(lbl_acc_NombreUsuario)
+                    .addGroup(pnl_modAccesoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(pw_acc_password)
+                        .addComponent(btn_acc_entrar)
+                        .addComponent(btn_acc_recup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_NombreUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lbl_acc_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbl_acc_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnl_modAccesoUsuarioLayout.setVerticalGroup(
             pnl_modAccesoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_modAccesoUsuarioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(pnl_modAccesoUsuarioLayout.createSequentialGroup()
-                .addGap(101, 101, 101)
+                .addGap(85, 85, 85)
                 .addComponent(lbl_acc_NombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_NombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -556,23 +578,26 @@ public class ItnFrmAccesoUsuario extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_acc_recup, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_modAccesoUsuarioLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbl_acc_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+            .addGroup(pnl_modAccesoUsuarioLayout.createSequentialGroup()
+                .addGroup(pnl_modAccesoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_modAccesoUsuarioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnl_modAccesoUsuarioLayout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(lbl_acc_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnl_modAccesoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnl_modAccesoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnl_modAccesoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 388, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(pnl_modAccesoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
         );
 
         pack();

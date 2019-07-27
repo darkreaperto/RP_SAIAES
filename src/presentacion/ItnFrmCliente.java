@@ -288,7 +288,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 .addGroup(pnl_listadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_listadoLayout.createSequentialGroup()
                         .addComponent(lblListadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtListadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 1040, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(scpnlTblListadoCliente)
                     .addGroup(pnl_listadoLayout.createSequentialGroup()
@@ -694,6 +694,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         placeholder.changeStyle(Font.ITALIC);
         txt_crear_limiteCliente.setEditable(false);
         txt_crear_limiteCliente.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        txt_crear_limiteCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 36, 29)));
 
         javax.swing.GroupLayout pnl_crear_creditoClienteLayout = new javax.swing.GroupLayout(pnl_crear_creditoCliente);
         pnl_crear_creditoCliente.setLayout(pnl_crear_creditoClienteLayout);
@@ -705,10 +706,10 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                     .addComponent(rbCrearSinCredito)
                     .addComponent(rbCrearCredito))
                 .addGap(36, 36, 36)
-                .addGroup(pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(rbCrearCreditoLim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txt_crear_limiteCliente))
-                .addGap(0, 31, Short.MAX_VALUE))
+                .addGroup(pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_crear_limiteCliente)
+                    .addComponent(rbCrearCreditoLim, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pnl_crear_creditoClienteLayout.setVerticalGroup(
             pnl_crear_creditoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -819,6 +820,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
         placeholder.changeStyle(Font.ITALIC);
         txtEditarLimiteCliente.setEditable(false);
         txtEditarLimiteCliente.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        txtEditarLimiteCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 36, 29)));
 
         javax.swing.GroupLayout pnlEditarCreditoClienteLayout = new javax.swing.GroupLayout(pnlEditarCreditoCliente);
         pnlEditarCreditoCliente.setLayout(pnlEditarCreditoClienteLayout);
@@ -844,7 +846,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 .addComponent(rbEditarCreditoLim)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtEditarLimiteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pnlEditarTelefono.add(pnlEditarCreditoCliente);
@@ -857,6 +859,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
 
         txtEditarCedulaCliente.setEditable(false);
         txtEditarCedulaCliente.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        txtEditarCedulaCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 36, 29)));
         txtEditarCedulaCliente.setEnabled(false);
 
         lblEditarNombreCliente.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
