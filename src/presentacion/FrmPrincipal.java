@@ -476,7 +476,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         tlb_modulos.setName("ToolbarBotones"); // NOI18N
         tlb_modulos.setPreferredSize(new java.awt.Dimension(50, 50));
 
-        jSeparator1.setSeparatorSize(new java.awt.Dimension(15, 15));
+        jSeparator1.setSeparatorSize(new java.awt.Dimension(15, 20));
         tlb_modulos.add(jSeparator1);
 
         btn_facturacion.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
