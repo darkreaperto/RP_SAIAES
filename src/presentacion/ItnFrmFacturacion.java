@@ -562,7 +562,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
                 System.out.println("2.5: " + factura.getLineasDetalle().get(i).getProducto().getCodigo());
                 System.out.println("3: " + factura.getLineasDetalle().get(i).getProducto().getPrecioXvara());
                 
-                tblLineaPedido
+                //tblLineaPedido
                 
                 Double nadie = factura.getLineasDetalle().get(i).getProducto().getPrecioXvara();
                 row[3] = nadie;//factura.getLineasDetalle().get(i).getProducto().getPrecioXvara();
