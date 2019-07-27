@@ -21,9 +21,12 @@ import java.util.Date;
 import java.util.Random;
 import java.util.TimeZone;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import logica.negocio.Cliente;
 import logica.negocio.Consecutivo;
 import logica.negocio.Emisor;
@@ -45,7 +48,7 @@ import util.TextPrompt;
  * Inicializa la ventana que contiene la información de los facturación.
  * @author aoihanabi
  */
-public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
+public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements TableModelListener {
 
     private static DlgFacBusqueda dialogBusqueda;
     private static DlgFacImpuesto dialogImpuesto;
@@ -108,6 +111,9 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         llenarComboClientes(new Cliente(), "");
         
         lblUsuarioFac.setText(sesionAcc.getUsuario().getNombre());
+        
+        //Agregar a la tabla el listener para cuando se editen las celdas
+        tblLineaPedido.getModel().addTableModelListener(this);
     }
 
     /**
@@ -126,6 +132,62 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         return instancia;
     }
     
+    @Override
+    public void tableChanged(TableModelEvent e) {
+        /*int row = e.getFirstRow();
+        int column = e.getColumn();
+        TableModel model = (TableModel)e.getSource();
+        String columnName = model.getColumnName(column);
+        Object data = model.getValueAt(row, column);*/
+
+        if (e.getType() == TableModelEvent.UPDATE) {
+            System.out.println("CHANGING DATA");
+            System.out.println("FIRST ROW: "+e.getFirstRow());
+            System.out.println("COLUMN: "+e.getColumn());
+            
+            editarInfoLinea(e.getFirstRow(), e.getColumn());
+        }
+    }
+    
+    private void editarInfoLinea(int row, int col) {
+        
+        if (row >= 0) {
+            String cod = tblLineaPedido.getModel().getValueAt(row, 7).toString();
+            String value = tblLineaPedido.getModel().getValueAt(row, col).toString();
+
+            for (LineaDetalle l: factura.getLineasDetalle()) {
+                if ( (!l.isProdVario() && 
+                        l.getProducto().getCodigo().equals(cod) ) || 
+                        (l.isProdVario() && 
+                        l.getVarios().getCodigo().equals(cod)) ) {
+                        
+                    switch (col) {
+                        case 0:
+                            l.setDetalle(value);
+                            break;
+                        case 1:
+                            break;
+                        case 2:
+                            try {
+                                int cant = Integer.valueOf(value);
+                                l.setCantSolicitada(cant);
+                            } catch (NumberFormatException ex) {
+                                msg.mostrarMensaje(
+                                        JOptionPane.ERROR_MESSAGE, 
+                                        TipoMensaje.NUMBER_FORMAT_EXCEPTION);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            
+            for (LineaDetalle l: factura.getLineasDetalle()) {
+                System.out.println("LD: " + l.toString());
+            }
+        }
+    }
    
     /**
      * Obtener la lista de productos consultados y mostrarla en la lista de la
@@ -395,7 +457,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             precioSinImpuesto = Double.valueOf(precio);
             abrirVentanaImpuesto();
             
-            Varios prodVario = new Varios("no", descripcion, Double.parseDouble(precio));
+            Varios prodVario = new Varios("", descripcion, Double.parseDouble(precio));
             agregarLineaVarios(prodVario, impuesto, mercancia);
             
             jTableAgregar();
@@ -420,6 +482,11 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
         int numLinea = factura.getLineasDetalle().size() + 1;
         System.out.println("agregarLineaVarios->El vario: " + varios.getDescripcion());
         System.out.println("Cantidad de lineas antes es: " + factura.getLineasDetalle().size());
+        
+        String cod = mercancia ? "VMERC" : "VSERV";
+        cod += String.format("%03d", numLinea);
+        varios.setCodigo(cod);
+        
         LineaDetalle linea = new LineaDetalle(numLinea, varios, imp, 0.0, 
                 mercancia);
         factura.agregarLinea(linea);//getLineasDetalle().add(linea);
@@ -467,21 +534,20 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
            total += l.getMontoTotalLinea();
        }
        
-       lblSubtotal.setText(String.valueOf(subtotal));
-       lblTotal.setText(String.valueOf(total));
+       lblSubtotal.setText("₡" + String.valueOf(subtotal));
+       lblTotal.setText("₡" + String.valueOf(total));
     }
     
     /**
      * Agregar productos a la tabla en la interfaz para mostrar las lineas.
-     * @param varios
      */
     public void jTableAgregar() {
         System.out.println("LINEAS SIZE: "+ factura.getLineasDetalle().size());
         
-        Object[] row = new Object[8];
+        Object[] row = new Object[9];
         DefaultTableModel model = (DefaultTableModel) tblLineaPedido.getModel();
         model.setRowCount(0);
-        model.setColumnCount(7);
+        model.setColumnCount(9);
         
         
         for (int i = 0; i<factura.getLineasDetalle().size(); i++) {
@@ -489,14 +555,19 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             row[0] = factura.getLineasDetalle().get(i).getDetalle();
             row[1] = "unidad medida?"; 
             row[2] = factura.getLineasDetalle().get(i).getCantSolicitada();
+            
             if(!factura.getLineasDetalle().get(i).isProdVario()) {
                 System.out.println("1: " + factura.getLineasDetalle().get(i));
                 System.out.println("2: " + factura.getLineasDetalle().get(i).getProducto());
                 System.out.println("2.5: " + factura.getLineasDetalle().get(i).getProducto().getCodigo());
                 System.out.println("3: " + factura.getLineasDetalle().get(i).getProducto().getPrecioXvara());
-                                   
+                
+                //tblLineaPedido
+                
                 Double nadie = factura.getLineasDetalle().get(i).getProducto().getPrecioXvara();
                 row[3] = nadie;//factura.getLineasDetalle().get(i).getProducto().getPrecioXvara();
+                
+                row[7] = factura.getLineasDetalle().get(i).getProducto().getCodigo();
             } else {
                 
                 System.out.println("1: " + factura.getLineasDetalle().get(i));
@@ -506,10 +577,13 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
 //                System.out.println("Vario?: " + factura.getLineasDetalle().get(i).getVarios().getDescripcion());
                 Double nadie = factura.getLineasDetalle().get(i).getVarios().getPrecio();
                 row[3] = nadie;//factura.getLineasDetalle().get(i).getVarios().getPrecio();
+                
+                row[7] = factura.getLineasDetalle().get(i).getVarios().getCodigo();
             }
             row[4] = factura.getLineasDetalle().get(i).getImpuesto().getMontoImpuesto();
             row[5] = factura.getLineasDetalle().get(i).getSubtotal();
             row[6] = factura.getLineasDetalle().get(i).getMontoTotalLinea();
+            row[8] = new JButton("X");
 
             model.addRow(row);
         }        
@@ -1066,7 +1140,15 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
             new String [] {
                 "Descripción", "Medida", "Cantidad", "Prec. Unidad", "Impuesto", "Subtotal", "Total", "Codigo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblLineaPedido.getTableHeader().setReorderingAllowed(false);
         tblLineaPedido.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -1608,7 +1690,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAddProduct2ActionPerformed
 
     private void tblLineaPedidoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tblLineaPedidoPropertyChange
-        System.out.println("CHANGED PROPERTY");
+        
     }//GEN-LAST:event_tblLineaPedidoPropertyChange
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -81,8 +81,8 @@ public class LineaDetalle {
         
         this.varios = prodVario;
         this.numeroLinea = numeroLinea;
-        this.cantSolicitada = 0;
-        this.detalle = "";
+        this.cantSolicitada = 1;
+        this.detalle = prodVario.getDescripcion();
         this.mercancia = mercancia;
         this.impuesto = impuesto;
         this.descuento = descuento;
@@ -265,5 +265,21 @@ public class LineaDetalle {
 
     public void setIsProdVario(boolean isProdVario) {
         this.isProdVario = isProdVario;
+    }
+    
+    @Override
+    public String toString() {
+        return "Línea #: " + numeroLinea + 
+                "\nProducto: " + producto + 
+                "\nProducto vario: " + varios +
+                "\nCantidad: " + cantSolicitada +
+                "\nDetalle: " + detalle + 
+                "\n¿Es mercancía?: " + (mercancia ? "Sí" : "No") + 
+                "\nImpuesto: " + impuesto.getTarifaImpuesto() + 
+                            "% (₡" + impuesto.getMontoImpuesto() + ")" + 
+                "\nSubtotal: ₡" + subtotal + 
+                "\nTotal: ₡" + total +  
+                "\nTotal línea: ₡" + montoTotalLinea + 
+                "\n¿Es producto vario?: " + (isProdVario ? "Sí" : "No");
     }
 }
