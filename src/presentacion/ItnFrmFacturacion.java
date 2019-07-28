@@ -37,6 +37,7 @@ import logica.negocio.Impuesto;
 import logica.negocio.LineaDetalle;
 import logica.negocio.Madera;
 import logica.negocio.Varios;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 import logica.servicios.UI;
 import util.Estado;
@@ -223,10 +224,12 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
         DefaultListModel<Madera> mProductos = new DefaultListModel<>();
         
         try {
-            listaProd = ctrInventario.busqAvzProductos(paramProd, codBusq);
+            listaProd = ctrInventario.busqAvzProductos(paramProd, codBusq); 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
             System.err.print("Error: SQL Exception "+ex.getMessage());
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
             System.err.print("Error: Exception "+ex.getMessage());
         }
 
@@ -569,7 +572,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
         Object[] row = new Object[9];
         DefaultTableModel model = (DefaultTableModel) tblLineaPedido.getModel();
         model.setRowCount(0);
-        model.setColumnCount(9);
+        model.setColumnCount(8);
         
         
         for (int i = 0; i<factura.getLineasDetalle().size(); i++) {
@@ -605,7 +608,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
             row[4] = factura.getLineasDetalle().get(i).getImpuesto().getMontoImpuesto();
             row[5] = factura.getLineasDetalle().get(i).getSubtotal();
             row[6] = factura.getLineasDetalle().get(i).getMontoTotalLinea();
-            row[8] = new JButton("X");
+            //row[8] = new JButton("X");
 
             model.addRow(row);
         }        

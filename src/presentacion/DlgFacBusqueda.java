@@ -8,15 +8,13 @@ package presentacion;
 import controladores.CtrMadera;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import logica.negocio.Madera;
 import logica.servicios.Mensaje;
 import logica.servicios.UI;
-import util.Estado;
+import logica.servicios.Logger;
 import util.TipoMensaje;
 
 /**
@@ -58,17 +56,23 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
     public void filtrarBusqueda() {
         try {
             if(rbVariedadProd.isSelected()) {
-                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 0);
+                cargarProductosJTable(tbListadoProd, 
+                        txtBusquedaProd.getText().trim(), 0);
             } else if (rbMedidasProd.isSelected()) {
-                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 1);
+                cargarProductosJTable(tbListadoProd, 
+                        txtBusquedaProd.getText().trim(), 1);
             } else if (rbDescripProd.isSelected()) {
-                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 2);
+                cargarProductosJTable(tbListadoProd, 
+                        txtBusquedaProd.getText().trim(), 2);
             } else if(rbTipoProd.isSelected()) {
-                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 3);
+                cargarProductosJTable(tbListadoProd, 
+                        txtBusquedaProd.getText().trim(), 4);
             } else if(rbCodigoProd.isSelected()) {
-                cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 4);
+                cargarProductosJTable(tbListadoProd, 
+                        txtBusquedaProd.getText().trim(), 5);
             }
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
         }
@@ -87,7 +91,7 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
             
             model = (DefaultTableModel) tabla.getModel();
             model.setRowCount(0);
-            model.setColumnCount(7);
+            model.setColumnCount(8);
             
             for (int i = 0; i < productos.size(); i++) {
                 //codigo- tipoProducto- variedad- medidas- cantvaras- precio- descripción- codigo bd
@@ -103,15 +107,18 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
 
                 model.addRow(row);
             }
-        
-            tabla.removeColumn(tabla.getColumnModel().getColumn(7));
+            
+            if (productos.size() > 0) {
+                tabla.removeColumn(tabla.getColumnModel().getColumn(7));
+            }
             
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Ocurrió un error de SQL:\n" + ex.getMessage());
         } catch (Exception ex) {
             ex.printStackTrace();
-            Logger.getLogger(DlgFacBusqueda.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.registerNewError(ex);
         }       
     }
     
@@ -126,7 +133,7 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
         model = (DefaultTableModel) tbListadoProd.getModel();
         
         if (row >= 0) {
-            String cod = (String) model.getValueAt(row, 8);
+            String cod = (String) model.getValueAt(row, 7);
             for (Madera p: productos) {
                 if (p.getCodigo().equals(cod)) {
                     prod = p;

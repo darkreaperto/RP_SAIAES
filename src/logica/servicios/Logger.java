@@ -36,7 +36,21 @@ public class Logger {
     private static String rootPath;
     
     private static void setInitParams() {
-        rootPath = System.getProperty("user.dir");   
+        
+        rootPath = System.getProperty("user.dir");
+        
+        createDir();
+    }
+    
+    private static void createDir() {
+        try {
+            file = new File(rootPath + "\\logs\\");
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
     
     public static void registerNewLog(String text) {
