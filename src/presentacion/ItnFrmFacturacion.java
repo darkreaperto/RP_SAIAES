@@ -400,6 +400,16 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
         return null;
     }
     
+    private boolean verificarExistEnLinea(Madera producto) {
+        for (LineaDetalle l: factura.getLineasDetalle()) {
+            if (l.getProducto().getCodigo().equals(producto.getCodigo())) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
     /**
      * Obtener los datos pertinentes del producto para realizar los calculos 
      * para la venta.
@@ -416,19 +426,22 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
                 double precio = prodSelected.getPrecioXvara(); //precio unitario
                 double descuento = 0.0;
                 
-                precioSinImpuesto = precio * cantSolicitada;        
-                abrirVentanaImpuesto();
+                precioSinImpuesto = precio * cantSolicitada;
+                
+                //if (verificarExistEnLinea(prodSelected)) {
+                    //actualizarLinea(prodSelected, cantSolicitada, descuento);
+                //} else {
+                    abrirVentanaImpuesto();
 
-                if (impuesto != null) {
-//                    if() { eerror oculto
-//                        
-//                    }
-                    agregarLinea(prodSelected, cantSolicitada, descuento);
+                    if (impuesto != null) {
+                        
+                        agregarLinea(prodSelected, cantSolicitada, descuento);
 
-                    jTableAgregar();
-                    calcularSubtotalTotal();
-                    limpiarCampos(false);
-                }
+                        jTableAgregar();
+                        calcularSubtotalTotal();
+                        limpiarCampos(false);
+                    }
+                //}
                 
             } catch (NumberFormatException ex) {
                 Logger.registerNewError(ex);
@@ -479,6 +492,47 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
         
         //Limpiar variables globales
         impuesto = null;
+        precioSinImpuesto = 0;
+    }
+    
+    private void actualizarLinea(Madera prodSelected, int cantSolicitada, 
+            double descuento) {
+        
+        int numLinea = -1;
+        
+        for (LineaDetalle l: factura.getLineasDetalle()) {
+            if (l.getProducto().getCodigo().equals(prodSelected.getCodigo())) {
+                numLinea = l.getNumeroLinea();
+                break;
+            }
+        }
+        
+        if (numLinea > -1) {
+            LineaDetalle linea = factura.getLineasDetalle().get(numLinea-1);
+            
+            double nuevaCant = linea.getCantSolicitada() + cantSolicitada;
+            double nuevoImp = linea.getImpuesto().getMontoImpuesto() + 
+                    (prodSelected.getPrecioXvara() * cantSolicitada * 
+                    linea.getImpuesto().getTarifaImpuesto());
+            double nuevoSubtotal = linea.getSubtotal() + 
+                    (prodSelected.getPrecioXvara() * cantSolicitada) - 
+                    descuento;
+            double nuevoTotal = linea.getTotal() + 
+                    (prodSelected.getPrecioXvara() * cantSolicitada);
+            
+            linea.setCantSolicitada(Integer.valueOf(String.valueOf(nuevaCant)));
+            linea.getImpuesto().setMontoImpuesto(nuevoImp);
+            linea.setSubtotal(nuevoSubtotal);
+            linea.setTotal(nuevoTotal);
+        }
+        String detalle = prodSelected.getTipoProducto() + ": " + 
+                prodSelected.getDescTipoMadera() + " " + 
+                prodSelected.getGrueso() + "x" + prodSelected.getAncho();
+        
+        LineaDetalle linea = new LineaDetalle(numLinea, prodSelected, 
+            cantSolicitada, detalle, impuesto, descuento);
+        factura.agregarLinea(linea); //getLineasDetalle().add(linea);
+        
         precioSinImpuesto = 0;
     }
     

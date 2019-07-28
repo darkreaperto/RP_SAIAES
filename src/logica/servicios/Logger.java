@@ -58,8 +58,9 @@ public class Logger {
         setInitParams();
         
         dateFormat = "yyyyMMdd";
+        timeFormat = "HHmmss";
         
-        formatter = new SimpleDateFormat(dateFormat);
+        formatter = new SimpleDateFormat(dateFormat+timeFormat);
         date = formatter.format(Calendar.getInstance().getTime());
         
         fileName = "Log_"+date+".txt";
@@ -74,16 +75,18 @@ public class Logger {
         try {
             file = new File(filePath);
             ps = new PrintStream(file);
-            String log = date + ": " + text;
-            ps.println(log);
+            String log = date + ": " + text + "\n";
+            ps.append(log);
+            //ps.println(log);
         } catch (FileNotFoundException ex) {
             Logger.registerNewError(ex);
             ex.printStackTrace();
         } catch (Exception ex) {
             Logger.registerNewError(ex);
             ex.printStackTrace();
+        } finally {
+            ps.close();
         }
-        ps.close();
     }
     
     public static void registerNewError(Exception ex) {
@@ -107,9 +110,10 @@ public class Logger {
         } catch (Exception e) {
             Logger.registerNewError(ex);
             e.printStackTrace();
+        } finally {
+            ex.printStackTrace(ps);
+            ps.close();
         }
-        ex.printStackTrace(ps);
-        ps.close();
     }
     
     public static void registerNewLog(Exception ex, String text) {
