@@ -1101,11 +1101,11 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="tbEditarContactoClientes" pref="1191" max="32767" attributes="0"/>
+                              <Component id="tbEditarContactoClientes" pref="1200" max="32767" attributes="0"/>
                               <Component id="spnl_editar_clientes" alignment="1" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="btnEditarRefrescar" min="-2" pref="70" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="935" max="32767" attributes="0"/>
                                   <Component id="btnEditarCliente" min="-2" pref="195" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -1960,7 +1960,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblDeshabSelectCliente" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
                               <Component id="btnHabilitarRefrescar" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
-                              <Component id="tbDeshab" alignment="0" pref="989" max="32767" attributes="0"/>
+                              <Component id="tbDeshab" alignment="0" pref="998" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
