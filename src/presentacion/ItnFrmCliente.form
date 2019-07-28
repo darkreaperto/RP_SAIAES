@@ -106,7 +106,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="lblListadoCliente" min="-2" pref="140" max="-2" attributes="0"/>
-                                  <EmptySpace pref="11" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="txtListadoCliente" min="-2" pref="1040" max="-2" attributes="0"/>
                               </Group>
                               <Component id="scpnlTblListadoCliente" alignment="0" max="32767" attributes="0"/>
@@ -977,11 +977,11 @@
                                   <Component id="rbCrearCredito" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="rbCrearCreditoLim" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txt_crear_limiteCliente" max="32767" attributes="0"/>
+                                  <Component id="rbCrearCreditoLim" pref="184" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="31" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1052,6 +1052,13 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Yu Gothic UI" size="18" style="0"/>
                         </Property>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                            <LineBorder>
+                              <Color PropertyName="color" blue="1d" green="24" red="a3" type="rgb"/>
+                            </LineBorder>
+                          </Border>
+                        </Property>
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="placeholder = new TextPrompt(&quot;L&#xed;mite de cr&#xe9;dito&quot;, txt_crear_limiteCliente);&#xa;placeholder.changeAlpha(0.75f);&#xa;placeholder.changeStyle(Font.ITALIC);"/>
@@ -1094,11 +1101,11 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="tbEditarContactoClientes" pref="1191" max="32767" attributes="0"/>
+                              <Component id="tbEditarContactoClientes" pref="1200" max="32767" attributes="0"/>
                               <Component id="spnl_editar_clientes" alignment="1" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="btnEditarRefrescar" min="-2" pref="70" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="935" max="32767" attributes="0"/>
                                   <Component id="btnEditarCliente" min="-2" pref="195" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -1284,7 +1291,7 @@
                                           <Component id="rbEditarCreditoLim" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="txtEditarLimiteCliente" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="24" max="32767" attributes="0"/>
+                                          <EmptySpace pref="28" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1337,6 +1344,13 @@
                                     <Property name="editable" type="boolean" value="false"/>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Yu Gothic UI" size="18" style="0"/>
+                                    </Property>
+                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                      <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                                        <LineBorder>
+                                          <Color PropertyName="color" blue="1d" green="24" red="a3" type="rgb"/>
+                                        </LineBorder>
+                                      </Border>
                                     </Property>
                                   </Properties>
                                   <AuxValues>
@@ -1420,6 +1434,13 @@
                                     <Property name="editable" type="boolean" value="false"/>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Yu Gothic UI" size="18" style="0"/>
+                                    </Property>
+                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                      <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                                        <LineBorder>
+                                          <Color PropertyName="color" blue="1d" green="24" red="a3" type="rgb"/>
+                                        </LineBorder>
+                                      </Border>
                                     </Property>
                                     <Property name="enabled" type="boolean" value="false"/>
                                   </Properties>
@@ -1939,7 +1960,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblDeshabSelectCliente" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
                               <Component id="btnHabilitarRefrescar" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
-                              <Component id="tbDeshab" alignment="0" pref="989" max="32767" attributes="0"/>
+                              <Component id="tbDeshab" alignment="0" pref="998" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">

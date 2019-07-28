@@ -7,6 +7,14 @@ package logica.servicios;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 
 /**
@@ -33,5 +41,15 @@ public class UI {
         //ROWS
         tabla.setFont(bigPlainFont);
         tabla.setRowHeight(25);
+    }
+    
+    public void setLogoImg(JLabel label) {
+            ImageIcon logo = new ImageIcon("src\\recursos\\aes_logo_blanco.jpg");//(Toolkit.getDefaultToolkit().getImage(getClass().getResource("aes_logo_blanco.jpg")));
+            Image normalimg = logo.getImage();
+            Image scaled = normalimg.getScaledInstance(290, 200,
+                    Image.SCALE_SMOOTH);
+            ImageIcon imageIcon = new ImageIcon(scaled);
+            label.setIcon(imageIcon);
+
     }
 }
