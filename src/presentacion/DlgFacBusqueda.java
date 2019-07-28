@@ -24,6 +24,7 @@ import util.TipoMensaje;
  * @author aoihanabi
  */
 public class DlgFacBusqueda extends javax.swing.JDialog {
+    
     public static ItnFrmFacturacion ifrmFacturacion;
     private static CtrMadera ctrInventario = new CtrMadera();
     private static ArrayList<Madera> productos;
@@ -31,6 +32,7 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
     private static Mensaje msg;
     /** Instancia de la clase UI. */
     private final UI estilo;
+    
     /**
      * Creates new form DlgFacBusqueda.
      * @param parent ventana padre de este Jdialog
@@ -66,10 +68,12 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
             } else if(rbCodigoProd.isSelected()) {
                 cargarProductosJTable(tbListadoProd, txtBusquedaProd.getText(), 4);
             }
-        } catch (Exception e) {
-            msg.mostrarMensaje(ERROR, TipoMensaje.ANY_ROW_SELECTED);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
         }
     }
+    
     /**
      *  Obtiene la lista de productos filtrados y la carga en la tabla (modelo).
      * @param tabla Nombre de la tabla a llenar
@@ -80,31 +84,35 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
         Object[] row = new Object[9];
         try {
             productos = ctrInventario.busqAvzProductos(paramProd, codBusq);
+            
+            model = (DefaultTableModel) tabla.getModel();
+            model.setRowCount(0);
+            model.setColumnCount(7);
+            
+            for (int i = 0; i < productos.size(); i++) {
+                //codigo- tipoProducto- variedad- medidas- cantvaras- precio- descripción- codigo bd
+                row[0] = productos.get(i).getCodProducto();
+                row[1] = productos.get(i).getTipoProducto();////////
+                row[2] = productos.get(i).getDescTipoMadera();//variedad
+                row[3] = productos.get(i).getGrueso() + " x " + 
+                        productos.get(i).getAncho();
+                row[4] = productos.get(i).getCantVaras();
+                row[5] = productos.get(i).getPrecioXvara();
+                row[6] = productos.get(i).getDescripcion();                
+                row[7] = productos.get(i).getCodigo();
+
+                model.addRow(row);
+            }
+        
+            tabla.removeColumn(tabla.getColumnModel().getColumn(7));
+            
         } catch (SQLException ex) {
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Ocurrió un error de SQL:\n" + ex.getMessage());
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.getLogger(DlgFacBusqueda.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        model = (DefaultTableModel) tabla.getModel();
-        model.setRowCount(0);
-        model.setColumnCount(7);
-
-        for (int i = 0; i < productos.size(); i++) {
-            //codigo- tipoProducto- variedad- medidas- cantvaras- precio- descripción- codigo bd
-            row[0] = productos.get(i).getCodProducto();
-            row[1] = productos.get(i).getTipoProducto();////////
-            row[2] = productos.get(i).getDescTipoMadera();//variedad
-            row[3] = productos.get(i).getGrueso() + " x " + 
-                    productos.get(i).getAncho();
-            row[4] = productos.get(i).getCantVaras();
-            row[5] = productos.get(i).getPrecioXvara();
-            row[6] = productos.get(i).getDescripcion();                
-            row[7] = productos.get(i).getCodigo();
-            
-            model.addRow(row);            
-        }
-        
-        tabla.removeColumn(tabla.getColumnModel().getColumn(7));
+        }       
     }
     
     /**

@@ -188,6 +188,28 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
             }
         }
     }
+    
+    /**
+     * Retorna si la celda consultada puede ser editada, dependiendo del tipo 
+     * de producto (madera o vario).
+     * @param row fila
+     * @param col columna
+     */
+    private boolean isCellEdit(int row, int col) {
+        
+        if (row >= 0) {
+            String cod = tblLineaPedido.getModel().getValueAt(row, 7).toString();
+
+            for (LineaDetalle l: factura.getLineasDetalle()) {
+                if (l.isProdVario() && 
+                        l.getVarios().getCodigo().equals(cod) ) {
+                    
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
    
     /**
      * Obtener la lista de productos consultados y mostrarla en la lista de la
@@ -562,7 +584,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
                 System.out.println("2.5: " + factura.getLineasDetalle().get(i).getProducto().getCodigo());
                 System.out.println("3: " + factura.getLineasDetalle().get(i).getProducto().getPrecioXvara());
                 
-                //tblLineaPedido
+                
                 
                 Double nadie = factura.getLineasDetalle().get(i).getProducto().getPrecioXvara();
                 row[3] = nadie;//factura.getLineasDetalle().get(i).getProducto().getPrecioXvara();
@@ -1131,7 +1153,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
         setClosable(true);
         setIconifiable(true);
         setTitle("Módulo de Facturación");
-        setPreferredSize(new java.awt.Dimension(1240, 670));
+        setPreferredSize(new java.awt.Dimension(1230, 670));
 
         tblLineaPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1142,11 +1164,15 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, false, false, false, false, false, false
+                true, true, true, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                if (canEdit [columnIndex]) {
+                    return isCellEdit(rowIndex, columnIndex);
+                } else {
+                    return canEdit [columnIndex];
+                }
             }
         });
         tblLineaPedido.getTableHeader().setReorderingAllowed(false);
@@ -1331,7 +1357,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
                     .addGroup(pnlAgregarProdLayout.createSequentialGroup()
                         .addComponent(lblTextExistencias)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCantExistencia, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                        .addComponent(lblCantExistencia, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTextPrecioUnit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1490,8 +1516,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
         pnl_modFactura.setLayout(pnl_modFacturaLayout);
         pnl_modFacturaLayout.setHorizontalGroup(
             pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(pnl_modFacturaLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_modFacturaLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_modFacturaLayout.createSequentialGroup()
                         .addComponent(pnlSelectCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1502,7 +1528,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
                         .addComponent(btnBorrarLinea)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(pnlTotales, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(23, 23, 23))
         );
         pnl_modFacturaLayout.setVerticalGroup(
             pnl_modFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1615,7 +1641,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
     private void btnAgregarVariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVariosActionPerformed
 
         pnlFacVarios.setVisible(true);
-        pnlFacVarios.setBounds(585, 31, 636, 202);
+        pnlFacVarios.setBounds(487, 12, 711, 225);
         pnl_modFactura.add(pnlFacVarios);
         pnlAgregarProd.setVisible(false);
         txtDescripcionVarios.requestFocus();
@@ -1633,7 +1659,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
 
     private void btnAgregarVarios2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVarios2ActionPerformed
         pnlAgregarProd.setVisible(true);
-        pnlAgregarProd.setBounds(585, 31, 636, 202);
+        pnlAgregarProd.setBounds(487, 12, 711, 225);
         pnl_modFactura.add(pnlAgregarProd);
         pnlFacVarios.setVisible(false);
     }//GEN-LAST:event_btnAgregarVarios2ActionPerformed
