@@ -23,6 +23,7 @@ import logica.negocio.Madera;
 import logica.negocio.Proveedor;
 import logica.negocio.TipoMadera;
 import logica.negocio.Troza;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 import logica.servicios.Regex;
 import logica.servicios.UI;
@@ -671,10 +672,14 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                         return true;
                     }
                 } catch (NumberFormatException ex) {
+                    Logger.registerNewError(ex);
+                    
                     msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.NUMBER_FORMAT_EXCEPTION);
                     ex.printStackTrace();
                 } catch (Exception ex) {
+                    Logger.registerNewError(ex);
+                    
                     msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.SOMETHING_WENT_WRONG);
                     ex.printStackTrace();
@@ -718,10 +723,14 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     return true;
                 } 
             } catch (NumberFormatException ex) {
+                Logger.registerNewError(ex);
+                
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                         TipoMensaje.NUMBER_FORMAT_EXCEPTION);
                 ex.printStackTrace();
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
+                
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                         TipoMensaje.SOMETHING_WENT_WRONG);
                 ex.printStackTrace();
@@ -773,12 +782,16 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     cantVaras = Double.valueOf(txtNuevoAcMedVaras.getText().trim());
                     precio = Double.valueOf(txtNuevoAcPrecio.getText().trim());
                 } catch(NumberFormatException ex) {
+                    Logger.registerNewError(ex);
+                    
                     msg.mostrarMensaje(
                             JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.NUMBER_FORMAT_EXCEPTION
                     );
                     ex.printStackTrace();
                 }catch (Exception ex) {
+                    Logger.registerNewError(ex);
+                    
                     msg.mostrarMensaje(
                             JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.SOMETHING_WENT_WRONG
@@ -814,12 +827,16 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 try {
                     pulgadas = Double.valueOf(txtNuevoTpulgadas.getText().trim());
                 } catch(NumberFormatException ex) {
+                    Logger.registerNewError(ex);
+                    
                     msg.mostrarMensaje(
                             JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.NUMBER_FORMAT_EXCEPTION
                     );
                     ex.printStackTrace();
                 }catch (Exception ex) {
+                    Logger.registerNewError(ex);
+                    
                     msg.mostrarMensaje(
                             JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.SOMETHING_WENT_WRONG
@@ -854,6 +871,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     cantVaras = Double.valueOf(txtNuevoTmCantVaras.getText().trim());
                     precio = Double.valueOf(txtNuevoTmPrecio.getText());
                 } catch(NumberFormatException ex) {
+                    Logger.registerNewError(ex);
+                    
                     msg.mostrarMensaje(
                             JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.NUMBER_FORMAT_EXCEPTION
@@ -861,6 +880,8 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                     ex.printStackTrace();
                     break;
                 }catch (Exception ex) {
+                    Logger.registerNewError(ex);
+                    
                     msg.mostrarMensaje(
                             JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.SOMETHING_WENT_WRONG
@@ -943,10 +964,13 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 tbEditarTipoProd.setSelectedIndex(1);
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         } catch (NullPointerException ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         }
     }
@@ -998,10 +1022,13 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             }
             
         } catch (ArrayIndexOutOfBoundsException ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         } catch (NullPointerException ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         }
     }
@@ -1046,15 +1073,23 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             TipoMensaje.PRODUCT_SUM_RES_FAILURE);
                 }          
             } catch (NumberFormatException ex) {
+                Logger.registerNewError(ex);
+                ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.NUMBER_FORMAT_EXCEPTION);
             } catch (ArrayIndexOutOfBoundsException ex) {
+                Logger.registerNewError(ex);
+                ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.ANY_ROW_SELECTED);
             } catch (NullPointerException ex) {
+                Logger.registerNewError(ex);
+                ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.SOMETHING_WENT_WRONG);
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
+                ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.SOMETHING_WENT_WRONG);
             }
@@ -1099,18 +1134,22 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             TipoMensaje.PRODUCT_SUM_RES_FAILURE);
                 }                
             } catch (NumberFormatException ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.NUMBER_FORMAT_EXCEPTION);
             } catch (ArrayIndexOutOfBoundsException ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.ANY_ROW_SELECTED);
             } catch (NullPointerException ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.ANY_ROW_SELECTED);
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.SOMETHING_WENT_WRONG);
@@ -1148,18 +1187,22 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                             TipoMensaje.PRODUCT_SUM_RES_FAILURE);
                 }                
             } catch (NumberFormatException ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.NUMBER_FORMAT_EXCEPTION);
             } catch (ArrayIndexOutOfBoundsException ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.ANY_ROW_SELECTED);
             } catch (NullPointerException ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.ANY_ROW_SELECTED);
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                             TipoMensaje.SOMETHING_WENT_WRONG);
@@ -1241,10 +1284,13 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         } catch (NullPointerException ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         }
     }
@@ -1277,8 +1323,9 @@ public class ItnFrmInventario extends javax.swing.JInternalFrame {
             }
             //Actualizar las tablas
             cargarTablas();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                     TipoMensaje.ANY_ROW_SELECTED);
         } 

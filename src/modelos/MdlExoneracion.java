@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import logica.negocio.Impuesto;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 
 /**
@@ -68,6 +69,8 @@ public class MdlExoneracion {
            
             System.out.println(resultado);
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);         
             ex.printStackTrace();
             creacionExitosa = false;
@@ -140,8 +143,10 @@ public class MdlExoneracion {
                 fechasEmision.add(fecha);
             }
             
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            
+            ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();
         }

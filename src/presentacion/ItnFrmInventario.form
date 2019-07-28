@@ -1225,8 +1225,8 @@
                                           <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <Component id="lblNuevoAcDescripcion" pref="288" max="32767" attributes="0"/>
-                                                  <EmptySpace pref="24" max="32767" attributes="0"/>
+                                                  <Component id="lblNuevoAcDescripcion" max="32767" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
                                                   <Component id="scpnlNuevoAcDescripcion" max="32767" attributes="0"/>
@@ -1606,7 +1606,6 @@
                                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lblNuevoTmNombre" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                       <Component id="lblNuevoTmCantVaras" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -1802,48 +1801,44 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                                      <Component id="scpnlTbTNuevo" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="scpnlTbTNuevo" max="32767" attributes="0"/>
-                                              <Group type="102" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="lblNuevoTpulgadas" min="-2" pref="295" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="lblNuevoTpulgadas" min="-2" pref="295" max="-2" attributes="0"/>
-                                                          <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="lblNuevoTProveedor" pref="321" max="32767" attributes="0"/>
-                                                              <Group type="102" attributes="0">
-                                                                  <Component id="cbxNuevoTProveedor" pref="267" max="32767" attributes="0"/>
-                                                                  <EmptySpace max="-2" attributes="0"/>
-                                                                  <Component id="btnCrearProv" min="-2" pref="47" max="-2" attributes="0"/>
-                                                              </Group>
-                                                          </Group>
-                                                      </Group>
+                                                      <Component id="lblNuevoTProveedor" pref="321" max="32767" attributes="0"/>
                                                       <Group type="102" attributes="0">
-                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                              <Component id="txtNuevoTpulgadas" alignment="0" max="32767" attributes="0"/>
-                                                              <Component id="txtNuevoTCodigo" alignment="0" max="32767" attributes="0"/>
-                                                              <Component id="lblNuevoTCodigo" alignment="0" pref="295" max="32767" attributes="0"/>
-                                                          </Group>
-                                                          <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="cbxNuevoTVariedad" max="32767" attributes="0"/>
-                                                              <Component id="lblNuevoTVariedadMadera" max="32767" attributes="0"/>
-                                                          </Group>
+                                                          <Component id="cbxNuevoTProveedor" pref="267" max="32767" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="btnCrearProv" min="-2" pref="47" max="-2" attributes="0"/>
                                                       </Group>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="txtNuevoTpulgadas" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="txtNuevoTCodigo" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="lblNuevoTCodigo" alignment="0" pref="295" max="32767" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="scpnlNuevoTDescripcion" pref="284" max="32767" attributes="0"/>
-                                                      <Component id="lblNuevoTDescripcion" max="32767" attributes="0"/>
+                                                      <Component id="cbxNuevoTVariedad" max="32767" attributes="0"/>
+                                                      <Component id="lblNuevoTVariedadMadera" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
+                                          <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="scpnlNuevoTDescripcion" pref="284" max="32767" attributes="0"/>
+                                              <Component id="lblNuevoTDescripcion" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           <Component id="btnNuevaTroza" min="-2" pref="230" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -2161,42 +2156,38 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           <Component id="btnEditarAserrada" min="-2" pref="230" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="scpnlTbAcEditar" max="32767" attributes="0"/>
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="lblEditarAcMedidas" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                                          <Component id="txtEditarAcMedGrueso" min="-2" pref="85" max="-2" attributes="0"/>
-                                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                          <Component id="lblEditarAcMedX" min="-2" pref="45" max="-2" attributes="0"/>
-                                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                          <Component id="txtEditarAcMedAncho" min="-2" pref="85" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Component id="txtEditarAcCodigo" max="32767" attributes="0"/>
-                                                      <Component id="lblEditarAcCodigo" alignment="0" pref="261" max="32767" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="txtEditarAcVaras" alignment="1" max="32767" attributes="0"/>
-                                                      <Component id="lblEditarAcUnidade" alignment="1" pref="260" max="32767" attributes="0"/>
-                                                      <Component id="lblEditarAcPrecio" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="txtEditarAcPrecio" alignment="0" max="32767" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace pref="120" max="32767" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="scpnlEditarAcDescripcion" pref="331" max="32767" attributes="0"/>
-                                                      <Component id="lblEditarAcDescripcion" max="32767" attributes="0"/>
-                                                  </Group>
+                                      <Component id="scpnlTbAcEditar" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="lblEditarAcMedidas" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                                  <Component id="txtEditarAcMedGrueso" min="-2" pref="85" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="lblEditarAcMedX" min="-2" pref="45" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="txtEditarAcMedAncho" min="-2" pref="85" max="-2" attributes="0"/>
                                               </Group>
+                                              <Component id="txtEditarAcCodigo" max="32767" attributes="0"/>
+                                              <Component id="lblEditarAcCodigo" alignment="0" pref="261" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="txtEditarAcVaras" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="lblEditarAcUnidade" alignment="1" pref="260" max="32767" attributes="0"/>
+                                              <Component id="lblEditarAcPrecio" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtEditarAcPrecio" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace pref="120" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="scpnlEditarAcDescripcion" pref="331" max="32767" attributes="0"/>
+                                              <Component id="lblEditarAcDescripcion" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>

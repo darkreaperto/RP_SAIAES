@@ -14,6 +14,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import logica.negocio.Impuesto;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 import util.TipoContacto;
 
@@ -107,6 +108,8 @@ public class MdlLineaDetalle {
             
             System.out.println(resultado);
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);    
             ex.printStackTrace();
             creacionExitosa = false;

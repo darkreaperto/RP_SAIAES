@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 import static presentacion.DlgFacImpuesto.ifrmFacturacion;
 import util.TipoMensaje;
@@ -118,6 +119,9 @@ public class DlgFacExoneracion extends javax.swing.JDialog {
                         TipoMensaje.EMPTY_TEXT_FIELD);
             }
         } catch (NumberFormatException ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
+            
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
                     TipoMensaje.WRONG_DECIMAL_NUMBER);
             System.out.println("Number exception: " + ex);

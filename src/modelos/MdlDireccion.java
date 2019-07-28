@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.negocio.Direccion;
 import logica.servicios.DirFiltro;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 
 /**
@@ -76,6 +77,8 @@ public class MdlDireccion {
                         nomDistrito, idBarrio, nomBarrio, otrasSenas);
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             ex.printStackTrace();
             System.err.println(ex);
         } finally {
@@ -120,6 +123,8 @@ public class MdlDireccion {
                 dirfil.add(df);
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             ex.printStackTrace();
             System.err.println(ex);
         } finally {
@@ -163,6 +168,8 @@ public class MdlDireccion {
             System.out.println(indice);
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             ex.printStackTrace();
             System.err.println(ex);            
             creacionExitosa = false;
@@ -194,6 +201,8 @@ public class MdlDireccion {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             ex.printStackTrace();
             System.err.println(ex);

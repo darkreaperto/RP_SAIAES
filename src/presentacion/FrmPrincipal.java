@@ -24,6 +24,7 @@ import logica.negocio.Madera;
 import logica.negocio.Proveedor;
 import logica.negocio.Usuario;
 import logica.servicios.Autoguardado;
+import logica.servicios.Logger;
 
 /**
  * Inicializa la ventana principal del sistema.
@@ -61,7 +62,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
             a.abrirArchivo();
             a.cerrarArchivo();
         } catch (IOException ex) {
-            
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
         }
         
         sesionAcc = new CtrAcceso();

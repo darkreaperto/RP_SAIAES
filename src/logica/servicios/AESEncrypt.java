@@ -56,6 +56,8 @@ public class AESEncrypt {
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | 
                     InvalidKeyException | IllegalBlockSizeException | 
                     BadPaddingException ex) {
+            
+            Logger.registerNewError(ex);            
             System.err.println(ex.getMessage());
         }
         return value;
@@ -78,6 +80,8 @@ public class AESEncrypt {
         } catch (InvalidKeyException | IllegalBlockSizeException | 
                     BadPaddingException | IOException | 
                     NoSuchAlgorithmException | NoSuchPaddingException ex) {
+            
+            Logger.registerNewError(ex);
             System.err.println(ex.getMessage());
         }
         return str;

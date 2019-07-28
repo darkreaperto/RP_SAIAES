@@ -117,8 +117,8 @@ public class DlgFacBusqueda extends javax.swing.JDialog {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Ocurrió un error de SQL:\n" + ex.getMessage());
         } catch (Exception ex) {
-            ex.printStackTrace();
             Logger.registerNewError(ex);
+            ex.printStackTrace();
         }       
     }
     

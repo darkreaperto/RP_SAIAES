@@ -101,6 +101,7 @@ public class MdlCliente {
                 }
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
             System.err.println(ex);
             ex.printStackTrace();
         } finally {
@@ -167,12 +168,13 @@ public class MdlCliente {
             creacionExitosa = true;
             System.out.println(resultado);
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);   
             ex.printStackTrace();            
             System.out.println("ERROR SQL " + ex.getErrorCode());
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
             
-            Logger.registerNewError(ex);
         } finally {
             conexion.cerrarConexion();
             return creacionExitosa;
@@ -221,9 +223,11 @@ public class MdlCliente {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
             System.err.println(ex);
             ex.printStackTrace();
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
             System.err.println(ex);
             ex.printStackTrace();
         } finally {
@@ -251,6 +255,7 @@ public class MdlCliente {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -279,6 +284,7 @@ public class MdlCliente {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -335,6 +341,7 @@ public class MdlCliente {
                 }
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
             System.err.println(ex);
             ex.printStackTrace();
         } finally {

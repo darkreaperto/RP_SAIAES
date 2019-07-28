@@ -7,6 +7,7 @@ package presentacion;
 
 import controladores.CtrVarios;
 import javax.swing.JOptionPane;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 import logica.servicios.Regex;
 import util.TipoMensaje;
@@ -81,8 +82,12 @@ public class DlgFacVarios extends javax.swing.JDialog {
                 exito = true;
             }
         } catch (NumberFormatException ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
             System.out.println(ex.toString());
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
             System.out.println(ex.toString());
         } finally {
             return exito;

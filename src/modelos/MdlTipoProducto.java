@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.negocio.TipoProducto;
+import logica.servicios.Logger;
 
 /**
  * Modelo de tipo de producto con los procedimientos y consultas de base de datos
@@ -60,6 +61,8 @@ public class MdlTipoProducto {
                 }
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();
         } finally {

@@ -15,8 +15,6 @@ import controladores.CtrUsuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +22,7 @@ import logica.negocio.Usuario;
 import util.TipoMensaje;
 import logica.servicios.Regex;
 import logica.servicios.UI;
+import logica.servicios.Logger;
 import util.Rol;
 
 /**
@@ -108,6 +107,7 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
             tbl_usuarioListado.removeColumn(tbl_usuarioListado.getColumnModel().getColumn(3));
             
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
             JOptionPane.showMessageDialog(this, "ERROR SQL: " + ex.getMessage());
         }
         
@@ -1215,7 +1215,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 }
             }
         } catch (Exception ex) {
-
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_tbl_deshabilitarMouseClicked
     //SELECCIONAR Y MOSTRAR INFO EN PANTALLA.
@@ -1238,7 +1239,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 }
             }
         } catch (Exception ex) {
-
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_tbl_actPermisosMouseClicked
 
@@ -1254,8 +1256,9 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                     rol);
             //Actualizar
             cargarTablas();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                     TipoMensaje.ANY_ROW_SELECTED);
         }
@@ -1288,8 +1291,9 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                     user.getCorreo(), user.getRol(), estado, user.getCodigo());
             //Actualizar
             cargarTablas();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                     TipoMensaje.ANY_ROW_SELECTED);
         }
@@ -1325,7 +1329,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 }
             }
         } catch (Exception ex) {
-
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_tbl_actPermisosKeyReleased
 
@@ -1350,7 +1355,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 }
             }
         } catch (Exception ex) {
-
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_tbl_deshabilitarKeyReleased
 
@@ -1373,7 +1379,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 }
             }
         } catch (Exception ex) {
-
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_tbl_habilitarMouseClicked
 
@@ -1396,7 +1403,8 @@ public class ItnFrmUsuario extends javax.swing.JInternalFrame {
                 }
             }
         } catch (Exception ex) {
-
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_tbl_habilitarKeyReleased
 

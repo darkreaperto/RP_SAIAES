@@ -9,6 +9,7 @@ import controladores.CtrAcceso;
 import controladores.CtrCliente;
 import controladores.CtrDireccion;
 import java.awt.Font;
+import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
@@ -1766,10 +1767,12 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                     TipoMensaje.CUSTOMER_INSERTION_FAILURE);
                 }
             } catch (NumberFormatException ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                 TipoMensaje.NUMBER_FORMAT_EXCEPTION);
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                 TipoMensaje.SOMETHING_WENT_WRONG);
@@ -1816,8 +1819,12 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         TipoMensaje.CUSTOMER_UPDATE_FAILURE);
                 }
             } catch (NumberFormatException ex) {
+                Logger.registerNewError(ex);
+                ex.printStackTrace();
                 System.err.println(ex);
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
+                ex.printStackTrace();
                 System.err.println(ex);
             }
         } else {
@@ -1936,10 +1943,13 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                     prepararDireccion(true, codDir), limiteCred, credito);
             
         } catch (ArrayIndexOutOfBoundsException ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         } catch (NullPointerException ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         } finally {
             
@@ -1973,11 +1983,15 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+            Logger.registerNewError(ex);
+            
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                     TipoMensaje.ANY_ROW_SELECTED);
             ex.printStackTrace();
         }
         catch (Exception ex) {
+            Logger.registerNewError(ex);
+            
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                     TipoMensaje.SOMETHING_WENT_WRONG);
             ex.printStackTrace();
@@ -2011,10 +2025,12 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
             //Actualizar tablas
             cargarTablas();
-        } catch (Exception e) {
+        } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                     TipoMensaje.ANY_ROW_SELECTED);
-            e.printStackTrace();          
+            ex.printStackTrace();          
         }
     }
     
@@ -2069,9 +2085,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                             TipoMensaje.PHONE_SYNTAX_FAILURE);
                 }
             }catch (NullPointerException ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
             } finally {
@@ -2114,9 +2132,11 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                             TipoMensaje.EMAIL_SYNTAX_FAILURE);
                 }
             } catch (NullPointerException ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.ANY_ROW_SELECTED);
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
             } finally {
@@ -2145,12 +2165,15 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 }
                 lsTelefonos.setModel(m);
             } catch(NullPointerException ex) {
+                Logger.registerNewError(ex);
                 System.out.println("Cancel editar telefono: null pointer");
                 ex.printStackTrace();
             } catch (ArrayIndexOutOfBoundsException ex) {
+                Logger.registerNewError(ex);
                 System.out.println("Cancel editar telefono: index out of bounds");
                 ex.printStackTrace();
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
                 System.out.println("Cancel editar telefono: exception");
                 ex.printStackTrace();
             } finally {
@@ -2169,12 +2192,15 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 }
                 lsCorreos.setModel(m);
             } catch(NullPointerException ex) {
+                Logger.registerNewError(ex);
                 System.out.println("Cancel editar correo: null pointer ");
                 ex.printStackTrace();
             } catch (ArrayIndexOutOfBoundsException ex) {
+                Logger.registerNewError(ex);
                 System.out.println("Cancel editar correo: index out of bounds");
                 ex.printStackTrace();
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
                 System.out.println("Cancel editar correo: exception");
                 ex.printStackTrace();
             } finally {
@@ -2216,10 +2242,13 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                         }
                     }
                                     
-                } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+                } catch (ArrayIndexOutOfBoundsException | 
+                        NullPointerException ex) {
+                    Logger.registerNewError(ex);
                     ex.printStackTrace();
                 }
                 catch (Exception ex) {
+                    Logger.registerNewError(ex);
                     ex.printStackTrace();
                 }
             }
@@ -2249,6 +2278,7 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                }
            }
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         }
     }
@@ -2391,11 +2421,13 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
             }
             tb_modCliente.setSelectedIndex(2);
         } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                     TipoMensaje.ANY_ROW_SELECTED);
         }
         catch (Exception ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                     TipoMensaje.SOMETHING_WENT_WRONG);
@@ -2464,7 +2496,8 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 //Sin esto no permite ingresar nuevo texto cuando se cambia
                 //la máscara y ya se ha ingresado texto
                 ft_crear_cedulaCliente.setValue(null);
-            } catch (java.text.ParseException ex) {
+            } catch (ParseException ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
             }
         } else if (tc.equals(TipoCedula.JURIDICA)) {
@@ -2478,7 +2511,8 @@ public final class ItnFrmCliente extends javax.swing.JInternalFrame {
                 //Sin esto no permite ingresar nuevo texto cuando se cambia
                 //la máscara y ya se ha ingresado texto
                 ft_crear_cedulaCliente.setValue(null);
-            } catch (java.text.ParseException ex) {
+            } catch (ParseException ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
             }
         }

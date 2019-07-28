@@ -9,12 +9,11 @@ import util.TipoMensaje;
 import javax.swing.JOptionPane;
 import controladores.CtrMail;
 import controladores.CtrRecover;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+import logica.servicios.Logger;
 
 /**
  * Implementación Runnable para enviar correos en un hilo diferente a la 
@@ -93,7 +92,8 @@ public class MailThread implements Runnable {
             //Ocultar barra de tarea
             pb_enviarCorreo.setVisible(false);
         } catch (MessagingException ex) {
-            Logger.getLogger(MailThread.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
         }
     }
 }

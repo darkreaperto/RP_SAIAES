@@ -49,6 +49,7 @@ public class Logger {
                 file.mkdirs();
             }
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         }
     }
@@ -75,10 +76,12 @@ public class Logger {
             ps = new PrintStream(file);
             String log = date + ": " + text;
             ps.println(log);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
         }
         ps.close();
     }
@@ -99,8 +102,10 @@ public class Logger {
             file = new File(filePath);
             ps = new PrintStream(file);
         } catch (FileNotFoundException e) {
+            Logger.registerNewError(ex);
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
+            Logger.registerNewError(ex);
             e.printStackTrace();
         }
         ex.printStackTrace(ps);

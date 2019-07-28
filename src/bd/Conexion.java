@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
+import logica.servicios.Logger;
 
 /**
  * Realiza la conexión con una base de datos mysql y envía consultas,
@@ -85,10 +86,17 @@ public final class Conexion {
 //            System.out.println("Conexion realizada");
         
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
             System.out.println(ex.getMessage());
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
             System.out.println(ex.getMessage());
         } finally {
+            if (exito)
+                Logger.registerNewLog("Conexión realizada éxitosamente");
+            else
+                Logger.registerNewLog("Fallo el intentar realizar l conexión");
+            
             return exito;
         }
     }
@@ -180,8 +188,10 @@ public final class Conexion {
 //            System.out.println("Prueba: Conexion realizada");
         
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
              System.out.println(ex.getMessage());
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
             System.out.println(ex.getMessage());
         } finally {
             return exito;
@@ -198,6 +208,7 @@ public final class Conexion {
             conexion.close();
             desconexionExitosa = true;
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
             desconexionExitosa = false;
             System.err.println(ex);
         } finally {
@@ -241,6 +252,7 @@ public final class Conexion {
 //                setCantActualizados(sentencia.getUpdateCount());
 //            }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
             actualizacionExitosa = false;
             throw ex;
         } finally {

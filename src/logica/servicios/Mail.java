@@ -5,7 +5,6 @@
  */
 package logica.servicios;
 
-import logica.servicios.AESEncrypt;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -106,8 +105,12 @@ public class Mail {
             exito = true;
             
         } catch (MessagingException ex) {
+            Logger.registerNewError(ex);
             System.err.println(ex);
-        }finally {
+        } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
+        } finally {
             return exito;
         }
     }
@@ -158,8 +161,12 @@ public class Mail {
             
             exito = true;
             
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
+        } catch (MessagingException ex) {
+            Logger.registerNewError(ex);
+            throw new RuntimeException(ex);
+        } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
         } finally {
             return exito;
         }

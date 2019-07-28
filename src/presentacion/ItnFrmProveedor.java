@@ -24,6 +24,7 @@ import logica.negocio.Proveedor;
 import logica.servicios.Mensaje;
 import logica.servicios.Regex;
 import logica.servicios.DirFiltro;
+import logica.servicios.Logger;
 import logica.servicios.UI;
 import util.Estado;
 import util.TextPrompt;
@@ -350,6 +351,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 }
             }
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         }
     }
@@ -494,10 +496,12 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                             TipoMensaje.SUPPLIER_INSERTION_FAILURE);
                 }
             } catch (NumberFormatException ex) {
+                Logger.registerNewError(ex);
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
                         TipoMensaje.NUMBER_FORMAT_EXCEPTION);
                 
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
                         TipoMensaje.SOMETHING_WENT_WRONG);
             }
@@ -537,14 +541,17 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                         TipoMensaje.ANY_ROW_SELECTED);
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                     TipoMensaje.LIST_HANDLER_ERROR);
         } catch (NullPointerException ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                     TipoMensaje.LIST_HANDLER_ERROR);
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                     TipoMensaje.SOMETHING_WENT_WRONG);
@@ -583,10 +590,12 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                             TipoMensaje.SUPPLIER_UPDATE_FAILURE);
                 }
             } catch (NumberFormatException ex) {
+                Logger.registerNewError(ex);
                 System.err.println(ex);
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                         TipoMensaje.NUMBER_FORMAT_EXCEPTION);
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
                 System.err.println(ex);
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                         TipoMensaje.SOMETHING_WENT_WRONG);
@@ -643,6 +652,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                             TipoMensaje.PHONE_SYNTAX_FAILURE);
                 }
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.SOMETHING_WENT_WRONG);
             } finally {
@@ -687,9 +697,11 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 }
             } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException 
                     | NullPointerException ex) {
+                Logger.registerNewError(ex);
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                         TipoMensaje.ANY_ROW_SELECTED);
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                         TipoMensaje.SOMETHING_WENT_WRONG);
             } finally {
@@ -722,16 +734,19 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 lsTelefonos.setModel(m);
                 
             } catch(NullPointerException ex) {
+                Logger.registerNewError(ex);
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                         TipoMensaje.LIST_HANDLER_ERROR);
                 ex.printStackTrace();
                 
             } catch (ArrayIndexOutOfBoundsException ex) {
+                Logger.registerNewError(ex);
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                         TipoMensaje.LIST_HANDLER_ERROR);
                 ex.printStackTrace();
                 
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                         TipoMensaje.SOMETHING_WENT_WRONG);
                 ex.printStackTrace();
@@ -754,16 +769,19 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 }
                 lsCorreos.setModel(m);
             } catch(NullPointerException ex) {
+                Logger.registerNewError(ex);
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                         TipoMensaje.LIST_HANDLER_ERROR);
                 ex.printStackTrace();
                 
             } catch (ArrayIndexOutOfBoundsException ex) {
+                Logger.registerNewError(ex);
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                         TipoMensaje.LIST_HANDLER_ERROR);
                 ex.printStackTrace();
                 
             } catch (Exception ex) {
+                Logger.registerNewError(ex);
                 msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                         TipoMensaje.SOMETHING_WENT_WRONG);
                 ex.printStackTrace();
@@ -844,11 +862,13 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                     TipoMensaje.ANY_ROW_SELECTED);
         }
         catch (Exception ex) {
+            Logger.registerNewError(ex);
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                     TipoMensaje.SOMETHING_WENT_WRONG);
         }
@@ -881,8 +901,9 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
             }
             //Actualizar tablas
             cargarTablas();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                     TipoMensaje.ANY_ROW_SELECTED);
         }
@@ -2226,6 +2247,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 //la máscara y ya se ha ingresado texto
                 ft_crear_cedulaProveedor.setValue(null);
             } catch (java.text.ParseException ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
             }
         } else if (tc.equals(TipoCedula.JURIDICA)) {
@@ -2240,6 +2262,7 @@ public class ItnFrmProveedor extends javax.swing.JInternalFrame {
                 //la máscara y ya se ha ingresado texto
                 ft_crear_cedulaProveedor.setValue(null);
             } catch (java.text.ParseException ex) {
+                Logger.registerNewError(ex);
                 ex.printStackTrace();
             }
         }

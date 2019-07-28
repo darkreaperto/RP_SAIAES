@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.negocio.Madera;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 
 /**
@@ -85,6 +86,8 @@ public class MdlMadera {
                 }
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();
         } finally {
@@ -144,6 +147,8 @@ public class MdlMadera {
                 }
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();
         } finally {
@@ -252,6 +257,8 @@ public class MdlMadera {
             System.out.println(resultado);
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);  
             ex.printStackTrace();
             creacionExitosa = false;
@@ -298,6 +305,8 @@ public class MdlMadera {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -321,6 +330,8 @@ public class MdlMadera {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -344,6 +355,8 @@ public class MdlMadera {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -376,6 +389,8 @@ public class MdlMadera {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -408,6 +423,8 @@ public class MdlMadera {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();

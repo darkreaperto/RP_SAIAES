@@ -20,6 +20,7 @@ import logica.negocio.Factura;
 import logica.negocio.LineaDetalle;
 import logica.negocio.Consecutivo;
 import logica.negocio.Madera;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 
 /**
@@ -84,6 +85,8 @@ public class MdlFactura {
             }
             System.out.println(resultado);
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);     
             ex.printStackTrace();
             creacionExitosa = false;
@@ -127,6 +130,8 @@ public class MdlFactura {
             }
             System.out.println(resultado);
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);    
             ex.printStackTrace();
             creacionExitosa = false;
@@ -220,6 +225,8 @@ public class MdlFactura {
             }      
             System.out.println(resultado);
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex); 
             ex.printStackTrace();
             creacionExitosa = false;
@@ -255,6 +262,8 @@ public class MdlFactura {
                                    
             System.out.println(resultado);
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);  
             ex.printStackTrace();
             creacionExitosa = false;
@@ -298,6 +307,8 @@ public class MdlFactura {
                 }
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();
         } finally {
@@ -319,6 +330,8 @@ public class MdlFactura {
 
             exito = true;
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();
         } finally {

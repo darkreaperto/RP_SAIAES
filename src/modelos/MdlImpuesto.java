@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 import util.TipoMensaje;
 
@@ -104,6 +105,8 @@ public class MdlImpuesto {
                        
             System.out.println(resultado);
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);  
             ex.printStackTrace();
             creacionExitosa = false;

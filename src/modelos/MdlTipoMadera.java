@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.negocio.TipoMadera;
+import logica.servicios.Logger;
 /**
  *
  * @author aoihanabi
@@ -62,6 +63,8 @@ public class MdlTipoMadera {
                 }
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();
         } finally {

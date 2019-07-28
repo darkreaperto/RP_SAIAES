@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.negocio.Usuario;
 import controladores.CtrConexion;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 import util.Estado;
 import util.Rol;
@@ -78,6 +79,8 @@ public class MdlUsuario {
                 }
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();
         } finally {
@@ -116,6 +119,8 @@ public class MdlUsuario {
             System.out.println(resultado);
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex); 
             ex.printStackTrace();
             creacionExitosa = false;
@@ -149,6 +154,8 @@ public class MdlUsuario {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             ex.printStackTrace();
             //msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
@@ -192,6 +199,8 @@ public class MdlUsuario {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -219,6 +228,8 @@ public class MdlUsuario {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -269,6 +280,8 @@ public class MdlUsuario {
                 }
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();
         } finally {

@@ -173,6 +173,9 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
                                 int cant = Integer.valueOf(value);
                                 l.setCantSolicitada(cant);
                             } catch (NumberFormatException ex) {
+                                Logger.registerNewError(ex);
+                                ex.printStackTrace();
+                                
                                 msg.mostrarMensaje(
                                         JOptionPane.ERROR_MESSAGE, 
                                         TipoMensaje.NUMBER_FORMAT_EXCEPTION);
@@ -227,9 +230,11 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
             listaProd = ctrInventario.busqAvzProductos(paramProd, codBusq); 
         } catch (SQLException ex) {
             Logger.registerNewError(ex);
+            ex.printStackTrace();
             System.err.print("Error: SQL Exception "+ex.getMessage());
         } catch (Exception ex) {
             Logger.registerNewError(ex);
+            ex.printStackTrace();
             System.err.print("Error: Exception "+ex.getMessage());
         }
 
@@ -311,8 +316,9 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
             factura.getLineasDetalle().remove(filaSelect);
             mdl.removeRow(filaSelect);
             tblLineaPedido.setModel(mdl);
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch(Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, 
                     TipoMensaje.ANY_ROW_SELECTED);
         }
@@ -329,8 +335,10 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
                     .getParent().getParent();
             ventanaPrincipal.accederModulos(frameParent, modCliente, 1);
             modCliente.toFront();
-        } catch (Exception e) {
-            System.out.println(e.getCause());
+        } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
+            System.out.println(ex.getCause());
         }
     }
 
@@ -346,8 +354,10 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
                     .getParent().getParent();
             ventanaPrincipal.accederModulos(frameParent, modInventario, 1);
             modInventario.toFront();
-        } catch (Exception e) {
-            System.out.println(e.getCause());
+        } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
+            System.out.println(ex.getCause());
         }
     }
     
@@ -359,6 +369,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
                 llenarListaClientes(nombre);
             }
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE, TipoMensaje.EMPTY_TEXT_FIELD);
             
         }
@@ -419,6 +431,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
                 }
                 
             } catch (NumberFormatException ex) {
+                Logger.registerNewError(ex);
+                ex.printStackTrace();
                 msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
                     TipoMensaje.NUMBER_FORMAT_EXCEPTION);
                 System.out.println("Number exception: " + ex);
@@ -537,8 +551,12 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
                 exito = true;
             }
         } catch (NumberFormatException ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
             System.out.println(ex.toString());
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
             System.out.println(ex.toString());
         } finally {
             return exito;

@@ -74,6 +74,8 @@ public class MdlContacto {
             System.out.println(resultado);
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();            
             creacionExitosa = false;
@@ -118,6 +120,8 @@ public class MdlContacto {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -141,6 +145,8 @@ public class MdlContacto {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -164,6 +170,8 @@ public class MdlContacto {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -209,6 +217,8 @@ public class MdlContacto {
                 }
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();
         } finally {

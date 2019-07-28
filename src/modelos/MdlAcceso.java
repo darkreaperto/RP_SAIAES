@@ -8,6 +8,7 @@ package modelos;
 import logica.servicios.AESEncrypt;
 import bd.Conexion;
 import java.sql.ResultSet;
+import logica.servicios.Logger;
 
 /**
  * Modelo de acceso con los procedimientos y consultas de base de datos
@@ -65,6 +66,7 @@ public class MdlAcceso {
                 }
             }
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
             ex.printStackTrace();
         } finally {
             conexion.cerrarConexion();

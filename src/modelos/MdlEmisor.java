@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import logica.negocio.Direccion;
 import logica.negocio.Emisor;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 
 /**
@@ -77,6 +78,8 @@ public class MdlEmisor {
 
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();
         } finally {

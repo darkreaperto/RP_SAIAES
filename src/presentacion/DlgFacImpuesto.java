@@ -14,6 +14,7 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 import logica.negocio.Exoneracion;
 import logica.negocio.Impuesto;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 import util.TipoMensaje;
 
@@ -72,10 +73,16 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
                         TipoMensaje.EMPTY_TEXT_FIELD);
             }
         } catch (NumberFormatException ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
+            
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
                     TipoMensaje.WRONG_DECIMAL_NUMBER);
             System.out.println("Number exception: " + ex);
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
+            
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                     TipoMensaje.SOMETHING_WENT_WRONG);
             System.out.println("Exception: " + ex);
@@ -211,10 +218,16 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
                         TipoMensaje.EMPTY_TEXT_FIELD);                    
             }            
         } catch (NumberFormatException ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
+            
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
                     TipoMensaje.NUMBER_FORMAT_EXCEPTION);
             txtPorcentajeCompra.setText("");
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
+            
             msg.mostrarMensaje(JOptionPane.ERROR_MESSAGE,
                     TipoMensaje.SOMETHING_WENT_WRONG);
             txtPorcentajeCompra.setText("");
@@ -239,10 +252,16 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
                         TipoMensaje.EMPTY_TEXT_FIELD);
             }
         } catch (NumberFormatException ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
+            
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, 
                     TipoMensaje.WRONG_DECIMAL_NUMBER);
             System.out.println("Number exception: " + ex);
         } catch (Exception ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
+            
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,
                     TipoMensaje.SOMETHING_WENT_WRONG);
             System.out.println("Exception: " + ex);
@@ -626,6 +645,9 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
         try {
             valor = calcularImpuesto();
         } catch (NumberFormatException ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
+            
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, TipoMensaje.WRONG_DECIMAL_NUMBER);
             System.out.println("Number exception: " + ex);
         }
@@ -646,6 +668,9 @@ public class DlgFacImpuesto extends javax.swing.JDialog {
             valor = calcularExoneracion();
             lblMontoImpExonerado.setText(String.valueOf(valor));
         } catch (NumberFormatException ex) {
+            Logger.registerNewError(ex);
+            ex.printStackTrace();
+            
             msg.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, TipoMensaje.WRONG_DECIMAL_NUMBER);
             System.out.println("Number exception: " + ex);
         }

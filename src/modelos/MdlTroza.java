@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.negocio.Madera;
 import logica.negocio.Troza;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 
 /**
@@ -82,6 +83,8 @@ public class MdlTroza {
                 }
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();
         } finally {
@@ -138,6 +141,8 @@ public class MdlTroza {
                 }
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();
         } finally {
@@ -174,6 +179,8 @@ public class MdlTroza {
             System.out.println(resultado);
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);  
             ex.printStackTrace();
             creacionExitosa = false;
@@ -213,6 +220,8 @@ public class MdlTroza {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -236,6 +245,8 @@ public class MdlTroza {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -259,6 +270,8 @@ public class MdlTroza {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -292,6 +305,8 @@ public class MdlTroza {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -324,6 +339,8 @@ public class MdlTroza {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import logica.negocio.Contacto;
 import logica.negocio.Direccion;
 import logica.negocio.Proveedor;
+import logica.servicios.Logger;
 import logica.servicios.Mensaje;
 import util.TipoContacto;
 
@@ -98,6 +99,8 @@ public class MdlProveedor {
                 }
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();
         } finally {
@@ -160,6 +163,8 @@ public class MdlProveedor {
             System.out.println("FROM CREAR PROVEEDOR: " + resultado);
             
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);      
             ex.printStackTrace();
             creacionExitosa = false;
@@ -210,6 +215,8 @@ public class MdlProveedor {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -239,6 +246,8 @@ public class MdlProveedor {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -268,6 +277,8 @@ public class MdlProveedor {
             creacionExitosa = true;
 
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             creacionExitosa = false;
             System.err.println(ex);
             ex.printStackTrace();
@@ -325,6 +336,8 @@ public class MdlProveedor {
                 }
             }
         } catch (SQLException ex) {
+            Logger.registerNewError(ex);
+            
             System.err.println(ex);
             ex.printStackTrace();
             msgError.mostrarMensajeErrorSQL(ex.getErrorCode());
