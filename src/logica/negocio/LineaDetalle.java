@@ -105,7 +105,7 @@ public class LineaDetalle {
      * Establecer cantidad de producto a facturar
      * @param cantSolicitada cantidad de productos a facturar
      */
-    public void setCantSolicitada(int cantSolicitada) {
+    public void setCantSolicitada(double cantSolicitada) {
         this.cantSolicitada = cantSolicitada;
     }
 

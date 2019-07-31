@@ -421,16 +421,16 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
         //si se obtuvo toda la información del producto seleccionado
         if (prodSelected!=null) {
             try {
-                int cantSolicitada = Integer.valueOf(
+                double cantSolicitada = Double.valueOf(
                         txtCantidad.getText().trim());
                 double precio = prodSelected.getPrecioXvara(); //precio unitario
                 double descuento = 0.0;
                 
                 precioSinImpuesto = precio * cantSolicitada;
                 
-                //if (verificarExistEnLinea(prodSelected)) {
-                    //actualizarLinea(prodSelected, cantSolicitada, descuento);
-                //} else {
+                if (verificarExistEnLinea(prodSelected)) {
+                    actualizarLinea(prodSelected, cantSolicitada, descuento);
+                } else {
                     abrirVentanaImpuesto();
 
                     if (impuesto != null) {
@@ -441,7 +441,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
                         calcularSubtotalTotal();
                         limpiarCampos(false);
                     }
-                //}
+                }
                 
             } catch (NumberFormatException ex) {
                 Logger.registerNewError(ex);
@@ -463,7 +463,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
      * @param cantSolicitada cantidad solicitada por el cliente
      * @param descuento descuento del producto
      */
-    public void agregarLinea(Madera prodSelected, int cantSolicitada,
+    public void agregarLinea(Madera prodSelected, double cantSolicitada,
             double descuento) {
         
         int numLinea = factura.getLineasDetalle().size() + 1; 
@@ -495,7 +495,7 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
         precioSinImpuesto = 0;
     }
     
-    private void actualizarLinea(Madera prodSelected, int cantSolicitada, 
+    private void actualizarLinea(Madera prodSelected, double cantSolicitada, 
             double descuento) {
         
         int numLinea = -1;
@@ -511,29 +511,20 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
             LineaDetalle linea = factura.getLineasDetalle().get(numLinea-1);
             
             double nuevaCant = linea.getCantSolicitada() + cantSolicitada;
-            double nuevoImp = linea.getImpuesto().getMontoImpuesto() + 
-                    (prodSelected.getPrecioXvara() * cantSolicitada * 
-                    linea.getImpuesto().getTarifaImpuesto());
-            double nuevoSubtotal = linea.getSubtotal() + 
-                    (prodSelected.getPrecioXvara() * cantSolicitada) - 
-                    descuento;
-            double nuevoTotal = linea.getTotal() + 
-                    (prodSelected.getPrecioXvara() * cantSolicitada);
+            double nuevoImp = prodSelected.getPrecioXvara() * nuevaCant * 
+                    (linea.getImpuesto().getTarifaImpuesto() / 100);
+            double nuevoTotal = prodSelected.getPrecioXvara() * nuevaCant;
+            double nuevoSubtotal = nuevoTotal - descuento;
+            double nuevoMontoTotal = nuevoSubtotal + nuevoImp;
             
-            linea.setCantSolicitada(Integer.valueOf(String.valueOf(nuevaCant)));
+            linea.setCantSolicitada(nuevaCant);
             linea.getImpuesto().setMontoImpuesto(nuevoImp);
             linea.setSubtotal(nuevoSubtotal);
             linea.setTotal(nuevoTotal);
+            linea.setMontoTotalLinea(nuevoMontoTotal);
         }
-        String detalle = prodSelected.getTipoProducto() + ": " + 
-                prodSelected.getDescTipoMadera() + " " + 
-                prodSelected.getGrueso() + "x" + prodSelected.getAncho();
         
-        LineaDetalle linea = new LineaDetalle(numLinea, prodSelected, 
-            cantSolicitada, detalle, impuesto, descuento);
-        factura.agregarLinea(linea); //getLineasDetalle().add(linea);
-        
-        precioSinImpuesto = 0;
+        jTableAgregar();
     }
     
     /**
@@ -683,6 +674,8 @@ public class ItnFrmFacturacion extends javax.swing.JInternalFrame implements Tab
             //row[8] = new JButton("X");
 
             model.addRow(row);
+            
+            tblLineaPedido.removeColumn(tblLineaPedido.getColumnModel().getColumn(7));
         }        
     }
     
